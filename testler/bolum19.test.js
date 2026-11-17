@@ -48,9 +48,9 @@ function onSekizinciBolumSonu(ek) {
 }
 
 const senaryolar = [
-  { ad: 'iki yanlış suçlama, çift taraflı', ek: { sabitSonu: 'konustu' }, yanlis: ['Muhsin', 'Turner'], karar: 'Kalsın', tevfik: 'cift', guven: 0 },
-  { ad: 'doğrudan Tevfik, teslim', ek: { sabitSonu: 'teslim' }, yanlis: [], karar: 'Teslim', tevfik: 'teslim', guven: 2 },
-  { ad: 'bir yanlış, teslim, Turner ifadesi', ek: {}, yanlis: ['Muhsin'], karar: 'Teslim', tevfik: 'teslim', guven: 1, turner: true },
+  { ad: 'iki yanlış suçlama, çift taraflı', ek: { sabitSonu: 'konustu' }, yanlis: ['Muhsin', 'Turner'], karar: 'Kalsın', tevfik: 'cift', guven: 1, gulce: 'Yaz ve yaşa', gulceTevfik: 'yaz' },
+  { ad: 'doğrudan Tevfik, teslim', ek: { sabitSonu: 'teslim' }, yanlis: [], karar: 'Teslim', tevfik: 'teslim', guven: 3, gulce: 'affetmek', gulceTevfik: 'affetme' },
+  { ad: 'bir yanlış, teslim, Turner ifadesi', ek: {}, yanlis: ['Muhsin'], karar: 'Teslim', tevfik: 'teslim', guven: 1, turner: true, gulce: 'Defteri', gulceTevfik: 'sessiz' },
 ];
 
 for (const s of senaryolar) {
@@ -100,6 +100,10 @@ for (const s of senaryolar) {
     expect(d.gorunum.id).toBe('tevfik');
     d = sahneGec(d, s.karar);
     expect(M.bayrak(d, 'tevfikKarar')).toBe(s.tevfik);
+    expect(d.gorunum.id).toBe('gulce19');
+    d = sahneGec(d, s.gulce);
+    expect(M.bayrak(d, 'gulceTevfik')).toBe(s.gulceTevfik);
+    d = sahneGec(d);
     expect(d.gorunum.id).toBe('gece19');
     const gece = M.sahneBilgisi(B, d).paragraflar.join(' ');
     expect(gece.includes('Tuzla')).toBe(s.tevfik === 'cift');

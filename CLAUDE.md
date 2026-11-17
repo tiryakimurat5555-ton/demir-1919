@@ -220,7 +220,22 @@
   ilgaz_ates → ilgaz_itiraf (kardesGecesi yalan/sessiz ise sonra_durust).
   4. adım: 19. bölüm Rıza'nın Yakup hikâyesi (riza yakup düğümü, rizaHikaye → suclama/yanlis_* satırları), 20. bölüm
   Nermin'in ağabeyi Cevdet (nerminCevdet) ve Pendle yemini (nerminYemin gazete/mahkeme/birlikte; 21. bölümde kullanılacak).
+  5. adım: 19. bölüm gulce19 (Gülce, Tevfik'in defteri, Süleyman 1913'ten beri onu korur; gulceTevfik yaz/affetme/sessiz →
+  20. bölüm açılışı; aramaSozu ise Kemal Reis söylentisi, kemalSoylenti).
   testler/derinlik.test.js iplikleri denetler.
+- İPLİK KAYDI: src/hikaye/iplikler.js (IPLIKLER: bayrak, ekildi, karsiliklar, gelecek, durum). testler/iplikler.test.js
+  bayrağın ekildiği bölümde yazıldığını, karşılık bölümlerinde '<bayrak>' olarak okunduğunu denetler. Yeni iplik ekleyince,
+  bir ipliğe karşılık yazınca ya da kapatınca kaydı güncelle.
+- BÖLÜM YAZMA KURALLARI (17 Kasım, Murat: "İlerki bölümlerde derinleştirme yapılacak, ona göre kurgula her şeyi"):
+  1. Yazmadan önce IPLIKLER'deki açık ipliklere bak; her bölüm en az iki açık ipliğe sahneyle karşılık verir (yalnız bir
+     cümle değil: seçimli bir an).
+  2. Her bölüm en az bir yeni uzun iplik eker (bayrak + IPLIKLER kaydı + gelecek planı).
+  3. Her bölümde ekipten biriyle kişisel bir sahne (geçmiş, korku, ilişki); konuşmalarda ikinci, üçüncü düğümler.
+  4. Kötü sonradan çıkarılmaz: bölümün asıl karşıtı en az iki bölüm önce ekilmiş olmalı.
+  5. Duygusal anlar seçimle oynanır (söyle / sakla / sus / ver); sonuç bir sonraki bölümlerde geri döner.
+  6. Kalıbı kır: her bölüm 3-4 delil + 2 çıkarım + karar olmak zorunda değil; yolculuk, sorgu, bekleme, konuşma bölümleri de olur.
+  7. Metin paragraflarında koşullu boş dize kullanılırsa diziyi .filter(Boolean) ile bitir.
+  8. Testler: bölüm testi + derinlik.test.js'e geri dönen satırların testi + iplikler.test.js kaydı.
 - Hassasiyet: örgüt üyeleri çeşitli uyruklardan; hiçbir din/etnik grupla özdeşleşmez (hikaye-plani.md).
 - Mekânda `ortam` alanı mekânın ortam sesini değiştirir (yoksa 'ortam_' + mekân kimliği).
 - Bölümler src/hikaye/index.js BOLUMLER; durum.bolum. Bölüm sonu sahnesinde { sonrakiBolum } seçeneği →

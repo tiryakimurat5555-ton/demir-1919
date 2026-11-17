@@ -121,9 +121,56 @@ export const BOLUM19 = {
         'Rıza Bey sana bakıyor. Ağ seni bekliyor. Karar senin.',
       ],
       secenekler: [
-        { etiket: 'Teslim edin. Ağdan çıksın, Anadolu\'ya gitsin; orada hesap versin.', etki: { bayrak: { tevfikKarar: 'teslim' } }, sonra: 'gece19' },
-        { etiket: 'Kalsın. Bundan sonra Bursa\'ya yanlış sayılar yazsın.', etki: { bayrak: { tevfikKarar: 'cift' } }, sonra: 'gece19' },
+        { etiket: 'Teslim edin. Ağdan çıksın, Anadolu\'ya gitsin; orada hesap versin.', etki: { bayrak: { tevfikKarar: 'teslim' } }, sonra: 'gulce19' },
+        { etiket: 'Kalsın. Bundan sonra Bursa\'ya yanlış sayılar yazsın.', etki: { bayrak: { tevfikKarar: 'cift' } }, sonra: 'gulce19' },
       ],
+    },
+    // Derinleştirme: Gülce'nin ipliği. Babasının katiline "İmzala ve yaşa" dedi; yetiştirdiği çocuk onu sattı.
+    // Süleyman'ın onu 1913'ten beri koruduğu ve Kemal söylentisi (21. bölüm Arethusa) burada ekilir.
+    gulce19: {
+      ortam: 'ortam_rihtim',
+      ortamOran: 0.5,
+      baslik: 'Rıhtımda gece',
+      paragraflar: (d) => [
+        'Gece yarısı. Gülce rıhtımın ucunda, Süleyman Kaptan\'ın yeni kayıkhanesinin önünde oturuyor. Elinde bir defter; Tevfik\'in ilk kâtiplik defteri. Kapağında çocuk eliyle yazılmış bir ad.',
+        'Ona okumayı ben öğrettim, diyor sen yanına oturunca. On dört yaşındaydı; annesi ölmüştü, büronun kapısında kâğıt toplardı. Babam ölünce bana kimse kalmamıştı; ona da. Birbirimizi büyüttük sandım.',
+        'Nazım Bey\'e İmzala ve yaşa dedim, diyor. Babamı öldürtene. Kolaydı; ondan nefret ediyordum. Tevfik\'ten nefret edemiyorum. Bu daha zor, Arif. Ona ne diyeceğimi bilmiyorum.',
+        'Arkanızda ayak sesleri. Süleyman Kaptan elinde iki fincan kahveyle geliyor; birini Gülce\'ye uzatıyor. On Üç\'te babası ölünce, diyor sana, bu kız kayıkhaneme geldi. Bir şey istemedi. İskelede oturdu, denize baktı. Senin gibi. Ben de bir şey sormadım.',
+        bayrak(d, 'aramaSozu')
+          ? 'Süleyman sesini alçaltıyor. Geçen hafta Pire\'den gelen bir aşçı yamağı anlattı, diyor. Bir İngiliz armatörün gemilerinde Kemal Reis diye bir süvari varmış. Kırk yaşlarında. Gülüyor; kısa, acı. Limanda her üç kaptandan biri Kemal\'dir. Bulursam haber veririm demiştin; ben de sana söylüyorum. Hepsi bu.'
+          : 'Süleyman bir şey ekleyecek gibi oluyor; vazgeçiyor. Pire\'den gelen gemilere bakar gibi denize bakıyor.',
+      ],
+      secenekler: [
+        {
+          etiket: 'Ona babanın sözünü söyle: Yaz ve yaşa. Bildiği her şeyi yazsın; sonra ona bir yol aç.',
+          etki: { bayrak: { gulceTevfik: 'yaz', kemalSoylenti: true }, artir: { gulceGuven: 1 } },
+          sonra: 'gulce19_son',
+        },
+        {
+          etiket: 'Onu affetmek zorunda değilsin. Kimse senden bunu isteyemez.',
+          etki: { bayrak: { gulceTevfik: 'affetme', kemalSoylenti: true }, artir: { gulceGuven: 1 } },
+          sonra: 'gulce19_son',
+        },
+        {
+          etiket: 'Bir şey söyleme. Defteri onun elinden al, kapat, dizine koy.',
+          etki: { bayrak: { gulceTevfik: 'sessiz', kemalSoylenti: true } },
+          sonra: 'gulce19_son',
+        },
+      ],
+    },
+    gulce19_son: {
+      ortam: 'ortam_rihtim',
+      ortamOran: 0.5,
+      baslik: 'Defter',
+      paragraflar: (d) => [
+        bayrak(d, 'gulceTevfik') === 'yaz'
+          ? 'Gülce defteri açıyor; boş bir sayfa buluyor. Kalemi çıkarıp bir satır yazıyor: Bildiğin her şeyi yaz, Tevfik. Adlarını, tarihlerini, kimin kime ne verdiğini. Sonra yaşa. Kâğıdı yırtıp katlıyor. Babam bana bir kâğıt bıraktı, diyor. Ben de ona bırakayım.'
+          : bayrak(d, 'gulceTevfik') === 'affetme'
+            ? 'Gülce uzun süre sana bakıyor. Sonra başını sallıyor. Herkes bana affet diyor, diyor. Babamın cenazesinde de öyle dediler. Sen ilk diyen değil, demeyen oldun. Gözleri doluyor; ilk kez ağlıyor. Sessizce, kısa.'
+            : 'Defteri dizine koyuyorsun. Gülce ellerine bakıyor; boş kalan ellerine. Bir süre sonra başını omzuna yaslıyor. Süleyman kahvesini bitirip fincanını ters çeviriyor; telveye bakmadan.',
+        'Süleyman ikinize bakıyor. Bir kayıkhanede üç yetim, diyor. Kayıkhane yeni, yetimler eski. Kalkıyor. Yarın gece sevkiyat var. Uyuyun.',
+      ],
+      secenekler: [{ etiket: 'Devam', sonra: 'gece19' }],
     },
     gece19: {
       ortam: 'ortam_kayik',

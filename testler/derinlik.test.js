@@ -154,3 +154,12 @@ test('Nermin\'in ağabeyi ve Pendle yemini', () => {
     expect(M.dugumBilgisi(BOLUM20, d).secenekler.map((x) => x.etiket).join(' ')).not.toContain('Pendle');
   }
 });
+
+test('Gülce\'nin Tevfik kararı yirminci bölümün açılışında döner', () => {
+  for (const [g, parca] of [['yaz', 'on dört sayfa'], ['affetme', 'yaşıyor mu'], ['sessiz', 'defterini']]) {
+    const d = durum(BOLUM20, { gulceTevfik: g }, { tur: 'sahne', id: 'acilis' });
+    expect(M.sahneBilgisi(BOLUM20, d).paragraflar.join(' ')).toContain(parca);
+  }
+  const bos = durum(BOLUM20, {}, { tur: 'sahne', id: 'acilis' });
+  expect(M.sahneBilgisi(BOLUM20, bos).paragraflar.every((p) => p.length > 0)).toBe(true);
+});

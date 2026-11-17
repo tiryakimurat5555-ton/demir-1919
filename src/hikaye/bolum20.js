@@ -81,9 +81,16 @@ export const BOLUM20 = {
         bayrak(d, 'tevfikKarar') === 'cift'
           ? 'Gülce\'nin mektubu dün geldi: Tuzla tuzağından sonra Bursa\'daki aracının ağı çöktü. Ama aracı kaçtı. Adı Nuri Bey. Ankara\'ya geldiği söyleniyor.'
           : 'Gülce\'nin mektubu dün geldi: Tevfik\'in sayıları kesilince Bursa\'daki aracı başka bir kaynak bulmuş. Adı Nuri Bey. Ankara\'ya geldiği söyleniyor.',
+        bayrak(d, 'gulceTevfik') === 'yaz'
+          ? 'Mektubun sonunda Gülce\'nin bir satırı daha var: Tevfik bildiği her şeyi yazdı; on dört sayfa. Nuri\'nin adı da onun sayfalarından çıktı. Ona yol açtığınız için teşekkür ederim.'
+          : bayrak(d, 'gulceTevfik') === 'affetme'
+            ? 'Mektubun sonunda Gülce\'nin bir satırı daha var: Tevfik\'ten haber almak istemiyorum. Ama bilmek istiyorum: yaşıyor mu? Sadece bunu yaz.'
+            : bayrak(d, 'gulceTevfik') === 'sessiz'
+              ? 'Mektubun sonunda Gülce\'nin bir satırı daha var; yazıp üstünü çizmiş. Okunuyor yine de: Tevfik\'in defterini hâlâ masamda tutuyorum.'
+              : '',
         'Cemil Bey hastanesiyle Polatlı\'ya taşındı; dün gece bir haber yolladı: yaralı sayısı her gün ikiye katlanıyor. Rıza Bey ve Neslihan seninle. Nermin dizgi kasasının başında; mürekkepli elleriyle sana bir kâğıt uzatıyor.',
         'Bu sabah bir sipariş geldi, diyor. Biri bana çok para ödedi. Ve ben bundan hiç hoşlanmadım.',
-      ],
+      ].filter(Boolean),
       secenekler: [{ etiket: 'Devam', etki: ACILIS_ETKI }],
     },
     plan20: {

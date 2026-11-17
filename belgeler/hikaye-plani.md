@@ -195,10 +195,18 @@ Yapılanlar (1. adım):
   "Paltom güzel, yalnız astarı yok; bana atkı ör, geç kalma"; atkı "Muhatap vefat" diye geri geldi, hâlâ çekmecede.
   nerminCevdet, nerminBag +1. Pendle yemini: nerminYemin gazete / mahkeme / birlikte (21. bölümde Pendle'le yüzleşmede).
 
+5. adım (yapıldı):
+- Gülce'nin gecesi (19. bölüm gulce19, Tevfik kararından sonra): Tevfik'e okumayı Gülce öğretmiş; "Nazım Bey'den nefret
+  etmek kolaydı, Tevfik'ten edemiyorum". Süleyman: 1913'te babası ölünce Gülce kayıkhaneye gelmiş; "bir kayıkhanede üç
+  yetim". gulceTevfik yaz (Gülce Tevfik'e not yazar: bildiğin her şeyi yaz, sonra yaşa) / affetme (ilk kez ağlar) /
+  sessiz. Karşılığı: 20. bölüm açılışında Gülce'nin mektubu. aramaSozu ise Süleyman Pire'den bir söylenti anlatır:
+  İngiliz armatörün gemilerinde Kemal Reis diye bir süvari (kemalSoylenti).
+- İplik kaydı: src/hikaye/iplikler.js. Bütün açık ipliklerin gelecek planı orada; yeni bölümler ona bakarak yazılır
+  (CLAUDE.md "Bölüm yazma kuralları").
+
 Sıradakiler:
 - Kemal ipliği: Arethusa'nın kaptanı (21. bölüm). Süleyman'ın ölü bildiği oğlu, Pendle'in gemisinde; Arif'in aynası
   (ölü bilinip yaşayan). aramaSozu ise Arif ona haber verir.
-- Gülce'nin ipliği: babasının katili bulunduktan sonra; Tevfik ihaneti; Süleyman'la baba-kız bağı.
 - 21. bölüm "Arethusa": Kemal, Nermin'in yemini, Cevdet'in atkısı, Pendle; Eylül 1922 İzmir (bütün topluluklara eşit acı).
 - Gülce'nin ipliği: babasının katili bulunduktan sonra ne kalır; Tevfik ihaneti onu nasıl değiştirdi.
 - Konuşmaları uzat: 2-9. bölümlerde kişilerin ikinci, üçüncü konuşma düğümleri (geçmişleri, korkuları).

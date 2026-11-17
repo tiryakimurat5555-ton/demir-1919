@@ -8,7 +8,13 @@ görme engelli oyuncular tarafından bağımsız oynanabilecek; VoiceOver ve Tal
 
 Tasarım taslağı: `belgeler/tasarim-taslagi.pdf`
 
-## Şu anki aşama: 25 — derinleştirme, 4. adım
+## Şu anki aşama: 26 — derinleştirme, 5. adım
+
+- Gülce'nin gecesi: yetiştirdiği çocuk onu sattı; Süleyman'ın onu 1913'ten beri neden koruduğu
+- Pire'den bir söylenti: İngiliz bir armatörün gemilerinde Kemal Reis adında bir süvari
+- Hikâyenin bütün uzun iplikleri artık tek bir kayıtta; yeni bölümler bu kayda göre yazılacak
+
+## 25 — derinleştirme, 4. adım
 
 - Rıza Bey neden "döverek değil, delille" der: Kasımpaşa'da bir gece ve Yakup adında bir çırak
 - Nermin'in ağabeyi Cevdet, astarsız palto ve geri gelen atkı; Pendle'i bulduğunuzda ne yapacaksınız?
