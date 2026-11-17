@@ -34,7 +34,8 @@ export default function Oyun({ bolum, baslangicDurumu, onAnaMenu, onDurum, onBol
   const sahneId = durum.gorunum.tur === 'sahne' ? durum.gorunum.id : null;
   useEffect(() => {
     if (!sahneId) return undefined;
-    const efektler = (bolum.sahneler[sahneId] && bolum.sahneler[sahneId].efekt) || [];
+    // efekt tek bir ad (dize) ya da bir dizi olabilir
+    const efektler = [].concat((bolum.sahneler[sahneId] && bolum.sahneler[sahneId].efekt) || []);
     const zamanlar = efektler.map((ad, i) => setTimeout(() => cal(ad, 0.9), i * 1400));
     return () => zamanlar.forEach(clearTimeout);
     // eslint-disable-next-line react-hooks/exhaustive-deps

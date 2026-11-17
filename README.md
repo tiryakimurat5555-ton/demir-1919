@@ -8,7 +8,15 @@ görme engelli oyuncular tarafından bağımsız oynanabilecek; VoiceOver ve Tal
 
 Tasarım taslağı: `belgeler/tasarim-taslagi.pdf`
 
-## Şu anki aşama: 29 — yirmi üçüncü bölüm: Sofra
+## Şu anki aşama: 30 — yirmi dördüncü bölüm: Baston
+
+- Ekim 1923, İstanbul: İtilaf askerleri gidiyor, kent bayram yapıyor; kalabalıkta bir hırsız
+- Yeni oynanış: kulakla takip. Kavşaklarda sesleri dinle; demir uçlu bir bastonun tıkırtısı, havlayan bir köpek, bir saat çeyreği
+- Birinci bölümdeki "Nefesini say" seçimi burada işe yarar
+- Yeni sesler: bayram günü liman sokakları, baston tıkırtısı
+- Düzeltme: bazı sahnelerin tek bir ses efekti telefonda çökmeye yol açabilirdi; giderildi. 2. bölümdeki morgun sesi eksikti; eklendi
+
+## 29 — yirmi üçüncü bölüm: Sofra
 
 - Nisan 1923, İstanbul: Süleyman'ın kayıkhanesinde herkes bir sofrada
 - Yeni oynanış: üç konuşma hakkı; kiminle uzun uzun konuştuğun, sabah Vollmer'e karşı elinde ne olduğunu belirler

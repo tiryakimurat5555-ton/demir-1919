@@ -159,8 +159,8 @@ export const BOLUM23 = {
       ortam: 'ortam_kayikhane',
       ortamOran: 0.45,
       baslik: 'Yirmi üçüncü bölüm bitti',
-      paragraflar: ['Kararların kaydedildi. Sıradaki bölüm yazılıyor: Ekim 1923. İtilaf askerleri İstanbul\'dan çekiliyor; Zürih\'te bir defter hâlâ kapalı.'],
-      secenekler: [{ etiket: 'Ana menüye dön', anaMenu: true }],
+      paragraflar: ['Kararların kaydedildi. Sıradaki: Ekim 1923. İtilaf askerleri İstanbul\'dan çekiliyor; Zürih\'te bir defter hâlâ kapalı.'],
+      secenekler: [{ etiket: 'Yirmi dördüncü bölüme geç', sonrakiBolum: 'bolum24' }, { etiket: 'Ana menüye dön', anaMenu: true }],
     },
   },
 

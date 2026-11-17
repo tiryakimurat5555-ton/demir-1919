@@ -274,6 +274,7 @@ export const BOLUM2 = {
 
     morg: {
       ad: 'Morg',
+      ortam: 'ortam_cezaevi',
       tarif: (d) =>
         'Taş merdivenlerle inilen, tavanı tonozlu, buz gibi bir oda. Fenik asidi ve ıslak taş kokuyor. Duvar dibinde buz kalıplarından su damlıyor. Ortada mermer bir masa; üstünde, bir çarşafın altında Sabri. ' +
         (bayrak(d, 'olay_baskin') ? 'Lavanta kokusu hâlâ havada.' : 'Cemil Bey önlüğünü bağlıyor, gözlüğünü siliyor.'),

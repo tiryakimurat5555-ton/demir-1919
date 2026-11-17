@@ -135,7 +135,11 @@ Bu belge hikâyenin omurgasıdır. Oyuncunun öğrenmediği gerçekleri de içer
    feragatname ister, karşılığında babanın 1908 kalıbını gazetelerden saklayacak. Çıkış yolları: babanın kendi itirafı
    (Nermin'in gazetesi), Gülce'nin yanlış kayıt numarası (geçersiz feragatname), Kemal'in bildiği kurye + Rıza, ya da imza.
    Gülce 37 yaşında; Tevfik ve Selim'in haberi. Kemal kayıkhanede kalabilir.
-24. Ekim 1923: İtilaf askerleri İstanbul'dan çekilir (arka plan). Zürih'teki defter; Vollmer'in son hamlesi.
+24. Baston (YAZILDI) — İstanbul, 6-29 Ekim 1923. Bayram kalabalığında Gubler Rivière'in mektubunu çalar; Arif onu
+   kulağıyla izler (demir uçlu baston, köpek, bando davulu, saat çeyreği). Kemal kayığıyla, Rıza iskele tahtasının başında
+   yardım edebilir. Mektubun sonu (babaya / sakla / denize). İtiraf eden babayla bayram yerine yürümek. Gubler: Vollmer
+   29 Ekim'de kuruluş defterinin aslını en yüksek fiyatı verene satacak.
+25. Kasım 1923, Zürih (dördüncü kitabın sonu): defterin satışı. Bütün ekip; açık arttırma; Vollmer.
 23+. 1921-1922: Sakarya (Ağustos-Eylül 1921) ve 1922 sonbaharı arka planda; savaş her iki tarafın acısıyla anlatılır.
 
 ## Hassasiyet notu
