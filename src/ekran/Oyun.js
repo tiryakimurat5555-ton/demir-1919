@@ -23,7 +23,8 @@ export default function Oyun({ bolum, baslangicDurumu, onAnaMenu, onDurum, onBol
 
   // Ortam sesi: sahnenin kendi ortamı ya da bulunulan mekânınki
   const sahneVerisi = durum.gorunum.tur === 'sahne' ? bolum.sahneler[durum.gorunum.id] : null;
-  const ortamAdi = (sahneVerisi && sahneVerisi.ortam) || 'ortam_' + durum.mekan;
+  const mekanVerisi = bolum.mekanlar[durum.mekan];
+  const ortamAdi = (sahneVerisi && sahneVerisi.ortam) || (mekanVerisi && mekanVerisi.ortam) || 'ortam_' + durum.mekan;
   const ortamOran = sahneVerisi && sahneVerisi.ortamOran !== undefined ? sahneVerisi.ortamOran : 1;
   useEffect(() => {
     ortamCal(ortamAdi, ortamOran);

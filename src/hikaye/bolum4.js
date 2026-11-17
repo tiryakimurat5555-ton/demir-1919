@@ -275,8 +275,11 @@ export const BOLUM4 = {
       ortam: 'ortam_rihtim',
       ortamOran: 0.4,
       baslik: 'Dördüncü bölüm bitti',
-      paragraflar: ['Rıza Bey artık ekibinde. Beşinci bölüm yazılıyor: Selanik\'e giden yol. Kararların kaydedildi.'],
-      secenekler: [{ etiket: 'Ana menüye dön', anaMenu: true }],
+      paragraflar: ['Rıza Bey artık ekibinde. Hikâye beşinci bölümde, Selanik\'e giden vapurda sürüyor. Kararların kaydedildi.'],
+      secenekler: [
+        { etiket: 'Beşinci bölüme geç', sonrakiBolum: 'bolum5' },
+        { etiket: 'Ana menüye dön', anaMenu: true },
+      ],
     },
   },
 

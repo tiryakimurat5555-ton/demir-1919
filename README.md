@@ -8,7 +8,16 @@ görme engelli oyuncular tarafından bağımsız oynanabilecek; VoiceOver ve Tal
 
 Tasarım taslağı: `belgeler/tasarim-taslagi.pdf`
 
-## Şu anki aşama: 5 — dördüncü bölüm: Kül
+## Şu anki aşama: 6 — beşinci bölüm: Kalliope
+
+- Galata'dan Selanik'e iki gecelik vapur yolculuğu; ekip seçimi (üç kişiden ikisi gelir)
+- Gemide cinayet: her ekip üyesi kendi yoluyla delil bulur (zehir, Almanca not, kamarotun ifadesi)
+- Mühürlü mektup ve Madam N.'ye verilen talimat
+- Fırtınada yüzleşme; kolundaki yara sonucu değiştirebilir
+- Selanik'e varış: Beyaz Kule, yanık şehir
+- Yeni sesler: güverte, yemek salonu, kamara, fırtına, vapur düdüğü
+
+## 5 — dördüncü bölüm: Kül
 
 - Yangının ertesi sabahı, Gureba koğuşu; emekli polis Rıza Bey katılıyor
 - Gülce'nin sırrı: babası ve "İmzala ve yaşa"

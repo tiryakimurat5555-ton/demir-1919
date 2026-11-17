@@ -50,7 +50,21 @@ Bu belge hikâyenin omurgasıdır. Oyuncunun öğrenmediği gerçekleri de içer
    "defteri ve fotoğrafı geri istiyorlar"; Madam N. Karar: Nermin yazsın / önce sevkiyatı durdur / İngiliz'e ihbar.
    Son: kayıkhane yanıyor.
 4. Kül — Süleyman yaralı; Rıza Bey katılır; Galata deposu baskını ya da gazete; Halim'le hesaplaşma; Gülce'nin sırrı.
-5+. Siyakatın çözümü, Selanik, Manastır, Viyana.
+5. Kalliope — İstanbul-Selanik vapuru (20-22 Aralık). Ekip seçimi (üçten ikisi). İsviçreli kurye Brenner örgütten
+   Fransız istihbaratına (Yüzbaşı Morin, Doğu Ordusu) kaçmak istiyor; Clavis'in temizlikçisi Garnier onu siyanürle
+   öldürür. Brenner'in astarında N.'ye mühürlü talimat: "Hotel Olympos, 23 Aralık. Güvenini kazan. Defteri alınca
+   ondan kurtul." Fırtınada Garnier: kapsülle ölür / denize düşer / Morin tutuklar (fransizBag). Selanikli tütün
+   tüccarı Daniel Saltiel (Yahudi, 1917 yangınında evini kaybetti; dost karakter, örgütle hiçbir bağı yok).
+   Selanik'te banker Gaston Rivière (Fransız, Clavis; Neslihan'ı evlatlık alan "hayırsever").
+6. Hotel Olympos — Neslihan'la ilk karşılaşma. O, karşısındakinin kardeşi olduğunu bilmiyor; Arif biliyor (ya da
+   seziyor). Mühür sağlamsa Arif mektubu Brenner'in yerine teslim edip içeri sızabilir. Rivière'in köşkü.
+   Neslihan'ın sadakati sarsılır ama kopmaz. Siyakat defterinin öbür yarısı Rivière'de.
+7+. Manastır (Sırp yönetiminde, Aralık 1918'den itibaren Sırp-Hırvat-Sloven Krallığı), Viyana, babanın akıbeti.
+
+## Hassasiyet notu
+Örgüt "savaştan kâr eden bankerler" teması taşıdığı için üyeler bilinçli olarak çeşitli tutulur (Fransız, İtalyan,
+Osmanlı memuru, İngiliz subay, İsviçreli kurye) ve hiçbir din ya da etnik grupla özdeşleştirilmez. Yahudi
+karakterler (ör. Saltiel) örgütle ilişkilendirilmez; komplo teorisi kalıplarından kaçınılır.
 
 ## Süren değerler (bayraklar)
 travma (anılarda bastırınca artar), suleymanBag, gulceGuven, gulceyeAnlatti, gulceYalan, karar1, mezarSozu,
