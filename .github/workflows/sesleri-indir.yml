@@ -1,0 +1,46 @@
+# araclar/indirilecek-sesler.json içindeki adreslerden ses dosyalarını indirir ve
+# "ham-sesler" dalına yazar. (Bu çalışma ortamı ses sunucusuna doğrudan erişemiyor.)
+name: Sesleri indir
+
+on:
+  push:
+    branches: [main]
+    paths: ['araclar/indirilecek-sesler.json']
+  workflow_dispatch: {}
+
+permissions:
+  contents: write
+
+jobs:
+  indir:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - name: İndir ve ham-sesler dalına yaz
+        run: |
+          mkdir -p "$RUNNER_TEMP/sesler"
+          python3 - <<'PY'
+          import json, os, urllib.request
+          hedef = os.path.join(os.environ['RUNNER_TEMP'], 'sesler')
+          liste = json.load(open('araclar/indirilecek-sesler.json'))
+          rapor = []
+          for ad, url in liste.items():
+              try:
+                  veri = urllib.request.urlopen(url, timeout=60).read()
+                  open(os.path.join(hedef, ad + '.mp3'), 'wb').write(veri)
+                  rapor.append(ad + ' ' + str(len(veri)))
+              except Exception as e:
+                  rapor.append(ad + ' HATA ' + str(e))
+          open(os.path.join(hedef, 'rapor.txt'), 'w').write('\n'.join(rapor) + '\n')
+          print('\n'.join(rapor))
+          PY
+          git config user.name "github-actions"
+          git config user.email "github-actions@users.noreply.github.com"
+          git checkout --orphan ham-sesler-gecici
+          git rm -rfq --cached . > /dev/null
+          rm -rf ./*  .github 2>/dev/null || true
+          cp "$RUNNER_TEMP"/sesler/* .
+          git add -f *.mp3 rapor.txt
+          git commit -qm "Ham sesler ${GITHUB_SHA}"
+          git push -f origin ham-sesler-gecici:ham-sesler
