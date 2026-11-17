@@ -8,7 +8,12 @@ görme engelli oyuncular tarafından bağımsız oynanabilecek; VoiceOver ve Tal
 
 Tasarım taslağı: `belgeler/tasarim-taslagi.pdf`
 
-## Şu anki aşama: 23 — derinleştirme, 2. adım
+## Şu anki aşama: 24 — derinleştirme, 3. adım
+
+- Cemil Bey'in raporu: sahra hastanesinde bir esirin ölümü ve Balkan Harbi'nden kalan yemin
+- Ilgaz'da bir ateş: Viyana'da söylenmeyen cümleyi Neslihan'a söyleme fırsatı
+
+## 23 — derinleştirme, 2. adım
 
 - Viyana'da bir gece: Neslihan altı yılı anlatır ve sorar: Sen beni aradın mı abi? Cevabın on altıncı bölümde geri döner
 - Pendle'in gemileri artık her yerde: Santa Lucia, Aurora, Columbia; Genel Kurul'da hepsi bir anda hatırlanır

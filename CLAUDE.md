@@ -216,6 +216,8 @@
   (1. bölüm manifest → 20. tarife), Süleyman'ın oğlu Kemal (1897, Nevres; sıradaki: Arethusa'nın kaptanı).
   2. adım: 9. bölüm kardes_gecesi (Neslihan: "Sen beni aradın mı abi?"; kardesGecesi durust/yalan/sessiz → 16. bölüm
   mektup_baba), Pendle'in gemileri Santa Lucia (3), Aurora (11), Columbia (12), 15. bölümde Pendle'le yüzleşmede hatırlanır.
+  3. adım: 18. bölüm rapor18 (cemilRapor dogru/sitma/kendi, cemilYuk → esir_degisimi, 20. polatli_son), 17. bölüm
+  ilgaz_ates → ilgaz_itiraf (kardesGecesi yalan/sessiz ise sonra_durust).
   testler/derinlik.test.js iplikleri denetler.
 - Hassasiyet: örgüt üyeleri çeşitli uyruklardan; hiçbir din/etnik grupla özdeşleşmez (hikaye-plani.md).
 - Mekânda `ortam` alanı mekânın ortam sesini değiştirir (yoksa 'ortam_' + mekân kimliği).

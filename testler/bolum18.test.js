@@ -45,9 +45,9 @@ function onYedinciBolumSonu(ek) {
 }
 
 const senaryolar = [
-  { ad: 'travmalı, nefes al, bir yanlış hesap, konuştur', ek: { travma: 3 }, nobet: 'Cemil', yanlis: true, sabit: 'konuşsun', ag: true, travmaSon: 2 },
-  { ad: 'travmalı, kaç, doğru hesap, teslim', ek: { travma: 2 }, nobet: 'kara koş', yanlis: false, sabit: 'Jandarmaya', ag: false, travmaSon: 2 },
-  { ad: 'travmasız, nöbet yok, teslim', ek: { travma: 1 }, nobet: null, yanlis: false, sabit: 'Jandarmaya', ag: false, travmaSon: 1 },
+  { ad: 'travmalı, nefes al, bir yanlış hesap, konuştur', ek: { travma: 3 }, nobet: 'Cemil', yanlis: true, sabit: 'konuşsun', ag: true, travmaSon: 2, rapor: 'Doğruyu yaz', raporBayrak: 'dogru' },
+  { ad: 'travmalı, kaç, doğru hesap, teslim', ek: { travma: 2 }, nobet: 'kara koş', yanlis: false, sabit: 'Jandarmaya', ag: false, travmaSon: 2, rapor: 'Sıtma yaz', raporBayrak: 'sitma' },
+  { ad: 'travmasız, nöbet yok, teslim', ek: { travma: 1 }, nobet: null, yanlis: false, sabit: 'Jandarmaya', ag: false, travmaSon: 1, rapor: 'yanındayım', raporBayrak: 'kendi' },
 ];
 
 for (const s of senaryolar) {
@@ -87,6 +87,10 @@ for (const s of senaryolar) {
     expect(d.gorunum).toEqual({ tur: 'sahne', id: 'sabit' });
     d = sahneGec(d, s.sabit);
     if (d.gorunum.id === 'sabit_konusur') d = sahneGec(d);
+    expect(d.gorunum.id).toBe('rapor18');
+    d = sahneGec(d, s.rapor);
+    expect(M.bayrak(d, 'cemilRapor')).toBe(s.raporBayrak);
+    d = sahneGec(d);
     expect(M.delilVar(d, 'ag_bilgisi')).toBe(s.ag);
     expect(d.gorunum.id).toBe('esir_degisimi');
     d = sahneGec(d);

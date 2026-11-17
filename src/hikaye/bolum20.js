@@ -187,10 +187,15 @@ export const BOLUM20 = {
         bayrak(d, 'cemilYalniz')
           ? 'Cemil Bey seni görünce bir şey söylemiyor; önlüğünü uzatıyor. Sen de giyiyorsun. Bir gece burada olmadığının bedelini bir gün değil, bir ömür taşıyacağını ikiniz de biliyorsunuz.'
           : 'Cemil Bey seni görünce önlüğünü uzatıyor. Treni karşıladıysan, diyor, buradaki işe başla. Yorgun, ama gülümsüyor.',
+        bayrak(d, 'cemilRapor') === 'sitma'
+          ? 'Cemil Bey\'in masasında bir defter var; Ocak\'tan beri tutuyor. Her esir ölümüne iki satır: ad ve gerçek sebep. Kostas\'ın satırı en başta. Kimse okumuyor bu defteri. Okumaları için tutmuyor.'
+          : bayrak(d, 'cemilRapor')
+            ? 'Cemil Bey\'in her raporunda artık iki satır var: ad ve gerçek sebep. Kostas\'tan beri. Esir çadırındaki hekim bunu herkese anlatmış; öbür taraftan iki yaralı hekim, sırf bu yüzden, Cemil Bey\'in sahra hastanesine teslim olmuş.'
+            : '',
         'Yaralılar her iki dilde inliyor; esir çadırında da, bizimkilerde de. Neslihan ikisinin arasında koşuyor. Cemil Bey cebinden bir mektup çıkarıyor: Eleni\'den, öbür taraftan. Onlarda da bitmiş, diyor. Kinin, sargı, umut.',
         'Akşam Rıza Bey haritaya İzmir\'i işaretliyor. Arethusa, diyor. Bir yıl sonra mı, iki yıl sonra mı, bilmiyorum. Ama o gemi bir gün bir rıhtıma yanaşacak ve biz orada olacağız.',
         'Yirminci bölümün sonu.',
-      ],
+      ].filter(Boolean),
       secenekler: [{ etiket: 'Devam', etki: { bayrak: { bolumBitti: true } }, sonra: 'son' }],
     },
     son: {

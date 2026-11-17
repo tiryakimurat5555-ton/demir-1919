@@ -134,7 +134,7 @@ export const BOLUM18 = {
           : 'Rıza Bey sana bakıyor. Senin kararın, der gibi.',
       ],
       secenekler: [
-        { etiket: 'Jandarmaya teslim edin. Mahkemeye çıksın.', etki: { bayrak: { sabitSonu: 'teslim' } }, sonra: 'esir_degisimi' },
+        { etiket: 'Jandarmaya teslim edin. Mahkemeye çıksın.', etki: { bayrak: { sabitSonu: 'teslim' } }, sonra: 'rapor18' },
         { etiket: 'Önce konuşsun. Ağın geri kalanını söylesin.', etki: { bayrak: { sabitSonu: 'konustu' }, delil: ['ag_bilgisi'] }, sonra: 'sabit_konusur' },
       ],
     },
@@ -147,6 +147,69 @@ export const BOLUM18 = {
         'İstanbul\'da Gümrük\'te biri var, diyor. Parti numaralarını bildirir. İnebolu\'da biri kağnıları sayar. Bursa\'da biri öbür tarafa satar. Ben yalnızca bir halkayım. İstanbul\'dakinin adını bilmem; baş harflerini bilirim: M. T.',
         'Gümrük, diyorsun içinden. Gülce\'nin bürosu.',
       ],
+      secenekler: [{ etiket: 'Devam', sonra: 'rapor18' }],
+    },
+    // Derinleştirme: Cemil Bey'in Balkan Harbi yükü. İkinci bölümde "Bir tanesi daha olmayacak" demişti.
+    rapor18: {
+      ortam: 'ortam_sahra',
+      baslik: 'Bir rapor',
+      paragraflar: [
+        'Gece. Cemil Bey\'in masasında lamba titriyor. Önünde boş bir ölüm raporu. Karşısında bir jandarma çavuşu, şapkası elinde; yorgun, kırk yaşlarında, ellerinde nasır.',
+        'Akşam esir çadırında bir kavga çıkmış. Yaralı bir Yunan esiri, Kostas, ekmeğini bölüşmek istemeyen bir nöbetçiye karşılık vermiş. Nöbetçi dipçikle vurmuş. Bir kez. Kostas bir saat sonra ölmüş.',
+        'Nöbetçi on dokuz yaşında, diyor çavuş. Sakaryalı. Kardeşi İnönü\'de şehit oldu, kafası yerinde değil. Doğruyu yazarsanız divanıharbe gider. Esirler de çok ölüyor zaten; sıtma deseniz kimse sormaz. Esir değişimi üç gün sonra; öbür taraf bunu duyarsa bizim esirlere ne olur, bir düşünün.',
+        'Cemil Bey kalemi eline alıyor. Bırakıyor. Yeniden alıyor. Sana bakıyor.',
+        'Selanik, diyor yalnızca. İki yüz tane. Bir tane daha olmayacak demiştim. Mezarın başında. Sana.',
+      ],
+      secenekler: [
+        {
+          etiket: 'Doğruyu yaz Cemil Bey. Kostas\'ın da bir annesi var.',
+          etki: { bayrak: { cemilRapor: 'dogru' }, artir: { cemilBag: 1 } },
+          sonra: 'rapor18_dogru',
+        },
+        {
+          etiket: 'Sıtma yaz. Üç gün sonra yirmi esirimiz dönecek; onları düşün.',
+          etki: { bayrak: { cemilRapor: 'sitma' } },
+          sonra: 'rapor18_sitma',
+        },
+        {
+          etiket: 'Senin yerine karar veremem. Ama ne yazarsan yaz, yanındayım.',
+          etki: { bayrak: { cemilRapor: 'kendi' }, artir: { cemilBag: 1 } },
+          sonra: 'rapor18_kendi',
+        },
+      ],
+    },
+    rapor18_dogru: {
+      ortam: 'ortam_sahra',
+      baslik: 'Dipçik',
+      paragraflar: [
+        'Cemil Bey yazıyor. Kafatasında kırık, sol şakakta; künt bir cisimle tek darbe. Ölüm sebebi: beyin kanaması. Altına imzasını atıyor. Mürekkep kurusun diye kâğıdı lambanın yanına koyuyor.',
+        'Çavuş bir şey demiyor. Şapkasını takıp çıkıyor. Kapıda duruyor: Siz bilirsiniz Doktor Bey, diyor. Sesinde kızgınlık değil, yorgunluk var.',
+        'Ertesi sabah nöbetçi tutuklanıyor. On dokuz yaşında, ağlamıyor. Yannis esir çadırından onu götürürlerken görüyor; Neslihan\'a bir şey soruyor, Neslihan cevap veriyor. Yannis uzun süre yere bakıyor.',
+        'Cemil Bey o gece ilk kez uyuyor. Sabah sana: İki yüz bir değil, diyor. İki yüz. Sayı bu kadar kalacak.',
+      ],
+      secenekler: [{ etiket: 'Devam', sonra: 'esir_degisimi' }],
+    },
+    rapor18_sitma: {
+      ortam: 'ortam_sahra',
+      baslik: 'Sıtma',
+      paragraflar: [
+        'Cemil Bey uzun süre sana bakıyor. Sonra yazıyor: Sıtma, ağır seyir, kalp yetmezliği. İmzasını atıyor. El yazısı her zamankinden düzgün; o kadar düzgün ki yabancı birinin yazısı gibi.',
+        'Çavuş teşekkür ediyor; Cemil Bey cevap vermiyor.',
+        'Gece yarısı onu hasta çadırının arkasında, karın içinde oturmuş buluyorsun. Elleri çıplak, morarmış. Haklıydın belki, diyor. Yirmi esir dönecek. Ama Selanik\'te de haklıydılar. Hep biri haklı oluyor Arif. Ben de hep imzalıyorum.',
+        'Yanına oturuyorsun. Kar ikinizin de omuzlarına yağıyor.',
+      ],
+      secenekler: [{ etiket: 'Devam', etki: { bayrak: { cemilYuk: true } }, sonra: 'esir_degisimi' }],
+    },
+    rapor18_kendi: {
+      ortam: 'ortam_sahra',
+      baslik: 'Kalem',
+      paragraflar: [
+        'Cemil Bey gözlerini kapatıyor. Lambanın titreyişi yüzünde. Bir dakika. İki.',
+        'Sonra yazıyor. Kafatasında kırık; künt bir cisimle tek darbe. Ölüm sebebi: beyin kanaması. Ve altına, raporlarda yeri olmayan bir satır: Nöbetçinin yaşı ve kardeşinin İnönü\'de ölümü mahkemece göz önünde tutulmalıdır. Hekim kanaati.',
+        'Çavuşa uzatıyor. Doğruyu da yazdım, diyor, merhameti de. Biri olmadan öbürü olmuyor çavuş. Selanik\'te ikisini de yazmadım; yalnızca emri yazdım.',
+        'Çavuş kâğıda bakıyor. Başını sallıyor. Gidiyor.',
+        'Sabah Cemil Bey sana bir tas çay uzatıyor. Kalemi tutan bendim, diyor. Ama yalnız tutmadım. Bunu unutmayacağım.',
+      ],
       secenekler: [{ etiket: 'Devam', sonra: 'esir_degisimi' }],
     },
     esir_degisimi: {
@@ -158,6 +221,9 @@ export const BOLUM18 = {
         'Yannis sıranın başında. Neslihan\'ın elini sıkıyor. Efharisto, diyor. Sonra Rumca bir şey daha. Neslihan gülümsüyor: Annem de Selanikliydi, diyor; bir gün o şehirde bir kahve içelim.',
         'Öbür bayrağın altında, Kızılhaç önlüğüyle, kır saçlı bir kadın. Eleni Mavrou. Cemil Bey\'i görünce elini kaldırıyor. Yüz adım. Aşamazlar. Ama Eleni bir zarfı Yannis\'e veriyor; Yannis yüz adımı yürüyüp Cemil Bey\'e uzatıyor.',
         'Cemil Bey zarfı açıyor: İzmir\'den, Eleni\'den. Bir mektup ve bir kutu kinin. Bunu kimse satmasın, yazmış. Kimin askeri olursa olsun.',
+        bayrak(d, 'cemilRapor') === 'sitma'
+          ? 'Yannis giderken esir çadırına son bir kez bakıyor. Kostas\'ın yatağı boş. Cemil Bey\'in gözlerine bakmıyor; Cemil Bey de onunkilere.'
+          : 'Yannis giderken Cemil Bey\'in önünde duruyor. Kostas için, diyor Neslihan aracılığıyla. Raporu duydum. Bizim tarafta bunu anlatacağım. Bir hekimin savaşta ne yapabileceğini.',
         bayrak(d, 'sabitSonu') === 'konustu'
           ? 'Cebinde Sabit Bey\'in verdiği iki harf: M. T. Gümrük. İstanbul.'
           : 'Sabit Bey Ankara\'ya, mahkemeye gönderildi. Ama Rıza Bey\'in kuşkusu dinmiyor: Bir kağnıcı tek başına iki cepheye satamaz, diyor.',

@@ -178,10 +178,18 @@ Yapılanlar (1. adım):
   (11. bölüm, navlun H. P.'ye), Columbia (12. bölüm, kayıtlı sahibi Pendle Shipping), 15. bölümde Pendle'le yüz yüze
   gelince manifest varsa dört gemi birden hatırlanır.
 
+3. adım (yapıldı):
+- Cemil'in raporu (18. bölüm rapor18, Sabit Bey'den sonra, zorunlu): esir çadırında bir nöbetçi dipçikle Yunan esiri
+  Kostas'ı öldürür; çavuş "sıtma yazın" ister. Cemil 2. bölümde "bir tanesi daha olmayacak" demişti. cemilRapor dogru
+  (nöbetçi tutuklanır; "iki yüz bir değil, iki yüz") / sitma (cemilYuk; karın içinde) / kendi (Cemil gerçeği ve merhameti
+  birlikte yazar). Karşılığı: esir_degisimi'nde Yannis, 20. bölüm polatli_son'da Cemil'in defteri ya da teslim olan hekimler.
+- Ilgaz ateşi (17. bölüm ilgaz_ates, her iki yoldan sonra): kardesGecesi yalan/sessiz ise Viyana'da söylenmeyen cümle
+  söylenebilir → ilgaz_itiraf (kardesGecesi sonra_durust, kardesOnceki, neslihanBag +1); değilse ayva reçeli anısı.
+
 Sıradakiler:
 - Kemal ipliği: Arethusa'nın kaptanı (21. bölüm). Süleyman'ın ölü bildiği oğlu, Pendle'in gemisinde; Arif'in aynası
   (ölü bilinip yaşayan). aramaSozu ise Arif ona haber verir.
-- Arif ile Neslihan: kardesGecesi yalan/sessiz ise sonraki bir bölümde (13 ya da 17) söylenmemiş cümleyi söyleme fırsatı.
-- Cemil'in ipliği: Balkan Harbi'nde emirle "kaza" yazdığı cesetler; 18. bölümde Yannis'le, 20. bölümde Polatlı'da.
+- Rıza Bey'in ipliği: Halim'i o yetiştirdi (4. bölüm); kendi geçmişindeki bir dayak/itiraf; 19. bölümde yanlış suçlama.
+- Nermin'in ipliği: Sarıkamış'ta donan ağabeyi; savaştan para kazananlar; Pendle'le yüzleşme.
 - Gülce'nin ipliği: babasının katili bulunduktan sonra ne kalır; Tevfik ihaneti onu nasıl değiştirdi.
 - Konuşmaları uzat: 2-9. bölümlerde kişilerin ikinci, üçüncü konuşma düğümleri (geçmişleri, korkuları).

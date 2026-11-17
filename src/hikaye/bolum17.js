@@ -212,9 +212,60 @@ export const BOLUM17 = {
         babaYanimda(d) ? 'Baban kırık tekerleğin başında; elinde Yusuf\'un kalay takımı. Bir demirci olmasam da, diyor, bir çember yaparım.' : 'Cemil Bey bir çocuğun donmuş ayaklarını ovuyor.',
       ],
       secenekler: [
-        { etiket: 'Gece geç. Ay ışığında.', etki: { bayrak: { etap2: 'gece' }, artir: { yorgunluk: 1 } }, sonra: 'etap_cankiri' },
-        { etiket: 'Handa bekle. Neslihan\'ın son altınlarıyla ekmek al.', etki: { bayrak: { etap2: 'han' }, artir: { erzak: 1 } }, sonra: 'etap_cankiri' },
+        { etiket: 'Gece geç. Ay ışığında.', etki: { bayrak: { etap2: 'gece' }, artir: { yorgunluk: 1 } }, sonra: 'ilgaz_ates' },
+        { etiket: 'Handa bekle. Neslihan\'ın son altınlarıyla ekmek al.', etki: { bayrak: { etap2: 'han' }, artir: { erzak: 1 } }, sonra: 'ilgaz_ates' },
       ],
+    },
+    // Derinleştirme: Viyana'da söylenmeyen cümle (kardesGecesi yalan / sessiz) burada söylenebilir.
+    ilgaz_ates: {
+      ortam: 'ortam_kagni',
+      ortamOran: 0.5,
+      baslik: 'Ateşin başında',
+      paragraflar: (d) => {
+        const bekleyen = ['yalan', 'sessiz'].includes(bayrak(d, 'kardesGecesi'));
+        return [
+          bayrak(d, 'etap2') === 'gece'
+            ? 'Geçidin ortasında, bir kayanın dibinde yarım saatlik bir mola. Kafile bir ateş yakıyor; dal yaş, duman çok.'
+            : 'Hanın avlusunda bir ateş. Kafile uyuyor; öküzler ahırda soluyor.',
+          'Neslihan ateşin karşısında, dizlerini kucaklamış. Yüzünde alevin ışığı. Ellerini ateşe uzatıyor; parmakları Viyana\'daki gibi buz.',
+          bekleyen
+            ? 'Bir şey söylemiyor. Ama gözü bir an sol kulağında duruyor. Viyana\'daki gece aranızda hâlâ oturuyor; söylenmemiş cümle, üçüncü bir yolcu gibi, kafileyle birlikte yürüyor.'
+            : 'Annemin ayva reçeli, diyor birden. Hatırlıyor musun abi? Kavanozu sen kırmıştın, beni suçlamıştın. Gülüyor. Altı yıl sonra ilk kez, bir anıyı korkmadan anlatıyor.',
+        ];
+      },
+      secenekler: [
+        {
+          etiket: 'Neslihan. Viyana\'da sana doğruyu söylemedim. Ben seni hiç aramadım.',
+          kosul: (d) => ['yalan', 'sessiz'].includes(bayrak(d, 'kardesGecesi')),
+          etki: (d) => ({ bayrak: { kardesGecesi: 'sonra_durust', kardesOnceki: bayrak(d, 'kardesGecesi') }, artir: { neslihanBag: 1 } }),
+          sonra: 'ilgaz_itiraf',
+        },
+        {
+          etiket: 'Bir şey söyleme. Ateşe bir dal daha at.',
+          kosul: (d) => ['yalan', 'sessiz'].includes(bayrak(d, 'kardesGecesi')),
+          sonra: 'etap_cankiri',
+        },
+        {
+          etiket: 'Kavanozu sen kırdın. Ben seni korudum.',
+          kosul: (d) => !['yalan', 'sessiz'].includes(bayrak(d, 'kardesGecesi')),
+          sonra: 'etap_cankiri',
+        },
+      ],
+    },
+    ilgaz_itiraf: {
+      ortam: 'ortam_kagni',
+      ortamOran: 0.5,
+      baslik: 'Ilgaz',
+      paragraflar: (d) => [
+        'Neslihan bir süre ateşe bakıyor. Sonra başını kaldırıyor.',
+        bayrak(d, 'kardesOnceki') === 'yalan'
+          ? 'Biliyordum, diyor. Kulağın kızarmıştı. Bir buçuk yıldır kulağını bekliyorum abi. Bugün kızarmadı.'
+          : 'Biliyordum, diyor. Sustuğunda bildim. Ama senden duymak istedim. Bir buçuk yıl bekledim.',
+        'Ben de seni aramadım, diyor. Ölü listelerinde aradım; bu aramak değil. Bulamamak için aradım. Belki ikimiz de aynı şeyden korktuk: bulursak bir şey kalmamış olmasından.',
+        'Ateşin üstünden elini uzatıyor. Tutuyorsun. Buz gibi; sonra ısınıyor.',
+        'Artık ararız, diyor. Babamızı bulduk. Birbirimizi bulduk. Bir şey kalmış abi. Az, ama kalmış.',
+      ],
+      secenekler: [{ etiket: 'Devam', sonra: 'etap_cankiri' }],
     },
     etap_cankiri: {
       ortam: 'ortam_kagni',

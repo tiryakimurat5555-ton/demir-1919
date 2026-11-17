@@ -87,6 +87,8 @@ for (const s of senaryolar) {
     d = sahneGec(d);
     expect(d.gorunum.id).toBe('etap_ilgaz');
     d = sahneGec(d, s.e2);
+    expect(d.gorunum.id).toBe('ilgaz_ates');
+    d = sahneGec(d);
     expect(d.gorunum.id).toBe('etap_cankiri');
     d = sahneGec(d);
     expect(M.bayrak(d, 'kafileSonu')).toBe(s.kafile);

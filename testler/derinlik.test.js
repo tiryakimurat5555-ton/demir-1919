@@ -90,3 +90,35 @@ test('Pendle\'in gemileri 3., 11., 12. ve 15. bölümlerde görünür', async ()
   expect(M.dugumBilgisi(BOLUM15, d2).soz.join(' ')).toContain('Leventis');
   expect(M.dugumBilgisi(BOLUM15, d).soz.join(' ')).not.toContain('Leventis');
 });
+
+test('Cemil\'in raporu on sekizinci bölümde verilir, esir değişiminde ve Polatlı\'da hatırlanır', async () => {
+  const { BOLUM18 } = await import('../src/hikaye/bolum18');
+  for (const [r, parca] of [['dogru', 'Raporu duydum'], ['kendi', 'Raporu duydum'], ['sitma', 'Kostas\'ın yatağı boş']]) {
+    const d = durum(BOLUM18, { cemilRapor: r }, { tur: 'sahne', id: 'esir_degisimi' });
+    expect(M.sahneBilgisi(BOLUM18, d).paragraflar.join(' ')).toContain(parca);
+  }
+  for (const [r, parca] of [['sitma', 'Okumaları için tutmuyor'], ['dogru', 'teslim olmuş']]) {
+    const d = durum(BOLUM20, { cemilRapor: r }, { tur: 'sahne', id: 'polatli_son' });
+    expect(M.sahneBilgisi(BOLUM20, d).paragraflar.join(' ')).toContain(parca);
+  }
+  const bos = durum(BOLUM20, {}, { tur: 'sahne', id: 'polatli_son' });
+  expect(M.sahneBilgisi(BOLUM20, bos).paragraflar.every((p) => p.length > 0)).toBe(true);
+});
+
+test('Viyana\'da söylenmeyen cümle Ilgaz\'da söylenebilir', async () => {
+  const { BOLUM17 } = await import('../src/hikaye/bolum17');
+  for (const onceki of ['yalan', 'sessiz']) {
+    let d = durum(BOLUM17, { kardesGecesi: onceki, neslihanBag: 1 }, { tur: 'sahne', id: 'ilgaz_ates' });
+    const s = M.sahneBilgisi(BOLUM17, d).secenekler;
+    expect(s.length).toBe(2);
+    d = M.sahneSec(BOLUM17, d, s[0]).durum;
+    expect(d.gorunum.id).toBe('ilgaz_itiraf');
+    expect(M.bayrak(d, 'kardesGecesi')).toBe('sonra_durust');
+    expect(M.sayi(d, 'neslihanBag')).toBe(2);
+    expect(M.sahneBilgisi(BOLUM17, d).paragraflar.join(' ')).toContain(onceki === 'yalan' ? 'Kulağın' : 'Sustuğunda');
+    d = M.sahneSec(BOLUM17, d, M.sahneBilgisi(BOLUM17, d).secenekler[0]).durum;
+    expect(d.gorunum.id).toBe('etap_cankiri');
+  }
+  const d = durum(BOLUM17, { kardesGecesi: 'durust' }, { tur: 'sahne', id: 'ilgaz_ates' });
+  expect(M.sahneBilgisi(BOLUM17, d).secenekler.length).toBe(1);
+});
