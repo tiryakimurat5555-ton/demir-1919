@@ -285,8 +285,8 @@ export const BOLUM6 = {
       ortam: 'ortam_rihtim',
       ortamOran: 0.4,
       baslik: 'Altıncı bölüm bitti',
-      paragraflar: ['Kardeşini buldun. Yedinci bölüm yazılıyor: Rivière\'in köşkü. Kararların kaydedildi.'],
-      secenekler: [{ etiket: 'Ana menüye dön', anaMenu: true }],
+      paragraflar: ['Kardeşini buldun. Sıradaki: Rivière\'in köşkü. Kararların kaydedildi.'],
+      secenekler: [{ etiket: 'Yedinci bölüme geç', sonrakiBolum: 'bolum7' }, { etiket: 'Ana menüye dön', anaMenu: true }],
     },
   },
 

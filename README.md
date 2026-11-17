@@ -8,7 +8,16 @@ görme engelli oyuncular tarafından bağımsız oynanabilecek; VoiceOver ve Tal
 
 Tasarım taslağı: `belgeler/tasarim-taslagi.pdf`
 
-## Şu anki aşama: 7 — altıncı bölüm: Hotel Olympos
+## Şu anki aşama: 8 — yedinci bölüm: Montaigne
+
+- Gece Rivière'in köşküne sızma: köpek, bekçi, kilitli kapı; her engeli ekipteki biri sessizce aşar, yoksa alarm artar
+- Alarm üçe çıkarsa yakalanırsın ama hikâye sürer
+- Çalışma odasında kasanın şifresi odanın içinde gizli
+- Rivière'le yüzleşme, Delorme'un beklenmedik gelişi, üç farklı son seçimi
+- Neslihan'ın kararı; eski bir kâtip siyakat defterini okur; babanın sırrı
+- Yeni sesler: köşk bahçesi, köşkün içi, köpek, kilise çanları
+
+## 7 — altıncı bölüm: Hotel Olympos
 
 - Selanik: Kalamarya'da bir aile evi, 1917 yangınının yaktığı şehir, Hotel Olympos
 - Manastırlı yaşlı göçmen Hafız Efendi: Arif'in ailesinin akıbeti; Manastır 1912 anısı

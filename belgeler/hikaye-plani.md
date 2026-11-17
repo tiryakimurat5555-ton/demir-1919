@@ -59,7 +59,17 @@ Bu belge hikâyenin omurgasıdır. Oyuncunun öğrenmediği gerçekleri de içer
 6. Hotel Olympos — Neslihan'la ilk karşılaşma. O, karşısındakinin kardeşi olduğunu bilmiyor; Arif biliyor (ya da
    seziyor). Mühür sağlamsa Arif mektubu Brenner'in yerine teslim edip içeri sızabilir. Rivière'in köşkü.
    Neslihan'ın sadakati sarsılır ama kopmaz. Siyakat defterinin öbür yarısı Rivière'de.
-7+. Manastır (Sırp yönetiminde, Aralık 1918'den itibaren Sırp-Hırvat-Sloven Krallığı), Viyana, babanın akıbeti.
+7. Montaigne (YAZILDI) — 23→24 Aralık gecesi Rivière'in köşkü. Sızma (köpek: Cemil; bekçi: Rıza/Nermin; kapı: anahtar/
+   Rıza; alarm 3 → yakalanır, Rivière defteri kendisi verir). Kasa şifresi 1212 (Neslihan'ın eve geldiği gün, 12.12.1912).
+   Rivière: talimatı Delorme kendi mührüyle yazdı; örgüt artık "ateşi canlı tutanların". Baba İsmail Usta altı yıldır
+   Manastır'da Sırp cezaevinde, Rivière parasını ödeyip orada tutturdu (Neslihan bilmesin diye). Delorme bir gün erken
+   gelir; Rivière ölür (Arif'i/Neslihan'ı korurken ya da Delorme'un bıçağıyla); Delorme pencereden uçuruma atlar —
+   CESEDİ BULUNMAZ, yaşıyor (ileride döner). neslihanSecim: geldi / gitti (mektup + ayva çizimi) / kaldi.
+   Hafız Efendi eski Manastır defterdarlığı kâtibi, siyakatı okur: her sayfada aracı imzası N. R. (Neslihan, bilmeden).
+   Şafak, Noel arifesi çanları. Kanca: Manastır.
+8. Manastır (Sırp yönetiminde, 1 Aralık 1918'den itibaren Sırp-Hırvat-Sloven Krallığı): babayı cezaevinden çıkarmak.
+   Neslihan geldiyse onunla; gittiyse Manastır'da yeniden çıkar. Defter kimin elinde kalmalı sorusu (Morin, Nermin'in
+   gazetesi, İstanbul). Sonra Viyana.
 
 ## Hassasiyet notu
 Örgüt "savaştan kâr eden bankerler" teması taşıdığı için üyeler bilinçli olarak çeşitli tutulur (Fransız, İtalyan,
@@ -69,3 +79,4 @@ karakterler (ör. Saltiel) örgütle ilişkilendirilmez; komplo teorisi kalıpla
 ## Süren değerler (bayraklar)
 travma (anılarda bastırınca artar), suleymanBag, gulceGuven, gulceyeAnlatti, gulceYalan, karar1, mezarSozu,
 gorulmusOlabilir (Delorme Arif'i görmüş olabilir), cemilEkipte, nerminBag, suphe (3. bölüm), karar3.
+7. bölüm: alarm, yakalandi7, sonSecim (koru/atil/kac), riviereSonu, neslihanSecim (geldi/gitti/kaldi), neslihaneBaba.

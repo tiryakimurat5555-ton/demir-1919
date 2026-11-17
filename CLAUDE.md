@@ -24,7 +24,7 @@
   (kayip-okyanus'tan alındı): kaydır = gez, dokun = oku, çift dokun = seç, uzun bas = açıklama, iki parmakla
   dokun = sustur, iki parmakla çift dokun = geri. Ekran okuyucu açıksa App.js uyarı katmanı gösterir.
 - Ses (17 Kasım): src/ses/efektler.js (expo-audio). Ortam döngüleri ortam_rihtim/kayikhane/buro/han/oda
-  (mekân kimliğiyle eşleşir; sahnede `ortam`, `ortamOran`, `efekt` alanları), efektler sandik, ani_savas, delil, yangin; 3. bölüm döngüleri ortam_cemil_ev/pera/kulup/servis; 4. bölüm ortam_hastane/meyhane/depo, efekt silah; 5. bölüm ortam_guverte/salon/kamara/firtina, efekt vapur_duduk; 6. bölüm ortam_yanik_sehir/otel/ev;
+  (mekân kimliğiyle eşleşir; sahnede `ortam`, `ortamOran`, `efekt` alanları), efektler sandik, ani_savas, delil, yangin; 3. bölüm döngüleri ortam_cemil_ev/pera/kulup/servis; 4. bölüm ortam_hastane/meyhane/depo, efekt silah; 5. bölüm ortam_guverte/salon/kamara/firtina, efekt vapur_duduk; 6. bölüm ortam_yanik_sehir/otel/ev; 7. bölüm ortam_kosk_bahce/kosk_ic, efektler kopek, kilise_cani;
   sessiz.wav oturumu açık tutar. tik/secim/dip için dosya yok, titreşim. Menülerde rıhtım sesi 0,45.
   Üretim: ElevenLabs flow H13uSGbaUNJZNoPkxW7V (eleven_text_to_sound_v2; döngüler 30 sn loop true, generations_count 1).
   Bu ortam elevenlabsusercontent.com'a erişemez: adresleri araclar/indirilecek-sesler.json'a yaz, push et →
@@ -85,7 +85,16 @@
   Kâtip yalnızca ekip üyesiyle konuşur (cemilOtel/nerminOtel/rizaOtel) → otel_kaydi (Delorme 24 Aralık geliyor).
   Çıkarımlar kardes, randevu, riviere → olympos: kurye (muhurSaglam) / hamal (çay: iç +1 / değiştir) / abi (+1);
   yuzyuze: talimat (+2) / ayva (+1) / Sabri (+1). neslihanBag >= 2 → çalışma odası anahtarı, kasa Montaigne'in
-  arkasında (anahtarAlindi), "Git, abi"; değilse "bir daha karşıma çıkma". Yedinci bölüm (Rivière'in köşkü) yok.
+  arkasında (anahtarAlindi), "Git, abi"; değilse "bir daha karşıma çıkma".
+- Yedinci bölüm "Montaigne" (src/hikaye/bolum7.js): 23→24 Aralık gecesi, Rivière'in köşkü. Mekânlar ev (Rebeka Hanım),
+  kosk_bahce, kosk_ic, calisma (ortam ortam_kosk_ic). Sızma: alarm sayacı (ALARM_SINIRI 3 → yakalandi sahnesi, yakalandi7;
+  Rivière defteri kendisi verir). Köpek: Cemil ilaçlı et, yoksa havlama sahnesi +1; bekçi: Rıza tur sayar / Nermin oyalar,
+  yoksa +1; kapı: anahtarAlindi ya da Rıza tel, yoksa zorla +1; pencere (Neslihan'ı görürsün) ve merdiven birer kez +1.
+  Kasa: kitaplık (Montaigne) → kasaBulundu; çerçeve "N., 12 Aralık 1912" → tarihBilindi → defter_yarisi → riviere sahnesi
+  (Babamı sor / talimat) → riviere_mektubu → delorme_gelir: koru / atil (travma+1) / kac (travma+1). Rivière her yolda ölür,
+  Delorme uçuruma atlar (cesedi yok; döner). neslihanSecim geldi/gitti/kaldi. kacis → ev; Hafız Efendi siyakat_okundu.
+  Çıkarımlar baba_yasiyor (riviere_mektubu + hafiz_tanik), isimler (siyakat_okundu + defter_yarisi; N. R.) → safak
+  (kilise_cani; Noel arifesi) → son. Sekizinci bölüm (Manastır) yok.
 - Hassasiyet: örgüt üyeleri çeşitli uyruklardan; hiçbir din/etnik grupla özdeşleşmez (hikaye-plani.md).
 - Mekânda `ortam` alanı mekânın ortam sesini değiştirir (yoksa 'ortam_' + mekân kimliği).
 - Bölümler src/hikaye/index.js BOLUMLER; durum.bolum. Bölüm sonu sahnesinde { sonrakiBolum } seçeneği →
@@ -109,6 +118,6 @@
   fileName yayin.yml, gitRef = commit) → workflow_info SUCCESS → workflow_logs (CUSTOM bölümü) içindeki
   EXPO_GO_BAGLANTISI satırı. Expo'nun iş akışı süresini kullanır.
   GitHub Actions anahtar yoksa sessizce atlar.
-- Testler: `bun test testler/` (bolum1-6.test.js bölümleri farklı kararlarla baştan sona oynar; 3'te şüphe yolu da).
+- Testler: `bun test testler/` (bolum1-7.test.js bölümleri farklı kararlarla baştan sona oynar; 3'te şüphe yolu da).
 - Akış: uygula → testler → bun build → CLAUDE.md/README → commit → git pull --rebase → push → yayın (yukarıda) → SUCCESS'i bekle
   → Türkçe rapor (Expo Go bağlantısı, yenilikler, denenmemiş olanlar dürüstçe).
