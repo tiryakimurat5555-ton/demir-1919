@@ -1,6 +1,6 @@
-# Elle başlatılır. Expo projesinin kimliğini app.json'a yazar (yalnızca bu çalışmada),
-# kimliği günlüğe basar ve Expo Go için ilk güncellemeyi yayınlar.
-name: Ilk kurulum ve guncelleme
+# Elle başlatılır (Claude, Expo bağlantısıyla). GitHub'da EXPO_TOKEN olmadığı sürece yayın bununla yapılır.
+# Expo Go için güncellemeyi yayınlar ve bağlantıyı günlüğe basar.
+name: Expo Go guncellemesi (Expo)
 
 jobs:
   kur:
@@ -13,12 +13,7 @@ jobs:
           set -e
           EAS="npx -y eas-cli@latest"
           command -v eas >/dev/null 2>&1 && EAS="eas"
-          $EAS init --non-interactive --force
-          node araclar/guncelleme-ayari.js
-          echo "APP_JSON_BASLA"
-          cat app.json
-          echo "APP_JSON_BITTI"
-          $EAS update --branch main --message "Ilk kurulum" --non-interactive --json > sonuc.json
+          $EAS update --branch main --message "$(git log -1 --pretty=%s 2>/dev/null || echo Guncelleme)" --non-interactive --json > sonuc.json
           cat sonuc.json
           KIMLIK="$(node -e "console.log(require('./app.json').expo.extra.eas.projectId)")"
           GRUP="$(node -e "const s=require('./sonuc.json');const a=Array.isArray(s)?s:[s];console.log(a[0].group)")"

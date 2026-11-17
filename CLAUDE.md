@@ -22,9 +22,12 @@
 ## Teknik
 - Expo SDK 58; sürümler kayip-okyanus deposuyla aynı (bundledNativeModules.json). Bu ortamda npm erişimi yok.
 - Sözdizimi denetimi: `bun build index.js --outdir /tmp/bb -e expo -e expo-speech -e expo-haptics -e expo-status-bar -e react -e react-native -e 'react-native/*'`
-- Yayın: main'e push → GitHub Actions (.github/workflows/expo-guncelleme.yml) → eas update (branch main).
-  Depo herkese açık olduğu için Actions dakikası sınırsızdır. Gizli anahtar: EXPO_TOKEN (ya da DEMIR1919).
-  İlk çalışmada `eas init` app.json'a proje kimliğini yazıp main'e commit eder; push etmeden önce `git pull --rebase`.
-  Kayıt `yayin-kaydi` dalında: `git fetch -q origin yayin-kaydi && git show FETCH_HEAD:yayin-kaydi.txt`
-- Akış: uygula → bun build → CLAUDE.md/README → commit → git pull --rebase → push → yayin-kaydi'nda success'i bekle
+- Expo proje kimliği c16f7fc6-b024-4e29-b55c-b0a304381807 (app.json'da; @murat5561/demir-1919).
+- Yayın (17 Kasım'dan beri): GitHub'a EXPO_TOKEN eklenemedi (Murat iki kez denedi, depo "no secrets" gösterdi).
+  Bu yüzden yayın Expo iş akışıyla: push → mcp__Expo__workflow_run (appFullName @murat5561/demir-1919,
+  fileName yayin.yml, gitRef = commit) → workflow_info SUCCESS → workflow_logs (CUSTOM bölümü) içindeki
+  EXPO_GO_BAGLANTISI satırı. Expo'nun iş akışı süresini kullanır.
+  GitHub Actions (.github/workflows/expo-guncelleme.yml) anahtar yoksa sessizce atlar; EXPO_TOKEN eklenirse
+  her push'ta kendiliğinden yayınlar (herkese açık depoda ücretsiz) ve kaydı `yayin-kaydi` dalına yazar.
+- Akış: uygula → bun build → CLAUDE.md/README → commit → git pull --rebase → push → yayın (yukarıda) → SUCCESS'i bekle
   → Türkçe rapor (Expo Go bağlantısı, yenilikler, denenmemiş olanlar dürüstçe).

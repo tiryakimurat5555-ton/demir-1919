@@ -45,8 +45,8 @@ jobs:
             set -e
             echo "Commit: ${GITHUB_SHA}"
             if [ -z "${EXPO_TOKEN}" ]; then
-              echo "HATA: EXPO_TOKEN gizli anahtari tanimli degil."
-              exit 1
+              echo "EXPO_TOKEN gizli anahtari yok; yayin Expo is akisiyla (.eas/workflows/yayin.yml) yapiliyor. Atlandi."
+              exit 0
             fi
             npm install --no-audit --no-fund
             if ! node -e "const a=require('./app.json');process.exit(a.expo.extra&&a.expo.extra.eas&&a.expo.extra.eas.projectId?0:1)"; then
