@@ -24,7 +24,7 @@
   (kayip-okyanus'tan alındı): kaydır = gez, dokun = oku, çift dokun = seç, uzun bas = açıklama, iki parmakla
   dokun = sustur, iki parmakla çift dokun = geri. Ekran okuyucu açıksa App.js uyarı katmanı gösterir.
 - Ses (17 Kasım): src/ses/efektler.js (expo-audio). Ortam döngüleri ortam_rihtim/kayikhane/buro/han/oda
-  (mekân kimliğiyle eşleşir; sahnede `ortam`, `ortamOran`, `efekt` alanları), efektler sandik, ani_savas, delil, yangin; 3. bölüm döngüleri ortam_cemil_ev/pera/kulup/servis; 4. bölüm ortam_hastane/meyhane/depo, efekt silah; 5. bölüm ortam_guverte/salon/kamara/firtina, efekt vapur_duduk; 6. bölüm ortam_yanik_sehir/otel/ev; 7. bölüm ortam_kosk_bahce/kosk_ic, efektler kopek, kilise_cani; 8. bölüm ortam_tren/manastir/cezaevi/revir, efektler tren_duduk, demir_kapi; 9. bölüm ortam_viyana/kahve/mutfak, efekt tramvay; 10. bölüm ortam_kule/kayik, efekt dokum; 11. bölüm ortam_kordon/kemeralti; 12. bölüm ortam_arsiv/yali; 13. bölüm ortam_yagmur; 14. bölüm ortam_zurih/banka; 15. bölüm ortam_genelkurul, efekt tokmak; 16. bölüm ortam_baskin; 17. bölüm ortam_inebolu/kagni; 18. bölüm ortam_sahra, efekt top; 19. bölüm ortam_telgraf;
+  (mekân kimliğiyle eşleşir; sahnede `ortam`, `ortamOran`, `efekt` alanları), efektler sandik, ani_savas, delil, yangin; 3. bölüm döngüleri ortam_cemil_ev/pera/kulup/servis; 4. bölüm ortam_hastane/meyhane/depo, efekt silah; 5. bölüm ortam_guverte/salon/kamara/firtina, efekt vapur_duduk; 6. bölüm ortam_yanik_sehir/otel/ev; 7. bölüm ortam_kosk_bahce/kosk_ic, efektler kopek, kilise_cani; 8. bölüm ortam_tren/manastir/cezaevi/revir, efektler tren_duduk, demir_kapi; 9. bölüm ortam_viyana/kahve/mutfak, efekt tramvay; 10. bölüm ortam_kule/kayik, efekt dokum; 11. bölüm ortam_kordon/kemeralti; 12. bölüm ortam_arsiv/yali; 13. bölüm ortam_yagmur; 14. bölüm ortam_zurih/banka; 15. bölüm ortam_genelkurul, efekt tokmak; 16. bölüm ortam_baskin; 17. bölüm ortam_inebolu/kagni; 18. bölüm ortam_sahra, efekt top; 19. bölüm ortam_telgraf; 20. bölüm ortam_matbaa/istasyon;
   sessiz.wav oturumu açık tutar. tik/secim/dip için dosya yok, titreşim. Menülerde rıhtım sesi 0,45.
   Üretim: ElevenLabs flow H13uSGbaUNJZNoPkxW7V (eleven_text_to_sound_v2; döngüler 30 sn loop true, generations_count 1).
   Bu ortam elevenlabsusercontent.com'a erişemez: adresleri araclar/indirilecek-sesler.json'a yaz, push et →
@@ -203,7 +203,13 @@
   kontrol (İngiliz kontrol bürosu, ortam_telgraf; Turner → turner_ifadesi, isteğe bağlı). Çıkarımlar kalem (kurye_notu +
   el_yazisi), gece_nobeti (nobet_cizelgesi + yesil_murekkep) → olay suclama: Muhsin / Turner yanlış (yanlis_*; gulceGuven -1,
   seçenek düşer, Turner kişisi kaybolur) / Tevfik (haindogru) → tevfik: tevfikKarar teslim / cift → gece19 → son.
-  Yirminci bölüm yok.
+- Yirminci bölüm "Tarife" (src/hikaye/bolum20.js): 18-24 Ağustos 1921 Ankara/Polatlı. Ekip herkes (ekip_* true). Mekânlar
+  tashan (Nermin'in matbaası, ortam_matbaa; Nermin → mavi_kagit; tevfik20 yalnız tevfikKarar teslim), han20 (ortam_han;
+  katip20 → nuri_izi; nuri_odasi [nuri_izi varken] → pendle_ceki), istasyon (ortam_istasyon; sef_defteri → sevk_listesi),
+  polatli (ortam_sahra; Cemil). Çıkarımlar sahte_vesika (mavi_kagit + nuri_izi), tarife (sevk_listesi + pendle_ceki) → olay
+  plan20 → atama_han → atama_istasyon (atamaHan/atamaIstasyon; dogruAtama(d): han riza, istasyon nermin) → gece20 (nuriSonu
+  yakalandi/kacti, trenSonu tam/hasarli, cemilYalniz) → nuri20 (Arethusa, İzmir) → polatli_son (efekt top) → son.
+  Yirmi birinci bölüm yok.
 - Hassasiyet: örgüt üyeleri çeşitli uyruklardan; hiçbir din/etnik grupla özdeşleşmez (hikaye-plani.md).
 - Mekânda `ortam` alanı mekânın ortam sesini değiştirir (yoksa 'ortam_' + mekân kimliği).
 - Bölümler src/hikaye/index.js BOLUMLER; durum.bolum. Bölüm sonu sahnesinde { sonrakiBolum } seçeneği →
@@ -227,6 +233,6 @@
   fileName yayin.yml, gitRef = commit) → workflow_info SUCCESS → workflow_logs (CUSTOM bölümü) içindeki
   EXPO_GO_BAGLANTISI satırı. Expo'nun iş akışı süresini kullanır.
   GitHub Actions anahtar yoksa sessizce atlar.
-- Testler: `bun test testler/` (bolum1-19.test.js bölümleri farklı kararlarla baştan sona oynar; 3'te şüphe yolu da).
+- Testler: `bun test testler/` (bolum1-20.test.js bölümleri farklı kararlarla baştan sona oynar; 3'te şüphe yolu da).
 - Akış: uygula → testler → bun build → CLAUDE.md/README → commit → git pull --rebase → push → yayın (yukarıda) → SUCCESS'i bekle
   → Türkçe rapor (Expo Go bağlantısı, yenilikler, denenmemiş olanlar dürüstçe).

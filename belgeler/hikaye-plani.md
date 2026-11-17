@@ -117,8 +117,14 @@ Bu belge hikâyenin omurgasıdır. Oyuncunun öğrenmediği gerçekleri de içer
    Türkçe yazamaz, gizlice yardım eder). Hain Tevfik: 16 yaşındaki kardeşi Bursa'da aracının elinde rehine. Yanlış suçlamalar
    gulceGuven -1, kişi küser. tevfikKarar teslim (Anadolu'ya gider; kardeşten haber yok) / cift (Bursa'ya yanlış gün ve yer,
    Tuzla; aracının ağı çöker, kardeş kaçar). Hepsi kurgu.
-20. Sakarya, 1921 yazı: Bursa'daki aracının arkasındaki asıl el (dördüncü kitabın ortası).
-21+. 1921-1922: Sakarya (Ağustos-Eylül 1921) ve 1922 sonbaharı arka planda; savaş her iki tarafın acısıyla anlatılır.
+20. Tarife (YAZILDI) — Ankara/Polatlı 18-24 Ağustos 1921. Nuri Bey (Bursalı komisyoncu, kurgu) sahte tekâlif vesikası
+   bastırır (Nermin'in matbaası), cephane treni tarifesini satar. Arkasında Sir Henry Pendle (Genel Kurul'daki armatör;
+   "batan gemiden inerim"): iki tarafa birden. Görev dağıtımı: hana Rıza, istasyona Nermin doğru; Cemil'i götürmek
+   hastaneyi yalnız bırakır. Tevfik teslim ise Nermin'in dizgicisi, kardeşini Bursa'da bulmaya gider; çift ise kardeşi
+   Selim Cemil'in hastanesinde. Kanca: Pendle'in gemisi Arethusa, İzmir, Eylül 1922'de kaçanlardan servet yapmak ister.
+21. Arethusa: Eylül 1922, İzmir. Felaketin ortasında Pendle'in gemisi; bir yer için her şeyini verenler. Acı her
+   topluluğa aynı ölçüyle gösterilir; Eleni, kaçan Rum ve Türk siviller, yangın. Ekip insanları kurtarmaya çalışır.
+22+. 1921-1922: Sakarya (Ağustos-Eylül 1921) ve 1922 sonbaharı arka planda; savaş her iki tarafın acısıyla anlatılır.
 
 ## Hassasiyet notu
 Örgüt "savaştan kâr eden bankerler" teması taşıdığı için üyeler bilinçli olarak çeşitli tutulur (Fransız, İtalyan,

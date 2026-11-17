@@ -145,8 +145,8 @@ export const BOLUM19 = {
       ortam: 'ortam_rihtim',
       ortamOran: 0.45,
       baslik: 'On dokuzuncu bölüm bitti',
-      paragraflar: ['Yirminci bölüm yazılıyor: 1921 yazı, Sakarya. Kararların kaydedildi.'],
-      secenekler: [{ etiket: 'Ana menüye dön', anaMenu: true }],
+      paragraflar: ['Sıradaki: yirminci bölüm, 1921 yazı, Sakarya. Kararların kaydedildi.'],
+      secenekler: [{ etiket: 'Yirminci bölüme geç', sonrakiBolum: 'bolum20' }, { etiket: 'Ana menüye dön', anaMenu: true }],
     },
   },
 

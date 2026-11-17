@@ -8,7 +8,15 @@ görme engelli oyuncular tarafından bağımsız oynanabilecek; VoiceOver ve Tal
 
 Tasarım taslağı: `belgeler/tasarim-taslagi.pdf`
 
-## Şu anki aşama: 20 — on dokuzuncu bölüm: Yeşil Mürekkep
+## Şu anki aşama: 21 — yirminci bölüm: Tarife
+
+- Ağustos 1921, Ankara ve Polatlı; Sakarya muharebesinin arifesi
+- Bursa'daki aracı Ankara'da: sahte tekâlif vesikaları ve satılan bir tren tarifesi
+- Yeni oynanış: görev dağıtımı; gece baskınında ekibi yerlere sen yerleştirirsin
+- Arkadaki el ortaya çıkar; bir geminin adı: Arethusa
+- Yeni sesler: Taşhan'daki matbaa, gece istasyonu
+
+## 20 — on dokuzuncu bölüm: Yeşil Mürekkep
 
 - Nisan 1921, İstanbul: Gülce ve Süleyman'ın Anadolu'ya ilaç kaçıran gizli ağı
 - Gümrük bürosunda bir hain: baş harfleri M. T. olan üç şüpheli

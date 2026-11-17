@@ -60,6 +60,8 @@ const KAYNAKLAR = {
   ortam_kagni: require('../../assets/ses/ortam_kagni.wav'),
   ortam_sahra: require('../../assets/ses/ortam_sahra.wav'),
   ortam_telgraf: require('../../assets/ses/ortam_telgraf.wav'),
+  ortam_matbaa: require('../../assets/ses/ortam_matbaa.wav'),
+  ortam_istasyon: require('../../assets/ses/ortam_istasyon.wav'),
   top: require('../../assets/ses/top.wav'),
   sandik: require('../../assets/ses/sandik.wav'),
   ani_savas: require('../../assets/ses/ani_savas.wav'),
@@ -111,6 +113,8 @@ const DONGULER = {
   ortam_kagni: 0.55,
   ortam_sahra: 0.55,
   ortam_telgraf: 0.5,
+  ortam_matbaa: 0.5,
+  ortam_istasyon: 0.55,
 };
 
 const oynaticilar = {};
