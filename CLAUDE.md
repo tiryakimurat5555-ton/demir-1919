@@ -24,7 +24,7 @@
   (kayip-okyanus'tan alındı): kaydır = gez, dokun = oku, çift dokun = seç, uzun bas = açıklama, iki parmakla
   dokun = sustur, iki parmakla çift dokun = geri. Ekran okuyucu açıksa App.js uyarı katmanı gösterir.
 - Ses (17 Kasım): src/ses/efektler.js (expo-audio). Ortam döngüleri ortam_rihtim/kayikhane/buro/han/oda
-  (mekân kimliğiyle eşleşir; sahnede `ortam`, `ortamOran`, `efekt` alanları), efektler sandik, ani_savas, delil, yangin; 3. bölüm döngüleri ortam_cemil_ev/pera/kulup/servis; 4. bölüm ortam_hastane/meyhane/depo, efekt silah; 5. bölüm ortam_guverte/salon/kamara/firtina, efekt vapur_duduk; 6. bölüm ortam_yanik_sehir/otel/ev; 7. bölüm ortam_kosk_bahce/kosk_ic, efektler kopek, kilise_cani; 8. bölüm ortam_tren/manastir/cezaevi/revir, efektler tren_duduk, demir_kapi; 9. bölüm ortam_viyana/kahve/mutfak, efekt tramvay; 10. bölüm ortam_kule/kayik, efekt dokum; 11. bölüm ortam_kordon/kemeralti; 12. bölüm ortam_arsiv/yali; 13. bölüm ortam_yagmur; 14. bölüm ortam_zurih/banka; 15. bölüm ortam_genelkurul, efekt tokmak; 16. bölüm ortam_baskin; 17. bölüm ortam_inebolu/kagni; 18. bölüm ortam_sahra, efekt top; 19. bölüm ortam_telgraf; 20. bölüm ortam_matbaa/istasyon; 21. bölüm ortam_yangin21; 22. bölüm ortam_lozan_otel/gol;
+  (mekân kimliğiyle eşleşir; sahnede `ortam`, `ortamOran`, `efekt` alanları), efektler sandik, ani_savas, delil, yangin; 3. bölüm döngüleri ortam_cemil_ev/pera/kulup/servis; 4. bölüm ortam_hastane/meyhane/depo, efekt silah; 5. bölüm ortam_guverte/salon/kamara/firtina, efekt vapur_duduk; 6. bölüm ortam_yanik_sehir/otel/ev; 7. bölüm ortam_kosk_bahce/kosk_ic, efektler kopek, kilise_cani; 8. bölüm ortam_tren/manastir/cezaevi/revir, efektler tren_duduk, demir_kapi; 9. bölüm ortam_viyana/kahve/mutfak, efekt tramvay; 10. bölüm ortam_kule/kayik, efekt dokum; 11. bölüm ortam_kordon/kemeralti; 12. bölüm ortam_arsiv/yali; 13. bölüm ortam_yagmur; 14. bölüm ortam_zurih/banka; 15. bölüm ortam_genelkurul, efekt tokmak; 16. bölüm ortam_baskin; 17. bölüm ortam_inebolu/kagni; 18. bölüm ortam_sahra, efekt top; 19. bölüm ortam_telgraf; 20. bölüm ortam_matbaa/istasyon; 21. bölüm ortam_yangin21; 22. bölüm ortam_lozan_otel/gol; 23. bölüm ortam_sofra;
   sessiz.wav oturumu açık tutar. tik/secim/dip için dosya yok, titreşim. Menülerde rıhtım sesi 0,45.
   Üretim: ElevenLabs flow H13uSGbaUNJZNoPkxW7V (eleven_text_to_sound_v2; döngüler 30 sn loop true, generations_count 1).
   Bu ortam elevenlabsusercontent.com'a erişemez: adresleri araclar/indirilecek-sesler.json'a yaz, push et →
@@ -229,7 +229,14 @@
   kal/emekli, kalabalik → baris/kirgin, diğer → devir/tasi; rizaSon22), aksam>=2 neslihan22 (pasaport; neslihanAd baba/iki/
   kendi; cocukKarar yanina ise Ayva'nın adı Zehra), aksam>=3 komisyon (efekt tokmak; tazminatSonu red (>=2) / askida (1) /
   inceleme) → koridor (Klara: masraflar Banque Vollmer, vollmerIpucu) → son_lozan → son.
-  Yirmi üçüncü bölüm yok: 1923 baharı Zürih, Vollmer (vollmer, kemal_sonu, riza_son, neslihan_ad, cocuk iplikleri).
+- Yirmi üçüncü bölüm "Sofra" (src/hikaye/bolum23.js): 23-24 Nisan 1923 İstanbul, Süleyman'ın kayıkhanesi. Delil/çıkarım yok.
+  Açılış feragatname delili (Vollmer: Neslihan Rivière mirasından vazgeçsin; yoksa kırmızı sayfadaki "usta İ." gazeteye).
+  Mekân sofra23 (ortam_sofra); SOFRA_HAKKI 3, sayaç sofraKonusma (konus(kim, ek) yardımcı; konustu_<kim>). Kişiler baba23
+  (babaItiraf / ilk kalay anısı travma -1), gulce23 (gulceDamga yalnız gulceYakin / gulceGuven +1; Tevfik haberi),
+  kemal23 (kemalBurada: kemalSonu yolcu ya da kemal_ifadesi; kemalYardim / kemalKalir), riza23 (rizaSon22 kirgin değilse;
+  rizaYardim emekli değilse / rizaBag +1), neslihan23, nermin23. Olay sabah23 → gece23 → vollmer23: vollmerSonu itiraf
+  [babaItiraf] / damga [gulceDamga] / kurye [kemalYardim + rizaYardim] / imza (her zaman; travma +1) → vollmer23_son → son23.
+  Yirmi dördüncü bölüm yok: Ekim 1923 (vollmer_sonu, kemal_kalir, baba_itiraf, cocuk, neslihan_ad, riza_son).
 - DERİNLEŞTİRME KARARI (17 Kasım, Murat: "Derinleştir"): yeni bölüm yazmaya ara; önce var olan bölümler derinleşir.
   Plan ve yapılanlar belgeler/hikaye-plani.md "Derinleştirme" bölümünde. 1. adım: arifNeden (1. bölüm gece_konusma →
   6. bölüm arifNedenSatiri, 8. bölüm tahliye), haticeSozu (1. bölüm mektup → 2. cenaze → 17. hatice17), Pendle tohumu
@@ -279,6 +286,6 @@
   fileName yayin.yml, gitRef = commit) → workflow_info SUCCESS → workflow_logs (CUSTOM bölümü) içindeki
   EXPO_GO_BAGLANTISI satırı. Expo'nun iş akışı süresini kullanır.
   GitHub Actions anahtar yoksa sessizce atlar.
-- Testler: `bun test testler/` (bolum1-22.test.js bölümleri farklı kararlarla baştan sona oynar; 3'te şüphe yolu da).
+- Testler: `bun test testler/` (bolum1-23.test.js bölümleri farklı kararlarla baştan sona oynar; 3'te şüphe yolu da).
 - Akış: uygula → testler → bun build → CLAUDE.md/README → commit → git pull --rebase → push → yayın (yukarıda) → SUCCESS'i bekle
   → Türkçe rapor (Expo Go bağlantısı, yenilikler, denenmemiş olanlar dürüstçe).

@@ -65,6 +65,7 @@ const KAYNAKLAR = {
   ortam_yangin21: require('../../assets/ses/ortam_yangin21.wav'),
   ortam_lozan_otel: require('../../assets/ses/ortam_lozan_otel.wav'),
   ortam_gol: require('../../assets/ses/ortam_gol.wav'),
+  ortam_sofra: require('../../assets/ses/ortam_sofra.wav'),
   top: require('../../assets/ses/top.wav'),
   sandik: require('../../assets/ses/sandik.wav'),
   ani_savas: require('../../assets/ses/ani_savas.wav'),
@@ -121,6 +122,7 @@ const DONGULER = {
   ortam_yangin21: 0.55,
   ortam_lozan_otel: 0.5,
   ortam_gol: 0.55,
+  ortam_sofra: 0.5,
 };
 
 const oynaticilar = {};

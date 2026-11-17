@@ -8,7 +8,14 @@ görme engelli oyuncular tarafından bağımsız oynanabilecek; VoiceOver ve Tal
 
 Tasarım taslağı: `belgeler/tasarim-taslagi.pdf`
 
-## Şu anki aşama: 28 — yirmi ikinci bölüm: Üç Akşam
+## Şu anki aşama: 29 — yirmi üçüncü bölüm: Sofra
+
+- Nisan 1923, İstanbul: Süleyman'ın kayıkhanesinde herkes bir sofrada
+- Yeni oynanış: üç konuşma hakkı; kiminle uzun uzun konuştuğun, sabah Vollmer'e karşı elinde ne olduğunu belirler
+- Vollmer'in feragatnamesi: Neslihan imzalamazsa babanın 1908'deki kalıbı gazetelere düşecek
+- Yeni ses: kayıkhanede akşam sofrası
+
+## 28 — yirmi ikinci bölüm: Üç Akşam
 
 - Kasım 1922, Lozan: barış konferansının otelinde bir tazminat dilekçesi
 - Yeni oynanış: üç akşam, dört kapı; her akşam yalnız birini seçebilirsin, bazı tanıklar iki akşam ister

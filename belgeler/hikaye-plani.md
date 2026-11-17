@@ -131,7 +131,11 @@ Bu belge hikâyenin omurgasıdır. Oyuncunun öğrenmediği gerçekleri de içer
    alt komisyon). Üç akşam, dört kapı: Klara (asıl ambar listesi), Kemal (yeminli ifade), Eleni (Kızılhaç fişi), basın.
    Rıza göl kıyısında (bastonu, dosyalar), Neslihan'ın pasaportu ve adı; Ayva'ya annenin adı Zehra. Klara: masrafları
    Banque Vollmer ödüyor. Albert Vollmer (14. bölümde Banque Vollmer, 15. bölümde kurucu) sıradaki karşıt.
-23. 1923 baharı, Zürih ve İstanbul: Vollmer'in kasası; Kemal babasının kayıkhanesinde; Zehra/Ayva; Rıza'nın yokluğu ya da dönüşü.
+23. Sofra (YAZILDI) — İstanbul 23-24 Nisan 1923. Süleyman'ın kayıkhanesinde uzun bir sofra; üç konuşma hakkı. Vollmer
+   feragatname ister, karşılığında babanın 1908 kalıbını gazetelerden saklayacak. Çıkış yolları: babanın kendi itirafı
+   (Nermin'in gazetesi), Gülce'nin yanlış kayıt numarası (geçersiz feragatname), Kemal'in bildiği kurye + Rıza, ya da imza.
+   Gülce 37 yaşında; Tevfik ve Selim'in haberi. Kemal kayıkhanede kalabilir.
+24. Ekim 1923: İtilaf askerleri İstanbul'dan çekilir (arka plan). Zürih'teki defter; Vollmer'in son hamlesi.
 23+. 1921-1922: Sakarya (Ağustos-Eylül 1921) ve 1922 sonbaharı arka planda; savaş her iki tarafın acısıyla anlatılır.
 
 ## Hassasiyet notu

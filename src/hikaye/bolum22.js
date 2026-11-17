@@ -362,8 +362,8 @@ export const BOLUM22 = {
       ortam: 'ortam_lozan_otel',
       ortamOran: 0.45,
       baslik: 'Yirmi ikinci bölüm bitti',
-      paragraflar: ['Kararların kaydedildi. Sıradaki bölüm yazılıyor: 1923 baharı. Zürih\'te bir banka ve Kemal Reis\'in İstanbul\'a dönüşü.'],
-      secenekler: [{ etiket: 'Ana menüye dön', anaMenu: true }],
+      paragraflar: ['Kararların kaydedildi. Sıradaki: 1923 baharı, İstanbul. Bir sofra ve Banque Vollmer\'den bir mektup.'],
+      secenekler: [{ etiket: 'Yirmi üçüncü bölüme geç', sonrakiBolum: 'bolum23' }, { etiket: 'Ana menüye dön', anaMenu: true }],
     },
   },
 
