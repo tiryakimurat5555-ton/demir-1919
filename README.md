@@ -8,7 +8,17 @@ görme engelli oyuncular tarafından bağımsız oynanabilecek; VoiceOver ve Tal
 
 Tasarım taslağı: `belgeler/tasarim-taslagi.pdf`
 
-## Şu anki aşama: 1 — sesli menü düzeni
+## Şu anki aşama: 2 — birinci bölüm: Sudaki Adam (sesli prototip)
+
+- Karaköy, Aralık 1918: ateşçi Sabri'nin ölümü, şifreli belge, kanatlı anahtar
+- Mekânlar: rıhtım, Süleyman Kaptan'ın kayıkhanesi, liman kayıt bürosu, Kalafatçı Hanı ve Sabri'nin odası
+- Konuşmalar seçimli: Süleyman Kaptan, Gülce, kayıkçı Hüsnü, hancı Ohannes Usta, İngiliz nöbetçi
+- Soruşturma panosu: iki delili birleştirip çıkarım yapma; defter: hedef ve olanlar
+- Arif'in savaş anıları ve verdiğin kararlar kaydedilir; üç farklı karar ve kapanış
+- Otomatik kayıt, Devam et
+- Ayarlar: konuşma hızı ve Türkçe ses seçimi
+
+## 1 — sesli menü düzeni
 
 - Oyun VoiceOver/TalkBack kapalıyken, kendi Türkçe sesiyle oynanır (Kayıp Okyanus'taki hareketler)
 - Ekran okuyucu açıksa uyarı ekranı; kapanınca oyun kendiliğinden başlar

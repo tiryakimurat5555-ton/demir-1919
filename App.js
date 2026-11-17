@@ -8,25 +8,22 @@
 //   uzun bas: öğeyi açıklamasıyla oku        iki parmakla dokun: sustur
 //   iki parmakla çift dokun: geri
 // Ekran okuyucu açıksa bir uyarı ekranı çıkar; kapanınca oyun kendiliğinden başlar.
-import React, { useCallback, useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useRef, useState } from 'react';
 import { AccessibilityInfo, Pressable, StyleSheet, Text, View } from 'react-native';
 import { StatusBar } from 'expo-status-bar';
 import SesliListe from './src/arayuz/SesliListe';
-import { rehberHazirla, soyle, sustur } from './src/ses/rehber';
+import { rehberAyarla, rehberHazirla, soyle, sustur } from './src/ses/rehber';
 import { RENK } from './src/arayuz/tema';
-
-const GIRIS_METNI = [
-  'İstanbul. Mondros Mütarekesi imzalanalı çok olmadı. Boğaz\'da yabancı savaş gemileri demirli, rıhtımlarda yabancı askerler dolaşıyor.',
-  'Arif Demir, Çanakkale\'de savaşmış eski bir asker. Üniformasını çoktan çıkardı; şimdi limanda yük taşıyarak geçiniyor ve geçmişini konuşmamaya çalışıyor.',
-  'Bir sabah, limandaki en yakın dostu Süleyman Kaptan onu bir kenara çekiyor. Gece bir denizci ölü bulunmuş. Ölüm doğal görünmüyor ve kimse eşyalarına bakmaya cesaret edemiyor.',
-  'Arif\'in sessiz hayatı burada sona erecek.',
-  'Bu, oyunun ilk taslağıdır. Hikâye ve oynanış bir sonraki aşamada başlayacak.',
-];
+import Oyun from './src/ekran/Oyun';
+import Ayarlar from './src/ekran/Ayarlar';
+import { BOLUM1 } from './src/hikaye/bolum1';
+import { yeniDurum } from './src/oyun/motor';
+import { ayarlarOku, ayarlarYaz, kayitOku, kayitSil, VARSAYILAN_AYARLAR } from './src/oyun/kayit';
 
 const HAKKINDA_METNI = [
   'Demir 1919. 1918 ile 1923 arasında, işgal altındaki İstanbul\'da başlayan bir tarihsel macera ve dedektiflik oyunu.',
   'Oyundaki gizli örgüt ve olay örgüsü kurgudur. Gerçek tarihî olaylar arka plan olarak kullanılır.',
-  'Sürüm 0.2.',
+  'Sürüm 0.3: birinci bölüm, Sudaki Adam.',
 ];
 
 const HAREKETLER = [
@@ -52,9 +49,47 @@ export default function App() {
   const [voAcik, setVoAcik] = useState(false);
   const [voIzin, setVoIzin] = useState(false);
   const [girisNo, setGirisNo] = useState(0);
+  const [ayarlar, setAyarlar] = useState(VARSAYILAN_AYARLAR);
+  const [kayit, setKayit] = useState(null);
+  const [oyunDurumu, setOyunDurumu] = useState(null);
 
   useEffect(() => {
-    rehberHazirla().finally(() => setHazir(true));
+    (async () => {
+      const a = await ayarlarOku();
+      ayarRef.current = a;
+      setAyarlar(a);
+      await rehberHazirla();
+      rehberAyarla({ konusmaHizi: a.konusmaHizi, sesKimligi: a.sesKimligi });
+      setKayit(await kayitOku());
+      setHazir(true);
+    })();
+  }, []);
+
+  const ayarRef = useRef(VARSAYILAN_AYARLAR);
+  ayarRef.current = ayarlar;
+  const ayarDegistir = useCallback((degisen) => {
+    const yeni = { ...ayarRef.current, ...degisen };
+    ayarRef.current = yeni;
+    rehberAyarla({ konusmaHizi: yeni.konusmaHizi, sesKimligi: yeni.sesKimligi });
+    ayarlarYaz(yeni);
+    setAyarlar(yeni);
+  }, []);
+
+  // Oyunun en son durumu (ekran okuyucu açılıp kapanınca ya da menüye dönünce kullanılır)
+  const sonDurum = useRef(null);
+  const oyunuBaslat = useCallback((d) => {
+    sonDurum.current = d;
+    setOyunDurumu(d);
+    setEkran('oyun');
+  }, []);
+
+  const oyundanCik = useCallback(() => {
+    sustur();
+    if (sonDurum.current) {
+      setKayit(sonDurum.current);
+      setOyunDurumu(sonDurum.current);
+    }
+    setEkran('menu');
   }, []);
 
   // Ekran okuyucu açık mı? Oyun kendi sesli rehberini kullandığı için kapalıyken oynanır.
@@ -84,20 +119,55 @@ export default function App() {
         giris="Ana menü"
         rehberAcik
         ogeler={[
-          { id: 'yeni', etiket: 'Yeni oyun', ipucu: 'Hikâyenin başlangıcını dinlersin.', sec: () => setEkran('giris') },
+          ...(kayit
+            ? [{ id: 'devam', etiket: 'Devam et', ipucu: 'Kaldığın yerden sürdürürsün.', sec: () => oyunuBaslat(kayit) }]
+            : []),
+          {
+            id: 'yeni',
+            etiket: 'Yeni oyun',
+            ipucu: 'Birinci bölüm: Sudaki Adam.',
+            sec: () => (kayit ? setEkran('yeniOnay') : oyunuBaslat(yeniDurum(BOLUM1))),
+          },
+          { id: 'ayarlar', etiket: 'Ayarlar', ipucu: 'Konuşma hızı ve ses.', sec: () => setEkran('ayarlar') },
           { id: 'hareket', etiket: 'Hareketler', ipucu: 'Oyunu nasıl kullanacağını anlatır.', sec: () => setEkran('hareketler') },
           { id: 'hakkinda', etiket: 'Hakkında', sec: () => setEkran('hakkinda') },
         ]}
       />
     );
-  } else if (ekran === 'giris') {
+  } else if (ekran === 'yeniOnay') {
     icerik = (
       <SesliListe
-        key={'giris' + girisNo}
-        baslik="Başlangıç"
+        key={'onay' + girisNo}
+        baslik="Yeni oyun"
+        giris="Kayıtlı oyunun silinecek ve hikâye baştan başlayacak. Emin misin?"
         rehberAcik
         onGeri={menuyeDon}
-        ogeler={metinOgeleri(GIRIS_METNI, 'Ana menüye dön', menuyeDon)}
+        ogeler={[
+          { id: 'hayir', etiket: 'Hayır, ana menüye dön', sec: menuyeDon },
+          {
+            id: 'evet',
+            etiket: 'Evet, baştan başla',
+            sec: () => {
+              kayitSil();
+              setKayit(null);
+              oyunuBaslat(yeniDurum(BOLUM1));
+            },
+          },
+        ]}
+      />
+    );
+  } else if (ekran === 'ayarlar') {
+    icerik = <Ayarlar key={'ayar' + girisNo} ayarlar={ayarlar} ayarDegistir={ayarDegistir} onGeri={menuyeDon} />;
+  } else if (ekran === 'oyun' && oyunDurumu) {
+    icerik = (
+      <Oyun
+        key={'oyun' + girisNo}
+        bolum={BOLUM1}
+        baslangicDurumu={sonDurum.current || oyunDurumu}
+        onDurum={(d) => {
+          sonDurum.current = d;
+        }}
+        onAnaMenu={oyundanCik}
       />
     );
   } else if (ekran === 'hareketler') {
