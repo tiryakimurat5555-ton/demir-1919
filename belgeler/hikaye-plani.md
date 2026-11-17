@@ -88,8 +88,12 @@ Bu belge hikâyenin omurgasıdır. Oyuncunun öğrenmediği gerçekleri de içer
    Amerikan Tütün Şirketi temsilcisi görünümünde; kurgu). Aurora: 40 makineli tüfek, yarısı Rum yarısı Türk çetelerine.
    Dr. Eleni Mavrou (İzmirli Rum hekim, yaralıları ayırmaz) ve balıkçı Stavros dost karakterler. Ferrante'ye güvenilirse
    sözünü tutar, kaçar (ileride bir mektupla dönebilir). Son sayfa: Kâmil Efendi'nin 1913'te öldürülmesini Nazım Bey onayladı.
-12. İstanbul, Haziran-Temmuz 1919: Gülce ve Nazım Bey (Maliye). Gülce'nin intikam mı adalet mi seçimi. Whitlock'un
-   "daha büyük bir şey"i. Eleni ileride İstanbul'a gelebilir.
+12. İmza (YAZILDI) — İstanbul 24-28 Haziran 1919. Kâmil Efendi'nin 1913 raporu (1329/417) Maliye arşivinde; altına
+   Nazım Bey "tasfiye edilsin" yazmış. Gülce Nazım Bey'i öldürmez; ona "İmzala ve yaşa" der, itiraf imzalatır.
+   Whitlock ve Nazım devletin kalan altınını "tütün" sandıklarıyla Columbia'da Rainer'e kaçırıyordu; durdurulur.
+   Rainer'in telgrafı: "Artık kendim geliyorum."
+13. Rainer İstanbul'da (Eylül-Ekim 1919): Rainer'in kendisiyle yüzleşme; Whitlock; Eleni İstanbul'a gelebilir.
+   Anadolu'daki gelişmeler yalnızca arka plan haberi olarak (gerçek kişiler kurguya karışmaz).
 
 ## Hassasiyet notu
 Örgüt "savaştan kâr eden bankerler" teması taşıdığı için üyeler bilinçli olarak çeşitli tutulur (Fransız, İtalyan,
@@ -99,6 +103,7 @@ karakterler (ör. Saltiel) örgütle ilişkilendirilmez; komplo teorisi kalıpla
 ## Süren değerler (bayraklar)
 travma (anılarda bastırınca artar), suleymanBag, gulceGuven, gulceyeAnlatti, gulceYalan, karar1, mezarSozu,
 gorulmusOlabilir (Delorme Arif'i görmüş olabilir), cemilEkipte, nerminBag, suphe (3. bölüm), karar3.
+12. bölüm: gulceBildi, dikkat, nazimUyarildi, yaliSecim (tut/birak), altinKarar (ingiliz/gazete), nerminGazeteKapandi, rainerGeliyor.
 11. bölüm: gecisIzni, ferranteYeri, ferranteBulundu, ferranteGuven, auroraSonu (ihbar/batti), ferranteSonu (kacti/tutuklu), nazimBulundu.
 10. bölüm: sahteMuhur, hasanHazir, sevkiyatKarar (ingiliz/anadolu/batir), kuleSecim, delormeSonu (denizde/vuruldu/tutuklu), kalipKayip, ferranteIpucu.
 9. bölüm: tutun, askereVerdi, grubereVerdi, isimVerildi, sahte_defter, yol9, teklifSonu (sahte/red), delormeKovuldu, yaraBogur, defterKarar (fransiz/gazete/sakla).

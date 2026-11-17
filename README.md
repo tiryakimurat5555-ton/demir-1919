@@ -8,7 +8,17 @@ görme engelli oyuncular tarafından bağımsız oynanabilecek; VoiceOver ve Tal
 
 Tasarım taslağı: `belgeler/tasarim-taslagi.pdf`
 
-## Şu anki aşama: 12 — on birinci bölüm: Kordon
+## Şu anki aşama: 13 — on ikinci bölüm: İmza
+
+- Haziran 1919 İstanbul: Gülce babasının katilini öğrenir
+- Gülce'nin evinde hiç gönderilmemiş bir mektup
+- Maliye arşivinde evrak avı: raflar Rumi yıla göre; yanlış raf dikkat çeker
+- Pera Palas'ta Whitlock'u izlemek; "tütün" sandıkları neden bu kadar ağır?
+- Kandilli'de bir yalı: "İmzala ve yaşa"
+- Devletin altını: İngilizlere ya da gazeteye
+- Yeni sesler: arşiv, yalı
+
+## 12 — on birinci bölüm: Kordon
 
 - Haziran 1919 İzmir: işgalin ilk haftaları, gergin ve çok dilli bir şehir
 - Dr. Eleni'nin kliniği: yaralıları ayırmadan tedavi eden bir hekim; Kızılhaç bantlarıyla Kemeraltı'na geçiş

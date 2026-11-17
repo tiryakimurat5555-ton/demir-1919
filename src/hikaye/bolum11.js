@@ -154,8 +154,8 @@ export const BOLUM11 = {
       ortam: 'ortam_kordon',
       ortamOran: 0.45,
       baslik: 'On birinci bölüm bitti',
-      paragraflar: ['On ikinci bölüm yazılıyor: İstanbul, Gülce\'nin babasının hesabı. Kararların kaydedildi.'],
-      secenekler: [{ etiket: 'Ana menüye dön', anaMenu: true }],
+      paragraflar: ['Sıradaki: İstanbul, Gülce\'nin babasının hesabı. Kararların kaydedildi.'],
+      secenekler: [{ etiket: 'On ikinci bölüme geç', sonrakiBolum: 'bolum12' }, { etiket: 'Ana menüye dön', anaMenu: true }],
     },
   },
 

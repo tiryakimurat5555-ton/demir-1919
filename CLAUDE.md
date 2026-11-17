@@ -24,7 +24,7 @@
   (kayip-okyanus'tan alındı): kaydır = gez, dokun = oku, çift dokun = seç, uzun bas = açıklama, iki parmakla
   dokun = sustur, iki parmakla çift dokun = geri. Ekran okuyucu açıksa App.js uyarı katmanı gösterir.
 - Ses (17 Kasım): src/ses/efektler.js (expo-audio). Ortam döngüleri ortam_rihtim/kayikhane/buro/han/oda
-  (mekân kimliğiyle eşleşir; sahnede `ortam`, `ortamOran`, `efekt` alanları), efektler sandik, ani_savas, delil, yangin; 3. bölüm döngüleri ortam_cemil_ev/pera/kulup/servis; 4. bölüm ortam_hastane/meyhane/depo, efekt silah; 5. bölüm ortam_guverte/salon/kamara/firtina, efekt vapur_duduk; 6. bölüm ortam_yanik_sehir/otel/ev; 7. bölüm ortam_kosk_bahce/kosk_ic, efektler kopek, kilise_cani; 8. bölüm ortam_tren/manastir/cezaevi/revir, efektler tren_duduk, demir_kapi; 9. bölüm ortam_viyana/kahve/mutfak, efekt tramvay; 10. bölüm ortam_kule/kayik, efekt dokum; 11. bölüm ortam_kordon/kemeralti;
+  (mekân kimliğiyle eşleşir; sahnede `ortam`, `ortamOran`, `efekt` alanları), efektler sandik, ani_savas, delil, yangin; 3. bölüm döngüleri ortam_cemil_ev/pera/kulup/servis; 4. bölüm ortam_hastane/meyhane/depo, efekt silah; 5. bölüm ortam_guverte/salon/kamara/firtina, efekt vapur_duduk; 6. bölüm ortam_yanik_sehir/otel/ev; 7. bölüm ortam_kosk_bahce/kosk_ic, efektler kopek, kilise_cani; 8. bölüm ortam_tren/manastir/cezaevi/revir, efektler tren_duduk, demir_kapi; 9. bölüm ortam_viyana/kahve/mutfak, efekt tramvay; 10. bölüm ortam_kule/kayik, efekt dokum; 11. bölüm ortam_kordon/kemeralti; 12. bölüm ortam_arsiv/yali;
   sessiz.wav oturumu açık tutar. tik/secim/dip için dosya yok, titreşim. Menülerde rıhtım sesi 0,45.
   Üretim: ElevenLabs flow H13uSGbaUNJZNoPkxW7V (eleven_text_to_sound_v2; döngüler 30 sn loop true, generations_count 1).
   Bu ortam elevenlabsusercontent.com'a erişemez: adresleri araclar/indirilecek-sesler.json'a yaz, push et →
@@ -134,8 +134,18 @@
   Çıkarımlar aurora (aurora_adi + iki_yana), yeni_adam (whitlock_kaydi + rainer_bilgi) → gece_plani: auroraSonu
   ihbar / batti (Stavros'un kayığı, ambarı su bastırma) → whitlock (Elias Whitlock, Amerikalı, Rainer'in yeni adamı;
   ferranteSonu kacti / tutuklu) → son_sayfa (Ferrante'nin defterinde: K. E., 1913, tasfiye, onay N. B. = Nazım Bey
-  Gülce'nin babasını öldürttü; nazimBulundu) → son. On ikinci bölüm (İstanbul, Gülce, Nazım Bey) yok.
+  Gülce'nin babasını öldürttü; nazimBulundu) → son.
   Hassasiyet: hiçbir topluluk kötü gösterilmez; klinikte herkes; örgüt iki tarafa da silah satar.
+- On ikinci bölüm "İmza" (src/hikaye/bolum12.js): 24-28 Haziran 1919 İstanbul. Açılış tasfiye_satiri verir.
+  Mekânlar rihtim, buro (ilkSahne gulce_ogrenir → gulceBildi; Gülce → agir_sandik: Columbia, 30 sandık × 400 kg
+  "tütün"), gulce_ev (Kumkapı; baba_sandigi → baba_mektubu: evrak 1329/417), maliye (arsiv_kapisi → arsiv sahnesi:
+  Rumi yıl bulmacası; doğru raf "1329, Gümrük Kalemi" → kamil_raporu; yanlış raf dikkat +1, DIKKAT_SINIRI 3 →
+  arsiv_yakalandi: yaşlı kâtip dosyayı verir, nazimUyarildi), pera (pera_palas: Rıza izler, Neslihan siyakatı okur →
+  whitlock_nazim). Çıkarımlar katil_nazim (tasfiye_satiri + kamil_raporu), altin (agir_sandik + whitlock_nazim) →
+  yali_yol → yali (Kandilli, Nazım Bey): yaliSecim tut → imza / birak → namlu (travma+1) → imza (Gülce: "İmzala ve
+  yaşa"; nazim_itirafi) → columbia: altinKarar ingiliz / gazete (nerminGazeteKapandi) → son_sabah (Rainer'in telgrafı:
+  "Artık kendim geliyorum"; rainerGeliyor) → son. gulceYakin(d): gulceGuven >= 2 ya da gulceyeAnlatti.
+  On üçüncü bölüm (Rainer İstanbul'da) yok.
 - Hassasiyet: örgüt üyeleri çeşitli uyruklardan; hiçbir din/etnik grupla özdeşleşmez (hikaye-plani.md).
 - Mekânda `ortam` alanı mekânın ortam sesini değiştirir (yoksa 'ortam_' + mekân kimliği).
 - Bölümler src/hikaye/index.js BOLUMLER; durum.bolum. Bölüm sonu sahnesinde { sonrakiBolum } seçeneği →
@@ -159,6 +169,6 @@
   fileName yayin.yml, gitRef = commit) → workflow_info SUCCESS → workflow_logs (CUSTOM bölümü) içindeki
   EXPO_GO_BAGLANTISI satırı. Expo'nun iş akışı süresini kullanır.
   GitHub Actions anahtar yoksa sessizce atlar.
-- Testler: `bun test testler/` (bolum1-11.test.js bölümleri farklı kararlarla baştan sona oynar; 3'te şüphe yolu da).
+- Testler: `bun test testler/` (bolum1-12.test.js bölümleri farklı kararlarla baştan sona oynar; 3'te şüphe yolu da).
 - Akış: uygula → testler → bun build → CLAUDE.md/README → commit → git pull --rebase → push → yayın (yukarıda) → SUCCESS'i bekle
   → Türkçe rapor (Expo Go bağlantısı, yenilikler, denenmemiş olanlar dürüstçe).
