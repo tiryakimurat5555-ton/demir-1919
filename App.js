@@ -24,7 +24,7 @@ import { ayarlarOku, ayarlarYaz, kayitOku, kayitSil, VARSAYILAN_AYARLAR } from '
 const HAKKINDA_METNI = [
   'Demir 1919. 1918 ile 1923 arasında, işgal altındaki İstanbul\'da başlayan bir tarihsel macera ve dedektiflik oyunu.',
   'Oyundaki gizli örgüt ve olay örgüsü kurgudur. Gerçek tarihî olaylar arka plan olarak kullanılır.',
-  'Sürüm 0.4: birinci bölüm Sudaki Adam, ikinci bölüm Ölüler Konuşur.',
+  'Sürüm 0.5: Sudaki Adam, Ölüler Konuşur, On Yedi Numara.',
 ];
 
 const HAREKETLER = [

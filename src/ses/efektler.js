@@ -12,6 +12,11 @@ const KAYNAKLAR = {
   ortam_buro: require('../../assets/ses/ortam_buro.wav'),
   ortam_han: require('../../assets/ses/ortam_han.wav'),
   ortam_oda: require('../../assets/ses/ortam_oda.wav'),
+  ortam_cemil_ev: require('../../assets/ses/ortam_cemil_ev.wav'),
+  ortam_pera: require('../../assets/ses/ortam_pera.wav'),
+  ortam_kulup: require('../../assets/ses/ortam_kulup.wav'),
+  ortam_servis: require('../../assets/ses/ortam_servis.wav'),
+  yangin: require('../../assets/ses/yangin.wav'),
   sandik: require('../../assets/ses/sandik.wav'),
   ani_savas: require('../../assets/ses/ani_savas.wav'),
   delil: require('../../assets/ses/delil.wav'),
@@ -24,6 +29,10 @@ const DONGULER = {
   ortam_buro: 0.6,
   ortam_han: 0.6,
   ortam_oda: 0.65,
+  ortam_cemil_ev: 0.6,
+  ortam_pera: 0.5,
+  ortam_kulup: 0.5,
+  ortam_servis: 0.65,
 };
 
 const oynaticilar = {};

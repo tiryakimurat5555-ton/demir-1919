@@ -214,9 +214,12 @@ export const BOLUM2 = {
       ortamOran: 0.5,
       baslik: 'İkinci bölüm bitti',
       paragraflar: [
-        'Cemil Bey artık ekibinde. Hikâye üçüncü bölümde, Pera\'da, Mercure Kulübü\'nün kapısında sürecek. Kararların kaydedildi.',
+        'Cemil Bey artık ekibinde. Hikâye üçüncü bölümde, Pera\'da, Mercure Kulübü\'nün kapısında sürüyor. Kararların kaydedildi.',
       ],
-      secenekler: [{ etiket: 'Ana menüye dön', anaMenu: true }],
+      secenekler: [
+        { etiket: 'Üçüncü bölüme geç', sonrakiBolum: 'bolum3' },
+        { etiket: 'Ana menüye dön', anaMenu: true },
+      ],
     },
   },
 

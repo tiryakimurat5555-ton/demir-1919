@@ -9,6 +9,10 @@
 - Test edilmemiş bir özelliği çalışıyor diye sunma; telefonda ancak Murat Expo Go'da denediğinde doğrulanır.
 
 ## Tasarım
+- HİKÂYE KARARLARI BENİM (17 Kasım, Murat: "Hikayenin gidişatını bana sorma. Derinliği olan sürükleyici hikayeyi,
+  olayları, her şeyi sen oluştur"). Hikâye, olaylar, karakter kaderleri, ekibe katılış sırası için soru SORMA;
+  belgeler/hikaye-plani.md'ye göre yaz ve tutarlı tut. Bu, taslaktaki "her kararda soru sor" talimatını hikâye
+  için geçersiz kılar. Teknik/oynanış/erişilebilirlik kararlarında taslaktaki tek soru + öneri düzeni sürer.
 - Kaynak: belgeler/tasarim-taslagi.pdf (8 sayfa). 19. bölümdeki çalışma talimatına uy:
   önceki seçimleri yeniden sorma ya da sessizce değiştirme; her yeni tasarım kararında tek soru sor,
   önerilen seçeneği ve kısa gerekçesini söyle; 186. soru (dünya büyüklüğü) açık karar olarak kalır.
@@ -20,7 +24,7 @@
   (kayip-okyanus'tan alındı): kaydır = gez, dokun = oku, çift dokun = seç, uzun bas = açıklama, iki parmakla
   dokun = sustur, iki parmakla çift dokun = geri. Ekran okuyucu açıksa App.js uyarı katmanı gösterir.
 - Ses (17 Kasım): src/ses/efektler.js (expo-audio). Ortam döngüleri ortam_rihtim/kayikhane/buro/han/oda
-  (mekân kimliğiyle eşleşir; sahnede `ortam`, `ortamOran`, `efekt` alanları), efektler sandik, ani_savas, delil;
+  (mekân kimliğiyle eşleşir; sahnede `ortam`, `ortamOran`, `efekt` alanları), efektler sandik, ani_savas, delil, yangin; 3. bölüm döngüleri ortam_cemil_ev/pera/kulup/servis;
   sessiz.wav oturumu açık tutar. tik/secim/dip için dosya yok, titreşim. Menülerde rıhtım sesi 0,45.
   Üretim: ElevenLabs flow H13uSGbaUNJZNoPkxW7V (eleven_text_to_sound_v2; döngüler 30 sn loop true, generations_count 1).
   Bu ortam elevenlabsusercontent.com'a erişemez: adresleri araclar/indirilecek-sesler.json'a yaz, push et →
@@ -37,12 +41,10 @@
   Mekânlar: rıhtım, kayıkhane, liman kayıt bürosu (Gülce; Süleyman'ın aracılığıyla, taslaktaki gibi), Kalafatçı Hanı
   (Ohannes Usta) ve Sabri'nin odası. Ferrante ve Ortakları (kurgu) yedek parça diye 40 sandık tüfek indiriyor.
   Zorunlu çıkarımlar: olduruldu, silah, orgut → karar (İngiliz askerî polisi / eski bir polis / sakla) → kapanış notu.
-  Tohumlar (karara bağlanmadı, ileride Murat'a sorulacak): Manastır damgalı fotoğraf (Arif'in ailesi), Gülce'nin
-  işareti daha önce görmüş olması, "eski bir polis" (adsız; Rıza Bey'in katılış sırası taslakta açık), travma sayacı
-  (anı sahnelerinde nefes say / bastır), karar1, gulceyeAnlatti, gulceYalan, suleymanBag.
+  Tohumların çözümü belgeler/hikaye-plani.md'de (fotoğraf = kız kardeş Neslihan, "Madam N."; Gülce'nin babası;
+  "eski bir polis" = Rıza Bey). Bayraklar: travma, karar1, gulceyeAnlatti, gulceYalan, suleymanBag.
   Anlatım ikinci tekil şahıs, şimdiki zaman. Tarihsel: İtilaf donanması Kasım 1918'de geldi; Ankara hareketi henüz yok.
-- Ekip KARARI (17 Kasım, Murat A'yı seçti): ana ekipten ilk katılan Cemil Bey (ikinci bölüm). Nermin ve Rıza'nın
-  sırası hâlâ açık.
+- Ekip: Cemil Bey 2. bölümde (Murat seçti), Nermin 3. bölümde, Rıza Bey 4. bölümde (hikâye planı).
 - İkinci bölüm "Ölüler Konuşur" (src/hikaye/bolum2.js): ertesi sabah; Komiser Halim (kurgu, rüşvetçi) Sabri'yi öğlen
   kimsesiz diye gömdürecek. Vakıf Gureba Hastanesi (gerçek) avlusu ve morgu (kurgu); hademe Rüstem; Cemil Bey
   (Paris, Viyana, Selanik; esprili, titiz; Balkan Harbi'nde emirle "kaza" yazdığı cesetlerin vicdan yükü).
@@ -51,6 +53,14 @@
   Midede jeton: kanatlı anahtar, Mercure, Pera, 17 (Mercure Kulübü kurgu; gerçek Cercle d'Orient kullanılmadı).
   Zorunlu çıkarımlar bicakla, ortbas, kulup → cenaze (mezar sözü) → Cemil katılır (cemilEkipte). İsteğe bağlı: motorda, bekleyen.
   Tohum: gorulmusOlabilir (lavantalı adam Arif'i görmüş olabilir), mezarSozu. Üçüncü bölüm: Pera, Mercure Kulübü.
+- Üçüncü bölüm "On Yedi Numara" (src/hikaye/bolum3.js): Cemil'in Cihangir'deki evi, Pera Grand Rue, Mercure Kulübü
+  salonu, servis koridoru. Nermin katılır (nerminBag; Sarıkamış'ta donan ağabeyi). Kılık (uşak kıyafeti, kilik) ve
+  şüphe (suphe; SUPHE_SINIRI 3 → yakalandin sahnesi, disariAtildi; Nermin eksik delilleri getirir, bölüm sürer).
+  Barmen Yorgo (Süleyman'ın eski aşçı yamağı), Yüzbaşı Hargreaves (Nermin aracılığıyla, izin_belgesi), baş garson.
+  17 numaralı oda (yemek asansöründen): Delorme, Ferrante, Nazım Bey (Maliye); Santa Lucia, Odesa, rüşvet defteri,
+  "Madam N. fotoğrafını istiyor" (madamN). Zorunlu: delorme, sevkiyat, rusvet → gece_yarisi → karar3
+  (gazete/depo/ihbar) → yangın (kayıkhane yakılır, Süleyman yaralı kurtulur; karar1 sakla ise belgeyi kurtarmış) →
+  kapanış. Dördüncü bölüm "Kül" henüz yok.
 - Bölümler src/hikaye/index.js BOLUMLER; durum.bolum. Bölüm sonu sahnesinde { sonrakiBolum } seçeneği →
   motor.bolumeGec: deliller, çıkarımlar ve bayraklar taşınır; bolumBitti, olay_*, gorüldü_*, incelendi_* sıfırlanır,
   bitti_<bölüm> eklenir. Sonraki bölüm önceki bölümün deliller/cikarimlar tanımlarını yayar (...BOLUM1.deliller).
@@ -72,6 +82,6 @@
   fileName yayin.yml, gitRef = commit) → workflow_info SUCCESS → workflow_logs (CUSTOM bölümü) içindeki
   EXPO_GO_BAGLANTISI satırı. Expo'nun iş akışı süresini kullanır.
   GitHub Actions anahtar yoksa sessizce atlar.
-- Testler: `bun test testler/` (bolum1/bolum2.test.js bölümleri farklı kararlarla baştan sona oynar).
+- Testler: `bun test testler/` (bolum1/2/3.test.js bölümleri farklı kararlarla baştan sona oynar; 3'te şüphe yolu da).
 - Akış: uygula → testler → bun build → CLAUDE.md/README → commit → git pull --rebase → push → yayın (yukarıda) → SUCCESS'i bekle
   → Türkçe rapor (Expo Go bağlantısı, yenilikler, denenmemiş olanlar dürüstçe).

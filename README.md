@@ -8,7 +8,16 @@ görme engelli oyuncular tarafından bağımsız oynanabilecek; VoiceOver ve Tal
 
 Tasarım taslağı: `belgeler/tasarim-taslagi.pdf`
 
-## Şu anki aşama: 3 — ikinci bölüm: Ölüler Konuşur
+## Şu anki aşama: 4 — üçüncü bölüm: On Yedi Numara
+
+- Cemil Bey'in Cihangir'deki evi; gazeteci Nermin Hanım katılıyor
+- Pera, Mercure Kulübü: uşak kılığı, şüphe uyandırmamak, barmen Yorgo, sarhoş İngiliz yüzbaşı, vestiyer defteri
+- 17 numaralı odanın toplantısını yemek asansöründen dinlemek; Madam N. ve fotoğraf
+- Şüphe artarsa kulüpten atılma; hikâye başka yoldan sürüyor
+- Karar: gazete, depo baskını ya da ihbar; kayıkhane yangını
+- Yeni sesler: çalışma odası, Pera caddesi, kulüp salonu, servis koridoru, yangın
+
+## 3 — ikinci bölüm: Ölüler Konuşur
 
 - Ertesi sabah: polis Sabri'yi öğlen kimsesiz diye gömdürecek
 - Gureba Hastanesi'nin avlusu ve morgu; adli tabip Cemil Bey ekibe katılıyor
