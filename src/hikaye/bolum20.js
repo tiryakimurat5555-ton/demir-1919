@@ -290,8 +290,72 @@ export const BOLUM20 = {
           ],
         },
         sonra: {
-          soz: 'Nermin dizgi kasasına dönüyor. Gazeteyi yarın sabah basacağım, diyor. Ve Nuri Bey\'in siparişini de; ama her birinin köşesine, yalnız bizim göreceğimiz bir nokta koyacağım.',
-          secenekler: [{ etiket: 'Dikkat et Nermin.' }],
+          soz: (d) =>
+            bayrak(d, 'nerminYemin')
+              ? 'Nermin dizgi kasasının başında. Kasanın kenarına bir kâğıt iğnelemiş; üstünde tek bir ad: Pendle.'
+              : 'Nermin dizgi kasasına dönüyor. Gazeteyi yarın sabah basacağım, diyor. Ve Nuri Bey\'in siparişini de; ama her birinin köşesine, yalnız bizim göreceğimiz bir nokta koyacağım.',
+          secenekler: [
+            {
+              etiket: 'Ağabeyini hiç anlatmadın. Anlat bana.',
+              kosul: (d) => !bayrak(d, 'nerminCevdet'),
+              etki: { bayrak: { nerminCevdet: true }, artir: { nerminBag: 1 } },
+              sonra: 'cevdet',
+            },
+            {
+              etiket: 'Pendle\'i bulduğumuzda ne yapacağız?',
+              kosul: (d) => delilVar(d, 'pendle_ceki') && !bayrak(d, 'nerminYemin'),
+              sonra: 'yemin',
+            },
+            { etiket: 'Dikkat et Nermin.' },
+          ],
+        },
+        cevdet: {
+          soz: [
+            'Nermin elindeki harfi kasaya bırakıyor. Kurşun harf tıkırdıyor.',
+            'Adı Cevdet\'ti. Benden dört yaş büyük. Darülfünun\'da edebiyat okuyordu; şiir yazardı. Kötü şiirler, abi; çok kötü. Ben okur gülerdim, o da gülerdi.',
+            'On Dört\'ün Aralık\'ında Erzurum\'dan son mektubu geldi. Paltom güzel Nermin, yazmış. Yalnız astarı yok. Sen bana bir atkı ör, ama geç kalma.',
+            'Bir hafta ördüm. Gece gündüz. Ocak\'ta postaya verdim. Şubat\'ta geri geldi; zarfın üstünde tek satır: Muhatap vefat etmiştir.',
+            'Atkı hâlâ çekmecemde. Hiç takmadım. Sonra o paltoları kimin diktiğini, kimin sattığını, kimin taşıdığını aradım. Dört yıl. Hep bir gölge; bir müteahhit, bir komisyoncu, bir imza. Arkasında hep bir başkası.',
+          ],
+          secenekler: [
+            {
+              etiket: 'Geç kalmadın Nermin. Paltoyu diken geç kaldı.',
+              sonra: 'sonra',
+              cevap: 'Nermin sana uzun uzun bakıyor. Sonra kısa bir gülüş; sesinde dört yıllık bir çatlak. Bunu bana kimse söylememişti, diyor. Ben de kendime söylememiştim.',
+            },
+            {
+              etiket: 'Bir şey söyleme. Kasadan bir harf al, onun yanına diz.',
+              sonra: 'sonra',
+              cevap: 'Ç harfini alıp Nermin\'in dizdiği satırın yanına koyuyorsun. Babanın döktüğü harf. Nermin ona bakıyor. Cevdet\'in adında Ç yok, diyor. Ama Çanakkale\'de var, Çankırı\'da var; çok ad var. Hepsini dizeceğim abi. Bir gün.',
+            },
+          ],
+        },
+        yemin: {
+          soz: [
+            'Nermin Pendle\'in mektubunun kopyasını alıp kasanın kenarına iğneliyor.',
+            'Dört yıl bir gölge aradım, diyor. Şimdi bir adı var. Leventis, Santa Lucia, Aurora, Columbia. Her savaşta iki tarafa birden. Belki Cevdet\'in paltolarının kumaşı da onun gemisiyle geldi; belki gelmedi. Fark etmez artık.',
+            'Sana soruyorum, çünkü bulduğumuz gün yanımda sen olacaksın: Ona ne yapacağız?',
+          ],
+          secenekler: [
+            {
+              etiket: 'Gazeteye. Herkes okusun; her limanda adı bilinsin.',
+              etki: { bayrak: { nerminYemin: 'gazete' } },
+              sonra: 'sonra',
+              cevap: 'Nermin başını sallıyor. Kâğıt ölmez, diyor. Adam ölür, kâğıt kalır.',
+            },
+            {
+              etiket: 'Bir hâkimin önüne. Kâğıtlarıyla, delilleriyle.',
+              etki: { bayrak: { nerminYemin: 'mahkeme' }, artir: { rizaBag: 1 } },
+              sonra: 'sonra',
+              cevap: 'Nermin bir an duraksıyor. Rıza Bey gibi konuştun, diyor. Hangi hâkim? Hangi devletin? Sonra iç çekiyor. Peki. Bir hâkim bulacağız.',
+            },
+            {
+              etiket: 'Bilmiyorum. Ama ne yaparsan yap, yalnız yapma.',
+              etki: { bayrak: { nerminYemin: 'birlikte' }, artir: { nerminBag: 1 } },
+              sonra: 'sonra',
+              cevap: 'Nermin bir şey demiyor. Elini omzuna koyuyor; bir an. Sonra dizgi kasasına dönüyor. Yalnız yapmam, diyor. Söz.',
+            },
+          ],
         },
       },
     },

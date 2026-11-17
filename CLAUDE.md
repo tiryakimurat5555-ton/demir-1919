@@ -218,6 +218,8 @@
   mektup_baba), Pendle'in gemileri Santa Lucia (3), Aurora (11), Columbia (12), 15. bölümde Pendle'le yüzleşmede hatırlanır.
   3. adım: 18. bölüm rapor18 (cemilRapor dogru/sitma/kendi, cemilYuk → esir_degisimi, 20. polatli_son), 17. bölüm
   ilgaz_ates → ilgaz_itiraf (kardesGecesi yalan/sessiz ise sonra_durust).
+  4. adım: 19. bölüm Rıza'nın Yakup hikâyesi (riza yakup düğümü, rizaHikaye → suclama/yanlis_* satırları), 20. bölüm
+  Nermin'in ağabeyi Cevdet (nerminCevdet) ve Pendle yemini (nerminYemin gazete/mahkeme/birlikte; 21. bölümde kullanılacak).
   testler/derinlik.test.js iplikleri denetler.
 - Hassasiyet: örgüt üyeleri çeşitli uyruklardan; hiçbir din/etnik grupla özdeşleşmez (hikaye-plani.md).
 - Mekânda `ortam` alanı mekânın ortam sesini değiştirir (yoksa 'ortam_' + mekân kimliği).

@@ -186,10 +186,19 @@ Yapılanlar (1. adım):
 - Ilgaz ateşi (17. bölüm ilgaz_ates, her iki yoldan sonra): kardesGecesi yalan/sessiz ise Viyana'da söylenmeyen cümle
   söylenebilir → ilgaz_itiraf (kardesGecesi sonra_durust, kardesOnceki, neslihanBag +1); değilse ayva reçeli anısı.
 
+4. adım (yapıldı):
+- Rıza Bey'in sırrı (19. bölüm, rıhtımda Rıza'ya "Neden döverek değil delille?"): 1898 Kasımpaşa, kuyumcu cinayeti, 17 yaşında
+  fırın çırağı Yakup'u bir gece sopayla itiraf ettirdi; Bekirağa'da veremden öldü; gerçek katil ertesi yıl çıktı. Sopayı
+  kırdı; Halim o gece kapıda nöbetçiydi ve önce gördüğüne inandı. rizaHikaye, rizaBag +1. Karşılığı: suclama sahnesinde
+  ve yanlış suçlamalarda Rıza'nın sessizliği.
+- Nermin'in ağabeyi (20. bölüm, Nermin'in "sonra" düğümü): Cevdet, Darülfünun, kötü şiirler; Aralık 1914 Erzurum'dan
+  "Paltom güzel, yalnız astarı yok; bana atkı ör, geç kalma"; atkı "Muhatap vefat" diye geri geldi, hâlâ çekmecede.
+  nerminCevdet, nerminBag +1. Pendle yemini: nerminYemin gazete / mahkeme / birlikte (21. bölümde Pendle'le yüzleşmede).
+
 Sıradakiler:
 - Kemal ipliği: Arethusa'nın kaptanı (21. bölüm). Süleyman'ın ölü bildiği oğlu, Pendle'in gemisinde; Arif'in aynası
   (ölü bilinip yaşayan). aramaSozu ise Arif ona haber verir.
-- Rıza Bey'in ipliği: Halim'i o yetiştirdi (4. bölüm); kendi geçmişindeki bir dayak/itiraf; 19. bölümde yanlış suçlama.
-- Nermin'in ipliği: Sarıkamış'ta donan ağabeyi; savaştan para kazananlar; Pendle'le yüzleşme.
+- Gülce'nin ipliği: babasının katili bulunduktan sonra; Tevfik ihaneti; Süleyman'la baba-kız bağı.
+- 21. bölüm "Arethusa": Kemal, Nermin'in yemini, Cevdet'in atkısı, Pendle; Eylül 1922 İzmir (bütün topluluklara eşit acı).
 - Gülce'nin ipliği: babasının katili bulunduktan sonra ne kalır; Tevfik ihaneti onu nasıl değiştirdi.
 - Konuşmaları uzat: 2-9. bölümlerde kişilerin ikinci, üçüncü konuşma düğümleri (geçmişleri, korkuları).

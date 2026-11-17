@@ -122,3 +122,35 @@ test('Viyana\'da söylenmeyen cümle Ilgaz\'da söylenebilir', async () => {
   const d = durum(BOLUM17, { kardesGecesi: 'durust' }, { tur: 'sahne', id: 'ilgaz_ates' });
   expect(M.sahneBilgisi(BOLUM17, d).secenekler.length).toBe(1);
 });
+
+test('Rıza Bey\'in Yakup hikâyesi ve yanlış suçlamada sessizliği', async () => {
+  const { BOLUM19 } = await import('../src/hikaye/bolum19');
+  let d = durum(BOLUM19, {}, { tur: 'mekan' });
+  d = { ...d, mekan: 'rihtim' };
+  d = M.konusmaBaslat(BOLUM19, d, 'riza');
+  d = M.secenekSec(BOLUM19, d, M.dugumBilgisi(BOLUM19, d).secenekler.find((x) => x.etiket.includes('delille'))).durum;
+  expect(M.dugumBilgisi(BOLUM19, d).soz.join(' ')).toContain('Yakup');
+  d = M.secenekSec(BOLUM19, d, M.dugumBilgisi(BOLUM19, d).secenekler[0]).durum;
+  d = M.secenekSec(BOLUM19, d, M.dugumBilgisi(BOLUM19, d).secenekler[0]).durum;
+  expect(d.gorunum.tur).toBe('mekan');
+  expect(M.bayrak(d, 'rizaHikaye')).toBe(true);
+  const s = { ...d, gorunum: { tur: 'sahne', id: 'yanlis_muhsin_sahne' } };
+  expect(M.sahneBilgisi(BOLUM19, s).paragraflar.join(' ')).toContain('Kasımpaşa');
+  const bos = durum(BOLUM19, {}, { tur: 'sahne', id: 'suclama' });
+  expect(M.sahneBilgisi(BOLUM19, bos).paragraflar.every((p) => p.length > 0)).toBe(true);
+});
+
+test('Nermin\'in ağabeyi ve Pendle yemini', () => {
+  for (const [parca, yemin] of [['Gazeteye', 'gazete'], ['hâkimin', 'mahkeme'], ['yalnız yapma', 'birlikte']]) {
+    let d = { ...durum(BOLUM20, {}, { tur: 'mekan' }), mekan: 'tashan', deliller: ['mavi_kagit', 'pendle_ceki'] };
+    d = M.konusmaBaslat(BOLUM20, d, 'nermin');
+    expect(d.gorunum.dugum).toBe('sonra');
+    d = M.secenekSec(BOLUM20, d, M.dugumBilgisi(BOLUM20, d).secenekler.find((x) => x.etiket.includes('Ağabeyini'))).durum;
+    expect(M.dugumBilgisi(BOLUM20, d).soz.join(' ')).toContain('Cevdet');
+    d = M.secenekSec(BOLUM20, d, M.dugumBilgisi(BOLUM20, d).secenekler[0]).durum;
+    d = M.secenekSec(BOLUM20, d, M.dugumBilgisi(BOLUM20, d).secenekler.find((x) => x.etiket.includes('Pendle'))).durum;
+    d = M.secenekSec(BOLUM20, d, M.dugumBilgisi(BOLUM20, d).secenekler.find((x) => x.etiket.includes(parca))).durum;
+    expect(M.bayrak(d, 'nerminYemin')).toBe(yemin);
+    expect(M.dugumBilgisi(BOLUM20, d).secenekler.map((x) => x.etiket).join(' ')).not.toContain('Pendle');
+  }
+});

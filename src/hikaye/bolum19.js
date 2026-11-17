@@ -76,11 +76,12 @@ export const BOLUM19 = {
       baslik: 'Suçlama',
       paragraflar: (d) => [
         'Akşamüstü. Büro boşalmak üzere. Gülce kapıyı kilitliyor. Masada kuryenin notu, kayıt defteri, nöbet çizelgesi.',
+        bayrak(d, 'rizaHikaye') ? 'Rıza Bey kapının yanında. Dudakları sessizce bir isim söylüyor; seninle göz göze gelince susuyor. Yakup.' : '',
         'Müdür Muhsin Tahir Efendi şaşkın, kızgın. Mehmet Tevfik kapının yanında, elleri cebinde. ' + (bayrak(d, 'yanlis_turner') ? 'Turner gelmedi; geçen sefer kırıldı.' : 'Matthew Turner kapı eşiğinde, şapkası elinde.'),
         bayrak(d, 'yanlis_muhsin') || bayrak(d, 'yanlis_turner')
           ? 'Gülce sana bakıyor; bu kez gözlerinde kuşku. Bir yanlış daha yapma, der gibi.'
           : 'Gülce sana bakıyor. Sen söyle, der gibi.',
-      ],
+      ].filter(Boolean),
       secenekler: [
         { etiket: 'Muhsin Tahir Efendi. Yeşil mürekkep onun.', kosul: (d) => !bayrak(d, 'yanlis_muhsin'), etki: { bayrak: { yanlis_muhsin: true }, artir: { gulceGuven: -1 } }, sonra: 'yanlis_muhsin_sahne' },
         { etiket: 'Matthew Turner. İngilizler için çalışıyor.', kosul: (d) => !bayrak(d, 'yanlis_turner'), etki: { bayrak: { yanlis_turner: true }, artir: { gulceGuven: -1 } }, sonra: 'yanlis_turner_sahne' },
@@ -90,21 +91,23 @@ export const BOLUM19 = {
     yanlis_muhsin_sahne: {
       ortam: 'ortam_buro',
       baslik: 'Müdür',
-      paragraflar: [
+      paragraflar: (d) => [
         'Muhsin Tahir Efendi kıpkırmızı oluyor. Otuz yıl bu devlete hizmet ettim, diyor; sesi titriyor. Bu hokka benim; doğru. Ama benim elim titrer, evlat. Bak. Defterdeki imzasını gösteriyor: köşeli, sarsak harfler.',
         'Gülce dudağını ısırıyor. Notun yazısı düzgün, yuvarlak. Müdürün değil.',
         'Muhsin Efendi şapkasını alıp çıkıyor. Kapıyı çarpmıyor; ama kapanışı çarpmaktan ağır.',
-      ],
+        bayrak(d, 'rizaHikaye') ? 'Rıza Bey bir şey demiyor. Yalnızca şapkasını çıkarıp elinde döndürüyor; Kasımpaşa\'daki gecenin sabahında yaptığı gibi, belki. Sonra sana bakıyor: Bir kez daha bak evlat. Kâğıda.' : '',
+      ].filter(Boolean),
       secenekler: [{ etiket: 'Yeniden düşün', sonra: 'suclama' }],
     },
     yanlis_turner_sahne: {
       ortam: 'ortam_buro',
       baslik: 'Turner',
-      paragraflar: [
+      paragraflar: (d) => [
         'Turner\'ın yüzü bir an sararıyor; sonra kızarıyor. I can\'t even write Turkish, diyor; Neslihan çeviriyor: Türkçe yazamam bile. Bunu herkes bilir.',
         'Neslihan ekliyor, alçak sesle: Doğru söylüyor abi. Notun yazısı eski harflerle, kusursuz.',
         'Turner şapkasını takıyor. Size yardım etmeye çalışmıştım, diyor, kapıdan çıkarken. Bir daha etmem.',
-      ],
+        bayrak(d, 'rizaHikaye') ? 'Rıza Bey bir şey demiyor. Yalnızca şapkasını çıkarıp elinde döndürüyor; Kasımpaşa\'daki gecenin sabahında yaptığı gibi, belki. Sonra sana bakıyor: Bir kez daha bak evlat. Kâğıda.' : '',
+      ].filter(Boolean),
       secenekler: [{ etiket: 'Yeniden düşün', sonra: 'suclama' }],
     },
     tevfik: {
@@ -305,7 +308,41 @@ export const BOLUM19 = {
       dugumler: {
         ilk: {
           soz: 'Rıza Bey bıyığını sıvazlıyor. Üç şüpheli, diyor. Kırk yıl bir şey öğrendim: en kolay suçlanacak adam ya en güçlüsüdür ya en yabancısı. Çoğu zaman ikisi de değildir. El yazısına bak, nöbete bak. İnsana değil, kâğıda.',
-          secenekler: [{ etiket: 'Tamam.' }],
+          secenekler: [
+            {
+              etiket: 'Hep "döverek değil, delille" dersin. Neden?',
+              kosul: (d) => !bayrak(d, 'rizaHikaye'),
+              etki: { bayrak: { rizaHikaye: true }, artir: { rizaBag: 1 } },
+              sonra: 'yakup',
+            },
+            { etiket: 'Tamam.' },
+          ],
+        },
+        yakup: {
+          soz: [
+            'Rıza Bey uzun süre bir şey demiyor. Sonra rıhtımın kenarına oturuyor; dizleri çatırdıyor.',
+            'Doksan Sekiz\'de Kasımpaşa\'da bir kuyumcu öldürüldü. Ben otuz beş yaşındaydım; hızlı, hırslı, herkesin övdüğü bir komiser. Bir fırın çırağını yakaladık: Yakup. On yedi yaşında. Dükkânın önünde görülmüştü, o kadar.',
+            'Bir gece boyunca konuştum onunla. Sopayla. Sabaha karşı her şeyi söyledi; benim duymak istediğim her şeyi. Bekirağa\'ya gönderdim. İki yıl sonra veremden öldü.',
+            'Ertesi yıl başka bir hırsızlıktan bir adam yakaladık. Kuyumcuyu da o öldürmüş. Nasıl yaptığını anlattı; Yakup\'un hiç bilmediği ayrıntılarla.',
+            'O gün sopayı dizimde kırdım. Bir daha kimseye el kaldırmadım. Halim\'i de bundan sonra yetiştirdim; ona ilk öğrettiğim kural buydu: döverek değil, delille.',
+            'Rıza Bey denize bakıyor. Ama Halim o gece karakolun kapısında nöbetçiydi, diyor. Yakup\'un seslerini duydu. Sonra ona öğrettiğim hiçbir şeye inanmadı. Çünkü benden önce gördüğüne inandı.',
+          ],
+          secenekler: [
+            {
+              etiket: 'Halim\'in ölümünü de sırtında taşıyorsun.',
+              sonra: 'yakup_son',
+              cevap: 'Taşıyorum, diyor. Yakup\'u da, Halim\'i de. Bir adamın sırtı kaç kişiyi taşır, bilmiyorum. Ama bugün Gülce\'nin bürosunda bir delikanlı daha var. Onu yanlış suçlarsak bir kişi daha. İnsana değil, kâğıda bak evlat. Benim yapamadığımı sen yap.',
+            },
+            {
+              etiket: 'Bir şey söyleme. Yanına otur.',
+              sonra: 'yakup_son',
+              cevap: 'Yanına oturuyorsun. Bir vapur geçiyor; dalgası taşlara vuruyor. Rıza Bey bir süre sonra kalkıyor. Bunu kimseye anlatmadım, diyor. Halim\'e bile. Belki ona anlatsaydım.',
+            },
+          ],
+        },
+        yakup_son: {
+          soz: 'Rıza Bey şapkasını düzeltiyor. Hadi, diyor. Kâğıtlar bekliyor.',
+          secenekler: [{ etiket: 'Hadi.' }],
         },
       },
     },

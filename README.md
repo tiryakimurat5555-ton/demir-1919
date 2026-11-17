@@ -8,7 +8,12 @@ görme engelli oyuncular tarafından bağımsız oynanabilecek; VoiceOver ve Tal
 
 Tasarım taslağı: `belgeler/tasarim-taslagi.pdf`
 
-## Şu anki aşama: 24 — derinleştirme, 3. adım
+## Şu anki aşama: 25 — derinleştirme, 4. adım
+
+- Rıza Bey neden "döverek değil, delille" der: Kasımpaşa'da bir gece ve Yakup adında bir çırak
+- Nermin'in ağabeyi Cevdet, astarsız palto ve geri gelen atkı; Pendle'i bulduğunuzda ne yapacaksınız?
+
+## 24 — derinleştirme, 3. adım
 
 - Cemil Bey'in raporu: sahra hastanesinde bir esirin ölümü ve Balkan Harbi'nden kalan yemin
 - Ilgaz'da bir ateş: Viyana'da söylenmeyen cümleyi Neslihan'a söyleme fırsatı
