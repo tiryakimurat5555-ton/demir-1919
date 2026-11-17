@@ -32,11 +32,11 @@ jobs:
         uses: expo/expo-github-action@v8
         with:
           eas-version: latest
-          token: ${{ secrets.EXPO_TOKEN || secrets.DEMIR1919 }}
+          token: ${{ secrets.EXPO_TOKEN || secrets.EXPO_TEKEN || secrets.DEMIR1919 }}
 
       - name: Paketleri kur ve guncellemeyi yayinla
         env:
-          EXPO_TOKEN: ${{ secrets.EXPO_TOKEN || secrets.DEMIR1919 }}
+          EXPO_TOKEN: ${{ secrets.EXPO_TOKEN || secrets.EXPO_TEKEN || secrets.DEMIR1919 }}
           MESAJ: ${{ github.event.head_commit.message || 'Elle baslatilan guncelleme' }}
           CI: '1'
         run: |
