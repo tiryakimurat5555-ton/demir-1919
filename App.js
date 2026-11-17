@@ -16,15 +16,15 @@ import { rehberAyarla, rehberHazirla, soyle, sustur } from './src/ses/rehber';
 import { RENK } from './src/arayuz/tema';
 import Oyun from './src/ekran/Oyun';
 import Ayarlar from './src/ekran/Ayarlar';
-import { BOLUM1 } from './src/hikaye/bolum1';
-import { yeniDurum } from './src/oyun/motor';
+import { BOLUMLER, ILK_BOLUM } from './src/hikaye';
+import { bolumeGec, yeniDurum } from './src/oyun/motor';
 import { ortamCal, ortamSesiAyarla, sesleriHazirla } from './src/ses/efektler';
 import { ayarlarOku, ayarlarYaz, kayitOku, kayitSil, VARSAYILAN_AYARLAR } from './src/oyun/kayit';
 
 const HAKKINDA_METNI = [
   'Demir 1919. 1918 ile 1923 arasında, işgal altındaki İstanbul\'da başlayan bir tarihsel macera ve dedektiflik oyunu.',
   'Oyundaki gizli örgüt ve olay örgüsü kurgudur. Gerçek tarihî olaylar arka plan olarak kullanılır.',
-  'Sürüm 0.3: birinci bölüm, Sudaki Adam.',
+  'Sürüm 0.4: birinci bölüm Sudaki Adam, ikinci bölüm Ölüler Konuşur.',
 ];
 
 const HAREKETLER = [
@@ -134,8 +134,8 @@ export default function App() {
           {
             id: 'yeni',
             etiket: 'Yeni oyun',
-            ipucu: 'Birinci bölüm: Sudaki Adam.',
-            sec: () => (kayit ? setEkran('yeniOnay') : oyunuBaslat(yeniDurum(BOLUM1))),
+            ipucu: 'Hikâyeyi birinci bölümden başlatır.',
+            sec: () => (kayit ? setEkran('yeniOnay') : oyunuBaslat(yeniDurum(ILK_BOLUM))),
           },
           { id: 'ayarlar', etiket: 'Ayarlar', ipucu: 'Konuşma hızı ve ses.', sec: () => setEkran('ayarlar') },
           { id: 'hareket', etiket: 'Hareketler', ipucu: 'Oyunu nasıl kullanacağını anlatır.', sec: () => setEkran('hareketler') },
@@ -159,7 +159,7 @@ export default function App() {
             sec: () => {
               kayitSil();
               setKayit(null);
-              oyunuBaslat(yeniDurum(BOLUM1));
+              oyunuBaslat(yeniDurum(ILK_BOLUM));
             },
           },
         ]}
@@ -170,13 +170,18 @@ export default function App() {
   } else if (ekran === 'oyun' && oyunDurumu) {
     icerik = (
       <Oyun
-        key={'oyun' + girisNo}
-        bolum={BOLUM1}
+        key={'oyun' + girisNo + (sonDurum.current || oyunDurumu).bolum}
+        bolum={BOLUMLER[(sonDurum.current || oyunDurumu).bolum] || ILK_BOLUM}
         baslangicDurumu={sonDurum.current || oyunDurumu}
         onDurum={(d) => {
           sonDurum.current = d;
         }}
         onAnaMenu={oyundanCik}
+        onBolumGec={(bolumId, d) => {
+          const yeni = bolumeGec(BOLUMLER[bolumId], d);
+          sustur();
+          oyunuBaslat(yeni);
+        }}
       />
     );
   } else if (ekran === 'hareketler') {

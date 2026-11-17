@@ -112,7 +112,7 @@ for (const karar of ['İngiliz', 'eski bir polis', 'sakla']) {
     d = sahneGec(d);
     expect(M.bayrak(d, 'bolumBitti')).toBe(true);
     expect(d.gorunum.id).toBe('son');
-    expect(M.sahneBilgisi(B, d).secenekler[0].anaMenu).toBe(true);
+    expect(M.sahneBilgisi(B, d).secenekler.map((x) => x.sonrakiBolum || (x.anaMenu && 'menu'))).toEqual(['bolum2', 'menu']);
     expect(M.hedef(B, d)).toContain('bitti');
   });
 }

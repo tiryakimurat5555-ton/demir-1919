@@ -8,7 +8,17 @@ görme engelli oyuncular tarafından bağımsız oynanabilecek; VoiceOver ve Tal
 
 Tasarım taslağı: `belgeler/tasarim-taslagi.pdf`
 
-## Şu anki aşama: 2 — birinci bölüm: Sudaki Adam (sesli prototip)
+## Şu anki aşama: 3 — ikinci bölüm: Ölüler Konuşur
+
+- Ertesi sabah: polis Sabri'yi öğlen kimsesiz diye gömdürecek
+- Gureba Hastanesi'nin avlusu ve morgu; adli tabip Cemil Bey ekibe katılıyor
+- Morgda inceleme: bıçak yarası, ciğerler, mide, sırttaki desen, rakı kokan ceket, defin emri
+- Morg baskını, soğuk odada Arıburnu anısı, lavantalı adamın Fransızca sözü
+- Midedeki jeton: Mercure Kulübü, Pera, 17 — üçüncü bölümün kapısı
+- Cenaze ve mezar başında verilen söz
+- Bölümler arası geçiş: kararlar ve deliller taşınıyor
+
+## 2 — birinci bölüm: Sudaki Adam (sesli prototip)
 
 - Karaköy, Aralık 1918: ateşçi Sabri'nin ölümü, şifreli belge, kanatlı anahtar
 - Mekânlar: rıhtım, Süleyman Kaptan'ın kayıkhanesi, liman kayıt bürosu, Kalafatçı Hanı ve Sabri'nin odası

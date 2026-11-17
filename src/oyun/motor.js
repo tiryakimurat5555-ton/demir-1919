@@ -181,3 +181,23 @@ export function hedef(bolum, d) {
   const h = (bolum.hedefler || []).find((x) => x.kosul(d));
   return h ? deger(h.metin, d) : '';
 }
+
+// ---------------------------------------------------------------------------
+// Bölümler arası geçiş: kararlar, deliller ve çıkarımlar taşınır; bölüme özgü
+// geçici bayraklar (bolumBitti, olay_*, gorüldü_*) sıfırlanır.
+// ---------------------------------------------------------------------------
+export function bolumeGec(yeniBolum, d) {
+  const bayraklar = {};
+  for (const [k, v] of Object.entries(d.bayraklar)) {
+    if (k === 'bolumBitti' || k.startsWith('olay_') || k.startsWith('gorüldü_') || k.startsWith('incelendi_')) continue;
+    bayraklar[k] = v;
+  }
+  const n = yeniDurum(yeniBolum);
+  return {
+    ...n,
+    deliller: [...d.deliller],
+    cikarimlar: [...d.cikarimlar],
+    bayraklar: { ...bayraklar, ['bitti_' + d.bolum]: true },
+    gunluk: [...d.gunluk, '— ' + yeniBolum.ad + ' —'],
+  };
+}

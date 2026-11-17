@@ -10,7 +10,7 @@ import { kayitYaz } from '../oyun/kayit';
 
 const birlestir = (parcalar) => parcalar.filter(Boolean).join(' ');
 
-export default function Oyun({ bolum, baslangicDurumu, onAnaMenu, onDurum }) {
+export default function Oyun({ bolum, baslangicDurumu, onAnaMenu, onDurum, onBolumGec }) {
   const [durum, setDurumIc] = useState(baslangicDurumu);
   // ekran: 'oyun' (durum.gorunum'a göre), 'pano', 'defter'
   const [ekran, setEkran] = useState('oyun');
@@ -182,6 +182,10 @@ export default function Oyun({ bolum, baslangicDurumu, onAnaMenu, onDurum }) {
         sec: () => {
           if (sec.anaMenu) {
             onAnaMenu();
+            return 'sessiz';
+          }
+          if (sec.sonrakiBolum && onBolumGec) {
+            onBolumGec(sec.sonrakiBolum, durum);
             return 'sessiz';
           }
           const r = M.sahneSec(bolum, durum, sec);

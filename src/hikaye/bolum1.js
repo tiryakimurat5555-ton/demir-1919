@@ -274,9 +274,12 @@ export const BOLUM1 = {
       ortamOran: 0.5,
       baslik: 'Birinci bölüm bitti',
       paragraflar: [
-        'Hikâye ikinci bölümde sürecek. Verdiğin kararlar kaydedildi: Sabri\'nin ölümünü nasıl karşıladığın, kime güvendiğin ve belgeyi ne yaptığın.',
+        'Verdiğin kararlar kaydedildi: Sabri\'nin ölümünü nasıl karşıladığın, kime güvendiğin ve belgeyi ne yaptığın. Hikâye ikinci bölümde, ertesi sabah sürüyor.',
       ],
-      secenekler: [{ etiket: 'Ana menüye dön', anaMenu: true }],
+      secenekler: [
+        { etiket: 'İkinci bölüme geç', sonrakiBolum: 'bolum2' },
+        { etiket: 'Ana menüye dön', anaMenu: true },
+      ],
     },
   },
 
@@ -492,12 +495,14 @@ export const BOLUM1 = {
               etiket: 'Kanatlı anahtar sana bir şey söylüyor mu?',
               kosul: (d) => delilVar(d, 'kanatli_anahtar') && !bayrak(d, 'suleymanAnahtar'),
               etki: { bayrak: { suleymanAnahtar: true } },
+              sonra: 'sonra',
               cevap: 'Süleyman başını sallıyor. Hayır. Ama kırk yıl limanlarda dolaştım; Selanik\'te, İskenderiye\'de, Marsilya\'da bazı tüccarlar vardı, kimse onlara kim olduklarını sormazdı. Bir yüzükte, bir mühürde böyle küçük işaretler taşırlardı. Belki aynısıdır, belki değil.',
             },
             {
               etiket: 'Sana bir şey sormak istiyorum: beni neden bu limana aldın?',
               kosul: (d) => !bayrak(d, 'suleymanNeden'),
               etki: { bayrak: { suleymanNeden: true }, artir: { suleymanBag: 1 } },
+              sonra: 'sonra',
               cevap: 'Süleyman gülümsüyor, ilk kez bugün. İlk geldiğinde iskeleye oturmuş, iki saat denize baktın, diyor. Kimseye bir şey sormadın, kimseden bir şey istemedin. Öyle bakan adamı tanırım. Ben de bir zaman öyle baktım.',
             },
             { etiket: 'Sonra konuşuruz.' },
@@ -632,6 +637,7 @@ export const BOLUM1 = {
               etiket: 'Ferrante\'nin adamı nasıl biriydi?',
               kosul: (d) => !bayrak(d, 'ferranteAnlatti'),
               etki: { delil: ['ferrante_muhur'], bayrak: { ferranteAnlatti: true } },
+              sonra: 'guvenli',
               cevap: 'Temiz paltolu, eldivenli. Türkçesi düzgün ama yabancı. Kokusu lavanta. Bana gülümsedi; o gülümsemeyi sevmedim.',
             },
             {
