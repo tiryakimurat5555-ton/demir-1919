@@ -8,8 +8,12 @@ görme engelli oyuncular tarafından bağımsız oynanabilecek; VoiceOver ve Tal
 
 Tasarım taslağı: `belgeler/tasarim-taslagi.pdf`
 
-## Şu anki aşama: 0 — başlangıç iskeleti
+## Şu anki aşama: 1 — sesli menü düzeni
+
+- Oyun VoiceOver/TalkBack kapalıyken, kendi Türkçe sesiyle oynanır (Kayıp Okyanus'taki hareketler)
+- Ekran okuyucu açıksa uyarı ekranı; kapanınca oyun kendiliğinden başlar
+- Ana menü: Yeni oyun (giriş metni), Hareketler, Hakkında
+
+## 0 — başlangıç iskeleti
 
 - GitHub → Expo yayın hattı (main dalına her gönderimde Expo Go güncellemesi)
-- Ana menü (Yeni oyun, Hakkında) ve sesli giriş metni
-- Ekran okuyucu açıksa duyurular VoiceOver/TalkBack'e gider; kapalıysa oyunun kendi Türkçe sesi konuşur

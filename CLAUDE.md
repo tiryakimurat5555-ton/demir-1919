@@ -15,9 +15,11 @@
 - Tarihsel gerçekler ile kurgu (örgüt, karakterler) ayrı tutulur; gerçek kişileri uydurma bilgilerle ilişkilendirme.
 - Taslaktaki ölçek (fotogerçekçi, 80+ saat, çok şehir) hedeftir, taahhüt değildir. Önce dikey dilim:
   İstanbul limanı, Süleyman Kaptan, denizcinin eşyaları, belge, soruşturma panosu.
-- Erişilebilirlik kararı henüz verilmedi: taslak, dahili ekran okuyucunun VoiceOver/TalkBack ile birlikte
-  çalışmasını istiyor. Şimdilik: ekran okuyucu açıksa duyurular announceForAccessibility ile, kapalıysa
-  expo-speech (tr-TR); kapalıyken düğmeye dokun = oku, 3 sn içinde yeniden dokun = seç.
+- Erişilebilirlik KARARI (17 Kasım, Murat A'yı seçti): oyun VoiceOver/TalkBack kapalıyken oynanır, Kayıp Okyanus
+  düzeni. Kendi rehberi src/ses/rehber.js (expo-speech tr-TR), hareketler src/arayuz/jestler.js ve SesliListe.js
+  (kayip-okyanus'tan alındı): kaydır = gez, dokun = oku, çift dokun = seç, uzun bas = açıklama, iki parmakla
+  dokun = sustur, iki parmakla çift dokun = geri. Ekran okuyucu açıksa App.js uyarı katmanı gösterir.
+  src/ses/efektler.js şimdilik yalnızca titreşim (tik/secim/dip); ses dosyası yok.
 
 ## Teknik
 - Expo SDK 58; sürümler kayip-okyanus deposuyla aynı (bundledNativeModules.json). Bu ortamda npm erişimi yok.
