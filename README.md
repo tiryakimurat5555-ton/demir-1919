@@ -16,7 +16,8 @@ Tasarım taslağı: `belgeler/tasarim-taslagi.pdf`
 - Soruşturma panosu: iki delili birleştirip çıkarım yapma; defter: hedef ve olanlar
 - Arif'in savaş anıları ve verdiğin kararlar kaydedilir; üç farklı karar ve kapanış
 - Otomatik kayıt, Devam et
-- Ayarlar: konuşma hızı ve Türkçe ses seçimi
+- Ayarlar: konuşma hızı, ortam sesi düzeyi ve Türkçe ses seçimi
+- Ortam sesleri: sisli rıhtım, kayıkhane, liman bürosu, han avlusu, Sabri'nin odası; düşen sandık ve savaş anısı; delil bulunca not alma sesi
 
 ## 1 — sesli menü düzeni
 

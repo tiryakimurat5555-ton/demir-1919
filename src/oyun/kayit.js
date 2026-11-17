@@ -7,7 +7,7 @@ const KAYIT = 'demir1919.kayit';
 const YEDEK = 'demir1919.kayit.yedek';
 const AYARLAR = 'demir1919.ayarlar';
 
-export const VARSAYILAN_AYARLAR = { konusmaHizi: 1.2, sesKimligi: '' };
+export const VARSAYILAN_AYARLAR = { konusmaHizi: 1.2, sesKimligi: '', ortamDuzeyi: 0.6 };
 
 function gecerli(d) {
   return d && d.surum === KAYIT_SURUMU && d.gorunum && Array.isArray(d.deliller) && d.bayraklar;

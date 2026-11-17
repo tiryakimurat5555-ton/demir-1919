@@ -1,4 +1,4 @@
-// Ayarlar: konuşma hızı ve Türkçe ses seçimi. Değişiklikler hemen uygulanır ve kaydedilir.
+// Ayarlar: konuşma hızı, ortam sesi düzeyi ve Türkçe ses seçimi. Değişiklikler hemen uygulanır ve kaydedilir.
 import React from 'react';
 import SesliListe from '../arayuz/SesliListe';
 import { soyle, turkceSesListesi } from '../ses/rehber';
@@ -22,6 +22,13 @@ export default function Ayarlar({ ayarlar, ayarDegistir, onGeri }) {
     return 'sessiz';
   };
 
+  const ortam = (yeni) => {
+    const o = Math.round(Math.max(0, Math.min(1, yeni)) * 10) / 10;
+    ayarDegistir({ ortamDuzeyi: o });
+    setTimeout(() => soyle(o === 0 ? 'Ortam sesi kapalı' : yuzde(o), 'istek', true), 60);
+    return 'sessiz';
+  };
+
   const ogeler = [
     {
       id: 'hiz',
@@ -30,6 +37,13 @@ export default function Ayarlar({ ayarlar, ayarDegistir, onGeri }) {
     },
     { id: 'artir', etiket: 'Artır', sec: () => hiz(ayarlar.konusmaHizi + ADIM) },
     { id: 'azalt', etiket: 'Azalt', sec: () => hiz(ayarlar.konusmaHizi - ADIM) },
+    {
+      id: 'ortam',
+      etiket: 'Ortam sesi: ' + yuzde(ayarlar.ortamDuzeyi),
+      ipucu: 'Rıhtım, kayıkhane gibi yerlerin arka plan sesleri. Alttaki Artır ve Azalt ile değiştir.',
+    },
+    { id: 'ortamArtir', etiket: 'Artır', sec: () => ortam(ayarlar.ortamDuzeyi + 0.1) },
+    { id: 'ortamAzalt', etiket: 'Azalt', sec: () => ortam(ayarlar.ortamDuzeyi - 0.1) },
     {
       id: 'ses',
       etiket: 'Ses: ' + sesAdi,

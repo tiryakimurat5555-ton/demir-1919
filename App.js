@@ -18,6 +18,7 @@ import Oyun from './src/ekran/Oyun';
 import Ayarlar from './src/ekran/Ayarlar';
 import { BOLUM1 } from './src/hikaye/bolum1';
 import { yeniDurum } from './src/oyun/motor';
+import { ortamCal, ortamSesiAyarla, sesleriHazirla } from './src/ses/efektler';
 import { ayarlarOku, ayarlarYaz, kayitOku, kayitSil, VARSAYILAN_AYARLAR } from './src/oyun/kayit';
 
 const HAKKINDA_METNI = [
@@ -60,6 +61,8 @@ export default function App() {
       setAyarlar(a);
       await rehberHazirla();
       rehberAyarla({ konusmaHizi: a.konusmaHizi, sesKimligi: a.sesKimligi });
+      await sesleriHazirla();
+      ortamSesiAyarla(a.ortamDuzeyi);
       setKayit(await kayitOku());
       setHazir(true);
     })();
@@ -71,6 +74,7 @@ export default function App() {
     const yeni = { ...ayarRef.current, ...degisen };
     ayarRef.current = yeni;
     rehberAyarla({ konusmaHizi: yeni.konusmaHizi, sesKimligi: yeni.sesKimligi });
+    ortamSesiAyarla(yeni.ortamDuzeyi);
     ayarlarYaz(yeni);
     setAyarlar(yeni);
   }, []);
@@ -109,6 +113,11 @@ export default function App() {
   }, []);
 
   const menuyeDon = useCallback(() => setEkran('menu'), []);
+
+  // Menülerde rıhtımın sesi uzaktan duyulur; oyunda ortamı Oyun ekranı yönetir
+  useEffect(() => {
+    if (hazir && ekran !== 'oyun') ortamCal('ortam_rihtim', 0.45);
+  }, [hazir, ekran]);
 
   let icerik = null;
   if (ekran === 'menu') {

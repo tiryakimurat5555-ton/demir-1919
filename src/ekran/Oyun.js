@@ -3,7 +3,7 @@
 // iki parmakla çift dokun = geri. Her durum değişikliği otomatik kaydedilir.
 import React, { useEffect, useRef, useState } from 'react';
 import SesliListe from '../arayuz/SesliListe';
-import { cal } from '../ses/efektler';
+import { cal, ortamCal } from '../ses/efektler';
 import { soyle } from '../ses/rehber';
 import * as M from '../oyun/motor';
 import { kayitYaz } from '../oyun/kayit';
@@ -21,6 +21,24 @@ export default function Oyun({ bolum, baslangicDurumu, onAnaMenu, onDurum }) {
   const okunanMekan = useRef(null);
   const mekanOdak = useRef({});
 
+  // Ortam sesi: sahnenin kendi ortamı ya da bulunulan mekânınki
+  const sahneVerisi = durum.gorunum.tur === 'sahne' ? bolum.sahneler[durum.gorunum.id] : null;
+  const ortamAdi = (sahneVerisi && sahneVerisi.ortam) || 'ortam_' + durum.mekan;
+  const ortamOran = sahneVerisi && sahneVerisi.ortamOran !== undefined ? sahneVerisi.ortamOran : 1;
+  useEffect(() => {
+    ortamCal(ortamAdi, ortamOran);
+  }, [ortamAdi, ortamOran]);
+
+  // Sahne efektleri (ör. düşen sandık, ardından savaş anısı) sahne açılınca sırayla çalar
+  const sahneId = durum.gorunum.tur === 'sahne' ? durum.gorunum.id : null;
+  useEffect(() => {
+    if (!sahneId) return undefined;
+    const efektler = (bolum.sahneler[sahneId] && bolum.sahneler[sahneId].efekt) || [];
+    const zamanlar = efektler.map((ad, i) => setTimeout(() => cal(ad, 0.9), i * 1400));
+    return () => zamanlar.forEach(clearTimeout);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [sahneId]);
+
   useEffect(() => {
     kayitYaz(durum);
     if (onDurum) onDurum(durum);
@@ -33,7 +51,10 @@ export default function Oyun({ bolum, baslangicDurumu, onAnaMenu, onDurum }) {
         yeniDeliller.map((id) => bolum.deliller[id].ad).join(', ') +
         '. Soruşturma panosuna eklendi.'
       : '';
-    if (yeniDeliller.length) setTimeout(() => cal('secim'), 50);
+    if (yeniDeliller.length) {
+      cal('delil', 0.8);
+      setTimeout(() => cal('secim'), 50);
+    }
     if (yeniDurum.mekan !== durum.mekan) okunanMekan.current = null;
     setDurumIc(yeniDurum);
     setOnEk(birlestir([ek, delilMetni]));

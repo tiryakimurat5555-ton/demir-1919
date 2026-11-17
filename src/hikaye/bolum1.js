@@ -3,6 +3,8 @@
 // Gizli örgüt, Ferrante ve Ortakları, Leventis vapuru ve bütün karakterler KURGUDUR.
 //
 // Anlatım ikinci tekil şahıs, şimdiki zaman: oyuncu Arif'in gözünden (çoğu zaman kulağından) dinler.
+// Sahnelerde: ortam (çalacak ortam döngüsü; yoksa bulunulan mekânınki), ortamOran (0-1), efekt (sırayla çalan sesler).
+// Mekân ortam sesleri 'ortam_' + mekân kimliği (oda, han, buro, kayikhane, rihtim).
 import { bayrak, cikarimVar, delilVar, sayi } from '../oyun/motor';
 
 const ucDelilCesette = (d) => delilVar(d, 'ip_izi') && delilVar(d, 'kopuk_yok') && delilVar(d, 'mum');
@@ -99,6 +101,7 @@ export const BOLUM1 = {
   // -------------------------------------------------------------------------
   sahneler: {
     acilis: {
+      ortam: 'ortam_rihtim',
       baslik: 'Karaköy, Aralık 1918',
       paragraflar: [
         'Şafak sökmedi daha. Haliç\'ten sis yükseliyor; Galata\'nın lambaları sütlü bir camın arkasında gibi titriyor. Martılar karanlıkta bağırıyor, bir yerde zincir gıcırdıyor, bir vapur uzun ve kalın bir sesle öttürüyor.',
@@ -110,6 +113,9 @@ export const BOLUM1 = {
       secenekler: [{ etiket: 'Devam', sonra: 'ani1' }],
     },
     ani1: {
+      ortam: 'ortam_rihtim',
+      ortamOran: 0.15,
+      efekt: ['sandik', 'ani_savas'],
       baslik: 'Seddülbahir',
       paragraflar: [
         'Kum. Ağzında kum, gözlerinde kum. Hava yanık barut kokuyor ve deniz kırmızı.',
@@ -130,6 +136,7 @@ export const BOLUM1 = {
       ],
     },
     ani1_nefes: {
+      ortam: 'ortam_rihtim',
       baslik: 'Rıhtım',
       paragraflar: [
         'Bir, iki, üç, dört. Soğuk hava ciğerlerine doluyor. Bir, iki, üç, dört. Martı sesleri geri geliyor, sonra zincirin gıcırtısı, sonra hamalların küfürleri.',
@@ -138,6 +145,7 @@ export const BOLUM1 = {
       secenekler: [{ etiket: 'Devam', sonra: 'cagri' }],
     },
     ani1_bastir: {
+      ortam: 'ortam_rihtim',
       baslik: 'Rıhtım',
       paragraflar: [
         'Çeneni öyle sıkıyorsun ki dişlerin gıcırdıyor. Hiçbir şey olmamış gibi eğilip kömürü çuvala küreklemeye başlıyorsun.',
@@ -146,6 +154,7 @@ export const BOLUM1 = {
       secenekler: [{ etiket: 'Devam', sonra: 'cagri' }],
     },
     cagri: {
+      ortam: 'ortam_kayikhane',
       baslik: 'Süleyman Kaptan',
       paragraflar: [
         'Sisin içinden çıplak ayak sesleri. Süleyman Kaptan\'ın tayfa çocuğu Ali, soluk soluğa önünde duruyor.',
@@ -212,6 +221,7 @@ export const BOLUM1 = {
       ],
     },
     son_ingiliz: {
+      ortam: 'ortam_buro',
       baslik: 'Askerî polis',
       paragraflar: [
         'Sabah, Galata\'daki askerî polis karakolunda bir tercüman seni dinliyor, sonra bir yüzbaşıya İngilizce bir şeyler anlatıyor. Yüzbaşı belgeyi alıp ışığa tutuyor. Kanatlı anahtarı görünce kaşı hafifçe kalkıyor; sadece bir an.',
@@ -240,6 +250,7 @@ export const BOLUM1 = {
       secenekler: [{ etiket: 'Devam', sonra: 'kapanis' }],
     },
     kapanis: {
+      ortam: 'ortam_oda',
       baslik: 'Kapının altındaki not',
       paragraflar: (d) => [
         'Gece yarısı Kalafatçı Hanı\'ndaki odana dönüyorsun. Merdiven gıcırdıyor. Kapının önünde durup dinliyorsun; savaştan kalma bir alışkanlık.',
@@ -259,6 +270,8 @@ export const BOLUM1 = {
       secenekler: [{ etiket: 'Devam', etki: { bayrak: { bolumBitti: true } }, sonra: 'son' }],
     },
     son: {
+      ortam: 'ortam_oda',
+      ortamOran: 0.5,
       baslik: 'Birinci bölüm bitti',
       paragraflar: [
         'Hikâye ikinci bölümde sürecek. Verdiğin kararlar kaydedildi: Sabri\'nin ölümünü nasıl karşıladığın, kime güvendiğin ve belgeyi ne yaptığın.',
