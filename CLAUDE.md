@@ -24,7 +24,7 @@
   (kayip-okyanus'tan alındı): kaydır = gez, dokun = oku, çift dokun = seç, uzun bas = açıklama, iki parmakla
   dokun = sustur, iki parmakla çift dokun = geri. Ekran okuyucu açıksa App.js uyarı katmanı gösterir.
 - Ses (17 Kasım): src/ses/efektler.js (expo-audio). Ortam döngüleri ortam_rihtim/kayikhane/buro/han/oda
-  (mekân kimliğiyle eşleşir; sahnede `ortam`, `ortamOran`, `efekt` alanları), efektler sandik, ani_savas, delil, yangin; 3. bölüm döngüleri ortam_cemil_ev/pera/kulup/servis; 4. bölüm ortam_hastane/meyhane/depo, efekt silah; 5. bölüm ortam_guverte/salon/kamara/firtina, efekt vapur_duduk; 6. bölüm ortam_yanik_sehir/otel/ev; 7. bölüm ortam_kosk_bahce/kosk_ic, efektler kopek, kilise_cani; 8. bölüm ortam_tren/manastir/cezaevi/revir, efektler tren_duduk, demir_kapi; 9. bölüm ortam_viyana/kahve/mutfak, efekt tramvay; 10. bölüm ortam_kule/kayik, efekt dokum; 11. bölüm ortam_kordon/kemeralti; 12. bölüm ortam_arsiv/yali; 13. bölüm ortam_yagmur;
+  (mekân kimliğiyle eşleşir; sahnede `ortam`, `ortamOran`, `efekt` alanları), efektler sandik, ani_savas, delil, yangin; 3. bölüm döngüleri ortam_cemil_ev/pera/kulup/servis; 4. bölüm ortam_hastane/meyhane/depo, efekt silah; 5. bölüm ortam_guverte/salon/kamara/firtina, efekt vapur_duduk; 6. bölüm ortam_yanik_sehir/otel/ev; 7. bölüm ortam_kosk_bahce/kosk_ic, efektler kopek, kilise_cani; 8. bölüm ortam_tren/manastir/cezaevi/revir, efektler tren_duduk, demir_kapi; 9. bölüm ortam_viyana/kahve/mutfak, efekt tramvay; 10. bölüm ortam_kule/kayik, efekt dokum; 11. bölüm ortam_kordon/kemeralti; 12. bölüm ortam_arsiv/yali; 13. bölüm ortam_yagmur; 14. bölüm ortam_zurih/banka;
   sessiz.wav oturumu açık tutar. tik/secim/dip için dosya yok, titreşim. Menülerde rıhtım sesi 0,45.
   Üretim: ElevenLabs flow H13uSGbaUNJZNoPkxW7V (eleven_text_to_sound_v2; döngüler 30 sn loop true, generations_count 1).
   Bu ortam elevenlabsusercontent.com'a erişemez: adresleri araclar/indirilecek-sesler.json'a yaz, push et →
@@ -152,7 +152,17 @@
   → satranc1-3: söz satrancı, avantaj (hamle1: nazim_itirafi ya da sahteMuhur +1; hamle2: defterKarar'a göre ya da
   ezber +1; hamle3: koltuk +2), TERK_SINIRI 4 → satrancSonu terk / berabere → hisse_karari: hisseKarar sat / genelkurul
   (neslihanBag +1) / bagis → whitlock13: terk ise Whitlock kaçar ve zurih delilini verir (Zürih, kasa 1908, Rainer'in
-  kendi defteri), berabere ise Whitlock ölü bulunur → son_sabah13 → son. On dördüncü bölüm (Zürih, üçüncü kitap) yok.
+  kendi defteri), berabere ise Whitlock ölü bulunur → son_sabah13 → son.
+- On dördüncü bölüm "Que sais-je?" (src/hikaye/bolum14.js; üçüncü kitabın açılışı): 18-20 Kasım 1919 Zürih. Ekip Cemil +
+  Nermin + Neslihan (ekip_riza false; Rıza İstanbul'da). Mekânlar otel (riviere_sandigi → kucuk_anahtar + ajanda;
+  denemeler → exlibris "Que sais-je?"), sehir (Bahnhofstrasse; banka geçişi kasa_yeri çıkarımıyla), banka (Banque Vollmer;
+  Klara Rainer: Rainer'in torunu, bankanın avukatı → klaraTanisti, klara_uyarisi; gise → parola çıkarımı varsa
+  parola_sahne). Çıkarımlar kasa_yeri (ajanda + davetiye), parola (exlibris + kucuk_anahtar). Parola bulmacası: doğru
+  "Que sais-je?"; yanlış yanlisParola +1, YANLIS_SINIRI 2 → mudur (Klara tanışıldıysa yardım eder, değilse Neslihan
+  hatırlar ama gecikme14: Gubler polisle gelir) → kasa (kurulus_defteri: Selanik 1908, beş kurucu, "usta bilmesin",
+  kırmızı rüşvet sayfaları) → mektup (Rivière: babayı ben ihbar ettim; "Que sais-je?") → gol (Dr. Gubler):
+  defter14 klara (klaraTanisti) / kopya (Nermin'in Kodak'ı; negatifler Kessler'e, Rıza'ya) / viyana → son_sahne14 → son.
+  On beşinci bölüm (Viyana genel kurulu) yok.
 - Hassasiyet: örgüt üyeleri çeşitli uyruklardan; hiçbir din/etnik grupla özdeşleşmez (hikaye-plani.md).
 - Mekânda `ortam` alanı mekânın ortam sesini değiştirir (yoksa 'ortam_' + mekân kimliği).
 - Bölümler src/hikaye/index.js BOLUMLER; durum.bolum. Bölüm sonu sahnesinde { sonrakiBolum } seçeneği →
@@ -176,6 +186,6 @@
   fileName yayin.yml, gitRef = commit) → workflow_info SUCCESS → workflow_logs (CUSTOM bölümü) içindeki
   EXPO_GO_BAGLANTISI satırı. Expo'nun iş akışı süresini kullanır.
   GitHub Actions anahtar yoksa sessizce atlar.
-- Testler: `bun test testler/` (bolum1-13.test.js bölümleri farklı kararlarla baştan sona oynar; 3'te şüphe yolu da).
+- Testler: `bun test testler/` (bolum1-14.test.js bölümleri farklı kararlarla baştan sona oynar; 3'te şüphe yolu da).
 - Akış: uygula → testler → bun build → CLAUDE.md/README → commit → git pull --rebase → push → yayın (yukarıda) → SUCCESS'i bekle
   → Türkçe rapor (Expo Go bağlantısı, yenilikler, denenmemiş olanlar dürüstçe).

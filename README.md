@@ -8,7 +8,17 @@ görme engelli oyuncular tarafından bağımsız oynanabilecek; VoiceOver ve Tal
 
 Tasarım taslağı: `belgeler/tasarim-taslagi.pdf`
 
-## Şu anki aşama: 14 — on üçüncü bölüm: Satranç (ikinci kitabın sonu)
+## Şu anki aşama: 15 — on dördüncü bölüm: Que sais-je? (üçüncü kitap)
+
+- Kasım 1919 Zürih: savaşın uğramadığı, yalnızca parasının uğradığı şehir
+- Rivière'in sandığı: kanatlı küçük bir anahtar, bir ajanda, Montaigne
+- Rainer'in torunu Klara: dedesinden şüphelenen bir avukat
+- Yeni oynanış: banka gişesinde parola; iki yanlışta müdür gelir
+- Kasa 1908: örgütün kuruluş defteri ve Rivière'in Neslihan'a son mektubu
+- Defterin yolu: Klara'ya, fotoğraflı kopyalar ya da Viyana'ya
+- Yeni sesler: Zürih, banka salonu
+
+## 14 — on üçüncü bölüm: Satranç (ikinci kitabın sonu)
 
 - Ekim 1919, yağmurlu İstanbul: Viktor Rainer diplomatik pasaportla geliyor
 - Neslihan'ın Viyana'da okumadan attığı imza ve Selanik'ten gelen vasiyet

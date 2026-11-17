@@ -96,8 +96,12 @@ Bu belge hikâyenin omurgasıdır. Oyuncunun öğrenmediği gerçekleri de içer
    Neslihan'a bıraktı (Ekim 1918'de Viyana noterinde okumadan imzaladığı kâğıtlar). Rainer bir imza için gelir;
    Pera Palas'ta söz satrancı. Kusursuz oyunda Rainer terk eder ve Whitlock taraf değiştirip Zürih'teki kasayı (1908,
    Rainer'in kendi defteri) verir; değilse Whitlock öldürülür. Neslihan hisseleri satar / genel kurul ister / bağışlar.
-14+. Üçüncü kitap: Zürih (kasa 1908), Viyana genel kurulu, Rainer'in düşüşü; Anadolu'daki savaş arka planda büyür.
-   Babanın 1908'deki kalıbı ile kasa numarası aynı yıl: Rainer örgütü o yıl kurdu.
+14. Que sais-je? (YAZILDI; üçüncü kitabın açılışı) — Zürih 18-20 Kasım 1919. Banque Vollmer, kasa 1908 (iki anahtar:
+   Rainer ve Rivière). Kuruluş defteri: Selanik, Ağustos 1908, beş kurucu (V. R., G. R. ve üç baş harf; kimlikleri ileride),
+   "Kalıp: Manastırlı usta İ., usta bilmesin". Rivière'in mektubu: İsmail Usta'yı 1912'de o ihbar etti; Neslihan'ı
+   suçluluktan aldı, sonra sevdi. Klara Rainer (kurgu; Rainer'in torunu, avukat) müttefik olabilir. Dr. Gubler (Rainer'in avukatı).
+15. Viyana genel kurulu (Aralık 1919): Rainer'in düşüşü ya da son direnişi; üç kurucunun kimliği; Klara'nın seçimi.
+   Anadolu'daki savaş arka planda büyür (gerçek kişiler kurguya karışmaz).
 
 ## Hassasiyet notu
 Örgüt "savaştan kâr eden bankerler" teması taşıdığı için üyeler bilinçli olarak çeşitli tutulur (Fransız, İtalyan,
@@ -107,6 +111,7 @@ karakterler (ör. Saltiel) örgütle ilişkilendirilmez; komplo teorisi kalıpla
 ## Süren değerler (bayraklar)
 travma (anılarda bastırınca artar), suleymanBag, gulceGuven, gulceyeAnlatti, gulceYalan, karar1, mezarSozu,
 gorulmusOlabilir (Delorme Arif'i görmüş olabilir), cemilEkipte, nerminBag, suphe (3. bölüm), karar3.
+14. bölüm: yanlisParola, klaraTanisti, gecikme14, defter14 (klara/kopya/viyana).
 13. bölüm: avantaj, hamle1-3, satrancSonu (terk/berabere), hisseKarar (sat/genelkurul/bagis), whitlockSonu (kacti/oldu).
 12. bölüm: gulceBildi, dikkat, nazimUyarildi, yaliSecim (tut/birak), altinKarar (ingiliz/gazete), nerminGazeteKapandi, rainerGeliyor.
 11. bölüm: gecisIzni, ferranteYeri, ferranteBulundu, ferranteGuven, auroraSonu (ihbar/batti), ferranteSonu (kacti/tutuklu), nazimBulundu.

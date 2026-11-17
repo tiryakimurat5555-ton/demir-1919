@@ -238,8 +238,8 @@ export const BOLUM13 = {
       ortam: 'ortam_rihtim',
       ortamOran: 0.45,
       baslik: 'On üçüncü bölüm bitti',
-      paragraflar: ['İkinci kitap burada kapanıyor: Kurşun Mühür\'den Satranç\'a. On dördüncü bölüm yazılıyor: Zürih. Kararların kaydedildi.'],
-      secenekler: [{ etiket: 'Ana menüye dön', anaMenu: true }],
+      paragraflar: ['İkinci kitap burada kapanıyor: Kurşun Mühür\'den Satranç\'a. Sıradaki: Zürih. Kararların kaydedildi.'],
+      secenekler: [{ etiket: 'On dördüncü bölüme geç', sonrakiBolum: 'bolum14' }, { etiket: 'Ana menüye dön', anaMenu: true }],
     },
   },
 
