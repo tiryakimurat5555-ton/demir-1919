@@ -24,7 +24,7 @@
   (kayip-okyanus'tan alındı): kaydır = gez, dokun = oku, çift dokun = seç, uzun bas = açıklama, iki parmakla
   dokun = sustur, iki parmakla çift dokun = geri. Ekran okuyucu açıksa App.js uyarı katmanı gösterir.
 - Ses (17 Kasım): src/ses/efektler.js (expo-audio). Ortam döngüleri ortam_rihtim/kayikhane/buro/han/oda
-  (mekân kimliğiyle eşleşir; sahnede `ortam`, `ortamOran`, `efekt` alanları), efektler sandik, ani_savas, delil, yangin; 3. bölüm döngüleri ortam_cemil_ev/pera/kulup/servis;
+  (mekân kimliğiyle eşleşir; sahnede `ortam`, `ortamOran`, `efekt` alanları), efektler sandik, ani_savas, delil, yangin; 3. bölüm döngüleri ortam_cemil_ev/pera/kulup/servis; 4. bölüm ortam_hastane/meyhane/depo, efekt silah;
   sessiz.wav oturumu açık tutar. tik/secim/dip için dosya yok, titreşim. Menülerde rıhtım sesi 0,45.
   Üretim: ElevenLabs flow H13uSGbaUNJZNoPkxW7V (eleven_text_to_sound_v2; döngüler 30 sn loop true, generations_count 1).
   Bu ortam elevenlabsusercontent.com'a erişemez: adresleri araclar/indirilecek-sesler.json'a yaz, push et →
@@ -60,7 +60,16 @@
   17 numaralı oda (yemek asansöründen): Delorme, Ferrante, Nazım Bey (Maliye); Santa Lucia, Odesa, rüşvet defteri,
   "Madam N. fotoğrafını istiyor" (madamN). Zorunlu: delorme, sevkiyat, rusvet → gece_yarisi → karar3
   (gazete/depo/ihbar) → yangın (kayıkhane yakılır, Süleyman yaralı kurtulur; karar1 sakla ise belgeyi kurtarmış) →
-  kapanış. Dördüncü bölüm "Kül" henüz yok.
+  kapanış.
+- Dördüncü bölüm "Kül" (src/hikaye/bolum4.js): Gureba koğuşu (Süleyman yaralı), Rıza Bey gelir (karar1 polis ise
+  Cihangir'deki adam; Halim'i o yetiştirdi; "döverek değil delille"). Gülce sırrını açar (babası Kâmil Efendi, 1913,
+  "İmzala ve yaşa"); gümrük kâğıtları + damgayı geciktirme seçimi (gulceGecikme). Yüksekkaldırım meyhanesinde sorgu:
+  baski (BASKI_SINIRI 3; defin +1, rakı +1, K 7/rusvet +2, delorme +1; tehdit rizaBag -1) → itiraf → halimKarar
+  tutukla/birak (her iki durumda Halim ölür: hücrede asılı / depoda bıçaklı). Çıkarımlar katil_delorme, saat_on →
+  depo: yol deniz/dam, hamallar (Topal Hasan), Mauser, Delorme yüzleşmesi: saldir (yaraKol, travma+1) / oyala
+  ("ateşi canlı tutmak") / fotograf (fotografVerildi; "Ne kadar benziyorsunuz", Selanik). Sandıklar: karar3 ihbar →
+  Teğmen Ashford, Hargreaves tutuklandı; gulceGecikme → jandarma; yoksa mavna yakılır (sevkiyatSonuc tam/yarim).
+  Telgraf: SALONIQUE, N. 23 Aralık. Kül sahnesi; rizaEkipte. Beşinci bölüm (Selanik yolu) henüz yok.
 - Bölümler src/hikaye/index.js BOLUMLER; durum.bolum. Bölüm sonu sahnesinde { sonrakiBolum } seçeneği →
   motor.bolumeGec: deliller, çıkarımlar ve bayraklar taşınır; bolumBitti, olay_*, gorüldü_*, incelendi_* sıfırlanır,
   bitti_<bölüm> eklenir. Sonraki bölüm önceki bölümün deliller/cikarimlar tanımlarını yayar (...BOLUM1.deliller).
@@ -82,6 +91,6 @@
   fileName yayin.yml, gitRef = commit) → workflow_info SUCCESS → workflow_logs (CUSTOM bölümü) içindeki
   EXPO_GO_BAGLANTISI satırı. Expo'nun iş akışı süresini kullanır.
   GitHub Actions anahtar yoksa sessizce atlar.
-- Testler: `bun test testler/` (bolum1/2/3.test.js bölümleri farklı kararlarla baştan sona oynar; 3'te şüphe yolu da).
+- Testler: `bun test testler/` (bolum1-4.test.js bölümleri farklı kararlarla baştan sona oynar; 3'te şüphe yolu da).
 - Akış: uygula → testler → bun build → CLAUDE.md/README → commit → git pull --rebase → push → yayın (yukarıda) → SUCCESS'i bekle
   → Türkçe rapor (Expo Go bağlantısı, yenilikler, denenmemiş olanlar dürüstçe).

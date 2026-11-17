@@ -266,8 +266,11 @@ export const BOLUM3 = {
       ortam: 'ortam_rihtim',
       ortamOran: 0.4,
       baslik: 'Üçüncü bölüm bitti',
-      paragraflar: ['Nermin Hanım artık ekibinde. Dördüncü bölüm yazılıyor: Kül. Kararların kaydedildi.'],
-      secenekler: [{ etiket: 'Ana menüye dön', anaMenu: true }],
+      paragraflar: ['Nermin Hanım artık ekibinde. Hikâye dördüncü bölümde, yangının ertesi sabahı sürüyor. Kararların kaydedildi.'],
+      secenekler: [
+        { etiket: 'Dördüncü bölüme geç', sonrakiBolum: 'bolum4' },
+        { etiket: 'Ana menüye dön', anaMenu: true },
+      ],
     },
   },
 

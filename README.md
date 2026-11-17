@@ -8,7 +8,16 @@ görme engelli oyuncular tarafından bağımsız oynanabilecek; VoiceOver ve Tal
 
 Tasarım taslağı: `belgeler/tasarim-taslagi.pdf`
 
-## Şu anki aşama: 4 — üçüncü bölüm: On Yedi Numara
+## Şu anki aşama: 5 — dördüncü bölüm: Kül
+
+- Yangının ertesi sabahı, Gureba koğuşu; emekli polis Rıza Bey katılıyor
+- Gülce'nin sırrı: babası ve "İmzala ve yaşa"
+- Meyhanede Komiser Halim'in sorgusu: doğru delili doğru anda sunmak
+- Gece Kurşunlu Han'ın arkasındaki depo: hamallar, Mauser'ler, Lucien Delorme'la yüzleşme
+- Kararlara göre farklı sonuçlar; Selanik'e uzanan telgraf
+- Yeni sesler: hastane koğuşu, meyhane, gece deposu, silah
+
+## 4 — üçüncü bölüm: On Yedi Numara
 
 - Cemil Bey'in Cihangir'deki evi; gazeteci Nermin Hanım katılıyor
 - Pera, Mercure Kulübü: uşak kılığı, şüphe uyandırmamak, barmen Yorgo, sarhoş İngiliz yüzbaşı, vestiyer defteri
