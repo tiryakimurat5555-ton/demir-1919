@@ -244,6 +244,33 @@ export const IPLIKLER = [
     gelecek: 'Beşinci kitabın ana sırrı: mezattan önce kesilen sayfa. Vollmer değil; 1919\'da İstanbul\'da biri. Ekibe yakın birinin adı mı? Birinci bölümden bu yana ekilmiş biri olmalı (kural 4).',
     durum: 'acik',
   },
+  {
+    id: 'hafiz_zarf',
+    ad: 'Hafız Efendi\'nin zarfı',
+    bayrak: 'hafizZarf',
+    ekildi: ['bolum7'],
+    karsiliklar: ['bolum25'],
+    gelecek: 'Beşinci kitap: zarfın içinde Rivière\'in kestiği kırk yedinci sayfa (1912 Selanik, kaçırılan kızların listesi ve onları satan). Zarf, gerçek adıyla isteyene verilecek: Neslihan\'ın hangi adı seçtiği (neslihanAd) kapıyı açar. Hafız Efendi yaşlı; zarf bir mirasçıya geçmiş olabilir.',
+    durum: 'acik',
+  },
+  {
+    id: 'madalya',
+    ad: 'Arif\'in madalyası',
+    bayrak: 'madalya',
+    ekildi: ['bolum3'],
+    karsiliklar: ['bolum23'],
+    gelecek: 'Beşinci kitapta madalyanın sandıktan çıkıp çıkmayacağı: Seddülbahir anısı travma ipliğiyle bağlanır; Nermin öbür yarıyı (sakla) hâlâ bekliyor.',
+    durum: 'acik',
+  },
+  {
+    id: 'yusuf_soz',
+    ad: 'Yusuf Usta\'nın mektupları',
+    bayrak: 'yusufSoz',
+    ekildi: ['bolum8'],
+    karsiliklar: ['bolum24'],
+    gelecek: 'Kapandı: babanın itirafından sonra Arif Yusuf\'un mektubunu açar; çarşı babayı yargılamaz.',
+    durum: 'kapali',
+  },
 ];
 
 export const acikIplikler = () => IPLIKLER.filter((i) => i.durum === 'acik');

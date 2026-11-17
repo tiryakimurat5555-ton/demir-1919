@@ -42,7 +42,10 @@ export const BOLUM24 = {
         'İtilaf askerleri gitti. Bu sabah köprüden bir süvari birliği geçti; kent sokaklara döküldü. Bandolar, bayraklar, ağlayan yaşlılar, omuzlarda çocuklar. Bir şey bitti. Kimse neyin başladığını tam bilmiyor; ama bugün kimse sormuyor.',
         'Kalafatçı Hanı\'nın avlusunda Ohannes Usta kapıyı süpürüyor. Baban yukarıda, pencerede. ' +
           (bayrak(d, 'babaItiraf')
-            ? 'Gazetedeki itiraftan beri sokağa az çıkıyor. Bakkal selam vermiyor artık; Yusuf Usta Manastır\'dan bir mektup yazdı, baban açmadı.'
+            ? 'Gazetedeki itiraftan beri sokağa az çıkıyor. Bakkal selam vermiyor artık; Yusuf Usta Manastır\'dan bir mektup yazdı, baban açmadı.' +
+              (bayrak(d, 'yusufSoz') === 'soz'
+                ? ' Beş yıldır her bayram sen okuyorsun Yusuf\'un mektuplarını; bu sefer baban saklamış. Bugün bayram, diyorsun ona. Mektubu açıyorsun. Usta, diye başlıyor Yusuf; gazeteyi gördük. Çarşıda herkes biliyor. Kimse bir şey demiyor. Ben de demiyorum. Dükkân açık. Kalay hâlâ senin öğrettiğin gibi. Baban pencereden dönüyor.'
+                : '')
             : 'Bayram sesine kulak veriyor; Manastır\'da da böyle bir gün olmuştu, diyor, çok önce.'),
         'Bir çığlık. Neslihan merdivenden iniyor; yüzü bembeyaz. Babamın odasında biri vardı, diyor. Rivière\'in mektubu yok. Bedeli ödendi satırı olan mektup. Vollmer\'in imzası o satırın arkasında.',
         zehraBurada(d)

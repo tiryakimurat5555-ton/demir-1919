@@ -491,7 +491,16 @@ export const BOLUM7 = {
         },
         sonra: {
           soz: 'Hafız Efendi defteri kapatıyor. Bu defter bir şehri yakar evlat, diyor. Ya da kurtarır. Kimin elinde olduğuna bağlı.',
-          secenekler: [{ etiket: 'Sağ ol Hafız Efendi.' }],
+          secenekler: [
+            {
+              etiket: 'Göğüs cebinde bir zarf var, Hafız Efendi. Sürekli elini üstüne koyuyorsun.',
+              kosul: (d) => !bayrak(d, 'hafizZarf'),
+              etki: { bayrak: { hafizZarf: true } },
+              sonra: 'sonra',
+              cevap: 'Yaşlı adam elini çekiyor; sonra gülümsüyor, yakalanmış bir çocuk gibi. Geçen hafta köşkten bir uşak getirdi, diyor. Mühürlü. Mösyö Rivière\'in mührü. Benim ölümümden sonra, onu gerçek adıyla isteyene ver, demiş. Kimin adıyla, söylememiş. Zarfın üstünde yalnızca bir sayı var: kırk yedi. Açmadım evlat. Kırk yıl defterdarlık ettim; bir defterdar mühür kırmaz. Sahibi gelince veririm.',
+            },
+            { etiket: 'Sağ ol Hafız Efendi.' },
+          ],
         },
       },
     },

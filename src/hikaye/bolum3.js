@@ -454,10 +454,32 @@ export const BOLUM3 = {
               cevap: 'Anlatıyorsun. Nermin hiç sözünü kesmeden dinliyor, not almıyor. Sonra jetonu alıp ışığa tutuyor. On yedi, diyor. Perşembe. Bu gece.',
             },
             {
+              etiket: 'Önce sen bir şey sor bana. Gazetecisin; sormadan duramazsın.',
+              kosul: (d) => !bayrak(d, 'madalya'),
+              sonra: 'madalya',
+            },
+            {
               etiket: 'Sadece jetonu göster. Gerisini kendine sakla.',
               etki: { bayrak: { nermineAnlatti: false } },
               sonra: 'plan',
               cevap: 'Nermin jetona bakıyor, sonra sana. Bana güvenmiyorsun, diyor. Akıllıca. Ben de sana güvenmiyorum. İyi anlaşacağız.',
+            },
+          ],
+        },
+        madalya: {
+          soz: 'Nermin gülüyor; ilk kez gerçekten. Peki, diyor. Bir subay gibi yürüyorsun, hamal. Omuzların düz, adımların sayılı. Kapıya girerken önce köşelere bakıyorsun. Neden bir subay kömür çuvalı taşır?',
+          secenekler: [
+            {
+              etiket: 'Seddülbahir\'de üsteğmendim. Bir madalyam var; bir sandığın dibinde. Taşıdığım çuval ondan hafif.',
+              etki: { bayrak: { madalya: 'anlat' }, artir: { nerminBag: 1 } },
+              sonra: 'bilgi',
+              cevap: 'Nermin uzun süre bir şey demiyor. Ağabeyim de bir madalya alacaktı, diyor sonunda. Ölümünden sonra verdiler; annem sandığa koydu. Bizde madalyalar sandıklarda yaşıyor galiba. Sonra kendini toplayıp kalemini çıkarıyor. Bunu yazmayacağım, diyor. Bu seferlik.',
+            },
+            {
+              etiket: 'Kömür ağırdır, düşünmeye vakit bırakmaz. Bu kadar.',
+              etki: { bayrak: { madalya: 'sakla' } },
+              sonra: 'bilgi',
+              cevap: 'Nermin başını yana eğiyor. Yalan değil, diyor. Ama doğrunun yarısı. Bir gün öbür yarısını da isterim, hamal.',
             },
           ],
         },

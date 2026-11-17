@@ -218,9 +218,12 @@ export const BOLUM25 = {
           ? 'Neslihan bir kartpostal alıyor; göl, dağlar, bir vapur. İstanbul\'a, Gülce\'nin bürosuna; Zehra\'ya. Arkasına tek bir kelime yazıyor: Geliyorum.'
           : 'Neslihan bir kartpostal alıyor; Pire\'ye, Rina\'ya. Arkasına bir ayva çiziyor.',
         'Nermin defterinde son satıra bakıyor: 47. Biri o sayfayı mezattan önce kesti, diyor. Vollmer değil; o sayfanın yokluğunu görünce yüzü değişti, gördüm. Kırk yedinci sayfayı kim aldı? Ve ne yazıyordu?',
+        bayrak(d, 'hafizZarf')
+          ? 'Ve sen hatırlıyorsun: Selanik, Aralık 1918. Rebeka Hanım\'ın evinde, ateşin başında, yaşlı bir defterdarın göğüs cebinde mühürlü bir zarf. Mösyö Rivière\'in mührü. Üstünde yalnızca bir sayı: kırk yedi. Onu gerçek adıyla isteyene ver.'
+          : '',
         'Kimse cevap vermiyor. Göl karanlık. Karşı kıyıda bir tren düdüğü; güneye, İtalya\'ya, denize.',
         'Dördüncü kitabın sonu.',
-      ],
+      ].filter(Boolean),
       secenekler: [{ etiket: 'Devam', etki: { bayrak: { bolumBitti: true } }, sonra: 'son' }],
     },
     son: {

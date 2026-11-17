@@ -269,6 +269,9 @@
   Nermin'in ağabeyi Cevdet (nerminCevdet) ve Pendle yemini (nerminYemin gazete/mahkeme/birlikte; 21. bölümde kullanılacak).
   5. adım: 19. bölüm gulce19 (Gülce, Tevfik'in defteri, Süleyman 1913'ten beri onu korur; gulceTevfik yaz/affetme/sessiz →
   20. bölüm açılışı; aramaSozu ise Kemal Reis söylentisi, kemalSoylenti).
+  6. adım (18 Kasım): 7. bölüm Hafız Efendi'nin zarfı (hafizZarf; Rivière'in mührü, üstünde "kırk yedi", gerçek adıyla
+  isteyene) → 25. bölüm son25; 3. bölüm Nermin'in madalya sorusu (madalya anlat/sakla, nerminBag) → 23. bölüm nermin23;
+  8. bölüm Yusuf Usta'nın sözü (yusufSoz soz/yok) → 24. bölüm açılış (babaItiraf yolunda mektubu Arif açar).
   testler/derinlik.test.js iplikleri denetler.
 - İPLİK KAYDI: src/hikaye/iplikler.js (IPLIKLER: bayrak, ekildi, karsiliklar, gelecek, durum). testler/iplikler.test.js
   bayrağın ekildiği bölümde yazıldığını, karşılık bölümlerinde '<bayrak>' olarak okunduğunu denetler. Yeni iplik ekleyince,

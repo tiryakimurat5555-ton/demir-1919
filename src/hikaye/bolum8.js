@@ -356,7 +356,31 @@ export const BOLUM8 = {
         },
         sonra: {
           soz: 'Yusuf Usta bir bakır tasa kalay sürüyor. Ustanın öğrettiği gibi, diyor. İnce bir kat. Kimse görmez.',
-          secenekler: [{ etiket: 'Sağ ol Yusuf.' }],
+          secenekler: [
+            {
+              etiket: 'Babamı çıkarırsam onu İstanbul\'a götüreceğim. Sen gelir misin?',
+              kosul: (d) => !bayrak(d, 'yusufSoz'),
+              sonra: 'yusuf_soz',
+            },
+            { etiket: 'Sağ ol Yusuf.' },
+          ],
+        },
+        yusuf_soz: {
+          soz: 'Yusuf Usta çekici bırakıyor. Burası benim şehrim ağabey, diyor. Sırp olsun, Türk olsun, Bulgar olsun; bu çarşıda kalaycı lazım. Ustanın dükkânını ben açık tutarım. Ama bir şey isteyeceğim: usta bir gün bana bir mektup yazsın. Okuma bilmez; sen yazarsın, o söyler. Altı yıl bekledim; bir mektup daha beklerim.',
+          secenekler: [
+            {
+              etiket: 'Söz. Her bayram bir mektup.',
+              etki: { bayrak: { yusufSoz: 'soz' } },
+              sonra: 'sonra',
+              cevap: 'Yusuf gülümsüyor; yirmi yaşında bir çocuğun gülümsemesi, otuz yaşında bir yüzde. Her bayram, diyor. Ben de cevap yazarım. Benim yazım kötü; ama usta okur. Yani sen okursun.',
+            },
+            {
+              etiket: 'Söz veremem Yusuf. Önümüzde ne var bilmiyorum.',
+              etki: { bayrak: { yusufSoz: 'yok' } },
+              sonra: 'sonra',
+              cevap: 'Yusuf başını sallıyor. Dürüst bir cevap, diyor. Usta da öyle derdi: Bilmediğin işe söz verme, kalay tutmaz.',
+            },
+          ],
         },
       },
     },

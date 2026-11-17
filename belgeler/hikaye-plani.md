@@ -231,3 +231,9 @@ Sıradakiler:
 - 21. bölüm "Arethusa": Kemal, Nermin'in yemini, Cevdet'in atkısı, Pendle; Eylül 1922 İzmir (bütün topluluklara eşit acı).
 - Gülce'nin ipliği: babasının katili bulunduktan sonra ne kalır; Tevfik ihaneti onu nasıl değiştirdi.
 - Konuşmaları uzat: 2-9. bölümlerde kişilerin ikinci, üçüncü konuşma düğümleri (geçmişleri, korkuları).
+
+
+### Derinleştirme 6. adım (18 Kasım)
+- Kırk yedinci sayfanın tohumu 7. bölümde: Rivière ölmeden önce sayfayı kesip mühürlü zarfla Hafız Efendi'ye bıraktı ("onu gerçek adıyla isteyene ver"). Sayfa: 1912 Selanik'te kaçırılan kızların listesi ve onları satan. Beşinci kitapta zarfın izi sürülür; Neslihan'ın adı (neslihanAd) anahtardır.
+- 3. bölüm: Nermin'in madalya sorusu (madalya) → 23. bölüm sofrada.
+- 8. bölüm: Yusuf Usta'nın mektup sözü (yusufSoz) → 24. bölüm.

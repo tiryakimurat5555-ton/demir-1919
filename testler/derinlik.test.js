@@ -163,3 +163,49 @@ test('Gülce\'nin Tevfik kararı yirminci bölümün açılışında döner', ()
   const bos = durum(BOLUM20, {}, { tur: 'sahne', id: 'acilis' });
   expect(M.sahneBilgisi(BOLUM20, bos).paragraflar.every((p) => p.length > 0)).toBe(true);
 });
+
+// 6. derinleştirme adımı: Hafız Efendi'nin zarfı (47. sayfa), Nermin'in madalya sorusu, Yusuf Usta'nın sözü.
+test('Hafız Efendi\'nin zarfı yirmi beşinci bölümün sonunda hatırlanır', async () => {
+  const { BOLUM7 } = await import('../src/hikaye/bolum7');
+  const { BOLUM25 } = await import('../src/hikaye/bolum25');
+  let d = durum(BOLUM7, {}, { tur: 'konusma', kisi: 'hafiz', dugum: 'sonra' });
+  const zarf = M.dugumBilgisi(BOLUM7, d).secenekler.find((x) => x.etiket.includes('zarf'));
+  d = M.secenekSec(BOLUM7, d, zarf).durum;
+  expect(M.bayrak(d, 'hafizZarf')).toBe(true);
+  expect(M.dugumBilgisi(BOLUM7, d).secenekler.some((x) => x.etiket.includes('zarf'))).toBe(false);
+  const ile = M.sahneBilgisi(BOLUM25, durum(BOLUM25, { hafizZarf: true }, { tur: 'sahne', id: 'son25' })).paragraflar;
+  expect(ile.join(' ')).toContain('kırk yedi');
+  const siz = M.sahneBilgisi(BOLUM25, durum(BOLUM25, {}, { tur: 'sahne', id: 'son25' })).paragraflar;
+  expect(siz.join(' ')).not.toContain('defterdarın');
+  expect(siz.every((p) => p.length > 0)).toBe(true);
+});
+
+test('Nermin\'in madalya sorusu sofrada geri döner', async () => {
+  const { BOLUM3 } = await import('../src/hikaye/bolum3');
+  const { BOLUM23 } = await import('../src/hikaye/bolum23');
+  for (const [i, k, parca] of [[0, 'anlat', 'sandığın dibinde'], [1, 'sakla', 'öbür yarısını']]) {
+    let d = durum(BOLUM3, {}, { tur: 'konusma', kisi: 'nermin', dugum: 'bilgi' });
+    d = M.secenekSec(BOLUM3, d, M.dugumBilgisi(BOLUM3, d).secenekler.find((x) => x.etiket.includes('sor bana'))).durum;
+    expect(M.dugumBilgisi(BOLUM3, d).soz.join(' ')).toContain('subay');
+    d = M.secenekSec(BOLUM3, d, M.dugumBilgisi(BOLUM3, d).secenekler[i]).durum;
+    expect(M.bayrak(d, 'madalya')).toBe(k);
+    const s = durum(BOLUM23, { madalya: k }, { tur: 'konusma', kisi: 'nermin23', dugum: 'ilk' });
+    expect(M.dugumBilgisi(BOLUM23, s).soz.join(' ').toLowerCase()).toContain(parca);
+  }
+  const bos = durum(BOLUM23, {}, { tur: 'konusma', kisi: 'nermin23', dugum: 'ilk' });
+  expect(M.dugumBilgisi(BOLUM23, bos).soz.every((p) => p.length > 0)).toBe(true);
+});
+
+test('Yusuf Usta\'nın sözü yirmi dördüncü bölümde mektupla döner', async () => {
+  const { BOLUM24 } = await import('../src/hikaye/bolum24');
+  for (const [i, k] of [[0, 'soz'], [1, 'yok']]) {
+    let d = durum(BOLUM8, {}, { tur: 'konusma', kisi: 'yusuf', dugum: 'sonra' });
+    d = M.secenekSec(BOLUM8, d, M.dugumBilgisi(BOLUM8, d).secenekler.find((x) => x.etiket.includes('İstanbul'))).durum;
+    d = M.secenekSec(BOLUM8, d, M.dugumBilgisi(BOLUM8, d).secenekler[i]).durum;
+    expect(M.bayrak(d, 'yusufSoz')).toBe(k);
+  }
+  const ile = M.sahneBilgisi(BOLUM24, durum(BOLUM24, { babaItiraf: true, yusufSoz: 'soz' }, { tur: 'sahne', id: 'acilis' }));
+  expect(ile.paragraflar.join(' ')).toContain('Dükkân açık');
+  const siz = M.sahneBilgisi(BOLUM24, durum(BOLUM24, { babaItiraf: true, yusufSoz: 'yok' }, { tur: 'sahne', id: 'acilis' }));
+  expect(siz.paragraflar.join(' ')).not.toContain('Dükkân açık');
+});
