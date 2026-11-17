@@ -215,8 +215,8 @@ export const BOLUM14 = {
       ortam: 'ortam_zurih',
       ortamOran: 0.45,
       baslik: 'On dördüncü bölüm bitti',
-      paragraflar: ['Üçüncü kitap başladı. On beşinci bölüm yazılıyor: Viyana, genel kurul. Kararların kaydedildi.'],
-      secenekler: [{ etiket: 'Ana menüye dön', anaMenu: true }],
+      paragraflar: ['Üçüncü kitap başladı. Sıradaki: Viyana, genel kurul. Kararların kaydedildi.'],
+      secenekler: [{ etiket: 'On beşinci bölüme geç', sonrakiBolum: 'bolum15' }, { etiket: 'Ana menüye dön', anaMenu: true }],
     },
   },
 

@@ -100,8 +100,11 @@ Bu belge hikâyenin omurgasıdır. Oyuncunun öğrenmediği gerçekleri de içer
    Rainer ve Rivière). Kuruluş defteri: Selanik, Ağustos 1908, beş kurucu (V. R., G. R. ve üç baş harf; kimlikleri ileride),
    "Kalıp: Manastırlı usta İ., usta bilmesin". Rivière'in mektubu: İsmail Usta'yı 1912'de o ihbar etti; Neslihan'ı
    suçluluktan aldı, sonra sevdi. Klara Rainer (kurgu; Rainer'in torunu, avukat) müttefik olabilir. Dr. Gubler (Rainer'in avukatı).
-15. Viyana genel kurulu (Aralık 1919): Rainer'in düşüşü ya da son direnişi; üç kurucunun kimliği; Klara'nın seçimi.
-   Anadolu'daki savaş arka planda büyür (gerçek kişiler kurguya karışmaz).
+15. Genel Kurul (YAZILDI) — Viyana 15-24 Aralık 1919. Kurucular: A. V. Albert Vollmer (İsviçre), I. S. Kont Imre Szalay
+   (Macar; kardeşi Nisan 1919'da öldü), H. P. Sir Henry Pendle (İngiliz armatör). Hepsi kurgu. Rainer devrilir (tutuklanır ya
+   da Salzburg'da bir manastıra çekilir) ya da kâğıt üstünde kazanır (Klara istifa edip Cenevre'ye gider).
+16. İstanbul, 1920 kışı-baharı: 16 Mart 1920 İstanbul'un resmen işgali (gerçek; yalnızca arka plan). Örgütün dağılan
+   parçaları; Nermin'in gazetesi; Anadolu'ya geçmek isteyenler. Babanın Neslihan'dan Rivière'in mektubunu dinlemesi.
 
 ## Hassasiyet notu
 Örgüt "savaştan kâr eden bankerler" teması taşıdığı için üyeler bilinçli olarak çeşitli tutulur (Fransız, İtalyan,
@@ -111,6 +114,7 @@ karakterler (ör. Saltiel) örgütle ilişkilendirilmez; komplo teorisi kalıpla
 ## Süren değerler (bayraklar)
 travma (anılarda bastırınca artar), suleymanBag, gulceGuven, gulceyeAnlatti, gulceYalan, karar1, mezarSozu,
 gorulmusOlabilir (Delorme Arif'i görmüş olabilir), cemilEkipte, nerminBag, suphe (3. bölüm), karar3.
+15. bölüm: oy_vollmer, oy_szalay, oy_pendle, kurulSonu (devrildi/iflas/kazandi), rainerSonu (tutuklu/yalniz/serbest).
 14. bölüm: yanlisParola, klaraTanisti, gecikme14, defter14 (klara/kopya/viyana).
 13. bölüm: avantaj, hamle1-3, satrancSonu (terk/berabere), hisseKarar (sat/genelkurul/bagis), whitlockSonu (kacti/oldu).
 12. bölüm: gulceBildi, dikkat, nazimUyarildi, yaliSecim (tut/birak), altinKarar (ingiliz/gazete), nerminGazeteKapandi, rainerGeliyor.

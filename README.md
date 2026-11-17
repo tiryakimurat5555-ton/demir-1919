@@ -8,7 +8,16 @@ görme engelli oyuncular tarafından bağımsız oynanabilecek; VoiceOver ve Tal
 
 Tasarım taslağı: `belgeler/tasarim-taslagi.pdf`
 
-## Şu anki aşama: 15 — on dördüncü bölüm: Que sais-je? (üçüncü kitap)
+## Şu anki aşama: 16 — on beşinci bölüm: Genel Kurul
+
+- Aralık 1919, bir yıl sonra yine Viyana
+- Kuruluş defterindeki üç baş harf: bir İsviçreli bankacı, bir Macar kont, bir İngiliz armatör
+- Yeni oynanış: oy toplamak; her kurucunun ayrı bir zaafı, ayrı bir kanıtı
+- Genel kurulda Rainer'in kaderi: devrilmek, bankasının boşalması ya da kâğıt üstünde zafer
+- Ringstraße'de son yüzleşme
+- Yeni sesler: genel kurul salonu, tokmak
+
+## 15 — on dördüncü bölüm: Que sais-je? (üçüncü kitap)
 
 - Kasım 1919 Zürih: savaşın uğramadığı, yalnızca parasının uğradığı şehir
 - Rivière'in sandığı: kanatlı küçük bir anahtar, bir ajanda, Montaigne
