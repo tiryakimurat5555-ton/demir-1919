@@ -8,7 +8,16 @@ görme engelli oyuncular tarafından bağımsız oynanabilecek; VoiceOver ve Tal
 
 Tasarım taslağı: `belgeler/tasarim-taslagi.pdf`
 
-## Şu anki aşama: 30 — yirmi dördüncü bölüm: Baston
+## Şu anki aşama: 31 — yirmi beşinci bölüm: Kırmızı Sayfalar (dördüncü kitabın sonu)
+
+- Kasım 1923, Zürih: Vollmer örgütün kuruluş defterini kapalı bir mezatta satıyor
+- Cemil Bey defterin önizlemesinde kendi geçmişinden bir sayfa bulur
+- Yeni oynanış: itiraz kartları. Önceki bölümlerde topladığın her kanıt (mektup, Gubler'in ifadesi, Gülce'nin damgası,
+  Klara'nın dilekçesi...) mezatta notere sunulabilir; üç turda eşiğe ulaşırsan satış durur
+- Defterin sonu senin elinde: arşiv, gazete ya da ateş. Ve kesilmiş bir sayfa: kırk yedi
+- Yeni ses: mezat salonu
+
+## 30 — yirmi dördüncü bölüm: Baston
 
 - Ekim 1923, İstanbul: İtilaf askerleri gidiyor, kent bayram yapıyor; kalabalıkta bir hırsız
 - Yeni oynanış: kulakla takip. Kavşaklarda sesleri dinle; demir uçlu bir bastonun tıkırtısı, havlayan bir köpek, bir saat çeyreği

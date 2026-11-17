@@ -139,7 +139,12 @@ Bu belge hikâyenin omurgasıdır. Oyuncunun öğrenmediği gerçekleri de içer
    kulağıyla izler (demir uçlu baston, köpek, bando davulu, saat çeyreği). Kemal kayığıyla, Rıza iskele tahtasının başında
    yardım edebilir. Mektubun sonu (babaya / sakla / denize). İtiraf eden babayla bayram yerine yürümek. Gubler: Vollmer
    29 Ekim'de kuruluş defterinin aslını en yüksek fiyatı verene satacak.
-25. Kasım 1923, Zürih (dördüncü kitabın sonu): defterin satışı. Bütün ekip; açık arttırma; Vollmer.
+25. Kırmızı Sayfalar (YAZILDI; dördüncü kitabın sonu) — Zürih, 30 Kasım - 1 Aralık 1923. Önizlemede Cemil, 1912'de
+   kendisine "kaza yaz" emrini veren Binbaşı Fikri'ye örgütün para ödediğini görür. Defterin 47. sayfası kesilmiş. Mezat:
+   önceki bölümlerden gelen kanıtlar itiraz kartı olur (mektup, Gubler, kurye, damga, Klara, negatifler, hisse); üç tur,
+   eşik 3. Durursa mahkeme Neslihan'a (kurucu G. R.'nin mirasçısı) sorar: arşiv / gazete / yak.
+BEŞİNCİ KİTAP (yazılacak): Kırk yedinci sayfa. 1924. Sayfayı mezattan önce kesen, birinci bölümden beri hikâyede olan biri
+   (kural 4). Cemil ile Binbaşı Fikri. Neslihan'ın adı ve Zehra. Süleyman'ın son yılları, Kemal. Defter arşivdeyse 1973 epilogu.
 23+. 1921-1922: Sakarya (Ağustos-Eylül 1921) ve 1922 sonbaharı arka planda; savaş her iki tarafın acısıyla anlatılır.
 
 ## Hassasiyet notu

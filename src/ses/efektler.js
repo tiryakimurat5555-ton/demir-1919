@@ -68,6 +68,7 @@ const KAYNAKLAR = {
   ortam_sofra: require('../../assets/ses/ortam_sofra.wav'),
   ortam_kurtulus: require('../../assets/ses/ortam_kurtulus.wav'),
   baston: require('../../assets/ses/baston.wav'),
+  ortam_mezat: require('../../assets/ses/ortam_mezat.wav'),
   top: require('../../assets/ses/top.wav'),
   sandik: require('../../assets/ses/sandik.wav'),
   ani_savas: require('../../assets/ses/ani_savas.wav'),
@@ -126,6 +127,7 @@ const DONGULER = {
   ortam_gol: 0.55,
   ortam_sofra: 0.5,
   ortam_kurtulus: 0.5,
+  ortam_mezat: 0.5,
 };
 
 const oynaticilar = {};

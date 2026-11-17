@@ -300,8 +300,8 @@ export const BOLUM24 = {
       ortam: 'ortam_kurtulus',
       ortamOran: 0.45,
       baslik: 'Yirmi dördüncü bölüm bitti',
-      paragraflar: ['Kararların kaydedildi. Sıradaki bölüm yazılıyor: Kasım 1923, Zürih. Dördüncü kitabın sonu.'],
-      secenekler: [{ etiket: 'Ana menüye dön', anaMenu: true }],
+      paragraflar: ['Kararların kaydedildi. Sıradaki: Kasım 1923, Zürih. Dördüncü kitabın sonu.'],
+      secenekler: [{ etiket: 'Yirmi beşinci bölüme geç', sonrakiBolum: 'bolum25' }, { etiket: 'Ana menüye dön', anaMenu: true }],
     },
   },
 

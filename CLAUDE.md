@@ -24,7 +24,7 @@
   (kayip-okyanus'tan alındı): kaydır = gez, dokun = oku, çift dokun = seç, uzun bas = açıklama, iki parmakla
   dokun = sustur, iki parmakla çift dokun = geri. Ekran okuyucu açıksa App.js uyarı katmanı gösterir.
 - Ses (17 Kasım): src/ses/efektler.js (expo-audio). Ortam döngüleri ortam_rihtim/kayikhane/buro/han/oda
-  (mekân kimliğiyle eşleşir; sahnede `ortam`, `ortamOran`, `efekt` alanları), efektler sandik, ani_savas, delil, yangin; 3. bölüm döngüleri ortam_cemil_ev/pera/kulup/servis; 4. bölüm ortam_hastane/meyhane/depo, efekt silah; 5. bölüm ortam_guverte/salon/kamara/firtina, efekt vapur_duduk; 6. bölüm ortam_yanik_sehir/otel/ev; 7. bölüm ortam_kosk_bahce/kosk_ic, efektler kopek, kilise_cani; 8. bölüm ortam_tren/manastir/cezaevi/revir, efektler tren_duduk, demir_kapi; 9. bölüm ortam_viyana/kahve/mutfak, efekt tramvay; 10. bölüm ortam_kule/kayik, efekt dokum; 11. bölüm ortam_kordon/kemeralti; 12. bölüm ortam_arsiv/yali; 13. bölüm ortam_yagmur; 14. bölüm ortam_zurih/banka; 15. bölüm ortam_genelkurul, efekt tokmak; 16. bölüm ortam_baskin; 17. bölüm ortam_inebolu/kagni; 18. bölüm ortam_sahra, efekt top; 19. bölüm ortam_telgraf; 20. bölüm ortam_matbaa/istasyon; 21. bölüm ortam_yangin21; 22. bölüm ortam_lozan_otel/gol; 23. bölüm ortam_sofra; 24. bölüm ortam_kurtulus, efekt baston; 2. bölüm morgu ortam_cezaevi;
+  (mekân kimliğiyle eşleşir; sahnede `ortam`, `ortamOran`, `efekt` alanları), efektler sandik, ani_savas, delil, yangin; 3. bölüm döngüleri ortam_cemil_ev/pera/kulup/servis; 4. bölüm ortam_hastane/meyhane/depo, efekt silah; 5. bölüm ortam_guverte/salon/kamara/firtina, efekt vapur_duduk; 6. bölüm ortam_yanik_sehir/otel/ev; 7. bölüm ortam_kosk_bahce/kosk_ic, efektler kopek, kilise_cani; 8. bölüm ortam_tren/manastir/cezaevi/revir, efektler tren_duduk, demir_kapi; 9. bölüm ortam_viyana/kahve/mutfak, efekt tramvay; 10. bölüm ortam_kule/kayik, efekt dokum; 11. bölüm ortam_kordon/kemeralti; 12. bölüm ortam_arsiv/yali; 13. bölüm ortam_yagmur; 14. bölüm ortam_zurih/banka; 15. bölüm ortam_genelkurul, efekt tokmak; 16. bölüm ortam_baskin; 17. bölüm ortam_inebolu/kagni; 18. bölüm ortam_sahra, efekt top; 19. bölüm ortam_telgraf; 20. bölüm ortam_matbaa/istasyon; 21. bölüm ortam_yangin21; 22. bölüm ortam_lozan_otel/gol; 23. bölüm ortam_sofra; 24. bölüm ortam_kurtulus, efekt baston; 25. bölüm ortam_mezat; 2. bölüm morgu ortam_cezaevi;
   sessiz.wav oturumu açık tutar. tik/secim/dip için dosya yok, titreşim. Menülerde rıhtım sesi 0,45.
   Üretim: ElevenLabs flow H13uSGbaUNJZNoPkxW7V (eleven_text_to_sound_v2; döngüler 30 sn loop true, generations_count 1).
   Bu ortam elevenlabsusercontent.com'a erişemez: adresleri araclar/indirilecek-sesler.json'a yaz, push et →
@@ -246,7 +246,17 @@
   baba/sakla/deniz; neslihanAd metni) → son24 (babaItiraf ise babaYaninda seçimi → son24_baba) → kapanis24 → son.
   Yanlış yön seçenekleri yon(etiket, dogruMu, sonra) yardımcısı. Ekran: sahne efekt'i dize ya da dizi olabilir
   (Oyun.js [].concat; önceden dize çökme yapardı). testler/sesler.test.js bütün ortam/efekt adlarını efektler.js'te arar.
-  Yirmi beşinci bölüm yok: Kasım 1923 Zürih, defterin satışı (gubler_sonu, mektup_karar, vollmer_sonu, neslihan_ad...).
+- Yirmi beşinci bölüm "Kırmızı Sayfalar" (src/hikaye/bolum25.js; dördüncü kitabın sonu): 30 Kasım - 1 Aralık 1923 Zürih.
+  Vollmer kuruluş defterini kapalı mezatta satıyor (alıcılar adsız temsilciler). acilis → onizleme (Cemil kırmızı sayfada
+  Kasım 1912, Binbaşı F. E. = Fikri Efendi'ye ödeme: "kaza" emri satın alınmış; cemilDefter teselli/durust/sessiz) →
+  onizleme_son (47. sayfa kesilmiş; sayfa47) → mekân mezat25 (ortam_mezat): KARTLAR (mektup [mektupKarar sakla/baba], gubler
+  [gublerSonu teslim], kurye [vollmerSonu kurye], damga [vollmerSonu damga, 2], klara [klaraYardim, 2], negatif [defter14
+  kopya], hisse [hisseKarar genelkurul]) nesne olarak; her biri itiraz +değer, tur +1 → kart_sahne (efekt tokmak; sonKart);
+  "Bu turda bekle" tur +1. TUR_SAYISI 3; olay tokmak (tur >= 3) → tokmak25: mezatSonu durdu (itiraz >= ITIRAZ_ESIGI 3) /
+  satildi → mahkeme25: defterSonu arsiv (Federal Arşiv, 50 yıl) / gazete / yak / satildi → son25 (göl; cocukKarar, cemilDefter)
+  → son ("Beşinci kitap: kırk yedinci sayfa").
+  Beşinci kitap yok: açık iplikler cemil_defter, defter_sonu, sayfa47 (kural 4: 47. sayfayı kesen birinci bölümden beri ekili
+  biri olmalı), cocuk, neslihan_ad, riza_son, kemal_kalir, travma, arif_neden, kardes_gecesi, cemil_rapor, gulce_tevfik.
 - DERİNLEŞTİRME KARARI (17 Kasım, Murat: "Derinleştir"): yeni bölüm yazmaya ara; önce var olan bölümler derinleşir.
   Plan ve yapılanlar belgeler/hikaye-plani.md "Derinleştirme" bölümünde. 1. adım: arifNeden (1. bölüm gece_konusma →
   6. bölüm arifNedenSatiri, 8. bölüm tahliye), haticeSozu (1. bölüm mektup → 2. cenaze → 17. hatice17), Pendle tohumu
@@ -296,6 +306,6 @@
   fileName yayin.yml, gitRef = commit) → workflow_info SUCCESS → workflow_logs (CUSTOM bölümü) içindeki
   EXPO_GO_BAGLANTISI satırı. Expo'nun iş akışı süresini kullanır.
   GitHub Actions anahtar yoksa sessizce atlar.
-- Testler: `bun test testler/` (bolum1-24.test.js bölümleri farklı kararlarla baştan sona oynar; 3'te şüphe yolu da).
+- Testler: `bun test testler/` (bolum1-25.test.js bölümleri farklı kararlarla baştan sona oynar; 3'te şüphe yolu da).
 - Akış: uygula → testler → bun build → CLAUDE.md/README → commit → git pull --rebase → push → yayın (yukarıda) → SUCCESS'i bekle
   → Türkçe rapor (Expo Go bağlantısı, yenilikler, denenmemiş olanlar dürüstçe).
