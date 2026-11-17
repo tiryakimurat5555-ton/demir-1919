@@ -8,7 +8,16 @@ görme engelli oyuncular tarafından bağımsız oynanabilecek; VoiceOver ve Tal
 
 Tasarım taslağı: `belgeler/tasarim-taslagi.pdf`
 
-## Şu anki aşama: 6 — beşinci bölüm: Kalliope
+## Şu anki aşama: 7 — altıncı bölüm: Hotel Olympos
+
+- Selanik: Kalamarya'da bir aile evi, 1917 yangınının yaktığı şehir, Hotel Olympos
+- Manastırlı yaşlı göçmen Hafız Efendi: Arif'in ailesinin akıbeti; Manastır 1912 anısı
+- Otel defteri için ekipten yardım
+- Neslihan'la karşılaşma: kurye kılığı, hamal ya da abi olarak; ayva ağacı, talimat, güven
+- Neslihan'ın güvenine göre farklı son
+- Yeni sesler: yanık şehir, otel lobisi, aile evi
+
+## 6 — beşinci bölüm: Kalliope
 
 - Galata'dan Selanik'e iki gecelik vapur yolculuğu; ekip seçimi (üç kişiden ikisi gelir)
 - Gemide cinayet: her ekip üyesi kendi yoluyla delil bulur (zehir, Almanca not, kamarotun ifadesi)

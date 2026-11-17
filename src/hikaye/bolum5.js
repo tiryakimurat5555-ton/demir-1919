@@ -194,8 +194,11 @@ export const BOLUM5 = {
       ortam: 'ortam_rihtim',
       ortamOran: 0.4,
       baslik: 'Beşinci bölüm bitti',
-      paragraflar: ['Selanik\'e vardın. Altıncı bölüm yazılıyor: Hotel Olympos. Kararların kaydedildi.'],
-      secenekler: [{ etiket: 'Ana menüye dön', anaMenu: true }],
+      paragraflar: ['Selanik\'e vardın. Hikâye altıncı bölümde, Hotel Olympos\'ta sürüyor. Kararların kaydedildi.'],
+      secenekler: [
+        { etiket: 'Altıncı bölüme geç', sonrakiBolum: 'bolum6' },
+        { etiket: 'Ana menüye dön', anaMenu: true },
+      ],
     },
   },
 

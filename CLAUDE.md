@@ -24,7 +24,7 @@
   (kayip-okyanus'tan alındı): kaydır = gez, dokun = oku, çift dokun = seç, uzun bas = açıklama, iki parmakla
   dokun = sustur, iki parmakla çift dokun = geri. Ekran okuyucu açıksa App.js uyarı katmanı gösterir.
 - Ses (17 Kasım): src/ses/efektler.js (expo-audio). Ortam döngüleri ortam_rihtim/kayikhane/buro/han/oda
-  (mekân kimliğiyle eşleşir; sahnede `ortam`, `ortamOran`, `efekt` alanları), efektler sandik, ani_savas, delil, yangin; 3. bölüm döngüleri ortam_cemil_ev/pera/kulup/servis; 4. bölüm ortam_hastane/meyhane/depo, efekt silah; 5. bölüm ortam_guverte/salon/kamara/firtina, efekt vapur_duduk;
+  (mekân kimliğiyle eşleşir; sahnede `ortam`, `ortamOran`, `efekt` alanları), efektler sandik, ani_savas, delil, yangin; 3. bölüm döngüleri ortam_cemil_ev/pera/kulup/servis; 4. bölüm ortam_hastane/meyhane/depo, efekt silah; 5. bölüm ortam_guverte/salon/kamara/firtina, efekt vapur_duduk; 6. bölüm ortam_yanik_sehir/otel/ev;
   sessiz.wav oturumu açık tutar. tik/secim/dip için dosya yok, titreşim. Menülerde rıhtım sesi 0,45.
   Üretim: ElevenLabs flow H13uSGbaUNJZNoPkxW7V (eleven_text_to_sound_v2; döngüler 30 sn loop true, generations_count 1).
   Bu ortam elevenlabsusercontent.com'a erişemez: adresleri araclar/indirilecek-sesler.json'a yaz, push et →
@@ -77,7 +77,15 @@
   Cemil | brenner_notu: Nermin | kamarot_ifadesi: Rıza | bos_sise: herkes, garnier_kaptan sonrası kamara9).
   Brenner'in astarında mühürlü mektup (muhurSaglam: buharla / kır) → talimat (+ telgraf). Fırtına: atıl (yaraKol →
   denize düşer, değilse kapsülle ölür) / konuş ("O kadın senin..." yarimCumle) / Morin (morinGuven → tutuklu,
-  fransizBag). Varış: Beyaz Kule, 1917 yangını; Hotel Olympos yarın akşam. Altıncı bölüm henüz yok.
+  fransizBag). Varış: Beyaz Kule, 1917 yangını; Hotel Olympos yarın akşam.
+- Altıncı bölüm "Hotel Olympos" (src/hikaye/bolum6.js): Kalamarya'da Rebeka Hanım'ın evi (Saltiel'in kuzeni), yanık
+  şehir, otel lobisi. Saltiel ya da Morin (fransizBag) → riviere_bilgi. Hafız Efendi (barakalar incelenince):
+  aile: baba Kalaycı İsmail Usta (Manastır yoluna döndü, kayıp), anne Zehra Hanım (göç yolunda tifo), Neslihan 17
+  yaşında Rivière'in adamlarınca alındı → ani3 (Manastır Kasım 1912; Arif esir düşüp döndüğünde ev yanmıştı).
+  Kâtip yalnızca ekip üyesiyle konuşur (cemilOtel/nerminOtel/rizaOtel) → otel_kaydi (Delorme 24 Aralık geliyor).
+  Çıkarımlar kardes, randevu, riviere → olympos: kurye (muhurSaglam) / hamal (çay: iç +1 / değiştir) / abi (+1);
+  yuzyuze: talimat (+2) / ayva (+1) / Sabri (+1). neslihanBag >= 2 → çalışma odası anahtarı, kasa Montaigne'in
+  arkasında (anahtarAlindi), "Git, abi"; değilse "bir daha karşıma çıkma". Yedinci bölüm (Rivière'in köşkü) yok.
 - Hassasiyet: örgüt üyeleri çeşitli uyruklardan; hiçbir din/etnik grupla özdeşleşmez (hikaye-plani.md).
 - Mekânda `ortam` alanı mekânın ortam sesini değiştirir (yoksa 'ortam_' + mekân kimliği).
 - Bölümler src/hikaye/index.js BOLUMLER; durum.bolum. Bölüm sonu sahnesinde { sonrakiBolum } seçeneği →
@@ -101,6 +109,6 @@
   fileName yayin.yml, gitRef = commit) → workflow_info SUCCESS → workflow_logs (CUSTOM bölümü) içindeki
   EXPO_GO_BAGLANTISI satırı. Expo'nun iş akışı süresini kullanır.
   GitHub Actions anahtar yoksa sessizce atlar.
-- Testler: `bun test testler/` (bolum1-5.test.js bölümleri farklı kararlarla baştan sona oynar; 3'te şüphe yolu da).
+- Testler: `bun test testler/` (bolum1-6.test.js bölümleri farklı kararlarla baştan sona oynar; 3'te şüphe yolu da).
 - Akış: uygula → testler → bun build → CLAUDE.md/README → commit → git pull --rebase → push → yayın (yukarıda) → SUCCESS'i bekle
   → Türkçe rapor (Expo Go bağlantısı, yenilikler, denenmemiş olanlar dürüstçe).
