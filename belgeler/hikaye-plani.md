@@ -127,7 +127,11 @@ Bu belge hikâyenin omurgasıdır. Oyuncunun öğrenmediği gerçekleri de içer
    yok" denmiş). Fenwick (Pendle'in acentesi): kişi başı beş altın; Kızılhaç'ın kırk sandık ilacı "kurtarılmış mal".
    Kemal yolcuları bilet sormadan alır (ya da tereddüt eder, Pendle motorla kaçar). Nermin'in atkısı Pendle'in masasında.
    Eleni hastalarıyla gemiye biner. Rıhtımdaki kız "Ayva" (Rina). Yeni iplikler: kemal_sonu, pendle_sonu, cocuk, riza_sorgu.
-22. Kasım 1922, Lozan: barış masasının kulisinde Pendle (ya da onun avukatları); Klara Rainer Cenevre'den; Kemal'in tanıklığı.
+22. Üç Akşam (YAZILDI) — Lozan, Kasım 1922 - 4 Şubat 1923. Pendle Kızılhaç'ın kırk sandığı için tazminat ister (kurgu
+   alt komisyon). Üç akşam, dört kapı: Klara (asıl ambar listesi), Kemal (yeminli ifade), Eleni (Kızılhaç fişi), basın.
+   Rıza göl kıyısında (bastonu, dosyalar), Neslihan'ın pasaportu ve adı; Ayva'ya annenin adı Zehra. Klara: masrafları
+   Banque Vollmer ödüyor. Albert Vollmer (14. bölümde Banque Vollmer, 15. bölümde kurucu) sıradaki karşıt.
+23. 1923 baharı, Zürih ve İstanbul: Vollmer'in kasası; Kemal babasının kayıkhanesinde; Zehra/Ayva; Rıza'nın yokluğu ya da dönüşü.
 23+. 1921-1922: Sakarya (Ağustos-Eylül 1921) ve 1922 sonbaharı arka planda; savaş her iki tarafın acısıyla anlatılır.
 
 ## Hassasiyet notu

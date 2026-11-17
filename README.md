@@ -8,7 +8,14 @@ görme engelli oyuncular tarafından bağımsız oynanabilecek; VoiceOver ve Tal
 
 Tasarım taslağı: `belgeler/tasarim-taslagi.pdf`
 
-## Şu anki aşama: 27 — yirmi birinci bölüm: Arethusa
+## Şu anki aşama: 28 — yirmi ikinci bölüm: Üç Akşam
+
+- Kasım 1922, Lozan: barış konferansının otelinde bir tazminat dilekçesi
+- Yeni oynanış: üç akşam, dört kapı; her akşam yalnız birini seçebilirsin, bazı tanıklar iki akşam ister
+- Rıza Bey göl kıyısında; Neslihan'ın pasaportundaki ad; Ayva'ya bir ad
+- Yeni sesler: otel lobisi, kış gecesi göl iskelesi
+
+## 27 — yirmi birinci bölüm: Arethusa
 
 - Eylül 1922, İzmir: yanan bir kent, bir rıhtım ve denizin kıyısında yüz binlerce insan
 - Süleyman Kaptan yirmi beş yıl önce kaybettiği oğlunu bir geminin köprüsünde bulur

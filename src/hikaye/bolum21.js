@@ -377,8 +377,8 @@ export const BOLUM21 = {
       ortam: 'ortam_kordon',
       ortamOran: 0.45,
       baslik: 'Yirmi birinci bölüm bitti',
-      paragraflar: ['Kararların kaydedildi. Sıradaki bölüm yazılıyor: Kasım 1922. Bir barış masası kuruluyor; ve Pendle Shipping\'in defterinde hâlâ okunmamış bir sayfa var.'],
-      secenekler: [{ etiket: 'Ana menüye dön', anaMenu: true }],
+      paragraflar: ['Kararların kaydedildi. Sıradaki: Kasım 1922. Bir barış masası kuruluyor; ve Pendle Shipping\'in defterinde hâlâ okunmamış bir sayfa var.'],
+      secenekler: [{ etiket: 'Yirmi ikinci bölüme geç', sonrakiBolum: 'bolum22' }, { etiket: 'Ana menüye dön', anaMenu: true }],
     },
   },
 
