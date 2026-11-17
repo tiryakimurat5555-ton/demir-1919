@@ -95,7 +95,72 @@ export const BOLUM17 = {
         'İnebolu\'dan Ankara\'ya on üç gün. Küre ormanları, Kastamonu, Ilgaz dağı, Çankırı. Nisan; ama dağda hâlâ kar var.',
         'Zeynep Ana önden yürüyor. Erzak az, diyor. İki çuval un, bir tulum peynir. Yolu iyi seçerseniz yeter.',
       ],
-      secenekler: [{ etiket: 'Yola çık', sonra: 'etap_kure' }],
+      secenekler: [{ etiket: 'Yola çık', sonra: 'hatice17' }],
+    },
+    // Birinci bölümdeki yarım mektubun karşılığı: Sabri'nin kız kardeşi kafilede.
+    hatice17: {
+      ortam: 'ortam_kagni',
+      baslik: 'Trabzonlu kadın',
+      paragraflar: (d) => [
+        'İlk molada bir kadın kağnının yanında sana su uzatıyor. Otuzunda var yok; başörtüsü sıkı bağlanmış, elleri kınalı, gözleri yorgun. Ağzı Karadeniz ağzı.',
+        'Nerelisin bacım, diye soruyorsun. Trabzon, diyor. Kocam İnebolu\'dan; sandal işler. Kocam da kafilede, arkada. Bir abim vardı; vapurlarda ateşçiydi. İstanbul\'da öldü, iki yıl önce. Adı Sabri.',
+        'Su kabı elinde donup kalıyor.',
+        bayrak(d, 'haticeSozu')
+          ? 'Göğüs cebindeki kâğıdı on altı aydır taşıyorsun. Kenarları yumuşamış, katları aşınmış. Sabri\'nin iri, okul görmemiş harfleri. Hatice kardeşim.'
+          : 'Sabri\'nin yarım mektubunu hatırlıyorsun. Hatice kardeşim. Kâğıt delillerin arasında kaldı; şimdi kim bilir nerede.',
+      ],
+      secenekler: [
+        {
+          etiket: 'Mektubu ver. Sonuna kadar oku; sonra her şeyi anlat.',
+          kosul: (d) => bayrak(d, 'haticeSozu'),
+          etki: (d) => ({ bayrak: { haticeSonu: 'mektup' }, artir: { travma: sayi(d, 'travma') > 0 ? -1 : 0 } }),
+          sonra: 'hatice17_mektup',
+        },
+        {
+          etiket: 'Doğrusunu söyle: abin boğulmadı. Gördüğü bir şey yüzünden öldürüldü.',
+          etki: { bayrak: { haticeSonu: 'dogru' } },
+          sonra: 'hatice17_dogru',
+        },
+        {
+          etiket: 'Bir şey söyleme. Abisinin iyi bir adam olduğunu söyle, yalnızca.',
+          etki: { bayrak: { haticeSonu: 'sessiz' }, artir: { travma: 1 } },
+          sonra: 'hatice17_sessiz',
+        },
+      ],
+    },
+    hatice17_mektup: {
+      ortam: 'ortam_kagni',
+      baslik: 'Hatice kardeşim',
+      paragraflar: [
+        'Kâğıdı açıyor. Okuması yavaş; parmağıyla satırları izliyor. Dudakları kıpırdıyor. Sana bu ay para yollayamadım, kusura bakma.',
+        'Tüfekler. Deri çanta. Allah affetsin. Eğer bana bir şey olur. Satırın bittiği yerde parmağı duruyor.',
+        'Sana bakıyor. Bitirsene, diyor. Eğer bana bir şey olursa ne?',
+        'Ona her şeyi anlatıyorsun. Leventis\'i, kırk sandığı, kayıkhaneyi, Süleyman Kaptan\'ı, Gureba Mezarlığı\'nı, servilerin arasındaki taşı. Sabri\'nin aldığı kâğıtların sonunda nereye gittiğini: Viyana\'ya, Zürih\'e, bir genel kurula, bir matbaaya. Sabri\'nin bir çantadan aldığı üç kâğıdın, bir örgütü yıktığını.',
+        'Hatice uzun süre susuyor. Sonra mektubu katlıyor, göğsüne koyuyor; senin taşıdığın yere. Abim hep, ben bir şey bilmem bacım, derdi, diyor. Kazanın sesinden başka bir şey bilmem. Bilirmiş.',
+        'O gün kafilede en ağır sandığı Hatice taşıyor. Kimse ona yardım etmeye cesaret edemiyor.',
+      ],
+      secenekler: [{ etiket: 'Devam', sonra: 'etap_kure' }],
+    },
+    hatice17_dogru: {
+      ortam: 'ortam_kagni',
+      baslik: 'Hatice',
+      paragraflar: [
+        'Hatice\'nin elindeki su kabı titriyor. Sarhoştu dediler, diyor. Bir polis yazdı; ağzına içki koymayan adama sarhoş dediler.',
+        'Ona anlatıyorsun. Bileklerdeki izi, ağızdaki köpüğün yokluğunu, tırnaklardaki kırmızı mumu. Sabri\'nin bir sandığın içinde ne gördüğünü.',
+        'Yazdı mı bana bir şey, diye soruyor. Bir mektup başlamış, diyorsun. Bitirememiş. Kâğıt şimdi nerede, bilmiyorum.',
+        'Hatice başını sallıyor. Yarım kalan mektubu ben bitiririm, diyor. Her gece. Kırk yıl.',
+      ],
+      secenekler: [{ etiket: 'Devam', sonra: 'etap_kure' }],
+    },
+    hatice17_sessiz: {
+      ortam: 'ortam_kagni',
+      baslik: 'Hatice',
+      paragraflar: [
+        'Abin iyi bir adamdı, diyorsun. Onu tanırdım. İyi bir ateşçiydi; kazanın sesinden derdini anlardı.',
+        'Hatice gülümsüyor. Süleyman Kaptan da öyle yazmıştı, diyor. Kazanın sesinden derdini anlardı. Sen de onu mu tanıyorsun?',
+        'Evet, diyorsun. Başka bir şey demiyorsun. Hatice kağnısına dönüyor. Sırtında kalan cümleleri sen taşıyorsun; on üç gün boyunca.',
+      ],
+      secenekler: [{ etiket: 'Devam', sonra: 'etap_kure' }],
     },
     etap_kure: {
       ortam: 'ortam_kagni',

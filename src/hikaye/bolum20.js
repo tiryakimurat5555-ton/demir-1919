@@ -50,7 +50,7 @@ export const BOLUM20 = {
       a: 'sevk_listesi',
       b: 'pendle_ceki',
       ad: 'Tarife',
-      metin: 'Cephane treninin saati Nuri\'nin elinde; ve Nuri\'nin arkasında Sir Henry Pendle. Viyana\'da "batan gemiden inerim" diyen armatör, şimdi iki tarafa birden yük taşıyor. Tren 21 Ağustos gecesi saat on birde kalkacak. Biri onu bekliyor.',
+      metin: 'Cephane treninin saati Nuri\'nin elinde; ve Nuri\'nin arkasında Sir Henry Pendle. Pendle Shipping, Pire: Leventis\'in yük kaydında da bu ad vardı. Sabri\'nin öldüğü gece kırk sandık tüfeği getiren gemi onundu. Columbia da onundu. Viyana\'da "batan gemiden inerim" diyen armatör, şimdi iki tarafa birden yük taşıyor. Tren 21 Ağustos gecesi saat on birde kalkacak. Biri onu bekliyor.',
     },
   },
 

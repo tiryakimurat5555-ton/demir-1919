@@ -53,6 +53,7 @@ test('her delilin ve çıkarımın tanımı var', () => {
 });
 
 for (const karar of ['İngiliz', 'eski bir polis', 'sakla']) {
+  const neden = { 'İngiliz': 'İnandım', 'eski bir polis': 'Korktum', sakla: 'bırakıp gittiğimi' }[karar];
   test('bölüm baştan sona oynanır: ' + karar, () => {
     let d = M.yeniDurum(B);
     d = sahneGec(d); // açılış
@@ -95,6 +96,7 @@ for (const karar of ['İngiliz', 'eski bir polis', 'sakla']) {
     d = incele(d, 'pervaz');
     d = sahneleriGec(d);
     expect(M.delilVar(d, 'fotograf')).toBe(true);
+    expect(M.bayrak(d, 'haticeSozu')).toBe(true);
 
     expect(M.baglan(B, d, 'motor', 'belge').basarili).toBe(false);
     d = baglan(d, 'ip_izi', 'kopuk_yok');
@@ -105,6 +107,14 @@ for (const karar of ['İngiliz', 'eski bir polis', 'sakla']) {
     expect(d.gorunum).toEqual({ tur: 'sahne', id: 'karar_oncesi' });
     expect(d.mekan).toBe('kayikhane');
     d = sahneGec(d);
+    expect(d.gorunum.id).toBe('gece_konusma');
+    expect(M.sahneBilgisi(B, d).paragraflar.join(' ')).toContain('Kalaycı İsmail Usta');
+    d = sahneGec(d, neden);
+    expect(d.gorunum.id).toBe('gece_suleyman');
+    expect(M.sahneBilgisi(B, d).paragraflar.join(' ')).toContain('Kemal');
+    d = sahneGec(d);
+    expect(M.bayrak(d, 'aramaSozu')).toBe(true);
+    expect(d.gorunum.id).toBe('karar');
     d = sahneGec(d, karar);
     d = sahneGec(d); // son sahnesi
     const kapanis = M.sahneBilgisi(B, d);

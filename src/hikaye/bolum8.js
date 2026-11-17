@@ -158,7 +158,14 @@ export const BOLUM8 = {
           'Stojan anahtarı çeviriyor. Sürgü kayıyor. Demir kapı gıcırdayarak açılıyor.',
           'Baban, Stojan\'ın koluna yaslanmış, avluya çıkıyor. Altı yıldır ilk kez gökyüzünün altında. Kar yüzüne düşüyor. Gözlerini kırpıştırıyor; elini kaldırıp tanelerine bakıyor.',
           tanima >= 2
-            ? 'Sonra sana bakıyor. Uzun uzun. Dudakları kıpırdıyor. Arif, diyor. Oğlum. Seni aradım. Seni çok aradım.'
+            ? 'Sonra sana bakıyor. Uzun uzun. Dudakları kıpırdıyor. Arif, diyor. Oğlum. Seni aradım. Seni çok aradım.' +
+              (bayrak(d, 'arifNeden') === 'sucluluk'
+                ? ' Ben seni hiç aramadım baba, diyorsun; sesin kırılıyor. Baban başını iki yana sallıyor: Sen esirdin. Esir aranmaz; beklenir. Ben de bekleyemedim, o kadar.'
+                : bayrak(d, 'arifNeden') === 'korktum'
+                  ? ' Beni tanır mısın diye korkuyordum, diyorsun. Baban gülümsüyor, yorgun: Altı yıl damla içtim oğul. Kendimi tanımadım. Seni tanıdım.'
+                  : bayrak(d, 'arifNeden') === 'inandim'
+                    ? ' Öldün dediler baba, diyorsun. İnandım. Baban elini yüzüne koyuyor: Bana da öyle dediler. Ben inanmadım. Bu kadar.'
+                    : '')
             : 'Sana bakıyor; yabancı bir adama bakar gibi. Teşekkür ederim efendi, diyor kibarca. Afyonun sisi hâlâ gözlerinde. ' + (yanimda(d, 'cemil') ? 'Cemil Bey yanına eğiliyor: Günler sürer, diyor. Belki haftalar. Ama dönecek.' : 'Günler sürecek, belki haftalar. Ama dönecek.'),
           neslihanBurada(d)
             ? (tanima >= 2

@@ -181,7 +181,14 @@ export const BOLUM2 = {
           sonra: 'cemil_katilir',
         },
         {
+          etiket: 'Yarım mektubun göğüs cebimde Sabri. Hatice\'ye ben götüreceğim.',
+          kosul: (d) => bayrak(d, 'haticeSozu'),
+          etki: { bayrak: { mezarSozu: 'huzur' }, artir: { suleymanBag: 1 } },
+          sonra: 'cemil_katilir',
+        },
+        {
           etiket: 'Huzur içinde yat. Kız kardeşine haber vereceğiz.',
+          kosul: (d) => !bayrak(d, 'haticeSozu'),
           etki: { bayrak: { mezarSozu: 'huzur' }, artir: { suleymanBag: 1 } },
           sonra: 'cemil_katilir',
         },

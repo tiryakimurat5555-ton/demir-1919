@@ -26,7 +26,7 @@ export const BOLUM1 = {
     fransiz_aksan: { ad: 'Fransız ağızlı adam', tarif: 'Motordaki adamlardan biri Türkçe konuşuyordu, ama Hüsnü\'ye göre Frenk ağzıyla.' },
     belge: { ad: 'Şifreli belge', tarif: 'Yağlı beze sarılı kalın kâğıt: harf ve rakamlardan isimler, Fransızca şehir adları, tarihler ve Arif\'in okuyamadığı siyakat yazısıyla bir bölüm.' },
     kanatli_anahtar: { ad: 'Kanatlı anahtar işareti', tarif: 'Belgenin altına mürekkeple basılmış bir işaret: iki yanından kanat açmış bir anahtar.' },
-    manifest: { ad: 'Leventis\'in yük kaydı', tarif: 'Liman bürosunun defterine göre Leventis, Ferrante ve Ortakları adına kırk sandık makine yedek parçası indirecek.' },
+    manifest: { ad: 'Leventis\'in yük kaydı', tarif: 'Liman bürosunun defterine göre Leventis, Ferrante ve Ortakları adına kırk sandık makine yedek parçası indirecek. Geminin sahibi: Pendle Shipping, Pire; İngiliz bir armatör.' },
     agirlik: { ad: 'Fazla ağır sandıklar', tarif: 'Vinç defterine göre her sandık iki adam ağırlığında. Gülce\'ye göre o boyda yedek parça bu kadar çekmez.' },
     ferrante_muhur: { ad: 'Kırmızı mumlu mühürler', tarif: 'Ferrante\'nin sandıklarının kapakları kırmızı mumla mühürlenmiş. Gülce\'nin işaret ettiği ayrıntı.' },
     paltolu: { ad: 'Odayı arayan paltolu adam', tarif: 'Hancı Ohannes Usta\'ya göre dün akşam Sabri\'nin kuzeniyim diyen, temiz paltolu, lavanta kokulu bir adam odaya girdi. Türkçeyi yabancı gibi, ama düzgün konuşuyordu.' },
@@ -209,7 +209,57 @@ export const BOLUM1 = {
         'Süleyman uzun süre susuyor. Kahvesinin telvesine bakıyor.',
         'Bu şehirde şimdi herkesin bir efendisi var, diyor sonunda. İngilizin, Fransızın, İtalyanın. Sarayın, paşaların. Bu kâğıdı kime götürürsen, onun efendisine götürmüş olursun. Dikkatli seç, evlat.',
       ],
-      secenekler: [{ etiket: 'Ne yapacağına karar ver', sonra: 'karar' }],
+      secenekler: [{ etiket: 'Devam', sonra: 'gece_konusma' }],
+    },
+    gece_konusma: {
+      baslik: 'Mangalın başında',
+      paragraflar: (d) => [
+        'Bir süre ikiniz de konuşmuyorsunuz. Dışarıda bir motor geçiyor; dalgası kayıkhanenin direklerini sallıyor. Süleyman kahvesini bitiriyor, fincanı ters çeviriyor.',
+        delilVar(d, 'fotograf')
+          ? 'O fotoğraf, diyor sonunda. Cebine koyarken yüzünü gördüm, Arif. On yıldır bu limandasın; senin yüzünün öyle değiştiğini hiç görmedim. Manastır\'da kimin vardı?'
+          : 'On yıldır bu limandasın, diyor sonunda. Bir kez olsun memleketinden söz etmedin. Manastır\'da kimin vardı?',
+        'Bir baban vardı: Kalaycı İsmail Usta. Elleri hep yanık, hep kalay kokardı. Bir annen: Zehra Hanım. Bir de kız kardeşin; senden beş yaş küçük, ayva ağacına tırmanıp inemeyen. Balkan Harbi\'nde esir düştün. Döndüğünde ev yanmıştı. Komşular hepsi öldü dedi.',
+        'Süleyman başını kaldırıyor. Hiç aramadın mı onları?',
+      ],
+      secenekler: [
+        {
+          etiket: 'Öldüler dediler. İnandım. İnanmak, aramaktan kolaydı.',
+          etki: { bayrak: { arifNeden: 'inandim' } },
+          sonra: 'gece_suleyman',
+        },
+        {
+          etiket: 'Korktum. Ya bulsaydım da beni tanımasalardı? Ya ben onları tanımasaydım?',
+          etki: { bayrak: { arifNeden: 'korktum' } },
+          sonra: 'gece_suleyman',
+        },
+        {
+          etiket: 'Aramak, onları orada bırakıp gittiğimi kabul etmek demekti.',
+          etki: { bayrak: { arifNeden: 'sucluluk' }, artir: { travma: 1 } },
+          sonra: 'gece_suleyman',
+        },
+      ],
+    },
+    gece_suleyman: {
+      baslik: 'Kemal',
+      paragraflar: (d) => [
+        bayrak(d, 'arifNeden') === 'inandim'
+          ? 'Süleyman başını sallıyor. Kolay olanı seçen adamı ayıplamam, diyor. Ama kolay olan çoğu zaman doğru olan değildir; sen bunu benden iyi bilirsin.'
+          : bayrak(d, 'arifNeden') === 'korktum'
+            ? 'Süleyman bir an gülümsüyor. Tanımamaktan korkan adam, diyor, unutmamış adamdır. Unutan korkmaz.'
+            : 'Süleyman uzun süre sana bakıyor. Sen kimseyi bırakmadın evlat, diyor. Seni bir savaş aldı götürdü. Savaşın günahını kendi sırtına yükleme; o sırt bir gün kırılır.',
+        'Sonra duvardaki pusulayı gösteriyor. Bunu hiç sormadın, diyor. Ben de söylemedim. Nevres diye bir yük gemisinde ikinci kaptandım; Doksan Yedi\'de, Girit açığında fırtınaya tutulduk. Oğlum Kemal benimle gemideydi. On dört yaşındaydı; ilk seferiydi.',
+        'Gemi battı. Ben bu pusulayla bir sandala tutundum. Kemal\'i bulamadım. Üç gün denizde aradım. Sonra herkes öldü dedi; ben de inandım.',
+        'Süleyman sesini alçaltıyor. Yirmi bir yıl oldu, diyor. Hâlâ bazı geceler bir gemi Pire\'den gelince iskelenin başına çıkar, inenlerin yüzüne bakarım. Deliliktir, biliyorum. Ama aramayı bırakan adam, Arif, bir yanıyla kendini de gömer.',
+        'Fincanını kaldırıp mangalın üstüne koyuyor. Sabri\'nin işini bitir, diyor. Sonra o fotoğrafın arkasındaki damgaya bak. Manastır, Fotoğrafhane-i Hilal. Bir dükkânın adı. Dükkânların defteri olur.',
+      ],
+      secenekler: [
+        {
+          etiket: 'Bulursam sana da haber vereceğim kaptan.',
+          etki: { artir: { suleymanBag: 1 }, bayrak: { aramaSozu: true } },
+          sonra: 'karar',
+        },
+        { etiket: 'Başını salla. Konuşacak gücün kalmadı.', sonra: 'karar' },
+      ],
     },
     karar: {
       baslik: 'Karar',
@@ -358,7 +408,7 @@ export const BOLUM1 = {
         {
           id: 'pusula',
           etiket: 'Duvardaki pusula',
-          incele: 'Paslı pirinç bir pusula. İbresi titreyerek kuzeyi gösteriyor. Süleyman bunu ilk gemisinden almış; batan gemiden yanına aldığı tek şey. Bazen insanın elinde yalnızca yönü kalır, demişti bir gece.',
+          incele: 'Paslı pirinç bir pusula. İbresi titreyerek kuzeyi gösteriyor. Süleyman bunu batan bir gemiden almış; denizden yanına aldığı tek şey. Neden hiç sormadın, bilmiyorsun. Bazen insanın elinde yalnızca yönü kalır, demişti bir gece.',
         },
       ],
       kisiler: ['suleyman'],
@@ -374,7 +424,7 @@ export const BOLUM1 = {
           id: 'defter',
           etiket: 'Yük defteri',
           kosul: (d) => sayi(d, 'gulceGuven') >= 2,
-          incele: 'Gülce defteri senin için çeviriyor. Leventis: Pire\'den, Kasım sonu. Alıcı: Ferrante ve Ortakları, Galata. Yük: makine yedek parçası, kırk sandık. Altında bir imza ve dün tarihli bir silinti: biri bir rakamı kazıyıp yeniden yazmış.',
+          incele: 'Gülce defteri senin için çeviriyor. Leventis: Pire\'den, Kasım sonu. Alıcı: Ferrante ve Ortakları, Galata. Yük: makine yedek parçası, kırk sandık. Armatör: Pendle Shipping, Pire. Gülce omuz silkiyor: İngiliz bir efendi; gemilerinin yarısı Pire\'den, yarısı İskenderiye\'den gelir, hiçbirine kendisi binmez. Altında bir imza ve dün tarihli bir silinti: biri bir rakamı kazıyıp yeniden yazmış.',
           etki: { delil: ['manifest'] },
         },
         {
@@ -715,5 +765,12 @@ BOLUM1.sahneler.mektup = {
     'Kâğıtları Süleyman Reis\'e bırakacağım. O ne yapacağını bilir. Bu adamlar kimseye benzemiyor Hatice. Gülerek konuşuyorlar ama gözleri gülmüyor.',
     'Mektup burada bitiyor. Bir satır daha başlamış, yarım kalmış: Eğer bana bir şey olur',
   ],
-  secenekler: [{ etiket: 'Devam', etki: { delil: ['fotograf'] }, sonra: 'fotograf' }],
+  secenekler: [
+    {
+      etiket: 'Mektubu katlayıp göğüs cebine koy. Hatice\'ye bir gün sen götüreceksin.',
+      etki: { delil: ['fotograf'], bayrak: { haticeSozu: true } },
+      sonra: 'fotograf',
+    },
+    { etiket: 'Mektubu delillerin arasına koy. Şimdi duygunun sırası değil.', etki: { delil: ['fotograf'] }, sonra: 'fotograf' },
+  ],
 };

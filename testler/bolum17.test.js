@@ -45,9 +45,9 @@ function onAltinciBolumSonu(ek, deliller = []) {
 }
 
 const senaryolar = [
-  { ad: 'Anadolu sandıkları, Neslihan okur, Zihni kafilede, orman + han → sağlam, kalıp erir', ek: { sevkiyatKarar: 'anadolu', babaKarar: 'sakla' }, deliller: ['kurulus_defteri'], bag: 'neslihan', zihni: 'yürüsün', e1: 'Orman', e2: 'Handa', kafile: 'saglam', erzak: 3 },
-  { ad: 'postane, Zihni teslim, orman (eşkıya) + gece → perişan, kalıp kayıp', ek: { sevkiyatKarar: 'batir', babaKarar: 'anadolu', kalipKayip: true }, deliller: [], bag: 'postane', zihni: 'teslim', e1: 'Orman', e2: 'Gece', kafile: 'perisan', erzak: 0 },
-  { ad: 'postane, teslim, vadi + han → sağlam', ek: { sevkiyatKarar: 'ingiliz', babaKarar: 'anadolu' }, deliller: [], bag: 'postane', zihni: 'teslim', e1: 'Vadi', e2: 'Handa', kafile: 'saglam', erzak: 2 },
+  { ad: 'Anadolu sandıkları, Neslihan okur, Zihni kafilede, orman + han → sağlam, kalıp erir', ek: { sevkiyatKarar: 'anadolu', babaKarar: 'sakla', haticeSozu: true, travma: 2 }, hatice: 'Mektubu', haticeSonu: 'mektup', deliller: ['kurulus_defteri'], bag: 'neslihan', zihni: 'yürüsün', e1: 'Orman', e2: 'Handa', kafile: 'saglam', erzak: 3 },
+  { ad: 'postane, Zihni teslim, orman (eşkıya) + gece → perişan, kalıp kayıp', ek: { sevkiyatKarar: 'batir', babaKarar: 'anadolu', kalipKayip: true }, hatice: 'Doğrusunu', haticeSonu: 'dogru', deliller: [], bag: 'postane', zihni: 'teslim', e1: 'Orman', e2: 'Gece', kafile: 'perisan', erzak: 0 },
+  { ad: 'postane, teslim, vadi + han → sağlam', ek: { sevkiyatKarar: 'ingiliz', babaKarar: 'anadolu' }, hatice: 'Bir şey söyleme', haticeSonu: 'sessiz', deliller: [], bag: 'postane', zihni: 'teslim', e1: 'Vadi', e2: 'Handa', kafile: 'saglam', erzak: 2 },
 ];
 
 for (const s of senaryolar) {
@@ -76,6 +76,11 @@ for (const s of senaryolar) {
     d = baglan(d, 'zihni_baglantisi', 'mahzen_sandiklari');
     expect(d.gorunum).toEqual({ tur: 'sahne', id: 'zihni' });
     d = sahneGec(d, s.zihni);
+    d = sahneGec(d);
+    expect(d.gorunum.id).toBe('hatice17');
+    expect(M.sahneBilgisi(B, d).secenekler.length).toBe(s.ek.haticeSozu ? 3 : 2);
+    d = sahneGec(d, s.hatice);
+    expect(M.bayrak(d, 'haticeSonu')).toBe(s.haticeSonu);
     d = sahneGec(d);
     expect(d.gorunum.id).toBe('etap_kure');
     d = sahneGec(d, s.e1);

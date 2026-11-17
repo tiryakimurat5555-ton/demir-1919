@@ -146,3 +146,34 @@ gorulmusOlabilir (Delorme Arif'i görmüş olabilir), cemilEkipte, nerminBag, su
 9. bölüm: tutun, askereVerdi, grubereVerdi, isimVerildi, sahte_defter, yol9, teklifSonu (sahte/red), delormeKovuldu, yaraBogur, defterKarar (fransiz/gazete/sakla).
 8. bölüm: neslihanGeldi8, ritimBilindi, babaTanima, babaTanidi, haslerSonu (tutuklu/kacti), kalipSirri.
 7. bölüm: alarm, yakalandi7, sonSecim (koru/atil/kac), riviereSonu, neslihanSecim (geldi/gitti/kaldi), neslihaneBaba.
+
+
+## Derinleştirme (17 Kasım 2026, Murat: "Derinleştir")
+Murat hikâyenin üstünkörü kalıp kalmadığını sordu; dürüst değerlendirme: tutarlı bir ana iplik var ama bölümler
+kalıplı (3-4 delil, 2 çıkarım, karar, kanca), her bölümün kendi kötüsü var, duygular anlatılıyor ama yaşatılmıyor,
+Arif silik. Yeni bölüm yazmaya ara verildi; önce var olan bölümler derinleştirilir.
+
+İlkeler:
+- Uzun iplikler: bir bölümdeki küçük seçim kitaplar sonra karşılık bulur (bir paragraf değil, bir sahne).
+- Kötüler önceden ekilir; sonradan "arkadaki el" çıkarılmaz.
+- Duygusal anlar seçimle oynanır: oyuncu bir şey söyler, bir şey verir, bir şeyi saklar.
+- Arif'in iç dünyası: neden aramadığı, Çanakkale, suçluluk; ekiple bağları.
+
+Yapılanlar (1. adım):
+- Süleyman'la gece konuşması (1. bölüm gece_konusma, gece_suleyman): Arif ailesini neden aramadı (arifNeden inandim /
+  korktum / sucluluk). Süleyman'ın sırrı: oğlu Kemal, 1897'de Nevres battığında 14 yaşındaydı, cesedi bulunmadı; Süleyman
+  hâlâ Pire'den gelen gemilerin yolcularına bakar. aramaSozu. Karşılıkları: 6. bölüm Hafız Efendi (arifNedenSatiri),
+  8. bölüm babanın tahliyesi (babayla kısa konuşma).
+- Sabri'nin yarım mektubu (haticeSozu): 2. bölüm cenazede söz, 17. bölümde kafilede Sabri'nin kız kardeşi Hatice
+  (hatice17: mektubu ver / doğruyu söyle / sus; haticeSonu).
+- Pendle tohumu: 1. bölümde Leventis'in armatörü Pendle Shipping, Pire (manifest, yük defteri). 15. bölümde Columbia,
+  20. bölümde tarife çıkarımı hepsini bağlar.
+
+Sıradakiler:
+- Kemal ipliği: Arethusa'nın kaptanı (21. bölüm). Süleyman'ın ölü bildiği oğlu, Pendle'in gemisinde; Arif'in aynası
+  (ölü bilinip yaşayan). aramaSozu ise Arif ona haber verir.
+- Pendle'i önceden göster: 3. bölüm Mercure Kulübü (17 numarada adı geçer), 11. bölüm İzmir (Aurora'nın armatörü),
+  12. bölüm Columbia.
+- Arif ile Neslihan: 9-17. bölümler arasında kardeşlik sahneleri (çocukluk, Rivière'in yanında geçen altı yıl, öfke ve af).
+- Gülce'nin ipliği: babasının katili bulunduktan sonra ne kalır; Tevfik ihaneti onu nasıl değiştirdi.
+- Konuşmaları uzat: 2-9. bölümlerde kişilerin ikinci, üçüncü konuşma düğümleri (geçmişleri, korkuları).

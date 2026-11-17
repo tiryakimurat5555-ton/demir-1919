@@ -10,6 +10,15 @@ const yanimda = (d, kim) => !!bayrak(d, 'ekip_' + kim);
 const ekipAdlari = (d) => ['cemil', 'nermin', 'riza'].filter((k) => yanimda(d, k));
 const AD = { cemil: 'Cemil Bey', nermin: 'Nermin', riza: 'Rıza Bey' };
 
+// Birinci bölümde Süleyman'a söylenen neden (arifNeden), ailenin hikâyesini duyduğun an geri döner.
+function arifNedenSatiri(d) {
+  const n = bayrak(d, 'arifNeden');
+  if (n === 'inandim') return ['Öldüler dediler, inandın. Kayıkhanede Süleyman\'a böyle demiştin. Onlar da seni ölü bilmiş; ama baban inanmamış. Aramaya çıkmış.'];
+  if (n === 'korktum') return ['Ya beni tanımasalardı, demiştin Süleyman\'a. Baban hiç böyle korkmamış. Seni tanımak için yola düşmüş.'];
+  if (n === 'sucluluk') return ['Onları bırakıp gittim, demiştin Süleyman\'a. Şimdi biliyorsun: kimse kimseyi bırakmamış. Hepsi birbirini aramış; yollarda, çadırlarda, kar altında.'];
+  return [];
+}
+
 export const BOLUM6 = {
   id: 'bolum6',
   ad: 'Altıncı bölüm: Hotel Olympos',
@@ -485,10 +494,11 @@ export const BOLUM6 = {
           secenekler: [{ etiket: 'Anlat Hafız Efendi. Her şeyi.', sonra: 'anlat' }],
         },
         anlat: {
-          soz: [
+          soz: (d) => [
             'Kasımda Manastır düştü. Biz arabalarla Selanik\'e yola çıktık; hepimiz, bütün mahalle. Yollarda tifo vardı. Annen, Zehra Hanım, Florina\'yı geçmeden ateşlendi. Bir sabah arabada... Allah rahmet eylesin evlat.',
             'Selanik\'te çadırlarda kaldık. Bir gün Fransız bir bankerin adamları geldi; kimsesiz kızlara iş, okul, yemek. Neslihan on yedisindeydi. Baban razı olmadı; ama baban o hafta yoktu. Gitti, kız da gitti.',
             'Baban? Baban seni aramaya döndü. Askerdeki oğlum geri gelir, dedi, beni evde bulamazsa ne yapar. Manastır yoluna tek başına çıktı. Bir daha ne gören oldu ne duyan.',
+            ...arifNedenSatiri(d),
           ],
           secenekler: [
             {

@@ -8,7 +8,14 @@ görme engelli oyuncular tarafından bağımsız oynanabilecek; VoiceOver ve Tal
 
 Tasarım taslağı: `belgeler/tasarim-taslagi.pdf`
 
-## Şu anki aşama: 21 — yirminci bölüm: Tarife
+## Şu anki aşama: 22 — derinleştirme, 1. adım
+
+- Birinci bölümde Süleyman Kaptan'la gece konuşması: Arif ailesini neden hiç aramadı? Süleyman'ın kaybettiği oğlu
+- Bu cevap altıncı bölümde Hafız Efendi'nin, sekizinci bölümde babanın sözlerinde geri döner
+- Sabri'nin yarım mektubu: saklarsan on yedinci bölümde kız kardeşi Hatice'yle karşılaşırsın
+- Pendle'in adı artık birinci bölümde, Leventis'in yük kaydında
+
+## 21 — yirminci bölüm: Tarife
 
 - Ağustos 1921, Ankara ve Polatlı; Sakarya muharebesinin arifesi
 - Bursa'daki aracı Ankara'da: sahte tekâlif vesikaları ve satılan bir tren tarifesi
