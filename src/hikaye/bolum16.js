@@ -137,8 +137,8 @@ export const BOLUM16 = {
       ortam: 'ortam_rihtim',
       ortamOran: 0.45,
       baslik: 'On altıncı bölüm bitti',
-      paragraflar: ['On yedinci bölüm yazılıyor: Ankara yolu. Kararların kaydedildi.'],
-      secenekler: [{ etiket: 'Ana menüye dön', anaMenu: true }],
+      paragraflar: ['Sıradaki: Ankara yolu. Kararların kaydedildi.'],
+      secenekler: [{ etiket: 'On yedinci bölüme geç', sonrakiBolum: 'bolum17' }, { etiket: 'Ana menüye dön', anaMenu: true }],
     },
   },
 

@@ -105,9 +105,13 @@ Bu belge hikâyenin omurgasıdır. Oyuncunun öğrenmediği gerçekleri de içer
    da Salzburg'da bir manastıra çekilir) ya da kâğıt üstünde kazanır (Klara istifa edip Cenevre'ye gider).
 16. 16 Mart (YAZILDI) — İstanbul 13-17 Mart 1920. Gubler'in kara listesi (42 isim; Nermin, Rıza, İsmail Usta). Baba
    Rivière'i affeder. Nermin Anadolu'ya geçer (Ankara, Taşhan'da bir gazete). Baba Anadolu'ya gider ya da mahzende saklanır.
-17. Ankara yolu (Nisan 1920): Arif, Neslihan ve kalan ekip Anadolu'ya. 23 Nisan 1920 Ankara'da meclisin açılışı yalnızca
-   arka plan (gerçek kişiler kurguya karışmaz). Örgütün son kalıntısı ya da yeni bir tehdit: Anadolu'ya silah satan
-   fırsatçılar. Babanın kalay takımı ve kalıp sırrı burada kapanabilir.
+17. Kağnı (YAZILDI; üçüncü kitabın sonu) — 8-23 Nisan 1920 İnebolu → Ankara. Hacı Zihni (kurgu; Rainer'in Karadeniz
+   adamı, istifçi) teslim edilir ya da sandıkları kendi sırtında taşıyarak kafileyle yürür. Zeynep Ana (kurgu; üç oğlunu
+   Çanakkale'de vermiş kafile başı). Baba kanatlı kalıbı eritip Nermin'in matbaasına harf döker: zehir döken kalıptan harf.
+   Delorme, Rainer ve Clavis'in hikâyesi burada kapanır.
+18+. Dördüncü kitap (1920-1922): savaş yılları. Arif'in Çanakkale travması ve yeni bir savaş; Neslihan'ın kimliği; Gülce ve
+   Süleyman'ın İstanbul'daki gizli yardım ağı; Nermin'in gazetesi. Gerçek kişiler kurguya karışmaz; savaş her iki tarafın
+   acısıyla anlatılır.
 
 ## Hassasiyet notu
 Örgüt "savaştan kâr eden bankerler" teması taşıdığı için üyeler bilinçli olarak çeşitli tutulur (Fransız, İtalyan,
@@ -117,6 +121,7 @@ karakterler (ör. Saltiel) örgütle ilişkilendirilmez; komplo teorisi kalıpla
 ## Süren değerler (bayraklar)
 travma (anılarda bastırınca artar), suleymanBag, gulceGuven, gulceyeAnlatti, gulceYalan, karar1, mezarSozu,
 gorulmusOlabilir (Delorme Arif'i görmüş olabilir), cemilEkipte, nerminBag, suphe (3. bölüm), karar3.
+17. bölüm: erzak, yorgunluk, mahzenYeri, zihniSonu (teslim/kafile), etap1, etap2, kafileSonu (saglam/perisan), kalipEridi.
 16. bölüm: babaAffetti, kayikHazir, listeYolu (para/tehdit/hirsiz), listeKarar (uyar/yak), babaKarar (anadolu/sakla), nerminSonu, rizaYarali.
 15. bölüm: oy_vollmer, oy_szalay, oy_pendle, kurulSonu (devrildi/iflas/kazandi), rainerSonu (tutuklu/yalniz/serbest).
 14. bölüm: yanlisParola, klaraTanisti, gecikme14, defter14 (klara/kopya/viyana).

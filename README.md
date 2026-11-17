@@ -8,7 +8,15 @@ görme engelli oyuncular tarafından bağımsız oynanabilecek; VoiceOver ve Tal
 
 Tasarım taslağı: `belgeler/tasarim-taslagi.pdf`
 
-## Şu anki aşama: 17 — on altıncı bölüm: 16 Mart
+## Şu anki aşama: 18 — on yedinci bölüm: Kağnı (üçüncü kitabın sonu)
+
+- Nisan 1920, İnebolu: iskelesiz bir liman, Anadolu'ya giden yükler
+- Rainer'in son adamı: silahları mahzeninde saklayan bir istifçi
+- Yeni oynanış: kağnı kafilesiyle on üç günlük yolculuk; her etapta bir yol seçimi, erzak ve yorgunluk
+- 23 Nisan 1920, Ankara: Nermin'in matbaası ve kanatlı kalıbın son dönüşümü
+- Yeni sesler: İnebolu kıyısı, kağnı kafilesi
+
+## 17 — on altıncı bölüm: 16 Mart
 
 - Mart 1920 İstanbul: Rainer'in avukatı bir kara listeyi İngilizlere satmak üzere
 - Listede Nermin, Rıza Bey ve baban
