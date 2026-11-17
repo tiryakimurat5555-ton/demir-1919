@@ -8,7 +8,18 @@ görme engelli oyuncular tarafından bağımsız oynanabilecek; VoiceOver ve Tal
 
 Tasarım taslağı: `belgeler/tasarim-taslagi.pdf`
 
-## Şu anki aşama: 16 — on beşinci bölüm: Genel Kurul
+## Şu anki aşama: 17 — on altıncı bölüm: 16 Mart
+
+- Mart 1920 İstanbul: Rainer'in avukatı bir kara listeyi İngilizlere satmak üzere
+- Listede Nermin, Rıza Bey ve baban
+- Listeyi ele geçirmenin üç yolu: satın almak, tehdit etmek ya da gece odasından almak
+- Kaçış hazırlığı: Gülce'nin damgası, Süleyman'ın kayığı
+- Neslihan Rivière'in mektubunu babasına okur
+- Kırk iki isim: herkesi uyarmak mı, yalnızca kendi insanlarını kurtarmak mı?
+- 16 Mart şafağı: sisin içinde Anadolu'ya giden bir kayık
+- Yeni ses: baskın sabahı
+
+## 16 — on beşinci bölüm: Genel Kurul
 
 - Aralık 1919, bir yıl sonra yine Viyana
 - Kuruluş defterindeki üç baş harf: bir İsviçreli bankacı, bir Macar kont, bir İngiliz armatör

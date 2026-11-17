@@ -103,8 +103,11 @@ Bu belge hikâyenin omurgasıdır. Oyuncunun öğrenmediği gerçekleri de içer
 15. Genel Kurul (YAZILDI) — Viyana 15-24 Aralık 1919. Kurucular: A. V. Albert Vollmer (İsviçre), I. S. Kont Imre Szalay
    (Macar; kardeşi Nisan 1919'da öldü), H. P. Sir Henry Pendle (İngiliz armatör). Hepsi kurgu. Rainer devrilir (tutuklanır ya
    da Salzburg'da bir manastıra çekilir) ya da kâğıt üstünde kazanır (Klara istifa edip Cenevre'ye gider).
-16. İstanbul, 1920 kışı-baharı: 16 Mart 1920 İstanbul'un resmen işgali (gerçek; yalnızca arka plan). Örgütün dağılan
-   parçaları; Nermin'in gazetesi; Anadolu'ya geçmek isteyenler. Babanın Neslihan'dan Rivière'in mektubunu dinlemesi.
+16. 16 Mart (YAZILDI) — İstanbul 13-17 Mart 1920. Gubler'in kara listesi (42 isim; Nermin, Rıza, İsmail Usta). Baba
+   Rivière'i affeder. Nermin Anadolu'ya geçer (Ankara, Taşhan'da bir gazete). Baba Anadolu'ya gider ya da mahzende saklanır.
+17. Ankara yolu (Nisan 1920): Arif, Neslihan ve kalan ekip Anadolu'ya. 23 Nisan 1920 Ankara'da meclisin açılışı yalnızca
+   arka plan (gerçek kişiler kurguya karışmaz). Örgütün son kalıntısı ya da yeni bir tehdit: Anadolu'ya silah satan
+   fırsatçılar. Babanın kalay takımı ve kalıp sırrı burada kapanabilir.
 
 ## Hassasiyet notu
 Örgüt "savaştan kâr eden bankerler" teması taşıdığı için üyeler bilinçli olarak çeşitli tutulur (Fransız, İtalyan,
@@ -114,6 +117,7 @@ karakterler (ör. Saltiel) örgütle ilişkilendirilmez; komplo teorisi kalıpla
 ## Süren değerler (bayraklar)
 travma (anılarda bastırınca artar), suleymanBag, gulceGuven, gulceyeAnlatti, gulceYalan, karar1, mezarSozu,
 gorulmusOlabilir (Delorme Arif'i görmüş olabilir), cemilEkipte, nerminBag, suphe (3. bölüm), karar3.
+16. bölüm: babaAffetti, kayikHazir, listeYolu (para/tehdit/hirsiz), listeKarar (uyar/yak), babaKarar (anadolu/sakla), nerminSonu, rizaYarali.
 15. bölüm: oy_vollmer, oy_szalay, oy_pendle, kurulSonu (devrildi/iflas/kazandi), rainerSonu (tutuklu/yalniz/serbest).
 14. bölüm: yanlisParola, klaraTanisti, gecikme14, defter14 (klara/kopya/viyana).
 13. bölüm: avantaj, hamle1-3, satrancSonu (terk/berabere), hisseKarar (sat/genelkurul/bagis), whitlockSonu (kacti/oldu).

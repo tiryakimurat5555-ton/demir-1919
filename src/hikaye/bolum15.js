@@ -129,8 +129,8 @@ export const BOLUM15 = {
       ortam: 'ortam_oda',
       ortamOran: 0.45,
       baslik: 'On beşinci bölüm bitti',
-      paragraflar: ['On altıncı bölüm yazılıyor: İstanbul, 1920 kışı. Kararların kaydedildi.'],
-      secenekler: [{ etiket: 'Ana menüye dön', anaMenu: true }],
+      paragraflar: ['Sıradaki: İstanbul, 1920. Kararların kaydedildi.'],
+      secenekler: [{ etiket: 'On altıncı bölüme geç', sonrakiBolum: 'bolum16' }, { etiket: 'Ana menüye dön', anaMenu: true }],
     },
   },
 
