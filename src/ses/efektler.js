@@ -43,6 +43,9 @@ const KAYNAKLAR = {
   ortam_kahve: require('../../assets/ses/ortam_kahve.wav'),
   ortam_mutfak: require('../../assets/ses/ortam_mutfak.wav'),
   tramvay: require('../../assets/ses/tramvay.wav'),
+  ortam_kule: require('../../assets/ses/ortam_kule.wav'),
+  ortam_kayik: require('../../assets/ses/ortam_kayik.wav'),
+  dokum: require('../../assets/ses/dokum.wav'),
   sandik: require('../../assets/ses/sandik.wav'),
   ani_savas: require('../../assets/ses/ani_savas.wav'),
   delil: require('../../assets/ses/delil.wav'),
@@ -78,6 +81,8 @@ const DONGULER = {
   ortam_viyana: 0.55,
   ortam_kahve: 0.5,
   ortam_mutfak: 0.5,
+  ortam_kule: 0.6,
+  ortam_kayik: 0.6,
 };
 
 const oynaticilar = {};

@@ -8,7 +8,17 @@ görme engelli oyuncular tarafından bağımsız oynanabilecek; VoiceOver ve Tal
 
 Tasarım taslağı: `belgeler/tasarim-taslagi.pdf`
 
-## Şu anki aşama: 10 — dokuzuncu bölüm: Imperial
+## Şu anki aşama: 11 — onuncu bölüm: Kurşun Mühür (ikinci kitap)
+
+- Mayıs 1919 İstanbul: baba ve kız kardeşle Karaköy'e dönüş; bütün ekip bir arada
+- Babanın itirafı: kanatlı mühür kalıbını kim, neden döktü
+- Baba ve oğul aynı ocakta altmış sahte kurşun mühür döker
+- Gümrük antreposunda altmış sandık tüfek: İngilizlere, Anadolu'ya ya da Boğaz'ın dibine
+- Delorme babayı kaçırır; Kız Kulesi'nde gece yarısı yüzleşme, üç son
+- 15 Mayıs 1919: İzmir haberi
+- Yeni sesler: Kız Kulesi, gece kayığı, kurşun dökümü
+
+## 10 — dokuzuncu bölüm: Imperial
 
 - Ocak 1919 Viyana: imparatorluk yıkılmış, şehir aç ve soğuk
 - Para değersiz; iki paket tütün kapı açar (kime vereceğin senin kararın)

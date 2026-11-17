@@ -268,8 +268,8 @@ export const BOLUM9 = {
       ortam: 'ortam_oda',
       ortamOran: 0.5,
       baslik: 'Dokuzuncu bölüm bitti',
-      paragraflar: ['Birinci kitap burada kapanıyor: Sudaki Adam\'dan Imperial\'e. Onuncu bölüm yazılıyor: İstanbul, 1919 baharı. Kararların kaydedildi.'],
-      secenekler: [{ etiket: 'Ana menüye dön', anaMenu: true }],
+      paragraflar: ['Birinci kitap burada kapanıyor: Sudaki Adam\'dan Imperial\'e. Sıradaki: İstanbul, 1919 baharı. Kararların kaydedildi.'],
+      secenekler: [{ etiket: 'Onuncu bölüme geç', sonrakiBolum: 'bolum10' }, { etiket: 'Ana menüye dön', anaMenu: true }],
     },
   },
 

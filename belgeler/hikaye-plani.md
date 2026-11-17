@@ -80,8 +80,12 @@ Bu belge hikâyenin omurgasıdır. Oyuncunun öğrenmediği gerçekleri de içer
    babayı tanır; 1912'de baba Selanik'e gelip hesap sormuş, sonra Manastır'da ihbar edilmiş. Delorme gözden düşer
    (sahte defterde kovulur; redde Arif'i bıçaklar) — artık örgütsüz, kişisel intikam peşinde. Defter: Fransızlar
    (Paris'te bir çekmeceye girebilir) / gazete (isimler basılır; düşmanlar çoğalır) / sakla (kalkan, ömür boyu tetik).
-10. İstanbul, 1919 baharı: baba ve Neslihan'la eve dönüş; babanın kalıp itirafı (1908, Rivière'in siparişi; 1912'de
-   anladı). Mayıs 1919 İzmir çıkarmasına doğru Rainer'in silah sevkiyatı; Delorme'un intikamı; Gülce, Süleyman.
+10. Kurşun Mühür (YAZILDI) — İstanbul 10-15 Mayıs 1919. Baba itiraf eder (1908 kalıp, 1912 anladı, kalıbı Rivière'den
+   çaldı; ihbarla tutuklandı). Sahte mühürlerle Santa Lucia'nın 60 sandık tüfeği taşla değiştirilir; tüfekler
+   İngilizlere / Anadolu'ya (İnebolu) / Boğaz'a. Delorme Kız Kulesi'nde: denize düşer / Rıza vurur / teslim olur.
+   DELORME'UN HİKÂYESİ BİTTİ (tutukluysa yalnızca tanık olarak dönebilir). 15 Mayıs İzmir çıkarması haberi.
+11. İzmir (Mayıs-Haziran 1919, işgalin ilk haftaları): Ferrante, altmış sandık taşla İzmir'de; Rainer'in "asıl sevkiyatı"
+   Haziran'da. Gerçek kişiler kullanılmadan işgal altındaki İzmir; Neslihan'ın yeni rolü (siyakat okuyan tek kişi).
 
 ## Hassasiyet notu
 Örgüt "savaştan kâr eden bankerler" teması taşıdığı için üyeler bilinçli olarak çeşitli tutulur (Fransız, İtalyan,
@@ -91,6 +95,7 @@ karakterler (ör. Saltiel) örgütle ilişkilendirilmez; komplo teorisi kalıpla
 ## Süren değerler (bayraklar)
 travma (anılarda bastırınca artar), suleymanBag, gulceGuven, gulceyeAnlatti, gulceYalan, karar1, mezarSozu,
 gorulmusOlabilir (Delorme Arif'i görmüş olabilir), cemilEkipte, nerminBag, suphe (3. bölüm), karar3.
+10. bölüm: sahteMuhur, hasanHazir, sevkiyatKarar (ingiliz/anadolu/batir), kuleSecim, delormeSonu (denizde/vuruldu/tutuklu), kalipKayip, ferranteIpucu.
 9. bölüm: tutun, askereVerdi, grubereVerdi, isimVerildi, sahte_defter, yol9, teklifSonu (sahte/red), delormeKovuldu, yaraBogur, defterKarar (fransiz/gazete/sakla).
 8. bölüm: neslihanGeldi8, ritimBilindi, babaTanima, babaTanidi, haslerSonu (tutuklu/kacti), kalipSirri.
 7. bölüm: alarm, yakalandi7, sonSecim (koru/atil/kac), riviereSonu, neslihanSecim (geldi/gitti/kaldi), neslihaneBaba.

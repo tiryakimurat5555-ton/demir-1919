@@ -8,6 +8,7 @@ import { BOLUM6 } from './bolum6';
 import { BOLUM7 } from './bolum7';
 import { BOLUM8 } from './bolum8';
 import { BOLUM9 } from './bolum9';
+import { BOLUM10 } from './bolum10';
 
-export const BOLUMLER = { bolum1: BOLUM1, bolum2: BOLUM2, bolum3: BOLUM3, bolum4: BOLUM4, bolum5: BOLUM5, bolum6: BOLUM6, bolum7: BOLUM7, bolum8: BOLUM8, bolum9: BOLUM9 };
+export const BOLUMLER = { bolum1: BOLUM1, bolum2: BOLUM2, bolum3: BOLUM3, bolum4: BOLUM4, bolum5: BOLUM5, bolum6: BOLUM6, bolum7: BOLUM7, bolum8: BOLUM8, bolum9: BOLUM9, bolum10: BOLUM10 };
 export const ILK_BOLUM = BOLUM1;
