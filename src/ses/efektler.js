@@ -50,6 +50,7 @@ const KAYNAKLAR = {
   ortam_kemeralti: require('../../assets/ses/ortam_kemeralti.wav'),
   ortam_arsiv: require('../../assets/ses/ortam_arsiv.wav'),
   ortam_yali: require('../../assets/ses/ortam_yali.wav'),
+  ortam_yagmur: require('../../assets/ses/ortam_yagmur.wav'),
   sandik: require('../../assets/ses/sandik.wav'),
   ani_savas: require('../../assets/ses/ani_savas.wav'),
   delil: require('../../assets/ses/delil.wav'),
@@ -91,6 +92,7 @@ const DONGULER = {
   ortam_kemeralti: 0.55,
   ortam_arsiv: 0.6,
   ortam_yali: 0.6,
+  ortam_yagmur: 0.55,
 };
 
 const oynaticilar = {};

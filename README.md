@@ -8,7 +8,16 @@ görme engelli oyuncular tarafından bağımsız oynanabilecek; VoiceOver ve Tal
 
 Tasarım taslağı: `belgeler/tasarim-taslagi.pdf`
 
-## Şu anki aşama: 13 — on ikinci bölüm: İmza
+## Şu anki aşama: 14 — on üçüncü bölüm: Satranç (ikinci kitabın sonu)
+
+- Ekim 1919, yağmurlu İstanbul: Viktor Rainer diplomatik pasaportla geliyor
+- Neslihan'ın Viyana'da okumadan attığı imza ve Selanik'ten gelen vasiyet
+- Pera Palas'ın barında korkan bir adam
+- Yeni oynanış: Rainer'le üç hamlelik söz satrancı; doğru delil doğru anda
+- Neslihan'ın hisseleri: satmak, genel kurulda Rainer'i devirmek ya da bağışlamak
+- Yeni ses: sonbahar yağmuru
+
+## 13 — on ikinci bölüm: İmza
 
 - Haziran 1919 İstanbul: Gülce babasının katilini öğrenir
 - Gülce'nin evinde hiç gönderilmemiş bir mektup

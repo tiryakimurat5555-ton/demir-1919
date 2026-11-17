@@ -92,8 +92,12 @@ Bu belge hikâyenin omurgasıdır. Oyuncunun öğrenmediği gerçekleri de içer
    Nazım Bey "tasfiye edilsin" yazmış. Gülce Nazım Bey'i öldürmez; ona "İmzala ve yaşa" der, itiraf imzalatır.
    Whitlock ve Nazım devletin kalan altınını "tütün" sandıklarıyla Columbia'da Rainer'e kaçırıyordu; durdurulur.
    Rainer'in telgrafı: "Artık kendim geliyorum."
-13. Rainer İstanbul'da (Eylül-Ekim 1919): Rainer'in kendisiyle yüzleşme; Whitlock; Eleni İstanbul'a gelebilir.
-   Anadolu'daki gelişmeler yalnızca arka plan haberi olarak (gerçek kişiler kurguya karışmaz).
+13. Satranç (YAZILDI; ikinci kitabın sonu) — İstanbul 8-10 Ekim 1919. Rivière vasiyetle Bankhaus Rainer'in %34'ünü
+   Neslihan'a bıraktı (Ekim 1918'de Viyana noterinde okumadan imzaladığı kâğıtlar). Rainer bir imza için gelir;
+   Pera Palas'ta söz satrancı. Kusursuz oyunda Rainer terk eder ve Whitlock taraf değiştirip Zürih'teki kasayı (1908,
+   Rainer'in kendi defteri) verir; değilse Whitlock öldürülür. Neslihan hisseleri satar / genel kurul ister / bağışlar.
+14+. Üçüncü kitap: Zürih (kasa 1908), Viyana genel kurulu, Rainer'in düşüşü; Anadolu'daki savaş arka planda büyür.
+   Babanın 1908'deki kalıbı ile kasa numarası aynı yıl: Rainer örgütü o yıl kurdu.
 
 ## Hassasiyet notu
 Örgüt "savaştan kâr eden bankerler" teması taşıdığı için üyeler bilinçli olarak çeşitli tutulur (Fransız, İtalyan,
@@ -103,6 +107,7 @@ karakterler (ör. Saltiel) örgütle ilişkilendirilmez; komplo teorisi kalıpla
 ## Süren değerler (bayraklar)
 travma (anılarda bastırınca artar), suleymanBag, gulceGuven, gulceyeAnlatti, gulceYalan, karar1, mezarSozu,
 gorulmusOlabilir (Delorme Arif'i görmüş olabilir), cemilEkipte, nerminBag, suphe (3. bölüm), karar3.
+13. bölüm: avantaj, hamle1-3, satrancSonu (terk/berabere), hisseKarar (sat/genelkurul/bagis), whitlockSonu (kacti/oldu).
 12. bölüm: gulceBildi, dikkat, nazimUyarildi, yaliSecim (tut/birak), altinKarar (ingiliz/gazete), nerminGazeteKapandi, rainerGeliyor.
 11. bölüm: gecisIzni, ferranteYeri, ferranteBulundu, ferranteGuven, auroraSonu (ihbar/batti), ferranteSonu (kacti/tutuklu), nazimBulundu.
 10. bölüm: sahteMuhur, hasanHazir, sevkiyatKarar (ingiliz/anadolu/batir), kuleSecim, delormeSonu (denizde/vuruldu/tutuklu), kalipKayip, ferranteIpucu.

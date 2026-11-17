@@ -251,8 +251,8 @@ export const BOLUM12 = {
       ortam: 'ortam_han',
       ortamOran: 0.45,
       baslik: 'On ikinci bölüm bitti',
-      paragraflar: ['On üçüncü bölüm yazılıyor: Rainer İstanbul\'a geliyor. Kararların kaydedildi.'],
-      secenekler: [{ etiket: 'Ana menüye dön', anaMenu: true }],
+      paragraflar: ['Sıradaki: Rainer İstanbul\'a geliyor. Kararların kaydedildi.'],
+      secenekler: [{ etiket: 'On üçüncü bölüme geç', sonrakiBolum: 'bolum13' }, { etiket: 'Ana menüye dön', anaMenu: true }],
     },
   },
 
