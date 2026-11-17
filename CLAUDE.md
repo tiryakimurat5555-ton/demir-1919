@@ -24,7 +24,7 @@
   (kayip-okyanus'tan alındı): kaydır = gez, dokun = oku, çift dokun = seç, uzun bas = açıklama, iki parmakla
   dokun = sustur, iki parmakla çift dokun = geri. Ekran okuyucu açıksa App.js uyarı katmanı gösterir.
 - Ses (17 Kasım): src/ses/efektler.js (expo-audio). Ortam döngüleri ortam_rihtim/kayikhane/buro/han/oda
-  (mekân kimliğiyle eşleşir; sahnede `ortam`, `ortamOran`, `efekt` alanları), efektler sandik, ani_savas, delil, yangin; 3. bölüm döngüleri ortam_cemil_ev/pera/kulup/servis; 4. bölüm ortam_hastane/meyhane/depo, efekt silah; 5. bölüm ortam_guverte/salon/kamara/firtina, efekt vapur_duduk; 6. bölüm ortam_yanik_sehir/otel/ev; 7. bölüm ortam_kosk_bahce/kosk_ic, efektler kopek, kilise_cani; 8. bölüm ortam_tren/manastir/cezaevi/revir, efektler tren_duduk, demir_kapi; 9. bölüm ortam_viyana/kahve/mutfak, efekt tramvay; 10. bölüm ortam_kule/kayik, efekt dokum; 11. bölüm ortam_kordon/kemeralti; 12. bölüm ortam_arsiv/yali; 13. bölüm ortam_yagmur; 14. bölüm ortam_zurih/banka; 15. bölüm ortam_genelkurul, efekt tokmak; 16. bölüm ortam_baskin; 17. bölüm ortam_inebolu/kagni;
+  (mekân kimliğiyle eşleşir; sahnede `ortam`, `ortamOran`, `efekt` alanları), efektler sandik, ani_savas, delil, yangin; 3. bölüm döngüleri ortam_cemil_ev/pera/kulup/servis; 4. bölüm ortam_hastane/meyhane/depo, efekt silah; 5. bölüm ortam_guverte/salon/kamara/firtina, efekt vapur_duduk; 6. bölüm ortam_yanik_sehir/otel/ev; 7. bölüm ortam_kosk_bahce/kosk_ic, efektler kopek, kilise_cani; 8. bölüm ortam_tren/manastir/cezaevi/revir, efektler tren_duduk, demir_kapi; 9. bölüm ortam_viyana/kahve/mutfak, efekt tramvay; 10. bölüm ortam_kule/kayik, efekt dokum; 11. bölüm ortam_kordon/kemeralti; 12. bölüm ortam_arsiv/yali; 13. bölüm ortam_yagmur; 14. bölüm ortam_zurih/banka; 15. bölüm ortam_genelkurul, efekt tokmak; 16. bölüm ortam_baskin; 17. bölüm ortam_inebolu/kagni; 18. bölüm ortam_sahra, efekt top;
   sessiz.wav oturumu açık tutar. tik/secim/dip için dosya yok, titreşim. Menülerde rıhtım sesi 0,45.
   Üretim: ElevenLabs flow H13uSGbaUNJZNoPkxW7V (eleven_text_to_sound_v2; döngüler 30 sn loop true, generations_count 1).
   Bu ortam elevenlabsusercontent.com'a erişemez: adresleri araclar/indirilecek-sesler.json'a yaz, push et →
@@ -187,7 +187,16 @@
   erzak -2 yorgunluk +1; vadi: erzak -1) → etap_ilgaz (gece: yorgunluk +1; han: erzak +1) → etap_cankiri (kafileSonu
   perisan: erzak <= 0 ya da yorgunluk >= 2, değilse saglam) → ankara (23 Nisan 1920, meclisin açılışı arka plan) →
   harf (baba kanatlı kalıbı eritip Nermin'in matbaasına Ç, Ğ, Ş döker; kalipKayip ise eliyle; kalipEridi) → son.
-  Dördüncü kitap (1920-1922 savaş yılları) yok.
+- On sekizinci bölüm "Kinin" (src/hikaye/bolum18.js; dördüncü kitabın açılışı): 3-14 Ocak 1921, Eskişehir yakınında
+  Cemil'in sahra hastanesi. Ekip Cemil + Rıza + Neslihan. Açılış yuk_telgrafi verir; travma >= 2 ise nobet sahnesi
+  (Çanakkale anısı, efekt top): Cemil'in sesine tutun (travma -1, nobetAtlatildi) / kaç (nobetKacti). Önemli motor notu:
+  sahne seçeneğinde etki.mekan varsa `sonra` yok sayılır; sahneye geçmek için etki.sahne kullan.
+  Mekânlar cadir (teslim → teslim_fisleri; hesap_kagitlari nesnesi teslim_fisleri + depoGoruldu varken → hesap sahnesi:
+  doğru "Depo ile hastane" → depo_defteri; yanlış → hesap_yanlis, yeniden), esir (Yannis, Yunan esir hekim; Neslihan
+  Rumca çevirir → esir_tanikligi), depo18 (depo_kaydi → depoGoruldu). Çıkarımlar kayip_ilac (depo_defteri +
+  teslim_fisleri), iki_cephe (esir_tanikligi + yuk_telgrafi) → sabit (müteahhit Sabit Bey iki cepheye satıyor):
+  sabitSonu teslim / konustu (ag_bilgisi: İstanbul Gümrük'te M. T.) → esir_degisimi (Kızılhaç; Eleni öbür taraftan
+  Cemil'e mektup ve kinin gönderir) → son. On dokuzuncu bölüm (İstanbul, gümrükteki halka M. T.) yok.
 - Hassasiyet: örgüt üyeleri çeşitli uyruklardan; hiçbir din/etnik grupla özdeşleşmez (hikaye-plani.md).
 - Mekânda `ortam` alanı mekânın ortam sesini değiştirir (yoksa 'ortam_' + mekân kimliği).
 - Bölümler src/hikaye/index.js BOLUMLER; durum.bolum. Bölüm sonu sahnesinde { sonrakiBolum } seçeneği →
@@ -211,6 +220,6 @@
   fileName yayin.yml, gitRef = commit) → workflow_info SUCCESS → workflow_logs (CUSTOM bölümü) içindeki
   EXPO_GO_BAGLANTISI satırı. Expo'nun iş akışı süresini kullanır.
   GitHub Actions anahtar yoksa sessizce atlar.
-- Testler: `bun test testler/` (bolum1-17.test.js bölümleri farklı kararlarla baştan sona oynar; 3'te şüphe yolu da).
+- Testler: `bun test testler/` (bolum1-18.test.js bölümleri farklı kararlarla baştan sona oynar; 3'te şüphe yolu da).
 - Akış: uygula → testler → bun build → CLAUDE.md/README → commit → git pull --rebase → push → yayın (yukarıda) → SUCCESS'i bekle
   → Türkçe rapor (Expo Go bağlantısı, yenilikler, denenmemiş olanlar dürüstçe).

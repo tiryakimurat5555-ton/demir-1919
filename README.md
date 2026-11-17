@@ -8,7 +8,16 @@ görme engelli oyuncular tarafından bağımsız oynanabilecek; VoiceOver ve Tal
 
 Tasarım taslağı: `belgeler/tasarim-taslagi.pdf`
 
-## Şu anki aşama: 18 — on yedinci bölüm: Kağnı (üçüncü kitabın sonu)
+## Şu anki aşama: 19 — on sekizinci bölüm: Kinin (dördüncü kitap)
+
+- Ocak 1921: cephe gerisinde bir sahra hastanesi; kinin ve morfin bitiyor
+- Arif'in Çanakkale anısı: top sesleri ve bir nöbet (önceki kararlarla biriken yaralara göre)
+- Yeni oynanış: üç kayıt, iki açık; ilaçlar nerede kayboluyor?
+- Esir düşmüş bir Yunan hekimi: aynı şişeler cephenin öbür tarafında da satılıyor
+- Bir savaş vurguncusu ve Kızılhaç bayrakları altında bir esir değişimi
+- Yeni sesler: sahra hastanesi, uzak topçu
+
+## 18 — on yedinci bölüm: Kağnı (üçüncü kitabın sonu)
 
 - Nisan 1920, İnebolu: iskelesiz bir liman, Anadolu'ya giden yükler
 - Rainer'in son adamı: silahları mahzeninde saklayan bir istifçi

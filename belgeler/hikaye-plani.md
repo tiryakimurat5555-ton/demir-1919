@@ -109,9 +109,11 @@ Bu belge hikâyenin omurgasıdır. Oyuncunun öğrenmediği gerçekleri de içer
    adamı, istifçi) teslim edilir ya da sandıkları kendi sırtında taşıyarak kafileyle yürür. Zeynep Ana (kurgu; üç oğlunu
    Çanakkale'de vermiş kafile başı). Baba kanatlı kalıbı eritip Nermin'in matbaasına harf döker: zehir döken kalıptan harf.
    Delorme, Rainer ve Clavis'in hikâyesi burada kapanır.
-18+. Dördüncü kitap (1920-1922): savaş yılları. Arif'in Çanakkale travması ve yeni bir savaş; Neslihan'ın kimliği; Gülce ve
-   Süleyman'ın İstanbul'daki gizli yardım ağı; Nermin'in gazetesi. Gerçek kişiler kurguya karışmaz; savaş her iki tarafın
-   acısıyla anlatılır.
+18. Kinin (YAZILDI; dördüncü kitabın açılışı) — Ocak 1921, sahra hastanesi. Müteahhit Sabit Bey (kurgu) İstanbul'dan gelen
+   ilaçları iki cepheye satıyor. Yannis (kurgu; Atinalı genç hekim, esir) dost karakter; esir değişiminde Eleni'yle köprü.
+   Arif'in travması oynanışa girer (nöbet). Ağın İstanbul halkası: Gümrük'te M. T.
+19. İstanbul, 1921: gümrükteki halka M. T. Gülce'nin bürosunda bir hain mi? Gülce ve Süleyman'ın gizli yardım ağı tehlikede.
+20+. 1921-1922: Sakarya (Ağustos-Eylül 1921) ve 1922 sonbaharı arka planda; savaş her iki tarafın acısıyla anlatılır.
 
 ## Hassasiyet notu
 Örgüt "savaştan kâr eden bankerler" teması taşıdığı için üyeler bilinçli olarak çeşitli tutulur (Fransız, İtalyan,
@@ -121,6 +123,7 @@ karakterler (ör. Saltiel) örgütle ilişkilendirilmez; komplo teorisi kalıpla
 ## Süren değerler (bayraklar)
 travma (anılarda bastırınca artar), suleymanBag, gulceGuven, gulceyeAnlatti, gulceYalan, karar1, mezarSozu,
 gorulmusOlabilir (Delorme Arif'i görmüş olabilir), cemilEkipte, nerminBag, suphe (3. bölüm), karar3.
+18. bölüm: nobetAtlatildi, nobetKacti, depoGoruldu, yanlisHesap, hesapDogru, sabitSonu (teslim/konustu).
 17. bölüm: erzak, yorgunluk, mahzenYeri, zihniSonu (teslim/kafile), etap1, etap2, kafileSonu (saglam/perisan), kalipEridi.
 16. bölüm: babaAffetti, kayikHazir, listeYolu (para/tehdit/hirsiz), listeKarar (uyar/yak), babaKarar (anadolu/sakla), nerminSonu, rizaYarali.
 15. bölüm: oy_vollmer, oy_szalay, oy_pendle, kurulSonu (devrildi/iflas/kazandi), rainerSonu (tutuklu/yalniz/serbest).

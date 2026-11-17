@@ -16,6 +16,7 @@ import { BOLUM14 } from './bolum14';
 import { BOLUM15 } from './bolum15';
 import { BOLUM16 } from './bolum16';
 import { BOLUM17 } from './bolum17';
+import { BOLUM18 } from './bolum18';
 
-export const BOLUMLER = { bolum1: BOLUM1, bolum2: BOLUM2, bolum3: BOLUM3, bolum4: BOLUM4, bolum5: BOLUM5, bolum6: BOLUM6, bolum7: BOLUM7, bolum8: BOLUM8, bolum9: BOLUM9, bolum10: BOLUM10, bolum11: BOLUM11, bolum12: BOLUM12, bolum13: BOLUM13, bolum14: BOLUM14, bolum15: BOLUM15, bolum16: BOLUM16, bolum17: BOLUM17 };
+export const BOLUMLER = { bolum1: BOLUM1, bolum2: BOLUM2, bolum3: BOLUM3, bolum4: BOLUM4, bolum5: BOLUM5, bolum6: BOLUM6, bolum7: BOLUM7, bolum8: BOLUM8, bolum9: BOLUM9, bolum10: BOLUM10, bolum11: BOLUM11, bolum12: BOLUM12, bolum13: BOLUM13, bolum14: BOLUM14, bolum15: BOLUM15, bolum16: BOLUM16, bolum17: BOLUM17, bolum18: BOLUM18 };
 export const ILK_BOLUM = BOLUM1;

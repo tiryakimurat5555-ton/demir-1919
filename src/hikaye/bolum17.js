@@ -207,8 +207,8 @@ export const BOLUM17 = {
       ortam: 'ortam_kagni',
       ortamOran: 0.4,
       baslik: 'On yedinci bölüm bitti',
-      paragraflar: ['Üç kitap: Sudaki Adam\'dan Kağnı\'ya. Dördüncü kitap yazılacak: savaş yılları, 1920-1922. Kararların kaydedildi.'],
-      secenekler: [{ etiket: 'Ana menüye dön', anaMenu: true }],
+      paragraflar: ['Üç kitap: Sudaki Adam\'dan Kağnı\'ya. Sıradaki: dördüncü kitap, savaş yılları. Kararların kaydedildi.'],
+      secenekler: [{ etiket: 'On sekizinci bölüme geç', sonrakiBolum: 'bolum18' }, { etiket: 'Ana menüye dön', anaMenu: true }],
     },
   },
 
