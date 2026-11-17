@@ -148,6 +148,92 @@ export const BOLUM9 = {
         { etiket: 'Reddet.', etki: { bayrak: { teklifSonu: 'red' } }, sonra: 'red_sonu' },
       ],
     },
+    // Derinleştirme: Arif ile Neslihan'ın ilk gerçek konuşması. Birinci bölümdeki arifNeden burada sınanır.
+    kardes_gecesi: {
+      ortam: 'ortam_oda',
+      ortamOran: 0.4,
+      baslik: 'Josefstadt, gece',
+      paragraflar: [
+        'Gece yarısı. Soba söndü; Frau Gruber\'in kömürü haftada iki gün yetiyor. Neslihan battaniyesine sarılmış, pencerenin önünde oturuyor. Camdaki buz çiçeklerine parmağıyla bir şey çiziyor: bir ağaç.',
+        'Ayva, diyorsun. Gülümsüyor ama dönüp bakmıyor.',
+        'Selanik\'te çadırda bir kış geçirdik, diyor. Annem yoktu artık. Babam seni aramaya gitmişti. Sonra adamlar geldi; okul, yemek, sıcak oda dediler. Gittim. On yedi yaşındaydım ve açtım, abi. Bunu kimseye söylemedim: açtım.',
+        'Mösyö Rivière beni Paris\'e götürdü. Kâğıtlarda onun soyadını taşıdım. Fransızca öğrendim, Almanca, piyano. Hiç dokunmadı bana; hiç sesini yükseltmedi. Akşamları Montaigne okurdu. Bilmiyorum, derdi; benim bildiğim tek şey bilmediğim.',
+        'İlk yıl her gün limana indim. Selanik\'ten gelen her vapurun yolcularına baktım. İkinci yıl haftada bir. Üçüncü yıl Çanakkale haberleri geldi; gazetelerin ölü listelerinde adını aradım. Bulamadım. Bulamayınca öldüğüne karar verdim. Öyle daha kolaydı.',
+        'Şimdi dönüp sana bakıyor. Gözlerinde ağlamayan birinin kuruluğu var.',
+        'Sen beni aradın mı abi?',
+      ],
+      secenekler: [
+        {
+          etiket: 'Hayır. Öldün dediler, inandım. Senin yaptığının aynısını yaptım.',
+          kosul: (d) => bayrak(d, 'arifNeden') === 'inandim',
+          etki: { bayrak: { kardesGecesi: 'durust' }, artir: { neslihanBag: 1 } },
+          sonra: 'kardes_durust',
+        },
+        {
+          etiket: 'Hayır. Bulursam beni tanımazsın diye korktum.',
+          kosul: (d) => bayrak(d, 'arifNeden') === 'korktum',
+          etki: { bayrak: { kardesGecesi: 'durust' }, artir: { neslihanBag: 1 } },
+          sonra: 'kardes_durust',
+        },
+        {
+          etiket: 'Hayır. Sizi orada bıraktığımı kabul edemedim.',
+          kosul: (d) => bayrak(d, 'arifNeden') === 'sucluluk',
+          etki: { bayrak: { kardesGecesi: 'durust' }, artir: { neslihanBag: 1 } },
+          sonra: 'kardes_durust',
+        },
+        {
+          etiket: 'Hayır. Aramadım.',
+          kosul: (d) => !bayrak(d, 'arifNeden'),
+          etki: { bayrak: { kardesGecesi: 'durust' }, artir: { neslihanBag: 1 } },
+          sonra: 'kardes_durust',
+        },
+        {
+          etiket: 'Aradım. Ama her yer yanmıştı, kimse bir şey bilmiyordu.',
+          etki: { bayrak: { kardesGecesi: 'yalan' } },
+          sonra: 'kardes_yalan',
+        },
+        {
+          etiket: 'Bir şey söyleme. Battaniyenin ucunu onun omzuna çek.',
+          etki: { bayrak: { kardesGecesi: 'sessiz' } },
+          sonra: 'kardes_sessiz',
+        },
+      ],
+    },
+    kardes_durust: {
+      ortam: 'ortam_oda',
+      ortamOran: 0.4,
+      baslik: 'İki mezar',
+      paragraflar: [
+        'Neslihan uzun süre bir şey demiyor. Sonra gülüyor; kısa, şaşkın bir gülüş.',
+        'Demek ikimiz de birbirimizin mezarına dua ettik, diyor. Sen İstanbul\'da, ben Paris\'te. Aynı yıllarda. Belki aynı gecelerde.',
+        'Kızmam gerekirdi sana, diyor. Kızamıyorum. Çünkü ben de aramadım. Herkes kızılacak birini arıyor abi; ben kızacak kimse bulamıyorum. Rivière\'e bile.',
+        'Battaniyenin yarısını sana uzatıyor. Pencerenin önünde, iki çocuk gibi, sabaha kadar oturuyorsunuz. Konuşmadan. Camdaki ayva ağacı yavaş yavaş eriyor.',
+      ],
+      secenekler: [{ etiket: 'Devam' }],
+    },
+    kardes_yalan: {
+      ortam: 'ortam_oda',
+      ortamOran: 0.4,
+      baslik: 'Kulak',
+      paragraflar: [
+        'Neslihan sana bakıyor. Sonra elini uzatıp sol kulağına dokunuyor.',
+        'Babam yalan söyleyince kulağı kızarırdı, diyor. Seninki de kızarıyor. Hep kızarırdı; ayvaları sen yedin ben değil derken de.',
+        'Gülümsüyor ama gözleri gülmüyor. Peki, diyor. Aradın. Teşekkür ederim.',
+        'Battaniyesine sarılıp yatağına dönüyor. Sen pencerenin önünde kalıyorsun. Camdaki ayva ağacı yavaş yavaş eriyor; kimse yenisini çizmiyor.',
+      ],
+      secenekler: [{ etiket: 'Devam' }],
+    },
+    kardes_sessiz: {
+      ortam: 'ortam_oda',
+      ortamOran: 0.4,
+      baslik: 'Battaniye',
+      paragraflar: [
+        'Battaniyenin ucunu omzuna çekiyorsun. Neslihan bir an kaskatı kalıyor; sonra başını omzuna yaslıyor.',
+        'Cevap vermedin, diyor. Cevabı biliyorum zaten. Ama sormam gerekiyordu; altı yıldır soruyordum. Şimdi sustum. Sen de bir gün söylersin.',
+        'Sabaha kadar öyle kalıyorsunuz. Söylenmemiş cümle, odanın içinde üçüncü bir kişi gibi oturuyor.',
+      ],
+      secenekler: [{ etiket: 'Devam' }],
+    },
     sahte_defter: {
       ortam: 'ortam_oda',
       baslik: 'Bir gecelik iş',
@@ -505,6 +591,11 @@ export const BOLUM9 = {
               etiket: 'Sahte bir defter yaz. Rainer\'e verelim.',
               kosul: (d) => bayrak(d, 'sahteFikri') && !delilVar(d, 'sahte_defter'),
               etki: { sahne: 'sahte_defter' },
+            },
+            {
+              etiket: 'Bu gece konuşalım. Altı yılı anlat bana.',
+              kosul: (d) => !bayrak(d, 'kardesGecesi'),
+              etki: { sahne: 'kardes_gecesi' },
             },
             {
               etiket: 'Mutlu olman suç değil.',

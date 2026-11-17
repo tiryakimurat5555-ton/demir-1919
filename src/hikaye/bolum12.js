@@ -24,7 +24,7 @@ export const BOLUM12 = {
     kamil_raporu: { ad: 'Kâmil Efendi\'nin raporu', tarif: 'Gümrük muayene raporu, 1329/417. Selanik\'ten gelen bir geminin "makine aksamı" sandıklarında tüfek bulunduğu, mühürlerin kanatlı anahtar olduğu. Kâmil Efendi\'nin imzası; altında, kırmızı mürekkeple, başka bir el: Bu memur tasfiye edilsin. N.' },
     whitlock_nazim: { ad: 'Pera Palas\'taki telgraf', tarif: 'Whitlock\'un Nazım Bey\'e bıraktığı, siyakat harfleriyle yazılmış bir not: Otuz sandık, Columbia, 28 Haziran sabahı, Galata. Viyana\'da karşılanacak.' },
     nazim_itirafi: { ad: 'Nazım Bey\'in itirafı', tarif: 'Nermin\'in yazdığı, Nazım Bey\'in imzaladığı dört sayfa: 1913\'te Kâmil Efendi\'nin tasfiyesi, tüfek sandıkları, Rainer, Whitlock ve Columbia\'nın otuz sandık altını.' },
-    agir_sandik: { ad: 'Columbia\'nın manifestosu', tarif: 'Amerikan yük gemisi Columbia, New York\'a. Otuz sandık işlenmiş tütün, Amerikan Tütün Şirketi. Her sandık dört yüz kilo. Bir tütün denginin sandığı seksen kiloyu geçmez.' },
+    agir_sandik: { ad: 'Columbia\'nın manifestosu', tarif: 'Yük gemisi Columbia, New York\'a; Amerikan bayraklı ama kayıtlı sahibi Pendle Shipping, Pire. Otuz sandık işlenmiş tütün, Amerikan Tütün Şirketi. Her sandık dört yüz kilo. Bir tütün denginin sandığı seksen kiloyu geçmez.' },
   },
 
   cikarimlar: {

@@ -8,7 +8,12 @@ görme engelli oyuncular tarafından bağımsız oynanabilecek; VoiceOver ve Tal
 
 Tasarım taslağı: `belgeler/tasarim-taslagi.pdf`
 
-## Şu anki aşama: 22 — derinleştirme, 1. adım
+## Şu anki aşama: 23 — derinleştirme, 2. adım
+
+- Viyana'da bir gece: Neslihan altı yılı anlatır ve sorar: Sen beni aradın mı abi? Cevabın on altıncı bölümde geri döner
+- Pendle'in gemileri artık her yerde: Santa Lucia, Aurora, Columbia; Genel Kurul'da hepsi bir anda hatırlanır
+
+## 22 — derinleştirme, 1. adım
 
 - Birinci bölümde Süleyman Kaptan'la gece konuşması: Arif ailesini neden hiç aramadı? Süleyman'ın kaybettiği oğlu
 - Bu cevap altıncı bölümde Hafız Efendi'nin, sekizinci bölümde babanın sözlerinde geri döner

@@ -169,11 +169,19 @@ Yapılanlar (1. adım):
 - Pendle tohumu: 1. bölümde Leventis'in armatörü Pendle Shipping, Pire (manifest, yük defteri). 15. bölümde Columbia,
   20. bölümde tarife çıkarımı hepsini bağlar.
 
+2. adım (yapıldı):
+- Viyana gecesi (9. bölüm kardes_gecesi, Neslihan'la konuşmada "Bu gece konuşalım"): Neslihan Selanik'i, açlığı,
+  Rivière'i, ölü listelerinde Arif'in adını aradığını anlatır; "Sen beni aradın mı abi?" Cevap arifNeden'e göre tek bir
+  dürüst seçenek (neslihanBag +1) / yalan (kulağı kızarır; babası gibi) / sessiz. kardesGecesi durust / yalan / sessiz.
+  Karşılığı: 16. bölüm mektup_baba (Neslihan babayı affederken).
+- Pendle'in gemileri: Santa Lucia (3. bölüm, Delorme: "Sir Henry soru sormaz, yalnızca fatura keser"), Aurora
+  (11. bölüm, navlun H. P.'ye), Columbia (12. bölüm, kayıtlı sahibi Pendle Shipping), 15. bölümde Pendle'le yüz yüze
+  gelince manifest varsa dört gemi birden hatırlanır.
+
 Sıradakiler:
 - Kemal ipliği: Arethusa'nın kaptanı (21. bölüm). Süleyman'ın ölü bildiği oğlu, Pendle'in gemisinde; Arif'in aynası
   (ölü bilinip yaşayan). aramaSozu ise Arif ona haber verir.
-- Pendle'i önceden göster: 3. bölüm Mercure Kulübü (17 numarada adı geçer), 11. bölüm İzmir (Aurora'nın armatörü),
-  12. bölüm Columbia.
-- Arif ile Neslihan: 9-17. bölümler arasında kardeşlik sahneleri (çocukluk, Rivière'in yanında geçen altı yıl, öfke ve af).
+- Arif ile Neslihan: kardesGecesi yalan/sessiz ise sonraki bir bölümde (13 ya da 17) söylenmemiş cümleyi söyleme fırsatı.
+- Cemil'in ipliği: Balkan Harbi'nde emirle "kaza" yazdığı cesetler; 18. bölümde Yannis'le, 20. bölümde Polatlı'da.
 - Gülce'nin ipliği: babasının katili bulunduktan sonra ne kalır; Tevfik ihaneti onu nasıl değiştirdi.
 - Konuşmaları uzat: 2-9. bölümlerde kişilerin ikinci, üçüncü konuşma düğümleri (geçmişleri, korkuları).

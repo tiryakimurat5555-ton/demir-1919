@@ -214,6 +214,8 @@
   Plan ve yapılanlar belgeler/hikaye-plani.md "Derinleştirme" bölümünde. 1. adım: arifNeden (1. bölüm gece_konusma →
   6. bölüm arifNedenSatiri, 8. bölüm tahliye), haticeSozu (1. bölüm mektup → 2. cenaze → 17. hatice17), Pendle tohumu
   (1. bölüm manifest → 20. tarife), Süleyman'ın oğlu Kemal (1897, Nevres; sıradaki: Arethusa'nın kaptanı).
+  2. adım: 9. bölüm kardes_gecesi (Neslihan: "Sen beni aradın mı abi?"; kardesGecesi durust/yalan/sessiz → 16. bölüm
+  mektup_baba), Pendle'in gemileri Santa Lucia (3), Aurora (11), Columbia (12), 15. bölümde Pendle'le yüzleşmede hatırlanır.
   testler/derinlik.test.js iplikleri denetler.
 - Hassasiyet: örgüt üyeleri çeşitli uyruklardan; hiçbir din/etnik grupla özdeşleşmez (hikaye-plani.md).
 - Mekânda `ortam` alanı mekânın ortam sesini değiştirir (yoksa 'ortam_' + mekân kimliği).

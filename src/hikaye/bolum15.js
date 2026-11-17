@@ -255,7 +255,7 @@ export const BOLUM15 = {
       giris: (d) => (bayrak(d, 'oy_pendle') ? 'sonra' : 'ilk'),
       dugumler: {
         ilk: {
-          soz: 'Pencereden karı seyreden adam: Sir Henry Pendle. Kırmızı yüzlü, tombul, kibar. İngiliz armatör. Gemilerim yalnızca yük taşır, diyor; Nermin çeviriyor. Ne taşıdıklarını sormam. Bir armatörün işi bu değil.',
+          soz: (d) => 'Pencereden karı seyreden adam: Sir Henry Pendle. Kırmızı yüzlü, tombul, kibar. İngiliz armatör. Gemilerim yalnızca yük taşır, diyor; Nermin çeviriyor. Ne taşıdıklarını sormam. Bir armatörün işi bu değil.' + (delilVar(d, 'manifest') ? ' Pendle Shipping. Leventis, Sabri\'nin öldüğü gece. Santa Lucia, Odesa. Aurora, İzmir. Columbia, altın. Adı hep kâğıdın en altında, en küçük harflerle duruyordu; sen hiç büyük harfle okumadın.' : ''),
           secenekler: [
             {
               etiket: 'Columbia\'nın otuz sandık altını ve Aurora\'nın makineli tüfekleri sizin sigortanızla taşındı.',

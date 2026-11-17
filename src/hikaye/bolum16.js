@@ -61,13 +61,20 @@ export const BOLUM16 = {
       ortam: 'ortam_han',
       ortamOran: 0.5,
       baslik: 'Mektup',
-      paragraflar: [
+      paragraflar: (d) => [
         'Neslihan babanın yanına oturuyor ve mektubu okuyor. Yavaş, kelime kelime. Babamı ben ihbar ettim. Seni o yüzden aldım. Önce suçluluktan, sonra sevdiğim için.',
         'Baban dinliyor. Ocakta kalay eriyor. Neslihan bitirince uzun bir sessizlik.',
         'Sonra baban konuşuyor. O adam bilerek zehir döktü, diyor. Ben bilmeden. Sonra ikimiz de anladık. Ben kalıbı çaldım. O seni aldı. İkimiz de kendimize göre bir kat kalay sürmeye çalıştık.',
         'Neslihan\'ın elini tutuyor. Seni sevmiş, kızım. Bunu ondan alamam. Almak da istemem. Altı yılımı aldı ama sana bir hayat verdi. Hesabı Allah görür.',
         'Neslihan babasının omzuna başını koyuyor. Ohannes Usta körüğü bırakıp avluya çıkıyor; sessizce.',
-      ],
+        bayrak(d, 'kardesGecesi') === 'durust'
+          ? 'Sonra Neslihan sana bakıyor. Viyana\'daki geceyi hatırlıyor musun abi, diyor. İkimiz de aramamıştık. Bir kez öyle söyledin, ben de sana kızamadım. Ona da kızamıyorum artık. Babamın elini sıkıyor. Sende öğrendim bunu.'
+          : bayrak(d, 'kardesGecesi') === 'yalan'
+            ? 'Sonra Neslihan sana bakıyor; sol kulağına. Bir şey demiyor. Viyana\'daki geceyi ikiniz de hatırlıyorsunuz. Babanın itirafını dinleyip affeden kız, senin yalanını hâlâ bekliyor.'
+            : bayrak(d, 'kardesGecesi') === 'sessiz'
+              ? 'Sonra Neslihan sana bakıyor. Sen de bir gün söylersin, demişti Viyana\'da. Babanın sesini dinlerken boğazında o cümle düğümleniyor: Ben de aramadım. Hâlâ söyleyemiyorsun.'
+              : '',
+      ].filter(Boolean),
       secenekler: [{ etiket: 'Devam', etki: { bayrak: { babaAffetti: true } } }],
     },
     gece16: {

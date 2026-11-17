@@ -18,7 +18,7 @@ export const BOLUM3 = {
     yorgo_bilgi: { ad: 'Yorgo\'nun anlattıkları', tarif: 'On yedi numaralı oda perşembe geceleri kilitlenir; içeri yalnızca pirinç jetonu olan girer. Odanın duvarının ardında, servis koridorunda bir yemek asansörü var.' },
     delorme_adi: { ad: 'Lavantalı adamın adı', tarif: 'Lucien Delorme. Kulüpte herkes ona Mösyö Delorme diyor; bahşişi bol, gülüşü soğuk.' },
     izin_belgesi: { ad: 'İngiliz geçiş izni', tarif: 'Sarhoş bir İngiliz yüzbaşının anlattığına göre Ferrante\'nin sandıkları için tarım makinesi diye geçiş izni imzalanmış. Karşılığında İsviçre frangı.' },
-    toplanti: { ad: '17 numaralı odadaki konuşma', tarif: 'Tüfekler yarın gece yarısı Kurşunlu Han\'ın arkasındaki depodan alınıp Santa Lucia vapuruyla Odesa\'ya gidecek.' },
+    toplanti: { ad: '17 numaralı odadaki konuşma', tarif: 'Tüfekler yarın gece yarısı Kurşunlu Han\'ın arkasındaki depodan alınıp Santa Lucia vapuruyla Odesa\'ya gidecek. Santa Lucia\'nın sahibi: Sir Henry, Pire\'de bir İngiliz armatör.' },
     siyakat_defter: { ad: 'Kayıp defter', tarif: 'Odadakiler, Sabri\'nin çaldığı kâğıtların bir rüşvet defterinin parçası olduğunu konuştu. İçinde Halim\'in de adı var. Yarın akşama kadar geri istiyorlar.' },
   },
 
@@ -99,7 +99,7 @@ export const BOLUM3 = {
       paragraflar: (d) => [
         'Yemek asansörünün kapağını aralıyorsun. Ahşap kuyu karanlık ve dar; öbür ucunda, duvarın ardında, 17 numaralı odanın lambası bir şeritten sızıyor. Sesler kuyuda büyüyor.',
         'Üç ses. Birini tanıyorsun: yumuşak, düzgün, lavanta kokan ses. Delorme. Öbürü telaşlı, İtalyan ağızlı bir Türkçe: Ferrante. Üçüncüsü yaşlı, öksürüklü, kâtip Türkçesi konuşan bir adam; ötekiler ona Nazım Bey diyor.',
-        'Yarın gece yarısı, diyor Delorme. Kurşunlu Han\'ın arkasındaki depodan. Santa Lucia saat birde demir alıyor, Odesa\'ya. İngiliz yüzbaşının izni hazır; tarım makinesi. Bolşevik de alacak, Beyaz da alacak. Biz de ikisinden de alacağız.',
+        'Yarın gece yarısı, diyor Delorme. Kurşunlu Han\'ın arkasındaki depodan. Santa Lucia saat birde demir alıyor, Odesa\'ya. İngiliz yüzbaşının izni hazır; tarım makinesi. Bolşevik de alacak, Beyaz da alacak. Biz de ikisinden de alacağız. Ferrante bir soru soruyor: Ya kaptan sorarsa? Delorme gülüyor: Santa Lucia Sir Henry\'nin gemisi. Sir Henry\'nin kaptanları soru sormaz. Sir Henry de sormaz; yalnızca fatura keser.',
         'Ya defter, diye titriyor Ferrante. Defterin yarısı o hamalda! Halim\'in adı içinde, Nazım Bey\'in adı içinde...',
         'Nazım Bey öksürüyor. Benim adım içinde değil, diyor. Benim rakamım içinde.',
         'Defter yarın akşama kadar geri gelir, diyor Delorme, sakin. İnsanlar sevdiklerini korumak için her şeyi verir. O hamalın bir kaptanı var; kayıkhanesi ahşap. Deniz kenarında yangın çok çabuk yayılır.',

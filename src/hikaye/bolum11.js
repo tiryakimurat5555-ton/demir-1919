@@ -20,7 +20,7 @@ export const BOLUM11 = {
     aurora_adi: { ad: 'Yaralı hamalın sözleri', tarif: 'Kadir, Ferrante\'nin hamalı: Aurora diye bir vapur, on Haziran gecesi, Punta iskelesi. Taş sandıklar açılınca İtalyan efendi ağlamış. Amerikalı bir adam gelmiş; Kadir\'in koluna o vurmuş.' },
     whitlock_kaydi: { ad: 'Otel Levant\'ın defteri', tarif: 'Mr. Elias Whitlock, Amerikan Tütün Şirketi, Boston. 2 Haziran\'dan beri 21 numarada. Ziyaretçisi yok; telgrafları Viyana\'dan.' },
     ferrante_defteri: { ad: 'Ferrante\'nin hesap defteri', tarif: 'İtalyanca rakamlar ve siyakat satırları karışık. Siyakatı yalnızca Neslihan okuyabilir.' },
-    iki_yana: { ad: 'Neslihan\'ın okuduğu satırlar', tarif: 'Aurora: kırk makineli tüfek, iki yüz sandık cephane. Yarısı dağdaki Rum çetelerine, yarısı Aydın yöresindeki Türk çetelerine. Aynı aracı, aynı fiyat. Ödeme Viyana\'ya.' },
+    iki_yana: { ad: 'Neslihan\'ın okuduğu satırlar', tarif: 'Aurora: kırk makineli tüfek, iki yüz sandık cephane. Yarısı dağdaki Rum çetelerine, yarısı Aydın yöresindeki Türk çetelerine. Aynı aracı, aynı fiyat. Ödeme Viyana\'ya. Kenarda bir not: Aurora\'nın navlunu Pire\'ye, H. P.\'ye.' },
   },
 
   cikarimlar: {
