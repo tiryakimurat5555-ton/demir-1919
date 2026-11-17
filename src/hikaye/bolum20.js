@@ -209,8 +209,8 @@ export const BOLUM20 = {
       ortam: 'ortam_matbaa',
       ortamOran: 0.45,
       baslik: 'Yirminci bölüm bitti',
-      paragraflar: ['Yirmi birinci bölüm yazılıyor: Arethusa. Kararların kaydedildi.'],
-      secenekler: [{ etiket: 'Ana menüye dön', anaMenu: true }],
+      paragraflar: ['Sıradaki: yirmi birinci bölüm, Arethusa. Kararların kaydedildi.'],
+      secenekler: [{ etiket: 'Yirmi birinci bölüme geç', sonrakiBolum: 'bolum21' }, { etiket: 'Ana menüye dön', anaMenu: true }],
     },
   },
 

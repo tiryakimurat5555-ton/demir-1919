@@ -8,7 +8,15 @@ görme engelli oyuncular tarafından bağımsız oynanabilecek; VoiceOver ve Tal
 
 Tasarım taslağı: `belgeler/tasarim-taslagi.pdf`
 
-## Şu anki aşama: 26 — derinleştirme, 5. adım
+## Şu anki aşama: 27 — yirmi birinci bölüm: Arethusa
+
+- Eylül 1922, İzmir: yanan bir kent, bir rıhtım ve denizin kıyısında yüz binlerce insan
+- Süleyman Kaptan yirmi beş yıl önce kaybettiği oğlunu bir geminin köprüsünde bulur
+- Önceki seçimlerin karşılığı: Neslihan'ın ya da Cemil'in sesi, Rıza'nın bastonu, Nermin'in atkısı ve yemini
+- Rıhtımda bir kız: Ayva
+- Yeni ses: yanan liman
+
+## 26 — derinleştirme, 5. adım
 
 - Gülce'nin gecesi: yetiştirdiği çocuk onu sattı; Süleyman'ın onu 1913'ten beri neden koruduğu
 - Pire'den bir söylenti: İngiliz bir armatörün gemilerinde Kemal Reis adında bir süvari

@@ -122,9 +122,13 @@ Bu belge hikâyenin omurgasıdır. Oyuncunun öğrenmediği gerçekleri de içer
    "batan gemiden inerim"): iki tarafa birden. Görev dağıtımı: hana Rıza, istasyona Nermin doğru; Cemil'i götürmek
    hastaneyi yalnız bırakır. Tevfik teslim ise Nermin'in dizgicisi, kardeşini Bursa'da bulmaya gider; çift ise kardeşi
    Selim Cemil'in hastanesinde. Kanca: Pendle'in gemisi Arethusa, İzmir, Eylül 1922'de kaçanlardan servet yapmak ister.
-21. Arethusa: Eylül 1922, İzmir. Felaketin ortasında Pendle'in gemisi; bir yer için her şeyini verenler. Acı her
-   topluluğa aynı ölçüyle gösterilir; Eleni, kaçan Rum ve Türk siviller, yangın. Ekip insanları kurtarmaya çalışır.
-22+. 1921-1922: Sakarya (Ağustos-Eylül 1921) ve 1922 sonbaharı arka planda; savaş her iki tarafın acısıyla anlatılır.
+21. Arethusa (YAZILDI) — İzmir 11-16 Eylül 1922. Yangının faili tartışılmaz, kimse suçlanmaz; rıhtımda herkes. Süleyman
+   oğlu Kemal'i Pendle'in gemisinin köprüsünde bulur (1897'de Pendle'in babasının gemisi onu denizden çıkarmış, "sağ kalan
+   yok" denmiş). Fenwick (Pendle'in acentesi): kişi başı beş altın; Kızılhaç'ın kırk sandık ilacı "kurtarılmış mal".
+   Kemal yolcuları bilet sormadan alır (ya da tereddüt eder, Pendle motorla kaçar). Nermin'in atkısı Pendle'in masasında.
+   Eleni hastalarıyla gemiye biner. Rıhtımdaki kız "Ayva" (Rina). Yeni iplikler: kemal_sonu, pendle_sonu, cocuk, riza_sorgu.
+22. Kasım 1922, Lozan: barış masasının kulisinde Pendle (ya da onun avukatları); Klara Rainer Cenevre'den; Kemal'in tanıklığı.
+23+. 1921-1922: Sakarya (Ağustos-Eylül 1921) ve 1922 sonbaharı arka planda; savaş her iki tarafın acısıyla anlatılır.
 
 ## Hassasiyet notu
 Örgüt "savaştan kâr eden bankerler" teması taşıdığı için üyeler bilinçli olarak çeşitli tutulur (Fransız, İtalyan,
