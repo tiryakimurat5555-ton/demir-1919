@@ -1,0 +1,25 @@
+# Elle başlatılır. Expo projesinin kimliğini app.json'a yazar (yalnızca bu çalışmada),
+# kimliği günlüğe basar ve Expo Go için ilk güncellemeyi yayınlar.
+name: Ilk kurulum ve guncelleme
+
+jobs:
+  kur:
+    name: Kur ve yayinla
+    steps:
+      - uses: eas/checkout
+      - uses: eas/install_node_modules
+      - name: Proje kimligi ve guncelleme
+        run: |
+          set -e
+          EAS="npx -y eas-cli@latest"
+          command -v eas >/dev/null 2>&1 && EAS="eas"
+          $EAS init --non-interactive --force
+          node araclar/guncelleme-ayari.js
+          echo "APP_JSON_BASLA"
+          cat app.json
+          echo "APP_JSON_BITTI"
+          $EAS update --branch main --message "Ilk kurulum" --non-interactive --json > sonuc.json
+          cat sonuc.json
+          KIMLIK="$(node -e "console.log(require('./app.json').expo.extra.eas.projectId)")"
+          GRUP="$(node -e "const s=require('./sonuc.json');const a=Array.isArray(s)?s:[s];console.log(a[0].group)")"
+          echo "EXPO_GO_BAGLANTISI=exp://u.expo.dev/${KIMLIK}/group/${GRUP}"
