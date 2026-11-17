@@ -1,0 +1,19 @@
+{
+  "name": "demir-1919",
+  "version": "0.1.0",
+  "main": "index.js",
+  "private": true,
+  "scripts": {
+    "start": "expo start"
+  },
+  "dependencies": {
+    "@react-native-async-storage/async-storage": "2.2.0",
+    "expo": "~58.0.20",
+    "expo-haptics": "~58.0.7",
+    "expo-speech": "~58.0.3",
+    "expo-status-bar": "~58.0.4",
+    "expo-updates": "~58.0.18",
+    "react": "19.3.0",
+    "react-native": "0.88.0"
+  }
+}
