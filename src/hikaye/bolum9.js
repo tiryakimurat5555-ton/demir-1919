@@ -69,9 +69,28 @@ export const BOLUM9 = {
         'Viyana Doğu İstasyonu. Bir imparatorluğun başkentiydi; şimdi altı milyonluk bir devletin aç başkenti. Peronlarda bacağı olmayan askerler, ekmek kuyruğunda yaşlı kadınlar. Sarayların pencerelerinde ışık yok; kömür yok.',
         'Neslihan yakasını kaldırıyor. Burada yaşadım, diyor. İki kış. Rivière bana opera ve dört dil öğretti; Viyana\'nın her sokağını. Şimdi bu sokaklar bana yabancı.',
         'Cebinde, Selanik\'te Saltiel Efendi\'nin yolluk diye verdiği iki paket tütün. Yolda öğrendin: burada kronun değeri yok. Tütün, kahve, un. Kapıları bunlar açıyor.',
+        bayrak(d, 'saltielDavid') === 'anlat'
+          ? 'Paketlerden birinin arasında katlanmış ince bir kâğıt var; trende fark ettin. Saltiel\'in el yazısı: David\'in defterinden kopya. On yedi ad. On birincisi: Neslihan, İsmail kızı, Manastır. Altına Saltiel bir satır eklemiş: Onu buldun. Ötekiler de birinin kardeşiydi.'
+          : '',
         'Josefstadt\'ta, Frau Gruber\'in pansiyonu. Toplantıya üç gün var.',
+      ].filter(Boolean),
+      secenekler: [
+        {
+          etiket: 'Pansiyona yerleş',
+          kosul: (d) => bayrak(d, 'saltielDavid') !== 'anlat',
+          etki: { mekan: 'pansiyon', bayrak: { 'gorüldü_pansiyon': true, tutun: 2 } },
+        },
+        {
+          etiket: 'Kâğıdı Neslihan\'a ver. Bu onun da listesi.',
+          kosul: (d) => bayrak(d, 'saltielDavid') === 'anlat',
+          etki: { mekan: 'pansiyon', bayrak: { 'gorüldü_pansiyon': true, tutun: 2, davidNotu: 'verdi' } },
+        },
+        {
+          etiket: 'Kâğıdı cüzdanına koy. Ona şimdi bu yük verilmez.',
+          kosul: (d) => bayrak(d, 'saltielDavid') === 'anlat',
+          etki: { mekan: 'pansiyon', bayrak: { 'gorüldü_pansiyon': true, tutun: 2, davidNotu: 'sakla' } },
+        },
       ],
-      secenekler: [{ etiket: 'Pansiyona yerleş', etki: { mekan: 'pansiyon', bayrak: { 'gorüldü_pansiyon': true, tutun: 2 } } }],
     },
     asker: {
       ortam: 'ortam_viyana',

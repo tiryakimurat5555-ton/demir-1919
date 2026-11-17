@@ -272,6 +272,9 @@
   6. adım (18 Kasım): 7. bölüm Hafız Efendi'nin zarfı (hafizZarf; Rivière'in mührü, üstünde "kırk yedi", gerçek adıyla
   isteyene) → 25. bölüm son25; 3. bölüm Nermin'in madalya sorusu (madalya anlat/sakla, nerminBag) → 23. bölüm nermin23;
   8. bölüm Yusuf Usta'nın sözü (yusufSoz soz/yok) → 24. bölüm açılış (babaItiraf yolunda mektubu Arif açar).
+  7. adım: 5. bölüm Saltiel'in kardeşi David (saltielDavid anlat/sus; Kasım 1912 on yedi kızın yolcu listesi, mühür
+  basmadı, öldürüldü) → 9. bölüm açılış (anlat ise tütünün arasında liste kopyası; davidNotu verdi/sakla) → 25. son25;
+  10. bölüm Ohannes'in oğlu Aram (ohannesOgul ara/bekle; Boston 1909) → 24. bölüm açılış.
   testler/derinlik.test.js iplikleri denetler.
 - İPLİK KAYDI: src/hikaye/iplikler.js (IPLIKLER: bayrak, ekildi, karsiliklar, gelecek, durum). testler/iplikler.test.js
   bayrağın ekildiği bölümde yazıldığını, karşılık bölümlerinde '<bayrak>' olarak okunduğunu denetler. Yeni iplik ekleyince,

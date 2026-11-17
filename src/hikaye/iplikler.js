@@ -271,6 +271,33 @@ export const IPLIKLER = [
     gelecek: 'Kapandı: babanın itirafından sonra Arif Yusuf\'un mektubunu açar; çarşı babayı yargılamaz.',
     durum: 'kapali',
   },
+  {
+    id: 'saltiel_david',
+    ad: 'David Saltiel\'in listesi',
+    bayrak: 'saltielDavid',
+    ekildi: ['bolum5'],
+    karsiliklar: ['bolum9'],
+    gelecek: 'Beşinci kitap: David\'in listesindeki on yedi kız. Adlar var, getirenin adı yok; o ad kırk yedinci sayfada. Saltiel ve Rebeka Hanım Selanik\'te tanık olarak döner.',
+    durum: 'acik',
+  },
+  {
+    id: 'david_notu',
+    ad: 'Listeyi Neslihan\'a vermek',
+    bayrak: 'davidNotu',
+    ekildi: ['bolum9'],
+    karsiliklar: ['bolum25'],
+    gelecek: 'Beşinci kitapta Neslihan ötekileri arar (verdi) ya da listeyi sonradan öğrenir ve Arif\'in sakladığına kırılır (sakla).',
+    durum: 'acik',
+  },
+  {
+    id: 'ohannes_ogul',
+    ad: 'Ohannes Usta\'nın oğlu Aram',
+    bayrak: 'ohannesOgul',
+    ekildi: ['bolum10'],
+    karsiliklar: ['bolum24'],
+    gelecek: 'Kapandı: 24. bölümde Boston\'dan mektup gelir (ara) ya da oda boş bekler (bekle).',
+    durum: 'kapali',
+  },
 ];
 
 export const acikIplikler = () => IPLIKLER.filter((i) => i.durum === 'acik');

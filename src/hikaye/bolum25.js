@@ -221,6 +221,10 @@ export const BOLUM25 = {
         bayrak(d, 'hafizZarf')
           ? 'Ve sen hatırlıyorsun: Selanik, Aralık 1918. Rebeka Hanım\'ın evinde, ateşin başında, yaşlı bir defterdarın göğüs cebinde mühürlü bir zarf. Mösyö Rivière\'in mührü. Üstünde yalnızca bir sayı: kırk yedi. Onu gerçek adıyla isteyene ver.'
           : '',
+        {
+          verdi: 'Neslihan çantasından eski, katlanmış bir kâğıt çıkarıyor: David Saltiel\'in listesi. On yedi ad. Dört yıldır yanında taşıyor. Bu kâğıtta adlar var, diyor; getirenin adı yok. Kırk yedinci sayfada vardı. Biliyorum.',
+          sakla: 'Cüzdanında dört yıldır Saltiel\'in kâğıdı duruyor; on yedi ad. Neslihan\'a hiç göstermedin. Kırk yedinci sayfa o kâğıdın öbür yarısı olabilir: adların yanında, onları getirenin adı.',
+        }[bayrak(d, 'davidNotu')] || '',
         'Kimse cevap vermiyor. Göl karanlık. Karşı kıyıda bir tren düdüğü; güneye, İtalya\'ya, denize.',
         'Dördüncü kitabın sonu.',
       ].filter(Boolean),

@@ -410,7 +410,34 @@ export const BOLUM10 = {
       dugumler: {
         ilk: {
           soz: 'Ohannes Usta körüğü bırakıp babanın elini sıkıyor. Bir usta bir ustayı ellerinden tanır, diyor. Bu eller kalay görmüş. Benim ocak senin ocağın, İsmail Usta.',
-          secenekler: [{ etiket: 'Sağ ol Ohannes Usta.' }],
+          secenekler: [
+            {
+              etiket: 'Usta, Aralık\'tan beri bize kapını açıyorsun. Neden?',
+              kosul: (d) => !bayrak(d, 'ohannesOgul'),
+              sonra: 'aram',
+            },
+            { etiket: 'Sağ ol Ohannes Usta.' },
+          ],
+        },
+        aram: {
+          soz: [
+            'Ohannes tespihini çeviriyor. Merdivenin başındaki küçük odayı gördün mü? diyor. Oğlum Aram\'ın odası. On dokuz yaşında Amerika\'ya gitti; Bin dokuz yüz dokuzda. Boston. İki mektup yazdı, sonra kesildi.',
+            'Ben İngilizce bilmem, o Türkçeyi unuttu belki. Odayı kimseye vermedim. Bir baba oğlunu arar, bir oğul babasını arar evlat. Sizi görünce o oda boş durmasın dedim.',
+          ],
+          secenekler: [
+            {
+              etiket: 'Nermin\'in Amerikalı muhabir dostları var. Aram\'ı arayalım.',
+              etki: { bayrak: { ohannesOgul: 'ara' } },
+              sonra: 'ilk',
+              cevap: 'Ohannes bir an konuşamıyor. Sonra çekmeceden iki eski zarf çıkarıp sana uzatıyor; adres yarı silinmiş. Arayın, diyor. Bulamazsanız da söyleyin. Bilmemek daha ağır.',
+            },
+            {
+              etiket: 'Bazı mektuplar geç gelir usta. Kapı açık durdukça gelir.',
+              etki: { bayrak: { ohannesOgul: 'bekle' } },
+              sonra: 'ilk',
+              cevap: 'Ohannes gülümsüyor. Kapı açık, diyor. Hep açık.',
+            },
+          ],
         },
       },
     },

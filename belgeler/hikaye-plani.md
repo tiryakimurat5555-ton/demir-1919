@@ -237,3 +237,7 @@ Sıradakiler:
 - Kırk yedinci sayfanın tohumu 7. bölümde: Rivière ölmeden önce sayfayı kesip mühürlü zarfla Hafız Efendi'ye bıraktı ("onu gerçek adıyla isteyene ver"). Sayfa: 1912 Selanik'te kaçırılan kızların listesi ve onları satan. Beşinci kitapta zarfın izi sürülür; Neslihan'ın adı (neslihanAd) anahtardır.
 - 3. bölüm: Nermin'in madalya sorusu (madalya) → 23. bölüm sofrada.
 - 8. bölüm: Yusuf Usta'nın mektup sözü (yusufSoz) → 24. bölüm.
+
+### Derinleştirme 7. adım (18 Kasım)
+- 5. bölüm: Saltiel'in kardeşi David, Kasım 1912'de on yedi kızın yolcu listesine mühür basmayı reddedip öldürüldü; defterinde yalnızca adlar kaldı (Neslihan on birinci). 9. bölümde liste tütün paketinden çıkar (davidNotu). Beşinci kitap: adların yanındaki eksik ad, listeyi getiren, kırk yedinci sayfadadır.
+- 10. bölüm: Ohannes Usta'nın oğlu Aram (Boston, 1909); 24. bölümde mektup ya da boş oda.

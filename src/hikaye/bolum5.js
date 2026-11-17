@@ -436,7 +436,33 @@ export const BOLUM5 = {
               sonra: 'ilk',
               cevap: 'Saltiel gülüyor. Ben çeviririm. Tütün satarken öğrendim: iki adamın arasında duran, ikisinden de fazlasını bilir.',
             },
+            {
+              etiket: 'Siz de birini aradınız mı, Saltiel Efendi?',
+              kosul: (d) => bayrak(d, 'saltielAkraba') && !bayrak(d, 'saltielDavid'),
+              sonra: 'david',
+            },
             { etiket: 'Afiyet olsun Saltiel Efendi.' },
+          ],
+        },
+        david: {
+          soz: [
+            'Saltiel gözlüğünü çıkarıp peçeteyle siliyor; uzun uzun. Küçük kardeşim David, diyor. Limanda bir vapur acentesinde kâtipti. Hesap kitap, mühür, manifesto.',
+            'Kasım 1912. Şehir el değiştiriyordu; kimse kimseye bakmıyordu. Bir gece acenteye bir yolcu listesi getirdiler. On yedi kız; hepsi Manastır ve Serez yolundan. Mühür basmasını istediler. David basmadı.',
+            'İki gün sonra rıhtımda buldular. Cebindeki küçük defterde o listenin kopyası vardı. Yalnızca adlar. Listeyi kimin getirdiği yok; onu yazmaya vakit bulamamış.',
+          ],
+          secenekler: [
+            {
+              etiket: 'Kız kardeşim o yolda kayboldu. Kasım 1912, Manastır. Adı Neslihan.',
+              etki: { bayrak: { saltielDavid: 'anlat' } },
+              sonra: 'ilk',
+              cevap: 'Saltiel\'in eli peçetede donup kalıyor. Defter evde, diyor; Selanik\'te, annemin sandığında. Altı yıldır açmadım. Bir N. vardı, Manastırlı; öyle hatırlıyorum ama yemin edemem. Bakacağım. Sana haber göndereceğim; nasıl olursa olsun.',
+            },
+            {
+              etiket: 'Allah rahmet eylesin.',
+              etki: { bayrak: { saltielDavid: 'sus' } },
+              sonra: 'ilk',
+              cevap: 'Saltiel başını sallıyor, gözlüğünü takıyor. Çoğu kişi böyle der, diyor. Haklılar; başka ne denir ki?',
+            },
           ],
         },
       },

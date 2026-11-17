@@ -209,3 +209,46 @@ test('Yusuf Usta\'nın sözü yirmi dördüncü bölümde mektupla döner', asyn
   const siz = M.sahneBilgisi(BOLUM24, durum(BOLUM24, { babaItiraf: true, yusufSoz: 'yok' }, { tur: 'sahne', id: 'acilis' }));
   expect(siz.paragraflar.join(' ')).not.toContain('Dükkân açık');
 });
+
+// 7. derinleştirme adımı: David Saltiel'in listesi, Ohannes Usta'nın oğlu.
+test('Saltiel\'in kardeşi ve listesi Viyana\'da ve Zürih\'te döner', async () => {
+  const { BOLUM5 } = await import('../src/hikaye/bolum5');
+  const { BOLUM9 } = await import('../src/hikaye/bolum9');
+  const { BOLUM25 } = await import('../src/hikaye/bolum25');
+  let d = durum(BOLUM5, { saltielAkraba: true }, { tur: 'konusma', kisi: 'saltiel', dugum: 'ilk' });
+  d = M.secenekSec(BOLUM5, d, M.dugumBilgisi(BOLUM5, d).secenekler.find((x) => x.etiket.includes('Siz de'))).durum;
+  expect(M.dugumBilgisi(BOLUM5, d).soz.join(' ')).toContain('David');
+  d = M.secenekSec(BOLUM5, d, M.dugumBilgisi(BOLUM5, d).secenekler[0]).durum;
+  expect(M.bayrak(d, 'saltielDavid')).toBe('anlat');
+  expect(M.dugumBilgisi(BOLUM5, d).secenekler.some((x) => x.etiket.includes('Siz de'))).toBe(false);
+
+  const a = durum(BOLUM9, { saltielDavid: 'anlat' }, { tur: 'sahne', id: 'acilis' });
+  const b = M.sahneBilgisi(BOLUM9, a);
+  expect(b.paragraflar.join(' ')).toContain('On yedi ad');
+  expect(b.secenekler.length).toBe(2);
+  const v = M.secenekSec(BOLUM9, a, b.secenekler[0]).durum;
+  expect(M.bayrak(v, 'davidNotu')).toBe('verdi');
+  expect(v.gorunum.tur).toBe('mekan');
+  const bos = M.sahneBilgisi(BOLUM9, durum(BOLUM9, {}, { tur: 'sahne', id: 'acilis' }));
+  expect(bos.secenekler.length).toBe(1);
+  expect(bos.paragraflar.every((p) => p.length > 0)).toBe(true);
+
+  for (const [n, parca] of [['verdi', 'Dört yıldır yanında'], ['sakla', 'hiç göstermedin']]) {
+    const s = durum(BOLUM25, { davidNotu: n }, { tur: 'sahne', id: 'son25' });
+    expect(M.sahneBilgisi(BOLUM25, s).paragraflar.join(' ')).toContain(parca);
+  }
+});
+
+test('Ohannes Usta\'nın oğlu Aram yirmi dördüncü bölümde döner', async () => {
+  const { BOLUM10 } = await import('../src/hikaye/bolum10');
+  const { BOLUM24 } = await import('../src/hikaye/bolum24');
+  for (const [i, k, parca] of [[0, 'ara', 'Boston\'dan'], [1, 'bekle', 'hâlâ boş']]) {
+    let d = durum(BOLUM10, {}, { tur: 'konusma', kisi: 'ohannes', dugum: 'ilk' });
+    d = M.secenekSec(BOLUM10, d, M.dugumBilgisi(BOLUM10, d).secenekler.find((x) => x.etiket.includes('Neden'))).durum;
+    expect(M.dugumBilgisi(BOLUM10, d).soz.join(' ')).toContain('Aram');
+    d = M.secenekSec(BOLUM10, d, M.dugumBilgisi(BOLUM10, d).secenekler[i]).durum;
+    expect(M.bayrak(d, 'ohannesOgul')).toBe(k);
+    const s = durum(BOLUM24, { ohannesOgul: k }, { tur: 'sahne', id: 'acilis' });
+    expect(M.sahneBilgisi(BOLUM24, s).paragraflar.join(' ')).toContain(parca);
+  }
+});

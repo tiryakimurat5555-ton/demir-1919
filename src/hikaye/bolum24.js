@@ -40,7 +40,12 @@ export const BOLUM24 = {
       baslik: '6 Ekim 1923, Tophane',
       paragraflar: (d) => [
         'İtilaf askerleri gitti. Bu sabah köprüden bir süvari birliği geçti; kent sokaklara döküldü. Bandolar, bayraklar, ağlayan yaşlılar, omuzlarda çocuklar. Bir şey bitti. Kimse neyin başladığını tam bilmiyor; ama bugün kimse sormuyor.',
-        'Kalafatçı Hanı\'nın avlusunda Ohannes Usta kapıyı süpürüyor. Baban yukarıda, pencerede. ' +
+        'Kalafatçı Hanı\'nın avlusunda Ohannes Usta kapıyı süpürüyor. ' +
+          ({
+            ara: 'Yeleğinin cebinden yıpranmış bir zarf görünüyor; Boston\'dan. Nermin\'in dostları dört yılda buldu: Aram evlenmiş, iki çocuğu var, Türkçeyi unutmamış. Ohannes zarfı günde üç kez okutuyor. ',
+            bekle: 'Merdivenin başındaki küçük oda hâlâ boş; Ohannes her bayram orayı da süpürüyor. ',
+          }[bayrak(d, 'ohannesOgul')] || '') +
+          'Baban yukarıda, pencerede. ' +
           (bayrak(d, 'babaItiraf')
             ? 'Gazetedeki itiraftan beri sokağa az çıkıyor. Bakkal selam vermiyor artık; Yusuf Usta Manastır\'dan bir mektup yazdı, baban açmadı.' +
               (bayrak(d, 'yusufSoz') === 'soz'
