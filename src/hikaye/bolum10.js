@@ -268,8 +268,8 @@ export const BOLUM10 = {
       ortam: 'ortam_rihtim',
       ortamOran: 0.45,
       baslik: 'Onuncu bölüm bitti',
-      paragraflar: ['İkinci kitap başladı. On birinci bölüm yazılıyor: İzmir. Kararların kaydedildi.'],
-      secenekler: [{ etiket: 'Ana menüye dön', anaMenu: true }],
+      paragraflar: ['İkinci kitap başladı. Sıradaki: İzmir. Kararların kaydedildi.'],
+      secenekler: [{ etiket: 'On birinci bölüme geç', sonrakiBolum: 'bolum11' }, { etiket: 'Ana menüye dön', anaMenu: true }],
     },
   },
 

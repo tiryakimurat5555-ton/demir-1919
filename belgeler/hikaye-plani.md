@@ -84,8 +84,12 @@ Bu belge hikâyenin omurgasıdır. Oyuncunun öğrenmediği gerçekleri de içer
    çaldı; ihbarla tutuklandı). Sahte mühürlerle Santa Lucia'nın 60 sandık tüfeği taşla değiştirilir; tüfekler
    İngilizlere / Anadolu'ya (İnebolu) / Boğaz'a. Delorme Kız Kulesi'nde: denize düşer / Rıza vurur / teslim olur.
    DELORME'UN HİKÂYESİ BİTTİ (tutukluysa yalnızca tanık olarak dönebilir). 15 Mayıs İzmir çıkarması haberi.
-11. İzmir (Mayıs-Haziran 1919, işgalin ilk haftaları): Ferrante, altmış sandık taşla İzmir'de; Rainer'in "asıl sevkiyatı"
-   Haziran'da. Gerçek kişiler kullanılmadan işgal altındaki İzmir; Neslihan'ın yeni rolü (siyakat okuyan tek kişi).
+11. Kordon (YAZILDI) — İzmir 5-11 Haziran 1919. Ferrante saklanıyor; Rainer'in yeni adamı Elias Whitlock (Amerikalı,
+   Amerikan Tütün Şirketi temsilcisi görünümünde; kurgu). Aurora: 40 makineli tüfek, yarısı Rum yarısı Türk çetelerine.
+   Dr. Eleni Mavrou (İzmirli Rum hekim, yaralıları ayırmaz) ve balıkçı Stavros dost karakterler. Ferrante'ye güvenilirse
+   sözünü tutar, kaçar (ileride bir mektupla dönebilir). Son sayfa: Kâmil Efendi'nin 1913'te öldürülmesini Nazım Bey onayladı.
+12. İstanbul, Haziran-Temmuz 1919: Gülce ve Nazım Bey (Maliye). Gülce'nin intikam mı adalet mi seçimi. Whitlock'un
+   "daha büyük bir şey"i. Eleni ileride İstanbul'a gelebilir.
 
 ## Hassasiyet notu
 Örgüt "savaştan kâr eden bankerler" teması taşıdığı için üyeler bilinçli olarak çeşitli tutulur (Fransız, İtalyan,
@@ -95,6 +99,7 @@ karakterler (ör. Saltiel) örgütle ilişkilendirilmez; komplo teorisi kalıpla
 ## Süren değerler (bayraklar)
 travma (anılarda bastırınca artar), suleymanBag, gulceGuven, gulceyeAnlatti, gulceYalan, karar1, mezarSozu,
 gorulmusOlabilir (Delorme Arif'i görmüş olabilir), cemilEkipte, nerminBag, suphe (3. bölüm), karar3.
+11. bölüm: gecisIzni, ferranteYeri, ferranteBulundu, ferranteGuven, auroraSonu (ihbar/batti), ferranteSonu (kacti/tutuklu), nazimBulundu.
 10. bölüm: sahteMuhur, hasanHazir, sevkiyatKarar (ingiliz/anadolu/batir), kuleSecim, delormeSonu (denizde/vuruldu/tutuklu), kalipKayip, ferranteIpucu.
 9. bölüm: tutun, askereVerdi, grubereVerdi, isimVerildi, sahte_defter, yol9, teklifSonu (sahte/red), delormeKovuldu, yaraBogur, defterKarar (fransiz/gazete/sakla).
 8. bölüm: neslihanGeldi8, ritimBilindi, babaTanima, babaTanidi, haslerSonu (tutuklu/kacti), kalipSirri.

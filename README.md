@@ -8,7 +8,17 @@ görme engelli oyuncular tarafından bağımsız oynanabilecek; VoiceOver ve Tal
 
 Tasarım taslağı: `belgeler/tasarim-taslagi.pdf`
 
-## Şu anki aşama: 11 — onuncu bölüm: Kurşun Mühür (ikinci kitap)
+## Şu anki aşama: 12 — on birinci bölüm: Kordon
+
+- Haziran 1919 İzmir: işgalin ilk haftaları, gergin ve çok dilli bir şehir
+- Dr. Eleni'nin kliniği: yaralıları ayırmadan tedavi eden bir hekim; Kızılhaç bantlarıyla Kemeraltı'na geçiş
+- Kaçak Ferrante: ona güvenmek ya da teslim etmek
+- Neslihan Ferrante'nin defterini okur: Aurora vapuru iki tarafa da silah taşıyor
+- Rainer'in yeni adamı Whitlock; Aurora'yı ihbar etmek ya da ambarını su bastırmak
+- Defterin son sayfasında Gülce'nin babasının katili
+- Yeni sesler: Kordon, Kemeraltı
+
+## 11 — onuncu bölüm: Kurşun Mühür (ikinci kitap)
 
 - Mayıs 1919 İstanbul: baba ve kız kardeşle Karaköy'e dönüş; bütün ekip bir arada
 - Babanın itirafı: kanatlı mühür kalıbını kim, neden döktü
