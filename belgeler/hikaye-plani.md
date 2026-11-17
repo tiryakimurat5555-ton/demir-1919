@@ -67,9 +67,16 @@ Bu belge hikâyenin omurgasıdır. Oyuncunun öğrenmediği gerçekleri de içer
    CESEDİ BULUNMAZ, yaşıyor (ileride döner). neslihanSecim: geldi / gitti (mektup + ayva çizimi) / kaldi.
    Hafız Efendi eski Manastır defterdarlığı kâtibi, siyakatı okur: her sayfada aracı imzası N. R. (Neslihan, bilmeden).
    Şafak, Noel arifesi çanları. Kanca: Manastır.
-8. Manastır (Sırp yönetiminde, 1 Aralık 1918'den itibaren Sırp-Hırvat-Sloven Krallığı): babayı cezaevinden çıkarmak.
-   Neslihan geldiyse onunla; gittiyse Manastır'da yeniden çıkar. Defter kimin elinde kalmalı sorusu (Morin, Nermin'in
-   gazetesi, İstanbul). Sonra Viyana.
+8. Kalay (YAZILDI) — 26-27 Aralık, Manastır. İsmail Usta Kasım 1912'de oğlunu ararken "casus" diye tutuklandı,
+   hiç yargılanmadı (yargılama her yıl ertelendi: Rivière'in parası). 1916'dan beri İsviçreli Dr. Ferdinand Hasler
+   (Clavis, "Cenevre Yardım Heyeti" kurgu) onu afyonla uyuşturup deli raporu yazıyor. Yüzbaşı Lazar Ristić (kurgu,
+   dürüst Sırp subayı; yeni krallığın ilk işi bu olmasın der) babayı serbest bırakır. Neslihan her durumda Manastır'a
+   gelir (kaldi: Delorme onu kayıkla kaçırdı, Selanik limanında kurtuldu). BÜYÜK SIR: İsmail Usta 1908'de bir Fransız'ın
+   (Rivière) siparişiyle kanatlı anahtarların ilk kalıbını döktü; Rivière aileyi bu yüzden tanıyordu. Baba bunun ne
+   olduğunu biliyor muydu? (9-10. bölümde açılır: bilmeden yaptı ama 1912'de anladı ve Selanik'e gidip Rivière'den
+   hesap sordu; Manastır'a dönüşünde ihbar edildi.) Delorme yaşıyor; 15 Ocak 1919 Viyana, Hotel Imperial toplantısı.
+9. Viyana (Ocak 1919; imparatorluk yeni çökmüş, açlık, Alman-Avusturya Cumhuriyeti). Toplantı, defterin kime
+   verileceği kararı (Morin / Nermin'in gazetesi / sakla), Delorme'la son hesaplaşma değil; örgütün başı görünür.
 
 ## Hassasiyet notu
 Örgüt "savaştan kâr eden bankerler" teması taşıdığı için üyeler bilinçli olarak çeşitli tutulur (Fransız, İtalyan,
@@ -79,4 +86,5 @@ karakterler (ör. Saltiel) örgütle ilişkilendirilmez; komplo teorisi kalıpla
 ## Süren değerler (bayraklar)
 travma (anılarda bastırınca artar), suleymanBag, gulceGuven, gulceyeAnlatti, gulceYalan, karar1, mezarSozu,
 gorulmusOlabilir (Delorme Arif'i görmüş olabilir), cemilEkipte, nerminBag, suphe (3. bölüm), karar3.
+8. bölüm: neslihanGeldi8, ritimBilindi, babaTanima, babaTanidi, haslerSonu (tutuklu/kacti), kalipSirri.
 7. bölüm: alarm, yakalandi7, sonSecim (koru/atil/kac), riviereSonu, neslihanSecim (geldi/gitti/kaldi), neslihaneBaba.

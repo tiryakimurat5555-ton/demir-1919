@@ -73,7 +73,8 @@ export function mekanaGir(bolum, d, hedef) {
   const ilk = !d.bayraklar['gorüldü_' + hedef];
   let { durum } = etkiUygula(bolum, d, { mekan: hedef, bayrak: { ['gorüldü_' + hedef]: true } });
   const m = bolum.mekanlar[hedef];
-  if (ilk && m.ilkSahne) durum = { ...durum, gorunum: { tur: 'sahne', id: m.ilkSahne } };
+  const ilkSahne = deger(m.ilkSahne, durum);
+  if (ilk && ilkSahne) durum = { ...durum, gorunum: { tur: 'sahne', id: ilkSahne } };
   return durum;
 }
 

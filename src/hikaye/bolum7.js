@@ -246,8 +246,8 @@ export const BOLUM7 = {
       ortam: 'ortam_ev',
       ortamOran: 0.5,
       baslik: 'Yedinci bölüm bitti',
-      paragraflar: ['Baban yaşıyor. Sekizinci bölüm yazılıyor: Manastır. Kararların kaydedildi.'],
-      secenekler: [{ etiket: 'Ana menüye dön', anaMenu: true }],
+      paragraflar: ['Baban yaşıyor. Sıradaki: Manastır. Kararların kaydedildi.'],
+      secenekler: [{ etiket: 'Sekizinci bölüme geç', sonrakiBolum: 'bolum8' }, { etiket: 'Ana menüye dön', anaMenu: true }],
     },
   },
 

@@ -8,7 +8,16 @@ görme engelli oyuncular tarafından bağımsız oynanabilecek; VoiceOver ve Tal
 
 Tasarım taslağı: `belgeler/tasarim-taslagi.pdf`
 
-## Şu anki aşama: 8 — yedinci bölüm: Montaigne
+## Şu anki aşama: 9 — sekizinci bölüm: Kalay
+
+- Trenle Manastır'a: yeni bir krallığın sınırı, cephenin yıktığı doğum şehri
+- Babanın eski çırağı, kalay takımı ve eski evin avlusundaki ayva ağacı; çocukluk anısı
+- Cezaevi: gardiyan, kayıt defteri, revirdeki İsviçreli doktor ve hücre 14
+- Babayı deli gösteren sırrı çözmek; dürüst bir Sırp yüzbaşıyla yüzleşme
+- Babanın seni tanıması, yaptıklarına bağlı; doktorun kaderi senin kararın
+- Yeni sesler: tren, karlı şehir, cezaevi, revir, lokomotif düdüğü, demir kapı
+
+## 8 — yedinci bölüm: Montaigne
 
 - Gece Rivière'in köşküne sızma: köpek, bekçi, kilitli kapı; her engeli ekipteki biri sessizce aşar, yoksa alarm artar
 - Alarm üçe çıkarsa yakalanırsın ama hikâye sürer
