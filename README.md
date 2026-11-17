@@ -8,7 +8,17 @@ görme engelli oyuncular tarafından bağımsız oynanabilecek; VoiceOver ve Tal
 
 Tasarım taslağı: `belgeler/tasarim-taslagi.pdf`
 
-## Şu anki aşama: 9 — sekizinci bölüm: Kalay
+## Şu anki aşama: 10 — dokuzuncu bölüm: Imperial
+
+- Ocak 1919 Viyana: imparatorluk yıkılmış, şehir aç ve soğuk
+- Para değersiz; iki paket tütün kapı açar (kime vereceğin senin kararın)
+- Café Central'de bir gazeteci, Hotel Imperial'in resepsiyonu ve mutfağı
+- Toplantıya üç yoldan girilir: Neslihan Madam N. olarak, sen garson kılığında ya da yemek asansöründen dinleyerek
+- Örgütün başı Viktor Rainer'in teklifi; Neslihan'ın sahte defteri
+- Defterin kaderi: Fransızlar, gazete ya da sakla
+- Yeni sesler: Viyana bulvarı, kahvehane, otel mutfağı, tramvay
+
+## 9 — sekizinci bölüm: Kalay
 
 - Trenle Manastır'a: yeni bir krallığın sınırı, cephenin yıktığı doğum şehri
 - Babanın eski çırağı, kalay takımı ve eski evin avlusundaki ayva ağacı; çocukluk anısı

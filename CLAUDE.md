@@ -24,7 +24,7 @@
   (kayip-okyanus'tan alındı): kaydır = gez, dokun = oku, çift dokun = seç, uzun bas = açıklama, iki parmakla
   dokun = sustur, iki parmakla çift dokun = geri. Ekran okuyucu açıksa App.js uyarı katmanı gösterir.
 - Ses (17 Kasım): src/ses/efektler.js (expo-audio). Ortam döngüleri ortam_rihtim/kayikhane/buro/han/oda
-  (mekân kimliğiyle eşleşir; sahnede `ortam`, `ortamOran`, `efekt` alanları), efektler sandik, ani_savas, delil, yangin; 3. bölüm döngüleri ortam_cemil_ev/pera/kulup/servis; 4. bölüm ortam_hastane/meyhane/depo, efekt silah; 5. bölüm ortam_guverte/salon/kamara/firtina, efekt vapur_duduk; 6. bölüm ortam_yanik_sehir/otel/ev; 7. bölüm ortam_kosk_bahce/kosk_ic, efektler kopek, kilise_cani; 8. bölüm ortam_tren/manastir/cezaevi/revir, efektler tren_duduk, demir_kapi;
+  (mekân kimliğiyle eşleşir; sahnede `ortam`, `ortamOran`, `efekt` alanları), efektler sandik, ani_savas, delil, yangin; 3. bölüm döngüleri ortam_cemil_ev/pera/kulup/servis; 4. bölüm ortam_hastane/meyhane/depo, efekt silah; 5. bölüm ortam_guverte/salon/kamara/firtina, efekt vapur_duduk; 6. bölüm ortam_yanik_sehir/otel/ev; 7. bölüm ortam_kosk_bahce/kosk_ic, efektler kopek, kilise_cani; 8. bölüm ortam_tren/manastir/cezaevi/revir, efektler tren_duduk, demir_kapi; 9. bölüm ortam_viyana/kahve/mutfak, efekt tramvay;
   sessiz.wav oturumu açık tutar. tik/secim/dip için dosya yok, titreşim. Menülerde rıhtım sesi 0,45.
   Üretim: ElevenLabs flow H13uSGbaUNJZNoPkxW7V (eleven_text_to_sound_v2; döngüler 30 sn loop true, generations_count 1).
   Bu ortam elevenlabsusercontent.com'a erişemez: adresleri araclar/indirilecek-sesler.json'a yaz, push et →
@@ -104,8 +104,19 @@
   Neslihan varsa +1; >= 2 → babaTanidi). Çıkarımlar yargisiz (cezaevi_kaydi + riviere_mektubu), ilacli
   (hasler_raporu + afyon) → yuzbasi (Yüzbaşı Lazar Ristić, dürüst) → haslerSonu tutuklu / kacti; ikisinde de
   viyana_ipucu (Delorme yaşıyor, 15 Ocak Viyana, Hotel Imperial) ve kalipSirri (babası 1908'de anahtar kalıbını
-  döktü) → tahliye (demir_kapi) → han → son. Dokuzuncu bölüm (Viyana) yok.
+  döktü) → tahliye (demir_kapi) → han → son.
   motor.mekanaGir: ilkSahne işlev olabilir (deger). mekanaGir olayları tetiklemez; mekâna girişte sahne için ilkSahne kullan.
+- Dokuzuncu bölüm "Imperial" (src/hikaye/bolum9.js): 12-18 Ocak 1919, Viyana (aç, soğuk; Paris konferansı 18 Ocak).
+  Neslihan her zaman yanında (Almanca bilir; cevirmen(d): Nermin > Cemil > Neslihan). Takas malı: tutun (açılışta 2,
+  Saltiel'in tütünü). Mekânlar pansiyon (Frau Gruber: tütün verilebilir; masa9 → sahteFikri → Neslihan sahte_defter
+  sahnesi), ring (asker kişisi: tütün verilebilir), kahve (Café Central, Franz Kessler: Nermin ücretsiz / tütün / tütün
+  bitmişse defterden bir isim → isimVerildi; rainer_bilgi, toplanti_yeri), lobi (resepsiyon: Neslihan Madame Rivière
+  olarak → delorme_odasi), mutfak (asansör → asansorBulundu; Josef: Cemil kız kardeşine bakar / tütün → garson).
+  Çıkarımlar buyuk_usta (rainer_bilgi + siyakat_okundu), tuzak (delorme_odasi + viyana_ipucu) + toplanti_yeri → plan:
+  yol9 neslihan / garson / asansor → toplanti (Viktor Rainer, Bankhaus Rainer, örgütün başı; "Paris'te Yunanlılara İzmir")
+  → teklif: sahte (sahte_defter; Rainer Delorme'u kovar, delormeKovuldu) / red (Delorme bıçaklar, yaraBogur, travma+1)
+  → defter_karari: defterKarar fransiz / gazete (isimlerBasildi) / sakla → telgraf9 (Manastır'dan) → son.
+  Onuncu bölüm (İstanbul, 1919 baharı) yok.
 - Hassasiyet: örgüt üyeleri çeşitli uyruklardan; hiçbir din/etnik grupla özdeşleşmez (hikaye-plani.md).
 - Mekânda `ortam` alanı mekânın ortam sesini değiştirir (yoksa 'ortam_' + mekân kimliği).
 - Bölümler src/hikaye/index.js BOLUMLER; durum.bolum. Bölüm sonu sahnesinde { sonrakiBolum } seçeneği →
@@ -129,6 +140,6 @@
   fileName yayin.yml, gitRef = commit) → workflow_info SUCCESS → workflow_logs (CUSTOM bölümü) içindeki
   EXPO_GO_BAGLANTISI satırı. Expo'nun iş akışı süresini kullanır.
   GitHub Actions anahtar yoksa sessizce atlar.
-- Testler: `bun test testler/` (bolum1-8.test.js bölümleri farklı kararlarla baştan sona oynar; 3'te şüphe yolu da).
+- Testler: `bun test testler/` (bolum1-9.test.js bölümleri farklı kararlarla baştan sona oynar; 3'te şüphe yolu da).
 - Akış: uygula → testler → bun build → CLAUDE.md/README → commit → git pull --rebase → push → yayın (yukarıda) → SUCCESS'i bekle
   → Türkçe rapor (Expo Go bağlantısı, yenilikler, denenmemiş olanlar dürüstçe).

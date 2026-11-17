@@ -196,8 +196,8 @@ export const BOLUM8 = {
       ortam: 'ortam_manastir',
       ortamOran: 0.4,
       baslik: 'Sekizinci bölüm bitti',
-      paragraflar: ['Babanı buldun. Dokuzuncu bölüm yazılıyor: Viyana. Kararların kaydedildi.'],
-      secenekler: [{ etiket: 'Ana menüye dön', anaMenu: true }],
+      paragraflar: ['Babanı buldun. Sıradaki: Viyana. Kararların kaydedildi.'],
+      secenekler: [{ etiket: 'Dokuzuncu bölüme geç', sonrakiBolum: 'bolum9' }, { etiket: 'Ana menüye dön', anaMenu: true }],
     },
   },
 
