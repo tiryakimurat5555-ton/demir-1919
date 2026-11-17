@@ -8,7 +8,15 @@ görme engelli oyuncular tarafından bağımsız oynanabilecek; VoiceOver ve Tal
 
 Tasarım taslağı: `belgeler/tasarim-taslagi.pdf`
 
-## Şu anki aşama: 19 — on sekizinci bölüm: Kinin (dördüncü kitap)
+## Şu anki aşama: 20 — on dokuzuncu bölüm: Yeşil Mürekkep
+
+- Nisan 1921, İstanbul: Gülce ve Süleyman'ın Anadolu'ya ilaç kaçıran gizli ağı
+- Gümrük bürosunda bir hain: baş harfleri M. T. olan üç şüpheli
+- Yeni oynanış: suçlama; yanlış kişiyi suçlamak Gülce'nin güvenini sarsar
+- Hainin sırrı ve bir karar: teslim etmek ya da düşmana yanlış sayılar yazdırmak
+- Yeni ses: İngiliz kontrol bürosu (daktilo, telgraf)
+
+## 19 — on sekizinci bölüm: Kinin (dördüncü kitap)
 
 - Ocak 1921: cephe gerisinde bir sahra hastanesi; kinin ve morfin bitiyor
 - Arif'in Çanakkale anısı: top sesleri ve bir nöbet (önceki kararlarla biriken yaralara göre)

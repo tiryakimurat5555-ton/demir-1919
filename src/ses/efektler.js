@@ -59,6 +59,7 @@ const KAYNAKLAR = {
   ortam_inebolu: require('../../assets/ses/ortam_inebolu.wav'),
   ortam_kagni: require('../../assets/ses/ortam_kagni.wav'),
   ortam_sahra: require('../../assets/ses/ortam_sahra.wav'),
+  ortam_telgraf: require('../../assets/ses/ortam_telgraf.wav'),
   top: require('../../assets/ses/top.wav'),
   sandik: require('../../assets/ses/sandik.wav'),
   ani_savas: require('../../assets/ses/ani_savas.wav'),
@@ -109,6 +110,7 @@ const DONGULER = {
   ortam_inebolu: 0.55,
   ortam_kagni: 0.55,
   ortam_sahra: 0.55,
+  ortam_telgraf: 0.5,
 };
 
 const oynaticilar = {};

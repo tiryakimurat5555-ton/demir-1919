@@ -170,8 +170,8 @@ export const BOLUM18 = {
       ortam: 'ortam_sahra',
       ortamOran: 0.4,
       baslik: 'On sekizinci bölüm bitti',
-      paragraflar: ['Dördüncü kitap başladı. On dokuzuncu bölüm yazılıyor: İstanbul, gümrükteki halka. Kararların kaydedildi.'],
-      secenekler: [{ etiket: 'Ana menüye dön', anaMenu: true }],
+      paragraflar: ['Dördüncü kitap başladı. Sıradaki: on dokuzuncu bölüm, İstanbul, gümrükteki halka. Kararların kaydedildi.'],
+      secenekler: [{ etiket: 'On dokuzuncu bölüme geç', sonrakiBolum: 'bolum19' }, { etiket: 'Ana menüye dön', anaMenu: true }],
     },
   },
 

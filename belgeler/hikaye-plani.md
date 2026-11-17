@@ -112,8 +112,13 @@ Bu belge hikâyenin omurgasıdır. Oyuncunun öğrenmediği gerçekleri de içer
 18. Kinin (YAZILDI; dördüncü kitabın açılışı) — Ocak 1921, sahra hastanesi. Müteahhit Sabit Bey (kurgu) İstanbul'dan gelen
    ilaçları iki cepheye satıyor. Yannis (kurgu; Atinalı genç hekim, esir) dost karakter; esir değişiminde Eleni'yle köprü.
    Arif'in travması oynanışa girer (nöbet). Ağın İstanbul halkası: Gümrük'te M. T.
-19. İstanbul, 1921: gümrükteki halka M. T. Gülce'nin bürosunda bir hain mi? Gülce ve Süleyman'ın gizli yardım ağı tehlikede.
-20+. 1921-1922: Sakarya (Ağustos-Eylül 1921) ve 1922 sonbaharı arka planda; savaş her iki tarafın acısıyla anlatılır.
+19. Yeşil Mürekkep (YAZILDI) — İstanbul 2-9 Nisan 1921. Üç M. T.: Müdür Muhsin Tahir Efendi (yaşlı, dürüst, titrek el; yeşil
+   mürekkep onun), kâtip Mehmet Tevfik (22 yaşında, Gülce'nin yetiştirdiği), İngiliz kâtip Matthew Turner (Manchester'lı,
+   Türkçe yazamaz, gizlice yardım eder). Hain Tevfik: 16 yaşındaki kardeşi Bursa'da aracının elinde rehine. Yanlış suçlamalar
+   gulceGuven -1, kişi küser. tevfikKarar teslim (Anadolu'ya gider; kardeşten haber yok) / cift (Bursa'ya yanlış gün ve yer,
+   Tuzla; aracının ağı çöker, kardeş kaçar). Hepsi kurgu.
+20. Sakarya, 1921 yazı: Bursa'daki aracının arkasındaki asıl el (dördüncü kitabın ortası).
+21+. 1921-1922: Sakarya (Ağustos-Eylül 1921) ve 1922 sonbaharı arka planda; savaş her iki tarafın acısıyla anlatılır.
 
 ## Hassasiyet notu
 Örgüt "savaştan kâr eden bankerler" teması taşıdığı için üyeler bilinçli olarak çeşitli tutulur (Fransız, İtalyan,
