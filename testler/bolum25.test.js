@@ -61,6 +61,10 @@ for (const s of senaryolar) {
     d = sahneGec(d, s.defter);
     expect(M.bayrak(d, 'defterSonu')).toBe(s.defterSonu);
     d = sahneGec(d);
+    expect(d.gorunum.id).toBe('gece25');
+    d = sahneGec(d);
+    expect(d.gorunum.id).toBe('gece25_son');
+    d = sahneGec(d);
     expect(d.gorunum.id).toBe('son');
     expect(M.bayrak(d, 'bolumBitti')).toBe(true);
     expect(ITIRAZ_ESIGI).toBe(3);

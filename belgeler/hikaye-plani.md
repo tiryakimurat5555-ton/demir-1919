@@ -254,3 +254,7 @@ Sıradakiler:
 
 ### Derinleştirme 11. adım (18 Kasım)
 - Gülce'ye ilk gün söylenen yalan 23. bölümde anılır. Kara liste kararı 17 ve 20. bölümde (kurtulan çırak Hilmi ya da Malta'ya gönderilen Necati Bey). Rıza'nın baskın gecesi yarası 17. bölümde.
+
+### Derinleştirme 12. adım (18 Kasım)
+- 12. bölümde yalıdaki seçim 19. bölümde Gülce'nin Tevfik kararına ışık tutar.
+- 25. bölümün sonuna göl kıyısında gece sahnesi: Arif'in Çanakkale yarası (travma) dördüncü kitabın sonunda bir seçimle karşılanır; arifGece beşinci kitaba taşınır.

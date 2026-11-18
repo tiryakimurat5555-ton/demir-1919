@@ -286,7 +286,9 @@
   babaAffetti → 23. baba23.
   11. adım: gulceYalan → 23. gulce23 (hakkı harcamayan yan seçenek, gulceYalanAnildi); listeKarar → 17. riza ilk ve
   20. nermin ilk (uyar: çırak Hilmi / yak: Necati Bey'in boş sandalyesi, Malta); rizaYarali → 17. riza ilk.
-  Kalan adaylar: morinGuven, yaliSecim (kuleSecim delormeSonu ile, nobetKacti 18'de okunuyor).
+  12. adım: yaliSecim → 19. gulce19 (Gülce yalıdaki geceyi anar; morinGuven fransizBag ile zaten okunuyor);
+  25. bölüme gece25 → gece25_son eklendi (son25 → gece25; travma, madalya, ilkNefes 'say' seçeneği; arifGece
+  nefes/kardes/yalniz, travma -1; bolumBitti artık gece25 seçeneklerinde). Yeni açık iplik arif_gece.
   testler/derinlik.test.js iplikleri denetler.
 - İPLİK KAYDI: src/hikaye/iplikler.js (IPLIKLER: bayrak, ekildi, karsiliklar, gelecek, durum). testler/iplikler.test.js
   bayrağın ekildiği bölümde yazıldığını, karşılık bölümlerinde '<bayrak>' olarak okunduğunu denetler. Yeni iplik ekleyince,

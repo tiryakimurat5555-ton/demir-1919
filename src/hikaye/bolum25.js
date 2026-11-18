@@ -233,7 +233,52 @@ export const BOLUM25 = {
         'Kimse cevap vermiyor. Göl karanlık. Karşı kıyıda bir tren düdüğü; güneye, İtalya\'ya, denize.',
         'Dördüncü kitabın sonu.',
       ].filter(Boolean),
-      secenekler: [{ etiket: 'Devam', etki: { bayrak: { bolumBitti: true } }, sonra: 'son' }],
+      secenekler: [{ etiket: 'Devam', sonra: 'gece25' }],
+    },
+    gece25: {
+      ortam: 'ortam_gol',
+      baslik: 'Göl, gece yarısı',
+      paragraflar: (d) => [
+        'Herkes uyuyor. Sen pansiyonun iskelesinde oturuyorsun; göl kapkara, karşı kıyıda tek bir fener.',
+        sayi(d, 'travma') >= 2
+          ? 'Su iskeleye vuruyor. Bir, iki. Sonra bir kayık motoru, çok uzakta; ama kulağında başka bir ses oluyor. Seddülbahir. Kum. Ellerin titremeye başlıyor; beş yıldır olduğu gibi.'
+          : 'Su iskeleye vuruyor. Bir, iki. Uzakta bir kayık motoru. Beş yıl önce bu ses seni Seddülbahir\'e götürürdü. Bu gece yalnızca bir motor.',
+        bayrak(d, 'madalya') === 'anlat'
+          ? 'Nermin\'in sofradaki sorusu aklında: Madalyan hâlâ sandığın dibinde mi? Hâlâ orada. Karaköy\'de, bir sandığın dibinde.'
+          : '',
+        'Arkanda bir kapı gıcırdıyor.',
+      ].filter(Boolean),
+      secenekler: [
+        {
+          etiket: 'Nefesini say. Dörde kadar al, dörde kadar ver.',
+          kosul: (d) => bayrak(d, 'ilkNefes') === 'say',
+          etki: (d) => ({ bayrak: { arifGece: 'nefes', bolumBitti: true }, artir: { travma: sayi(d, 'travma') > 0 ? -1 : 0 } }),
+          sonra: 'gece25_son',
+        },
+        {
+          etiket: 'Kapıdaki Neslihan. Yanına çağır; bu gece anlat ona.',
+          etki: (d) => ({ bayrak: { arifGece: 'kardes', bolumBitti: true }, artir: { neslihanBag: 1, travma: sayi(d, 'travma') > 0 ? -1 : 0 } }),
+          sonra: 'gece25_son',
+        },
+        {
+          etiket: 'Kimseye görünme. Ellerini dizlerine bastır, geçmesini bekle.',
+          etki: { bayrak: { arifGece: 'yalniz', bolumBitti: true } },
+          sonra: 'gece25_son',
+        },
+      ],
+    },
+    gece25_son: {
+      ortam: 'ortam_gol',
+      baslik: 'Sabaha doğru',
+      paragraflar: (d) => [
+        {
+          nefes: 'Dörde kadar al, dörde kadar ver. Aralık 1918\'de, Karaköy rıhtımında, saçılmış bir kömür çuvalının başında kendine böyle öğretmiştin. Eller duruyor. Karşı kıyıdaki fener söndüğünde sen hâlâ sayıyorsun; ama artık korkudan değil.',
+          kardes: 'Neslihan yanına oturuyor; şalını ikinizin omzuna atıyor. Anlatıyorsun: kum, barut, Seddülbahir, bir gece boyunca yanında ölen asker. Hiç kimseye anlatmadığını. Neslihan dinliyor; sonra başını omzuna koyuyor. Ben de Viyana\'da hiç anlatmadım, diyor. Şimdi sıra bende mi? Sabaha kadar konuşuyorsunuz.',
+          yalniz: 'Ellerini dizlerine bastırıyorsun. Geçiyor; her zaman geçtiği gibi. Kapı yeniden kapanıyor. Kim olduğunu görmedin. Sabah Neslihan sana bir şey sormuyor; ama kahvaltıda sandalyesini seninkine biraz daha yakın çekiyor.',
+        }[bayrak(d, 'arifGece')] || 'Sabah oluyor.',
+        'Göl ağarıyor. Kırk yedinci sayfa bir yerde. Bir zarfın içinde, belki. Bir adamın cebinde, belki.',
+      ],
+      secenekler: [{ etiket: 'Devam', sonra: 'son' }],
     },
     son: {
       ortam: 'ortam_gol',

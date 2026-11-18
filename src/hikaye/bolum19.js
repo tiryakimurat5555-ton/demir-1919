@@ -135,11 +135,15 @@ export const BOLUM19 = {
         'Gece yarısı. Gülce rıhtımın ucunda, Süleyman Kaptan\'ın yeni kayıkhanesinin önünde oturuyor. Elinde bir defter; Tevfik\'in ilk kâtiplik defteri. Kapağında çocuk eliyle yazılmış bir ad.',
         'Ona okumayı ben öğrettim, diyor sen yanına oturunca. On dört yaşındaydı; annesi ölmüştü, büronun kapısında kâğıt toplardı. Babam ölünce bana kimse kalmamıştı; ona da. Birbirimizi büyüttük sandım.',
         'Nazım Bey\'e İmzala ve yaşa dedim, diyor. Babamı öldürtene. Kolaydı; ondan nefret ediyordum. Tevfik\'ten nefret edemiyorum. Bu daha zor, Arif. Ona ne diyeceğimi bilmiyorum.',
+        {
+          tut: 'Yalıda elimi tuttun, diyor. Tabancaya uzanmadan önce. O gece Nazım\'a karşı kendimi tutabildim, çünkü biri beni tutuyordu. Bu gece kimse elimi tutmasın istiyorum; kendim tutabiliyor muyum, görmek istiyorum.',
+          birak: 'Yalıda beni bıraktın; bu onun hesabı dedin. Haklıydın. Namluyu Nazım\'ın alnına dayadım, Arif. Tetiği çekmedim; ama o an içimde kim olduğunu gördüm. Tevfik\'e o kadının gözleriyle bakmaktan korkuyorum.',
+        }[bayrak(d, 'yaliSecim')] || '',
         'Arkanızda ayak sesleri. Süleyman Kaptan elinde iki fincan kahveyle geliyor; birini Gülce\'ye uzatıyor. On Üç\'te babası ölünce, diyor sana, bu kız kayıkhaneme geldi. Bir şey istemedi. İskelede oturdu, denize baktı. Senin gibi. Ben de bir şey sormadım.',
         bayrak(d, 'aramaSozu')
           ? 'Süleyman sesini alçaltıyor. Geçen hafta Pire\'den gelen bir aşçı yamağı anlattı, diyor. Bir İngiliz armatörün gemilerinde Kemal Reis diye bir süvari varmış. Kırk yaşlarında. Gülüyor; kısa, acı. Limanda her üç kaptandan biri Kemal\'dir. Bulursam haber veririm demiştin; ben de sana söylüyorum. Hepsi bu.'
           : 'Süleyman bir şey ekleyecek gibi oluyor; vazgeçiyor. Pire\'den gelen gemilere bakar gibi denize bakıyor.',
-      ],
+      ].filter(Boolean),
       secenekler: [
         {
           etiket: 'Ona babanın sözünü söyle: Yaz ve yaşa. Bildiği her şeyi yazsın; sonra ona bir yol aç.',

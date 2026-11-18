@@ -371,3 +371,24 @@ test('ilk yalan, kara liste ve Rıza\'nın yarası geri döner', async () => {
   expect(riza({ listeKarar: 'yak' }).join(' ')).toContain('Bekirağa');
   expect(riza({}).every((p) => p.length > 0)).toBe(true);
 });
+
+test('yalıdaki seçim on dokuzuncu bölümde Gülce\'nin sözünde döner', async () => {
+  const { BOLUM19 } = await import('../src/hikaye/bolum19');
+  const g = (b) => M.sahneBilgisi(BOLUM19, durum(BOLUM19, b, { tur: 'sahne', id: 'gulce19' })).paragraflar;
+  expect(g({ yaliSecim: 'tut' }).join(' ')).toContain('elimi tuttun');
+  expect(g({ yaliSecim: 'birak' }).join(' ')).toContain('beni bıraktın');
+  expect(g({}).every((p) => p.length > 0)).toBe(true);
+});
+
+test('göldeki gece travmaya ve ilk nefese göre', async () => {
+  const { BOLUM25 } = await import('../src/hikaye/bolum25');
+  const g = (b) => M.sahneBilgisi(BOLUM25, durum(BOLUM25, b, { tur: 'sahne', id: 'gece25' }));
+  expect(g({ travma: 3 }).paragraflar.join(' ')).toContain('titremeye');
+  expect(g({ ilkNefes: 'say' }).secenekler.length).toBe(3);
+  expect(g({}).secenekler.length).toBe(2);
+  let d = durum(BOLUM25, { travma: 2 }, { tur: 'sahne', id: 'gece25' });
+  d = M.sahneSec(BOLUM25, d, M.sahneBilgisi(BOLUM25, d).secenekler.find((x) => x.etiket.includes('Neslihan'))).durum;
+  expect(M.bayrak(d, 'arifGece')).toBe('kardes');
+  expect(M.sayi(d, 'travma')).toBe(1);
+  expect(M.sahneBilgisi(BOLUM25, d).paragraflar.join(' ')).toContain('Sabaha kadar');
+});

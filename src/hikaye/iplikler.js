@@ -105,7 +105,7 @@ export const IPLIKLER = [
     ad: 'Arif\'in Çanakkale yarası',
     bayrak: 'travma',
     ekildi: ['bolum1'],
-    karsiliklar: ['bolum1', 'bolum18', 'bolum21', 'bolum24'],
+    karsiliklar: ['bolum1', 'bolum18', 'bolum21', 'bolum24', 'bolum25'],
     gelecek: '1922 sonbaharında İzmir\'deki yangında travma >= 2 ise Arif\'in en ağır anısı; Neslihan ya da Cemil\'in sesi.',
     durum: 'acik',
   },
@@ -405,6 +405,24 @@ export const IPLIKLER = [
     karsiliklar: ['bolum17'],
     gelecek: 'Kapandı: 17. bölümde alnındaki iz.',
     durum: 'kapali',
+  },
+  {
+    id: 'yali_secim',
+    ad: 'Yalıda Gülce\'nin eli',
+    bayrak: 'yaliSecim',
+    ekildi: ['bolum12'],
+    karsiliklar: ['bolum19'],
+    gelecek: 'Kapandı: 19. bölümde Gülce, Tevfik kararından önce yalıdaki geceyi anar.',
+    durum: 'kapali',
+  },
+  {
+    id: 'arif_gece',
+    ad: 'Göldeki gece',
+    bayrak: 'arifGece',
+    ekildi: ['bolum25'],
+    karsiliklar: [],
+    gelecek: 'Beşinci kitap: Arif yarasıyla nasıl yaşıyor? kardes ise Neslihan da Viyana yıllarını anlatmaya başlar (neslihan_ad ile bağlanır); yalniz ise ilk ağır anı ekiptekilerin önünde gelir; nefes ise Arif başkasına öğretir.',
+    durum: 'acik',
   },
 ];
 
