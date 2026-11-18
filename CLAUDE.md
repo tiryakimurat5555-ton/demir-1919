@@ -385,6 +385,15 @@
   (ferranteSon40 olu). ferrante40: Ferrante'nin açılımı (1913 baharı, Selanik iskelesi, Zehra Hanım kızını sordu, Bruno
   "tifo" dedi); ferranteSon40 imza / neslihan [neslihanBag >= 3 ise imza] / reddet (ferrante_itirafi) → ferrante40_son →
   (ferrante) junin40_haber (brunoSon40 gitti) → son40 (zehraIz taburcu_iskele/iskele) → son. Yeni ses yok.
+- Kırk birinci bölüm "İskele Taşı" (src/hikaye/bolum41.js): 3-6 Mayıs 1926 Selanik. Kalıbı kırar: tanık zinciri (doğru soru;
+  yanlış soru zaman41 +1, VAPUR_SINIRI 2 → yolculuk41 vapur/kara). Açılış: zehraIz satırı; nazliKayip (geceBolunme ferrante +
+  nazliIceri evet) ise Rıza/Cemil Rosario'da kalır (rosario41). Tek mekân selanik41 (nesne yok), kişiler despina41 (goc_defteri:
+  Florinalı Ayşe Zehra'ya bakmış), rebeka41 (ninni → rebeka_tanik: 1913 Talmud Tora çorba kuyruğu, "Florina'ya dönüyorum"),
+  katip41 (Karma Mübadele Komisyonu; "Ayşe" [goc_defteri] → mubadele_kaydi: hane 214, Zehra "kız kardeşi", Tekirdağ), saltiel41
+  (saltielBruno dava/sakla [ferrante_itirafi] / ad). Çıkarım tekirdag → olay iskele → iskele41 (bolunmeCevap satırı; iskeleSecim
+  otur/anlat [travma -1]/bruno [brunoSon40 kacti]) → iskele41_son → son41 (melekKarar: anne ise Melek'in mektubu, Zehra teyze)
+  → son. Hikâye kararı: Zehra Hanım yaşıyor; Ayşe Hanım (Melek'in annesi) ile Tekirdağ'da. Düzeltme: Despina Selanik'te
+  (29, 38, 40'taki "Niğde" adresleri).
 - DERİNLEŞTİRME KARARI (17 Kasım, Murat: "Derinleştir"): yeni bölüm yazmaya ara; önce var olan bölümler derinleşir.
   Plan ve yapılanlar belgeler/hikaye-plani.md "Derinleştirme" bölümünde. 1. adım: arifNeden (1. bölüm gece_konusma →
   6. bölüm arifNedenSatiri, 8. bölüm tahliye), haticeSozu (1. bölüm mektup → 2. cenaze → 17. hatice17), Pendle tohumu

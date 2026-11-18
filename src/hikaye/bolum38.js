@@ -185,7 +185,7 @@ export const BOLUM38 = {
         'Rıza Bey gölün öbür kıyısına bakıyor. Arjantin, diyor. Bir vapur kırk gün. Benim yaşımda bir adam Arjantin\'e gitmez. Kimse bir şey söylemiyor; söylemesi gerekmiyor.',
         'Altıncı kitabın sonu.',
         {
-          yaz: 'Otelin resepsiyonunda Niğde damgalı bir mektup. Despina Hanım yazmış: Hafız Efendi\'nin hanımı sağken anlatırdı, diyor. Zehra Hanım\'ı Florina\'da bir hastane arabasına verdiler. Hafız Efendi arabanın gidişini gördü; ölümünü görmedi. Neslihan mektubu iki kez okuyor. Üçüncüsünde sesli.',
+          yaz: 'Otelin resepsiyonunda Selanik damgalı bir mektup. Despina Hanım yazmış: Hafız Efendi\'nin evinde, tavan arasında onun göç defterini bulmuş; titrek bir el, 1912 kışı. Defterde: Zehra Hanım\'ı Florina\'da bir hastane arabasına verdiler. Hafız Efendi arabanın gidişini gördü; ölümünü görmedi. Neslihan mektubu iki kez okuyor. Üçüncüsünde sesli.',
           suphe: 'Neslihan trende bir kelimeyi tekrarlıyor, sesini çıkarmadan: tifo. Marsilya\'dan beri. Melek\'in nüfus kâğıdında yazan kelime; annemizin ölümünde söylenen kelime.',
         }[bayrak(d, 'zehraSoru')] || '',
       ].filter(Boolean),

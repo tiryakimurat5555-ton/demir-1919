@@ -37,7 +37,7 @@ export const BOLUM40 = {
     },
     despina_telgrafi: {
       ad: 'Despina\'nın telgrafı',
-      tarif: 'Niğde\'den, Selanik üzerinden: Florina Rum hastanesinin rahibeleri defteri buldu. Zehra, Manastırlı, kalaycı İsmail karısı. Tifo. Kabul Aralık 1912. Taburcu Şubat 1913. Yürüyerek, Selanik yoluna.',
+      tarif: 'Selanik\'ten, Despina: Florina hastanesinin 1912 defteri bulundu. Zehra, Manastırlı, kalaycı İsmail karısı. Tifo. Kabul Aralık 1912. Taburcu Şubat 1913. Yürüyerek, Selanik yoluna.',
     },
     ferrante_itirafi: {
       ad: 'Ferrante\'nin imzalı ifadesi',
@@ -321,8 +321,11 @@ export const BOLUM40 = {
       ortam: 'ortam_rihtim',
       ortamOran: 0.45,
       baslik: 'Kırkıncı bölüm bitti',
-      paragraflar: ['Kararların kaydedildi. Yedinci kitap sürüyor: 1913 baharı.'],
-      secenekler: [{ etiket: 'Ana menüye dön', anaMenu: true }],
+      paragraflar: ['Kararların kaydedildi. Sırada kırk birinci bölüm: İskele Taşı.'],
+      secenekler: [
+        { etiket: '41. bölüme geç', sonrakiBolum: 'bolum41' },
+        { etiket: 'Ana menüye dön', anaMenu: true },
+      ],
     },
   },
 

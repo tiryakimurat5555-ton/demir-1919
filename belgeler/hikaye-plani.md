@@ -335,3 +335,7 @@ bırakılır. Defterin son satırı: Buenos Aires, F. ve B. Yedinci kitap oradan
   baharında Selanik iskelesinde kızını sordu, Bruno "tifo" dedi (Fikri'nin yalanı). Zehra Şubat 1913'te Florina hastanesinden
   yürüyerek çıkmıştı. brunoSon40, ferranteSon40, nazliIceri, zehraIz. Sıradaki: yedinci kitabın ikinci yarısı Selanik 1913'ün
   izi (Zehra Hanım nereye gitti: karar sonra; Bruno yakalandıysa pazarlık, kaçtıysa "annesi de böyle kaçmıştı").
+- 41. bölüm "İskele Taşı" (Mayıs 1926, Selanik): KARAR: Zehra Hanım yaşıyor. 1913'te Florina'ya, hastanede ona bakan Ayşe
+  Hanım'a (Melek'in annesi) döndü; 1924 mübadelesinde ikisi Tekirdağ'a. İkisinin de kızına "tifo" denmişti (Fikri / Bruno).
+  Sıradaki: 42. bölüm Tekirdağ: kavuşma (anne, Neslihan, Arif; Melek; babaya haber). Kavuşma bir seçimle oynanır: kim
+  önce girer, ne söylenir; Zehra'nın 14 yıllık hikâyesi; babanın (İstanbul'da) haberi.

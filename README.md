@@ -8,6 +8,12 @@ görme engelli oyuncular tarafından bağımsız oynanabilecek; VoiceOver ve Tal
 
 Tasarım taslağı: `belgeler/tasarim-taslagi.pdf`
 
+## Şu anki aşama: 50 — kırk birinci bölüm: İskele Taşı
+
+Selanik, Mayıs 1926. Zehra Hanım'ın izi bir tanık zincirinde: Hafız Efendi'nin tavan arasındaki defteri, Rebeka Hanım'ın
+1913 baharında dinlediği bir ninni, mübadele komisyonunun tozlu listesi. Doğru soruyu sormazsan vapur kaçar. Zehra Hanım
+iskeleden Florina'ya, ona bakan kadına dönmüş: Melek'in annesi Ayşe Hanım. İki anne, Tekirdağ'da, aynı evde.
+
 ## Şu anki aşama: 49 — kırkıncı bölüm: Calle Junín
 
 Buenos Aires, Mart 1926. Ferrante ölüyor ve Neslihan'ı görmek istiyor; Bruno aynı gece kızları Rosario'ya götürecek.

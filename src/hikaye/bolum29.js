@@ -182,7 +182,7 @@ export const BOLUM29 = {
       ],
       secenekler: [
         {
-          etiket: 'Despina Hanım\'a yazalım. Niğde\'de; Hafız Efendi\'nin komşusu. Bir şey bilen biri kalmıştır.',
+          etiket: 'Despina Hanım\'a yazalım. Hafız Efendi\'nin evinde oturuyor; evde bir şey kalmıştır.',
           etki: { bayrak: { zehraSoru: 'yaz' }, artir: { neslihanBag: 1 } },
           sonra: 'son',
         },
