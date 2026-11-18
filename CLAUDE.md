@@ -8,6 +8,23 @@
 - Diğer projeler (kayip-okyanus, TaslarPro, Deneme/Galaktik İmparatorluk) ayrıdır; onlara dokunma.
 - Test edilmemiş bir özelliği çalışıyor diye sunma; telefonda ancak Murat Expo Go'da denediğinde doğrulanır.
 
+## YENİDEN KURULUM (18 Kasım 2026) — önce bunu oku
+- Murat'ın değerlendirmesi: 41 bölümlük oyun taslağa ne oynanışta ne hikâyede uymadı (menüden ilerleyen sesli hikâye
+  kitabı oldu; hikâye 26. bölümden sonra aile/kız ticaretine kaydı, 1926'ya taştı; örgüt omurgası ve açık dünya sistemleri
+  yok). YENİ BÖLÜM YAZMA. 1-41. bölümler donduruldu (yayında kalıyor; yenisi gelince yerine geçip geçmeyeceği Murat'a sorulacak).
+- Karşılaştırma belgesi: https://claude.ai/artifact/RXtegkPCrdCp8xXVLYF4qm (taslak bölüm bölüm Var/Kısmen/Yok, kurtarılabilecekler,
+  plan). Mimari analizi: https://claude.ai/artifact/UVEEFZWPHusP4538UVkeKz.
+- Plan (taslak 19. bölüm sırası, her aşamada Murat'ın onayı): 1) mimari [yapıldı] 2) hikâye omurgası 1918-1923, örgütün dört
+  kolu, asıl amaç, çok final 3) dikey dilim Karaköy: sesle serbest dolaşma, gündüz-gece, NPC rutinleri, gizlilik, sorgu,
+  fotoğraf, serbest pano, itibar, para, envanter 4) sistemler 5) şehirler 6) görüntü.
+- MİMARİ KARARI (18 Kasım, Murat "Evet"): Expo'da kal; oyun mantığı saf JS benzetim katmanı (src/oyun). Konumsal ses için
+  önce Expo Go içinde görünmez WebView + Web Audio (PannerNode HRTF) deneniyor: src/ses/konumsal.js, src/ekran/SesDenemesi.js,
+  src/oyun/konum.js (x doğu, y kuzey, yon 0 kuzey saat yönü; saatYonu, tarif), sürüm 0.61 ana menü "Konumsal ses denemesi".
+  react-native-audio-api yalnız equalpower (HRTF yok) ve Expo Go'da yok; WebView işe yaramazsa TestFlight + kendi uygulama.
+  EAS iOS derlemesi (kredi harcar) Murat'a sormadan başlatılmaz. ASC API anahtarı Murat'ın özel Deneme deposunda (gizli/);
+  herkese açık depoya asla yazılmaz.
+- Bu ortamda npm yok; bağımlılık sürümleri Expo dokümanından (react-native-webview 14.0.1, SDK 58). bun build'e -e react-native-webview ekle.
+
 ## Tasarım
 - HİKÂYE KARARLARI BENİM (17 Kasım, Murat: "Hikayenin gidişatını bana sorma. Derinliği olan sürükleyici hikayeyi,
   olayları, her şeyi sen oluştur"). Hikâye, olaylar, karakter kaderleri, ekibe katılış sırası için soru SORMA;
@@ -479,7 +496,7 @@
 
 ## Teknik
 - Expo SDK 58; sürümler kayip-okyanus deposuyla aynı (bundledNativeModules.json). Bu ortamda npm erişimi yok.
-- Sözdizimi denetimi: `bun build index.js --outdir /tmp/bb -e expo -e expo-speech -e expo-haptics -e expo-status-bar -e react -e react-native -e 'react-native/*' -e '@react-native-async-storage/async-storage' -e expo-audio -e '*.wav'`
+- Sözdizimi denetimi: `bun build index.js --outdir /tmp/bb -e expo -e expo-speech -e expo-haptics -e expo-status-bar -e react -e react-native -e 'react-native/*' -e '@react-native-async-storage/async-storage' -e expo-audio -e '*.wav' -e react-native-webview`
 - Expo proje kimliği c16f7fc6-b024-4e29-b55c-b0a304381807 (app.json'da; @murat5561/demir-1919).
 - Yayın: main'e push → GitHub Actions (.github/workflows/expo-guncelleme.yml) → eas update (branch main).
   Gizli anahtar depoda EXPO_TEKEN adıyla kayıtlı (yazım hatası; iş akışı EXPO_TOKEN, EXPO_TEKEN, DEMIR1919'u dener).

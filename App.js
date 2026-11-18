@@ -16,6 +16,7 @@ import { rehberAyarla, rehberHazirla, soyle, sustur } from './src/ses/rehber';
 import { RENK } from './src/arayuz/tema';
 import Oyun from './src/ekran/Oyun';
 import Ayarlar from './src/ekran/Ayarlar';
+import SesDenemesi from './src/ekran/SesDenemesi';
 import { BOLUMLER, ILK_BOLUM } from './src/hikaye';
 import { bolumeGec, yeniDurum } from './src/oyun/motor';
 import { ortamCal, ortamSesiAyarla, sesleriHazirla } from './src/ses/efektler';
@@ -24,7 +25,7 @@ import { ayarlarOku, ayarlarYaz, kayitOku, kayitSil, VARSAYILAN_AYARLAR } from '
 const HAKKINDA_METNI = [
   'Demir 1919. 1918 ile 1923 arasında, işgal altındaki İstanbul\'da başlayan bir tarihsel macera ve dedektiflik oyunu.',
   'Oyundaki gizli örgüt ve olay örgüsü kurgudur. Gerçek tarihî olaylar arka plan olarak kullanılır.',
-  'Sürüm 0.60: Sudaki Adam, Ölüler Konuşur, On Yedi Numara, Kül, Kalliope, Hotel Olympos, Montaigne, Kalay, Imperial, Kurşun Mühür, Kordon, İmza, Satranç, Que sais-je?, Genel Kurul, 16 Mart, Kağnı, Kinin, Yeşil Mürekkep, Tarife, Arethusa, Üç Akşam, Sofra, Baston, Kırmızı Sayfalar, Zarf, Moda, Cehennem Otuz Üç, Melek, Tanıklar, Ninni, Pusula, Koza, Tebeşir, İncir, İhale, Taş, Kar, Ekvator, Calle Junín, İskele Taşı.',
+  'Sürüm 0.61 (konumsal ses denemesi): Sudaki Adam, Ölüler Konuşur, On Yedi Numara, Kül, Kalliope, Hotel Olympos, Montaigne, Kalay, Imperial, Kurşun Mühür, Kordon, İmza, Satranç, Que sais-je?, Genel Kurul, 16 Mart, Kağnı, Kinin, Yeşil Mürekkep, Tarife, Arethusa, Üç Akşam, Sofra, Baston, Kırmızı Sayfalar, Zarf, Moda, Cehennem Otuz Üç, Melek, Tanıklar, Ninni, Pusula, Koza, Tebeşir, İncir, İhale, Taş, Kar, Ekvator, Calle Junín, İskele Taşı.',
 ];
 
 const HAREKETLER = [
@@ -116,7 +117,7 @@ export default function App() {
 
   // Menülerde rıhtımın sesi uzaktan duyulur; oyunda ortamı Oyun ekranı yönetir
   useEffect(() => {
-    if (hazir && ekran !== 'oyun') ortamCal('ortam_rihtim', 0.45);
+    if (hazir && ekran !== 'oyun' && ekran !== 'sesdeneme') ortamCal('ortam_rihtim', 0.45);
   }, [hazir, ekran]);
 
   let icerik = null;
@@ -138,6 +139,12 @@ export default function App() {
             sec: () => (kayit ? setEkran('yeniOnay') : oyunuBaslat(yeniDurum(ILK_BOLUM))),
           },
           { id: 'ayarlar', etiket: 'Ayarlar', ipucu: 'Konuşma hızı ve ses.', sec: () => setEkran('ayarlar') },
+          {
+            id: 'sesdeneme',
+            etiket: 'Konumsal ses denemesi',
+            ipucu: 'Yeni oyunun ilk denemesi. Kulaklıkla sesin yönünü dinlersin.',
+            sec: () => setEkran('sesdeneme'),
+          },
           { id: 'hareket', etiket: 'Hareketler', ipucu: 'Oyunu nasıl kullanacağını anlatır.', sec: () => setEkran('hareketler') },
           { id: 'hakkinda', etiket: 'Hakkında', sec: () => setEkran('hakkinda') },
         ]}
@@ -165,6 +172,8 @@ export default function App() {
         ]}
       />
     );
+  } else if (ekran === 'sesdeneme') {
+    icerik = <SesDenemesi key={'sesdeneme' + girisNo} onGeri={menuyeDon} />;
   } else if (ekran === 'ayarlar') {
     icerik = <Ayarlar key={'ayar' + girisNo} ayarlar={ayarlar} ayarDegistir={ayarDegistir} onGeri={menuyeDon} />;
   } else if (ekran === 'oyun' && oyunDurumu) {

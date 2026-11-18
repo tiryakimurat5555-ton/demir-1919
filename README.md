@@ -8,6 +8,12 @@ görme engelli oyuncular tarafından bağımsız oynanabilecek; VoiceOver ve Tal
 
 Tasarım taslağı: `belgeler/tasarim-taslagi.pdf`
 
+## Şu anki aşama: yeniden kurulum, konumsal ses denemesi (sürüm 0.61)
+
+41 bölümlük sesli hikâye taslağa uymadığı için donduruldu. Taslağa göre yeniden kuruluyor: önce mimari, sonra hikâye
+omurgası, sonra Karaköy limanında oynanabilir bir dikey dilim. İlk deneme: ana menüde "Konumsal ses denemesi". Kulaklıkla
+bir zilin, bir çekicin ve denizin yönünü dinlersin; sürükleyerek dönüp yürürsün.
+
 ## Şu anki aşama: 50 — kırk birinci bölüm: İskele Taşı
 
 Selanik, Mayıs 1926. Zehra Hanım'ın izi bir tanık zincirinde: Hafız Efendi'nin tavan arasındaki defteri, Rebeka Hanım'ın
