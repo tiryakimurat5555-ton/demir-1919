@@ -8,6 +8,12 @@ görme engelli oyuncular tarafından bağımsız oynanabilecek; VoiceOver ve Tal
 
 Tasarım taslağı: `belgeler/tasarim-taslagi.pdf`
 
+## Şu anki aşama: 41 — derinleştirme 15. adım
+
+Zürih'teki mezatta kuruluş defterine ne olduysa (arşiv, gazete, yakmak, satış), Moda'da kör binbaşının sorgusunda yeni
+bir soru ve Cenevre'de komitenin önünde bir fark yaratır. Arif'in Seddülbahir madalyası, Süleyman'ın cenazesinden önceki
+gece sandıktan çıkar: kefene konur, göğse takılır ya da Nermin'e gönderilir.
+
 ## Şu anki aşama: 40 — derinleştirme 14. adım
 
 İlk bölümlerdeki küçük seçimler geri dönüyor: morgda nefesini saydıysan Eskişehir'de top sesi geldiğinde aynı şeyi

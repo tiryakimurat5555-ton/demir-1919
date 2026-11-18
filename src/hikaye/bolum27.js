@@ -404,6 +404,20 @@ export const BOLUM27 = {
               cevap: 'Fikri\'nin yüzü değişiyor. Mühür basmadı, diyor. Genç bir çocuktu. Ben onu ölü defterine yazdım; ölmeden bir gün önce. Sabahına doğru çıktı. Kaza diye.',
             },
             {
+              etiket: 'Kırmızı sayfalar gazetelerde çıktı. Binbaşı F. E. Adın orada; her limanda okundu.',
+              kosul: (d) => bayrak(d, 'defterSonu') === 'gazete' && !bayrak(d, 'okundu_gazete'),
+              etki: catlak(1, { okundu_gazete: true }),
+              sonra: 'ilk',
+              cevap: 'Fikri bir an susuyor. Biliyorum, diyor. Kenan okudu bana; bir sabah, kahvaltıda. Sesini değiştirmeden okudu. O günden beri bana kahvaltıyı hizmetçi getiriyor.',
+            },
+            {
+              etiket: 'Kuruluş defterini yaktık. Senin adınla birlikte. Yine de buradayız.',
+              kosul: (d) => bayrak(d, 'defterSonu') === 'yak' && !bayrak(d, 'okundu_gazete'),
+              etki: catlak(1, { okundu_gazete: true }),
+              sonra: 'ilk',
+              cevap: 'Fikri gülüyor; kısa, kuru. Yaktınız ve geldiniz, diyor. Demek kâğıt için değil. Bu beni kâğıttan daha çok korkutuyor.',
+            },
+            {
               etiket: 'Cemil Bey seninle konuşmak istiyor.',
               kosul: (d) => !bayrak(d, 'cemilSordu'),
               etki: { sahne: 'cemil_soru27' },

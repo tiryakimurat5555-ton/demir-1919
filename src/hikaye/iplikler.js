@@ -231,8 +231,8 @@ export const IPLIKLER = [
     ad: 'Kuruluş defterinin sonu',
     bayrak: 'defterSonu',
     ekildi: ['bolum25'],
-    karsiliklar: [],
-    gelecek: 'arsiv: 1973\'te açılacak (son bölüm epilogu). gazete: istifalar, bazı düşmanlıklar Nermin\'e döner. yak: Neslihan ve babanın içinde bir sükûnet; ama 47. sayfa hâlâ dışarıda. satildi: defter beşinci kitapta bir alıcının elinde yeniden belirir.',
+    karsiliklar: ['bolum27', 'bolum30'],
+    gelecek: '27. bölümde Fikri sorgusunda (gazete/yak), 30. bölümde komite (gazete ikna +1). Altıncı kitap: arsiv ise 1973 epilogu; satildi ise defter bir yerde yeniden çıkar.',
     durum: 'acik',
   },
   {
@@ -258,9 +258,9 @@ export const IPLIKLER = [
     ad: 'Arif\'in madalyası',
     bayrak: 'madalya',
     ekildi: ['bolum3'],
-    karsiliklar: ['bolum23'],
-    gelecek: 'Beşinci kitapta madalyanın sandıktan çıkıp çıkmayacağı: Seddülbahir anısı travma ipliğiyle bağlanır; Nermin öbür yarıyı (sakla) hâlâ bekliyor.',
-    durum: 'acik',
+    karsiliklar: ['bolum23', 'bolum32'],
+    gelecek: 'Kapandı: 32. bölümde madalya sandıktan çıkar (madalyaSonu mezar/tak/nermin).',
+    durum: 'kapali',
   },
   {
     id: 'yusuf_soz',
@@ -810,6 +810,15 @@ export const IPLIKLER = [
     karsiliklar: ['bolum32'],
     gelecek: 'Kapandı: 32. bölümde Süleyman\'ın cenazesinde.',
     durum: 'kapali',
+  },
+  {
+    id: 'madalya_sonu',
+    ad: 'Madalyanın yeri',
+    bayrak: 'madalyaSonu',
+    ekildi: ['bolum32'],
+    karsiliklar: [],
+    gelecek: 'mezar: Arif savaşı Süleyman\'la gömdü (travma -1); tak: altıncı kitapta eski askerlerle bir bağ; nermin: Nermin öbür yarıyı yazar, Arif bir gün okur.',
+    durum: 'acik',
   },
 ];
 

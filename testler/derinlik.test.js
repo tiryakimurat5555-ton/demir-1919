@@ -489,3 +489,32 @@ test('eski seçimler sonraki sahnelerde anılır', async () => {
   expect(imza({ nermineAnlatti: false })).toContain('jetonu');
   expect(imza({ nermineAnlatti: true })).not.toContain('jetonu');
 });
+
+// 15. adım: kuruluş defterinin sonu (25) → 27 ve 30; madalya (3, 23, 25) → 32.
+test('kuruluş defterinin sonu Fikri\'nin sorgusunda ve Cenevre\'de döner', async () => {
+  const { BOLUM27 } = await import('../src/hikaye/bolum27');
+  const { BOLUM30 } = await import('../src/hikaye/bolum30');
+  const et = (b) => M.dugumBilgisi(BOLUM27, durum(BOLUM27, b, { tur: 'konusma', kisi: 'fikri', dugum: 'ilk' })).secenekler.map((x) => x.etiket).join(' | ');
+  expect(et({ defterSonu: 'gazete' })).toContain('gazetelerde');
+  expect(et({ defterSonu: 'yak' })).toContain('yaktık');
+  expect(et({ defterSonu: 'arsiv' })).not.toContain('gazetelerde');
+  const ac = (b) => M.sahneBilgisi(BOLUM30, durum(BOLUM30, b, { tur: 'sahne', id: 'acilis' }));
+  expect(ac({ defterSonu: 'arsiv' }).paragraflar.join(' ')).toContain('Federal Arşiv');
+  let d = durum(BOLUM30, { defterSonu: 'gazete' }, { tur: 'sahne', id: 'acilis' });
+  d = M.sahneSec(BOLUM30, d, ac({ defterSonu: 'gazete' }).secenekler[0]).durum;
+  expect(M.sayi(d, 'ikna')).toBe(1);
+});
+
+test('madalya Süleyman\'ın cenazesinden önce sandıktan çıkar', async () => {
+  const { BOLUM32 } = await import('../src/hikaye/bolum32');
+  const son = (b) => M.sahneBilgisi(BOLUM32, durum(BOLUM32, { suleymanSon: 'sus', ...b }, { tur: 'sahne', id: 'kayik32_son' })).secenekler;
+  expect(son({ madalya: 'anlat' })[0].sonra).toBe('madalya32');
+  expect(son({})[0].sonra).toBe('vasiyet32');
+  const m = (b) => M.sahneBilgisi(BOLUM32, durum(BOLUM32, b, { tur: 'sahne', id: 'madalya32' }));
+  expect(m({ madalya: 'sakla' }).paragraflar.join(' ')).toContain('yarısını');
+  let d = durum(BOLUM32, { madalya: 'anlat', travma: 2 }, { tur: 'sahne', id: 'madalya32' });
+  d = M.sahneSec(BOLUM32, d, m({ madalya: 'anlat' }).secenekler.find((x) => x.etiket.startsWith('Kefenin'))).durum;
+  expect(M.bayrak(d, 'madalyaSonu')).toBe('mezar');
+  expect(M.sayi(d, 'travma')).toBe(1);
+  expect(M.sahneBilgisi(BOLUM32, d).paragraflar.join(' ')).toContain('kefenin içinde');
+});

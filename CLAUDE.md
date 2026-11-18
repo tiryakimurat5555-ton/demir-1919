@@ -359,6 +359,9 @@
   (Kessler'in gazetesi kapandı); 10. kule sonSecim (7. bölüm koru/atil/kac); 14. mektup babaSoruldu/talimatSoruldu;
   21. cocuk ayvaAnlatildi (6); 30. imza düğümü nerminSivri / nermineAnlatti (3); 32. vasiyet32 kayıkçı Hüsnü (husnuGuven,
   husnuKustu; 1. bölüm).
+  15. adım: defterSonu (25) → 27. fikri yeni sorular (gazete/yak; okundu_gazete, çatlak +1) ve 30. açılış satırı
+  (arsiv/gazete/yak/satildi; gazete ikna +1); madalya (3, 23, 25) → 32. madalya32 sahnesi (kayik32_son'dan madalya
+  varsa; madalyaSonu mezar [travma -1] / tak / nermin [nerminBag +1]) → vasiyet32 satırı. madalya ipliği kapandı.
   testler/derinlik.test.js iplikleri denetler.
 - İPLİK KAYDI: src/hikaye/iplikler.js (IPLIKLER: bayrak, ekildi, karsiliklar, gelecek, durum). testler/iplikler.test.js
   bayrağın ekildiği bölümde yazıldığını, karşılık bölümlerinde '<bayrak>' olarak okunduğunu denetler. Yeni iplik ekleyince,

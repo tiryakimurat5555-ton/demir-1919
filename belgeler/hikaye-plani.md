@@ -287,3 +287,6 @@ Altıncı kitap için: kayıkhane üs olur; Selim; Rahel ile Beyrut; Melek'in an
 ### Derinleştirme 14. adım (18 Kasım)
 - ikinciNefes (2 → 18 nöbet seçeneği), isimVerildi (9 → 15), sonSecim (7 → 10), babaSoruldu/talimatSoruldu (7 → 14),
   ayvaAnlatildi (6 → 21), nerminSivri/nermineAnlatti (3 → 30), Hüsnü (1 → 32).
+
+### Derinleştirme 15. adım (18 Kasım)
+- defterSonu (25 → 27 Fikri, 30 komite). Madalya (3 → 23 → 25 → 32 madalya32: kefen / göğüs / Nermin'e).

@@ -63,16 +63,22 @@ export const BOLUM30 = {
         klaraVar(d)
           ? 'Dosyayı Klara Rainer hazırladı. Dedesinin örgütünü belgelerle anlatmak, diyor, benim için bir tür vasiyet.'
           : 'Dosyayı Rıza Bey ile Nermin hazırladı; Nermin Ankara\'dan geldi, Fransızcası keskin, sabrı az.',
+        {
+          arsiv: 'Kuruluş defteri Bern\'de, Federal Arşiv\'in mühürlü dolabında. Elli yıl kimse açamaz; komite de. Bu bazen bir kalkan, bazen bir duvar.',
+          gazete: 'Kırmızı sayfalar geçen kış gazetelerde çıktı; komitenin üyeleri onları okudu. Kimse size yalan söylüyorsunuz diyemez. Bu bir puan.',
+          yak: 'Kuruluş defterini Zürih\'te yaktınız. Komitenin önünde yalnızca kırk yedinci sayfa var; Ferrante\'nin avukatı bunu bilir.',
+          satildi: 'Kuruluş defteri Zürih\'te adsız bir alıcıya satıldı. Bir gün bir yerde yeniden çıkacak; belki bu odada.',
+        }[bayrak(d, 'defterSonu')] || '',
         'Komite tanık dinleyecek: üç gün sonra, tek bir oturum. Komite bir mahkeme değil; kimseyi tutuklayamaz. Ama raporunda bir ad geçerse, o ad her limanda okunur.',
         'Masada iki kâğıt: kırk yedinci sayfa, iki yarısı birleşmiş; ve Ferrante\'nin makbuz defteri. Kâğıtlar yetmez, diyor ' + (klaraVar(d) ? 'Klara' : 'Nermin') + '. Bir insanın sesi lazım.',
-      ],
+      ].filter(Boolean),
       secenekler: [
         {
           etiket: 'Otele yerleş',
           etki: (d) => ({
             mekan: 'otel30',
             delil: ['savci', 'kenan'].includes(bayrak(d, 'fikriKarar')) ? ['fikri_ifadesi'] : [],
-            artir: { ikna: (delilVar(d, 'alt_yari') && delilVar(d, 'zarf') ? 1 : 0) + (delilVar(d, 'makbuz_defteri') ? 1 : 0) + (bayrak(d, 'fikriKarar') === 'savci' ? 1 : 0) },
+            artir: { ikna: (delilVar(d, 'alt_yari') && delilVar(d, 'zarf') ? 1 : 0) + (delilVar(d, 'makbuz_defteri') ? 1 : 0) + (bayrak(d, 'fikriKarar') === 'savci' ? 1 : 0) + (bayrak(d, 'defterSonu') === 'gazete' ? 1 : 0) },
             bayrak: { 'gorüldü_otel30': true, ekip_cemil: true, ekip_riza: true, ekip_nermin: true },
           }),
         },

@@ -236,13 +236,54 @@ export const BOLUM32 = {
           ? 'Kayığı kıyıya sen çekiyorsun. Ellerin titremiyor. Bunu ondan öğrendin.'
           : 'Kayığı kıyıya hep birlikte çekiyorsunuz. Kimse bir şey söylemiyor.',
       ].filter(Boolean),
-      secenekler: [{ etiket: 'Devam', sonra: 'vasiyet32' }],
+      secenekler: [
+        { etiket: 'Devam', kosul: (d) => !!bayrak(d, 'madalya'), sonra: 'madalya32' },
+        { etiket: 'Devam', kosul: (d) => !bayrak(d, 'madalya'), sonra: 'vasiyet32' },
+      ],
+    },
+    madalya32: {
+      ortam: 'ortam_kayikhane',
+      ortamOran: 0.3,
+      baslik: 'Sandığın dibi',
+      paragraflar: (d) => [
+        'Gece. Süleyman yıkanmış, kefenlenmiş; kayıkhanenin ortasında, tezgâhın üstünde. Sabah Karacaahmet\'e götürülecek. Herkes uyuyor, ya da uyuyor gibi.',
+        'Karaköy\'deki odana gidip sandığını açıyorsun. Dipte, bir mendile sarılı: Seddülbahir\'den madalya. On yıldır açmadığın mendil.',
+        bayrak(d, 'madalya') === 'anlat'
+          ? 'Cihangir\'de Nermin\'e anlatmıştın; sofrada da sormuştu: Hâlâ sandığın dibinde mi? Hâlâ.'
+          : 'Cihangir\'de Nermin\'e yarısını anlatmıştın. Öbür yarısını hâlâ bekliyor.',
+        sayi(d, 'travma') >= 2
+          ? 'Mendili açınca elin titriyor. Kum kokusu; olmayan bir koku. Nefesini sayıyorsun.'
+          : 'Mendili açıyorsun. Pirinç kararmış. Elin titremiyor; bu seni şaşırtıyor.',
+        'Süleyman bir keresinde demişti: Savaşın günahını kendi sırtına yükleme. Madalyayı avucunda tartıyorsun.',
+      ],
+      secenekler: [
+        {
+          etiket: 'Kefenin yanına koy. Bir savaştan sağ çıkan iki adam; biri artık yorulmadı.',
+          etki: (d) => ({ bayrak: { madalyaSonu: 'mezar' }, artir: { travma: sayi(d, 'travma') > 0 ? -1 : 0 } }),
+          sonra: 'vasiyet32',
+        },
+        {
+          etiket: 'Göğsüne tak. Cenazeye bir asker gibi git; bir kez.',
+          etki: { bayrak: { madalyaSonu: 'tak' } },
+          sonra: 'vasiyet32',
+        },
+        {
+          etiket: 'Nermin\'e gönder. Öbür yarıyı yazsın; sen anlatamıyorsan bir kâğıt anlatsın.',
+          etki: { bayrak: { madalyaSonu: 'nermin' }, artir: { nerminBag: 1 } },
+          sonra: 'vasiyet32',
+        },
+      ],
     },
     vasiyet32: {
       ortam: 'ortam_kayikhane',
       ortamOran: 0.6,
       baslik: '14 Eylül 1924, Karacaahmet',
       paragraflar: (d) => [
+        {
+          mezar: 'Madalya kefenin içinde, Süleyman\'ın göğsünde. Kimse bilmiyor; Cemil Bey hariç. Bir şey demiyor; yalnızca omzuna bir kez dokunuyor.',
+          tak: 'Göğsünde Seddülbahir madalyası. Rıhtımdan gelen hamallardan biri, kolu dirsekten kesik, sana selam veriyor; asker selamı.',
+          nermin: 'Madalya bir zarfta, Ankara yolunda. İçine tek bir satır yazdın: Öbür yarısı. Nermin anlayacak.',
+        }[bayrak(d, 'madalyaSonu')] || '',
         'Karacaahmet\'te sade bir mezar. Rıhtımdan otuz hamal geliyor; Topal Hasan başta. Ohannes Usta, Yorgo, Gülce. ' +
           (bayrak(d, 'rizaSon22') === 'kirgin' ? 'Rıza Bey mezarlığın kapısında duruyor; içeri girmiyor, ama gelmiş.' : 'Rıza Bey bastonuna dayanmış, en arkada.'),
         {
