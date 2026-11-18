@@ -331,3 +331,7 @@ bırakılır. Defterin son satırı: Buenos Aires, F. ve B. Yedinci kitap oradan
   Buenos Aires'e taşıyor (Società Atlantica di Collocamento, kurgu). Nazlı (Kavalalı mübadil, 17) Neslihan'ın aynası.
   testaKarar, neslihanNazli, rizaEkvator / cemilEkvator, zehraTelgraf. Sıradaki: 40. bölüm Buenos Aires, Calle Junín
   (Bruno; Ferrante'nin son yılları; F. ve B.); Zehra Hanım ipliği Florina'ya bağlanır (yedinci kitabın ikinci yarısı).
+- 40. bölüm "Calle Junín" (Mart 1926, Buenos Aires): ekip bölünür (geceBolunme). Ferrante ölür; açılım: Zehra Hanım 1913
+  baharında Selanik iskelesinde kızını sordu, Bruno "tifo" dedi (Fikri'nin yalanı). Zehra Şubat 1913'te Florina hastanesinden
+  yürüyerek çıkmıştı. brunoSon40, ferranteSon40, nazliIceri, zehraIz. Sıradaki: yedinci kitabın ikinci yarısı Selanik 1913'ün
+  izi (Zehra Hanım nereye gitti: karar sonra; Bruno yakalandıysa pazarlık, kaçtıysa "annesi de böyle kaçmıştı").

@@ -375,6 +375,16 @@
   olay değil) → laplata39: testaKarar indir [on_bir_kiz] / izle [bruno_bekliyor: Calle Junín] / ihbar → laplata39_son → son.
   Çıkarımlar on_bir_kiz (sozlesme + yolcu_listesi), bruno_bekliyor (testa_defteri + telsiz_kaydi). Asıl karşıt Bruno
   (28, 30, 38); Testa onun kuryesi; Società Atlantica di Collocamento kurgu. Yeni ses yok.
+- Kırkıncı bölüm "Calle Junín" (src/hikaye/bolum40.js): 23-26 Mart 1926 Buenos Aires. Kalıbı kırar: ekip bölünür. Ekip Arif +
+  Neslihan + (ekip_riza ise Rıza, değilse Cemil); Nazlı yanında (nazliYaninda: testaKarar indir değil, neslihanNazli anlat/arif).
+  Açılış davetiye40 (Tomás Ferrante: amcası ölüyor, Neslihan'ı istiyor; testaKarar, rizaEkvator satırları). Mekân boca40
+  (ortam_han; olay yok): nesneler junin → gozlem40 (junin_gozlem), telgrafhane40 → telgraf40 (despina_telgrafi: Zehra taburcu
+  Şubat 1913; zehraTelgraf, cemilEkvator satırları), persembe [junin_gozlem] → gece40: geceBolunme bolun / junin / ferrante.
+  Kişi nazli40: nazliIceri evet (kizlar_yeri) / hayir. junin40: brunoSon40 kacti / yakalandi (Rıza ya da kizlar_yeri; değilse
+  yarali; travma +1) / konustu → junin40_son → (bolun) ferrante40_anlat (bolunmeCevap ozur/onun) ya da ferrante40_haber
+  (ferranteSon40 olu). ferrante40: Ferrante'nin açılımı (1913 baharı, Selanik iskelesi, Zehra Hanım kızını sordu, Bruno
+  "tifo" dedi); ferranteSon40 imza / neslihan [neslihanBag >= 3 ise imza] / reddet (ferrante_itirafi) → ferrante40_son →
+  (ferrante) junin40_haber (brunoSon40 gitti) → son40 (zehraIz taburcu_iskele/iskele) → son. Yeni ses yok.
 - DERİNLEŞTİRME KARARI (17 Kasım, Murat: "Derinleştir"): yeni bölüm yazmaya ara; önce var olan bölümler derinleşir.
   Plan ve yapılanlar belgeler/hikaye-plani.md "Derinleştirme" bölümünde. 1. adım: arifNeden (1. bölüm gece_konusma →
   6. bölüm arifNedenSatiri, 8. bölüm tahliye), haticeSozu (1. bölüm mektup → 2. cenaze → 17. hatice17), Pendle tohumu

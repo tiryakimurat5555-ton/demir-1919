@@ -8,6 +8,12 @@ görme engelli oyuncular tarafından bağımsız oynanabilecek; VoiceOver ve Tal
 
 Tasarım taslağı: `belgeler/tasarim-taslagi.pdf`
 
+## Şu anki aşama: 49 — kırkıncı bölüm: Calle Junín
+
+Buenos Aires, Mart 1926. Ferrante ölüyor ve Neslihan'ı görmek istiyor; Bruno aynı gece kızları Rosario'ya götürecek.
+İki kapı, bir gece: ekibi bölmek, birlikte Junín'e ya da birlikte San Isidro'ya gitmek. Göremediğin kapıyı başkası anlatır.
+Ferrante'nin son sözleri Zehra Hanım ipliğini açar: 1913 baharında Selanik iskelesinde kızını soran bir kadın.
+
 ## Şu anki aşama: 48 — otuz dokuzuncu bölüm: Ekvator (yedinci kitabın açılışı)
 
 Mart 1926. Stella del Plata Cenova'dan Buenos Aires'e on dokuz günde gider. Üç gün, dört kapı: üçüncü mevkide

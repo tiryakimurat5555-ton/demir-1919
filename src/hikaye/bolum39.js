@@ -337,8 +337,11 @@ export const BOLUM39 = {
       ortam: 'ortam_guverte',
       ortamOran: 0.45,
       baslik: 'Otuz dokuzuncu bölüm bitti',
-      paragraflar: ['Kararların kaydedildi. Yedinci kitap sürüyor: Calle Junín.'],
-      secenekler: [{ etiket: 'Ana menüye dön', anaMenu: true }],
+      paragraflar: ['Kararların kaydedildi. Sırada kırkıncı bölüm: Calle Junín.'],
+      secenekler: [
+        { etiket: '40. bölüme geç', sonrakiBolum: 'bolum40' },
+        { etiket: 'Ana menüye dön', anaMenu: true },
+      ],
     },
   },
 
