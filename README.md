@@ -8,6 +8,12 @@ görme engelli oyuncular tarafından bağımsız oynanabilecek; VoiceOver ve Tal
 
 Tasarım taslağı: `belgeler/tasarim-taslagi.pdf`
 
+## Şu anki aşama: 45 — otuz altıncı bölüm: İhale
+
+Ankara, 21 Ekim 1925. Albert Vollmer ilk kez kendisi geliyor. Saat on yedide bir komisyon ihracat imtiyazını karara
+bağlayacak. Sekiz saat, beş kapı: her ziyaret iki saat. Hangi kanıtı toplayacağına karar ver. Vollmer'in elinde bir koz var:
+babanın adının geçtiği kırmızı sayfa.
+
 ## Şu anki aşama: 44 — otuz beşinci bölüm: İncir
 
 İzmir, Eylül 1925. Üç gece, dört yer: Albrecht'in oteli, incir hanı, Pendle'in son gemisi Arethusa, Rıza Bey'in eski muhbiriyle

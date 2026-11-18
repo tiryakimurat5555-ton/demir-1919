@@ -211,8 +211,11 @@ export const BOLUM35 = {
       ortam: 'ortam_kordon',
       ortamOran: 0.45,
       baslik: 'Otuz beşinci bölüm bitti',
-      paragraflar: ['Kararların kaydedildi. Otuz altıncı bölüm yazılıyor.'],
-      secenekler: [{ etiket: 'Ana menüye dön', anaMenu: true }],
+      paragraflar: ['Kararların kaydedildi. Sırada otuz altıncı bölüm: İhale.'],
+      secenekler: [
+        { etiket: '36. bölüme geç', sonrakiBolum: 'bolum36' },
+        { etiket: 'Ana menüye dön', anaMenu: true },
+      ],
     },
   },
 

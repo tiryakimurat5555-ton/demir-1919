@@ -302,3 +302,6 @@ Altıncı kitap için: kayıkhane üs olur; Selim; Rahel ile Beyrut; Melek'in an
 - 35. bölüm "İncir" (Eylül 1925, İzmir): gözetleme; Vollmer'in zinciri (koza, kinin, incir) Ekim'deki Ankara ihracat imtiyazı
   ihalesi için teminat. Pendle tanık olabilir. Sıradaki: Ankara, Ekim 1925 ihale (Pendle ifadesi, Nuri ifadesi, Sabit,
   Albrecht; Vollmer ilk kez kendisi) ya da arada İstanbul'da Rıza'nın Yakup'u.
+- 36. bölüm "İhale" (Ekim 1925, Ankara): saat saat bir gün; Vollmer kendisi. Kırmızı sayfadaki "usta İ." kozu (babaSayfa).
+  vollmerIhale red ise altıncı kitabın sonu Zürih'te Vollmer'in masasında; kabul ise Anadolu'da içeriden. Sıradaki: İstanbul,
+  babanın sayfası (babaSayfa) ve Rıza'nın Yakup'u (rizaKorku) bir arada; sonra Zürih.

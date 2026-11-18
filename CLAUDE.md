@@ -342,6 +342,14 @@
   kendi / dokunma (hisseKarar satırı). Olay arethusa (gece35 >= 3) → arethusa35 (Pendle + Albrecht; pendleSon35 tanik
   [imtiyaz ya da arethusa_gozlem] / teslim / birak) → arethusa35_son (albrechtSonu yakalandi [albrecht_takvimi] / kacti)
   → son35 → son.
+- Otuz altıncı bölüm "İhale" (src/hikaye/bolum36.js): 21 Ekim 1925 Ankara. Vollmer ilk kez kendisi. Kalıbı kırar: tek gün,
+  saat saat. Tek mekân ankara36 (ortam_telgraf); zaman36 (her ziyaret +2, ZAMAN_SINIRI 8: beş yerden dördü), kanit36;
+  kanitSayisi36(d) = kanit36 + vollmer_ceki + imtiyaz + vollmer_ajani (dışa açık), KANIT_ESIGI 4. Nesneler telgraf_git
+  (pendleSon35 tanik +2), cezaevi_git (albrechtSonu yakalandi +1, sabitSon34 mahkeme/cemil +1), matbaa_git (nerminKorku
+  istanbul değilse +1), hastane_git (cemilRapor34 adli +2 / adsiz, gazete +1), otel_git → vollmer36 (kırmızı sayfa "usta İ.";
+  vollmerSonu itiraf ise kart çoktan oynanmış: babaSayfa coktan +1; değilse yayimla [+1; babaItiraf yoksa travma +1] /
+  korundu [-1]). Olay ihale (zaman bitti) → ihale36 (efekt tokmak; otele gidilmediyse Vollmer kartı salonda oynar →
+  babaSayfa ifsa) → vollmerIhale red/kabul → ihale36_son → son36 (Neslihan babasına telgraf) → son.
 - DERİNLEŞTİRME KARARI (17 Kasım, Murat: "Derinleştir"): yeni bölüm yazmaya ara; önce var olan bölümler derinleşir.
   Plan ve yapılanlar belgeler/hikaye-plani.md "Derinleştirme" bölümünde. 1. adım: arifNeden (1. bölüm gece_konusma →
   6. bölüm arifNedenSatiri, 8. bölüm tahliye), haticeSozu (1. bölüm mektup → 2. cenaze → 17. hatice17), Pendle tohumu
