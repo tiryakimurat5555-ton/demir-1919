@@ -8,7 +8,15 @@ görme engelli oyuncular tarafından bağımsız oynanabilecek; VoiceOver ve Tal
 
 Tasarım taslağı: `belgeler/tasarim-taslagi.pdf`
 
-## Şu anki aşama: 32 — yirmi altıncı bölüm: Zarf (beşinci kitabın açılışı)
+## Şu anki aşama: 33 — yirmi yedinci bölüm: Moda
+
+- Mart 1924, İstanbul: Süleyman Kaptan'ın kayığıyla denizden Moda'ya; sarı köşkte kör bir binbaşı
+- Yeni oynanış: göremeyen bir adamın sorgusu. Kâğıt gösterilmez; okunur, anlatılır. Her doğru söz bir çatlak
+- Neslihan Marsilya'ya gitmek istiyor: yalnız mı, birlikte mi, sonra mı?
+- Cemil Bey on iki yıldır sormak istediği soruyu soruyor
+- Kırk yedinci sayfanın öbür yarısının sahibi: birinci bölümden tanıdık bir ad
+
+## 32 — yirmi altıncı bölüm: Zarf (beşinci kitabın açılışı)
 
 - Şubat 1924, Selanik: mübadele vapurları; iki yöne giden iki kalabalık
 - Hafız Efendi ölmüş; zarfı torunu Emine'de. Emine zarfı yalnızca "gerçek adıyla" isteyene verir

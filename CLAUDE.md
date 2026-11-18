@@ -267,6 +267,15 @@
   sahibine geri verdim; davidNotu sakla ise davidItiraf) → zarf_son. Çıkarımlar zarf_yeri (telgraf + hafiz_notu),
   fikri_yasiyor (david_defteri + kenan_mektubu). Olay kenan (zarf + fikri_yasiyor + zarfAcan) → kenan26: kenanSonu
   goster/uyar/sakla → vapur26 (efekt vapur_duduk) → son. Fikri: Moda'da köşk, 62 yaşında, gözleri görmüyor.
+- Yirmi yedinci bölüm "Moda" (src/hikaye/bolum27.js): 8-9 Mart 1924 İstanbul. Kalıbı kırar: kör binbaşının sorgusu.
+  Mekânlar kayikhane27 (suleyman27 → kayikHazir27; neslihan27 → neslihan_yol: neslihanYol yalniz/birlikte/bekle; kemal27
+  [kemalKalir], riza27 [rizaSon22 kirgin değilse], cemil27; kayik_bin → kayik27 → moda27: kenanSonu'na göre giriş
+  (goster kenanIceride; uyar giris27 riza/kemal/cemil; sakla yabanciGeldi); kirgin ise Rıza bahçede döner, rizaDondu),
+  kosk27 (ortam_kosk_ic; masa27 → napoli_zarfi; fikri: okundu_liste +1, okundu_david +1, okundu_kenan +1, Cemil →
+  cemil_soru27 sahnesi (cemilDefter'e göre; cemilSelanik soz/gir +2, değilse +1); fikriCatlak, CATLAK_ESIGI 3 → itiraf
+  tam/kismi → fikri_itirafi). Çıkarım satan (fikri_itirafi + napoli_zarfi: alt yarıyı imzalayan Ferrante, Napoli, Via
+  Marina 14; tam ise Dante cildi, Cehennem 33) → olay karar → fikri_karar: fikriKarar savci / kenan [kenanIceride] / birak
+  (travma+1) → fikri_son → son.
 - DERİNLEŞTİRME KARARI (17 Kasım, Murat: "Derinleştir"): yeni bölüm yazmaya ara; önce var olan bölümler derinleşir.
   Plan ve yapılanlar belgeler/hikaye-plani.md "Derinleştirme" bölümünde. 1. adım: arifNeden (1. bölüm gece_konusma →
   6. bölüm arifNedenSatiri, 8. bölüm tahliye), haticeSozu (1. bölüm mektup → 2. cenaze → 17. hatice17), Pendle tohumu

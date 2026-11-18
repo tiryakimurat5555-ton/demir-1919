@@ -262,3 +262,4 @@ Sıradakiler:
 ## Beşinci kitap (18 Kasım)
 - 26. bölüm "Zarf" (Şubat 1924, Selanik): Hafız Efendi'nin zarfı Emine'den alınır. İçinde 47. sayfanın üst yarısı: Kasım 1912, on yedi kız ve gönderildikleri şehirler, Binbaşı Fikri'nin eli. Alt yarıyı (satanın imzası) Rivière 1918 yazında Fikri'ye geri satmıştı. Fikri yaşıyor (Moda, 62, kör); oğlu Kenan avukat.
 - Sıradaki: 27. bölüm İstanbul/Moda: Fikri'nin köşkü; kenanSonu yolu (goster: Kenan kapıyı açar; uyar: Fikri hazırlıklı; sakla: soru sormayan biri gelir). Cemil'in tek sorusu (cemilSelanik soz). Sonra on altı kızın izi: Marsilya, İskenderiye, Odesa, Napoli, Buenos Aires.
+- 27. bölüm "Moda" (Mart 1924): Fikri sorgusu; alt yarıyı imzalayan, kızları gemiye bindiren Ferrante (1. bölümden). Napoli, Via Marina 14. Sıradaki: 28. bölüm Napoli (Ferrante, yabancı adam, Dante cildi); neslihanYol'a göre Marsilya kolu.

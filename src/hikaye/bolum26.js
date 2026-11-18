@@ -295,8 +295,8 @@ export const BOLUM26 = {
       ortam: 'ortam_rihtim',
       ortamOran: 0.45,
       baslik: 'Yirmi altıncı bölüm bitti',
-      paragraflar: ['Kararların kaydedildi. Yirmi yedinci bölüm yazılıyor.'],
-      secenekler: [{ etiket: 'Ana menüye dön', anaMenu: true }],
+      paragraflar: ['Kararların kaydedildi.'],
+      secenekler: [{ etiket: 'Yirmi yedinci bölüme geç', sonrakiBolum: 'bolum27' }, { etiket: 'Ana menüye dön', anaMenu: true }],
     },
   },
 
