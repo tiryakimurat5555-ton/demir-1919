@@ -100,6 +100,9 @@ export const BOLUM32 = {
           arif: 'Sen anlatıyorsun; Neslihan senin anlattığını düzeltiyor. Hayır abi, o gün yağmur yoktu. Hayır, o adam İtalyan değildi. Sonunda hikâyeyi senden alıyor; bitiren o oluyor. Baban ikinizin de yüzüne ayrı ayrı bakıyor.',
           el: 'Kimse bir şey söylemiyor. Neslihan babasının yanına oturuyor; baban onun elini alıyor, kalay lekeli parmaklarıyla avucunu açıyor, bir süre öylece tutuyor. Söylenmeyen bir şey o gece o odada kalıyor; kötü bir şekilde değil.',
         }[bayrak(d, 'babaBildi')] || '',
+        bayrak(d, 'neslihaneBaba') && bayrak(d, 'babaBildi')
+          ? 'Altı yıl önce, Rivière\'in köşkünde, bir fincanın başında ona demiştin: Bizim babamız. Şimdi o iki kelime odada; ikinizin arasında, babanın karşısında.'
+          : '',
         'Sonunda baban konuşuyor. Kalay bakırı zehirden korur, diyor; çocukken size öğrettiğim ilk şey. Ama içeriden korumaz. Ben sizi içeriden koruyamadım.',
         'Pencereden Haliç görünüyor. Ohannes Usta aşağıda ocağı yakıyor. Kayıkhaneden Kemal\'in, ya da birinin, çekiç sesi gelmiyor artık. Gitmeliyiz, diyor Neslihan. Kaptan bekliyor.',
       ].filter(Boolean),
@@ -120,8 +123,11 @@ export const BOLUM32 = {
             korktum: 'Sen korktum dedin. Tanımamaktan korktun.',
             sucluluk: 'Sen aramanın onları bıraktığını kabul etmek olduğunu söyledin.',
           }[bayrak(d, 'arifNeden')] || 'Sen cevap vermedin.'),
+        bayrak(d, 'suleymanNeden')
+          ? 'Sen de bana sormuştun o gün: beni neden bu limana aldın? İki saat denize bakan adamı tanırım demiştim. Yalan değildi; ama yarımdı. Öbür yarısı: o iskelede ben de oturmuştum, Kemal gittikten sonra. Her sabah. Sen benim yerime oturdun, evlat.'
+          : '',
         'Sonra aradın. Selanik, Manastır, Viyana, Zürih, Napoli. Neden, evlat? Bunu ölmeden önce bilmek istiyorum.',
-      ],
+      ].filter(Boolean),
       secenekler: [
         {
           etiket: 'Onlar için. Bir ayva ağacı, bir ses. Yaşıyorlarsa beni beklemesinler diye.',
@@ -476,9 +482,14 @@ export const BOLUM32 = {
       dugumler: {
         ilk: {
           soz: (d) =>
-            bayrak(d, 'kemalKalir')
+            (bayrak(d, 'kemalKalir')
               ? 'Kemal çekici bırakıyor. Bir yıl önce kalırım dedim, diyor. Bir yıl. Kayık yapmayı ancak öğrendim. Bitiremeyeceğim, değil mi?'
-              : 'Kemal limanda bir gemiden izin almış, üç gün. Yirmi beş yıl aradı beni, diyor. Ben ona üç gün veriyorum. Utanıyorum.',
+              : 'Kemal limanda bir gemiden izin almış, üç gün. Yirmi beş yıl aradı beni, diyor. Ben ona üç gün veriyorum. Utanıyorum.') +
+            ({
+              aradi: ' İzmir\'de, o rıhtımda bana söylemiştin: Pire\'den gelen her gemiye baktı. O gün inanmadım. Şimdi inanıyorum; her gemi bir çentik, şu kirişte. Saydım. Yüz on dört.',
+              gorev: ' İzmir\'de bana ambarı, ilaçları hatırlatmıştın; babamı değil. İyi ettin. Babamın oğlu olduğumu bir görevle öğrendim. Ona yakışır.',
+              sus: ' İzmir\'de hiçbir şey söylememiştin; bizi bırakmıştın. Bir baba bir oğula ne söyler, bilmiyordum. Hâlâ bilmiyorum.',
+            }[bayrak(d, 'kemalSecim')] || ''),
           secenekler: [
             {
               etiket: 'Bitireceksin. O dinliyor; çekici bırakma.',

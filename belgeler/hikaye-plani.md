@@ -318,3 +318,10 @@ bırakılır. Defterin son satırı: Buenos Aires, F. ve B. Yedinci kitap oradan
 - madalyaSonu (32) → 34 Nermin (nerminMadalya). yanginAni (21) → 35 Neslihan, Kordon (izmirAni). gulceSon33 (33) → 37 Gülce
   (gulceTevfik37). 38: tazminatSonu (22) → Klara (klaraLozan), brunoSonu (28) + rahelCevap (31) → Neslihan (neslihanRahel;
   genel kurulda altı ad), suleymanSon + arifCevap (32) → Rıza Bey (rizaKar: kal / dinlen / yol). Yedinci kitap için yeni iplikler.
+
+### Derinleştirme 17. adım (18 Kasım, baştan sona tarama)
+- Hiç geri dönmeyen seçimler: suleymanNeden, kemalSecim, neslihaneBaba (32); üç teselli (30); cemilNeden, nerminNeden (34);
+  rizaHalim, babaBildi, gulceArama (37); garnierSonuc (38); yaklasim (29); takimVerildi (17); nermineFotograf (23).
+- Yeni tohum (kural 2): Zehra Hanım. 6. bölümde Hafız Efendi cümlesini bitirmemişti ("Bir sabah arabada..."). 29. bölümde
+  Fikri'nin "tifo" yalanı Neslihan'a annesini düşündürür (zehraSoru). 38. bölümde Despina'nın mektubu: Florina'da bir hastane
+  arabası; ölümünü kimse görmedi. Yedinci kitapta: Florina 1912, Zehra Hanım'ın izi (yaşıyor mu, nerede öldü; karar sonra).

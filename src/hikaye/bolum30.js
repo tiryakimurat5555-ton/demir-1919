@@ -15,6 +15,16 @@ export const iknaToplami = (d) => sayi(d, 'ikna');
 const klaraVar = (d) => !!bayrak(d, 'klaraYardim') || bayrak(d, 'rainerSonu') === 'serbest';
 const ferranteSerbest = (d) => bayrak(d, 'ferranteKarar') !== 'cenevre';
 
+// Derinleştirme 17. adım: Arif'in Neslihan'a söylediği üç teselli (7., 8., 9. bölüm). Her biri "Ben söyleyemem" yolunda
+// Neslihan'ın kendi kararına güç verir.
+export const tesellier = (d) =>
+  [
+    bayrak(d, 'neslihanTeselli') && 'Köşkte: Sen bilmiyordun; seni kullandılar.',
+    bayrak(d, 'neslihanTeselli8') && 'Manastır\'da: İkisi de sensin.',
+    bayrak(d, 'neslihanTeselli9') && 'Viyana\'da: Mutlu olman suç değil.',
+  ].filter(Boolean);
+const kendiKarar = (d) => sayi(d, 'neslihanBag') + tesellier(d).length >= 3;
+
 export const BOLUM30 = {
   id: 'bolum30',
   ad: 'Otuzuncu bölüm: Tanıklar',
@@ -96,10 +106,13 @@ export const BOLUM30 = {
           iki: 'Hangi adla konuşacağım? Rivière\'in adı orada yazılı; benim adım da. Belki ikisiyle. Belki ikisi aynı kâğıtta yan yana durursa bir şey düzelir.',
           kendi: 'Kalaycının kızı Neslihan diye konuşurum, diyor. Selanik\'te Emine\'ye söylediğim ad. Kendi seçtiğim ad.',
         }[bayrak(d, 'neslihanAd') || bayrak(d, 'neslihanAdSoyledi')] || 'Hangi adla konuşacağımı bile bilmiyorum.',
+        tesellier(d).length
+          ? 'Bana söylediklerini sayıyorum, diyor. ' + tesellier(d).join(' ') + ' Bir raporda bunlar yazmayacak. Ama ben onlarla konuşacağım.'
+          : '',
         bayrak(d, 'neslihanTavsiye') === 'ben'
           ? 'Marsilya\'da kapıda durdun, diyor. Burada da durur musun? Yoksa bu kapıdan yalnız mı girmeliyim?'
           : 'Sen ne dersin abi?',
-      ],
+      ].filter(Boolean),
       secenekler: [
         {
           etiket: 'Konuş. Adınla. Ben arkandayım.',
@@ -113,7 +126,7 @@ export const BOLUM30 = {
         },
         {
           etiket: 'Ben söyleyemem. Bu senin kararın.',
-          etki: (d) => ({ bayrak: { neslihanTanik: sayi(d, 'neslihanBag') >= 3 ? 'evet' : 'hayir' }, artir: { ikna: sayi(d, 'neslihanBag') >= 3 ? 2 : 0 } }),
+          etki: (d) => ({ bayrak: { neslihanTanik: kendiKarar(d) ? 'evet' : 'hayir' }, artir: { ikna: kendiKarar(d) ? 2 : 0 } }),
           sonra: 'neslihan_tanik_son',
         },
       ],

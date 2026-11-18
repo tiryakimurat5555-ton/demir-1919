@@ -107,6 +107,11 @@ for (const s of senaryolar) {
     d = sahneGec(d, s.karar);
     topla(M.sahneBilgisi(B, d).paragraflar);
     d = sahneGec(d);
+    expect(d.gorunum.id).toBe('tifo29');
+    topla(M.sahneBilgisi(B, d).paragraflar);
+    const tifo = ['Despina', 'Hafız Efendi gördüyse', 'Bilmiyorum'][senaryolar.indexOf(s)];
+    d = sahneGec(d, tifo);
+    expect(M.bayrak(d, 'zehraSoru')).toBe(['yaz', 'birak', 'suphe'][senaryolar.indexOf(s)]);
     expect(d.gorunum.id).toBe('son');
     expect(M.bayrak(d, 'bolumBitti')).toBe(true);
     for (const [k, v] of Object.entries(s.beklenen)) expect(M.bayrak(d, k)).toBe(v);

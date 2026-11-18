@@ -319,6 +319,9 @@ export const BOLUM34 = {
                 durust: 'Moda\'da Fikri\'ye bir soru sormuştum, diyor. Cevabı bende kaldı. Bir adam bir kâğıda imza atar; başka biri ölür.',
                 sessiz: 'Zürih\'ten beri kâğıtlara bakamıyorum, diyor. Şimdi yine kâğıt.',
               }[bayrak(d, 'cemilDefter')] || '',
+              bayrak(d, 'cemilNeden')
+                ? 'Yedi yıl önce morgda bana neden yardım ettiğimi sormuştun, diyor. Bir tanesi daha olmayacak demiştim. Şu koğuşta on bir çocuk var. Bir tanesi daha olmayacak, Arif.'
+                : '',
             ]
               .filter(Boolean)
               .join(' '),
@@ -370,9 +373,12 @@ export const BOLUM34 = {
         },
         sonra: {
           soz: (d) =>
-            bayrak(d, 'nerminImza') === 'ad'
+            (bayrak(d, 'nerminImza') === 'ad'
               ? 'Nermin kapıya bakıyor; jandarma orada, bir sandalyede, gazete okuyor. Beni korumak için mi, izlemek için mi, bilmiyorum, diyor. İkisi de aynı şey belki.'
-              : 'Nermin bir harfi kasaya geri koyuyor; Ş. Babanın harfleri hâlâ en iyileri, diyor. Kimse bunları dökemez artık.',
+              : 'Nermin bir harfi kasaya geri koyuyor; Ş. Babanın harfleri hâlâ en iyileri, diyor. Kimse bunları dökemez artık.') +
+            (bayrak(d, 'nerminNeden')
+              ? ' Cihangir\'de bana neden bu işin peşindesin diye sormuştun, diyor; kazanman lazım demiştim. Kazandın, hamal dedektif. Cevdet\'i, Sarıkamış\'ı anlattım sana. Ama asıl cevap şu: Kimse onu aramadı. Ben arıyorum.'
+              : ''),
           secenekler: [
             {
               etiket: 'İstanbul\'a gel. Kayıkhane senin de büron olur.',

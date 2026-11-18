@@ -343,6 +343,9 @@ export const BOLUM23 = {
           soz: (d) => [
             'Nermin masanın ucunda, defteri dizinde. Bu masayı yazacağım, diyor. Bir gün. Kimse inanmayacak.',
             bayrak(d, 'nerminCevdet') ? 'Atkıyı Lozan\'dan sonra taktım, diyor; boynundaki gri yünü gösteriyor. Nisan ama akşamları serin.' : 'İstanbul\'a dönmek tuhaf, diyor. Burada her köşe bir haber gibi.',
+            bayrak(d, 'nermineFotograf')
+              ? 'Kalliope\'de bana fotoğraftaki kızı anlatmıştın, diyor; Neslihan\'a bakarak. Ayva ağacı, kuyu, su serpen bir kız. Bulacağız demiştim. Kim olursa olsun. İşte o, masanın öbür ucunda.'
+              : '',
             bayrak(d, 'madalya') === 'anlat'
               ? 'Madalyan hâlâ o sandığın dibinde mi, diye soruyor birden. Cihangir\'de, beş yıl önce söylemiştin. Bir gün çıkar onu. Taşıdığın çuvallardan ağır gelmiyorsa artık.'
               : bayrak(d, 'madalya') === 'sakla'

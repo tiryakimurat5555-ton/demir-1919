@@ -309,6 +309,9 @@ export const BOLUM17 = {
           ? 'Kanatlı kalıp Kız Kulesi\'nin dibinde, denizde. Baban gülümsüyor. Kalıba gerek yok, diyor. Kalıbı yapan el burada. Bir parça kurşun, bir parça kalay; avucunda yeni bir kalıp şekillendiriyor: Ç.'
           : 'Baban takımın içinden kanatlı kalıbı çıkarıyor. On iki yıl önce Rivière için döktüğü kalıp. Uzun süre avucunda tutuyor. Sonra ocağa atıyor.',
         'Kalıp eriyor. Kanat, anahtar, 1908; hepsi gri bir sıvı olup potanın dibine akıyor.',
+        bayrak(d, 'takimVerildi')
+          ? 'Manastır cezaevinde Yusuf\'un takımını ellerine vermiştin; çekici tanımış, sis bir an çekilmişti. Bugün hiç sis yok. Çekiç onun elinde, kendi çekici.'
+          : '',
         'Baban o sıvıdan harf döküyor. Ç. Ğ. Ş. Ş. Ş. Bir sabah boyu. Her dökümde çekiçle kenarına vuruyor: tak, tak-tak, tak.',
         'Bu kalıpla zehir döktüm, diyor sonunda; sana değil, harflere. Şimdi bir gazete dökeyim.',
         'Nermin harfleri kasaya diziyor. İlk sayfanın ilk satırı: Ankara, 23 Nisan 1920.',
@@ -316,7 +319,7 @@ export const BOLUM17 = {
         'Sen avlunun kapısında duruyorsun. Karaköy rıhtımında, Aralık 1918\'de, sudan bir ceset çıkmıştı. Sabri. Bir ateşçi. Bir belge. Bir kanatlı anahtar.',
         'Şimdi kanatlı anahtar bir harf oldu.',
         'On yedinci bölümün sonu. Üçüncü kitabın sonu.',
-      ],
+      ].filter(Boolean),
       secenekler: [{ etiket: 'Devam', etki: { bayrak: { bolumBitti: true, kalipEridi: true } }, sonra: 'son' }],
     },
     son: {

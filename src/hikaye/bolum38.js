@@ -160,6 +160,13 @@ export const BOLUM38 = {
           sayfa: 'Neslihan bir adım atıyor. Bunu bana verin, diyor; Almanca, sakin. Vollmer bir süre bakıyor. Sonra sayfayı kendi eliyle defterden koparıp ona uzatıyor; kalanı ateşe atıyor. Altına bir satır ekledim, diyor. Yaşlı adamlar bir şey borçlu olduklarını bilir. Sayfada: Aracı B. Hâlâ yaşıyor. Buenos Aires.',
           birak: 'Bırakıyorsunuz. Defter yanıyor; sayfa sayfa. Vollmer son sayfayı ateşe atarken söylüyor: Bruno. Bir ad, diyor; size hediyem. Buenos Aires. Klara arkanda, kalemini çıkarıyor.',
         }[bayrak(d, 'kasa38')] || '',
+        bayrak(d, 'kasa38') === 'kurtar'
+          ? ({
+              deniz: 'Otelde yanık sayfaları çeviriyorsun. Aralık 1918: G., Kalliope, ödeme iptal; not: denizde. Garnier\'nin adı bir hesabın kapandığı satırda.',
+              zehir: 'Otelde yanık sayfaları çeviriyorsun. Aralık 1918: G., Kalliope, ödeme iptal; not: kendi kapsülü. Garnier\'nin adı bir hesabın kapandığı satırda.',
+              tutuklu: 'Otelde yanık sayfaları çeviriyorsun. Aralık 1918: G., Kalliope, tutuklu. Sonra her yıl: G., Marsilya, yıllık ödeme. 1922: serbest. Garnier yaşıyor; Vollmer onu yedi yıl beslemiş.',
+            }[bayrak(d, 'garnierSonuc')] || '')
+          : '',
         bayrak(d, 'vollmerSon38') === 'dusuruldu'
           ? 'Sabah İsviçre savcılığından iki adam bankaya geliyor; Klara çağırmış. Vollmer onları kendi odasında, çayını içerek bekliyor.'
           : 'Sabah Vollmer bankasında, başkan koltuğunda. Ama artık bir defteri yok; ve siz bir adı biliyorsunuz.',
@@ -177,6 +184,10 @@ export const BOLUM38 = {
           : 'Buenos Aires. Ferrante de orada olmalı; Cenevre\'den sonra izini kaybetmiştiniz.',
         'Rıza Bey gölün öbür kıyısına bakıyor. Arjantin, diyor. Bir vapur kırk gün. Benim yaşımda bir adam Arjantin\'e gitmez. Kimse bir şey söylemiyor; söylemesi gerekmiyor.',
         'Altıncı kitabın sonu.',
+        {
+          yaz: 'Otelin resepsiyonunda Niğde damgalı bir mektup. Despina Hanım yazmış: Hafız Efendi\'nin hanımı sağken anlatırdı, diyor. Zehra Hanım\'ı Florina\'da bir hastane arabasına verdiler. Hafız Efendi arabanın gidişini gördü; ölümünü görmedi. Neslihan mektubu iki kez okuyor. Üçüncüsünde sesli.',
+          suphe: 'Neslihan trende bir kelimeyi tekrarlıyor, sesini çıkarmadan: tifo. Marsilya\'dan beri. Melek\'in nüfus kâğıdında yazan kelime; annemizin ölümünde söylenen kelime.',
+        }[bayrak(d, 'zehraSoru')] || '',
       ].filter(Boolean),
       secenekler: [{ etiket: 'Devam', etki: { bayrak: { bolumBitti: true } }, sonra: 'son' }],
     },

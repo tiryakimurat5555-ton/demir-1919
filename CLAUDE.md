@@ -416,6 +416,12 @@
   kendi); 38. bölümde tazminatSonu → klara38 lozan (klaraLozan affet / hatirlat / sor), brunoSonu + rahelCevap → neslihan38 yarin
   (neslihanRahel ad [rahel_listesi] / kendi / sus; genel38'de Neslihan konuşursa satırı), suleymanSon + arifCevap → riza38 kaptan
   (rizaKar kal / dinlen / yol). agirlik38'e iki ek: Neslihan konuşur + neslihanRahel ad; Klara konuşur + klaraLozan affet.
+  17. adım (18 Kasım, baştan sona tarama: hiç okunmayan seçimler): suleymanNeden (1) → 32 kayik32; kemalSecim (21) → 32 kemal32;
+  neslihaneBaba (7) → 32 baba32_son; neslihanTeselli/8/9 → 30 neslihan_tanik (tesellier(d) dışa açık; "Ben söyleyemem" eşiği
+  neslihanBag + teselli >= 3); cemilNeden (2), nerminNeden (3) → 34; rizaHalim (5), babaBildi (32), gulceArama (33) → 37;
+  garnierSonuc (5) → 38 kasa38_son (kurtar; tutuklu ise Garnier yaşıyor); yaklasim (6) → 29 neslihan_hazir; takimVerildi (8) → 17
+  harf; nermineFotograf (5) → 23 nermin23. Yeni tohum: 29. bölüm tifo29 (melek_son → tifo29 → son; zehraSoru yaz/birak/suphe:
+  Hafız Efendi Zehra Hanım'ın ölümünü görmedi) → 38 son38 (Despina'nın mektubu: Florina'da hastane arabası). Yedinci kitap ipliği.
   testler/derinlik.test.js iplikleri denetler.
 - İPLİK KAYDI: src/hikaye/iplikler.js (IPLIKLER: bayrak, ekildi, karsiliklar, gelecek, durum). testler/iplikler.test.js
   bayrağın ekildiği bölümde yazıldığını, karşılık bölümlerinde '<bayrak>' olarak okunduğunu denetler. Yeni iplik ekleyince,

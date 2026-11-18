@@ -8,6 +8,13 @@ görme engelli oyuncular tarafından bağımsız oynanabilecek; VoiceOver ve Tal
 
 Tasarım taslağı: `belgeler/tasarim-taslagi.pdf`
 
+## Derinleştirme 17. adım (sürüm 0.57)
+
+Hikâye baştan sona tarandı; ilk bölümlerde sorulan sorular ve verilen sözler sonraki bölümlerde cevap buluyor: Süleyman'ın
+"seni neden bu limana aldım"ının öbür yarısı, Cemil'in "bir tanesi daha olmayacak"ı, Nermin'in "kazanman lazım"ı, Rıza'nın
+Halim'i, Arif'in Neslihan'a söylediği üç teselli (Cenevre'deki kararına güç verir), Garnier'nin sonu. Yeni bir tohum:
+Marsilya'da Neslihan annelerinin "tifo"sundan şüphelenir.
+
 ## Derinleştirme 16. adım (sürüm 0.56)
 
 Altıncı kitabın bölümlerine geri dönen anlar: Ankara'da Nermin madalyanın öbür yarısını sorar; İzmir'de Neslihan yangın

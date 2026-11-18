@@ -588,3 +588,40 @@ test('Zürih\'te Lozan, Bruno, Rahel ve kaptanın son gecesi', async () => {
   expect(M.bayrak(r.d, 'rizaKar')).toBe('yol');
   expect(M.sayi(r.d, 'rizaBag')).toBe(2);
 });
+
+// 17. adım (bütün hikâye taraması): ilk bölümlerin sözleri ve teselliler sonraki bölümlerde geri döner;
+// 29. bölümde yeni tohum: Zehra Hanım'ın "tifo"su (zehraSoru) → 38.
+test('ilk bölümlerin soruları sonraki bölümlerde cevap bulur', async () => {
+  const B = {};
+  for (const n of [17, 23, 29, 30, 32, 34, 37, 38]) B[n] = (await import('../src/hikaye/bolum' + n))['BOLUM' + n];
+  const p = (n, id, b) => M.sahneBilgisi(B[n], durum(B[n], b, { tur: 'sahne', id })).paragraflar.join(' ');
+  const soz = (n, kisi, dugum, b) => [].concat(M.dugumBilgisi(B[n], durum(B[n], b, { tur: 'konusma', kisi, dugum })).soz).join(' ');
+  expect(p(32, 'kayik32', { suleymanNeden: true })).toContain('Kemal gittikten sonra');
+  expect(p(32, 'kayik32', {})).not.toContain('Kemal gittikten sonra');
+  expect(soz(32, 'kemal32', 'ilk', { kemalSecim: 'aradi', kemalKalir: true })).toContain('Yüz on dört');
+  expect(p(32, 'baba32_son', { neslihaneBaba: true, babaBildi: 'el' })).toContain('Bizim babamız');
+  expect(soz(34, 'cemil34', 'ilk', { cemilNeden: true })).toContain('on bir çocuk');
+  expect(soz(34, 'nermin34', 'sonra', { nerminNeden: true })).toContain('Kazandın, hamal dedektif');
+  expect(p(37, 'riza37', { rizaHalim: true })).toContain('Halim için üzgünüm');
+  expect(p(37, 'baba37', { babaBildi: 'arif' })).toContain('sen başlatmıştın');
+  expect(soz(37, 'gulce37', 'ilk', { gulceArama: 'birlikte' })).toContain('İlk davamız');
+  expect(p(17, 'harf', { takimVerildi: true })).toContain('kendi çekici');
+  expect(soz(23, 'nermin23', 'ilk', { nermineFotograf: true })).toContain('masanın öbür ucunda');
+  expect(p(29, 'neslihan_hazir', { yaklasim: 'abi' })).toContain('Üç kelime');
+  expect(p(38, 'kasa38_son', { kasa38: 'kurtar', garnierSonuc: 'tutuklu' })).toContain('Garnier yaşıyor');
+  expect(p(38, 'kasa38_son', { kasa38: 'sayfa', garnierSonuc: 'tutuklu' })).not.toContain('Garnier');
+  expect(p(38, 'son38', { zehraSoru: 'yaz' })).toContain('ölümünü görmedi');
+  expect(p(38, 'son38', { zehraSoru: 'suphe' })).toContain('tifo');
+});
+
+test('Arif\'in üç tesellisi Cenevre\'de Neslihan\'ın kararına güç verir', async () => {
+  const { BOLUM30, tesellier } = await import('../src/hikaye/bolum30');
+  const b = { neslihanTeselli: true, neslihanTeselli8: true, neslihanTeselli9: true, neslihanBag: 0 };
+  expect(tesellier(durum(BOLUM30, b, {}))).toHaveLength(3);
+  const s = M.sahneBilgisi(BOLUM30, durum(BOLUM30, b, { tur: 'sahne', id: 'neslihan_tanik' }));
+  expect(s.paragraflar.join(' ')).toContain('Mutlu olman suç değil');
+  const d = M.sahneSec(BOLUM30, durum(BOLUM30, b, { tur: 'sahne', id: 'neslihan_tanik' }), s.secenekler.find((x) => x.etiket.startsWith('Ben söyleyemem'))).durum;
+  expect(M.bayrak(d, 'neslihanTanik')).toBe('evet');
+  const d2 = M.sahneSec(BOLUM30, durum(BOLUM30, { neslihanBag: 0 }, { tur: 'sahne', id: 'neslihan_tanik' }), s.secenekler.find((x) => x.etiket.startsWith('Ben söyleyemem'))).durum;
+  expect(M.bayrak(d2, 'neslihanTanik')).toBe('hayir');
+});

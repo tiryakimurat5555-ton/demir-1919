@@ -82,6 +82,11 @@ export const BOLUM29 = {
         ['kardes', 'nefes'].includes(bayrak(d, 'arifGece')) || ['durust', 'sonra_durust'].includes(bayrak(d, 'kardesGecesi'))
           ? 'Bana Viyana\'yı anlatmıştın, diyorsun; Zürih\'te, göl kıyısında. Hiç kimseye anlatmadığın şeyleri.'
           : 'Neslihan sana Viyana yıllarını hiç anlatmadı. Belki bugün de anlatmayacak.',
+        {
+          kurye: 'Olympos\'ta bana ilk ne dediğini hatırlıyor musun? Herr Brenner\'in yerine geldim. Bir mektup uzattın. Abim olduğunu iki saat sonra söyledin.',
+          hamal: 'Olympos\'ta bana ilk ne dediğini hatırlıyor musun? Ben beklediğiniz hamalım. Bir hamalın yüzüne bakmadım bile; sonra baktım.',
+          abi: 'Olympos\'ta bana ilk ne dediğini hatırlıyor musun? Neslihan. Ben Arif. Abin. Üç kelime. Melek\'e de üç kelime mi söylemeliyim?',
+        }[bayrak(d, 'yaklasim')] || '',
         bayrak(d, 'cocukKarar') === 'yanina'
           ? 'Zehra\'ya mektup yazdım dün, diyor Neslihan. Annemizin adını taşıyan kıza. Bir gün bana neden bu adı verdin diye sorarsa ona anlatacağım. Melek\'e de öyle mi anlatmalıyım?'
           : '',
@@ -163,7 +168,35 @@ export const BOLUM29 = {
         'Vieux-Port\'ta akşam. Rıza Bey kahvede, makbuz defterinin başında. On beş ad kaldı, diyor. Neslihan sana bakıyor: On beş kapı.',
         'Yirmi dokuzuncu bölümün sonu.',
       ].filter(Boolean),
-      secenekler: [{ etiket: 'Devam', etki: (d) => ({ bayrak: { bolumBitti: true, melekTanik: bayrak(d, 'ferranteKarar') === 'cenevre' && guvenli(d) && delilVar(d, 'melek_tanikligi'), davidItiraf: bayrak(d, 'davidItiraf') === false ? 'sonra' : bayrak(d, 'davidItiraf') } }), sonra: 'son' }],
+      secenekler: [{ etiket: 'Devam', etki: (d) => ({ bayrak: { bolumBitti: true, melekTanik: bayrak(d, 'ferranteKarar') === 'cenevre' && guvenli(d) && delilVar(d, 'melek_tanikligi'), davidItiraf: bayrak(d, 'davidItiraf') === false ? 'sonra' : bayrak(d, 'davidItiraf') } }), sonra: 'tifo29' }],
+    },
+    // Derinleştirme 17. adım: Fikri'nin "tifo" yalanı Neslihan'a annesini düşündürür (6. bölüm Hafız Efendi'nin yarım cümlesi).
+    tifo29: {
+      ortam: 'ortam_napoli',
+      ortamOran: 0.4,
+      baslik: 'Tifo',
+      paragraflar: [
+        'Gece, pansiyonun balkonu. Neslihan elinde Gülce\'nin telgrafıyla oturuyor. Tifo, diyor. Bin dokuz yüz on iki. Fikri bir kızın ölümünü bir kâğıda tifo diye yazdırmış.',
+        'Annemiz de tifodan öldü, dediler. Selanik\'te Hafız Efendi anlatmıştı, hatırlıyor musun? Florina\'yı geçmeden ateşlendi, dedi. Bir sabah arabada... Sonra Allah rahmet eylesin. Cümlesini bitirmedi abi. Hiç bitirmedi.',
+        'Hafız Efendi geçen kış öldü. O arabada başka kim vardı?',
+      ],
+      secenekler: [
+        {
+          etiket: 'Despina Hanım\'a yazalım. Niğde\'de; Hafız Efendi\'nin komşusu. Bir şey bilen biri kalmıştır.',
+          etki: { bayrak: { zehraSoru: 'yaz' }, artir: { neslihanBag: 1 } },
+          sonra: 'son',
+        },
+        {
+          etiket: 'Hafız Efendi gördüyse gördü. Bırak, Neslihan. Bunu taşıyamayız.',
+          etki: { bayrak: { zehraSoru: 'birak' } },
+          sonra: 'son',
+        },
+        {
+          etiket: 'Bilmiyorum. Ama bir binbaşı bir kâğıda tifo yazabiliyorsa, başkası da yazmış olabilir.',
+          etki: { bayrak: { zehraSoru: 'suphe' } },
+          sonra: 'son',
+        },
+      ],
     },
     son: {
       ortam: 'ortam_napoli',

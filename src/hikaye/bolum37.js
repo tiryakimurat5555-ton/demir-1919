@@ -69,9 +69,14 @@ export const BOLUM37 = {
           korundu: 'Zürih damgalı zarf masada; açılmış. İçinde bir fotoğraf: kırmızı sayfa. Benim adım, diyor. Biri beni korumak istemiş; biri de korumanın işe yaramadığını göstermek. Neslihan anlattı; Ankara\'da bir kanıtı benim için geri çekmişsin. Yapmamalıydın.',
           coktan: 'Masada Manastır\'dan gelen mektup. Ben kendi adımı kendim söyledim, diyor. Ama birinin cevabını beklemedim. İşte cevap.',
         }[bayrak(d, 'babaSayfa')] || 'Masada Manastır\'dan gelen bir mektup.',
+        {
+          neslihan: 'Yatağın başında Cenevre\'deki rapor; Neslihan\'ın kendi sesiyle anlattığı gece hâlâ odada.',
+          arif: 'Yatağın başında Cenevre\'deki rapor. Hikâyeyi bir yıl önce sen başlatmıştın, Neslihan bitirmişti.',
+          el: 'Bir yıl önce Neslihan\'ın elini avucunda öylece tutmuştu; söz yoktu. Şimdi söz var; gazetede.',
+        }[bayrak(d, 'babaBildi')] || '',
         'Merdivende ayak sesleri. Ohannes Usta kapıyı aralıyor: Bir ihtiyar, diyor. Manastır\'dan. Adı Hüseyin. Seni soruyor, İsmail.',
         'Kapıda bembeyaz sakallı bir adam; elinde bir baston, bir de sararmış bir fotoğraf: on dokuz yaşında bir delikanlı, asker kaputu içinde. Oğlum, diyor Hüseyin Efendi. Bin dokuz yüz on iki. Kendi tüfeğiyle değil; bir komitacının tüfeğiyle. Sandığın üstünde bir kanat varmış. Gazetede okudum.',
-      ],
+      ].filter(Boolean),
       secenekler: [
         {
           etiket: 'Babanın yanında dur. Konuşacak olan o; sen yalnızca orada ol.',
@@ -118,6 +123,9 @@ export const BOLUM37 = {
         bayrak(d, 'rizaBaba') === 'sor'
           ? 'Babam sormuştu, diyor; o gece karakolun kapısında. Bu çocuğa adil olacak mısın, Rıza? Sana anlatmıştım. Cevap vermedim. Şimdi veriyorum: Olmadım.'
           : 'Babam imamdı, diyor. Kasımpaşa\'da. Bir gece karakolun kapısında bekledi. Bana bir şey sordu; ben cevap vermedim. Şimdi bu taşa cevap vermem lazım.',
+        bayrak(d, 'rizaHalim')
+          ? 'Birkaç sıra ötede adsız bir taş daha; Halim\'in. Kalliope\'de bana Halim için üzgünüm demiştin, diyor Rıza Bey. Kimse dememişti. İkisini de ben yetiştirdim, Arif; birini dövdüm, ötekine dövmeyi öğrettim.'
+          : '',
       ].filter(Boolean),
       secenekler: [
         {
@@ -276,9 +284,13 @@ export const BOLUM37 = {
       dugumler: {
         ilk: {
           soz: (d) =>
-            bayrak(d, 'kayikhaneVaris') === 'hepimiz'
+            (bayrak(d, 'kayikhaneVaris') === 'hepimiz'
               ? 'Gülce kapıdaki levhaya bakıyor. Kim kaybolduysa, buradan aranır, diyor. Rıza Bey\'in kaybettiği biri de sayılır mı? Sayılır.'
-              : 'Gülce defterini kapatıyor. Bugün kimse gelmedi, diyor. Belki bugün biz gideriz.',
+              : 'Gülce defterini kapatıyor. Bugün kimse gelmedi, diyor. Belki bugün biz gideriz.') +
+            ({
+              birlikte: ' Bursa\'ya birlikte gitmiştik, diyor; Tevfik\'in hanına. İlk davamız. Bugün de birlikte mi?',
+              yalniz: ' Bursa\'da merdivenin başında beklemiştim, diyor; Selim için. Bugün beklemeyeceğim.',
+            }[bayrak(d, 'gulceArama')] || ''),
           secenekler: [
             {
               etiket: 'Tevfik\'ten haber var mı?',
