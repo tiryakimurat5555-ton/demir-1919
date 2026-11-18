@@ -307,6 +307,15 @@
   → rahel31_ninni (Dandini dastana: ambarda Neslihan öğretmişti, annesi Zehra Hanım'ın ninnisi; rahelKarar rahel/birlikte/
   ayri, rahel_listesi) → rahel31_son → son. Karşılıklar: kurulSonu30, neslihanTanik, melekKarar, cemilTanik,
   neslihanTavsiye, cocukKarar. Yeni iplikler rahel_karar, cemil_eleni.
+- Otuz ikinci bölüm "Pusula" (src/hikaye/bolum32.js; beşinci kitabın sonu): 12-14 Eylül 1924 İstanbul. Delil/çıkarım yok;
+  Süleyman Kaptan'ın son gecesi. Mekânlar kayikhane32 (suleyman32 → suleymanHazir; cemil32 [cemilEleni], kemal32 [kemalKalir
+  ya da kemalSonu yolcu], neslihan32), han32 (oda32 → baba32: tanıklık babaya ulaşır, babaBildi neslihan/arif/el;
+  neslihanTanik, neslihanAd, mektupKarar, babaItiraf satırları). Olay gece32 (babaBildi + suleymanHazir, kayıkhanede) →
+  kayik32 (Karaköy; arifNeden'e dönüş, arifCevap onlar/kaptan/kendim; arif_neden kapandı) → kayik32_kule (kuleSecim satırı;
+  pusulaKime kemal/arif/deniz) → kayik32_safak (ortam_safak32; suleymanSon ninni/anlat/sus) → kayik32_son (Süleyman ölür) →
+  vasiyet32 (Karacaahmet; "Kayıkhane, aramayı bırakmayanındır"; kayikhaneVaris kemal/gulce/hepimiz; gulceTevfik satırı) →
+  zarf32 (gulceZarf acti/sakla: Tevfik'in kardeşi Selim, Bursa) → kapanis32 → son ("Altıncı kitap yazılıyor").
+  Seçenek etiketi durumdan bağımsız dize olmalı: iki farklı etiket gerekiyorsa iki seçenek + kosul.
 - DERİNLEŞTİRME KARARI (17 Kasım, Murat: "Derinleştir"): yeni bölüm yazmaya ara; önce var olan bölümler derinleşir.
   Plan ve yapılanlar belgeler/hikaye-plani.md "Derinleştirme" bölümünde. 1. adım: arifNeden (1. bölüm gece_konusma →
   6. bölüm arifNedenSatiri, 8. bölüm tahliye), haticeSozu (1. bölüm mektup → 2. cenaze → 17. hatice17), Pendle tohumu

@@ -192,8 +192,11 @@ export const BOLUM31 = {
       ortam: 'ortam_iskenderiye',
       ortamOran: 0.45,
       baslik: 'Otuz birinci bölüm bitti',
-      paragraflar: ['Kararların kaydedildi. Otuz ikinci bölüm yazılıyor.'],
-      secenekler: [{ etiket: 'Ana menüye dön', anaMenu: true }],
+      paragraflar: ['Kararların kaydedildi. Sırada otuz ikinci bölüm: Pusula.'],
+      secenekler: [
+        { etiket: '32. bölüme geç', sonrakiBolum: 'bolum32' },
+        { etiket: 'Ana menüye dön', anaMenu: true },
+      ],
     },
   },
 

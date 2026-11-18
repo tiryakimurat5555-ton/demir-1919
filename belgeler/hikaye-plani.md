@@ -272,3 +272,9 @@ Sıradakiler:
 Ninni (Dandini dastana) Zehra Hanım'dan Neslihan'a, Neslihan'dan ambarda Rahel'e geçti. Cemil ile Eleni kararı
 (cemilEleni). Sonrası: rahelKarar'a göre Beyrut/Kahire kapıları; beşinci kitabın kapanışı İstanbul'da (Süleyman, kemalKalir;
 Neslihan'ın tanıklığı babasına ulaşır).
+
+## Otuz ikinci bölüm: Pusula (yazıldı; beşinci kitabın sonu)
+İstanbul, Eylül 1924. Neslihan'ın tanıklığı babaya ulaşır (babaBildi). Süleyman Kaptan kayıkta, şafakta ölür; Arif
+birinci bölümdeki soruya cevap verir (arifCevap; arif_neden kapandı). Pusula (pusulaKime), kayıkhane (kayikhaneVaris),
+Süleyman'ın Gülce'ye zarfı (gulceZarf: Tevfik'in kardeşi Selim, Bursa; 1913'te Kâmil Efendi'nin dosyasını çıkaran o).
+Altıncı kitap için: kayıkhane üs olur; Selim; Rahel ile Beyrut; Melek'in annesi; Cemil ile Eleni; Rıza'nın Yakup'u.

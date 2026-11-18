@@ -72,6 +72,7 @@ const KAYNAKLAR = {
   ortam_mubadele: require('../../assets/ses/ortam_mubadele.wav'),
   ortam_napoli: require('../../assets/ses/ortam_napoli.wav'),
   ortam_iskenderiye: require('../../assets/ses/ortam_iskenderiye.wav'),
+  ortam_safak32: require('../../assets/ses/ortam_safak32.wav'),
   top: require('../../assets/ses/top.wav'),
   sandik: require('../../assets/ses/sandik.wav'),
   ani_savas: require('../../assets/ses/ani_savas.wav'),
@@ -134,6 +135,7 @@ const DONGULER = {
   ortam_mubadele: 0.5,
   ortam_napoli: 0.5,
   ortam_iskenderiye: 0.5,
+  ortam_safak32: 0.5,
 };
 
 const oynaticilar = {};

@@ -8,6 +8,12 @@ görme engelli oyuncular tarafından bağımsız oynanabilecek; VoiceOver ve Tal
 
 Tasarım taslağı: `belgeler/tasarim-taslagi.pdf`
 
+## Şu anki aşama: 38 — otuz ikinci bölüm: Pusula (beşinci kitabın sonu)
+
+İstanbul, Eylül 1924. Süleyman Kaptan'ın kalbi yoruldu. Neslihan önce Cenevre'deki tanıklığını babasına götürür; sonra
+Süleyman'ın son isteği: Nevres'ten kalan pusulayla bir gece denize çıkmak. Karaköy'de altı yıl önceki soru, Kız Kulesi'nde
+pusulanın kime kalacağı, Fenerbahçe açığında şafak. Yeni ortam sesi: Boğaz'da şafak.
+
 ## Şu anki aşama: 37 — otuz birinci bölüm: Ninni
 
 İskenderiye, Temmuz 1924. Makbuz defterindeki bir ad ve bir komşunun ifadesi, sizi Rahel'e götürür: 1912'deki ambardan
