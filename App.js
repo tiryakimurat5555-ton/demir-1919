@@ -25,7 +25,7 @@ import { ayarlarOku, ayarlarYaz, kayitOku, kayitSil, VARSAYILAN_AYARLAR } from '
 const HAKKINDA_METNI = [
   'Demir 1919. 1918 ile 1923 arasında, işgal altındaki İstanbul\'da başlayan bir tarihsel macera ve dedektiflik oyunu.',
   'Oyundaki gizli örgüt ve olay örgüsü kurgudur. Gerçek tarihî olaylar arka plan olarak kullanılır.',
-  'Sürüm 0.61 (konumsal ses denemesi): Sudaki Adam, Ölüler Konuşur, On Yedi Numara, Kül, Kalliope, Hotel Olympos, Montaigne, Kalay, Imperial, Kurşun Mühür, Kordon, İmza, Satranç, Que sais-je?, Genel Kurul, 16 Mart, Kağnı, Kinin, Yeşil Mürekkep, Tarife, Arethusa, Üç Akşam, Sofra, Baston, Kırmızı Sayfalar, Zarf, Moda, Cehennem Otuz Üç, Melek, Tanıklar, Ninni, Pusula, Koza, Tebeşir, İncir, İhale, Taş, Kar, Ekvator, Calle Junín, İskele Taşı.',
+  'Sürüm 0.62 (konumsal ses denemeleri): Sudaki Adam, Ölüler Konuşur, On Yedi Numara, Kül, Kalliope, Hotel Olympos, Montaigne, Kalay, Imperial, Kurşun Mühür, Kordon, İmza, Satranç, Que sais-je?, Genel Kurul, 16 Mart, Kağnı, Kinin, Yeşil Mürekkep, Tarife, Arethusa, Üç Akşam, Sofra, Baston, Kırmızı Sayfalar, Zarf, Moda, Cehennem Otuz Üç, Melek, Tanıklar, Ninni, Pusula, Koza, Tebeşir, İncir, İhale, Taş, Kar, Ekvator, Calle Junín, İskele Taşı.',
 ];
 
 const HAREKETLER = [
@@ -117,7 +117,7 @@ export default function App() {
 
   // Menülerde rıhtımın sesi uzaktan duyulur; oyunda ortamı Oyun ekranı yönetir
   useEffect(() => {
-    if (hazir && ekran !== 'oyun' && ekran !== 'sesdeneme') ortamCal('ortam_rihtim', 0.45);
+    if (hazir && ekran !== 'oyun' && ekran !== 'sesdeneme' && ekran !== 'sesdeneme2') ortamCal('ortam_rihtim', 0.45);
   }, [hazir, ekran]);
 
   let icerik = null;
@@ -144,6 +144,12 @@ export default function App() {
             etiket: 'Konumsal ses denemesi',
             ipucu: 'Yeni oyunun ilk denemesi. Kulaklıkla sesin yönünü dinlersin.',
             sec: () => setEkran('sesdeneme'),
+          },
+          {
+            id: 'sesdeneme2',
+            etiket: 'Gerçek seslerle deneme',
+            ipucu: 'Köpek, vapur düdüğü ve kilise çanı; oyunun kendi ses dosyalarıyla.',
+            sec: () => setEkran('sesdeneme2'),
           },
           { id: 'hareket', etiket: 'Hareketler', ipucu: 'Oyunu nasıl kullanacağını anlatır.', sec: () => setEkran('hareketler') },
           { id: 'hakkinda', etiket: 'Hakkında', sec: () => setEkran('hakkinda') },
@@ -172,6 +178,8 @@ export default function App() {
         ]}
       />
     );
+  } else if (ekran === 'sesdeneme2') {
+    icerik = <SesDenemesi key={'sesdeneme2' + girisNo} gercek onGeri={menuyeDon} />;
   } else if (ekran === 'sesdeneme') {
     icerik = <SesDenemesi key={'sesdeneme' + girisNo} onGeri={menuyeDon} />;
   } else if (ekran === 'ayarlar') {

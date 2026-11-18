@@ -417,3 +417,5 @@ ambarda ona Neslihan öğretmiştir. Yeni ortam sesi: İskenderiye limanı.
 ## 0 — başlangıç iskeleti
 
 - GitHub → Expo yayın hattı (main dalına her gönderimde Expo Go güncellemesi)
+
+- Sürüm 0.62: gerçek ses dosyalarıyla konumsal ses denemesi (köpek, vapur düdüğü, kilise çanı).

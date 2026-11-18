@@ -8,11 +8,15 @@
 //   dinleyici(d)                     { x, y, yon } dinleyicinin yeri ve yönü
 //   adim()                           ayak sesi (dinleyicinin kendi yerinde)
 //   model(ad)                        'HRTF' ya da 'equalpower'
+//   yukle(ad, modul)                 bir ses dosyasını (require ile) motora yükler; tek kanala indirir
+//   dosyaKaynak(id, ad, nokta, aralik) yüklenmiş sesi bir noktadan, aralik ms'de bir çalar
 //   durdur()
 // Motor hazır olunca ve hata olursa onMesaj({ tur, ... }) çağrılır.
 import React, { forwardRef, useImperativeHandle, useRef } from 'react';
 import { StyleSheet, View } from 'react-native';
 import { WebView } from 'react-native-webview';
+import { Asset } from 'expo-asset';
+import * as DosyaSistemi from 'expo-file-system';
 import { sesKoordinati, sesYonu } from '../oyun/konum';
 
 // WebView içinde çalışan motor. Bütün sesler kodla üretilir; dosya taşınmaz.
@@ -76,9 +80,41 @@ const MOTOR_HTML = `<!DOCTYPE html><html><head><meta charset="utf-8"></head><bod
     g.gain.setValueAtTime(0.5, t); g.gain.exponentialRampToValueAtTime(0.0001, t + 0.08);
     s.connect(f); f.connect(g); g.connect(ana); s.start(t);
   }
+  var tamponlar = {};
+  // Base64 WAV'ı çözer; iki kanallıysa tek kanala indirir (konumlandırma tek kanallı seste doğru çalışır)
+  function yukle(ad, b64){
+    baglam();
+    var ikili = atob(b64), dizi = new Uint8Array(ikili.length);
+    for (var i = 0; i < ikili.length; i++) dizi[i] = ikili.charCodeAt(i);
+    ctx.decodeAudioData(dizi.buffer, function(t){
+      var tek = t;
+      if (t.numberOfChannels > 1){
+        tek = ctx.createBuffer(1, t.length, t.sampleRate);
+        var c = tek.getChannelData(0), a = t.getChannelData(0), b = t.getChannelData(1);
+        for (var j = 0; j < c.length; j++) c[j] = (a[j] + b[j]) * 0.5;
+      }
+      tamponlar[ad] = tek;
+      bildir({ tur: 'dosyaHazir', ad: ad, sure: t.duration });
+    }, function(e){ bildir({ tur: 'hata', metin: 'Çözülemedi: ' + ad + ' ' + String(e) }); });
+  }
+  function dosyaCal(k){
+    var t = tamponlar[k.ad]; if (!t) return;
+    var s = ctx.createBufferSource(); s.buffer = t; s.connect(k.p); s.start();
+  }
+  function dosyaKaynak(id, ad, n, aralik){
+    baglam();
+    var k = kaynaklar[id];
+    if (k){ if (k.zaman) clearInterval(k.zaman); if (k.durdur) k.durdur(); }
+    k = { tur: 'dosya', ad: ad, p: k ? k.p : panner() };
+    kaynaklar[id] = k;
+    konumla(k.p, n);
+    dosyaCal(k);
+    k.zaman = setInterval(function(){ dosyaCal(k); }, aralik);
+  }
   function kaynak(id, tur, n){
     baglam();
     var k = kaynaklar[id];
+    if (k && k.tur === 'dosya') { konumla(k.p, n); return; }
     if (!k || k.tur !== tur){
       if (k && k.durdur) k.durdur();
       if (k && k.zaman) clearInterval(k.zaman);
@@ -112,6 +148,8 @@ const MOTOR_HTML = `<!DOCTYPE html><html><head><meta charset="utf-8"></head><bod
         else if (c.ad === 'kaynak') kaynak(c.id, c.tur, c.n);
         else if (c.ad === 'dinleyici') dinleyici(c.n, c.y);
         else if (c.ad === 'adim') { baglam(); adimCal(); }
+        else if (c.ad === 'yukle') yukle(c.dosya, c.veri);
+        else if (c.ad === 'dosyaKaynak') dosyaKaynak(c.id, c.dosya, c.n, c.aralik);
         else if (c.ad === 'model') modelSec(c.model);
         else if (c.ad === 'durdur') durdur();
       } catch(e){ bildir({ tur: 'hata', metin: String(e) }); }
@@ -120,6 +158,15 @@ const MOTOR_HTML = `<!DOCTYPE html><html><head><meta charset="utf-8"></head><bod
   bildir({ tur: 'yuklendi' });
 })();
 </script></body></html>`;
+
+// Paketteki ses dosyasını base64 olarak okur (Expo Go'da varlık önce cihaza indirilir)
+export async function sesDosyasiOku(modul) {
+  const varlik = Asset.fromModule(modul);
+  await varlik.downloadAsync();
+  const uri = varlik.localUri || varlik.uri;
+  if (DosyaSistemi.File) return new DosyaSistemi.File(uri).base64();
+  return DosyaSistemi.readAsStringAsync(uri, { encoding: 'base64' });
+}
 
 function KonumsalSes({ onMesaj }, ref) {
   const web = useRef(null);
@@ -133,6 +180,15 @@ function KonumsalSes({ onMesaj }, ref) {
     adim: () => gonder({ ad: 'adim' }),
     model: (ad) => gonder({ ad: 'model', model: ad }),
     durdur: () => gonder({ ad: 'durdur' }),
+    yukle: async (ad, modul) => {
+      try {
+        const veri = await sesDosyasiOku(modul);
+        gonder({ ad: 'yukle', dosya: ad, veri });
+      } catch (e) {
+        if (onMesaj) onMesaj({ tur: 'hata', metin: 'Dosya okunamadı: ' + ad + ' ' + String(e && e.message ? e.message : e) });
+      }
+    },
+    dosyaKaynak: (id, ad, nokta, aralik) => gonder({ ad: 'dosyaKaynak', id, dosya: ad, n: sesKoordinati(nokta), aralik }),
   }));
   return (
     <View style={stiller.gizli} pointerEvents="none" importantForAccessibility="no-hide-descendants" accessibilityElementsHidden>

@@ -21,6 +21,8 @@
   önce Expo Go içinde görünmez WebView + Web Audio (PannerNode HRTF) deneniyor: src/ses/konumsal.js, src/ekran/SesDenemesi.js,
   src/oyun/konum.js (x doğu, y kuzey, yon 0 kuzey saat yönü; saatYonu, tarif), sürüm 0.61 ana menü "Konumsal ses denemesi".
   DOĞRULANDI (18 Kasım, Murat iPhone'da denedi: "Ses işi süper oldu"): WebView + Web Audio konumsal ses Expo Go'da çalışıyor.
+  Sürüm 0.62: "Gerçek seslerle deneme" (SesDenemesi gercek): assets/ses/konumsal/*.wav (tek kanallı kopyalar) expo-asset +
+  expo-file-system ile base64 okunup WebView'e gönderilir (konumsal.js yukle/dosyaKaynak, decodeAudioData). Telefonda denenmedi.
   react-native-audio-api yalnız equalpower (HRTF yok) ve Expo Go'da yok; WebView işe yaramazsa TestFlight + kendi uygulama.
   EAS iOS derlemesi (kredi harcar) Murat'a sormadan başlatılmaz. ASC API anahtarı Murat'ın özel Deneme deposunda (gizli/);
   herkese açık depoya asla yazılmaz.
