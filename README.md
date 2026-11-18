@@ -8,6 +8,12 @@ görme engelli oyuncular tarafından bağımsız oynanabilecek; VoiceOver ve Tal
 
 Tasarım taslağı: `belgeler/tasarim-taslagi.pdf`
 
+## Şu anki aşama: 47 — otuz sekizinci bölüm: Kar (altıncı kitabın sonu)
+
+Zürih, Ocak 1926. Banque Vollmer'in olağanüstü genel kurulu. Altı kitap boyunca verdiğin kararlar terazide birikir:
+İhale, Nuri Bey'in imzası, Pendle'in tanıklığı, Albrecht, Cemil'in raporu, Neslihan'ın mirası. Kim konuşacak: Klara,
+Neslihan ya da Rıza Bey. Gece bankanın kasasında yangın; ateşten ne kurtarılır? Son satır: Buenos Aires.
+
 ## Şu anki aşama: 46 — otuz yedinci bölüm: Taş
 
 İstanbul, Kasım 1925. İki iz, bir gün. Babanın kapısına Manastır'dan bir ihtiyar gelir; oğlu 1912'de kanatlı mühürlü

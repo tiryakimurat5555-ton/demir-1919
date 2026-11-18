@@ -36,6 +36,7 @@ import { BOLUM34 } from './bolum34';
 import { BOLUM35 } from './bolum35';
 import { BOLUM36 } from './bolum36';
 import { BOLUM37 } from './bolum37';
+import { BOLUM38 } from './bolum38';
 
-export const BOLUMLER = { bolum1: BOLUM1, bolum2: BOLUM2, bolum3: BOLUM3, bolum4: BOLUM4, bolum5: BOLUM5, bolum6: BOLUM6, bolum7: BOLUM7, bolum8: BOLUM8, bolum9: BOLUM9, bolum10: BOLUM10, bolum11: BOLUM11, bolum12: BOLUM12, bolum13: BOLUM13, bolum14: BOLUM14, bolum15: BOLUM15, bolum16: BOLUM16, bolum17: BOLUM17, bolum18: BOLUM18, bolum19: BOLUM19, bolum20: BOLUM20, bolum21: BOLUM21, bolum22: BOLUM22, bolum23: BOLUM23, bolum24: BOLUM24, bolum25: BOLUM25, bolum26: BOLUM26, bolum27: BOLUM27, bolum28: BOLUM28, bolum29: BOLUM29, bolum30: BOLUM30, bolum31: BOLUM31, bolum32: BOLUM32, bolum33: BOLUM33, bolum34: BOLUM34, bolum35: BOLUM35, bolum36: BOLUM36, bolum37: BOLUM37 };
+export const BOLUMLER = { bolum1: BOLUM1, bolum2: BOLUM2, bolum3: BOLUM3, bolum4: BOLUM4, bolum5: BOLUM5, bolum6: BOLUM6, bolum7: BOLUM7, bolum8: BOLUM8, bolum9: BOLUM9, bolum10: BOLUM10, bolum11: BOLUM11, bolum12: BOLUM12, bolum13: BOLUM13, bolum14: BOLUM14, bolum15: BOLUM15, bolum16: BOLUM16, bolum17: BOLUM17, bolum18: BOLUM18, bolum19: BOLUM19, bolum20: BOLUM20, bolum21: BOLUM21, bolum22: BOLUM22, bolum23: BOLUM23, bolum24: BOLUM24, bolum25: BOLUM25, bolum26: BOLUM26, bolum27: BOLUM27, bolum28: BOLUM28, bolum29: BOLUM29, bolum30: BOLUM30, bolum31: BOLUM31, bolum32: BOLUM32, bolum33: BOLUM33, bolum34: BOLUM34, bolum35: BOLUM35, bolum36: BOLUM36, bolum37: BOLUM37, bolum38: BOLUM38 };
 export const ILK_BOLUM = BOLUM1;

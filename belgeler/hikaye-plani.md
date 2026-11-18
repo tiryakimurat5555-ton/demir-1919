@@ -307,3 +307,9 @@ Altıncı kitap için: kayıkhane üs olur; Selim; Rahel ile Beyrut; Melek'in an
   babanın sayfası (babaSayfa) ve Rıza'nın Yakup'u (rizaKorku) bir arada; sonra Zürih.
 - 37. bölüm "Taş" (Kasım 1925, İstanbul): baba ve Hüseyin Efendi (babaYuz); Rıza ve Yakup'un taşı (rizaMezar); Klara'nın telgrafı
   (klaraTelgraf). Sıradaki: 38. bölüm, altıncı kitabın sonu: Zürih, 15 Ocak 1926, Banque Vollmer genel kurulu.
+
+
+## Otuz sekizinci bölüm: Kar (altıncı kitabın sonu)
+Zürih, 14-15 Ocak 1926. Vollmer'in bankasında olağanüstü genel kurul; altı kitabın kararları terazide. Konuşan kişi seçilir
+(Klara, Neslihan, Rıza). Gece kasada yangın: Vollmer'in defteri ya da 1912 sayfası kurtarılır, ya da Klara'nın sözüyle yanmaya
+bırakılır. Defterin son satırı: Buenos Aires, F. ve B. Yedinci kitap oradan başlar: 1912 iskelesinin son iki adamı.

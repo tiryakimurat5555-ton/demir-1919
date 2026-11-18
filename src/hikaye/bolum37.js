@@ -179,8 +179,11 @@ export const BOLUM37 = {
       ortam: 'ortam_kayikhane',
       ortamOran: 0.45,
       baslik: 'Otuz yedinci bölüm bitti',
-      paragraflar: ['Kararların kaydedildi. Otuz sekizinci bölüm yazılıyor.'],
-      secenekler: [{ etiket: 'Ana menüye dön', anaMenu: true }],
+      paragraflar: ['Kararların kaydedildi. Sırada otuz sekizinci bölüm: Kar.'],
+      secenekler: [
+        { etiket: '38. bölüme geç', sonrakiBolum: 'bolum38' },
+        { etiket: 'Ana menüye dön', anaMenu: true },
+      ],
     },
   },
 

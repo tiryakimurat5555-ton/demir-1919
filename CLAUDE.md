@@ -357,6 +357,14 @@
   rizaMezar dua/tas/sus → riza37_son, mezarSozu satırı → kayıkhaneye). Olay aksam (babaYuz + rizaMezar, kayıkhanede) →
   aksam37 (Klara'nın telgrafı: 15 Ocak 1926 Zürih genel kurulu, vollmerIhale'ye göre; klaraTelgraf) → son.
   Sahneden mekâna dönüşte olaylar tetiklenir, mekanaGir'de tetiklenmez: son sahne seçeneği doğrudan olayın mekânına götürsün.
+- Otuz sekizinci bölüm "Kar" (src/hikaye/bolum38.js; altıncı kitabın sonu): 14-15 Ocak 1926 Zürih, Banque Vollmer olağanüstü
+  genel kurulu. Ekip Arif + Rıza + Neslihan. Delil/çıkarım yok; terazi: agirlik38(d) (dışa açık) = vollmerIhale red + nuriSon33 imza
+  + pendleSon35 tanik + albrechtSonu yakalandi + cemilRapor34 adli + neslihanMiras borc + konusma38; AGIRLIK_ESIGI 4. Açılış
+  klaraTelgraf, rizaMezar, babaYuz satırları. Mekân zurih38: kişiler klara38 (konusmaci38 klara/neslihan/riza; Klara klaraYakin
+  ise +1), neslihan38, riza38; nesne banka38 (konusmaci38 varken) → genel38 (vollmerSon38 dusuruldu/kaldi) → genel38_son
+  (defterSonu) → kasa38 (yangın: kurtar [vollmer_defteri, travma +1] / sayfa [makbuz_sayfasi, neslihanBag +1] / birak [klaraYakin])
+  → kasa38_son (buenosAires) → son38 (kurulSonu30, brunoBilgi) → son ("Yedinci kitap yazılıyor"). Yeni iplikler konusmaci38,
+  vollmerSon38, kasa38, buenosAires (F. ve B., Buenos Aires). rizaMezar, babaYuz, klaraTelgraf kapandı.
 - DERİNLEŞTİRME KARARI (17 Kasım, Murat: "Derinleştir"): yeni bölüm yazmaya ara; önce var olan bölümler derinleşir.
   Plan ve yapılanlar belgeler/hikaye-plani.md "Derinleştirme" bölümünde. 1. adım: arifNeden (1. bölüm gece_konusma →
   6. bölüm arifNedenSatiri, 8. bölüm tahliye), haticeSozu (1. bölüm mektup → 2. cenaze → 17. hatice17), Pendle tohumu
