@@ -45,7 +45,11 @@ export const BOLUM23 = {
       baslik: '23 Nisan 1923, Karaköy',
       paragraflar: (d) => [
         'Bahar. Lozan\'da görüşmeler bugün yeniden başladı, diyor gazeteler. İstanbul\'da İtilaf askerleri hâlâ köprü başlarında; ama kimse onlara eskisi gibi bakmıyor. Herkes bir şeyin bitmek üzere olduğunu biliyor; neyin başlayacağını bilmiyor.',
-        'Süleyman Kaptan\'ın kayıkhanesi. Dört yıl önce yandı; yeniden yapıldı. Bu akşam önüne uzun bir masa kurulmuş: iki kayık küreği üstüne bir kapı, üstünde beyaz bir örtü. Süleyman herkesi çağırmış.',
+        'Süleyman Kaptan\'ın kayıkhanesi. Dört yıl önce yandı; yeniden yapıldı. ' +
+          (bayrak(d, 'kayikhaneSozu')
+            ? 'Sen yaptın. Gureba\'nın koğuşunda verdiğin sözü dört baharda, hamal parasıyla, tahta tahta tuttun. Kapının üstündeki levhayı Süleyman kendi eliyle yazdı: Kayıkhane. Altında, küçük harflerle: Arif\'in sözü.'
+            : 'Mahallenin kalafatçıları imece ile kurdu; Süleyman her birine bir kayık borçlu olduğunu söyler.') +
+          ' Bu akşam önüne uzun bir masa kurulmuş: iki kayık küreği üstüne bir kapı, üstünde beyaz bir örtü. Süleyman herkesi çağırmış.',
         kemalBurada(d)
           ? 'Masanın başında, babasının yanında, kasketsiz bir adam: Kemal. Pire\'den geldi; bir haftadır kayıkhanede uyuyor. Süleyman her sabah onu uyurken izliyormuş; Ohannes Usta öyle anlatıyor.'
           : 'Masanın başında Süleyman. Yanındaki sandalye boş. Kemal Lozan\'dan Pendle\'le gitti; bir mektup bile yazmadı. Süleyman o sandalyeyi yine de koydu.',

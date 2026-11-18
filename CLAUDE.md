@@ -278,6 +278,9 @@
   8. adım: 2. bölüm morgda Cemil'in emri veren Binbaşı Fikri'yi anması (cemilFikri teselli/sert/sus, kural 4 için erken tohum;
   Cemil 1912'de rıhtımdan gelen kâtibin, David Saltiel'in, defterini adsız paketle ailesine yollamış) → 25. bölüm onizleme;
   5. bölüm Cemil yanındaysa Saltiel'e söyler (cemilSaltiel) → 9. bölüm açılış notu.
+  9. adım: 4. bölümün açık kalan sözleri döner: Rıza'nın imam babasının sorusu (rizaBaba bekle/sor) → 19. yakup;
+  kayikhaneSozu → 23. açılış (levha "Arif'in sözü"); gulceSoru → 12. namlu/imza. Tutarsızlık düzeltildi: 4. bölümde
+  Nermin'in ağabeyinin adı Selim yazıyordu, Cevdet oldu (Selim Tevfik'in kardeşi); 20. cevdet nerminAgabey'e göre.
   testler/derinlik.test.js iplikleri denetler.
 - İPLİK KAYDI: src/hikaye/iplikler.js (IPLIKLER: bayrak, ekildi, karsiliklar, gelecek, durum). testler/iplikler.test.js
   bayrağın ekildiği bölümde yazıldığını, karşılık bölümlerinde '<bayrak>' olarak okunduğunu denetler. Yeni iplik ekleyince,

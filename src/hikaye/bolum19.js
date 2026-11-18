@@ -366,8 +366,12 @@ export const BOLUM19 = {
           ],
         },
         yakup: {
-          soz: [
+          soz: (d) => [
             'Rıza Bey uzun süre bir şey demiyor. Sonra rıhtımın kenarına oturuyor; dizleri çatırdıyor.',
+            ...({
+              bekle: ['Gureba\'da, iki yıl önce, bir gün anlatırım demiştim, diyor. Sen de beklerim demiştin. Beklemeyi bilen adama borç ödenir.'],
+              sor: ['Gureba\'da sormuştun, çocuğa ne oldu diye. Bugünlük bu kadar demiştim. Bugün gerisi.'],
+            }[bayrak(d, 'rizaBaba')] || []),
             'Doksan Sekiz\'de Kasımpaşa\'da bir kuyumcu öldürüldü. Ben otuz beş yaşındaydım; hızlı, hırslı, herkesin övdüğü bir komiser. Bir fırın çırağını yakaladık: Yakup. On yedi yaşında. Dükkânın önünde görülmüştü, o kadar.',
             'Bir gece boyunca konuştum onunla. Sopayla. Sabaha karşı her şeyi söyledi; benim duymak istediğim her şeyi. Bekirağa\'ya gönderdim. İki yıl sonra veremden öldü.',
             'Ertesi yıl başka bir hırsızlıktan bir adam yakaladık. Kuyumcuyu da o öldürmüş. Nasıl yaptığını anlattı; Yakup\'un hiç bilmediği ayrıntılarla.',

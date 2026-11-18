@@ -369,7 +369,31 @@ export const BOLUM4 = {
         },
         adil: {
           soz: 'Rıza Bey uzun süre sana bakıyor. Sonra başını sallıyor. İyi soru. Kırk yılda bunu bana soran ikinci adamsın. Birincisi kendi babamdı. Adil olacağım. Ama acımayacağım.',
-          secenekler: [{ etiket: 'Onu nasıl bulacağız?', sonra: 'plan' }],
+          secenekler: [
+            {
+              etiket: 'Babanız size neden sormuştu?',
+              kosul: (d) => !bayrak(d, 'rizaBaba'),
+              sonra: 'baba',
+            },
+            { etiket: 'Onu nasıl bulacağız?', sonra: 'plan' },
+          ],
+        },
+        baba: {
+          soz: 'Rıza Bey şapkasını dizinde çeviriyor. Doksan Sekiz\'de, diyor. Bir çocuğu karakola getirdiğim gece. Babam kapıda bekliyordu; imam efendiydi, Kasımpaşa\'da. Bu çocuğa adil olacak mısın, Rıza? dedi. Ona cevap vermedim. Yürüdüm geçtim. Sesi alçalıyor. O cevabı yirmi yıldır veriyorum evlat. Her gün.',
+          secenekler: [
+            {
+              etiket: 'O geceyi bir gün anlatırsın, Rıza Bey. Ben beklerim.',
+              etki: { bayrak: { rizaBaba: 'bekle' } },
+              sonra: 'adil',
+              cevap: 'Rıza Bey sana bakıyor; bir an polis bakışı değil bu. Beklersin, diyor. Bir gün anlatırım. Belki o gün sen de bana bir şey anlatırsın.',
+            },
+            {
+              etiket: 'Çocuğa ne oldu?',
+              etki: { bayrak: { rizaBaba: 'sor' } },
+              sonra: 'adil',
+              cevap: 'Rıza Bey şapkasını takıyor. Öldü, diyor. Benim yüzümden. Bugünlük bu kadarı yeter.',
+            },
+          ],
         },
         plan: {
           soz: 'Halim her cuma akşamı Yüksekkaldırım\'daki meyhanede oturur ve Ferrante\'nin kâtibinden zarfını alır. Yıllardır. Bu gece de oturacak; korktuğu için daha çok içecek. Ben masasına otururum, sen yanıma. Onu konuşturacağız. Ama dövmek yok, evlat. Ben adamımı döverek konuşturmam. Delille konuştururum.',
@@ -459,7 +483,7 @@ export const BOLUM4 = {
               kosul: (d) => !bayrak(d, 'nerminAgabey'),
               etki: { bayrak: { nerminAgabey: true }, artir: { nerminBag: 1 } },
               sonra: 'ilk',
-              cevap: 'Nermin bir an hiçbir şey demiyor. Adı Selim\'di, diyor sonra. Şiir yazardı. Kötü şiirler. Ben hepsini saklıyorum.',
+              cevap: 'Nermin bir an hiçbir şey demiyor. Adı Cevdet\'ti, diyor sonra. Şiir yazardı. Kötü şiirler. Ben hepsini saklıyorum.',
             },
             { etiket: 'Dikkatli ol.' },
           ],

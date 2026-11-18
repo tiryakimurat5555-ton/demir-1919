@@ -316,6 +316,33 @@ export const IPLIKLER = [
     gelecek: 'Kapandı: Saltiel, defteri kimin gönderdiğini öğrenir; 9. bölümde annesinin duası. Beşinci kitapta Selanik\'te Saltiel evi Cemil\'e açık.',
     durum: 'kapali',
   },
+  {
+    id: 'riza_baba',
+    ad: 'Rıza Bey\'in babasının sorusu',
+    bayrak: 'rizaBaba',
+    ekildi: ['bolum4'],
+    karsiliklar: ['bolum19'],
+    gelecek: 'Kapandı: 19. bölümde Yakup hikâyesi Gureba\'daki sözle açılır.',
+    durum: 'kapali',
+  },
+  {
+    id: 'kayikhane_sozu',
+    ad: 'Kayıkhane sözü',
+    bayrak: 'kayikhaneSozu',
+    ekildi: ['bolum4'],
+    karsiliklar: ['bolum23'],
+    gelecek: 'Kapandı: 23. bölümde yeniden kurulan kayıkhanenin levhası.',
+    durum: 'kapali',
+  },
+  {
+    id: 'gulce_soru',
+    ad: 'Adalet mi, intikam mı?',
+    bayrak: 'gulceSoru',
+    ekildi: ['bolum4'],
+    karsiliklar: ['bolum12'],
+    gelecek: 'Kapandı: 12. bölümde Nazım Bey\'in yalısında Gülce cevabını bulur.',
+    durum: 'kapali',
+  },
 ];
 
 export const acikIplikler = () => IPLIKLER.filter((i) => i.durum === 'acik');

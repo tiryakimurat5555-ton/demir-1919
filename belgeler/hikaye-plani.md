@@ -244,3 +244,7 @@ Sıradakiler:
 
 ### Derinleştirme 8. adım (18 Kasım)
 - Binbaşı Fikri Efendi artık 2. bölümde ekili (morg, Cemil). Kasım 1912'de kaza raporlarını o yazdırdı; David Saltiel'in cesedi de o arabalardaydı. Cemil defteri gizlice Saltiel ailesine yolladı. Beşinci kitapta kırk yedinci sayfadaki satıcı için en güçlü aday Fikri'dir (kesin karar beşinci kitapta).
+
+### Derinleştirme 9. adım (18 Kasım)
+- 4. bölümde bırakılmış üç söz/soru karşılık buldu: Rıza'nın babası (19), kayıkhane sözü (23), Gülce'nin adalet/intikam sorusu (12).
+- Ad tutarlılığı: Nermin'in ağabeyi Cevdet; Selim, Tevfik'in kardeşi.

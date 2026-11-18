@@ -282,3 +282,43 @@ test('Binbaşı Fikri morgda anılır, Zürih\'te geri döner', async () => {
   const bos = durum(BOLUM25, {}, { tur: 'sahne', id: 'onizleme' });
   expect(M.sahneBilgisi(BOLUM25, bos).paragraflar.every((p) => p.length > 0)).toBe(true);
 });
+
+// 9. derinleştirme adımı: dördüncü bölümün sözleri ve soruları sonradan döner.
+test('Rıza Bey\'in babası, kayıkhane sözü ve Gülce\'nin sorusu', async () => {
+  const { BOLUM4 } = await import('../src/hikaye/bolum4');
+  const { BOLUM12 } = await import('../src/hikaye/bolum12');
+  const { BOLUM19 } = await import('../src/hikaye/bolum19');
+  const { BOLUM23 } = await import('../src/hikaye/bolum23');
+  for (const [i, k, parca] of [[0, 'bekle', 'Beklemeyi bilen'], [1, 'sor', 'Bugün gerisi']]) {
+    let d = durum(BOLUM4, {}, { tur: 'konusma', kisi: 'riza', dugum: 'adil' });
+    d = M.secenekSec(BOLUM4, d, M.dugumBilgisi(BOLUM4, d).secenekler.find((x) => x.etiket.includes('Babanız'))).durum;
+    expect(M.dugumBilgisi(BOLUM4, d).soz.join(' ')).toContain('imam');
+    d = M.secenekSec(BOLUM4, d, M.dugumBilgisi(BOLUM4, d).secenekler[i]).durum;
+    expect(M.bayrak(d, 'rizaBaba')).toBe(k);
+    expect(M.dugumBilgisi(BOLUM4, d).secenekler.some((x) => x.etiket.includes('Babanız'))).toBe(false);
+    const y = durum(BOLUM19, { rizaBaba: k }, { tur: 'konusma', kisi: 'riza', dugum: 'yakup' });
+    expect(M.dugumBilgisi(BOLUM19, y).soz.join(' ')).toContain(parca);
+  }
+  expect(M.dugumBilgisi(BOLUM19, durum(BOLUM19, {}, { tur: 'konusma', kisi: 'riza', dugum: 'yakup' })).soz.join(' ')).toContain('Yakup');
+
+  const ile = M.sahneBilgisi(BOLUM23, durum(BOLUM23, { kayikhaneSozu: true }, { tur: 'sahne', id: 'acilis' }));
+  expect(ile.paragraflar.join(' ')).toContain('Arif\'in sözü');
+  const siz = M.sahneBilgisi(BOLUM23, durum(BOLUM23, {}, { tur: 'sahne', id: 'acilis' }));
+  expect(siz.paragraflar.join(' ')).toContain('imece');
+
+  const n = M.sahneBilgisi(BOLUM12, durum(BOLUM12, { gulceSoru: true }, { tur: 'sahne', id: 'namlu' }));
+  expect(n.paragraflar.join(' ')).toContain('intikam');
+  const im = M.sahneBilgisi(BOLUM12, durum(BOLUM12, { gulceSoru: true, yaliSecim: 'tut' }, { tur: 'sahne', id: 'imza' }));
+  expect(im.paragraflar.join(' ')).toContain('Adalet.');
+  for (const s of ['namlu', 'imza']) {
+    expect(M.sahneBilgisi(BOLUM12, durum(BOLUM12, {}, { tur: 'sahne', id: s })).paragraflar.every((p) => p.length > 0)).toBe(true);
+  }
+});
+
+test('Nermin\'in ağabeyinin adı her yerde Cevdet', async () => {
+  const fs = await import('fs');
+  const metin = fs.readFileSync(new URL('../src/hikaye/bolum4.js', import.meta.url), 'utf8');
+  expect(metin).toContain('Adı Cevdet');
+  const d = durum(BOLUM20, { nerminAgabey: true }, { tur: 'konusma', kisi: 'nermin', dugum: 'cevdet' });
+  expect(M.dugumBilgisi(BOLUM20, d).soz.join(' ')).toContain('Gureba');
+});

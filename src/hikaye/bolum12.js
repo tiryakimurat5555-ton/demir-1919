@@ -174,10 +174,13 @@ export const BOLUM12 = {
         'Gülce tabancayı çıkarıyor. Eli titremiyor. Namlu Nazım Bey\'in alnına dönük.',
         'Nazım Bey tespihini bırakıyor. İlk kez korkuyor. Kızım, diyor. Kızım, ben yaşlı bir adamım.',
         'Babam da yaşlanacaktı, diyor Gülce.',
+        bayrak(d, 'gulceSoru')
+          ? 'Gureba\'da ona sormuştun: adalet mi istiyorsun, intikam mı? Bilmiyorum demişti. Şimdi cevabı bir namlunun ucunda arıyor.'
+          : '',
         gulceYakin(d)
           ? 'Sonra sana bakıyor. Bir an. Neden durduğunu sen de biliyorsun, o da. Tabancayı indirmiyor; ama tetiği de çekmiyor.'
           : 'Parmağı tetikte beyazlıyor. Nermin bir adım atıyor; Rıza Bey de. Sonra Gülce derin bir nefes alıyor.',
-      ],
+      ].filter(Boolean),
       secenekler: [{ etiket: 'Devam', etki: { artir: { travma: 1 } }, sonra: 'imza' }],
     },
     imza: {
@@ -187,12 +190,15 @@ export const BOLUM12 = {
         bayrak(d, 'yaliSecim') === 'tut'
           ? 'Gülce\'nin elini tutuyorsun. Çantadan çıkmadan duruyor. Gülce sana bakıyor; sonra Nazım Bey\'e. Çantadan tabancayı değil, bir kalem ve beyaz bir kâğıt çıkarıyor.'
           : 'Gülce tabancayı masaya, ıhlamur fincanının yanına bırakıyor. Namlu hâlâ Nazım Bey\'e bakıyor. Çantadan bir kalem ve beyaz bir kâğıt çıkarıyor.',
+        bayrak(d, 'gulceSoru') && bayrak(d, 'yaliSecim') === 'tut'
+          ? 'Gülce fısıldıyor, yalnız senin duyacağın kadar: Gureba\'da sormuştun. Şimdi biliyorum. Adalet.'
+          : '',
         'Nermin yazacak, diyor Gülce. Siz anlatacaksınız. 1913\'ü. Babamı. Tüfekleri. Mühürleri. Rainer\'i. Whitlock\'u. Yarın sabahki gemiyi. Her şeyi.',
         'Kâğıdı ve kalemi Nazım Bey\'in önüne itiyor. Sonra, babasının cebinden çıkan o kâğıttaki kelimeleri, tek tek söylüyor:',
         'İmzala ve yaşa.',
         'Nazım Bey uzun süre kâğıda bakıyor. Sonra anlatmaya başlıyor. Nermin yazıyor. Saat ikiyi vuruyor, üçü vuruyor. Sonunda Nazım Bey kalemi alıyor ve imzalıyor. Kırk yıllık devlet memurunun düzgün, eğik, sabırlı imzası.',
         'Gülce kâğıdı alıyor, katlıyor. Babam imzalamadı, diyor. Bu yüzden öldü. Sen imzaladın. Bu yüzden yaşayacaksın. Ama bundan sonra her sabah bu imzayla uyanacaksın.',
-      ],
+      ].filter(Boolean),
       secenekler: [{ etiket: 'Devam', etki: { delil: ['nazim_itirafi'] }, sonra: 'columbia' }],
     },
     columbia: {

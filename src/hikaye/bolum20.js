@@ -317,9 +317,9 @@ export const BOLUM20 = {
           ],
         },
         cevdet: {
-          soz: [
+          soz: (d) => [
             'Nermin elindeki harfi kasaya bırakıyor. Kurşun harf tıkırdıyor.',
-            'Adı Cevdet\'ti. Benden dört yaş büyük. Darülfünun\'da edebiyat okuyordu; şiir yazardı. Kötü şiirler, abi; çok kötü. Ben okur gülerdim, o da gülerdi.',
+            (bayrak(d, 'nerminAgabey') ? 'Adını sana Gureba\'da söylemiştim: Cevdet. ' : 'Adı Cevdet\'ti. ') + 'Benden dört yaş büyük. Darülfünun\'da edebiyat okuyordu; şiir yazardı. Kötü şiirler, abi; çok kötü. Ben okur gülerdim, o da gülerdi.',
             'On Dört\'ün Aralık\'ında Erzurum\'dan son mektubu geldi. Paltom güzel Nermin, yazmış. Yalnız astarı yok. Sen bana bir atkı ör, ama geç kalma.',
             'Bir hafta ördüm. Gece gündüz. Ocak\'ta postaya verdim. Şubat\'ta geri geldi; zarfın üstünde tek satır: Muhatap vefat etmiştir.',
             'Atkı hâlâ çekmecemde. Hiç takmadım. Sonra o paltoları kimin diktiğini, kimin sattığını, kimin taşıdığını aradım. Dört yıl. Hep bir gölge; bir müteahhit, bir komisyoncu, bir imza. Arkasında hep bir başkası.',
