@@ -8,7 +8,16 @@ görme engelli oyuncular tarafından bağımsız oynanabilecek; VoiceOver ve Tal
 
 Tasarım taslağı: `belgeler/tasarim-taslagi.pdf`
 
-## Şu anki aşama: 33 — yirmi yedinci bölüm: Moda
+## Şu anki aşama: 34 — yirmi sekizinci bölüm: Cehennem, Otuz Üç
+
+- Nisan 1924, Napoli: Ferrante e Soci, Via Marina on dört
+- Ferrante'nin teklifi: sayfanın üst yarısını yak, on altı kızın bugünkü adresini al
+- Gece araması: üç kitap, bir doğru; yanlışlar ses çıkarır
+- Rıza Bey'in en büyük korkusu; Moda'daki koltukta kendini gördü
+- Şafakta Santa Lucia rıhtımı: Cenevre, İtalyan polisi ya da bırakmak
+- Yeni ses: Napoli limanı
+
+## 33 — yirmi yedinci bölüm: Moda
 
 - Mart 1924, İstanbul: Süleyman Kaptan'ın kayığıyla denizden Moda'ya; sarı köşkte kör bir binbaşı
 - Yeni oynanış: göremeyen bir adamın sorgusu. Kâğıt gösterilmez; okunur, anlatılır. Her doğru söz bir çatlak

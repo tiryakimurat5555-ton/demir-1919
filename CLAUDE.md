@@ -276,6 +276,14 @@
   tam/kismi → fikri_itirafi). Çıkarım satan (fikri_itirafi + napoli_zarfi: alt yarıyı imzalayan Ferrante, Napoli, Via
   Marina 14; tam ise Dante cildi, Cehennem 33) → olay karar → fikri_karar: fikriKarar savci / kenan [kenanIceride] / birak
   (travma+1) → fikri_son → son.
+- Yirmi sekizinci bölüm "Cehennem, Otuz Üç" (src/hikaye/bolum28.js): 22-24 Nisan 1924 Napoli (seçim dönemi arka plan).
+  Ekip Rıza + Neslihan (neslihanYol yalniz değilse) + Kemal (kemalKalir). Mekânlar liman28 (ortam_napoli; gennaro →
+  gennaro_ifadesi; riza28 → riza_korku: rizaKorku fark [rizaHikaye]/yanında/sus; neslihan28, kemal28), via_marina
+  (ferrante_kapisi → pazarlik28 → ferrante_teklifi; arka_merdiven [makbuz çıkarımı] → gece28: fikriItiraf tam ise yalnız
+  Dante, kismi ise Petrarca/Boccaccio da (alarm28 +1, ALARM_SINIRI28 2) → gece28_bulundu: alt_yari + makbuz_defteri).
+  Çıkarım makbuz (gennaro_ifadesi + ferrante_teklifi). Olay bruno (iki delil) → bruno28: brunoSonu riza / kemal
+  [kemalKalir] / kavga (travma+1) → ferrante28 (şafak, Santa Lucia): ferranteKarar cenevre (klaraYardim ya da rainerSonu
+  serbest ise Klara) / polis / birak → ferrante28_son → son. Yeni ses ortam_napoli.
 - DERİNLEŞTİRME KARARI (17 Kasım, Murat: "Derinleştir"): yeni bölüm yazmaya ara; önce var olan bölümler derinleşir.
   Plan ve yapılanlar belgeler/hikaye-plani.md "Derinleştirme" bölümünde. 1. adım: arifNeden (1. bölüm gece_konusma →
   6. bölüm arifNedenSatiri, 8. bölüm tahliye), haticeSozu (1. bölüm mektup → 2. cenaze → 17. hatice17), Pendle tohumu
