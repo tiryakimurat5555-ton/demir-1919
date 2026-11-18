@@ -250,6 +250,14 @@ export const BOLUM10 = {
           : bayrak(d, 'delormeSonu') === 'vuruldu'
             ? 'Cemil Bey omzundaki yarayı dikiyor. Delorme\'un cesedini İngiliz devriyesi alıp götürüyor; tek kelime sormadan. Bir Fransız serseri, diye yazıyorlar raporlarına.'
             : 'Delorme bir İngiliz hücresinde. Sorgusu üç gün sürecek, diyor Rıza Bey. Ama konuşacak. Ferrante\'nin adı ilk sayfada.',
+        {
+          intikam: 'Sabahın ilk vapuruyla Gureba Mezarlığı\'na gidiyorsun. Sabri\'nin taşının başında, beş ay önce verdiğin söz: Seni bunu yapana bulduracağım. ' +
+            (bayrak(d, 'delormeSonu') === 'tutuklu'
+              ? 'Tuttun. Adam bir hücrede; hesabını bir hâkimin önünde verecek. Bu, beklediğinden çok daha fazla rahatlatıyor seni.'
+              : 'Tuttun. Ama bir ceset, beklediğin gibi rahatlatmıyor. Taşın başında uzun süre duruyorsun; söyleyecek bir şey bulamıyorsun.'),
+          huzur: 'Sabahın ilk vapuruyla Gureba Mezarlığı\'na gidiyorsun. Sabri\'nin taşına bir demet sümbül bırakıyorsun. Huzur içinde yat demiştin. Bugün ilk kez buna inanıyorsun.',
+          sessiz: 'Sabahın ilk vapuruyla Gureba Mezarlığı\'na gidiyorsun. Beş ay önce, burada, bir şey söyleyememiştin. Bugün de söylemiyorsun. Ama bu kez başını eğmiyorsun; taşa dik dik bakıyorsun.',
+        }[bayrak(d, 'mezarSozu')] || '',
         'Öğleye doğru Nermin rıhtıma koşarak geliyor. Yüzü bembeyaz. Elinde bir telgraf.',
         'Bu sabah Yunan askerleri İzmir\'e çıktı, diyor. Rıhtımda, Kordon\'da. Ateş açılmış. Ölüler var.',
         'Rıhtımda kimse konuşmuyor. Hamallar yüklerini bırakmış. Süleyman Kaptan bastonuna dayanmış, güneye bakıyor.',
@@ -261,7 +269,7 @@ export const BOLUM10 = {
         'Baban yanına geliyor; Neslihan koluna girmiş. Rainer haklıymış, diyor baban. Ateş yanıyor. Ama ateşin de bir sahibi olur, oğul. Odunu kim atıyorsa o.',
         'Güneye bakıyorsun. İzmir. Ferrante. Rainer\'in odunları.',
         'Onuncu bölümün sonu.',
-      ],
+      ].filter(Boolean),
       secenekler: [{ etiket: 'Devam', etki: { bayrak: { bolumBitti: true } }, sonra: 'son' }],
     },
     son: {

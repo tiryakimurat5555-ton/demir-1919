@@ -499,7 +499,10 @@ export const BOLUM6 = {
             'Selanik\'te çadırlarda kaldık. Bir gün Fransız bir bankerin adamları geldi; kimsesiz kızlara iş, okul, yemek. Neslihan on yedisindeydi. Baban razı olmadı; ama baban o hafta yoktu. Gitti, kız da gitti.',
             'Baban? Baban seni aramaya döndü. Askerdeki oğlum geri gelir, dedi, beni evde bulamazsa ne yapar. Manastır yoluna tek başına çıktı. Bir daha ne gören oldu ne duyan.',
             ...arifNedenSatiri(d),
-          ],
+            bayrak(d, 'yarimCumle')
+              ? 'Hafız Efendi\'nin sesi uzaklaşıyor. Kulağında fırtına; Kalliope\'nin güvertesinde, Garnier\'nin rüzgârda yarım kalan cümlesi. O kadın senin... Şimdi biliyorsun cümlenin sonunu. Kız kardeşin.'
+              : '',
+          ].filter(Boolean),
           secenekler: [
             {
               etiket: 'Devam',

@@ -195,6 +195,9 @@ export const BOLUM23 = {
             bayrak(d, 'neslihanAd') === 'baba'
               ? 'Neslihan nüfusa gitmiş, diyor sana; sesi kırık. İsmail kızı Neslihan yazdırmış. Ben bir kalaycıyım oğul; kızıma bir ad bile veremedim. Kendisi aldı.'
               : 'Kızım dün bana Viyana\'yı anlattı, diyor. Operayı, kitapları. Ben bir kalaycıyım oğul. Onun anlattıklarının yarısını anlamadım. Ama dinledim.',
+            bayrak(d, 'babaAffetti')
+              ? 'Hanın odasında, Neslihan Rivière\'in mektubunu bana okuduğu gece, affettim demiştim, diyor. Affetmek kolaymış oğul. Affedilmek zor.'
+              : 'Rivière\'in mektubunu hiç dinlemedim, diyor. Neslihan okumak istedi; ben istemedim. Belki dinlemeliydim.',
             'Sonra sesini alçaltıyor. Mektubu gördüm, diyor. Kırmızı sayfayı. O satırı.',
           ],
           secenekler: [

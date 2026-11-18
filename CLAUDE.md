@@ -281,6 +281,9 @@
   9. adım: 4. bölümün açık kalan sözleri döner: Rıza'nın imam babasının sorusu (rizaBaba bekle/sor) → 19. yakup;
   kayikhaneSozu → 23. açılış (levha "Arif'in sözü"); gulceSoru → 12. namlu/imza. Tutarsızlık düzeltildi: 4. bölümde
   Nermin'in ağabeyinin adı Selim yazıyordu, Cevdet oldu (Selim Tevfik'in kardeşi); 20. cevdet nerminAgabey'e göre.
+  10. adım: hiç okunmayan bayraklar tarandı (başka bölümde '<bayrak>' geçmeyenler); karşılık verilenler: mezarSozu →
+  10. safak10 (Gureba Mezarlığı, delormeSonu'na göre), yarimCumle → 6. hafiz anlat, halimKarar → 19. yakup_son,
+  babaAffetti → 23. baba23. Kalan adaylar: gulceYalan, morinGuven, kuleSecim, listeKarar, rizaYarali, nobetKacti, yaliSecim.
   testler/derinlik.test.js iplikleri denetler.
 - İPLİK KAYDI: src/hikaye/iplikler.js (IPLIKLER: bayrak, ekildi, karsiliklar, gelecek, durum). testler/iplikler.test.js
   bayrağın ekildiği bölümde yazıldığını, karşılık bölümlerinde '<bayrak>' olarak okunduğunu denetler. Yeni iplik ekleyince,

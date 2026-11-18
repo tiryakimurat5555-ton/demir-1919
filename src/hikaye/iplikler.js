@@ -343,6 +343,42 @@ export const IPLIKLER = [
     gelecek: 'Kapandı: 12. bölümde Nazım Bey\'in yalısında Gülce cevabını bulur.',
     durum: 'kapali',
   },
+  {
+    id: 'mezar_sozu',
+    ad: 'Sabri\'nin mezarındaki söz',
+    bayrak: 'mezarSozu',
+    ekildi: ['bolum2'],
+    karsiliklar: ['bolum10'],
+    gelecek: 'Kapandı: 10. bölümün sabahında Gureba Mezarlığı\'nda; Delorme\'un sonuna göre.',
+    durum: 'kapali',
+  },
+  {
+    id: 'yarim_cumle',
+    ad: 'Garnier\'nin yarım cümlesi',
+    bayrak: 'yarimCumle',
+    ekildi: ['bolum5'],
+    karsiliklar: ['bolum6'],
+    gelecek: 'Kapandı: 6. bölümde Hafız Efendi anlatırken cümle tamamlanır.',
+    durum: 'kapali',
+  },
+  {
+    id: 'halim_karar',
+    ad: 'Halim\'in sonu',
+    bayrak: 'halimKarar',
+    ekildi: ['bolum4'],
+    karsiliklar: ['bolum19'],
+    gelecek: 'Kapandı: 19. bölümde Rıza Bey Yakup\'tan sonra Halim\'i anar.',
+    durum: 'kapali',
+  },
+  {
+    id: 'baba_affetti',
+    ad: 'Babanın affı',
+    bayrak: 'babaAffetti',
+    ekildi: ['bolum16'],
+    karsiliklar: ['bolum23'],
+    gelecek: 'Kapandı: 23. bölümde baba, affetmekle affedilmeyi karşılaştırır.',
+    durum: 'kapali',
+  },
 ];
 
 export const acikIplikler = () => IPLIKLER.filter((i) => i.durum === 'acik');

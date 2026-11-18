@@ -248,3 +248,6 @@ Sıradakiler:
 ### Derinleştirme 9. adım (18 Kasım)
 - 4. bölümde bırakılmış üç söz/soru karşılık buldu: Rıza'nın babası (19), kayıkhane sözü (23), Gülce'nin adalet/intikam sorusu (12).
 - Ad tutarlılığı: Nermin'in ağabeyi Cevdet; Selim, Tevfik'in kardeşi.
+
+### Derinleştirme 10. adım (18 Kasım)
+- Okunmayan seçimler: Sabri'nin mezarındaki söz (10. bölüm sabahı), Garnier'nin yarım cümlesi (6), Halim'in sonu (19), babanın affı (23).

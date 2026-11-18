@@ -322,3 +322,29 @@ test('Nermin\'in ağabeyinin adı her yerde Cevdet', async () => {
   const d = durum(BOLUM20, { nerminAgabey: true }, { tur: 'konusma', kisi: 'nermin', dugum: 'cevdet' });
   expect(M.dugumBilgisi(BOLUM20, d).soz.join(' ')).toContain('Gureba');
 });
+
+// 10. derinleştirme adımı: hiç okunmayan dört bayrak karşılık buldu.
+test('mezar sözü, yarım cümle, Halim\'in sonu ve babanın affı geri döner', async () => {
+  const { BOLUM6 } = await import('../src/hikaye/bolum6');
+  const { BOLUM10 } = await import('../src/hikaye/bolum10');
+  const { BOLUM19 } = await import('../src/hikaye/bolum19');
+  const { BOLUM23 } = await import('../src/hikaye/bolum23');
+  const safak = (b) => M.sahneBilgisi(BOLUM10, durum(BOLUM10, b, { tur: 'sahne', id: 'safak10' })).paragraflar.join(' ');
+  expect(safak({ mezarSozu: 'intikam', delormeSonu: 'tutuklu' })).toContain('hâkimin');
+  expect(safak({ mezarSozu: 'intikam', delormeSonu: 'denizde' })).toContain('rahatlatmıyor');
+  expect(safak({ mezarSozu: 'huzur' })).toContain('sümbül');
+  expect(safak({ mezarSozu: 'sessiz' })).toContain('başını eğmiyorsun');
+  expect(M.sahneBilgisi(BOLUM10, durum(BOLUM10, {}, { tur: 'sahne', id: 'safak10' })).paragraflar.every((p) => p.length > 0)).toBe(true);
+
+  const hafiz = (b) => M.dugumBilgisi(BOLUM6, durum(BOLUM6, b, { tur: 'konusma', kisi: 'hafiz', dugum: 'anlat' })).soz;
+  expect(hafiz({ yarimCumle: true }).join(' ')).toContain('Kız kardeşin');
+  expect(hafiz({}).every((p) => p.length > 0)).toBe(true);
+
+  const ys = (b) => M.dugumBilgisi(BOLUM19, durum(BOLUM19, b, { tur: 'konusma', kisi: 'riza', dugum: 'yakup_son' })).soz.join(' ');
+  expect(ys({ halimKarar: 'tutukla' })).toContain('asılı');
+  expect(ys({ halimKarar: 'birak' })).toContain('bıçaklı');
+
+  const baba = (b) => M.dugumBilgisi(BOLUM23, durum(BOLUM23, b, { tur: 'konusma', kisi: 'baba23', dugum: 'ilk' })).soz.join(' ');
+  expect(baba({ babaAffetti: true })).toContain('Affedilmek zor');
+  expect(baba({})).toContain('dinlemeliydim');
+});

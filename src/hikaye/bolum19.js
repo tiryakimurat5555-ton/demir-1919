@@ -392,7 +392,14 @@ export const BOLUM19 = {
           ],
         },
         yakup_son: {
-          soz: 'Rıza Bey şapkasını düzeltiyor. Hadi, diyor. Kâğıtlar bekliyor.',
+          soz: (d) => [
+            bayrak(d, 'halimKarar') === 'tutukla'
+              ? 'Rıza Bey başını sallıyor. Halim\'i tutuklattık, diyor. Delille, kuralına göre. Ertesi sabah hücresinde asılı buldular. Kurala uymak onu kurtarmadı. Ama başka türlüsünü yapsaydım, Yakup\'u bir kez daha öldürmüş olurdum.'
+              : bayrak(d, 'halimKarar') === 'birak'
+                ? 'Rıza Bey başını sallıyor. Halim\'i bıraktık, diyor; kaçsın diye. Depoda bıçaklı buldular. Belki tutuklatsaydık yaşardı. Belki. Bu belkiyle de yaşıyorum.'
+                : 'Rıza Bey başını sallıyor. Taşıyorum, diyor. Herkes bir şey taşır.',
+            'Sonra şapkasını düzeltiyor. Hadi, diyor. Kâğıtlar bekliyor.',
+          ],
           secenekler: [{ etiket: 'Hadi.' }],
         },
       },
