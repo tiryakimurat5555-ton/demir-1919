@@ -168,7 +168,9 @@ export const BOLUM37 = {
           (bayrak(d, 'vollmerIhale') === 'red'
             ? 'Klara Rainer: VOLLMER OLAĞANÜSTÜ GENEL KURUL 15 OCAK ZÜRİH STOP DEFTERİN SONUNU KARARA BAĞLAYACAK STOP GELİN STOP'
             : 'Klara Rainer: VOLLMER İMTİYAZI TEMİNAT GÖSTERİP ZÜRİH\'TE YENİ KREDİ İSTİYOR STOP 15 OCAK GENEL KURUL STOP GELİN STOP'),
-        'Gülce telgrafı okuyor, sonra Nermin. Zürih, diyor Rıza Bey. Benim yaşımda bir adam Zürih\'e gitmez. Sonra çayını bitiriyor. Ama ben giderim.',
+        'Gülce telgrafı okuyor, sonra Nermin. Zürih, diyor Rıza Bey. ' +
+          (bayrak(d, 'rizaSon22') === 'emekli' ? 'Emekli bir polis Zürih\'e gitmez. ' : 'Benim yaşımda bir adam Zürih\'e gitmez. ') +
+          'Sonra çayını bitiriyor. Ama ben giderim.',
         'Otuz yedinci bölümün sonu.',
       ].filter(Boolean),
       secenekler: [{ etiket: 'Devam', etki: { bayrak: { bolumBitti: true, klaraTelgraf: true } }, sonra: 'son' }],
