@@ -163,8 +163,9 @@ export const BOLUM30 = {
       baslik: 'Koridor',
       paragraflar: (d) => [
         'Gece yarısı. Otelin üçüncü kat koridoru. Melek\'in kapısının önünde bir adam: Bruno. Kapıyı çalmıyor; sadece duruyor. Kapının altından ışık sızıyor.',
+        bayrak(d, 'yabanciGeldi') ? 'Selanik vapurundan, Moda\'dan, Napoli\'den beri aynı adam. Sanki dört limandır aynı koridorda bekliyor.' : '',
         'Seni görüyor. Bu kez gülümsüyor; ilk kez. Signor Ferrante selam söylüyor, diyor kırık bir Fransızcayla. Hanımefendiye. Marsilya\'daki okul çok güzelmiş.',
-      ],
+      ].filter(Boolean),
       secenekler: [
         {
           etiket: 'Rıza Bey\'i çağır. Koridorun öbür ucunda uyumuyor.',
