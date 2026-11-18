@@ -8,6 +8,12 @@ görme engelli oyuncular tarafından bağımsız oynanabilecek; VoiceOver ve Tal
 
 Tasarım taslağı: `belgeler/tasarim-taslagi.pdf`
 
+## Şu anki aşama: 44 — otuz beşinci bölüm: İncir
+
+İzmir, Eylül 1925. Üç gece, dört yer: Albrecht'in oteli, incir hanı, Pendle'in son gemisi Arethusa, Rıza Bey'in eski muhbiriyle
+bir kahve. Hepsini göremezsin; neyi bilmek istediğine karar ver. Neslihan, Rivière'den kalan parayla ne yapacağını soruyor.
+Cuma gecesi Arethusa'da yaşlı ve hasta Pendle.
+
 ## Şu anki aşama: 43 — otuz dördüncü bölüm: Tebeşir
 
 Ankara, Haziran 1925. Cemil Bey'in hastanesine gelen kinin tabletlerinin yarısı tebeşir. Laboratuvarda bir deney, Nermin'in

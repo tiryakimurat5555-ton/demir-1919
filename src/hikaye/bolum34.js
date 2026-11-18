@@ -247,8 +247,11 @@ export const BOLUM34 = {
       ortam: 'ortam_istasyon',
       ortamOran: 0.45,
       baslik: 'Otuz dördüncü bölüm bitti',
-      paragraflar: ['Kararların kaydedildi. Otuz beşinci bölüm yazılıyor.'],
-      secenekler: [{ etiket: 'Ana menüye dön', anaMenu: true }],
+      paragraflar: ['Kararların kaydedildi. Sırada otuz beşinci bölüm: İncir.'],
+      secenekler: [
+        { etiket: '35. bölüme geç', sonrakiBolum: 'bolum35' },
+        { etiket: 'Ana menüye dön', anaMenu: true },
+      ],
     },
   },
 

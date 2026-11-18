@@ -299,3 +299,6 @@ Altıncı kitap için: kayıkhane üs olur; Selim; Rahel ile Beyrut; Melek'in an
 - 34. bölüm "Tebeşir" (Haziran 1925, Ankara): Sabit Bey (18) tebeşirli kinin; Vollmer'in parası; Bay Albrecht (Vollmer'in
   Anadolu'daki adamı) İzmir trenine biner. Cemil'in ikinci raporu (cemilRapor34). Sıradaki: İzmir (Albrecht; incir/tütün;
   Eleni'nin eski kliniği), belki Rahel/Beyrut mektubu, Rıza'nın Yakup'u.
+- 35. bölüm "İncir" (Eylül 1925, İzmir): gözetleme; Vollmer'in zinciri (koza, kinin, incir) Ekim'deki Ankara ihracat imtiyazı
+  ihalesi için teminat. Pendle tanık olabilir. Sıradaki: Ankara, Ekim 1925 ihale (Pendle ifadesi, Nuri ifadesi, Sabit,
+  Albrecht; Vollmer ilk kez kendisi) ya da arada İstanbul'da Rıza'nın Yakup'u.

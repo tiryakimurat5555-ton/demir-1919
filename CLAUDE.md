@@ -334,6 +334,14 @@
   → olay sabit → sabit34 (Sabit Bey, 18. bölümden; sabitSonu'na göre; sabitSon34 mahkeme / itiraf [vollmer_ajani: Bay
   Albrecht] / cemil [cemilBag +1]) → sabit34_son → rapor34 (cemilRapor34 adli / adsiz / gazete) → son34 (vollmerAjan
   izmir/bilinmiyor) → son. Yeni ses yok (var olanlar).
+- Otuz beşinci bölüm "İncir" (src/hikaye/bolum35.js): 14-18 Eylül 1925 İzmir. Kalıbı kırar: gözetleme. Ekip Arif + Rıza +
+  Neslihan. Tek mekân kordon35 (ortam_kordon); GECE_SAYISI 3, sayaç gece35; nesneler otel_iz / han_iz / gemi_iz / kahve_iz
+  (izle(yer, sahne): izlendi_<yer>, gece35 +1) → otel35 (albrecht_defteri), han35 (Kadir, 11. bölümün hamalı →
+  rehin_senetleri), gemi35 (arethusa_gozlem; pendleSonu satırı), kahve35 (albrecht_takvimi; rizaKorku satırı). Dört yerden
+  üçü görülür. Çıkarım imtiyaz (albrecht_defteri + rehin_senetleri). neslihan35: neslihanMiras borc [rehin_senetleri] /
+  kendi / dokunma (hisseKarar satırı). Olay arethusa (gece35 >= 3) → arethusa35 (Pendle + Albrecht; pendleSon35 tanik
+  [imtiyaz ya da arethusa_gozlem] / teslim / birak) → arethusa35_son (albrechtSonu yakalandi [albrecht_takvimi] / kacti)
+  → son35 → son.
 - DERİNLEŞTİRME KARARI (17 Kasım, Murat: "Derinleştir"): yeni bölüm yazmaya ara; önce var olan bölümler derinleşir.
   Plan ve yapılanlar belgeler/hikaye-plani.md "Derinleştirme" bölümünde. 1. adım: arifNeden (1. bölüm gece_konusma →
   6. bölüm arifNedenSatiri, 8. bölüm tahliye), haticeSozu (1. bölüm mektup → 2. cenaze → 17. hatice17), Pendle tohumu
