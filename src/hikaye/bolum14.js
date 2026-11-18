@@ -132,14 +132,19 @@ export const BOLUM14 = {
       ortam: 'ortam_banka',
       ortamOran: 0.4,
       baslik: 'Kızım Neslihan',
-      paragraflar: [
+      paragraflar: (d) => [
         'Neslihan mektubu yüksek sesle okuyor; sesi titriyor ama durmuyor.',
         'Kızım. Bu satırları okuyorsan ben ölmüşüm ve sen bu kasayı açmışsın. Sana borçlu olduğum gerçeği yazıyorum. 1912 sonbaharında baban İsmail Usta yazıhaneme girdi ve kalıbı aldı. Ben onu Manastır\'daki Sırp komutanlığına ihbar ettim. Casus dedim.',
         'Sonra seni yollarda buldum. Tifolu bir arabada, annenin yanında. Annen öldü. Seni aldım. Önce suçluluktan. Sonra sevdiğim için. Ama bir suçu sevgi temizlemez.',
         'Bu defter Viktor\'un hayatı. Bu defterle onu durdurabilirsin. Yapıp yapmamak senin elinde. Ben yapamadım; korktum.',
         'Que sais-je? Ne biliyorum ki? Hiçbir şey. Yalnızca seni sevdiğimi. Gaston.',
         'Neslihan mektubu katlıyor. Uzun süre hiçbir şey söylemiyor. Sonra sana dönüyor. Babamı o ihbar etmiş, abi. Ve ben ona baba dedim.',
-      ],
+        bayrak(d, 'babaSoruldu')
+          ? 'Köşkte, ölürken, ona babamızı sormuştun, diyor. Sana yarısını söyledi. Öbür yarısını bu kasaya koymuş; bana.'
+          : bayrak(d, 'talimatSoruldu')
+            ? 'Köşkte ona o talimatı sormuştun, diyor. Ondan kurtul demiştin. Kurtulamamış; yalnızca yazmış.'
+            : '',
+      ].filter(Boolean),
       secenekler: [
         { etiket: 'İkisi de doğru. İkisi de senin.', etki: { artir: { neslihanBag: 1 } }, sonra: 'gol' },
         { etiket: 'Bir şey söyleme. Elini tut.', sonra: 'gol' },

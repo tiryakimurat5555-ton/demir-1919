@@ -283,3 +283,7 @@ Altıncı kitap için: kayıkhane üs olur; Selim; Rahel ile Beyrut; Melek'in an
 - Tarama: yazılıp hiç başka bölümde okunmayan bayraklar. Hasler (8 → 14 → 16 → 24), Topal Hasan ve depo (4 → 10),
   Delorme'un kovulması (9 → 10), Delorme'un ifadesi (10 → 11), kafile (17 → 18), Neslihan'ın sofradaki sorusu (23 → 24),
   Nermin'le bağ (3-25 → 30 imza → 32 telgraf), Hatice (17 → 32), Cemil'in İzmir inciri borcu (2 → 32).
+
+### Derinleştirme 14. adım (18 Kasım)
+- ikinciNefes (2 → 18 nöbet seçeneği), isimVerildi (9 → 15), sonSecim (7 → 10), babaSoruldu/talimatSoruldu (7 → 14),
+  ayvaAnlatildi (6 → 21), nerminSivri/nermineAnlatti (3 → 30), Hüsnü (1 → 32).

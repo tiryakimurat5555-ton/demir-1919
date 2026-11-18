@@ -382,10 +382,15 @@ export const BOLUM30 = {
           soz: (d) =>
             [
               'Nermin ilk paragrafı yazıyor, sonra duruyor. Sana dönüyor. Altı yıldır takma adla yazıyorum, diyor. İstanbul\'da tek bir harf, Ankara\'da Taşhan\'ın adı. Bunu kendi adımla yazmak istiyorum: Nermin, Sarıkamış\'ta donan Cevdet\'in kız kardeşi. Ferrante\'nin adamları adımı öğrenir; Ankara\'da da sevmeyenler olur.',
+              bayrak(d, 'nerminSivri')
+                ? 'İlk gün bana Nişantaşı hanımları Karaköy\'ü gazeteden okur demiştin. Haklıydın; ben de adımı saklıyordum.'
+                : bayrak(d, 'nermineAnlatti') === false
+                  ? 'Cihangir\'de bana yalnızca jetonu göstermiştin, diyor. Gerisini sakladın. Ben de sakladım. Artık saklamak istemiyorum.'
+                  : '',
               bayrak(d, 'madalya') === 'anlat'
                 ? 'Cevdet\'in madalyası hâlâ çantamda, diyor. Ağabeyim adını saklamazdı.'
                 : 'Sen bana hep doğruyu söyledin, diyor. Şimdi sen söyle.',
-            ].join(' '),
+            ].filter(Boolean).join(' '),
           secenekler: [
             {
               etiket: 'Kendi adınla yaz. Senin sesin bu.',

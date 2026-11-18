@@ -355,6 +355,10 @@
   neslihanOfke; 30. nermin30: nerminBag >= 3 ise "Yaz" imza düğümüne gider (nerminImza ad/takma; madalya satırı; 1924'te
   soyadı yok: "Cevdet'in kız kardeşi") → 32. vasiyet32 Nermin'in telgrafı; 32. vasiyet32 haticeSonu (17), kayik32_son
   cemilSuleyman (2. bölüm: İzmir inciri borcu).
+  14. adım: 18. nobet'e "nefesini say" seçeneği (ikinciNefes say, 2. bölüm; nobetSayi, travma -1); 15. açılış isimVerildi
+  (Kessler'in gazetesi kapandı); 10. kule sonSecim (7. bölüm koru/atil/kac); 14. mektup babaSoruldu/talimatSoruldu;
+  21. cocuk ayvaAnlatildi (6); 30. imza düğümü nerminSivri / nermineAnlatti (3); 32. vasiyet32 kayıkçı Hüsnü (husnuGuven,
+  husnuKustu; 1. bölüm).
   testler/derinlik.test.js iplikleri denetler.
 - İPLİK KAYDI: src/hikaye/iplikler.js (IPLIKLER: bayrak, ekildi, karsiliklar, gelecek, durum). testler/iplikler.test.js
   bayrağın ekildiği bölümde yazıldığını, karşılık bölümlerinde '<bayrak>' olarak okunduğunu denetler. Yeni iplik ekleyince,

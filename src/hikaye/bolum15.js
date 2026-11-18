@@ -56,8 +56,11 @@ export const BOLUM15 = {
             ? 'Hisseler artık Eleni\'nin vakfının. Eleni İzmir\'den gelmiş; yorgun, ama oy kullanmaya kararlı. Hayatımda ilk kez bir banka toplantısına gireceğim, diyor. Bir ameliyattan farkı yoktur herhalde.'
             : 'Neslihan\'ın yüzde otuz dördü var. Rainer\'in yüzde kırkı. Aradaki yüzde yirmi altı, kuruluş defterindeki üç baş harfte.',
         'Kuruluş defterinin ilk sayfası: V. R., G. R., A. V., I. S., H. P. Kessler adları bir gecede buldu. Albert Vollmer: Zürih bankası. Kont Imre Szalay: Macar toprak sahibi. Sir Henry Pendle: İngiliz armatör. Üçü de genel kurul için Hotel Imperial\'de kalıyor.',
+        bayrak(d, 'isimVerildi')
+          ? 'Kessler bir gazete küpürü uzatıyor; Mart\'tan. Geçen kış bana bir isim vermiştin, diyor. Bakanlık müsteşarı. Yazdım. Adam istifa etti; benim gazetem kapatıldı. Şimdi başka bir gazetede yazıyorum, daha küçük. Pişman değilim. Ama bunu bil.'
+          : '',
         'Toplantı iki gün sonra.',
-      ],
+      ].filter(Boolean),
       secenekler: [{ etiket: 'Pansiyona yerleş', etki: { mekan: 'pansiyon', bayrak: { 'gorüldü_pansiyon': true, ekip_cemil: true, ekip_nermin: true, ekip_riza: false } } }],
     },
     genel_kurul: {

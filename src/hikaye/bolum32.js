@@ -254,6 +254,11 @@ export const BOLUM32 = {
           ad: 'Nermin\'in telgrafı Ankara\'dan: Gelemiyorum. Cenevre yazısından beri kapımda bir jandarma bekliyor; korumak için mi izlemek için mi bilmiyorum. Kaptana benim yerime bir avuç toprak atın.',
           takma: 'Nermin\'in telgrafı Ankara\'dan: Gelemiyorum. Taşhan bu hafta kaptanın adını ilk sayfaya basıyor; imzasız. Bir avuç toprak da benden.',
         }[bayrak(d, 'nerminImza')] || '',
+        bayrak(d, 'husnuKustu')
+          ? 'Mezarlığın kapısında kayıkçı Hüsnü; artık çok yaşlı. Sana bakmıyor. Altı yıl önce rıhtımda yakasından tutmuştun. Toprağı atıp gidiyor.'
+          : sayi(d, 'husnuGuven') >= 1
+            ? 'Mezarlığın kapısında kayıkçı Hüsnü; artık çok yaşlı. O gün rıhtımda Süleyman\'ın adını verdin, diyor. Yalan değilmiş. Toprağı senden önce atıyor.'
+            : 'Mezarlığın kapısında kayıkçı Hüsnü; artık çok yaşlı. Bir şey demeden toprağı atıp gidiyor.',
         'Akşam kayıkhanede Gülce bir kâğıt açıyor; Süleyman geçen kış yazdırmış, mühürletmiş. Tek satır: Kayıkhane, aramayı bırakmayanındır. Ad yok.',
         'Kâğıdın içinden mühürlü ikinci bir zarf çıkıyor. Üstünde: Gülce\'ye. ' +
           ({

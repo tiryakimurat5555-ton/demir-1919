@@ -459,3 +459,33 @@ test('Nermin bağı yüksekse Cenevre yazısını kendi adıyla imzalamayı sora
   expect(k({ cemilSuleyman: true })).toContain('İzmir inciri');
   expect(k({})).not.toContain('İzmir inciri');
 });
+
+// 14. adım: ikinci nefes, Kessler'e verilen isim, köşkteki son seçim, Rivière'e sorulan soru, ayva, Nermin'in ilk günü, Hüsnü.
+test('morgdaki nefes sayma 18. bölümde nöbette seçenek olur', async () => {
+  const { BOLUM18 } = await import('../src/hikaye/bolum18');
+  const s = (b) => M.sahneBilgisi(BOLUM18, durum(BOLUM18, b, { tur: 'sahne', id: 'nobet' })).secenekler;
+  expect(s({ ikinciNefes: 'say' }).length).toBe(3);
+  expect(s({ ikinciNefes: 'kapat' }).length).toBe(2);
+  let d = durum(BOLUM18, { ikinciNefes: 'say', travma: 2 }, { tur: 'sahne', id: 'nobet' });
+  d = M.sahneSec(BOLUM18, d, s({ ikinciNefes: 'say' }).find((x) => x.etiket.includes('Morgdaki'))).durum;
+  expect(M.sayi(d, 'travma')).toBe(1);
+  expect(M.bayrak(d, 'nobetAtlatildi')).toBe(true);
+});
+
+test('eski seçimler sonraki sahnelerde anılır', async () => {
+  const B = Object.fromEntries(await Promise.all([10, 14, 15, 21, 30, 32].map(async (n) => [n, (await import('../src/hikaye/bolum' + n))['BOLUM' + n]])));
+  const p = (n, id, b) => M.sahneBilgisi(B[n], durum(B[n], b, { tur: 'sahne', id })).paragraflar.join(' ');
+  expect(p(15, 'acilis', { isimVerildi: true })).toContain('müsteşarı');
+  expect(p(15, 'acilis', {})).not.toContain('müsteşarı');
+  expect(p(10, 'kule', { sonSecim: 'atil' })).toContain('Bu iz senden');
+  expect(p(10, 'kule', { sonSecim: 'kac' })).toContain('pencereden');
+  expect(p(14, 'mektup', { babaSoruldu: true })).toContain('yarısını söyledi');
+  expect(p(14, 'mektup', { talimatSoruldu: true })).toContain('Kurtulamamış');
+  expect(p(21, 'cocuk', { ayvaAnlatildi: true })).toContain('Hotel Olympos');
+  expect(p(32, 'vasiyet32', { husnuGuven: 1 })).toContain('Yalan değilmiş');
+  expect(p(32, 'vasiyet32', { husnuKustu: true })).toContain('yakasından');
+  const imza = (b) => M.dugumBilgisi(B[30], durum(B[30], b, { tur: 'konusma', kisi: 'nermin30', dugum: 'imza' })).soz.join(' ');
+  expect(imza({ nerminSivri: true })).toContain('Nişantaşı');
+  expect(imza({ nermineAnlatti: false })).toContain('jetonu');
+  expect(imza({ nermineAnlatti: true })).not.toContain('jetonu');
+});

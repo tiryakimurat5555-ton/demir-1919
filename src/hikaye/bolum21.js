@@ -118,12 +118,15 @@ export const BOLUM21 = {
     cocuk: {
       ortam: 'ortam_kordon',
       baslik: 'Ayva',
-      paragraflar: [
+      paragraflar: (d) => [
         'Kalabalığın arasında, bir sandığın üstünde oturmuş, altı yedi yaşlarında bir kız. Ayakkabısının biri yok. Ağlamıyor; bir ninni mırıldanıyor, kendine. Sözleri ne Türkçe ne Rumca; yarım yamalak bir şey, belki ikisi birden.',
         'Neslihan önüne çömeliyor. Adın ne? Kız bakıyor, cevap vermiyor. Annen nerede? Kız eliyle kalabalığı gösteriyor: her yeri.',
         'Neslihan cebinden kurumuş bir ayva dilimi çıkarıyor; Ankara\'dan beri taşıyor. Kız alıyor. Ayva, diyor Neslihan. Kız tekrarlıyor: Ay-va. İlk kez gülümsüyor.',
+        bayrak(d, 'ayvaAnlatildi')
+          ? 'Selanik\'te, Hotel Olympos\'ta ona ayva ağacını anlatmıştın; kuyunun başını. O günden beri cebinde bir dilim taşıyor, diye fark ediyorsun.'
+          : '',
         'Neslihan sana bakıyor. Bir şey soruyor bakışı; ama sormuyor.',
-      ],
+      ].filter(Boolean),
       secenekler: [
         {
           etiket: 'Ailesini arayalım. Bu rıhtımda birileri onu arıyordur.',

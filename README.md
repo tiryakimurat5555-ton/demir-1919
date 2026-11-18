@@ -8,6 +8,13 @@ görme engelli oyuncular tarafından bağımsız oynanabilecek; VoiceOver ve Tal
 
 Tasarım taslağı: `belgeler/tasarim-taslagi.pdf`
 
+## Şu anki aşama: 40 — derinleştirme 14. adım
+
+İlk bölümlerdeki küçük seçimler geri dönüyor: morgda nefesini saydıysan Eskişehir'de top sesi geldiğinde aynı şeyi
+yapabilirsin; Viyana'da Kessler'e verdiğin isim onun gazetesini kapattırmış; Delorme Kız Kulesi'nde köşk gecesini anar;
+Rivière'e son anında ne sorduysan Neslihan mektupta onu hatırlar; Neslihan'ın cebindeki ayva dilimi; Nermin ilk gün
+ona ne dediğini unutmamış; birinci bölümdeki kayıkçı Hüsnü Süleyman'ın cenazesinde.
+
 ## Şu anki aşama: 39 — derinleştirme 13. adım
 
 Bütün bölümlerde yapılan ama hiç geri dönmeyen seçimler tarandı. Manastır'daki hekim Hasler Zürih'te karşına çıkar; ondan

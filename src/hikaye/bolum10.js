@@ -194,8 +194,13 @@ export const BOLUM10 = {
           : bayrak(d, 'defterKarar') === 'gazete'
             ? 'Defter gazetelerde. Adım da orada. Viyana\'da, Paris\'te, İstanbul\'da. Artık kimse benimle iş yapmaz. Bana bir tek kalıp kaldı.'
             : 'Defteri Fransızlara verdin. Akıllıca. Onlar onu bir çekmeceye koyar. Ama kalıp…',
+        {
+          koru: 'Selanik\'te köşkte kız kardeşinin önüne geçmiştin, diyor Delorme. Bakalım bugün babanın önüne geçebilecek misin.',
+          atil: 'Selanik\'te köşkte üstüme atılmıştın, diyor Delorme; sargılı elini kaldırıyor. Bu iz senden. Bu sefer bıçak bende.',
+          kac: 'Selanik\'te köşkte defterle pencereden kaçmıştın, diyor Delorme. Bu kulede pencereden atlayan denize düşer.',
+        }[bayrak(d, 'sonSecim')] || '',
         'Baban başını kaldırıyor. Sana bakıyor; sis yok gözlerinde. Ver ona, oğul, diyor. Benim kalıbım bu. Benim günahım.',
-      ],
+      ].filter(Boolean),
       secenekler: [
         { etiket: 'Kalıbı uzat.', etki: { bayrak: { kuleSecim: 'kalip' } }, sonra: 'son_kalip' },
         { etiket: 'Delorme\'un üstüne atıl.', etki: { bayrak: { kuleSecim: 'atil' }, artir: { travma: 1 } }, sonra: 'son_atil' },

@@ -90,6 +90,11 @@ export const BOLUM18 = {
       ],
       secenekler: [
         { etiket: 'Cemil\'in sesine tutun. Nefes al.', etki: { artir: { travma: -1 }, bayrak: { nobetAtlatildi: true } } },
+        {
+          etiket: 'Morgdaki soğuk odada yaptığın gibi: nefesini say. Bir, iki, üç.',
+          kosul: (d) => bayrak(d, 'ikinciNefes') === 'say',
+          etki: { artir: { travma: -1 }, bayrak: { nobetAtlatildi: true, nobetSayi: true } },
+        },
         { etiket: 'Çadırdan dışarı, kara koş.', etki: { bayrak: { nobetKacti: true } } },
       ],
     },
