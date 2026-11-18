@@ -305,3 +305,5 @@ Altıncı kitap için: kayıkhane üs olur; Selim; Rahel ile Beyrut; Melek'in an
 - 36. bölüm "İhale" (Ekim 1925, Ankara): saat saat bir gün; Vollmer kendisi. Kırmızı sayfadaki "usta İ." kozu (babaSayfa).
   vollmerIhale red ise altıncı kitabın sonu Zürih'te Vollmer'in masasında; kabul ise Anadolu'da içeriden. Sıradaki: İstanbul,
   babanın sayfası (babaSayfa) ve Rıza'nın Yakup'u (rizaKorku) bir arada; sonra Zürih.
+- 37. bölüm "Taş" (Kasım 1925, İstanbul): baba ve Hüseyin Efendi (babaYuz); Rıza ve Yakup'un taşı (rizaMezar); Klara'nın telgrafı
+  (klaraTelgraf). Sıradaki: 38. bölüm, altıncı kitabın sonu: Zürih, 15 Ocak 1926, Banque Vollmer genel kurulu.

@@ -222,8 +222,11 @@ export const BOLUM36 = {
       ortam: 'ortam_telgraf',
       ortamOran: 0.45,
       baslik: 'Otuz altıncı bölüm bitti',
-      paragraflar: ['Kararların kaydedildi. Otuz yedinci bölüm yazılıyor.'],
-      secenekler: [{ etiket: 'Ana menüye dön', anaMenu: true }],
+      paragraflar: ['Kararların kaydedildi. Sırada otuz yedinci bölüm: Taş.'],
+      secenekler: [
+        { etiket: '37. bölüme geç', sonrakiBolum: 'bolum37' },
+        { etiket: 'Ana menüye dön', anaMenu: true },
+      ],
     },
   },
 

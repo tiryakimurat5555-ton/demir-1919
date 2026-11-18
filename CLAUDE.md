@@ -350,6 +350,13 @@
   vollmerSonu itiraf ise kart çoktan oynanmış: babaSayfa coktan +1; değilse yayimla [+1; babaItiraf yoksa travma +1] /
   korundu [-1]). Olay ihale (zaman bitti) → ihale36 (efekt tokmak; otele gidilmediyse Vollmer kartı salonda oynar →
   babaSayfa ifsa) → vollmerIhale red/kabul → ihale36_son → son36 (Neslihan babasına telgraf) → son.
+- Otuz yedinci bölüm "Taş" (src/hikaye/bolum37.js): 14-15 Kasım 1925 İstanbul. Kişisel bölüm, karşıt yok. Mekânlar
+  kayikhane37 (riza37k, gulce37; geçişler han37, arsiv37), han37 (oda37 → baba37: babaSayfa'ya göre; Manastırlı Hüseyin
+  Efendi, oğlu 1912'de kanatlı mühürlü sandıktan bir tüfekle ölmüş; babaYuz yaninda/savun/yalniz → baba37_son → kayıkhaneye),
+  arsiv37 (defter37 → yakup_kaydi; Gureba geçişi delille), gureba37 (mezar37 → riza37: rizaKorku, rizaBaba satırları;
+  rizaMezar dua/tas/sus → riza37_son, mezarSozu satırı → kayıkhaneye). Olay aksam (babaYuz + rizaMezar, kayıkhanede) →
+  aksam37 (Klara'nın telgrafı: 15 Ocak 1926 Zürih genel kurulu, vollmerIhale'ye göre; klaraTelgraf) → son.
+  Sahneden mekâna dönüşte olaylar tetiklenir, mekanaGir'de tetiklenmez: son sahne seçeneği doğrudan olayın mekânına götürsün.
 - DERİNLEŞTİRME KARARI (17 Kasım, Murat: "Derinleştir"): yeni bölüm yazmaya ara; önce var olan bölümler derinleşir.
   Plan ve yapılanlar belgeler/hikaye-plani.md "Derinleştirme" bölümünde. 1. adım: arifNeden (1. bölüm gece_konusma →
   6. bölüm arifNedenSatiri, 8. bölüm tahliye), haticeSozu (1. bölüm mektup → 2. cenaze → 17. hatice17), Pendle tohumu

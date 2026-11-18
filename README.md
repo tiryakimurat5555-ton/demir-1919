@@ -8,6 +8,12 @@ görme engelli oyuncular tarafından bağımsız oynanabilecek; VoiceOver ve Tal
 
 Tasarım taslağı: `belgeler/tasarim-taslagi.pdf`
 
+## Şu anki aşama: 46 — otuz yedinci bölüm: Taş
+
+İstanbul, Kasım 1925. İki iz, bir gün. Babanın kapısına Manastır'dan bir ihtiyar gelir; oğlu 1912'de kanatlı mühürlü
+sandıklardan çıkan bir tüfekle ölmüştür. Rıza Bey yirmi beş yıl sonra Yakup'un mezarını arar: Bekirağa'nın eski defteri,
+Gureba'nın kimsesizler sırası. Akşam Cenevre'den bir telgraf: Zürih, 15 Ocak.
+
 ## Şu anki aşama: 45 — otuz altıncı bölüm: İhale
 
 Ankara, 21 Ekim 1925. Albert Vollmer ilk kez kendisi geliyor. Saat on yedide bir komisyon ihracat imtiyazını karara
