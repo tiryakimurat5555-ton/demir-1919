@@ -518,3 +518,73 @@ test('madalya Süleyman\'ın cenazesinden önce sandıktan çıkar', async () =>
   expect(M.sayi(d, 'travma')).toBe(1);
   expect(M.sahneBilgisi(BOLUM32, d).paragraflar.join(' ')).toContain('kefenin içinde');
 });
+
+// 16. adım: madalya (32) → 34; İzmir yangını (21) → 35; Tevfik (33) → 37; Lozan (22), Bruno (28), Rahel (31),
+// kaptanın son gecesi (32) → 38.
+const konusmaYolu = (B, bayraklar, kisi, dugum, etiketler) => {
+  let d = durum(B, bayraklar, { tur: 'konusma', kisi, dugum });
+  const sozler = [];
+  let cevap = [];
+  for (const e of etiketler) {
+    const bilgi = M.dugumBilgisi(B, d);
+    sozler.push([].concat(bilgi.soz).join(' '));
+    const s = bilgi.secenekler.find((x) => x.etiket.startsWith(e));
+    if (!s) throw new Error('seçenek yok: ' + e + ' / ' + bilgi.secenekler.map((x) => x.etiket).join(' | '));
+    const r = M.secenekSec(B, d, s);
+    d = r.durum;
+    cevap = cevap.concat(r.cevap);
+  }
+  if (d.gorunum.tur === 'konusma') sozler.push([].concat(M.dugumBilgisi(B, d).soz).join(' '));
+  return { d, metin: sozler.concat(cevap).join(' ') };
+};
+
+test('Nermin Ankara\'da madalyanın öbür yarısını sorar', async () => {
+  const { BOLUM34 } = await import('../src/hikaye/bolum34');
+  const s = konusmaYolu(BOLUM34, { madalyaSonu: 'nermin', travma: 2 }, 'nermin34', 'sonra', ['Madalyayı sor', 'Anlat ona']);
+  expect(s.metin).toContain('Seddülbahir\'de değildim');
+  expect(M.bayrak(s.d, 'nerminMadalya')).toBe('anlat');
+  expect(M.sayi(s.d, 'travma')).toBe(1);
+  expect(konusmaYolu(BOLUM34, { madalyaSonu: 'mezar' }, 'nermin34', 'sonra', ['Madalyayı sor']).metin).toContain('kefenine');
+  const yok = M.dugumBilgisi(BOLUM34, durum(BOLUM34, {}, { tur: 'konusma', kisi: 'nermin34', dugum: 'sonra' })).secenekler;
+  expect(yok.some((x) => x.etiket.startsWith('Madalyayı'))).toBe(false);
+});
+
+test('Neslihan İzmir\'de yangın gecesini anar', async () => {
+  const { BOLUM35 } = await import('../src/hikaye/bolum35');
+  const y = (b, e) => konusmaYolu(BOLUM35, b, 'neslihan35', 'sonra', ['Kordon', e]);
+  expect(y({ yanginAni: 'cemil' }, 'Geç').metin).toContain('Cemil Bey\'in sesine');
+  expect(y({ yanginAni: 'yalniz' }, 'Geç').metin).toContain('dönmedin');
+  const s = y({ yanginAni: 'neslihan' }, 'Ona sor');
+  expect(s.metin).toContain('Bir kızın elini tuttum');
+  expect(M.bayrak(s.d, 'izmirAni')).toBe('sor');
+});
+
+test('Gülce Tevfik\'in sessizliğini anlatır', async () => {
+  const { BOLUM37 } = await import('../src/hikaye/bolum37');
+  const t = (b, e) => konusmaYolu(BOLUM37, b, 'gulce37', 'ilk', ['Tevfik', e]);
+  expect(t({ gulceSon33: 'bildi' }, 'Bir mektup').metin).toContain('Mudanya damgalı');
+  const s = t({ gulceSon33: 'el', gulceGuven: 1 }, 'Onu kayıkhanenin');
+  expect(s.metin).toContain('Bir el yeter mi');
+  expect(M.bayrak(s.d, 'gulceTevfik37')).toBe('sofra');
+  expect(M.sayi(s.d, 'gulceGuven')).toBe(2);
+});
+
+test('Zürih\'te Lozan, Bruno, Rahel ve kaptanın son gecesi', async () => {
+  const { BOLUM38, agirlik38 } = await import('../src/hikaye/bolum38');
+  const l = konusmaYolu(BOLUM38, { tazminatSonu: 'red' }, 'klara38', 'ilk', ['Lozan', 'Avukattın', 'Sen konuş']);
+  expect(l.metin).toContain('rahat uyudum');
+  expect(agirlik38(l.d)).toBe(1);
+  const n = konusmaYolu(BOLUM38, { brunoSonu: 'kavga', rahelCevap: 'arif' }, 'neslihan38', 'ilk', ['Yarın', 'Yalnız']);
+  expect(n.metin).toContain('ellerin titriyordu');
+  expect(n.metin).toContain('benim cevabımı vermedim');
+  const yok = M.dugumBilgisi(BOLUM38, n.d.gorunum.tur === 'konusma' ? n.d : durum(BOLUM38, {}, { tur: 'konusma', kisi: 'neslihan38', dugum: 'yarin' })).secenekler;
+  expect(yok.some((x) => x.etiket.startsWith('Rahel'))).toBe(false);
+  let d = { ...M.yeniDurum(BOLUM38), bayraklar: { konusmaci38: 'neslihan', neslihanRahel: 'ad' }, gorunum: { tur: 'sahne', id: 'genel38' } };
+  expect(agirlik38(d)).toBe(1);
+  expect(M.sahneBilgisi(BOLUM38, d).paragraflar.join(' ')).toContain('altı ad söylüyor');
+  const r = konusmaYolu(BOLUM38, { suleymanSon: 'ninni', arifCevap: 'kaptan', rizaBag: 1 }, 'riza38', 'ilk', ['Kaptanı', 'Son bir']);
+  expect(r.metin).toContain('ninni söylemişti');
+  expect(r.metin).toContain('İskelede yalnız');
+  expect(M.bayrak(r.d, 'rizaKar')).toBe('yol');
+  expect(M.sayi(r.d, 'rizaBag')).toBe(2);
+});

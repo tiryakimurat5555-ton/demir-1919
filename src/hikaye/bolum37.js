@@ -279,7 +279,40 @@ export const BOLUM37 = {
             bayrak(d, 'kayikhaneVaris') === 'hepimiz'
               ? 'Gülce kapıdaki levhaya bakıyor. Kim kaybolduysa, buradan aranır, diyor. Rıza Bey\'in kaybettiği biri de sayılır mı? Sayılır.'
               : 'Gülce defterini kapatıyor. Bugün kimse gelmedi, diyor. Belki bugün biz gideriz.',
-          secenekler: [{ etiket: 'Gidiyoruz.' }],
+          secenekler: [
+            {
+              etiket: 'Tevfik\'ten haber var mı?',
+              kosul: (d) => !!bayrak(d, 'gulceSon33') && !bayrak(d, 'gulceTevfik37'),
+              sonra: 'tevfik',
+            },
+            { etiket: 'Gidiyoruz.' },
+          ],
+        },
+        tevfik: {
+          soz: (d) =>
+            ({
+              bildi: 'Gülce bir mektup gösteriyor; Mudanya damgalı. Tevfik yazmış, diyor. Kaptanın bildiğini öğrendiği günden beri her ay bir mektup. Açıyorum, okuyorum, cevap yazmıyorum. Ne yazacağımı bilmiyorum.',
+              acti: 'Gülce Selim\'in mektubunu Tevfik\'e vermişti; Koza Han\'da. O günden beri Tevfik susuyor, diyor. Selim yazıyor; ağabeyim yemek yemiyor, diyor. Benim yüzümden mi?',
+              el: 'Gülce o sabahki eli hatırlıyor. Tuttu, kalktı, diyor. Bir kelime etmedik. Selim her hafta yazıyor; Tevfik hiç. Bir el yeter mi, Arif?',
+              sus: 'Gülce başını sallıyor. Tren dokuzda, dedim, diyor; başka bir şey demedim. Selim hâlâ anlamadı. Tevfik anladı sanırım. Bilmiyorum.',
+            }[bayrak(d, 'gulceSon33')] || 'Gülce Tevfik\'i düşünüyor.'),
+          secenekler: [
+            {
+              etiket: 'Onu kayıkhanenin sofrasına çağır. Bir akşam; Selim\'le birlikte.',
+              etki: { bayrak: { gulceTevfik37: 'sofra' }, artir: { gulceGuven: 1 } },
+              cevap: 'Gülce bir süre düşünüyor. Kaptan çağırırdı, diyor. Masaya bir tabak fazla koyardı; kim gelirse. Peki. Bir tabak fazla.',
+            },
+            {
+              etiket: 'Bir mektup yaz. Kısa; senin elinle.',
+              etki: { bayrak: { gulceTevfik37: 'mektup' } },
+              cevap: 'Gülce kâğıdı çekiyor. Üç kelime yazıyor, siliyor; bir kelime yazıyor. Ne yazdığını sana göstermiyor. Zarfı kapatıyor. Yarın postaya, diyor.',
+            },
+            {
+              etiket: 'Sen bilirsin Gülce. Bu senin hesabın.',
+              etki: { bayrak: { gulceTevfik37: 'kendi' } },
+              cevap: 'Gülce gülümsüyor; yorgun. Herkes böyle diyor, diyor. Kaptan demezdi.',
+            },
+          ],
         },
       },
     },

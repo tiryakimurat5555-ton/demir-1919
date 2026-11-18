@@ -8,6 +8,12 @@ görme engelli oyuncular tarafından bağımsız oynanabilecek; VoiceOver ve Tal
 
 Tasarım taslağı: `belgeler/tasarim-taslagi.pdf`
 
+## Derinleştirme 16. adım (sürüm 0.56)
+
+Altıncı kitabın bölümlerine geri dönen anlar: Ankara'da Nermin madalyanın öbür yarısını sorar; İzmir'de Neslihan yangın
+gecesini anar; Gülce Tevfik'in sessizliğini anlatır; Zürih'te Klara Lozan'ı, Neslihan Bruno ve Rahel'i, Rıza Bey
+kaptanın son sabahını konuşur. Neslihan'ın ve Klara'nın kararları genel kuruldaki teraziyi değiştirir.
+
 ## Şu anki aşama: 47 — otuz sekizinci bölüm: Kar (altıncı kitabın sonu)
 
 Zürih, Ocak 1926. Banque Vollmer'in olağanüstü genel kurulu. Altı kitap boyunca verdiğin kararlar terazide birikir:

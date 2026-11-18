@@ -386,7 +386,40 @@ export const BOLUM34 = {
               etki: { bayrak: { nerminKorku: 'kal' }, artir: { nerminBag: 1 } },
               cevap: 'Nermin gülüyor. Cevdet de böyle derdi, diyor. Kal; cephe burada.',
             },
+            {
+              etiket: 'Madalyayı sor.',
+              kosul: (d) => !!bayrak(d, 'madalyaSonu') && !bayrak(d, 'nerminMadalya'),
+              sonra: 'madalya',
+            },
             { etiket: 'Sonra konuşuruz.' },
+          ],
+        },
+        madalya: {
+          soz: (d) =>
+            ({
+              nermin: 'Nermin çekmeceden bir zarf çıkarıyor; içinde senin madalyan. Kaptanın cenazesinden sonra geldi, diyor. Öbür yarıyı yaz demişsin. Oturdum; yazamadım. Ben Seddülbahir\'de değildim, Arif. Sen anlatırsan yazarım.',
+              tak: 'Nermin kasadan başını kaldırmıyor. Kaptanın cenazesinde madalyayı göğsüne takmışsın, diyor. Gülce yazdı. Bir kez, demişsin. Yazdığım yarıyı hâlâ saklıyorum; öbür yarısı sende.',
+              mezar: 'Nermin bir an duruyor. Madalyayı kaptanın kefenine koymuşsun, diyor. Gülce yazdı. İyi etmişsin. Ama benim yazdığım yarı hâlâ çekmecede; öbür yarısı toprakta mı kaldı, sende mi?',
+            }[bayrak(d, 'madalyaSonu')] || 'Nermin madalyayı soruyor.'),
+          secenekler: [
+            {
+              etiket: 'Anlat ona: Seddülbahir\'deki sabahı. Bir kez, baştan sona.',
+              etki: (d) => ({ bayrak: { nerminMadalya: 'anlat' }, artir: { nerminBag: 1, travma: sayi(d, 'travma') > 0 ? -1 : 0 } }),
+              sonra: 'sonra',
+              cevap: 'Anlatıyorsun. Çıkarma sabahını, suyun rengini, yanındaki çocuğun adını. Nermin yazmıyor; dinliyor. Bitince kalemi alıyor. Şimdi yazabilirim, diyor. Sen bir daha anlatmak zorunda kalmayasın diye.',
+            },
+            {
+              etiket: 'Yaz, ama adımı koyma. Herkesin sabahı olsun.',
+              etki: { bayrak: { nerminMadalya: 'adsiz' } },
+              sonra: 'sonra',
+              cevap: 'Nermin başını sallıyor. Bir er, diyor; adsız. Cevdet de adsız öldü. Belki bu yazı ikisinin de olur.',
+            },
+            {
+              etiket: 'Bırak. Madalya nerede kaldıysa orada kalsın.',
+              etki: { bayrak: { nerminMadalya: 'birak' } },
+              sonra: 'sonra',
+              cevap: 'Nermin zarfı kapatıyor. Peki, diyor. Ama çekmece açık; ne zaman istersen.',
+            },
           ],
         },
       },

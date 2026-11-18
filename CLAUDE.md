@@ -411,6 +411,11 @@
   15. adım: defterSonu (25) → 27. fikri yeni sorular (gazete/yak; okundu_gazete, çatlak +1) ve 30. açılış satırı
   (arsiv/gazete/yak/satildi; gazete ikna +1); madalya (3, 23, 25) → 32. madalya32 sahnesi (kayik32_son'dan madalya
   varsa; madalyaSonu mezar [travma -1] / tak / nermin [nerminBag +1]) → vasiyet32 satırı. madalya ipliği kapandı.
+  16. adım (18 Kasım): madalyaSonu → 34. nermin34 madalya düğümü (nerminMadalya anlat [travma -1, nerminBag +1] / adsiz / birak);
+  yanginAni → 35. neslihan35 kordon (izmirAni anlat / sor / gec); gulceSon33 → 37. gulce37 tevfik (gulceTevfik37 sofra / mektup /
+  kendi); 38. bölümde tazminatSonu → klara38 lozan (klaraLozan affet / hatirlat / sor), brunoSonu + rahelCevap → neslihan38 yarin
+  (neslihanRahel ad [rahel_listesi] / kendi / sus; genel38'de Neslihan konuşursa satırı), suleymanSon + arifCevap → riza38 kaptan
+  (rizaKar kal / dinlen / yol). agirlik38'e iki ek: Neslihan konuşur + neslihanRahel ad; Klara konuşur + klaraLozan affet.
   testler/derinlik.test.js iplikleri denetler.
 - İPLİK KAYDI: src/hikaye/iplikler.js (IPLIKLER: bayrak, ekildi, karsiliklar, gelecek, durum). testler/iplikler.test.js
   bayrağın ekildiği bölümde yazıldığını, karşılık bölümlerinde '<bayrak>' olarak okunduğunu denetler. Yeni iplik ekleyince,

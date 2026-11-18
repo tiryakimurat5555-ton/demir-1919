@@ -7,6 +7,8 @@
 // Karşılık verilen iplikler: klaraTelgraf, vollmerIhale, nuriSon33, pendleSon35, albrechtSonu, cemilRapor34, neslihanMiras,
 // rizaMezar, defterSonu, babaYuz.
 // Yeni iplikler: konusmaci38, vollmerSon38, kasa38, buenosAires.
+// Derinleştirme 16. adım: klaraLozan (tazminatSonu, 22), neslihanRahel (brunoSonu 28, rahelCevap 31), rizaKar (suleymanSon,
+// arifCevap 32).
 import { BOLUM37 } from './bolum37';
 import { bayrak, delilVar, sayi } from '../oyun/motor';
 
@@ -18,6 +20,8 @@ export const agirlik38 = (d) =>
   (bayrak(d, 'albrechtSonu') === 'yakalandi' ? 1 : 0) +
   (bayrak(d, 'cemilRapor34') === 'adli' ? 1 : 0) +
   (bayrak(d, 'neslihanMiras') === 'borc' ? 1 : 0) +
+  (bayrak(d, 'konusmaci38') === 'neslihan' && bayrak(d, 'neslihanRahel') === 'ad' ? 1 : 0) +
+  (bayrak(d, 'konusmaci38') === 'klara' && bayrak(d, 'klaraLozan') === 'affet' ? 1 : 0) +
   sayi(d, 'konusma38');
 
 const klaraYakin = (d) => !!bayrak(d, 'klaraYardim') || bayrak(d, 'rainerSonu') === 'serbest' || !!bayrak(d, 'klaraTanisti');
@@ -84,7 +88,12 @@ export const BOLUM38 = {
         'Meşe paneller, yeşil çuha, on bir ortak. Vollmer başkan koltuğunda; bastonu masanın kenarında. Gündem tek madde: Başkanın Anadolu işleri.',
         {
           klara: 'Klara ayağa kalkıyor. Dedemin bankasının avukatıydım, diyor; şimdi tanığım. Bursa\'nın koza çeklerini, Ankara\'nın kinin çekini, İzmir\'in rehin senetlerini tek tek masaya koyuyor. Her birinin altında aynı imza: A. V.',
-          neslihan: 'Neslihan ayağa kalkıyor. Ben Cenevre\'de konuşan kadınım, diyor. On yedi yaşında bu bankanın parasıyla bir iskeleden satıldım. Şimdi bu bankanın parası bir şehrin ipeğini, bir hastanenin kininini, üç yüz bahçeyi satın alıyor. Ortaklardan biri gözlerini kaçırıyor; sonra biri daha.',
+          neslihan: 'Neslihan ayağa kalkıyor. Ben Cenevre\'de konuşan kadınım, diyor. On yedi yaşında bu bankanın parasıyla bir iskeleden satıldım. Şimdi bu bankanın parası bir şehrin ipeğini, bir hastanenin kininini, üç yüz bahçeyi satın alıyor. Ortaklardan biri gözlerini kaçırıyor; sonra biri daha.' +
+            ({
+              ad: ' Sonra kâğıda bakmadan altı ad söylüyor; altı kız, altı liman. Salonda kimse kıpırdamıyor. Yedinci adı söylemiyor; herkes biliyor.',
+              kendi: ' Yalnız kendi hikâyesi; Cenevre\'deki gibi, kısa ve düz.',
+              sus: ' Bir an duraksıyor; sana bakıyor. Sonra devam ediyor. Konuşmamı istemiyordun, diyor salondaki herkese. Konuşuyorum.',
+            }[bayrak(d, 'neslihanRahel')] || ''),
           riza: 'Rıza Bey ayağa kalkıyor; Almancası yok, Neslihan çeviriyor. Kırk yıl polislik yaptım, diyor. Bir kez dövdüm; bir çocuk öldü. O gün öğrendim: Delille. İşte deliller. Kâğıtları yavaşça, bir zabıt kâtibinin sabrıyla diziyor.',
         }[bayrak(d, 'konusmaci38')] || '',
         'Terazi: ' + agirlik38(d) + ' / ' + AGIRLIK_ESIGI + '. Ortaklar oylamaya geçiyor.',
@@ -227,7 +236,40 @@ export const BOLUM38 = {
               etki: (d) => ({ bayrak: { konusmaci38: 'riza' }, artir: { konusma38: bayrak(d, 'rizaMezar') && bayrak(d, 'rizaMezar') !== 'sus' ? 1 : 0 } }),
               cevap: 'Rıza Bey şapkasını düzeltiyor. Bir polis bankacılara ne söyler, diyor. Doğruyu. Yavaşça.',
             },
+            {
+              etiket: 'Lozan\'ı konuşalım. O masada karşı taraftaydın.',
+              kosul: (d) => !!bayrak(d, 'tazminatSonu') && !bayrak(d, 'klaraLozan'),
+              sonra: 'lozan',
+            },
             { etiket: 'Sonra konuşuruz.', kosul: (d) => !!bayrak(d, 'konusmaci38') },
+          ],
+        },
+        lozan: {
+          soz: (d) =>
+            ({
+              red: 'Klara gözlüğünü çıkarıyor. Lozan\'da Pendle\'in dilekçesini ben yazdım, diyor. Kırk sandık, Kızılhaç, tazminat. Komisyon reddetti; sizin yüzünüzden. O akşam otelde ilk kez rahat uyudum. Avukat kaybedince uyumaz. Ben uyudum.',
+              askida: 'Klara gözlüğünü çıkarıyor. Lozan\'daki dilekçe hâlâ askıda, diyor. Pendle\'in kırk sandığı; benim imzam. Bir gün biri dosyayı açarsa adım orada. Bunu bilerek mi geldim buraya? Evet.',
+              inceleme: 'Klara gözlüğünü çıkarıyor. Lozan\'da kazandım, diyor; dilekçe incelemeye alındı. Kırk sandığın parasını Pendle alabilir. Masrafları Vollmer ödedi. Yarın o masrafın hesabını soracağım; kendi imzamla.',
+            }[bayrak(d, 'tazminatSonu')] || 'Klara Lozan\'ı hatırlıyor.'),
+          secenekler: [
+            {
+              etiket: 'Avukattın; işini yaptın. Yarın aynı taraftayız.',
+              etki: { bayrak: { klaraLozan: 'affet' } },
+              sonra: 'ilk',
+              cevap: 'Klara gözlüğünü takıyor. Dedem de böyle derdi, diyor; işini yaptın. Ama o bir hırsızdı. Sizden duymak başka. Yarın konuşursam, bunu da söyleyeceğim.',
+            },
+            {
+              etiket: 'Unutmadım. Yarın konuşurken sen de unutma.',
+              etki: { bayrak: { klaraLozan: 'hatirlat' } },
+              sonra: 'ilk',
+              cevap: 'Klara başını sallıyor. Unutmam, diyor. Bir avukat neyi savunduğunu unutursa bir gün yine savunur.',
+            },
+            {
+              etiket: 'Neden döndün? Dedenin bankası battı; Vollmer\'inki seni beslerdi.',
+              etki: { bayrak: { klaraLozan: 'sor' } },
+              sonra: 'ilk',
+              cevap: 'Klara pencereye bakıyor. Cenevre\'de bir kadın gördüm, diyor; tanık sırasında. Adını bilmiyorum. Bana bakmadı bile. O akşam istifa mektubumu yazdım. Bazen bir yüz yeter.',
+            },
           ],
         },
       },
@@ -248,7 +290,47 @@ export const BOLUM38 = {
             ]
               .filter(Boolean)
               .join(' '),
-          secenekler: [{ etiket: 'Yarın bitecek.' }],
+          secenekler: [
+            {
+              etiket: 'Yarın ne söyleyeceksin?',
+              kosul: (d) => !bayrak(d, 'neslihanRahel'),
+              sonra: 'yarin',
+            },
+            { etiket: 'Yarın bitecek.' },
+          ],
+        },
+        yarin: {
+          soz: (d) =>
+            [
+              {
+                riza: 'Napoli\'yi düşünüyorum, diyor. Bruno merdivenin başındaydı; Rıza Bey tek bir kelimeyle durdurdu. Bruno hâlâ bir yerde, abi. Yarın onun parasını ödeyen adamın karşısındayım.',
+                kemal: 'Napoli\'yi düşünüyorum, diyor. Bruno pencerede duruyordu; atlamadı. Kemal\'in kayığı bizi aldı. Bruno hâlâ bir yerde, abi.',
+                kavga: 'Napoli\'yi düşünüyorum, diyor. Merdivenden indiğinde ellerin titriyordu; saatlerce. Bruno\'yu yere serdin. Ama Bruno hâlâ bir yerde, abi.',
+              }[bayrak(d, 'brunoSonu')] || 'Bruno\'yu düşünüyorum, diyor. Bir yerde, hâlâ.',
+              {
+                neslihan: 'İskenderiye\'de Rahel\'e kendi kelimelerimle cevap verdim. Ben kendimi kurtardım, demişti; ben kurtarılmadım. İkimiz de doğruyu söyledik.',
+                arif: 'İskenderiye\'de Rahel\'e sen cevap vermiştin. Haklıydın; ama benim cevabımı vermedim. Yarın vermem gerek.',
+              }[bayrak(d, 'rahelCevap')] || 'Cenevre\'den beri adımı söylemekten korkmuyorum. Ama yarın bir adı daha söylemem gerekebilir.',
+              delilVar(d, 'rahel_listesi') ? 'Rahel\'in defteri yanımda. Altı ad. Onları da söyleyeyim mi?' : 'Yalnız kendimi mi anlatayım?',
+            ].join(' '),
+          secenekler: [
+            {
+              etiket: 'Rahel\'in altı adını da söyle. Bankacılar bir kızı değil, yedi kızı duysun.',
+              kosul: (d) => delilVar(d, 'rahel_listesi'),
+              etki: { bayrak: { neslihanRahel: 'ad' }, artir: { neslihanBag: 1 } },
+              cevap: 'Neslihan defteri açıyor; adları dudaklarının arasında tek tek söylüyor. Ezberlemem gerek, diyor. Kâğıttan okursam bir liste olur. Ezberden söylersem insan olurlar.',
+            },
+            {
+              etiket: 'Yalnız kendini anlat. Senin hikâyen yeter.',
+              etki: { bayrak: { neslihanRahel: 'kendi' } },
+              cevap: 'Neslihan başını sallıyor. Benim hikâyem, diyor. Cenevre\'deki gibi. Bir kez daha.',
+            },
+            {
+              etiket: 'Hiçbir şey söylemek zorunda değilsin. Başkası konuşur.',
+              etki: { bayrak: { neslihanRahel: 'sus' } },
+              cevap: 'Neslihan sana uzun uzun bakıyor. Hep beni korumaya çalışıyorsun, diyor. Babam gibi. Bir gün izin vereceksin; ben de konuşurum.',
+            },
+          ],
         },
       },
     },
@@ -263,7 +345,49 @@ export const BOLUM38 = {
               tas: 'Rıza Bey cebinden bir kâğıt çıkarıyor: taşçının makbuzu. Suçsuzdu, diyor. Taşa yazdırmak kolaymış. Yirmi yedi yıl.',
               sus: 'Rıza Bey bastonsuz; elleri ne yapacağını bilmiyor. Bir baston bir ağırlık, diyor. Bıraktıktan sonra anlıyorsun.',
             }[bayrak(d, 'rizaMezar')] || 'Rıza Bey otelin penceresinden göle bakıyor.'),
-          secenekler: [{ etiket: 'Tamam Rıza Bey.' }],
+          secenekler: [
+            {
+              etiket: 'Kaptanı düşünüyor musun?',
+              kosul: (d) => !!bayrak(d, 'suleymanSon') && !bayrak(d, 'rizaKar'),
+              sonra: 'kaptan',
+            },
+            { etiket: 'Tamam Rıza Bey.' },
+          ],
+        },
+        kaptan: {
+          soz: (d) =>
+            [
+              {
+                ninni: 'Rıza Bey göle bakıyor. Kaptanın son sabahı, diyor. Neslihan ninni söylemişti; ben küreğe dayanmış ağlıyordum. Kırk yıllık komiser. Kimse görmedi sanıyordum.',
+                anlat: 'Rıza Bey göle bakıyor. Kaptanın son sabahı, diyor. Sen ilk geceyi anlatmıştın: Sabri, denk, kahve. Ben o gece Cihangir\'de bir pencerede oturuyordum; senin geleceğini bilmeden. Yedi yıl.',
+                sus: 'Rıza Bey göle bakıyor. Kaptanın son sabahı, diyor. Kimse konuşmamıştı; deniz konuştu. Ben hâlâ o sessizliği duyuyorum.',
+              }[bayrak(d, 'suleymanSon')],
+              {
+                onlar: 'O gece ona neden aramayı bırakmadığını söyledin: onlar için. Ayva ağacı, bir ses.',
+                kaptan: 'O gece ona neden aramayı bırakmadığını söyledin: onun için. İskelede yalnız kalmasın diye.',
+                kendim: 'O gece ona neden aramayı bırakmadığını söyledin: kendin için. Gömülmemek için.',
+              }[bayrak(d, 'arifCevap')] || '',
+              'Ben neden bırakmadım, biliyor musun? Bilmiyorum. Yaşlandım, Arif. Bu iş bitince ne yapacağım?',
+            ]
+              .filter(Boolean)
+              .join(' '),
+          secenekler: [
+            {
+              etiket: 'Kayıkhanede kal. Kapıda bir polis lazım; aramayı bırakmayan biri.',
+              etki: { bayrak: { rizaKar: 'kal' }, artir: { rizaBag: 1 } },
+              cevap: 'Rıza Bey gülüyor; kar şapkasının kenarından düşüyor. Kapıcı komiser, diyor. Halim duysa mezarında döner. İyi. Dönsün.',
+            },
+            {
+              etiket: 'Dinlen artık. Yeter, Rıza Bey. Gerçekten yeter.',
+              etki: { bayrak: { rizaKar: 'dinlen' } },
+              cevap: 'Rıza Bey bir süre susuyor. Kimse bana bunu söylememişti, diyor. Kırk yılda. Belki haklısın. Belki.',
+            },
+            {
+              etiket: 'Son bir yolculuk daha. Nereye gidersek, benimle.',
+              etki: { bayrak: { rizaKar: 'yol' }, artir: { rizaBag: 1 } },
+              cevap: 'Rıza Bey eldivenlerini çıkarıp yeniden takıyor. Bir son daha, diyor. Hep bir son daha. Peki. Ama bu sefer bavulumu ben taşırım.',
+            },
+          ],
         },
       },
     },

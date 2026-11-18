@@ -313,3 +313,8 @@ Altıncı kitap için: kayıkhane üs olur; Selim; Rahel ile Beyrut; Melek'in an
 Zürih, 14-15 Ocak 1926. Vollmer'in bankasında olağanüstü genel kurul; altı kitabın kararları terazide. Konuşan kişi seçilir
 (Klara, Neslihan, Rıza). Gece kasada yangın: Vollmer'in defteri ya da 1912 sayfası kurtarılır, ya da Klara'nın sözüyle yanmaya
 bırakılır. Defterin son satırı: Buenos Aires, F. ve B. Yedinci kitap oradan başlar: 1912 iskelesinin son iki adamı.
+
+### Derinleştirme 16. adım (18 Kasım)
+- madalyaSonu (32) → 34 Nermin (nerminMadalya). yanginAni (21) → 35 Neslihan, Kordon (izmirAni). gulceSon33 (33) → 37 Gülce
+  (gulceTevfik37). 38: tazminatSonu (22) → Klara (klaraLozan), brunoSonu (28) + rahelCevap (31) → Neslihan (neslihanRahel;
+  genel kurulda altı ad), suleymanSon + arifCevap (32) → Rıza Bey (rizaKar: kal / dinlen / yol). Yedinci kitap için yeni iplikler.

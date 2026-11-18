@@ -274,7 +274,45 @@ export const BOLUM35 = {
         },
         sonra: {
           soz: 'Neslihan tezgâhtaki bir kadına incir ayıklamayı soruyor; kadın gülerek gösteriyor.',
-          secenekler: [{ etiket: 'Tamam.' }],
+          secenekler: [
+            {
+              etiket: 'Kordon\'a bak. Üç yıl önce burası yanıyordu.',
+              kosul: (d) => !bayrak(d, 'izmirAni'),
+              sonra: 'kordon',
+            },
+            { etiket: 'Tamam.' },
+          ],
+        },
+        kordon: {
+          soz: (d) =>
+            [
+              'Neslihan yeni yapılan binaların cephesine bakıyor; harçları hâlâ taze. Burada bir kahve vardı, diyor. Eylül\'de. Sonra hiçbir şey.',
+              {
+                neslihan: 'O gece benim sesime tutunmuştun, abi. Elin elimdeydi; titriyordu. Ben de titriyordum; sen fark etmedin.',
+                cemil: 'O gece Cemil Bey\'in sesine tutunmuştun. Ben yanındaydım; beni duymadın. Kızmadım. Ama hatırlıyorum.',
+                yalniz: 'O gece kimseye tutunmadın. Dişlerini sıktın, kalabalığın içinden yalnız çıktın. Ben arkandan seslendim; dönmedin.',
+              }[bayrak(d, 'yanginAni')] || 'O gece ikimiz de bir şey görmüştük; hiç konuşmadık.',
+            ].join(' '),
+          secenekler: [
+            {
+              etiket: 'Ona o geceyi anlat: ne gördüğünü, neden döndüğünü.',
+              etki: (d) => ({ bayrak: { izmirAni: 'anlat' }, artir: { neslihanBag: 1, travma: sayi(d, 'travma') > 0 ? -1 : 0 } }),
+              sonra: 'sonra',
+              cevap: 'Anlatıyorsun: rıhtımdaki atları, denize giren insanları, bir an Seddülbahir\'in suyunu gördüğünü. Neslihan dinliyor. Sonra elini tutuyor; bu kez titreyen sen değilsin. Söylediğin için teşekkür ederim, diyor. Üç yıl bekledim.',
+            },
+            {
+              etiket: 'Ona sor: O gece sen ne gördün?',
+              etki: { bayrak: { izmirAni: 'sor' }, artir: { neslihanBag: 1 } },
+              sonra: 'sonra',
+              cevap: 'Neslihan uzun süre susuyor. Bir kızın elini tuttum, diyor sonunda. On iki yaşında belki. Kalabalık bizi ayırdı. Adını sormadım. Her gece o eli düşünüyorum; Selanik iskelesinde kimse benim elimi tutmamıştı. Ben tuttum, ve bıraktım.',
+            },
+            {
+              etiket: 'Geç bunu. İncirlere bak.',
+              etki: { bayrak: { izmirAni: 'gec' } },
+              sonra: 'sonra',
+              cevap: 'Neslihan başını çeviriyor. Peki abi, diyor. İncirler.',
+            },
+          ],
         },
       },
     },
