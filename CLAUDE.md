@@ -26,6 +26,14 @@
   react-native-audio-api yalnız equalpower (HRTF yok) ve Expo Go'da yok; WebView işe yaramazsa TestFlight + kendi uygulama.
   EAS iOS derlemesi (kredi harcar) Murat'a sormadan başlatılmaz. ASC API anahtarı Murat'ın özel Deneme deposunda (gizli/);
   herkese açık depoya asla yazılmaz.
+- 2. AŞAMA (18 Kasım, Murat'ın onayını bekliyor): hikâye omurgası belgesi https://claude.ai/artifact/YR74Ad1fbxSSqzqgHAJcq2
+  Özet: Kanatlı Anahtar'ın asıl amacı Ahit (1908 Selanik): yirmi yıl içindeki büyük savaşın borcunu şimdiden satın almak.
+  Dört kol: Kasa (ekonomik, Viktor Rainer, Viyana/Galata), Kılıç (askerî, Albay Anton Weisz, Berlin/Çanakkale; saha eli Delorme),
+  Mühür (siyasi, Kont Imre Szalay, Atina/İstanbul; Nazım Bey, Halim), Göz (istihbarat, Gaston Rivière, Selanik/Manastır; Neslihan
+  varisi). Anahtarın dört dişi; Galata kasası; beşinci kurucunun boş koltuğu dört dişi toplayana. Perdeler: 1 Sudaki Adam
+  (Kas 1918-May 1919 İstanbul), 2 Dört Kol (Haz 1919-Mar 1921, sıra serbest önerildi), 3 Ahit (Nis 1921-Eki 1922), 4 Son Toplantı
+  (Kas 1922-6 Eki 1923 Galata). Sonlar: ifşa, adalet, kasayı yakmak, anahtarı devralmak, Neslihan, yenilgi, gizli son eve dönüş.
+  Dikey dilim = 1. perdenin ilk görevi "Sudaki Adam" sesle serbest dolaşmayla.
 - Bu ortamda npm yok; bağımlılık sürümleri Expo dokümanından (react-native-webview 14.0.1, SDK 58). bun build'e -e react-native-webview ekle.
 
 ## Tasarım
