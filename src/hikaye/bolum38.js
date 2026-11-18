@@ -195,8 +195,11 @@ export const BOLUM38 = {
       ortam: 'ortam_zurih',
       ortamOran: 0.45,
       baslik: 'Otuz sekizinci bölüm bitti',
-      paragraflar: ['Kararların kaydedildi. Yedinci kitap yazılıyor.'],
-      secenekler: [{ etiket: 'Ana menüye dön', anaMenu: true }],
+      paragraflar: ['Kararların kaydedildi. Sırada yedinci kitap, otuz dokuzuncu bölüm: Ekvator.'],
+      secenekler: [
+        { etiket: '39. bölüme geç', sonrakiBolum: 'bolum39' },
+        { etiket: 'Ana menüye dön', anaMenu: true },
+      ],
     },
   },
 

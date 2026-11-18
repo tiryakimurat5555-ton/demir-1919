@@ -365,6 +365,16 @@
   (defterSonu) → kasa38 (yangın: kurtar [vollmer_defteri, travma +1] / sayfa [makbuz_sayfasi, neslihanBag +1] / birak [klaraYakin])
   → kasa38_son (buenosAires) → son38 (kurulSonu30, brunoBilgi) → son ("Yedinci kitap yazılıyor"). Yeni iplikler konusmaci38,
   vollmerSon38, kasa38, buenosAires (F. ve B., Buenos Aires). rizaMezar, babaYuz, klaraTelgraf kapandı.
+- Otuz dokuzuncu bölüm "Ekvator" (src/hikaye/bolum39.js; yedinci kitabın açılışı): 3-22 Mart 1926, Stella del Plata vapuru
+  (kurgu), Cenova → Buenos Aires. Kalıbı kırar: yolculuk. Ekip Arif + Neslihan + (rizaKar yol ise Rıza, değilse Cemil).
+  Tek mekân vapur39 (ortam_guverte); GUN_SAYISI 3, sayaç gun39; nesneler ucuncu → nazli39 (sozlesme), katip → liste39
+  (yolcu_listesi), salon → testa39 (testa_defteri), telsiz → telsiz39 (telsiz_kaydi; telsizci Turi); dört yerden üçü.
+  Olaylar: gun39 >= 1 ekvator39 (Neptün töreni; Rıza: rizaEkvator birlikte/gorev/montevideo; Cemil: cemilEkvator
+  gonder/yuz/kendi, cemilEleni satırı), gun39 >= 2 neslihan39 (Nazlı, 17, Kavalalı mübadil; neslihanNazli anlat/arif/bekle)
+  → neslihan39_son (zehraSoru satırı; zehraTelgraf telgraf/soz/sonra). Günler bitince nesne laplata (panoda bağlamak için
+  olay değil) → laplata39: testaKarar indir [on_bir_kiz] / izle [bruno_bekliyor: Calle Junín] / ihbar → laplata39_son → son.
+  Çıkarımlar on_bir_kiz (sozlesme + yolcu_listesi), bruno_bekliyor (testa_defteri + telsiz_kaydi). Asıl karşıt Bruno
+  (28, 30, 38); Testa onun kuryesi; Società Atlantica di Collocamento kurgu. Yeni ses yok.
 - DERİNLEŞTİRME KARARI (17 Kasım, Murat: "Derinleştir"): yeni bölüm yazmaya ara; önce var olan bölümler derinleşir.
   Plan ve yapılanlar belgeler/hikaye-plani.md "Derinleştirme" bölümünde. 1. adım: arifNeden (1. bölüm gece_konusma →
   6. bölüm arifNedenSatiri, 8. bölüm tahliye), haticeSozu (1. bölüm mektup → 2. cenaze → 17. hatice17), Pendle tohumu

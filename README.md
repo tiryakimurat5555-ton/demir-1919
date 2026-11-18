@@ -8,6 +8,13 @@ görme engelli oyuncular tarafından bağımsız oynanabilecek; VoiceOver ve Tal
 
 Tasarım taslağı: `belgeler/tasarim-taslagi.pdf`
 
+## Şu anki aşama: 48 — otuz dokuzuncu bölüm: Ekvator (yedinci kitabın açılışı)
+
+Mart 1926. Stella del Plata Cenova'dan Buenos Aires'e on dokuz günde gider. Üç gün, dört kapı: üçüncü mevkide
+Nazlı, kâtibin yolcu listesi, Signor Testa'nın kart masası, Marconi odası. Ekvator'da Neptün töreni; Rıza Bey (ya da Cemil)
+ile bir gece. Neslihan Nazlı'da kendini görür ve annelerini düşünür. La Plata ağzında karar: kızları Montevideo'da
+indirmek, Testa'yı izleyip Bruno'ya ulaşmak ya da kaptana ihbar.
+
 ## Derinleştirme 17. adım (sürüm 0.57)
 
 Hikâye baştan sona tarandı; ilk bölümlerde sorulan sorular ve verilen sözler sonraki bölümlerde cevap buluyor: Süleyman'ın

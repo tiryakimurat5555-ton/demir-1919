@@ -325,3 +325,9 @@ bırakılır. Defterin son satırı: Buenos Aires, F. ve B. Yedinci kitap oradan
 - Yeni tohum (kural 2): Zehra Hanım. 6. bölümde Hafız Efendi cümlesini bitirmemişti ("Bir sabah arabada..."). 29. bölümde
   Fikri'nin "tifo" yalanı Neslihan'a annesini düşündürür (zehraSoru). 38. bölümde Despina'nın mektubu: Florina'da bir hastane
   arabası; ölümünü kimse görmedi. Yedinci kitapta: Florina 1912, Zehra Hanım'ın izi (yaşıyor mu, nerede öldü; karar sonra).
+
+## Yedinci kitap (18 Kasım)
+- 39. bölüm "Ekvator" (Mart 1926, Stella del Plata): Bruno'nun kuryesi Testa on bir genç kadını "hizmetçi" sözleşmesiyle
+  Buenos Aires'e taşıyor (Società Atlantica di Collocamento, kurgu). Nazlı (Kavalalı mübadil, 17) Neslihan'ın aynası.
+  testaKarar, neslihanNazli, rizaEkvator / cemilEkvator, zehraTelgraf. Sıradaki: 40. bölüm Buenos Aires, Calle Junín
+  (Bruno; Ferrante'nin son yılları; F. ve B.); Zehra Hanım ipliği Florina'ya bağlanır (yedinci kitabın ikinci yarısı).
