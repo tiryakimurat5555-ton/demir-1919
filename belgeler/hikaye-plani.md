@@ -266,3 +266,9 @@ Sıradakiler:
 - 28. bölüm "Cehennem, Otuz Üç" (Nisan 1924, Napoli): alt yarı Dante'nin içinde; Ferrante'nin makbuz defteri (on altı kızın akıbeti: Melek Marsilya'da, Rahel İskenderiye'de hâlâ orada). Sıradaki: 29. bölüm Marsilya, Melek (neslihanYol'a göre; Neslihan'ın en kişisel bölümü: ona ne söyleyecek).
 - 29. bölüm "Melek" (Mayıs 1924, Marsilya): Melek'in annesi Ayşe Hanım Tekirdağ'da, mübadil; kızını tifodan ölmüş sanıyor. Sıradaki: 30. bölüm Cenevre (Ferrante dosyası; melekTanik, Klara) ya da İskenderiye (Rahel). Plan: 30 Cenevre, 31 İskenderiye, beşinci kitabın sonu 32-33 İstanbul (Süleyman'ın vedası, kemal_kalir).
 - 30. bölüm "Tanıklar" (Haziran 1924, Cenevre): ikna; Ferrante Buenos Aires'e kaçar. Sıradaki: 31. bölüm İskenderiye (Rahel); sonra beşinci kitabın kapanışı İstanbul'da (Süleyman'ın vedası, kemal_kalir; Neslihan'ın tanıklığı babaya ulaşır).
+
+## Otuz birinci bölüm: Ninni (yazıldı)
+İskenderiye, Temmuz 1924. Rahel: ambardaki on altı yaşındaki kız; pencereden atlayıp kaçtı, on yılda altı kızı buldu.
+Ninni (Dandini dastana) Zehra Hanım'dan Neslihan'a, Neslihan'dan ambarda Rahel'e geçti. Cemil ile Eleni kararı
+(cemilEleni). Sonrası: rahelKarar'a göre Beyrut/Kahire kapıları; beşinci kitabın kapanışı İstanbul'da (Süleyman, kemalKalir;
+Neslihan'ın tanıklığı babasına ulaşır).

@@ -246,8 +246,8 @@ export const BOLUM30 = {
       ortam: 'ortam_gol',
       ortamOran: 0.45,
       baslik: 'Otuzuncu bölüm bitti',
-      paragraflar: ['Kararların kaydedildi. Otuz birinci bölüm yazılıyor.'],
-      secenekler: [{ etiket: 'Ana menüye dön', anaMenu: true }],
+      paragraflar: ['Kararların kaydedildi.'],
+      secenekler: [{ etiket: 'Otuz birinci bölüme geç', sonrakiBolum: 'bolum31' }, { etiket: 'Ana menüye dön', anaMenu: true }],
     },
   },
 

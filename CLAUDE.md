@@ -300,6 +300,13 @@
   nermin30 (nerminYazdi +1 / false), klara30 [klaraYardim ya da rainerSonu serbest], riza30. Olay bruno30 (Ferrante serbest +
   melekGeldi): riza / tasindi [Klara] / konustu (brunoBilgi: Buenos Aires). oturuma_git (neslihanTanik varsa) → olay oturum →
   oturum30 (efekt tokmak) → kurulSonu30 ad (ikna >= 5) / genel → oturum30_son → son.
+- Otuz birinci bölüm "Ninni" (src/hikaye/bolum31.js): Temmuz 1924 İskenderiye. Ekip Cemil + Neslihan. Mekânlar liman31
+  (ortam_iskenderiye), attarin31 (Attarin; tütüncü → komsu_ifadesi), hastane31 (ortam_hastane; merdiven31 → eleni31:
+  cemilEleni birlikte/mektup/veda, eleniGoruldu). Çıkarım rahel_yeri (makbuz_defteri + komsu_ifadesi) + eleniGoruldu →
+  olay rahel → rahel31 (Rahel, 1912 ambarındaki kızlardan; kendini kurtarmış, altı adı bulmuş; rahelCevap neslihan/arif)
+  → rahel31_ninni (Dandini dastana: ambarda Neslihan öğretmişti, annesi Zehra Hanım'ın ninnisi; rahelKarar rahel/birlikte/
+  ayri, rahel_listesi) → rahel31_son → son. Karşılıklar: kurulSonu30, neslihanTanik, melekKarar, cemilTanik,
+  neslihanTavsiye, cocukKarar. Yeni iplikler rahel_karar, cemil_eleni.
 - DERİNLEŞTİRME KARARI (17 Kasım, Murat: "Derinleştir"): yeni bölüm yazmaya ara; önce var olan bölümler derinleşir.
   Plan ve yapılanlar belgeler/hikaye-plani.md "Derinleştirme" bölümünde. 1. adım: arifNeden (1. bölüm gece_konusma →
   6. bölüm arifNedenSatiri, 8. bölüm tahliye), haticeSozu (1. bölüm mektup → 2. cenaze → 17. hatice17), Pendle tohumu

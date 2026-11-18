@@ -8,6 +8,12 @@ görme engelli oyuncular tarafından bağımsız oynanabilecek; VoiceOver ve Tal
 
 Tasarım taslağı: `belgeler/tasarim-taslagi.pdf`
 
+## Şu anki aşama: 37 — otuz birinci bölüm: Ninni
+
+İskenderiye, Temmuz 1924. Makbuz defterindeki bir ad ve bir komşunun ifadesi, sizi Rahel'e götürür: 1912'deki ambardan
+kendini kurtarmış bir kadın. Cemil Bey Rum hastanesinde Eleni'yle yeniden karşılaşır. Rahel'in mırıldandığı ninniyi
+ambarda ona Neslihan öğretmiştir. Yeni ortam sesi: İskenderiye limanı.
+
 ## Şu anki aşama: 36 — otuzuncu bölüm: Tanıklar
 
 - Haziran 1924, Cenevre: Milletler Cemiyeti'nin kadın ticareti komitesi; Ferrante'nin avukatı belgelerin sahte olduğunu söylüyor
