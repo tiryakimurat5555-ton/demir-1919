@@ -284,6 +284,14 @@
   Çıkarım makbuz (gennaro_ifadesi + ferrante_teklifi). Olay bruno (iki delil) → bruno28: brunoSonu riza / kemal
   [kemalKalir] / kavga (travma+1) → ferrante28 (şafak, Santa Lucia): ferranteKarar cenevre (klaraYardim ya da rainerSonu
   serbest ise Klara) / polis / birak → ferrante28_son → son. Yeni ses ortam_napoli.
+- Yirmi dokuzuncu bölüm "Melek" (src/hikaye/bolum29.js): 3-4 Mayıs 1924 Marsilya. Neslihan'ın bölümü; kalıbı kırar: tek bir
+  konuşma. Ekip Rıza (kahvede) + Neslihan. Mekânlar liman29 (ortam_napoli; telgrafhane29 → gulce_telgrafi; neslihan29 →
+  neslihan_hazir: neslihanTavsiye anlat/dinle/ben; riza29 [rizaKorku]; okula geçiş neslihanTavsiye ile), okul29
+  (ortam_kosk_bahce; melek: melekGuven, GUVEN_ESIGI 2; hikâye +1 (anlat ise +2) → neslihan_hikaye düğümü [arifGece kardes,
+  neslihanAd]; Florina +1 (dinle ise +2); liste -1; "Bugünlük" +1; güvenliyse Ferrante → melek_tanikligi, melekKonustu).
+  Çıkarım anne_yasiyor (makbuz_defteri + gulce_telgrafi: Fikri'nin "tifo" yalanı; anne Tekirdağ'da). Olay karar
+  (konuşma sırasında da tetiklenir) → karar29: melekKarar anne / zarf / sus → melek_son (ferranteKarar cenevre + güven +
+  tanıklık ise melekTanik; davidItiraf false ise Arif Saltiel'in kâğıdını verir → 'sonra') → son.
 - DERİNLEŞTİRME KARARI (17 Kasım, Murat: "Derinleştir"): yeni bölüm yazmaya ara; önce var olan bölümler derinleşir.
   Plan ve yapılanlar belgeler/hikaye-plani.md "Derinleştirme" bölümünde. 1. adım: arifNeden (1. bölüm gece_konusma →
   6. bölüm arifNedenSatiri, 8. bölüm tahliye), haticeSozu (1. bölüm mektup → 2. cenaze → 17. hatice17), Pendle tohumu

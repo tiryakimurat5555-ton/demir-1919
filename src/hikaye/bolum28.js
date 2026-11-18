@@ -306,8 +306,8 @@ export const BOLUM28 = {
       ortam: 'ortam_napoli',
       ortamOran: 0.45,
       baslik: 'Yirmi sekizinci bölüm bitti',
-      paragraflar: ['Kararların kaydedildi. Yirmi dokuzuncu bölüm yazılıyor.'],
-      secenekler: [{ etiket: 'Ana menüye dön', anaMenu: true }],
+      paragraflar: ['Kararların kaydedildi.'],
+      secenekler: [{ etiket: 'Yirmi dokuzuncu bölüme geç', sonrakiBolum: 'bolum29' }, { etiket: 'Ana menüye dön', anaMenu: true }],
     },
   },
 

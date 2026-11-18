@@ -8,7 +8,14 @@ görme engelli oyuncular tarafından bağımsız oynanabilecek; VoiceOver ve Tal
 
 Tasarım taslağı: `belgeler/tasarim-taslagi.pdf`
 
-## Şu anki aşama: 34 — yirmi sekizinci bölüm: Cehennem, Otuz Üç
+## Şu anki aşama: 35 — yirmi dokuzuncu bölüm: Melek
+
+- Mayıs 1924, Marsilya: listedeki ikinci ad, Melek; on iki yıldır Madeleine adıyla bir okulda öğretmen
+- Yeni oynanış: tek bir konuşma, yavaş kazanılan bir güven. Acele eden kapıyı kapatır
+- Neslihan ilk kez kendi hikâyesini anlatabilir
+- Melek'in annesi yaşıyor ve onu on iki yıldır ölü sanıyor: söylemek, bir zarfa koymak ya da susmak
+
+## 34 — yirmi sekizinci bölüm: Cehennem, Otuz Üç
 
 - Nisan 1924, Napoli: Ferrante e Soci, Via Marina on dört
 - Ferrante'nin teklifi: sayfanın üst yarısını yak, on altı kızın bugünkü adresini al
