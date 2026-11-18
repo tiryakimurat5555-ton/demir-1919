@@ -8,7 +8,14 @@ görme engelli oyuncular tarafından bağımsız oynanabilecek; VoiceOver ve Tal
 
 Tasarım taslağı: `belgeler/tasarim-taslagi.pdf`
 
-## Şu anki aşama: 35 — yirmi dokuzuncu bölüm: Melek
+## Şu anki aşama: 36 — otuzuncu bölüm: Tanıklar
+
+- Haziran 1924, Cenevre: Milletler Cemiyeti'nin kadın ticareti komitesi; Ferrante'nin avukatı belgelerin sahte olduğunu söylüyor
+- Yeni oynanış: üç günlük bekleme ve ikna. Kâğıtlar yetmez; bir insanın sesi lazım
+- Her tanık kendi bedelini öder: Neslihan adıyla konuşacak mı, Cemil Bey kendi "kaza" raporlarını yazacak mı?
+- Koridorda Bruno; Ferrante'nin bir sonraki limanı
+
+## 35 — yirmi dokuzuncu bölüm: Melek
 
 - Mayıs 1924, Marsilya: listedeki ikinci ad, Melek; on iki yıldır Madeleine adıyla bir okulda öğretmen
 - Yeni oynanış: tek bir konuşma, yavaş kazanılan bir güven. Acele eden kapıyı kapatır

@@ -292,6 +292,14 @@
   Çıkarım anne_yasiyor (makbuz_defteri + gulce_telgrafi: Fikri'nin "tifo" yalanı; anne Tekirdağ'da). Olay karar
   (konuşma sırasında da tetiklenir) → karar29: melekKarar anne / zarf / sus → melek_son (ferranteKarar cenevre + güven +
   tanıklık ise melekTanik; davidItiraf false ise Arif Saltiel'in kâğıdını verir → 'sonra') → son.
+- Otuzuncu bölüm "Tanıklar" (src/hikaye/bolum30.js): 16-19 Haziran 1924 Cenevre, Milletler Cemiyeti'nin kadın ticareti
+  komitesi (oturum ve üyeler kurgu). Kalıbı kırar: bekleme ve ikna. Tek mekân otel30 (ortam_lozan_otel); ikna sayacı,
+  IKNA_ESIGI 5; açılışta sayfa (+1), makbuz (+1), fikriKarar savci (+1, fikri_ifadesi). Kişiler neslihan30 → neslihan_tanik
+  (neslihanTanik evet +2 / hayir / "ben söyleyemem": neslihanBag >= 3 ise evet), cemil30 → cemil_tanik (cemilTanik +1;
+  cemilDefter durust ise reddedemezsin), melek30 [melekTanik] (melekGeldi +2), kenan30 [fikriKarar kenan] (kenanTanik +2),
+  nermin30 (nerminYazdi +1 / false), klara30 [klaraYardim ya da rainerSonu serbest], riza30. Olay bruno30 (Ferrante serbest +
+  melekGeldi): riza / tasindi [Klara] / konustu (brunoBilgi: Buenos Aires). oturuma_git (neslihanTanik varsa) → olay oturum →
+  oturum30 (efekt tokmak) → kurulSonu30 ad (ikna >= 5) / genel → oturum30_son → son.
 - DERİNLEŞTİRME KARARI (17 Kasım, Murat: "Derinleştir"): yeni bölüm yazmaya ara; önce var olan bölümler derinleşir.
   Plan ve yapılanlar belgeler/hikaye-plani.md "Derinleştirme" bölümünde. 1. adım: arifNeden (1. bölüm gece_konusma →
   6. bölüm arifNedenSatiri, 8. bölüm tahliye), haticeSozu (1. bölüm mektup → 2. cenaze → 17. hatice17), Pendle tohumu
