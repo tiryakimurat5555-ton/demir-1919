@@ -506,7 +506,38 @@ export const BOLUM2 = {
               sonra: 'morg',
               cevap: 'Cemil Bey bir an duruyor. Selanik\'te, Balkan Harbi\'nde, kaza diye yazılmış iki yüz ceset imzaladım, diyor. Emir vardı. Hepsini hatırlıyorum. Bir tanesi daha olmayacak.',
             },
+            {
+              etiket: 'O emri kim verdi, Cemil Bey?',
+              kosul: (d) => bayrak(d, 'cemilNeden') && !bayrak(d, 'cemilFikri'),
+              sonra: 'fikri',
+            },
             { etiket: 'Devam edelim.' },
+          ],
+        },
+        fikri: {
+          soz: [
+            'Cemil Bey neşteri tepsiye bırakıyor; çok yavaş. Binbaşı Fikri Efendi, diyor. Sağlık dairesi. Kasım 1912. Her gece Manastır yolundan bir araba gelirdi; yaşlılar, kadınlar, bir iki asker. Kaza yaz, Cemil, derdi. Savaş zamanı soru sorulmaz.',
+            'Bir gece rıhtımdan bir delikanlı getirdiler. Mürekkepli parmaklar; bir acente kâtibi. Boğazında benim bu sabah gösterdiğim yaradan vardı. Ceketinin astarına dikili küçük bir defter buldum. Fikri ceketi yaktırdı. Ben defteri sakladım; bir hafta sonra, adsız bir paketle, ailesine gönderdim. Altı yıldır kimseye söylemedim. Şimdi sana söylüyorum. Neden, bilmiyorum.',
+          ],
+          secenekler: [
+            {
+              etiket: 'Defteri göndermek de bir şeydir, Cemil Bey. Belki en önemlisi.',
+              etki: { bayrak: { cemilFikri: 'teselli' }, artir: { cemilBag: 1 } },
+              sonra: 'morg',
+              cevap: 'Cemil Bey gözlüğünü düzeltiyor. Bir defter, iki yüz cesede karşı, diyor. Ama sağ ol. Bunu ilk kez biri söylüyor.',
+            },
+            {
+              etiket: 'İki yüz ceset bir defterle ödenmez. Ama bu ölüyle ödenebilir.',
+              etki: { bayrak: { cemilFikri: 'sert' } },
+              sonra: 'morg',
+              cevap: 'Cemil Bey başını sallıyor. Haklısın, diyor; sesi kırılmıyor. Bu yüzden buradayım zaten.',
+            },
+            {
+              etiket: 'Bir şey söyleme. Eldivenlerini uzat.',
+              etki: { bayrak: { cemilFikri: 'sus' } },
+              sonra: 'morg',
+              cevap: 'Eldivenleri uzatıyor. Bir süre ikiniz de konuşmuyorsunuz. Ölünün yanında susmak ayıp değil, diyor sonunda. Bazen tek doğru söz.',
+            },
           ],
         },
       },

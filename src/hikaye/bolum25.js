@@ -72,7 +72,12 @@ export const BOLUM25 = {
           : bayrak(d, 'cemilRapor')
             ? 'Sonra sana bakıyor. Eskişehir\'de Kostas\'ın raporunu yazarken, diyor, bunu bilmiyordum. Bilseydim belki daha kolay yazardım. Belki daha zor.'
             : 'Sonra sana bakıyor.',
-      ],
+        {
+          teselli: 'Beş yıl önce, Gureba\'nın morgunda bu adı sana fısıldamıştı. Ona bir defteri göndermenin de bir şey olduğunu söylemiştin. Şimdi o defterin, David Saltiel\'in defterinin, kimin parasıyla susturulmak istendiğini biliyorsunuz.',
+          sert: 'Beş yıl önce, Gureba\'nın morgunda bu adı sana fısıldamıştı. İki yüz cesedin bir defterle ödenmeyeceğini söylemiştin. Cemil Bey o günden beri ödüyor.',
+          sus: 'Beş yıl önce, Gureba\'nın morgunda bu adı sana fısıldamıştı; sen susmuştun. Şimdi de susuyorsun; ama bu kez elin onun omzunda.',
+        }[bayrak(d, 'cemilFikri')] || '',
+      ].filter(Boolean),
       secenekler: [
         {
           etiket: 'Emir satın alınmıştı Cemil Bey. Sen bunu bilemezdin.',

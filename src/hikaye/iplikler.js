@@ -298,6 +298,24 @@ export const IPLIKLER = [
     gelecek: 'Kapandı: 24. bölümde Boston\'dan mektup gelir (ara) ya da oda boş bekler (bekle).',
     durum: 'kapali',
   },
+  {
+    id: 'cemil_fikri',
+    ad: 'Binbaşı Fikri Efendi',
+    bayrak: 'cemilFikri',
+    ekildi: ['bolum2'],
+    karsiliklar: ['bolum25'],
+    gelecek: 'Beşinci kitap: Fikri Efendi kırk yedinci sayfanın en güçlü adayı (Kasım 1912, Manastır yolu, kaza raporları, David\'in ölümü). Yaşıyor mu, nerede? Cemil\'in yüzleşmesi; cemilDefter ve cemilFikri birlikte okunur.',
+    durum: 'acik',
+  },
+  {
+    id: 'cemil_saltiel',
+    ad: 'Cemil Bey ve Saltiel ailesi',
+    bayrak: 'cemilSaltiel',
+    ekildi: ['bolum5'],
+    karsiliklar: ['bolum9'],
+    gelecek: 'Kapandı: Saltiel, defteri kimin gönderdiğini öğrenir; 9. bölümde annesinin duası. Beşinci kitapta Selanik\'te Saltiel evi Cemil\'e açık.',
+    durum: 'kapali',
+  },
 ];
 
 export const acikIplikler = () => IPLIKLER.filter((i) => i.durum === 'acik');

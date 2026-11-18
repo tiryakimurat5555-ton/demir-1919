@@ -70,7 +70,8 @@ export const BOLUM9 = {
         'Neslihan yakasını kaldırıyor. Burada yaşadım, diyor. İki kış. Rivière bana opera ve dört dil öğretti; Viyana\'nın her sokağını. Şimdi bu sokaklar bana yabancı.',
         'Cebinde, Selanik\'te Saltiel Efendi\'nin yolluk diye verdiği iki paket tütün. Yolda öğrendin: burada kronun değeri yok. Tütün, kahve, un. Kapıları bunlar açıyor.',
         bayrak(d, 'saltielDavid') === 'anlat'
-          ? 'Paketlerden birinin arasında katlanmış ince bir kâğıt var; trende fark ettin. Saltiel\'in el yazısı: David\'in defterinden kopya. On yedi ad. On birincisi: Neslihan, İsmail kızı, Manastır. Altına Saltiel bir satır eklemiş: Onu buldun. Ötekiler de birinin kardeşiydi.'
+          ? 'Paketlerden birinin arasında katlanmış ince bir kâğıt var; trende fark ettin. Saltiel\'in el yazısı: David\'in defterinden kopya. On yedi ad. On birincisi: Neslihan, İsmail kızı, Manastır. Altına Saltiel bir satır eklemiş: Onu buldun. Ötekiler de birinin kardeşiydi.' +
+            (bayrak(d, 'cemilSaltiel') ? ' En altta, daha küçük harflerle: Doktor Bey\'e söyle; annem onun adını cuma duasına kattı.' : '')
           : '',
         'Josefstadt\'ta, Frau Gruber\'in pansiyonu. Toplantıya üç gün var.',
       ].filter(Boolean),

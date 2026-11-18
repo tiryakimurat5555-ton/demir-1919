@@ -241,3 +241,6 @@ Sıradakiler:
 ### Derinleştirme 7. adım (18 Kasım)
 - 5. bölüm: Saltiel'in kardeşi David, Kasım 1912'de on yedi kızın yolcu listesine mühür basmayı reddedip öldürüldü; defterinde yalnızca adlar kaldı (Neslihan on birinci). 9. bölümde liste tütün paketinden çıkar (davidNotu). Beşinci kitap: adların yanındaki eksik ad, listeyi getiren, kırk yedinci sayfadadır.
 - 10. bölüm: Ohannes Usta'nın oğlu Aram (Boston, 1909); 24. bölümde mektup ya da boş oda.
+
+### Derinleştirme 8. adım (18 Kasım)
+- Binbaşı Fikri Efendi artık 2. bölümde ekili (morg, Cemil). Kasım 1912'de kaza raporlarını o yazdırdı; David Saltiel'in cesedi de o arabalardaydı. Cemil defteri gizlice Saltiel ailesine yolladı. Beşinci kitapta kırk yedinci sayfadaki satıcı için en güçlü aday Fikri'dir (kesin karar beşinci kitapta).

@@ -252,3 +252,33 @@ test('Ohannes Usta\'nın oğlu Aram yirmi dördüncü bölümde döner', async (
     expect(M.sahneBilgisi(BOLUM24, s).paragraflar.join(' ')).toContain(parca);
   }
 });
+
+// 8. derinleştirme adımı: Binbaşı Fikri Efendi birinci kitaptan ekilir; Cemil ve Saltiel ailesi.
+test('Binbaşı Fikri morgda anılır, Zürih\'te geri döner', async () => {
+  const { BOLUM5 } = await import('../src/hikaye/bolum5');
+  const { BOLUM9 } = await import('../src/hikaye/bolum9');
+  const { BOLUM25 } = await import('../src/hikaye/bolum25');
+  for (const [i, k, parca] of [[0, 'teselli', 'bir defteri göndermenin'], [1, 'sert', 'o günden beri ödüyor'], [2, 'sus', 'omzunda']]) {
+    let d = durum(BOLUM2, { cemilNeden: true }, { tur: 'konusma', kisi: 'cemil', dugum: 'morg' });
+    const sec = M.dugumBilgisi(BOLUM2, d).secenekler.find((x) => x.etiket.includes('emri kim'));
+    expect(sec).toBeTruthy();
+    d = M.secenekSec(BOLUM2, d, sec).durum;
+    expect(M.dugumBilgisi(BOLUM2, d).soz.join(' ')).toContain('Fikri');
+    d = M.secenekSec(BOLUM2, d, M.dugumBilgisi(BOLUM2, d).secenekler[i]).durum;
+    expect(M.bayrak(d, 'cemilFikri')).toBe(k);
+    const s = durum(BOLUM25, { cemilFikri: k }, { tur: 'sahne', id: 'onizleme' });
+    expect(M.sahneBilgisi(BOLUM25, s).paragraflar.join(' ')).toContain(parca);
+  }
+  // Vapurda Cemil yanındaysa Saltiel defteri kimin gönderdiğini öğrenir.
+  let v = durum(BOLUM5, { saltielAkraba: true, ekip_cemil: true, cemilFikri: 'sus' }, { tur: 'konusma', kisi: 'saltiel', dugum: 'david' });
+  const bak = M.dugumBilgisi(BOLUM5, v).secenekler.find((x) => x.etiket.includes('Cemil'));
+  expect(bak).toBeTruthy();
+  v = M.secenekSec(BOLUM5, v, bak).durum;
+  expect(M.bayrak(v, 'cemilSaltiel')).toBe(true);
+  const yok = durum(BOLUM5, { saltielAkraba: true }, { tur: 'konusma', kisi: 'saltiel', dugum: 'david' });
+  expect(M.dugumBilgisi(BOLUM5, yok).secenekler.some((x) => x.etiket.includes('Cemil'))).toBe(false);
+  const a = durum(BOLUM9, { saltielDavid: 'anlat', cemilSaltiel: true }, { tur: 'sahne', id: 'acilis' });
+  expect(M.sahneBilgisi(BOLUM9, a).paragraflar.join(' ')).toContain('cuma duasına');
+  const bos = durum(BOLUM25, {}, { tur: 'sahne', id: 'onizleme' });
+  expect(M.sahneBilgisi(BOLUM25, bos).paragraflar.every((p) => p.length > 0)).toBe(true);
+});

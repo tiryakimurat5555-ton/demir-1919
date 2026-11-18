@@ -275,6 +275,9 @@
   7. adım: 5. bölüm Saltiel'in kardeşi David (saltielDavid anlat/sus; Kasım 1912 on yedi kızın yolcu listesi, mühür
   basmadı, öldürüldü) → 9. bölüm açılış (anlat ise tütünün arasında liste kopyası; davidNotu verdi/sakla) → 25. son25;
   10. bölüm Ohannes'in oğlu Aram (ohannesOgul ara/bekle; Boston 1909) → 24. bölüm açılış.
+  8. adım: 2. bölüm morgda Cemil'in emri veren Binbaşı Fikri'yi anması (cemilFikri teselli/sert/sus, kural 4 için erken tohum;
+  Cemil 1912'de rıhtımdan gelen kâtibin, David Saltiel'in, defterini adsız paketle ailesine yollamış) → 25. bölüm onizleme;
+  5. bölüm Cemil yanındaysa Saltiel'e söyler (cemilSaltiel) → 9. bölüm açılış notu.
   testler/derinlik.test.js iplikleri denetler.
 - İPLİK KAYDI: src/hikaye/iplikler.js (IPLIKLER: bayrak, ekildi, karsiliklar, gelecek, durum). testler/iplikler.test.js
   bayrağın ekildiği bölümde yazıldığını, karşılık bölümlerinde '<bayrak>' olarak okunduğunu denetler. Yeni iplik ekleyince,

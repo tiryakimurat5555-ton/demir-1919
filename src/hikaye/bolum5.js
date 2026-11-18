@@ -458,6 +458,13 @@ export const BOLUM5 = {
               cevap: 'Saltiel\'in eli peçetede donup kalıyor. Defter evde, diyor; Selanik\'te, annemin sandığında. Altı yıldır açmadım. Bir N. vardı, Manastırlı; öyle hatırlıyorum ama yemin edemem. Bakacağım. Sana haber göndereceğim; nasıl olursa olsun.',
             },
             {
+              etiket: 'Cemil Bey\'e bak. Rıhtımdan getirilen kâtibi o anlatmıştı.',
+              kosul: (d) => yanimda(d, 'cemil') && !!bayrak(d, 'cemilFikri') && !bayrak(d, 'cemilSaltiel'),
+              etki: { bayrak: { cemilSaltiel: true } },
+              sonra: 'david',
+              cevap: 'Cemil Bey\'in yüzü bembeyaz. Defter, diyor; sesi zor çıkıyor. Ceketin astarında, mavi kaplı. Adsız bir paketle gönderildi, değil mi? Saltiel bir süre ona bakıyor. Sonra kalkıp masanın öbür ucuna geçiyor ve hekimin ellerini avuçlarına alıyor. Altı yıl, diyor. Altı yıl o paketi kimin gönderdiğini merak ettim. Annem her cuma akşamı onun için dua etti.',
+            },
+            {
               etiket: 'Allah rahmet eylesin.',
               etki: { bayrak: { saltielDavid: 'sus' } },
               sonra: 'ilk',
