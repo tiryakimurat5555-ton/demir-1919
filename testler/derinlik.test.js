@@ -348,3 +348,26 @@ test('mezar sözü, yarım cümle, Halim\'in sonu ve babanın affı geri döner'
   expect(baba({ babaAffetti: true })).toContain('Affedilmek zor');
   expect(baba({})).toContain('dinlemeliydim');
 });
+
+// 11. derinleştirme adımı: Gülce'ye ilk yalan, kara liste kararı, Rıza'nın yarası.
+test('ilk yalan, kara liste ve Rıza\'nın yarası geri döner', async () => {
+  const { BOLUM17 } = await import('../src/hikaye/bolum17');
+  const { BOLUM23 } = await import('../src/hikaye/bolum23');
+  let d = durum(BOLUM23, { gulceYalan: true }, { tur: 'konusma', kisi: 'gulce23', dugum: 'ilk' });
+  const sec = M.dugumBilgisi(BOLUM23, d).secenekler.find((x) => x.etiket.includes('yalan'));
+  expect(sec).toBeTruthy();
+  d = M.secenekSec(BOLUM23, d, sec).durum;
+  expect(M.bayrak(d, 'gulceYalanAnildi')).toBe(true);
+  expect(M.bayrak(d, 'sofraKonusma') || 0).toBe(0);
+  expect(M.dugumBilgisi(BOLUM23, d).secenekler.some((x) => x.etiket.includes('yalan'))).toBe(false);
+  const yok = durum(BOLUM23, {}, { tur: 'konusma', kisi: 'gulce23', dugum: 'ilk' });
+  expect(M.dugumBilgisi(BOLUM23, yok).secenekler.some((x) => x.etiket.includes('yalan'))).toBe(false);
+
+  const nermin = (b) => M.dugumBilgisi(BOLUM20, durum(BOLUM20, b, { tur: 'konusma', kisi: 'nermin', dugum: 'ilk' })).soz.join(' ');
+  expect(nermin({ listeKarar: 'uyar' })).toContain('Hilmi');
+  expect(nermin({ listeKarar: 'yak' })).toContain('Malta');
+  const riza = (b) => M.dugumBilgisi(BOLUM17, durum(BOLUM17, b, { tur: 'konusma', kisi: 'riza', dugum: 'ilk' })).soz;
+  expect(riza({ rizaYarali: true, listeKarar: 'uyar' }).join(' ')).toContain('Yirmi üç');
+  expect(riza({ listeKarar: 'yak' }).join(' ')).toContain('Bekirağa');
+  expect(riza({}).every((p) => p.length > 0)).toBe(true);
+});

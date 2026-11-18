@@ -251,3 +251,6 @@ Sıradakiler:
 
 ### Derinleştirme 10. adım (18 Kasım)
 - Okunmayan seçimler: Sabri'nin mezarındaki söz (10. bölüm sabahı), Garnier'nin yarım cümlesi (6), Halim'in sonu (19), babanın affı (23).
+
+### Derinleştirme 11. adım (18 Kasım)
+- Gülce'ye ilk gün söylenen yalan 23. bölümde anılır. Kara liste kararı 17 ve 20. bölümde (kurtulan çırak Hilmi ya da Malta'ya gönderilen Necati Bey). Rıza'nın baskın gecesi yarası 17. bölümde.

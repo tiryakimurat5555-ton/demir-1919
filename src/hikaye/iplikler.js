@@ -379,6 +379,33 @@ export const IPLIKLER = [
     gelecek: 'Kapandı: 23. bölümde baba, affetmekle affedilmeyi karşılaştırır.',
     durum: 'kapali',
   },
+  {
+    id: 'gulce_yalan',
+    ad: 'Gülce\'ye ilk yalan',
+    bayrak: 'gulceYalan',
+    ekildi: ['bolum1'],
+    karsiliklar: ['bolum23'],
+    gelecek: 'Kapandı: 23. bölümde sofrada anılır; Gülce o bir dakikayı unutmamış.',
+    durum: 'kapali',
+  },
+  {
+    id: 'liste_karar',
+    ad: 'Kara liste kararı',
+    bayrak: 'listeKarar',
+    ekildi: ['bolum16'],
+    karsiliklar: ['bolum17', 'bolum20'],
+    gelecek: 'Kapandı: 17. bölümde Rıza, 20. bölümde Nermin\'in matbaası (Hilmi ya da boş sandalye).',
+    durum: 'kapali',
+  },
+  {
+    id: 'riza_yarali',
+    ad: 'Rıza Bey\'in yarası',
+    bayrak: 'rizaYarali',
+    ekildi: ['bolum16'],
+    karsiliklar: ['bolum17'],
+    gelecek: 'Kapandı: 17. bölümde alnındaki iz.',
+    durum: 'kapali',
+  },
 ];
 
 export const acikIplikler = () => IPLIKLER.filter((i) => i.durum === 'acik');

@@ -472,7 +472,14 @@ export const BOLUM17 = {
       giris: () => 'ilk',
       dugumler: {
         ilk: {
-          soz: 'Rıza Bey eski kimlik kartını çıkarıyor; Emniyet-i Umumiye, 1879. Burada hâlâ bir anlamı var mı bilmem, diyor. Ama postacılar eski kâğıtlara hep saygı duyar.',
+          soz: (d) => [
+            'Rıza Bey eski kimlik kartını çıkarıyor; Emniyet-i Umumiye, 1879. Burada hâlâ bir anlamı var mı bilmem, diyor. Ama postacılar eski kâğıtlara hep saygı duyar.',
+            bayrak(d, 'rizaYarali')
+              ? 'Kartı cebine koyarken alnındaki yeni ize dokunuyor; baskın gecesinden. Yaşlı bir adamdan ne zarar gelir, dediler, diyor. Bir sokak boyu, evlat. Yirmi üç kişi o sokak boyunca kaçtı.'
+              : bayrak(d, 'listeKarar') === 'yak'
+                ? 'Kartı cebine koyarken sesi alçalıyor. Yanan listede tanıdığım üç ad vardı, diyor. İkisi Malta\'ya gitti. Biri hâlâ Bekirağa\'da. Biz kendimizinkileri kaçırdık. Doğru muydu, bilmiyorum.'
+                : '',
+          ].filter(Boolean),
           secenekler: [{ etiket: 'Tamam.' }],
         },
       },

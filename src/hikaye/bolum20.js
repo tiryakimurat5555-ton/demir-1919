@@ -286,7 +286,13 @@ export const BOLUM20 = {
       giris: (d) => (delilVar(d, 'mavi_kagit') ? 'sonra' : 'ilk'),
       dugumler: {
         ilk: {
-          soz: 'Nermin elindeki kâğıdı sallıyor. Beş yüz adet, diyor. Tekâlif vesikası. Halkın son tavuğunu, son çuvalını toplayan emirler. Ama bunları hükümet bana sipariş etmedi.',
+          soz: (d) => [
+            {
+              uyar: 'Matbaanın dizgi kasasında on beş yaşında bir çocuk, Hilmi. On altı Mart gecesi Nermin\'in çaldığı yirmi üç kapıdan birinin arkasındaydı; şimdi Ç harfini bir ustadan hızlı diziyor.',
+              yak: 'Matbaada bir sandalye hep boş duruyor: Nermin\'in eski meslektaşı Necati Bey\'in. Yanan listedeydi; kimse kapısını çalmadı. On altı Mart\'ta tutuklandı, Malta\'ya gönderildi. Nermin sandalyeye kimseyi oturtmuyor.',
+            }[bayrak(d, 'listeKarar')] || '',
+            'Nermin elindeki kâğıdı sallıyor. Beş yüz adet, diyor. Tekâlif vesikası. Halkın son tavuğunu, son çuvalını toplayan emirler. Ama bunları hükümet bana sipariş etmedi.',
+          ].filter(Boolean),
           secenekler: [
             {
               etiket: 'Kim sipariş etti?',

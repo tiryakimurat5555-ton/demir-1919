@@ -283,7 +283,10 @@
   Nermin'in ağabeyinin adı Selim yazıyordu, Cevdet oldu (Selim Tevfik'in kardeşi); 20. cevdet nerminAgabey'e göre.
   10. adım: hiç okunmayan bayraklar tarandı (başka bölümde '<bayrak>' geçmeyenler); karşılık verilenler: mezarSozu →
   10. safak10 (Gureba Mezarlığı, delormeSonu'na göre), yarimCumle → 6. hafiz anlat, halimKarar → 19. yakup_son,
-  babaAffetti → 23. baba23. Kalan adaylar: gulceYalan, morinGuven, kuleSecim, listeKarar, rizaYarali, nobetKacti, yaliSecim.
+  babaAffetti → 23. baba23.
+  11. adım: gulceYalan → 23. gulce23 (hakkı harcamayan yan seçenek, gulceYalanAnildi); listeKarar → 17. riza ilk ve
+  20. nermin ilk (uyar: çırak Hilmi / yak: Necati Bey'in boş sandalyesi, Malta); rizaYarali → 17. riza ilk.
+  Kalan adaylar: morinGuven, yaliSecim (kuleSecim delormeSonu ile, nobetKacti 18'de okunuyor).
   testler/derinlik.test.js iplikleri denetler.
 - İPLİK KAYDI: src/hikaye/iplikler.js (IPLIKLER: bayrak, ekildi, karsiliklar, gelecek, durum). testler/iplikler.test.js
   bayrağın ekildiği bölümde yazıldığını, karşılık bölümlerinde '<bayrak>' olarak okunduğunu denetler. Yeni iplik ekleyince,

@@ -239,6 +239,13 @@ export const BOLUM23 = {
                   : 'Gülce omuz silkiyor. Bir gümrükçü kâğıdı okur, diyor. Ama bu kâğıt bir bankacının; benim değil. Sana yardım edemem Arif. Yorgunum. Bütün bu yıllar boyunca kimse bana ne düşündüğümü sormadı; sen de sormadın.',
             },
             {
+              etiket: 'İlk gün sana yalan söylemiştim. Leventis\'in sahibi adına geldim demiştim.',
+              kosul: (d) => bayrak(d, 'gulceYalan') && !bayrak(d, 'gulceYalanAnildi'),
+              etki: { bayrak: { gulceYalanAnildi: true } },
+              sonra: 'ilk',
+              cevap: 'Gülce gülüyor; gerçekten. Hatırlıyorum, diyor. Kömür elli bir vekil. Yalan söyleyen adamla konuşmam demiştim. Bir dakika sonra doğruyu söyledin; Sabri\'yi. Beş yıldır o bir dakikayı düşünürüm Arif. Çoğu adam yalanından dönmez; inat eder. Sen döndün. Sana o yüzden güvendim.',
+            },
+            {
               etiket: 'Sen nasılsın Gülce? Bunu hiç sormadım.',
               etki: konus('gulce', { artir: { gulceGuven: 1 } }),
               cevap: 'Gülce bir süre cevap vermiyor. Babam öldüğünde yirmi yedi yaşındaydım, diyor sonra. Şimdi otuz yedi. On yıl başkalarının kâğıtlarını okudum. Bu akşam ilk kez biri benimkini sordu. İyiyim, Arif. Galiba ilk kez gerçekten.',
