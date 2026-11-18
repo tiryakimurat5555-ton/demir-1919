@@ -314,8 +314,18 @@
   kayik32 (Karaköy; arifNeden'e dönüş, arifCevap onlar/kaptan/kendim; arif_neden kapandı) → kayik32_kule (kuleSecim satırı;
   pusulaKime kemal/arif/deniz) → kayik32_safak (ortam_safak32; suleymanSon ninni/anlat/sus) → kayik32_son (Süleyman ölür) →
   vasiyet32 (Karacaahmet; "Kayıkhane, aramayı bırakmayanındır"; kayikhaneVaris kemal/gulce/hepimiz; gulceTevfik satırı) →
-  zarf32 (gulceZarf acti/sakla: Tevfik'in kardeşi Selim, Bursa) → kapanis32 → son ("Altıncı kitap yazılıyor").
+  zarf32 (gulceZarf acti/sakla: Selim'in Bursa'dan mektubu; 1913'te Kâmil Efendi'nin dosyasını çıkaran Tevfik'ti; Selim 1905 doğumlu) → kapanis32 → son ("Altıncı kitap yazılıyor").
   Seçenek etiketi durumdan bağımsız dize olmalı: iki farklı etiket gerekiyorsa iki seçenek + kosul.
+- Otuz üçüncü bölüm "Koza" (src/hikaye/bolum33.js; altıncı kitabın açılışı): 2-6 Nisan 1925, İstanbul → Bursa. Gülce'nin
+  bölümü; kayıkhanenin ilk davası. Ekip Arif + Gülce + Rıza (ekip_riza true) + Selim (Tevfik'in kardeşi). Mekânlar
+  kayikhane33 (selim33 → selim_ifadesi; gulce33 → gulceArama birlikte/yalniz, zarf kapalıysa "Zarfı aç" → gulceZarf acti33;
+  riza33 rizaSon22'ye göre; Bursa geçişi selim_ifadesi + gulceArama), bursa33 (Koza Han, ortam_kozahan; Hacı Rasim →
+  koza_defteri: N. B., Banque Vollmer çekleri), oda33 (Setbaşı; masa33 → mudanya_kaydi). Çıkarımlar nuri_dondu
+  (koza_defteri + selim_ifadesi), kapan (mudanya_kaydi + selim_ifadesi) → olay kayhan → kayhan33 (Nuri Bey, 20. bölümden;
+  nuriSonu'na göre; nuriSon33 teslim [rizaBag +1] / imza [gulceArama birlikte; vollmer_ceki] / kavga [travma +1]) →
+  kayhan33_son → tevfik33 (Koza Han, şafak; gulceTevfik satırı; gulceSon33 bildi [zarf açık] / acti / el / sus) →
+  tevfik33_son (vollmerCek ifade/soru) → kapanis33 → son. 32. bölümdeki Selim tutarsızlığı düzeltildi (dosyayı Tevfik
+  çıkarmıştı; Selim 1905 doğumlu).
 - DERİNLEŞTİRME KARARI (17 Kasım, Murat: "Derinleştir"): yeni bölüm yazmaya ara; önce var olan bölümler derinleşir.
   Plan ve yapılanlar belgeler/hikaye-plani.md "Derinleştirme" bölümünde. 1. adım: arifNeden (1. bölüm gece_konusma →
   6. bölüm arifNedenSatiri, 8. bölüm tahliye), haticeSozu (1. bölüm mektup → 2. cenaze → 17. hatice17), Pendle tohumu

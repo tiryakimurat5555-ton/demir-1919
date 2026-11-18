@@ -8,6 +8,12 @@ görme engelli oyuncular tarafından bağımsız oynanabilecek; VoiceOver ve Tal
 
 Tasarım taslağı: `belgeler/tasarim-taslagi.pdf`
 
+## Şu anki aşama: 42 — otuz üçüncü bölüm: Koza (altıncı kitabın açılışı)
+
+Bursa, Nisan 1925. Kayıkhanenin kapısına ilk dava gelir: Tevfik kayboldu. Kardeşi Selim, Gülce'den yardım ister; dört yıl
+önce Gülce'nin affetmediği adamı aramak gerekir. Koza Han'da birinin bütün şehrin kozasını İsviçre çekleriyle topladığı
+ortaya çıkar. Yeni ortam sesi: Koza Han'ın avlusu.
+
 ## Şu anki aşama: 41 — derinleştirme 15. adım
 
 Zürih'teki mezatta kuruluş defterine ne olduysa (arşiv, gazete, yakmak, satış), Moda'da kör binbaşının sorgusunda yeni

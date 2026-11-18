@@ -365,7 +365,7 @@ export const BOLUM32 = {
       baslik: 'Beşinci kitabın sonu',
       paragraflar: (d) => [
         bayrak(d, 'gulceZarf') === 'acti'
-          ? 'Gülce okuyor; yüzü değişiyor. Tevfik\'in kardeşi, diyor. Selim. Bursa\'da. Kaptan On Üç\'ten beri biliyormuş: babamın dosyasını Maliye\'den o gece çıkaran Selim\'miş. Babamı kurtarmak için. Geç kalmış. Kâğıdın altında bir adres var.'
+          ? 'Gülce okuyor; yüzü değişiyor. İçinde Bursa\'dan, Tevfik\'in kardeşi Selim\'in kaptana yazdığı bir mektup var. Ağabeyim On Üç\'te gümrükte genç bir kâtipti, yazıyor; Kâmil Efendi\'nin dosyasını bir gece Maliye\'den çıkarmış, onu kurtarmak için. Geç kalmış. Kimseye söylememiş. Kaptan biliyormuş, diyor Gülce. Yıllardır. Kâğıdın altında Bursa\'da bir adres var.'
           : 'Gülce zarfı açmıyor. Göğsünün cebine koyuyor; babasının mektubunun yanına. Bir gün, diyor.',
         'Gece. Kayıkhanenin kapısı açık; lodos dinmiş. Duvarda pusulanın asılı olduğu çivi boş, ya da değil.',
         'Neslihan iskelenin ucunda oturuyor; Süleyman\'ın oturduğu yerde. Pire\'den gelen bir vapurun ışıklarına bakıyor; inenlerin yüzüne. Deliliktir, biliyorum, diyor sana gülümseyerek. Ama birini öğrendim.',
@@ -377,8 +377,11 @@ export const BOLUM32 = {
       ortam: 'ortam_kayikhane',
       ortamOran: 0.45,
       baslik: 'Otuz ikinci bölüm bitti',
-      paragraflar: ['Kararların kaydedildi. Altıncı kitap yazılıyor.'],
-      secenekler: [{ etiket: 'Ana menüye dön', anaMenu: true }],
+      paragraflar: ['Kararların kaydedildi. Sırada altıncı kitap: otuz üçüncü bölüm, Koza.'],
+      secenekler: [
+        { etiket: '33. bölüme geç', sonrakiBolum: 'bolum33' },
+        { etiket: 'Ana menüye dön', anaMenu: true },
+      ],
     },
   },
 

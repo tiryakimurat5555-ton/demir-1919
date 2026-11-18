@@ -290,3 +290,9 @@ Altıncı kitap için: kayıkhane üs olur; Selim; Rahel ile Beyrut; Melek'in an
 
 ### Derinleştirme 15. adım (18 Kasım)
 - defterSonu (25 → 27 Fikri, 30 komite). Madalya (3 → 23 → 25 → 32 madalya32: kefen / göğüs / Nermin'e).
+
+## Altıncı kitap (18 Kasım)
+- 33. bölüm "Koza" (Nisan 1925, Bursa): kayıkhanenin ilk davası. Tevfik'i Nuri Bey (20) Kayhan'daki handa tutuyor; Nuri
+  Bursa kozasını Banque Vollmer çekleriyle topluyor (filatürleri koza bulamaz hâle getirip ucuza almak için). Gülce ile
+  Tevfik (gulceSon33). Altıncı kitabın ana ipliği: Vollmer mezattan sonra Anadolu'nun ipeğini, tütününü, incirini
+  topluyor (vollmerCek). Sıradaki: Cemil ile Eleni (Ankara hastanesi) ya da Rahel'le Beyrut; Vollmer'in izi.
