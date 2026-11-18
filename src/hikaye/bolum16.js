@@ -281,6 +281,12 @@ export const BOLUM16 = {
               etki: { delil: ['kara_liste'], bayrak: { listeYolu: 'tehdit' } },
               cevap: 'Gubler\'in yüzü soluyor. 1916, 1917, 1918, diyorsun; her yıl Rainer\'den aldığı paralar, kimin adına. Bu sayfa İngilizlerin eline geçerse, Gubler, onlar seni de bir listeye yazar. Gubler uzun süre susuyor. Sonra çantasından bir zarf çıkarıp masaya bırakıyor. Ben bu şehirde hiç bulunmadım, diyor. Ve kalkıp gidiyor; pastasını yarım bırakarak.',
             },
+            {
+              etiket: 'Hasler\'in mektubunu masaya koy. Her ay, Bankhaus Rainer hesabından.',
+              kosul: (d) => delilVar(d, 'hasler_mektubu'),
+              etki: { delil: ['kara_liste'], bayrak: { listeYolu: 'hasler' } },
+              cevap: 'Gubler kâğıdı okumuyor; ilk satırda Hasler\'in el yazısını tanıyor. Manastır, diyor; bir hekimin raporları. Bir İngiliz hâkimi bunu okursa ben avukat değil sanık olurum. Çantasından bir zarf çıkarıyor. Liste. Hasler\'e söyleyin, diyor: korkak adamlar her zaman en çok yazanlardır.',
+            },
             { etiket: 'Hayır. İyi günler.' },
           ],
         },

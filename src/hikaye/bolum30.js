@@ -359,9 +359,15 @@ export const BOLUM30 = {
           secenekler: [
             {
               etiket: 'Yaz. Gölün öbür yakası da okusun.',
-              kosul: (d) => bayrak(d, 'nerminYazdi') === undefined,
+              kosul: (d) => bayrak(d, 'nerminYazdi') === undefined && sayi(d, 'nerminBag') < 3,
               etki: { bayrak: { nerminYazdi: true }, artir: { ikna: 1 } },
               cevap: 'Nermin yazıyor; tuşlar bir yağmur gibi. Başlığı Fransızca: Kırk Yedinci Sayfa.',
+            },
+            {
+              etiket: 'Yaz. Gölün öbür yakası da okusun.',
+              kosul: (d) => bayrak(d, 'nerminYazdi') === undefined && sayi(d, 'nerminBag') >= 3,
+              etki: { bayrak: { nerminYazdi: true }, artir: { ikna: 1 } },
+              sonra: 'imza',
             },
             {
               etiket: 'Bekle. Oturumdan sonra yaz.',
@@ -370,6 +376,27 @@ export const BOLUM30 = {
               cevap: 'Nermin daktiloyu kapatıyor. Peki, diyor. Ama oturumdan sonra bir gece bile beklemem.',
             },
             { etiket: 'Hadi Nermin.', kosul: (d) => bayrak(d, 'nerminYazdi') !== undefined },
+          ],
+        },
+        imza: {
+          soz: (d) =>
+            [
+              'Nermin ilk paragrafı yazıyor, sonra duruyor. Sana dönüyor. Altı yıldır takma adla yazıyorum, diyor. İstanbul\'da tek bir harf, Ankara\'da Taşhan\'ın adı. Bunu kendi adımla yazmak istiyorum: Nermin, Sarıkamış\'ta donan Cevdet\'in kız kardeşi. Ferrante\'nin adamları adımı öğrenir; Ankara\'da da sevmeyenler olur.',
+              bayrak(d, 'madalya') === 'anlat'
+                ? 'Cevdet\'in madalyası hâlâ çantamda, diyor. Ağabeyim adını saklamazdı.'
+                : 'Sen bana hep doğruyu söyledin, diyor. Şimdi sen söyle.',
+            ].join(' '),
+          secenekler: [
+            {
+              etiket: 'Kendi adınla yaz. Senin sesin bu.',
+              etki: { bayrak: { nerminImza: 'ad' }, artir: { nerminBag: 1 } },
+              cevap: 'Nermin son satıra adını yazıyor; harf harf, yavaş. Başlığı Fransızca: Kırk Yedinci Sayfa. Altında: Nermin, Cevdet\'in kız kardeşi, İstanbul.',
+            },
+            {
+              etiket: 'Takma adla yaz. Seni daha çok yazı bekliyor.',
+              etki: { bayrak: { nerminImza: 'takma' } },
+              cevap: 'Nermin başını sallıyor; bir an kırgın, sonra değil. Haklısın, diyor. Ölü bir gazeteci yazamaz. Altına tek bir harf: N.',
+            },
           ],
         },
       },

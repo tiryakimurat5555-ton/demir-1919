@@ -392,3 +392,70 @@ test('göldeki gece travmaya ve ilk nefese göre', async () => {
   expect(M.sayi(d, 'travma')).toBe(1);
   expect(M.sahneBilgisi(BOLUM25, d).paragraflar.join(' ')).toContain('Sabaha kadar');
 });
+
+// 13. adım: okunmayan seçimler (Hasler, Topal Hasan, Delorme'un kovulması, kafile, Gubler'in listesi, Nermin'in imzası).
+test('Hasler Zürih\'te karşına çıkar; mektubu 16. bölümde Gubler\'e karşı kullanılır', async () => {
+  const { BOLUM14 } = await import('../src/hikaye/bolum14');
+  const { BOLUM16 } = await import('../src/hikaye/bolum16');
+  const sehir = (b) => M.mekanBilgisi(BOLUM14, { ...durum(BOLUM14, b, { tur: 'mekan' }), mekan: 'sehir' }).kisiler;
+  expect(sehir({ haslerSonu: 'kacti' })).toContain('hasler14');
+  expect(sehir({})).not.toContain('hasler14');
+  const soz = (b) => M.dugumBilgisi(BOLUM14, durum(BOLUM14, b, { tur: 'konusma', kisi: 'hasler14', dugum: 'ilk' })).soz.join(' ');
+  expect(soz({ haslerSonu: 'tutuklu' })).toContain('konsolosluğu');
+  expect(soz({ haslerSonu: 'kacti' })).toContain('karda kaybolmuştu');
+  let d = { ...durum(BOLUM14, { haslerSonu: 'kacti' }, { tur: 'mekan' }), mekan: 'sehir' };
+  d = M.konusmaBaslat(BOLUM14, d, 'hasler14');
+  d = M.secenekSec(BOLUM14, d, M.dugumBilgisi(BOLUM14, d).secenekler.find((x) => x.etiket.includes('imzanı'))).durum;
+  expect(M.delilVar(d, 'hasler_mektubu')).toBe(true);
+  expect(M.sahneBilgisi(BOLUM14, { ...d, gorunum: { tur: 'sahne', id: 'gol' } }).paragraflar.join(' ')).toContain('imzalı kâğıdı');
+  expect(sehir({ haslerSonu: 'kacti', haslerKarar: 'yaz' })).not.toContain('hasler14');
+  const g = (dl) => M.dugumBilgisi(BOLUM16, { ...durum(BOLUM16, {}, { tur: 'konusma', kisi: 'gubler', dugum: 'ilk' }), deliller: dl }).secenekler.map((x) => x.etiket).join(' | ');
+  expect(g(['hasler_mektubu'])).toContain('Hasler');
+  expect(g([])).not.toContain('Hasler');
+});
+
+test('Topal Hasan depoyu, Delorme kovulmasını, kafile kağnıcıları sonucu hatırlar', async () => {
+  const { BOLUM10 } = await import('../src/hikaye/bolum10');
+  const { BOLUM18 } = await import('../src/hikaye/bolum18');
+  const hasan = (b) => M.dugumBilgisi(BOLUM10, durum(BOLUM10, b, { tur: 'konusma', kisi: 'hasan', dugum: 'ilk' })).soz.join(' ');
+  expect(hasan({ sevkiyatSonuc: 'yarim', hamalBag: 1 })).toContain('mavna yandı');
+  expect(hasan({ sevkiyatSonuc: 'yarim', hamalBag: 1 })).toContain('kimse yaralanmadı');
+  expect(hasan({ sevkiyatSonuc: 'tam' })).toContain('hepsi yakalandı');
+  const kule = (b) => M.sahneBilgisi(BOLUM10, durum(BOLUM10, b, { tur: 'sahne', id: 'kule' })).paragraflar.join(' ');
+  expect(kule({ delormeKovuldu: true })).toContain('sahte defterin');
+  expect(kule({})).not.toContain('sahte defterin');
+  const ac = (b) => M.sahneBilgisi(BOLUM18, durum(BOLUM18, b, { tur: 'sahne', id: 'acilis' })).paragraflar.join(' ');
+  expect(ac({ kafileSonu: 'perisan' })).toContain('donmuştu');
+  expect(ac({ kafileSonu: 'saglam' })).toContain('sağ salim');
+});
+
+test('Gubler listeyi nasıl aldığını, Neslihan sofradaki öfkesini hatırlar', async () => {
+  const { BOLUM24 } = await import('../src/hikaye/bolum24');
+  const s = (id, b) => M.sahneBilgisi(BOLUM24, durum(BOLUM24, b, { tur: 'sahne', id })).paragraflar.join(' ');
+  expect(s('gubler24', { listeYolu: 'para' })).toContain('çek');
+  expect(s('gubler24', { listeYolu: 'hirsiz' })).toContain('Ödeştik');
+  expect(s('gubler24', { listeYolu: 'hasler' })).toContain('korkak hekim');
+  expect(s('mektup24', { neslihanOfke: true })).toContain('buna değer mi');
+});
+
+test('Nermin bağı yüksekse Cenevre yazısını kendi adıyla imzalamayı sorar; telgrafı Süleyman\'ın cenazesine gelir', async () => {
+  const { BOLUM30 } = await import('../src/hikaye/bolum30');
+  const { BOLUM32 } = await import('../src/hikaye/bolum32');
+  const sec = (b) => M.dugumBilgisi(BOLUM30, durum(BOLUM30, b, { tur: 'konusma', kisi: 'nermin30', dugum: 'ilk' })).secenekler;
+  expect(sec({ nerminBag: 3 }).find((x) => x.etiket.startsWith('Yaz')).sonra).toBe('imza');
+  expect(sec({ nerminBag: 1 }).find((x) => x.etiket.startsWith('Yaz')).sonra).toBeUndefined();
+  let d = durum(BOLUM30, { nerminBag: 3, madalya: 'anlat' }, { tur: 'konusma', kisi: 'nermin30', dugum: 'ilk' });
+  d = M.secenekSec(BOLUM30, d, sec({ nerminBag: 3 }).find((x) => x.etiket.startsWith('Yaz'))).durum;
+  expect(M.dugumBilgisi(BOLUM30, d).soz.join(' ')).toContain('madalyası');
+  d = M.secenekSec(BOLUM30, d, M.dugumBilgisi(BOLUM30, d).secenekler.find((x) => x.etiket.includes('Kendi adınla'))).durum;
+  expect(M.bayrak(d, 'nerminImza')).toBe('ad');
+  expect(M.bayrak(d, 'nerminYazdi')).toBe(true);
+  const v = (b) => M.sahneBilgisi(BOLUM32, durum(BOLUM32, b, { tur: 'sahne', id: 'vasiyet32' })).paragraflar.join(' ');
+  expect(v({ nerminImza: 'ad' })).toContain('jandarma');
+  expect(v({ nerminImza: 'takma' })).toContain('imzasız');
+  expect(v({ haticeSonu: 'sessiz' })).toContain('hangi gemide');
+  expect(v({ haticeSonu: 'mektup' })).toContain('fındık');
+  const k = (b) => M.sahneBilgisi(BOLUM32, durum(BOLUM32, { suleymanSon: 'sus', ...b }, { tur: 'sahne', id: 'kayik32_son' })).paragraflar.join(' ');
+  expect(k({ cemilSuleyman: true })).toContain('İzmir inciri');
+  expect(k({})).not.toContain('İzmir inciri');
+});

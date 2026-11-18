@@ -6,7 +6,7 @@
 // Arka plan (gerçek): Yunan ordusu 15 Mayıs 1919'da İzmir'e çıktı; işgal altındaki İstanbul'dan Anadolu'ya
 // İnebolu yoluyla silah kaçırıldı. Kişiler ve olaylar KURGUDUR; gerçek kişiler kullanılmadı.
 import { BOLUM9 } from './bolum9';
-import { bayrak, cikarimVar, delilVar } from '../oyun/motor';
+import { bayrak, cikarimVar, delilVar, sayi } from '../oyun/motor';
 
 export const BOLUM10 = {
   id: 'bolum10',
@@ -186,7 +186,9 @@ export const BOLUM10 = {
       paragraflar: (d) => [
         'Taş merdiven. Rüzgâr dar pencerelerden ıslık çalarak giriyor. Fenerin odasında, ışığın gölgesinde: baban, bir sandalyeye bağlı. Arkasında Delorme.',
         'Lucien Delorme. Ama Pera\'daki o şık adam değil. Sakalı uzamış, paltosu yırtık, sol eli hâlâ sargılı. Yalnızca lavanta aynı. Ve bıçak.',
-        'Kalıp, diyor. Sonra gidebilirsin. Ben de giderim. Rainer bana sırtını döndü. Kalıp elimdeyse bir sonraki Rainer ben olurum.',
+        bayrak(d, 'delormeKovuldu')
+          ? 'Kalıp, diyor. Sonra gidebilirsin. Ben de giderim. Viyana\'da senin sahte defterin yüzünden Rainer beni herkesin önünde kovdu; yirmi yıl, bir kâğıt parçası için. Kalıp elimdeyse bir sonraki Rainer ben olurum.'
+          : 'Kalıp, diyor. Sonra gidebilirsin. Ben de giderim. Rainer bana sırtını döndü. Kalıp elimdeyse bir sonraki Rainer ben olurum.',
         bayrak(d, 'defterKarar') === 'sakla'
           ? 'Ve defter. Ceketinde olduğunu biliyorum. Sabri de ceketinde taşıyordu.'
           : bayrak(d, 'defterKarar') === 'gazete'
@@ -467,7 +469,16 @@ export const BOLUM10 = {
       giris: () => 'ilk',
       dugumler: {
         ilk: {
-          soz: 'Topal Hasan; Aralık\'ta depoda gördüğün hamal. Aksıyor ama sırtı hâlâ sağlam. Seni tanıyor. Bu sefer hangi taraftasın? diyor.',
+          soz: (d) =>
+            [
+              'Topal Hasan; Aralık\'ta depoda gördüğün hamal. Aksıyor ama sırtı hâlâ sağlam. Seni tanıyor.',
+              bayrak(d, 'sevkiyatSonuc') === 'yarim'
+                ? 'O gece mavna yandı, diyor. Sandıkların yarısı kurtuldu; kimin eline geçti, bilmiyorum. Ben bilmediğim şeyi sırtımda taşımam artık.'
+                : 'O gece sandıkların hepsi yakalandı, diyor. İngilizler bize bir teşekkür bile etmedi. Ama hamallar senin adını biliyor.',
+              sayi(d, 'hamalBag') >= 1
+                ? 'Depoda bizi kapıdan çıkarmıştın; kimse yaralanmadı. Bunu unutmadık. Bu sefer hangi taraftasın?'
+                : 'Bu sefer hangi taraftasın? diyor.',
+            ].join(' '),
           secenekler: [
             {
               etiket: 'Kayıkların var mı?',

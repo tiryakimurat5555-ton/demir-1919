@@ -222,8 +222,14 @@ export const BOLUM24 = {
         bayrak(d, 'gublerSonu') === 'teslim'
           ? 'Ayın yirmi dokuzunda Zürih\'te, diyor. Bankasında. Kuruluş defterini satacak; aslını. Kırmızı sayfalarıyla. Yeni kurulan devletlerin hepsi kendi geçmişini satın almak ister; Ankara da, Belgrad da, Atina da. En yüksek fiyatı veren alacak.'
           : 'Ona de ki, diyorsun: defter onun değil. Kasım\'da geleceğiz. Gubler başını sallıyor. Söylerim, diyor. Ama bir şey daha söyleyeyim size: ayın yirmi dokuzunda defteri satacak. Aslını. Kırmızı sayfalarıyla. En yüksek fiyatı verene.',
+        {
+          para: 'Bir şey daha, diyor Gubler. Tokatlıyan\'da bana bir çek yazmıştınız. O parayla İngilizlerden kurtuldum. Size borcum yok; ama bunu bilin.',
+          tehdit: 'Tokatlıyan\'da beni kırmızı sayfalarla korkutmuştunuz, diyor Gubler. Haklıydınız. O sayfalar hâlâ uykumu kaçırıyor.',
+          hirsiz: 'Tokatlıyan\'da odamı soydunuz, diyor Gubler; gülümsemeden. Ben de bugün sizin hanınızı soydum. Ödeştik.',
+          hasler: 'Hasler\'in mektubu, diyor Gubler. Zürih\'teki o korkak hekim. Onu bana gösterdiğiniz günden beri her kapı çalınışında irkiliyorum.',
+        }[bayrak(d, 'listeYolu')] || '',
         'Rivière\'in mektubu elinde. Kâğıt sararmış; bir köşesi yırtık. Neslihan yanına geliyor.',
-      ],
+      ].filter(Boolean),
       secenekler: [{ etiket: 'Devam', sonra: 'mektup24' }],
     },
     mektup24: {
@@ -236,7 +242,9 @@ export const BOLUM24 = {
           iki: 'İki adım var, diyor. İkisinin de bir hikâyesi var. Bu kâğıt ikisinin arasındaki köprü; ama köprüler bazen yıkılmalı.',
           kendi: 'Adımı seçeceğim, demiştim Lozan\'da. Önce bu kâğıdı ne yapacağımı seçmeliyim.',
         }[bayrak(d, 'neslihanAd') || 'kendi'],
-        'Sana bakıyor. Ne yapayım abi?',
+        bayrak(d, 'neslihanOfke')
+          ? 'Sofrada bana buna değer mi diye sormuştun, diyor. Değmezdi. Ama bu kâğıt başka; bu, babamın kâğıdı. Ne yapayım abi?'
+          : 'Sana bakıyor. Ne yapayım abi?',
       ],
       secenekler: [
         { etiket: 'Babamıza ver. Bu kâğıt en çok onun.', etki: { bayrak: { mektupKarar: 'baba' }, artir: { neslihanBag: 1 } }, sonra: 'son24' },

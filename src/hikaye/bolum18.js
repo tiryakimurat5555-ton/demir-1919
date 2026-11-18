@@ -65,6 +65,9 @@ export const BOLUM18 = {
       baslik: '3 Ocak 1921, Eskişehir yakınları',
       paragraflar: (d) => [
         'Dokuz ay geçti. Ankara\'da baban Nermin\'in matbaasında harf döküyor; Nermin her gün bir gazete çıkarıyor. Sen ise burada, kar altında bir ovada, çadırların arasındasın.',
+        bayrak(d, 'kafileSonu') === 'perisan'
+          ? 'Zeynep Ana\'nın kafilesinden iki kağnıcı şimdi bu hastanede hademe. İlgaz\'da ayakları donmuştu; Cemil Bey parmaklarından ikisini kurtaramadı. Seni görünce yine de gülüyorlar.'
+          : 'Zeynep Ana\'nın kafilesinden iki kağnıcı şimdi bu hastanede hademe. Ankara\'ya sağ salim varmışlardı; şimdi cepheye un taşıyorlar. Seni görünce Ilgaz\'daki hanı anıyorlar.',
         'Cemil Bey\'in sahra hastanesi: on iki çadır, iki yüz yatak, üç doktor. Batıdan, uzaktan, top sesleri. Cephe yaklaşıyor, diyor herkes.',
         'Neslihan bir hemşire önlüğüyle bir yaralının alnını siliyor. Selanik\'te büyüyen herkes biraz Rumca bilir; o yüzden esir çadırına da o bakıyor. Rıza Bey jandarmayla hastane arasında gidip geliyor.',
         'Cemil Bey seni bir kenara çekiyor. Kinin bitti, diyor. Morfin bitmek üzere. Sıtmalılar titriyor; ameliyatlıları uyutamıyoruz. Gülce İstanbul\'dan gönderdiğini yazıyor; yeterince. Ama yeterincesi buraya ulaşmıyor.',

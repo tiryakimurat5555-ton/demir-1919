@@ -21,6 +21,7 @@ export const BOLUM14 = {
     kucuk_anahtar: { ad: 'Kanatlı küçük anahtar', tarif: 'Rivière\'in sandığından çıkan pirinç bir anahtar. Başı kanat biçiminde. Sapında kazınmış dört rakam: 1908.' },
     ajanda: { ad: 'Rivière\'in ajandası', tarif: '1918 yılı. Ekim sayfasında: Viyana, noter, N. imzaladı. Altında: Zürih, Vollmer, ikinci anahtar yerinde. Kasım\'dan sonra sayfalar boş.' },
     exlibris: { ad: 'Ex libris damgası', tarif: 'Denemeler\'in ilk sayfasında Rivière\'in mürekkep damgası: bir terazi ve altında üç kelime: Que sais-je? Ne biliyorum ki? Montaigne\'in sözü. Rivière her kitabına basarmış.' },
+    hasler_mektubu: { ad: 'Hasler\'in mektubu', tarif: 'Dr. Ferdinand Hasler\'in el yazısıyla, imzalı: Manastır\'da İsmail Usta hakkında yazdığım iki yıllık rapor sahtedir. Afyonu ben verdim. Ücretimi her ay Zürih\'ten Dr. Gubler gönderdi, Bankhaus Rainer hesabından.' },
     klara_uyarisi: { ad: 'Klara\'nın uyarısı', tarif: 'Dedemin avukatı Gubler yarın sabah mahkemeden bir tedbir kararı alacak. Kasa mühürlenecek. Bugün açamazsanız bir daha açamazsınız.' },
     kurulus_defteri: { ad: 'Kuruluş defteri', tarif: 'Selanik, Ağustos 1908. Beş kurucu; baş harfleri. V. R., G. R. ve üç isim daha. Kalıp: Manastırlı usta İ., bedeli ödendi, usta bilmesin. Amaç: İmparatorluklar yıkılacak; yıkıntıdan biz kazanacağız. Sonraki kırmızı sayfalarda on bir yılın rüşvetleri: altı devletin bakanları, generalleri, gazete sahipleri.' },
   },
@@ -153,8 +154,12 @@ export const BOLUM14 = {
           ? 'Göl kıyısında sizi bekliyorlar: kısa boylu, yuvarlak gözlüklü bir adam, Dr. Gubler; yanında iki İsviçre polisi ve elinde bir mahkeme kararı. Müdürün telefonu. Mademoiselle, diyor Gubler. O defter müvekkilimin malıdır. Teslim edin.'
           : 'Göl kıyısında kısa boylu, yuvarlak gözlüklü bir adam: Dr. Gubler, Rainer\'in avukatı; yanında iki iri adam. Mahkeme kararı yarın elimde olacak, diyor. Ama ben dostça bir çözümü tercih ederim. O defteri bana verin.',
         bayrak(d, 'klaraTanisti') ? 'Arkanızdan koşarak Klara geliyor; nefes nefese. Gubler\'in yüzü bir an değişiyor.' : 'Göl kıyısında başka kimse yok.',
+        {
+          yaz: 'Cebinde Hasler\'in imzalı kâğıdı. Gubler\'in adı orada; her ay, Bankhaus Rainer hesabından. Bunu ne zaman çıkaracağını sen seçeceksin.',
+          polis: 'Gubler yanındaki adama Almanca bir şey fısıldıyor; içinde bir ad duyuyorsun: Hasler. Sabah gazetesinde küçük bir haber vardı: bir hekim kendini polise teslim etmiş.',
+        }[bayrak(d, 'haslerKarar')] || '',
         'Nermin çantasını omzuna alıyor. Cemil Bey gözlüğünü siliyor. Neslihan defteri göğsüne bastırmış.',
-      ],
+      ].filter(Boolean),
       secenekler: [
         { etiket: 'Defteri Klara\'ya ver. Dedesini kendi eliyle o durdursun.', kosul: (d) => bayrak(d, 'klaraTanisti'), etki: { bayrak: { defter14: 'klara' } }, sonra: 'son_klara' },
         { etiket: 'Nermin her sayfayı fotoğraflasın; aslını Gubler\'e ver.', etki: { bayrak: { defter14: 'kopya' } }, sonra: 'son_kopya' },
@@ -263,7 +268,7 @@ export const BOLUM14 = {
               : 'Caddede onlarca banka var. Hangisi olduğunu bilmeden içeri girmenin anlamı yok.',
         },
       ],
-      kisiler: [],
+      kisiler: ['hasler14'],
       gecisler: [
         { hedef: 'banka', etiket: 'Banque Vollmer\'e gir', kosul: (d) => cikarimVar(d, 'kasa_yeri') && !delilVar(d, 'kurulus_defteri') },
         { hedef: 'otel', etiket: 'Otele dön' },
@@ -341,6 +346,36 @@ export const BOLUM14 = {
         ilk: {
           soz: 'Nermin çantasından küçük bir kutu çıkarıyor: bir Kodak fotoğraf makinesi. Viyana\'da Kessler ödünç verdi, diyor. Bir gazeteci olarak bir şey öğrendim: Bir belgeyi kimse alamaz, eğer kopyası varsa.',
           secenekler: [{ etiket: 'Tamam.' }],
+        },
+      },
+    },
+    hasler14: {
+      ad: 'Dr. Hasler',
+      kosul: (d) => !!bayrak(d, 'haslerSonu') && !bayrak(d, 'haslerKarar'),
+      giris: () => 'ilk',
+      dugumler: {
+        ilk: {
+          soz: (d) =>
+            bayrak(d, 'haslerSonu') === 'tutuklu'
+              ? 'Bir saatçinin vitrininin önünde zayıf, sakallı bir adam: Dr. Ferdinand Hasler. Manastır hapishanesinden üç ay sonra İsviçre konsolosluğu çıkarmış. Sizi görünce kaçmıyor; kaçacak gücü yok. Babanız nasıl, diye soruyor. Sesinde alay yok artık.'
+              : 'Bir saatçinin vitrininin önünde kürk yakalı bir adam, elinde hekim çantası: Dr. Ferdinand Hasler. Manastır\'da Ristić\'in kapısından çıkıp karda kaybolmuştu. Sizi görünce yüzü bembeyaz oluyor. Burada bir klinikte çalışıyorum, diyor. Bir şey yapmayın. Lütfen.',
+          secenekler: [
+            {
+              etiket: 'Babama yaptığını yaz. Kimin emriyle, kimin parasıyla. Altına imzanı at.',
+              etki: { bayrak: { haslerKarar: 'yaz' }, delil: ['hasler_mektubu'] },
+              cevap: 'Hasler bir kahvenin mermer masasında yazıyor; eli titriyor, yazısı titremiyor. Raporlar sahte. Afyonu ben verdim. Parayı her ay Dr. Gubler gönderdi. Kâğıdı sana uzatıyor. Gubler bunu görürse, diyor, ikimiz de biteriz. Siz biraz daha yavaş.',
+            },
+            {
+              etiket: 'Polise git. Kendini teslim et; Manastır\'da yaptığını anlat.',
+              etki: { bayrak: { haslerKarar: 'polis' } },
+              cevap: 'Hasler acı acı gülüyor. Zürih\'te kimse bir Manastır hapishanesini umursamaz, diyor. Sonra çantasını yere bırakıyor. Ama siz umursuyorsunuz. Karakol caddenin sonunda. Arkasından bakıyorsun; dönmüyor.',
+            },
+            {
+              etiket: 'Git. Bir daha karşıma çıkma.',
+              etki: { bayrak: { haslerKarar: 'birak' } },
+              cevap: 'Hasler bir şey diyecek oluyor; vazgeçiyor. Kalabalığa karışıyor. Neslihan arkasından bakıyor. Babam onun sesini hâlâ duyuyor geceleri, diyor. Bilmesi gerekmez.',
+            },
+          ],
         },
       },
     },

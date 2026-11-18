@@ -348,6 +348,13 @@
   12. adım: yaliSecim → 19. gulce19 (Gülce yalıdaki geceyi anar; morinGuven fransizBag ile zaten okunuyor);
   25. bölüme gece25 → gece25_son eklendi (son25 → gece25; travma, madalya, ilkNefes 'say' seçeneği; arifGece
   nefes/kardes/yalniz, travma -1; bolumBitti artık gece25 seçeneklerinde). Yeni açık iplik arif_gece.
+  13. adım (18 Kasım, bütün bölümler tarandı): okunmayan seçimler karşılık buldu. 14. bölüm Bahnhofstrasse'de Dr. Hasler
+  (haslerSonu'na göre; hasler14: haslerKarar yaz → hasler_mektubu / polis / birak; gol satırı) → 16. bölüm Gubler'e karşı
+  yeni seçenek (listeYolu hasler) → 24. gubler24 listeYolu satırı (para/tehdit/hirsiz/hasler); 10. bölüm Topal Hasan
+  (sevkiyatSonuc, hamalBag), kule (delormeKovuldu); 11. açılış ferranteIpucu; 18. açılış kafileSonu; 24. mektup24
+  neslihanOfke; 30. nermin30: nerminBag >= 3 ise "Yaz" imza düğümüne gider (nerminImza ad/takma; madalya satırı; 1924'te
+  soyadı yok: "Cevdet'in kız kardeşi") → 32. vasiyet32 Nermin'in telgrafı; 32. vasiyet32 haticeSonu (17), kayik32_son
+  cemilSuleyman (2. bölüm: İzmir inciri borcu).
   testler/derinlik.test.js iplikleri denetler.
 - İPLİK KAYDI: src/hikaye/iplikler.js (IPLIKLER: bayrak, ekildi, karsiliklar, gelecek, durum). testler/iplikler.test.js
   bayrağın ekildiği bölümde yazıldığını, karşılık bölümlerinde '<bayrak>' olarak okunduğunu denetler. Yeni iplik ekleyince,

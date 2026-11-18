@@ -229,6 +229,9 @@ export const BOLUM32 = {
           sus: 'Kimse konuşmuyor. Dalga kayığın tahtasına vuruyor; bir martı, bir vapur, uzakta bir çekiç. Süleyman dinliyor. Bir ara dudakları kıpırdıyor; kimse duymuyor ne dediğini. Belki bir ad.',
         }[bayrak(d, 'suleymanSon')] || '',
         'Güneş Moda\'nın üstünden doğarken Süleyman Kaptan ölüyor. Cemil Bey saati söylemiyor; kimse sormuyor.',
+        bayrak(d, 'cemilSuleyman')
+          ? 'Cemil Bey gözlüğünü çıkarıyor. Bir sandık İzmir inciri, diyor kendi kendine. Morgda sana söylemiştim, hatırlıyor musun? Altı yıl. Hâlâ borçluyum.'
+          : '',
         sayi(d, 'suleymanBag') >= 3
           ? 'Kayığı kıyıya sen çekiyorsun. Ellerin titremiyor. Bunu ondan öğrendin.'
           : 'Kayığı kıyıya hep birlikte çekiyorsunuz. Kimse bir şey söylemiyor.',
@@ -242,6 +245,15 @@ export const BOLUM32 = {
       paragraflar: (d) => [
         'Karacaahmet\'te sade bir mezar. Rıhtımdan otuz hamal geliyor; Topal Hasan başta. Ohannes Usta, Yorgo, Gülce. ' +
           (bayrak(d, 'rizaSon22') === 'kirgin' ? 'Rıza Bey mezarlığın kapısında duruyor; içeri girmiyor, ama gelmiş.' : 'Rıza Bey bastonuna dayanmış, en arkada.'),
+        {
+          mektup: 'İnebolu\'dan bir sandık fındık geliyor; Hatice\'nin elinden bir not: Abimin mektubunu bana getiren adamın kaptanına. Rahmet olsun. Abim de onu severdi.',
+          dogru: 'İnebolu\'dan bir sandık fındık geliyor; Hatice\'nin elinden bir not: Abimin katilini arayanların kaptanına. Rahmet olsun.',
+          sessiz: 'İnebolu\'dan Hatice\'nin mektubu geliyor; cenazeden bir gün sonra. Abim hangi gemide boğuldu, kaptan bilirdi, yazıyor. Ona sorar mısınız? Mektubu katlayıp cebine koyuyorsun. Cevabı biliyorsun; dört yıl önce kağnının yanında ona söyleyemedin.',
+        }[bayrak(d, 'haticeSonu')] || '',
+        {
+          ad: 'Nermin\'in telgrafı Ankara\'dan: Gelemiyorum. Cenevre yazısından beri kapımda bir jandarma bekliyor; korumak için mi izlemek için mi bilmiyorum. Kaptana benim yerime bir avuç toprak atın.',
+          takma: 'Nermin\'in telgrafı Ankara\'dan: Gelemiyorum. Taşhan bu hafta kaptanın adını ilk sayfaya basıyor; imzasız. Bir avuç toprak da benden.',
+        }[bayrak(d, 'nerminImza')] || '',
         'Akşam kayıkhanede Gülce bir kâğıt açıyor; Süleyman geçen kış yazdırmış, mühürletmiş. Tek satır: Kayıkhane, aramayı bırakmayanındır. Ad yok.',
         'Kâğıdın içinden mühürlü ikinci bir zarf çıkıyor. Üstünde: Gülce\'ye. ' +
           ({
@@ -249,7 +261,7 @@ export const BOLUM32 = {
             affetme: 'Gülce zarfı çeviriyor. Tevfik\'i affetmedim, diyor. Kaptan biliyordu. Belki bu yüzden yazmış.',
             sessiz: 'Gülce zarfı çeviriyor; köşesinde Bursa\'dan bir posta damgası. Tevfik\'in defterini dizine koymuştun, diyor. Kaptan koymamış.',
           }[bayrak(d, 'gulceTevfik')] || 'Gülce zarfı çeviriyor; köşesinde Bursa\'dan bir posta damgası.'),
-      ],
+      ].filter(Boolean),
       secenekler: [
         {
           etiket: 'Kayıkhane Kemal\'in. Burada kayık yapsın.',

@@ -278,3 +278,8 @@ Neslihan'ın tanıklığı babasına ulaşır).
 birinci bölümdeki soruya cevap verir (arifCevap; arif_neden kapandı). Pusula (pusulaKime), kayıkhane (kayikhaneVaris),
 Süleyman'ın Gülce'ye zarfı (gulceZarf: Tevfik'in kardeşi Selim, Bursa; 1913'te Kâmil Efendi'nin dosyasını çıkaran o).
 Altıncı kitap için: kayıkhane üs olur; Selim; Rahel ile Beyrut; Melek'in annesi; Cemil ile Eleni; Rıza'nın Yakup'u.
+
+### Derinleştirme 13. adım (18 Kasım)
+- Tarama: yazılıp hiç başka bölümde okunmayan bayraklar. Hasler (8 → 14 → 16 → 24), Topal Hasan ve depo (4 → 10),
+  Delorme'un kovulması (9 → 10), Delorme'un ifadesi (10 → 11), kafile (17 → 18), Neslihan'ın sofradaki sorusu (23 → 24),
+  Nermin'le bağ (3-25 → 30 imza → 32 telgraf), Hatice (17 → 32), Cemil'in İzmir inciri borcu (2 → 32).

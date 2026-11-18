@@ -65,7 +65,7 @@ export const BOLUM11 = {
       paragraflar: (d) => [
         'Vapur Körfez\'e girerken güneş Kadifekale\'nin arkasından vuruyor. Kordon boyunca konsolosluklar, oteller, kahveler; Avrupa\'nın en güzel rıhtımlarından biri. Ama bayraklar yeni, askerler yeni, sessizlik yeni.',
         'Çıkarmanın ilk günü kan döküldü. Üç haftadır şehirde herkes birini kaybetmiş ya da birinden korkuyor. Türk mahallelerinde kepenkler yarı kapalı; Rum mahallelerinde bayraklar ve kuşku. Ermeni, Yahudi, Levanten esnaf her sabah dükkânını açıyor, akşam erken kapıyor.',
-        bayrak(d, 'delormeSonu') === 'tutuklu'
+        bayrak(d, 'ferranteIpucu')
           ? 'Delorme İngiliz hücresinde konuştu: Ferrante İzmir\'de; asıl sevkiyat Haziran\'da. Rıza Bey o ifadeyi cebinde taşıyor.'
           : 'Ferrante İzmir\'de; altmış sandık taşla. Rainer\'in sabrı Delorme\'unkinden az değildir.',
         'Baban İstanbul\'da, Ohannes\'in ocağının başında kaldı. Neslihan yanında; Cemil Bey, Nermin, Rıza Bey de. Cemil Bey\'in cebinde bir adres: Dr. Eleni Mavrou. Paris\'te aynı amfide okudukları, kendisinden daha iyi bir hekim.',

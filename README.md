@@ -8,6 +8,13 @@ görme engelli oyuncular tarafından bağımsız oynanabilecek; VoiceOver ve Tal
 
 Tasarım taslağı: `belgeler/tasarim-taslagi.pdf`
 
+## Şu anki aşama: 39 — derinleştirme 13. adım
+
+Bütün bölümlerde yapılan ama hiç geri dönmeyen seçimler tarandı. Manastır'daki hekim Hasler Zürih'te karşına çıkar; ondan
+alınan imzalı mektup İstanbul'da Gubler'e karşı kullanılabilir ve Gubler bunu sonra anar. Topal Hasan Aralık gecesini,
+Delorme Viyana'da kovulmasını, kağnıcılar kafileyi hatırlar. Nermin'le bağ güçlüyse Cenevre yazısını kendi adıyla imzalamayı
+sorar; telgrafı Süleyman'ın cenazesine gelir. Hatice'nin mektubu ve Cemil'in İzmir inciri borcu da cenazede döner.
+
 ## Şu anki aşama: 38 — otuz ikinci bölüm: Pusula (beşinci kitabın sonu)
 
 İstanbul, Eylül 1924. Süleyman Kaptan'ın kalbi yoruldu. Neslihan önce Cenevre'deki tanıklığını babasına götürür; sonra
