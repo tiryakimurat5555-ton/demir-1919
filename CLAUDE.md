@@ -26,7 +26,7 @@
   react-native-audio-api yalnız equalpower (HRTF yok) ve Expo Go'da yok; WebView işe yaramazsa TestFlight + kendi uygulama.
   EAS iOS derlemesi (kredi harcar) Murat'a sormadan başlatılmaz. ASC API anahtarı Murat'ın özel Deneme deposunda (gizli/);
   herkese açık depoya asla yazılmaz.
-- 2. AŞAMA (18 Kasım, Murat'ın onayını bekliyor): hikâye omurgası belgesi https://claude.ai/artifact/YR74Ad1fbxSSqzqgHAJcq2
+- 2. AŞAMA (18 Kasım, Murat onayladı: "Uyuyor devam"; kolların sırası serbest önerisi itirazsız kabul sayıldı): hikâye omurgası belgesi https://claude.ai/artifact/YR74Ad1fbxSSqzqgHAJcq2
   Özet: Kanatlı Anahtar'ın asıl amacı Ahit (1908 Selanik): yirmi yıl içindeki büyük savaşın borcunu şimdiden satın almak.
   Dört kol: Kasa (ekonomik, Viktor Rainer, Viyana/Galata), Kılıç (askerî, Albay Anton Weisz, Berlin/Çanakkale; saha eli Delorme),
   Mühür (siyasi, Kont Imre Szalay, Atina/İstanbul; Nazım Bey, Halim), Göz (istihbarat, Gaston Rivière, Selanik/Manastır; Neslihan
@@ -34,6 +34,15 @@
   (Kas 1918-May 1919 İstanbul), 2 Dört Kol (Haz 1919-Mar 1921, sıra serbest önerildi), 3 Ahit (Nis 1921-Eki 1922), 4 Son Toplantı
   (Kas 1922-6 Eki 1923 Galata). Sonlar: ifşa, adalet, kasayı yakmak, anahtarı devralmak, Neslihan, yenilgi, gizli son eve dönüş.
   Dikey dilim = 1. perdenin ilk görevi "Sudaki Adam" sesle serbest dolaşmayla.
+- 3. AŞAMA, Karaköy dikey dilimi. 1. adım (sürüm 0.70, telefonda denenmedi): ana menü "Yeni oyun denemesi: Karaköy" (src/ekran/Karakoy.js).
+  Saf benzetim src/oyun/karakoy/harita.js (BINALAR, MEKANLAR dis/kayikhane/buro/han/oda: iç mekân binanın kendi alanında, dış sesler
+  doğru yerden gelir; YERLER, KISILER günlük rutinleri: suleyman, gulce, ohannes, husnu, hamallar, halim devriye; TRAMVAY y 36; SESLER)
+  ve dunya.js (ZAMAN_ORANI 10: 1 gerçek dk = 10 oyun dk; Aralık güneşi 07.15-16.40; ilerle(d, {ileri, donus}, dt) → olaylar adim/carpti/
+  kapi/kisi/aksam/sabah/saatBasi/vapur/tramvay; etkiles (kapı ya da konuş), cevreMetni, durumMetni, bekle, kisiDurumu yürüyerek geçiş).
+  Hareket joystick gibi: sürükleyip tut (ölü bölge 16 px, tam güç 140 px). konumsal.js'e sil, tek, boguk (içeride alçak geçiren), 'ayak'
+  kaynağı eklendi; assets/ses/konumsal/tramvay.wav. Motor HTML'i headless Chrome'da hatasız çalıştı (sözdizimi + komutlar).
+  Testler testler/karakoy.test.js. Sonraki adımlar: Sabri olayı ve deliller, fotoğraf + karanlık oda, serbest pano, sorgu, gizlilik,
+  itibar, para, envanter, kayıt. Açık oynanış sorusu Murat'a: zaman oranı (önerim 1 dk = 10 dk).
 - Bu ortamda npm yok; bağımlılık sürümleri Expo dokümanından (react-native-webview 14.0.1, SDK 58). bun build'e -e react-native-webview ekle.
 
 ## Tasarım

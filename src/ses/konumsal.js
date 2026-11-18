@@ -10,7 +10,11 @@
 //   model(ad)                        'HRTF' ya da 'equalpower'
 //   yukle(ad, modul)                 bir ses dosyasını (require ile) motora yükler; tek kanala indirir
 //   dosyaKaynak(id, ad, nokta, aralik) yüklenmiş sesi bir noktadan, aralik ms'de bir çalar
+//   sil(id)                          kaynağı kaldırır
+//   tek(ad, nokta, duzey)            yüklenmiş sesi bir noktadan bir kez çalar
+//   boguk(acik)                      içerideyken dışarıdaki sesleri boğar (duvar arkası)
 //   durdur()
+// kaynak türleri: 'zil', 'cekic', 'deniz', 'ayak' (yürüyen birinin ayak sesleri)
 // Motor hazır olunca ve hata olursa onMesaj({ tur, ... }) çağrılır.
 import React, { forwardRef, useImperativeHandle, useRef } from 'react';
 import { StyleSheet, View } from 'react-native';
@@ -19,17 +23,19 @@ import { Asset } from 'expo-asset';
 import * as DosyaSistemi from 'expo-file-system';
 import { sesKoordinati, sesYonu } from '../oyun/konum';
 
-// WebView içinde çalışan motor. Bütün sesler kodla üretilir; dosya taşınmaz.
+// WebView içinde çalışan motor. Basit sesler (zil, çekiç, deniz, ayak) kodla üretilir; ötekiler yüklenen dosyalardan çalınır.
 const MOTOR_HTML = `<!DOCTYPE html><html><head><meta charset="utf-8"></head><body><script>
 (function(){
-  var ctx = null, model = 'HRTF', kaynaklar = {}, ana = null;
+  var ctx = null, model = 'HRTF', kaynaklar = {}, ana = null, suzgec = null;
   function bildir(o){ try { window.ReactNativeWebView.postMessage(JSON.stringify(o)); } catch(e){} }
   function baglam(){
     if (ctx) return ctx;
     try { if (navigator.audioSession) navigator.audioSession.type = 'playback'; } catch(e){}
     var C = window.AudioContext || window.webkitAudioContext;
     ctx = new C();
-    ana = ctx.createGain(); ana.gain.value = 0.9; ana.connect(ctx.destination);
+    ana = ctx.createGain(); ana.gain.value = 0.9;
+    suzgec = ctx.createBiquadFilter(); suzgec.type = 'lowpass'; suzgec.frequency.value = 20000;
+    ana.connect(suzgec); suzgec.connect(ctx.destination);
     var l = ctx.listener;
     if (l.forwardX) { l.forwardX.value = 0; l.forwardY.value = 0; l.forwardZ.value = -1; l.upX.value = 0; l.upY.value = 1; l.upZ.value = 0; }
     return ctx;
@@ -74,11 +80,30 @@ const MOTOR_HTML = `<!DOCTYPE html><html><head><meta charset="utf-8"></head><bod
     lfo.connect(lg); lg.connect(g.gain); s.connect(f); f.connect(g); g.connect(k.p); s.start(); lfo.start();
     k.durdur = function(){ try { s.stop(); lfo.stop(); } catch(e){} };
   }
-  function adimCal(){
+  function adimCal(hedef, duzey){
     var t = ctx.currentTime, s = ctx.createBufferSource(), f = ctx.createBiquadFilter(), g = ctx.createGain();
     s.buffer = gurultu(0.09); f.type = 'lowpass'; f.frequency.value = 900;
-    g.gain.setValueAtTime(0.5, t); g.gain.exponentialRampToValueAtTime(0.0001, t + 0.08);
-    s.connect(f); f.connect(g); g.connect(ana); s.start(t);
+    g.gain.setValueAtTime(duzey || 0.5, t); g.gain.exponentialRampToValueAtTime(0.0001, t + 0.08);
+    s.connect(f); f.connect(g); g.connect(hedef || ana); s.start(t);
+  }
+  function tekCal(ad, n, duzey){
+    var t = tamponlar[ad]; if (!t) return;
+    var p = panner(), g = ctx.createGain(), s = ctx.createBufferSource();
+    konumla(p, n); g.gain.value = duzey == null ? 1 : duzey;
+    s.buffer = t; s.connect(g); g.connect(p); s.start();
+    s.onended = function(){ try { p.disconnect(); } catch(e){} };
+  }
+  function sil(id){
+    var k = kaynaklar[id]; if (!k) return;
+    if (k.zaman) clearInterval(k.zaman); if (k.durdur) k.durdur();
+    try { k.p.disconnect(); } catch(e){}
+    delete kaynaklar[id];
+  }
+  function boguk(acik){
+    baglam();
+    var t = ctx.currentTime;
+    suzgec.frequency.cancelScheduledValues(t);
+    suzgec.frequency.setTargetAtTime(acik ? 700 : 20000, t, 0.15);
   }
   var tamponlar = {};
   // Base64 WAV'ı çözer; iki kanallıysa tek kanala indirir (konumlandırma tek kanallı seste doğru çalışır)
@@ -123,6 +148,7 @@ const MOTOR_HTML = `<!DOCTYPE html><html><head><meta charset="utf-8"></head><bod
       if (tur === 'zil') { zilCal(k); k.zaman = setInterval(function(){ zilCal(k); }, 1500); }
       else if (tur === 'cekic') { k.zaman = setInterval(function(){ cekicCal(k); }, 700); }
       else if (tur === 'deniz') denizBaslat(k);
+      else if (tur === 'ayak') { k.zaman = setInterval(function(){ adimCal(k.p, 0.8); }, 520); }
     }
     konumla(k.p, n);
   }
@@ -151,6 +177,9 @@ const MOTOR_HTML = `<!DOCTYPE html><html><head><meta charset="utf-8"></head><bod
         else if (c.ad === 'yukle') yukle(c.dosya, c.veri);
         else if (c.ad === 'dosyaKaynak') dosyaKaynak(c.id, c.dosya, c.n, c.aralik);
         else if (c.ad === 'model') modelSec(c.model);
+        else if (c.ad === 'sil') sil(c.id);
+        else if (c.ad === 'tek') { baglam(); tekCal(c.dosya, c.n, c.duzey); }
+        else if (c.ad === 'boguk') boguk(c.acik);
         else if (c.ad === 'durdur') durdur();
       } catch(e){ bildir({ tur: 'hata', metin: String(e) }); }
     }
@@ -180,6 +209,9 @@ function KonumsalSes({ onMesaj }, ref) {
     adim: () => gonder({ ad: 'adim' }),
     model: (ad) => gonder({ ad: 'model', model: ad }),
     durdur: () => gonder({ ad: 'durdur' }),
+    sil: (id) => gonder({ ad: 'sil', id }),
+    tek: (ad, nokta, duzey = 1) => gonder({ ad: 'tek', dosya: ad, n: sesKoordinati(nokta), duzey }),
+    boguk: (acik) => gonder({ ad: 'boguk', acik: !!acik }),
     yukle: async (ad, modul) => {
       try {
         const veri = await sesDosyasiOku(modul);
