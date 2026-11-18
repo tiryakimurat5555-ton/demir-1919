@@ -296,3 +296,6 @@ Altıncı kitap için: kayıkhane üs olur; Selim; Rahel ile Beyrut; Melek'in an
   Bursa kozasını Banque Vollmer çekleriyle topluyor (filatürleri koza bulamaz hâle getirip ucuza almak için). Gülce ile
   Tevfik (gulceSon33). Altıncı kitabın ana ipliği: Vollmer mezattan sonra Anadolu'nun ipeğini, tütününü, incirini
   topluyor (vollmerCek). Sıradaki: Cemil ile Eleni (Ankara hastanesi) ya da Rahel'le Beyrut; Vollmer'in izi.
+- 34. bölüm "Tebeşir" (Haziran 1925, Ankara): Sabit Bey (18) tebeşirli kinin; Vollmer'in parası; Bay Albrecht (Vollmer'in
+  Anadolu'daki adamı) İzmir trenine biner. Cemil'in ikinci raporu (cemilRapor34). Sıradaki: İzmir (Albrecht; incir/tütün;
+  Eleni'nin eski kliniği), belki Rahel/Beyrut mektubu, Rıza'nın Yakup'u.

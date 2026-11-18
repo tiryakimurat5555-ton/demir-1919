@@ -8,6 +8,12 @@ görme engelli oyuncular tarafından bağımsız oynanabilecek; VoiceOver ve Tal
 
 Tasarım taslağı: `belgeler/tasarim-taslagi.pdf`
 
+## Şu anki aşama: 43 — otuz dördüncü bölüm: Tebeşir
+
+Ankara, Haziran 1925. Cemil Bey'in hastanesine gelen kinin tabletlerinin yarısı tebeşir. Laboratuvarda bir deney, Nermin'in
+arşivinde bir ihale, istasyonda Zürih'ten bir çek. Eskişehir'deki müteahhit Sabit Bey geri dönmüştür. Sonunda Cemil Bey
+bir rapor yazmak zorunda: adlarla mı, adsız mı, yoksa gazetede mi?
+
 ## Şu anki aşama: 42 — otuz üçüncü bölüm: Koza (altıncı kitabın açılışı)
 
 Bursa, Nisan 1925. Kayıkhanenin kapısına ilk dava gelir: Tevfik kayboldu. Kardeşi Selim, Gülce'den yardım ister; dört yıl

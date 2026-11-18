@@ -217,8 +217,11 @@ export const BOLUM33 = {
       ortam: 'ortam_kayikhane',
       ortamOran: 0.45,
       baslik: 'Otuz üçüncü bölüm bitti',
-      paragraflar: ['Kararların kaydedildi. Otuz dördüncü bölüm yazılıyor.'],
-      secenekler: [{ etiket: 'Ana menüye dön', anaMenu: true }],
+      paragraflar: ['Kararların kaydedildi. Sırada otuz dördüncü bölüm: Tebeşir.'],
+      secenekler: [
+        { etiket: '34. bölüme geç', sonrakiBolum: 'bolum34' },
+        { etiket: 'Ana menüye dön', anaMenu: true },
+      ],
     },
   },
 

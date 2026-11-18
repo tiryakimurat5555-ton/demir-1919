@@ -326,6 +326,14 @@
   kayhan33_son → tevfik33 (Koza Han, şafak; gulceTevfik satırı; gulceSon33 bildi [zarf açık] / acti / el / sus) →
   tevfik33_son (vollmerCek ifade/soru) → kapanis33 → son. 32. bölümdeki Selim tutarsızlığı düzeltildi (dosyayı Tevfik
   çıkarmıştı; Selim 1905 doğumlu).
+- Otuz dördüncü bölüm "Tebeşir" (src/hikaye/bolum34.js): 8-12 Haziran 1925 Ankara. Cemil'in bölümü. Ekip Arif + Cemil +
+  Nermin (ekip_riza false). Mekânlar hastane34 (ortam_hastane; dolap34 → deney34 bulmacası: Tart / Tadına bak (deneme34 +1,
+  ipucu) / Suda erit → sahte_kinin; cemil34 [cemilDefter, cemilEleni], eleni34 [cemilEleni birlikte]), matbaa34 (Taşhan;
+  nermin34 → ihale_kaydi; sonra nerminImza'ya göre jandarma, nerminKorku istanbul/kal), istasyon34 (sevk34 → sevk_belgesi:
+  Trieste, Zürih çeki, A. V.). Çıkarımlar tebesir (sahte_kinin + ihale_kaydi), zurih_parasi (ihale_kaydi + sevk_belgesi)
+  → olay sabit → sabit34 (Sabit Bey, 18. bölümden; sabitSonu'na göre; sabitSon34 mahkeme / itiraf [vollmer_ajani: Bay
+  Albrecht] / cemil [cemilBag +1]) → sabit34_son → rapor34 (cemilRapor34 adli / adsiz / gazete) → son34 (vollmerAjan
+  izmir/bilinmiyor) → son. Yeni ses yok (var olanlar).
 - DERİNLEŞTİRME KARARI (17 Kasım, Murat: "Derinleştir"): yeni bölüm yazmaya ara; önce var olan bölümler derinleşir.
   Plan ve yapılanlar belgeler/hikaye-plani.md "Derinleştirme" bölümünde. 1. adım: arifNeden (1. bölüm gece_konusma →
   6. bölüm arifNedenSatiri, 8. bölüm tahliye), haticeSozu (1. bölüm mektup → 2. cenaze → 17. hatice17), Pendle tohumu
