@@ -8,7 +8,16 @@ görme engelli oyuncular tarafından bağımsız oynanabilecek; VoiceOver ve Tal
 
 Tasarım taslağı: `belgeler/tasarim-taslagi.pdf`
 
-## Şu anki aşama: 31 — yirmi beşinci bölüm: Kırmızı Sayfalar (dördüncü kitabın sonu)
+## Şu anki aşama: 32 — yirmi altıncı bölüm: Zarf (beşinci kitabın açılışı)
+
+- Şubat 1924, Selanik: mübadele vapurları; iki yöne giden iki kalabalık
+- Hafız Efendi ölmüş; zarfı torunu Emine'de. Emine zarfı yalnızca "gerçek adıyla" isteyene verir
+- Kırk yedinci sayfanın yarısı: on yedi kız, on yedi şehir, sola yatık bir el
+- Binbaşı Fikri'nin oğlu Kenan Bey rıhtımda; ona ne söyleyeceğin senin kararın
+- Cemil Bey on iki yıl önce "kaza" yazdığı binanın önünde
+- Yeni ses: mübadele rıhtımı
+
+## 31 — yirmi beşinci bölüm: Kırmızı Sayfalar (dördüncü kitabın sonu)
 
 - Kasım 1923, Zürih: Vollmer örgütün kuruluş defterini kapalı bir mezatta satıyor
 - Cemil Bey defterin önizlemesinde kendi geçmişinden bir sayfa bulur

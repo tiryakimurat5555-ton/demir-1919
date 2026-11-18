@@ -284,8 +284,8 @@ export const BOLUM25 = {
       ortam: 'ortam_gol',
       ortamOran: 0.45,
       baslik: 'Dördüncü kitap bitti',
-      paragraflar: ['Kararların kaydedildi. Beşinci kitap yazılıyor: kırk yedinci sayfa.'],
-      secenekler: [{ etiket: 'Ana menüye dön', anaMenu: true }],
+      paragraflar: ['Kararların kaydedildi. Beşinci kitap: kırk yedinci sayfa.'],
+      secenekler: [{ etiket: 'Yirmi altıncı bölüme geç', sonrakiBolum: 'bolum26' }, { etiket: 'Ana menüye dön', anaMenu: true }],
     },
   },
 

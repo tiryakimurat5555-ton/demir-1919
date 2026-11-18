@@ -257,6 +257,16 @@
   → son ("Beşinci kitap: kırk yedinci sayfa").
   Beşinci kitap yok: açık iplikler cemil_defter, defter_sonu, sayfa47 (kural 4: 47. sayfayı kesen birinci bölümden beri ekili
   biri olmalı), cocuk, neslihan_ad, riza_son, kemal_kalir, travma, arif_neden, kardes_gecesi, cemil_rapor, gulce_tevfik.
+- Yirmi altıncı bölüm "Zarf" (src/hikaye/bolum26.js; beşinci kitabın açılışı): 13-14 Şubat 1924 Selanik, nüfus mübadelesi
+  arka plan (iki yöne giden kalabalıklar eşit anlatılır). Ekip Cemil + Neslihan (ekip_nermin/riza false). Açılış
+  saltiel_telgrafi; arifGece, rizaSon22, hafizZarf satırları. Mekânlar rebeka26 (ortam_ev; saltiel26 → david_defteri),
+  mahalle26 (ortam_yanik_sehir; Niğdeli Despina → hafiz_notu + kenan_mektubu), rihtim26 (ortam_mubadele; eski_daire →
+  cemil26: cemilSelanik gir/bak/soz; emine [zarf_yeri çıkarımıyla]: ad bulmacası, yanlış ad emineSuphe +1, SUPHE_SINIRI26 2;
+  doğru: "Kalaycı İsmail Usta'nın kızı" ya da Neslihan kendisi (neslihanAd'a göre; neslihanAdSoyledi) → zarf_teslim:
+  zarfAcan neslihan/arif → zarf_icerik (47. sayfanın üst yarısı: 17 ad + şehir, F. E.; Rivière: alt yarıyı 1918 yazında
+  sahibine geri verdim; davidNotu sakla ise davidItiraf) → zarf_son. Çıkarımlar zarf_yeri (telgraf + hafiz_notu),
+  fikri_yasiyor (david_defteri + kenan_mektubu). Olay kenan (zarf + fikri_yasiyor + zarfAcan) → kenan26: kenanSonu
+  goster/uyar/sakla → vapur26 (efekt vapur_duduk) → son. Fikri: Moda'da köşk, 62 yaşında, gözleri görmüyor.
 - DERİNLEŞTİRME KARARI (17 Kasım, Murat: "Derinleştir"): yeni bölüm yazmaya ara; önce var olan bölümler derinleşir.
   Plan ve yapılanlar belgeler/hikaye-plani.md "Derinleştirme" bölümünde. 1. adım: arifNeden (1. bölüm gece_konusma →
   6. bölüm arifNedenSatiri, 8. bölüm tahliye), haticeSozu (1. bölüm mektup → 2. cenaze → 17. hatice17), Pendle tohumu

@@ -258,3 +258,7 @@ Sıradakiler:
 ### Derinleştirme 12. adım (18 Kasım)
 - 12. bölümde yalıdaki seçim 19. bölümde Gülce'nin Tevfik kararına ışık tutar.
 - 25. bölümün sonuna göl kıyısında gece sahnesi: Arif'in Çanakkale yarası (travma) dördüncü kitabın sonunda bir seçimle karşılanır; arifGece beşinci kitaba taşınır.
+
+## Beşinci kitap (18 Kasım)
+- 26. bölüm "Zarf" (Şubat 1924, Selanik): Hafız Efendi'nin zarfı Emine'den alınır. İçinde 47. sayfanın üst yarısı: Kasım 1912, on yedi kız ve gönderildikleri şehirler, Binbaşı Fikri'nin eli. Alt yarıyı (satanın imzası) Rivière 1918 yazında Fikri'ye geri satmıştı. Fikri yaşıyor (Moda, 62, kör); oğlu Kenan avukat.
+- Sıradaki: 27. bölüm İstanbul/Moda: Fikri'nin köşkü; kenanSonu yolu (goster: Kenan kapıyı açar; uyar: Fikri hazırlıklı; sakla: soru sormayan biri gelir). Cemil'in tek sorusu (cemilSelanik soz). Sonra on altı kızın izi: Marsilya, İskenderiye, Odesa, Napoli, Buenos Aires.
