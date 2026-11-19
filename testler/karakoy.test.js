@@ -416,3 +416,30 @@ describe('dönüş tıkırtısı', () => {
     expect(ilerle(d, {}, 0.5).filter((o) => o.tur === 'tik').length).toBe(0);
   });
 });
+
+describe('Yerler: iç içe yerler', () => {
+  test('limandayken Sabri\'nin odası ve Pera\'nın içi görünmez; handa oda görünür', async () => {
+    const { yeniDunya, yerlerListesi } = await import('../src/oyun/karakoy/dunya.js');
+    const d = yeniDunya();
+    d.sahne = null;
+    d.gorev = 3;
+    d.bayrak.odaAnahtari = true;
+    d.mekan = 'dis';
+    d.oyuncu = { x: 0, y: 5, yon: 0 };
+    let id = yerlerListesi(d).map((y) => y.id);
+    expect(id).not.toContain('oda');
+    expect(id).not.toContain('cihangir');
+    expect(id).not.toContain('kulup');
+    expect(id).toContain('han');
+    expect(id).toContain('pera');
+    d.mekan = 'han';
+    d.oyuncu = { x: 37, y: 19, yon: 0 };
+    expect(yerlerListesi(d).map((y) => y.id)).toContain('oda');
+    d.mekan = 'pera_cadde';
+    d.oyuncu = { x: 210, y: 5, yon: 0 };
+    id = yerlerListesi(d).map((y) => y.id);
+    expect(id).toContain('cihangir');
+    expect(id).toContain('kulup');
+    expect(id).not.toContain('oda');
+  });
+});

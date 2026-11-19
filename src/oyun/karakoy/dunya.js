@@ -652,6 +652,8 @@ const OTO_HIZ_GIZLI = 0.9; // gizli yerlerde, gözcüyü uyandırmamak için
 // Bu kişileri Arif zaten tanır (limanda çalışıyor); ötekiler karşılaşınca listeye girer
 const TANIDIK = ['suleyman', 'husnu', 'ohannes', 'hamallar', 'halim', 'riza'];
 // Bu kişiler listeye hiç girmez (gizlice izlenir ya da kaçar)
+// Sokaklarda aynı sokaktaki öbür yerler de listelenir; iç mekândaysan bulunduğun yer düşer
+const SOKAKLAR = ['dis', 'pera_cadde'];
 const LISTEDISI = ['bekci', 'takipci', 'kasketli', 'nobetci', 'lavantali', 'delorme', 'rustu', 'nazim'];
 
 // Şu an gidilebilecek ve bilinen yerler: { id, ad, mekan, x, y, menzil, tur, uzaklik }
@@ -659,11 +661,13 @@ export function yerlerListesi(d) {
   const k = d.kesif || {};
   const b = d.bayrak;
   const liste = [];
-  const ekle = (id, ad, mekan, x, y, menzil, tur) => liste.push({ id, ad, mekan, x, y, menzil, tur });
+  // yalnizBurada: bu yer yalnızca bu mekânlardan birindeyken listelenir (bir binanın içindeki oda, Pera'nın içindeki yerler)
+  const ekle = (id, ad, mekan, x, y, menzil, tur, yalnizBurada = null) => liste.push({ id, ad, mekan, x, y, menzil, tur, yalnizBurada });
+  const PERA = ['pera_cadde', 'cihangir', 'kulup_salon', 'servis_koridoru', 'oda17'];
   ekle('kayikhane', 'Süleyman Kaptan\'ın kayıkhanesi', 'kayikhane', -41, 5, 1, 'yer');
   if (k.buro || b.gulceOnerildi) ekle('buro', 'Liman kayıt bürosu', 'buro', -1, 17, 1, 'yer');
   ekle('han', 'Kalafatçı Hanı', 'han', 37, 19, 1, 'yer');
-  if (b.odaAnahtari) ekle('oda', 'Sabri\'nin odası', 'oda', 43, 26, 1, 'yer');
+  if (b.odaAnahtari) ekle('oda', 'Sabri\'nin odası', 'oda', 43, 26, 1, 'yer', ['han', 'oda']);
   if (k.kapi_antrepo_arka || b.arkaKapiBiliniyor) ekle('antrepo_arka', 'Antreponun arka kapısı', 'dis', 25.4, 22, 0.5, 'yer');
   ekle('leventis', 'Leventis vapurunun yanı', 'dis', 30, 1.3, 1, 'yer');
   ekle('iskele', 'Kayıkçı iskelesi', 'dis', 5, 1.3, 1, 'yer');
@@ -671,10 +675,10 @@ export function yerlerListesi(d) {
   if ((d.gorev || 1) >= 4) ekle('meyhane', 'Rum meyhanesi', 'meyhane', 55, 16, 1, 'yer');
   if ((d.gorev || 1) >= 3) {
     ekle('pera', 'Yüksekkaldırım\'ın tepesi, Pera', 'pera_cadde', 202.5, 2.5, 1, 'yer');
-    ekle('cihangir', 'Cemil\'in evi, Cihangir', 'cihangir', 205, 53, 1, 'yer');
-    ekle('kulup', 'Mercure Kulübü\'nün kapısı', 'pera_cadde', 230, 8.3, 0.8, 'yer');
-    ekle('servis', 'Kulübün servis kapısı, arka sokak', 'pera_cadde', 250, 8.3, 0.8, 'yer');
-    if (k.kulup_salon) ekle('salon', 'Mercure Kulübü\'nün salonu', 'kulup_salon', 230, 16, 1, 'yer');
+    ekle('cihangir', 'Cemil\'in evi, Cihangir', 'cihangir', 205, 53, 1, 'yer', PERA);
+    ekle('kulup', 'Mercure Kulübü\'nün kapısı', 'pera_cadde', 230, 8.3, 0.8, 'yer', PERA);
+    ekle('servis', 'Kulübün servis kapısı, arka sokak', 'pera_cadde', 250, 8.3, 0.8, 'yer', PERA);
+    if (k.kulup_salon) ekle('salon', 'Mercure Kulübü\'nün salonu', 'kulup_salon', 230, 16, 1, 'yer', PERA);
   }
   if ((d.gorev || 1) >= 6) {
     ekle('kopru', 'Galata Köprüsü\'nün başı', 'dis', -57.5, 12, 1, 'yer');
@@ -703,7 +707,13 @@ export function yerlerListesi(d) {
   for (const y of liste) y.uzaklik = y.mekan === d.mekan ? Math.round(uzaklik(d.oyuncu, y)) : null;
   // Kişiler ve eşyalar yalnızca bulunduğun yerdekiler; yerler (mekânlar) her yerden. Önce buradakiler, yakından uzağa.
   const burada = liste.filter((y) => y.tur !== 'yer' && y.mekan === d.mekan).sort((a, b) => a.uzaklik - b.uzaklik);
-  const yerler = liste.filter((y) => y.tur === 'yer' && !(y.mekan === d.mekan && y.uzaklik < 1.5) && !(y.mekan === d.mekan && d.mekan !== 'dis'));
+  const yerler = liste.filter(
+    (y) =>
+      y.tur === 'yer' &&
+      !(y.yalnizBurada && !y.yalnizBurada.includes(d.mekan)) &&
+      !(y.mekan === d.mekan && y.uzaklik < 1.5) &&
+      !(y.mekan === d.mekan && !SOKAKLAR.includes(d.mekan)),
+  );
   return [...burada, ...yerler];
 }
 
