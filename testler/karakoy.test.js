@@ -235,3 +235,79 @@ describe('tarif ve tramvay', () => {
     expect(gunduz).toContain('halim');
   });
 });
+
+import { yerlerListesi, otoBaslat } from '../src/oyun/karakoy/dunya';
+
+function otoYuru(d, sn = 300) {
+  const olaylar = [];
+  for (let i = 0; i < sn * 10 && d.oto; i++) olaylar.push(...ilerle(d, {}, 0.1));
+  return olaylar;
+}
+
+describe('Yerler: kendiliğinden yürüme', () => {
+  test('rıhtımdan hana, kapılardan geçerek', () => {
+    const d = yeniDunya();
+    const han = yerlerListesi(d).find((y) => y.id === 'han');
+    expect(otoBaslat(d, han).tamam).toBe(true);
+    const olaylar = otoYuru(d);
+    expect(olaylar.some((o) => o.tur === 'otoVardi')).toBe(true);
+    expect(d.mekan).toBe('han');
+  });
+  test('kayıkhanenin içinden büroya: önce dışarı çıkar', () => {
+    const d = yeniDunya();
+    d.mekan = 'kayikhane';
+    d.oyuncu = { x: -48, y: 7, yon: 0 };
+    otoBaslat(d, yerlerListesi(d).find((y) => y.id === 'buro'));
+    const olaylar = otoYuru(d);
+    expect(olaylar.filter((o) => o.tur === 'otoKapi').length).toBe(2);
+    expect(d.mekan).toBe('buro');
+  });
+  test('bütün sokak yerlerine ve binalara her noktadan yol bulunur', () => {
+    const baslar = [
+      { x: -55, y: 3 },
+      { x: 55, y: 40 },
+      { x: 26, y: 25 },
+      { x: -36, y: 35 },
+    ];
+    for (const b of baslar) {
+      const d = yeniDunya();
+      d.dakika = 10 * 60;
+      d.oyuncu = { ...b, yon: 0 };
+      for (const y of yerlerListesi(d).filter((x) => x.tur === 'yer' && x.id !== 'oda')) {
+        const d2 = { ...d, oyuncu: { ...d.oyuncu }, yakin: {}, bayrak: {} };
+        expect(otoBaslat(d2, y).tamam).toBe(true);
+        otoYuru(d2);
+        expect(d2.mekan).toBe(y.mekan);
+        expect(Math.hypot(d2.oyuncu.x - y.x, d2.oyuncu.y - y.y)).toBeLessThan(y.menzil + 0.5);
+      }
+    }
+  });
+  test('kişiye yürür ve yanında durur', () => {
+    const d = yeniDunya();
+    d.dakika = 10 * 60;
+    const g = yerlerListesi(d).find((y) => y.id === 'kisi_gulce');
+    otoBaslat(d, g);
+    otoYuru(d);
+    expect(d.mekan).toBe('buro');
+    expect(etkiles(d).tur).toBe('konus');
+  });
+  test('kilitli kapıda durur ve söyler', () => {
+    const d = yeniDunya();
+    d.dakika = 10 * 60;
+    d.mekan = 'han';
+    d.oyuncu = { x: 37, y: 18, yon: 0 };
+    const hedef = { id: 'x', ad: 'Sabri\'nin odası', mekan: 'oda', x: 43, y: 26, menzil: 1 };
+    otoBaslat(d, hedef);
+    const olaylar = otoYuru(d);
+    expect(olaylar.some((o) => o.tur === 'otoKilitli')).toBe(true);
+    expect(d.mekan).toBe('han');
+  });
+  test('sürüklemek kendiliğinden yürümeyi durdurur', () => {
+    const d = yeniDunya();
+    otoBaslat(d, yerlerListesi(d).find((y) => y.id === 'durak'));
+    ilerle(d, {}, 0.1);
+    const o = ilerle(d, { ileri: 1 }, 0.1);
+    expect(o.some((x) => x.tur === 'otoIptal')).toBe(true);
+    expect(d.oto).toBeNull();
+  });
+});

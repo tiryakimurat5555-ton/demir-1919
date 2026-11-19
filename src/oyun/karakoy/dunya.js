@@ -1,7 +1,8 @@
 // Karaköy benzetimi (saf JavaScript): oyuncunun hareketi, çarpışma, saat, gece-gündüz,
 // kişilerin günlük rutinleri ve tramvay. Ekran bu durumu okur, sesleri ona göre kurar.
 import { BINALAR, GUN_BATIMI, GUN_DOGUMU, KISILER, MEKANLAR, SINIR, TRAMVAY, YERLER, SESLER, geceKimligi } from './harita';
-import { BASLANGIC_PARA, mevcutNesneler, nesneEylem } from './gorev1';
+import { BASLANGIC_PARA, NESNELER, mevcutNesneler, nesneEylem } from './gorev1';
+import { rotaKur } from './yol';
 import { aciDuzelt, goreliAci, saatYonu, tarif, uzaklik } from '../konum';
 
 // Zaman: gerçek 1 saniye = oyunda ZAMAN_ORANI saniye (1 gerçek dakika = 10 oyun dakikası)
@@ -242,6 +243,16 @@ export function ilerle(d, girdi, dt) {
   }
   zamanOlaylari(d, eskiDakika, olaylar);
 
+  if (d.oto && (girdi.ileri || girdi.donus)) {
+    d.oto = null;
+    olaylar.push({ tur: 'otoIptal' });
+  }
+  if (d.oto) {
+    otoHareket(d, dt, olaylar);
+    gizlilik(d, d.mekan === 'antrepo' ? 0.3 : 0.7, dt, olaylar);
+    yakinlikOlaylari(d, olaylar);
+    return olaylar;
+  }
   const ileri = Math.max(-1, Math.min(1, girdi.ileri || 0));
   const donus = Math.max(-1, Math.min(1, girdi.donus || 0));
   if (donus) d.oyuncu = { ...d.oyuncu, yon: aciDuzelt(d.oyuncu.yon + donus * DONUS_HIZI * dt) };
@@ -393,6 +404,10 @@ export function etkiles(d) {
   if (s.tur === 'nesne') return { tur: 'nesne', id: s.n.id, ad: s.n.ad, metin: s.n.giris };
   const c = s.c;
   if (c.acik && !c.acik(d)) return { tur: 'kilitli', metin: c.kilitli || 'Kapı kilitli.' };
+  return kapidanGec(d, c);
+}
+
+export function kapidanGec(d, c) {
   d.mekan = c.hedef;
   d.oyuncu = { ...c.varis };
   d.yakin = {};
@@ -478,4 +493,104 @@ export function bekle(d, dakika) {
   d.sonVapur = ((d.dakika % 1440) + 1440) % 1440;
   yakinlikOlaylari(d, olaylar);
   return olaylar.filter((o) => ['aksam', 'sabah', 'kisi', 'kapi', 'cesetGitti'].includes(o.tur));
+}
+
+// --- Kendiliğinden yürüme ("Yerler" menüsü) ---
+
+const OTO_HIZ = 1.3; // m/sn
+const OTO_HIZ_GIZLI = 0.6; // antrepoda, bekçiyi uyandırmamak için
+
+// Gidilebilecek yerler: binalar, kişiler, eşyalar, sabit yerler. { id, ad, mekan, x, y, menzil, uzaklik }
+export function yerlerListesi(d) {
+  const liste = [];
+  const ekle = (id, ad, mekan, x, y, menzil, tur) => liste.push({ id, ad, mekan, x, y, menzil, tur });
+  ekle('kayikhane', 'Süleyman Kaptan\'ın kayıkhanesi', 'kayikhane', -41, 5, 1, 'yer');
+  ekle('buro', 'Liman kayıt bürosu', 'buro', -1, 17, 1, 'yer');
+  ekle('han', 'Kalafatçı Hanı', 'han', 37, 19, 1, 'yer');
+  if (d.bayrak.odaAnahtari) ekle('oda', 'Sabri\'nin odası', 'oda', 43, 26, 1, 'yer');
+  ekle('antrepo_arka', 'Antreponun arka kapısı', 'dis', 25.4, 22, 0.5, 'yer');
+  ekle('leventis', 'Leventis vapurunun yanı', 'dis', 30, 1.3, 1, 'yer');
+  ekle('iskele', 'Kayıkçı iskelesi', 'dis', 5, 1.3, 1, 'yer');
+  ekle('durak', 'Tramvay durağı', 'dis', 0, 34, 1, 'yer');
+  for (const k of kisiler(d)) if (k.id !== 'bekci') ekle('kisi_' + k.id, k.ad, k.mekan, k.x, k.y, 1.6, 'kisi');
+  for (const n of NESNELER) if (n.mevcut(d) && (n.mekan !== 'oda' || d.bayrak.odaAnahtari)) ekle('nesne_' + n.id, n.ad, n.mekan, n.x, n.y, 1.2, 'nesne');
+  for (const y of liste) {
+    y.uzaklik = y.mekan === d.mekan ? Math.round(uzaklik(d.oyuncu, y)) : null;
+  }
+  return liste;
+}
+
+// Bir yere kendiliğinden yürümeyi başlatır. Döner: { metin, tamam }
+export function otoBaslat(d, hedef) {
+  if (hedef.mekan === d.mekan && uzaklik(d.oyuncu, hedef) <= hedef.menzil + 0.3) return { metin: hedef.ad + ' zaten yanında.', tamam: false };
+  const r = rotaKur(d, engel, hedef);
+  if (r.hata) return { metin: r.hata, tamam: false };
+  d.oto = { adimlar: r.adimlar, i: 0, hedef, kilitli: r.kilitli || null };
+  return { metin: hedef.ad + ' yönünde yürüyorsun. Durmak için ekrana dokun.', tamam: true };
+}
+
+function otoHareket(d, dt, olaylar) {
+  const oto = d.oto;
+  const adim = oto.adimlar[oto.i];
+  if (!adim) {
+    otoBitir(d, olaylar);
+    return;
+  }
+  if (adim.tur === 'kapi') {
+    const c = MEKANLAR[adim.mekan].cikislar.find((x) => x.id === adim.cikisId);
+    if (c.acik && !c.acik(d)) {
+      d.oto = null;
+      olaylar.push({ tur: 'otoKilitli', metin: c.kilitli || 'Kapı kilitli.' });
+      return;
+    }
+    kapidanGec(d, c);
+    olaylar.push({ tur: 'otoKapi', mekan: d.mekan });
+    oto.i++;
+    return;
+  }
+  const sonAdim = oto.i === oto.adimlar.length - 1;
+  const o = d.oyuncu;
+  const u = uzaklik(o, adim);
+  const durma = sonAdim ? oto.hedef.menzil : 0.05;
+  if (u <= durma) {
+    oto.i++;
+    if (sonAdim) otoBitir(d, olaylar);
+    return;
+  }
+  const yon = Math.atan2(adim.x - o.x, adim.y - o.y);
+  const hiz = d.mekan === 'antrepo' ? OTO_HIZ_GIZLI : OTO_HIZ;
+  const metre = Math.min(u - (sonAdim ? durma * 0.9 : 0), hiz * dt);
+  const yeni = { x: o.x + Math.sin(yon) * metre, y: o.y + Math.cos(yon) * metre, yon: aciDuzelt(yon) };
+  let gidilen = yeni;
+  if (engel(d.mekan, yeni)) {
+    // Köşeye sürtünürse duvar boyunca kay
+    const yatay = { ...yeni, y: o.y };
+    const dikey = { ...yeni, x: o.x };
+    gidilen = !engel(d.mekan, yatay) ? yatay : !engel(d.mekan, dikey) ? dikey : null;
+    oto.takilma = (oto.takilma || 0) + 1;
+    if (!gidilen || oto.takilma > 40) {
+      d.oto = null;
+      olaylar.push({ tur: 'otoTakildi' });
+      return;
+    }
+  }
+  d.oyuncu = gidilen;
+  d.yurunen += metre;
+  if (d.yurunen >= ADIM_BOYU) {
+    d.yurunen = 0;
+    olaylar.push({ tur: 'adim' });
+  }
+}
+
+function otoBitir(d, olaylar) {
+  const h = d.oto.hedef;
+  const kilitli = d.oto.kilitli;
+  d.oto = null;
+  if (kilitli) {
+    olaylar.push({ tur: 'otoKilitli', metin: kilitli });
+    return;
+  }
+  // Hedefe dön
+  if (h.mekan === d.mekan && uzaklik(d.oyuncu, h) > 0.2) d.oyuncu = { ...d.oyuncu, yon: aciDuzelt(Math.atan2(h.x - d.oyuncu.x, h.y - d.oyuncu.y)) };
+  olaylar.push({ tur: 'otoVardi', ad: h.ad });
 }

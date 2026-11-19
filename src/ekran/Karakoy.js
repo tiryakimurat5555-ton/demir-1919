@@ -18,7 +18,7 @@ import { cal, ortamCal } from '../ses/efektler';
 import { RENK, UST_BOSLUK } from '../arayuz/tema';
 import KonumsalSes from '../ses/konumsal';
 import { MEKANLAR, SESLER } from '../oyun/karakoy/harita';
-import { bekle, cevreMetni, durumMetni, etkiles, eylemUygula, ilerle, kisiler, saatMetni, tramvayYeri, yeniDunya } from '../oyun/karakoy/dunya';
+import { bekle, cevreMetni, durumMetni, etkiles, eylemUygula, ilerle, kisiler, otoBaslat, saatMetni, tramvayYeri, yeniDunya, yerlerListesi } from '../oyun/karakoy/dunya';
 import {
   DELILLER,
   delilAdi,
@@ -47,7 +47,7 @@ const DOSYALAR = {
 };
 
 const HAREKET_YARDIMI =
-  'Parmağını ekrana koyup yukarı kaydır ve tut: ileri yürürsün. Aşağı: geri. Sağa ya da sola: dönersin. Parmak ne kadar uzaksa o kadar hızlı; birinin yakınında yavaş yürü. Dokun: çevrende ne var. Çift dokun: kapıdan geç, eşyayı incele ya da yanındakiyle konuş. Uzun bas: saat ve yerin. İki parmakla dokun: sustur. İki parmakla çift dokun: menü; görev, soruşturma panosu, defter ve bekleme orada.';
+  'Menüdeki Yerler\'den bir yer seçersen Arif oraya kendisi yürür. Parmağını ekrana koyup yukarı kaydır ve tut: ileri yürürsün. Aşağı: geri. Sağa ya da sola: dönersin. Parmak ne kadar uzaksa o kadar hızlı; birinin yakınında yavaş yürü. Dokun: çevrende ne var. Çift dokun: kapıdan geç, eşyayı incele ya da yanındakiyle konuş. Uzun bas: saat ve yerin. İki parmakla dokun: sustur. İki parmakla çift dokun: menü; görev, soruşturma panosu, defter ve bekleme orada.';
 
 const ACILIS =
   '4 Aralık 1918, Çarşamba, şafaktan önce. Karaköy rıhtımı. Leventis vapurunun yanında bağrışmalar: hamallar sudan bir adam çıkarmış. Ateşçi Sabri. Süleyman Kaptan cesedin başında, doğu tarafında, birkaç adım ötende. Kulaklık tak. ';
@@ -145,6 +145,21 @@ export default function Karakoy({ onGeri }) {
         if (o.neden === 'su') sozler.push('Rıhtımın kenarı. Önün deniz.');
         else if (o.neden === 'sinir') sozler.push('Bu taraf bu denemede kapalı.');
         else sozler.push('Duvar.');
+      } else if ((o.tur === 'kapi' || o.tur === 'nesne') && d.oto) {
+        // kendiliğinden yürürken yoldaki kapılar ve eşyalar sayılmaz
+      } else if (o.tur === 'otoVardi') {
+        Haptics.selectionAsync().catch(() => {});
+        sozler.push('Vardın: ' + o.ad + '.');
+      } else if (o.tur === 'otoKapi') {
+        sesleriEsitle(true);
+        sozler.push(d.mekan === 'dis' ? 'Dışarı çıktın.' : MEKANLAR[d.mekan].ad + '.');
+      } else if (o.tur === 'otoKilitli') {
+        Haptics.notificationAsync(Haptics.NotificationFeedbackType.Warning).catch(() => {});
+        sozler.push(o.metin);
+      } else if (o.tur === 'otoTakildi') {
+        sozler.push('Yol kapandı; durdun.');
+      } else if (o.tur === 'otoIptal') {
+        sozler.push('Durdun.');
       } else if (o.tur === 'kapi') {
         Haptics.selectionAsync().catch(() => {});
         sozler.push(o.ad + ', saat ' + o.saat + ' yönünde. Çift dokun: geç.');
@@ -385,6 +400,30 @@ export default function Karakoy({ onGeri }) {
     });
   };
 
+  const yerlerGoster = () => {
+    const d = dunya.current;
+    const liste = yerlerListesi(d);
+    const tur = { yer: 'Yer', kisi: 'Kişi', nesne: 'Eşya' };
+    katmanAc({
+      baslik: 'Yerler',
+      giris: 'Gitmek istediğin yeri seç; Arif kendisi yürür. Yolda ekrana dokunursan durur.',
+      onGeri: () => menuyuAc(),
+      ogeler: [
+        ...liste.map((y) => ({
+          id: y.id,
+          etiket: y.ad + (y.uzaklik != null ? ', ' + y.uzaklik + ' metre' : ''),
+          ipucu: tur[y.tur] + (y.mekan !== d.mekan ? '; başka bir yerde, kapılardan geçerek gidersin.' : '.'),
+          sec: () => {
+            const r = otoBaslat(d, y);
+            katmanKapat(r.metin);
+            return 'sessiz';
+          },
+        })),
+        { id: 'geri', etiket: 'Menüye dön', sec: () => (menuyuAc(), 'sessiz') },
+      ],
+    });
+  };
+
   const menuyuAc = () => {
     const d = dunya.current;
     katmanAc({
@@ -394,6 +433,7 @@ export default function Karakoy({ onGeri }) {
       ogeler: [
         { id: 'devam', etiket: 'Devam et', sec: () => (katmanKapat('Devam.'), 'sessiz') },
         { id: 'gorev', etiket: 'Görev', ipucu: 'Şu an ne yapabileceğini söyler.', sec: () => (soyle(gorevIpucu(d), 'istek', true), 'sessiz') },
+        { id: 'yerler', etiket: 'Yerler', ipucu: 'Bir yer, kişi ya da eşya seç; Arif oraya kendisi yürür.', sec: () => (yerlerGoster(), 'sessiz') },
         { id: 'pano', etiket: 'Soruşturma panosu', ipucu: 'Delilleri bağla, teorilerini gözden geçir.', sec: () => (panoGoster(), 'sessiz') },
         { id: 'defter', etiket: 'Defter', ipucu: 'Topladığın deliller.', sec: () => (defterGoster(), 'sessiz') },
         { id: 'envanter', etiket: 'Üstündekiler', ipucu: 'Envanter, para ve itibar.', sec: () => (soyle(envanterMetni(d), 'istek', true), 'sessiz') },
@@ -418,6 +458,11 @@ export default function Karakoy({ onGeri }) {
       onDokun: (parmak) => {
         if (parmak >= 2) {
           sustur();
+          return;
+        }
+        if (dunya.current.oto) {
+          dunya.current.oto = null;
+          soyle('Durdun.', 'istek', true);
           return;
         }
         soyle(cevreMetni(dunya.current), 'istek', true);

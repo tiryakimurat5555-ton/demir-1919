@@ -55,6 +55,10 @@
   ister, gizlilik (bekçiye 2,5 m'den yakın → yakalanır; 6 m içinde hareket şüphe artırır; SUPHE_UYARI 40), etkiles en yakın kapı/nesne/
   kişi, eylemUygula. Ekran: SesliListe katmanları (menü: görev, pano, defter, üstündekiler, bekle; konuşma; nesne eylemleri; pano
   delil seç → ikinci delil → ifade; teori sök). Testler karakoy-gorev1.test.js. Kayıt yok (sonraki adım).
+  Sürüm 0.72 (Murat'ın isteği, Vahşi Yaşam'daki gibi): menüde "Yerler" → seçilen yere Arif kendisi yürür. src/oyun/karakoy/yol.js
+  (sokakta 1 m ızgarada A* + görüş açık oldukça sadeleştirme, yolun iki yanında 0,2 m pay; mekânlar arası kapı zinciri BFS; kilitli
+  kapıda durur). dunya.js yerlerListesi (yerler, kişiler, eşyalar), otoBaslat, ilerle'de d.oto (sürükleme ya da dokunuş durdurur;
+  olaylar otoVardi/otoKapi/otoKilitli/otoTakildi/otoIptal; antrepoda yavaş, gizlilik sürer).
 - Bu ortamda npm yok; bağımlılık sürümleri Expo dokümanından (react-native-webview 14.0.1, SDK 58). bun build'e -e react-native-webview ekle.
 
 ## Tasarım
