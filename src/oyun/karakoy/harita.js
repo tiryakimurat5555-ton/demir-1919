@@ -106,6 +106,28 @@ MEKANLAR.dis.cikislar.push({
   kilitli: 'Yüksekkaldırım\'ın basamakları Pera\'ya tırmanıyor. Senin orada işin yok; henüz.',
 });
 
+// Dördüncü görev: han ile yapıların arasındaki Rum meyhanesi (yapıların içinde)
+MEKANLAR.meyhane = {
+  id: 'meyhane',
+  ad: 'Rum meyhanesi',
+  ortam: 'ortam_meyhane',
+  alan: { x1: 50, x2: 60, y1: 14, y2: 30 },
+  cikislar: [{ id: 'meyhane_cik', ad: 'Meyhanenin kapısı', x: 55, y: 14.5, hedef: 'dis', varis: { x: 55, y: 12, yon: Math.PI } }],
+};
+MEKANLAR.dis.cikislar.push({
+  id: 'meyhane_kapi',
+  ad: 'Rum meyhanesinin kapısı',
+  x: 55,
+  y: 13.5,
+  hedef: 'meyhane',
+  varis: { x: 55, y: 15.5, yon: 0 },
+  acik: (d) => {
+    const gd = ((d.dakika % 1440) + 1440) % 1440;
+    return gd >= 11 * 60 || gd < 2 * 60;
+  },
+  kilitli: 'Meyhanenin kepenkleri kapalı. On birde açılır.',
+});
+
 // Bir gecenin kimliği: öğleden önceki saatler önceki günün gecesine sayılır
 export function geceKimligi(d) {
   const gd = ((d.dakika % 1440) + 1440) % 1440;
@@ -203,6 +225,11 @@ export const KISILER = [
       { bas: 18 * 60 + 30, gorev: 2, gorevGunu: true, mekan: 'dis', x: 48, y: 33, eylem: 'geçidin ağzında sigara içiyor', soz: 'Komiser Halim sigarasının ateşini avucuna saklıyor: Yolun açık olsun. Burada durma.' },
       { bas: 18 * 60 + 52, gorev: 2, gorevGunu: true, mekan: 'dis', x: 48, y: 25.6, eylem: 'karanlık geçitte biriyle fısıldaşıyor' },
       { bas: 19 * 60 + 35, gorev: 2, gorevGunu: true, mekan: 'yok' },
+      // Dördüncü görevin günü: sabah Yaşar'ın cesedinin başında, akşam meyhanede tek başına
+      { bas: 8 * 60 + 40, gorev: 4, gorevGunu: true, yalniz: true, mekan: 'dis', x: 22, y: 3.5, eylem: 'Yaşar\'ın cesedinin başında, kıpırdamadan duruyor' },
+      { bas: 10 * 60 + 40, gorev: 4, gorevGunu: true, yalniz: true, mekan: 'yok' },
+      { bas: 19 * 60 + 50, gorev: 4, gorevGunu: true, yalniz: true, mekan: 'meyhane', x: 53, y: 26, eylem: 'en dipteki masada tek başına rakı içiyor' },
+      { bas: 23 * 60, gorev: 4, gorevGunu: true, yalniz: true, mekan: 'yok' },
       { bas: 20 * 60, mekan: 'devriye', eylem: 'devriye geziyor', soz: 'Komiser Halim fenerini yüzüne tutuyor: Gece yarısı rıhtımda ne arıyorsun? Evine git.' },
       { bas: 21 * 60, mekan: 'yok' },
     ],
@@ -230,9 +257,26 @@ KISILER.push(
       { bas: 0, mekan: 'yok' },
       { bas: 18 * 60 + 50, gorev: 2, gorevGunu: true, mekan: 'dis', x: 48, y: 24.4, eylem: 'karanlık geçitte biriyle fısıldaşıyor' },
       { bas: 19 * 60 + 35, gorev: 2, gorevGunu: true, mekan: 'yok' },
+      // Dördüncü görevin günü: sabah Yaşar'ın cesedinin başında, akşam meyhanede tek başına
+      { bas: 8 * 60 + 40, gorev: 4, gorevGunu: true, yalniz: true, mekan: 'dis', x: 22, y: 3.5, eylem: 'Yaşar\'ın cesedinin başında, kıpırdamadan duruyor' },
+      { bas: 10 * 60 + 40, gorev: 4, gorevGunu: true, yalniz: true, mekan: 'yok' },
+      { bas: 19 * 60 + 50, gorev: 4, gorevGunu: true, yalniz: true, mekan: 'meyhane', x: 53, y: 26, eylem: 'en dipteki masada tek başına rakı içiyor' },
+      { bas: 23 * 60, gorev: 4, gorevGunu: true, yalniz: true, mekan: 'yok' },
     ],
   },
 );
+
+// Dördüncü görev: emekli komiser Rıza Bey
+KISILER.push({
+  id: 'riza',
+  ad: 'Rıza Bey',
+  giris: { x: 37, y: 13 },
+  rutin: [
+    { bas: 0, mekan: 'yok' },
+    { bas: 9 * 60, gorev: 4, gorevGunu: true, mekan: 'han', x: 34.5, y: 21, eylem: 'bastonuna dayanmış, avluda bekliyor', soz: 'Rıza Bey bastonunu taşa vuruyor: Söyle evlat.' },
+    { bas: 19 * 60 + 30, gorev: 4, gorevGunu: true, mekan: 'yok' },
+  ],
+});
 
 // Ferrante'nin bekçisi: geceleri antreponun içinde dolaşır
 KISILER.push({

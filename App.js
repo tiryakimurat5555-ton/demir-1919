@@ -24,7 +24,7 @@ import { durumKisa } from './src/oyun/karakoy/dunya';
 const HAKKINDA_METNI = [
   'Demir 1919. 1918 ile 1923 arasında, işgal altındaki İstanbul\'da başlayan bir tarihsel macera ve dedektiflik oyunu.',
   'Oyundaki gizli örgüt ve olay örgüsü kurgudur. Gerçek tarihî olaylar arka plan olarak kullanılır.',
-  'Sürüm 0.95. Birinci perde: Sudaki Adam, İkinci Adım Sesi, On Yedi Numara. Karaköy ve Pera, Aralık 1918.',
+  'Sürüm 0.96. Birinci perde: Sudaki Adam, İkinci Adım Sesi, On Yedi Numara, Kül. Karaköy ve Pera, Aralık 1918.',
 ];
 
 const HAREKETLER = [

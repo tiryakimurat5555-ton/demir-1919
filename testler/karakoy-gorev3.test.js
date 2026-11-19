@@ -303,10 +303,11 @@ describe('Üçüncü görev: On Yedi Numara', () => {
     expect(sahneParagraflari(d, 'g3_son').join(' ')).toContain('Yaşar');
     sahneSec(d, 'g3_son', 0);
     expect(d.bayrak.g3Bitti).toBe(true);
+    expect(d.sahne).toBe('g4_acilis');
+    expect(d.gorev).toBe(4);
     expect(d.mekan).toBe('han');
     expect(d.gun).toBe(6);
     expect(d.kilik).toBeNull();
-    expect(gorevIpucu(d)).toContain('Üçüncü görev bitti');
     expect(konusmaBasla(d, 'nermin')).toBe('bitti');
   });
 

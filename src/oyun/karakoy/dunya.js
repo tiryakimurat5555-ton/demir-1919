@@ -5,6 +5,7 @@ import { BASLANGIC_PARA, NESNELER, mevcutNesneler, nesneEylem } from './gorev1';
 import { rotaKur } from './yol';
 import { gorev2Ilerle, kisiDuzelt, takipciKisi } from './gorev2';
 import { gorev3Ilerle, kisiDuzelt3 } from './gorev3';
+import { ekKisiler4, gorev4Ilerle, kisiDuzelt4 } from './gorev4';
 import { aciDuzelt, goreliAci, saatYonu, tarif, uzaklik } from '../konum';
 
 // Zaman: gerçek 1 saniye = oyunda ZAMAN_ORANI saniye (1 gerçek dakika = 10 oyun dakikası)
@@ -74,6 +75,7 @@ export const ZEMIN = {
   kulup_salon: 'ahsap',
   servis_koridoru: 'tas',
   oda17: 'ahsap',
+  meyhane: 'ahsap',
 };
 
 function kesfet(d, anahtar) {
@@ -260,7 +262,10 @@ export function kisiler(d) {
     .filter(Boolean)
     .map((k) => kisiDuzelt(d, k))
     .filter(Boolean)
-    .map((k) => kisiDuzelt3(d, k));
+    .map((k) => kisiDuzelt3(d, k))
+    .map((k) => kisiDuzelt4(d, k))
+    .filter(Boolean);
+  for (const e of ekKisiler4(d)) if (!liste.some((k) => k.id === e.id)) liste.push(e);
   const t = takipciKisi(d);
   if (t && !t.gizli) liste.push(t);
   return liste;
@@ -313,6 +318,7 @@ export function ilerle(d, girdi, dt) {
     gizlilik(d, gizliMi(d.mekan) ? 0.3 : 0.7, dt, olaylar);
     gorev2Ilerle(d, gizliMi(d.mekan) ? OTO_HIZ_GIZLI / YURUME_HIZI : OTO_HIZ / YURUME_HIZI, dt, olaylar);
     gorev3Ilerle(d);
+    gorev4Ilerle(d);
     yakinlikOlaylari(d, olaylar);
     return olaylar;
   }
@@ -349,6 +355,7 @@ export function ilerle(d, girdi, dt) {
   gizlilik(d, Math.abs(ileri), dt, olaylar);
   gorev2Ilerle(d, Math.abs(ileri), dt, olaylar);
   gorev3Ilerle(d);
+  gorev4Ilerle(d);
   yakinlikOlaylari(d, olaylar);
   return olaylar;
 }
@@ -579,6 +586,7 @@ export function bekle(d, dakika) {
     zamanOlaylari(d, eski, olaylar);
     gorev2Ilerle(d, 0, (Math.min(adim, dakika - g) * 60) / ZAMAN_ORANI, olaylar, true);
     gorev3Ilerle(d);
+    gorev4Ilerle(d);
     if (d.sahne && !sahneOnce) break; // bir hikâye sahnesi açıldı: bekleme biter
   }
   d.sonVapur = ((d.dakika % 1440) + 1440) % 1440;
@@ -592,7 +600,7 @@ const OTO_HIZ = 1.3; // m/sn
 const OTO_HIZ_GIZLI = 0.6; // antrepoda, bekçiyi uyandırmamak için
 
 // Bu kişileri Arif zaten tanır (limanda çalışıyor); ötekiler karşılaşınca listeye girer
-const TANIDIK = ['suleyman', 'husnu', 'ohannes', 'hamallar', 'halim'];
+const TANIDIK = ['suleyman', 'husnu', 'ohannes', 'hamallar', 'halim', 'riza'];
 // Bu kişiler listeye hiç girmez (gizlice izlenir ya da kaçar)
 const LISTEDISI = ['bekci', 'takipci', 'kasketli', 'nobetci', 'lavantali'];
 
@@ -610,6 +618,7 @@ export function yerlerListesi(d) {
   ekle('leventis', 'Leventis vapurunun yanı', 'dis', 30, 1.3, 1, 'yer');
   ekle('iskele', 'Kayıkçı iskelesi', 'dis', 5, 1.3, 1, 'yer');
   ekle('durak', 'Tramvay durağı', 'dis', 0, 34, 1, 'yer');
+  if ((d.gorev || 1) >= 4) ekle('meyhane', 'Rum meyhanesi', 'meyhane', 55, 16, 1, 'yer');
   if ((d.gorev || 1) >= 3) {
     ekle('pera', 'Yüksekkaldırım\'ın tepesi, Pera', 'pera_cadde', 202.5, 2.5, 1, 'yer');
     ekle('cihangir', 'Cemil\'in evi, Cihangir', 'cihangir', 205, 53, 1, 'yer');

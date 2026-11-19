@@ -10,6 +10,7 @@
 // d alanları: gorev 3, gorevGun, kilik ('bey' | 'usak'), bayrak.*
 
 import { TOPLANTI_BAS, TOPLANTI_BIT, oyalaniyor } from './pera';
+import { gorev4Baslat } from './gorev4';
 
 const bayrak = (d, k) => d.bayrak[k];
 const delilVar = (d, id) => d.deliller.includes(id);
@@ -866,10 +867,18 @@ export const G3_SAHNELER = {
         'Pazartesi sabahı Karaköy\'e iniyorsun. Rıhtımda kalabalık. Hamallar sudan bir adam çıkarmış; Haliç\'in ağzında, kayıkların arasında bulunmuş.',
         'Kasketi hâlâ başında. Yaşar. Halim\'in muhbiri. Sırtında, sol kürek kemiğinin altında ince bir yara.',
         'Delorme temizliyor. Ve Halim, kendi adamının cesedinin başında, ilk kez korkmuş görünüyor.',
-        'Üçüncü görevin sonu. Karaköy\'de dolaşmayı sürdürebilirsin. Dördüncü görev, Kül, bir sonraki adımda: Komiser Halim.',
+        'Üçüncü görevin sonu: On Yedi Numara.',
       ].filter(Boolean),
-    secenekler: [{ etiket: 'Devam', yap: (d) => gorev3Bitir(d), sonra: null }],
-    bitisSozu: 'Karaköy, Kalafatçı Hanı\'nın avlusu, pazartesi sabahı. Menüden Görev\'i ve Yerler\'i her zaman açabilirsin.',
+    secenekler: [
+      {
+        etiket: 'Devam',
+        yap: (d) => {
+          gorev3Bitir(d);
+          gorev4Baslat(d);
+        },
+        sonra: 'g4_acilis',
+      },
+    ],
   },
 };
 
@@ -930,7 +939,7 @@ export function kisiDuzelt3(d, k) {
 }
 
 export function g3Ipucu(d) {
-  if (bayrak(d, 'g3Bitti')) return 'Üçüncü görev bitti. Kasketli Yaşar ölü bulundu; Halim korkuyor. Dördüncü görev, Kül, bir sonraki adımda.';
+  if (bayrak(d, 'g3Bitti')) return 'Üçüncü görev bitti.';
   if (g3Tamam(d)) return 'Panonda üç bağ kurulu. Nermin ya da Cemil\'le konuş, ya da Cihangir\'de Cemil\'in masasına dön: ne yapacağınıza karar verin.';
   const gd = gunDakika(d);
   const p = [];

@@ -63,10 +63,11 @@ export const YANLISLAR = [
 // İkinci görevin tanımları bu tablolara katılır
 import { G2_CIKARIMLAR, G2_DELILLER, G2_KONUSMALAR, G2_NESNELER, G2_YANLISLAR, TUM_YANLISLAR, g2Ipucu } from './gorev2';
 import { G3_CIKARIMLAR, G3_DELILLER, G3_KONUSMALAR, G3_NESNELER, G3_YANLISLAR, g3Ipucu } from './gorev3';
-Object.assign(DELILLER, G2_DELILLER, G3_DELILLER);
-Object.assign(CIKARIMLAR, G2_CIKARIMLAR, G3_CIKARIMLAR);
-TUM_YANLISLAR.push(...YANLISLAR, ...G3_YANLISLAR);
-YANLISLAR.push(...G2_YANLISLAR, ...G3_YANLISLAR);
+import { G4_CIKARIMLAR, G4_DELILLER, G4_KONUSMALAR, G4_NESNELER, G4_YANLISLAR, g4Ipucu } from './gorev4';
+Object.assign(DELILLER, G2_DELILLER, G3_DELILLER, G4_DELILLER);
+Object.assign(CIKARIMLAR, G2_CIKARIMLAR, G3_CIKARIMLAR, G4_CIKARIMLAR);
+TUM_YANLISLAR.push(...YANLISLAR, ...G3_YANLISLAR, ...G4_YANLISLAR);
+YANLISLAR.push(...G2_YANLISLAR, ...G3_YANLISLAR, ...G4_YANLISLAR);
 
 export const BASLANGIC_PARA = 35;
 export const FILM = 6;
@@ -277,7 +278,7 @@ export const NESNELER = [
   },
 ];
 
-NESNELER.push(...G2_NESNELER, ...G3_NESNELER);
+NESNELER.push(...G2_NESNELER, ...G3_NESNELER, ...G4_NESNELER);
 
 export function mevcutNesneler(d) {
   return NESNELER.filter((n) => n.mekan === d.mekan && n.mevcut(d));
@@ -618,7 +619,7 @@ export const KONUSMALAR = {
 
 // Görev 2'de o kişinin ikinci görev konuşması uygunsa o, değilse birinci görevinki
 // Görev kaynakları: o anki görevden geriye doğru, uygun olan ilk konuşma
-const GOREV_KONUSMALARI = { 2: G2_KONUSMALAR, 3: G3_KONUSMALAR };
+const GOREV_KONUSMALARI = { 2: G2_KONUSMALAR, 3: G3_KONUSMALAR, 4: G4_KONUSMALAR };
 function kaynak(d, kisiId) {
   for (let g = (d && d.gorev) || 1; g >= 2; g--) {
     const k = GOREV_KONUSMALARI[g] && GOREV_KONUSMALARI[g][kisiId];
@@ -631,7 +632,7 @@ function kaynak(d, kisiId) {
 function dugumBul(d, kisiId, dugumId) {
   const k = kaynak(d, kisiId);
   if (k && k.dugumler[dugumId]) return k.dugumler[dugumId];
-  for (const t of [KONUSMALAR, G2_KONUSMALAR, G3_KONUSMALAR]) if (t[kisiId] && t[kisiId].dugumler[dugumId]) return t[kisiId].dugumler[dugumId];
+  for (const t of [KONUSMALAR, G2_KONUSMALAR, G3_KONUSMALAR, G4_KONUSMALAR]) if (t[kisiId] && t[kisiId].dugumler[dugumId]) return t[kisiId].dugumler[dugumId];
   return null;
 }
 
@@ -747,6 +748,7 @@ export function envanterMetni(d) {
 
 // Duraklatma menüsündeki "Görev" satırı: şu an ne yapılabilir?
 export function gorevIpucu(d) {
+  if (d.gorev === 4) return g4Ipucu(d);
   if (d.gorev === 3) return g3Ipucu(d);
   if (d.gorev === 2) return g2Ipucu(d);
   if (d.gorevBitti) return 'Birinci görev bitti. Karaköy\'de dolaşmayı sürdürebilirsin.';

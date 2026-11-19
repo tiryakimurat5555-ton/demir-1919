@@ -115,8 +115,21 @@
   (karar3 gazete [nerminBag +1] / ihbar [karar1 ingiliz ise sevkiyatSonuc kacti, değilse el_konuldu] / sakla) → g3_kapanis
   (nerminEkipte, nerminKabul gel/uyar) → g3_son (Kasketli Yaşar Haliç'te ölü; gorev3Bitir: pazartesi 09.00 han, kilik null).
   Yeni bayraklar: kimlik, nerminCevdet soru/anlat/sus, cemilDelorme, dinleNefes, asansorSecim, dosyaKarar, defterAlindi, karar3,
-  sevkiyatSonuc, nerminKabul, kulupKapali. Sıradaki: dördüncü görev "Kül" (Halim; Rıza Bey katılır). Testler karakoy-gorev3.test.js.
-  Telefonda denenmedi.
+  sevkiyatSonuc, nerminKabul, kulupKapali. Testler karakoy-gorev3.test.js. Telefonda denenmedi.
+  SÜRÜM 0.96 (19 Kasım, aynı istek): dördüncü görev "Kül" src/oyun/karakoy/gorev4.js (saf). g3_son → gorev3Bitir + gorev4Baslat
+  (pazartesi 09.05 han) → g4_acilis. harita.js: MEKANLAR.meyhane (Rum meyhanesi, yapılar binasının içinde x 50-60, kapı (55,13.5),
+  11.00-02.00 açık, ortam_meyhane), KISILER riza (gorev 4, han 09.00-19.30), halim'e gorev 4 yalniz satırları (08.40 Yaşar'ın
+  cesedi başında, 19.50-23.00 meyhanede). ekKisiler4: rizaGelir ise Rıza 19.50-23.00 meyhanede (rutin dışı kişi). Nesneler yasar
+  (rıhtım, 10.30'a kadar: yasar_yarasi, cep +3 kuruş), mahzen (halimSonu sakli). Delil ikinci_motor (Hüsnü), halim_dilekce (Gülce),
+  halim_itirafi. İsteğe bağlı çıkarımlar ayni_el, kacis (pano zorunlu değil: kalıbı kıran sorgu görevi). Sorgu: halim 'sorgu' düğümü
+  meyhanede; BASKILAR (yasar +1, defter [rusvet_defteri] +2, gecit [kulak_misafiri/halim_bulusma] +1, defin +1 (sabriTasi metni),
+  emir [nazim_emri] +1), tehdit (rizaGelir ise engellenir rizaBag -1; değilse baskı +1, itibar -1, travma +1); d.baski >=
+  BASKI_SINIRI 3 → itiraf (Delorme, ayda otuz lira, çarşamba gecesi antrepo saat on, Kâmil Efendi; kamilEfendi) → g4_halim_karar:
+  halimKarar teslim (halimSonu asildi) / birak (bicaklandi) / sakla (sakli, rizaBag +1). Konuşturulmazsa ertesi sabah 06.00
+  gorev4Ilerle → g4_sabah_olu. Rıza: rizaHalim4 soru/soz/sus, rizaBabaAnlatti, rizaGelir. Gülce: gulce4 → kamil düğümü
+  (gulceKamil soyle [gulceyeAnlatti, gulceGuven +1] / sakla). g4_kapanis: rizaEkipte, rizaKabul sart/itiraz → g4_son (gorev4Bitir).
+  Sıradaki: beşinci görev "Antrepo" (çarşamba gecesi saat on, Delorme yüzleşmesi; Topal Hasan; Santa Lucia sonucu; madam_n ve
+  fotoğraf; Gülce'nin damgayı geciktirmesi). Testler karakoy-gorev4.test.js. Telefonda denenmedi.
 - Bu ortamda npm yok; bağımlılık sürümleri Expo dokümanından (react-native-webview 14.0.1, SDK 58). bun build'e -e react-native-webview ekle.
 
 ## Tasarım
