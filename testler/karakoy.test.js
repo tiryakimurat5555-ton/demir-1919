@@ -1,6 +1,6 @@
 import { describe, expect, test } from 'bun:test';
 import {
-  yeniDunya,
+  yeniDunya as ilkDunya,
   ilerle,
   engel,
   etkiles,
@@ -15,6 +15,15 @@ import {
   konumAdi,
 } from '../src/oyun/karakoy/dunya';
 import { KISILER, MEKANLAR, BINALAR } from '../src/oyun/karakoy/harita';
+
+// Sokakta, sahnesiz başlayan dünya (açılış sahnesinden sonraki durum)
+function yeniDunya() {
+  const d = ilkDunya();
+  d.mekan = 'dis';
+  d.oyuncu = { x: 20, y: 5, yon: Math.PI / 2 };
+  d.sahne = null;
+  return d;
+}
 
 // Saat 15.00'te başlayan bir dünya (ilk adımdaki testler için)
 function ogleden() {
@@ -237,6 +246,7 @@ describe('tarif ve tramvay', () => {
 });
 
 import { yerlerListesi, otoBaslat } from '../src/oyun/karakoy/dunya';
+import { SAHNELER, sahneSec } from '../src/oyun/karakoy/sahneler';
 
 function otoYuru(d, sn = 300) {
   const olaylar = [];
@@ -351,5 +361,28 @@ describe('Yerler: yalnızca bilinen ve gidilebilen', () => {
     expect(g.deliller).toEqual(['ip_izi']);
     expect(g.oto).toBeNull();
     expect(kayittanDunya({ surum: 99 })).toBeNull();
+  });
+});
+
+describe('Açılış sahneleri', () => {
+  test('yeni oyun kayıkhanede, açılış sahnesiyle başlar; sahneler serbest dolaşmaya bağlanır', () => {
+    const d = ilkDunya();
+    expect(d.mekan).toBe('kayikhane');
+    expect(d.sahne).toBe('acilis');
+    sahneSec(d, 'acilis', 0);
+    expect(d.sahne).toBe('ani1');
+    sahneSec(d, 'ani1', 1);
+    expect(d.travma).toBe(1);
+    sahneSec(d, d.sahne, 0);
+    expect(d.sahne).toBe('cagri');
+    sahneSec(d, 'cagri', 0);
+    sahneSec(d, d.sahne, 0);
+    expect(d.sahne).toBeNull();
+    const e = etkiles(d);
+    expect(e.tur).toBe('gecti');
+  });
+  test('her sahnenin sonraki sahnesi tanımlı', () => {
+    for (const [id, sh] of Object.entries(SAHNELER))
+      for (const x of sh.secenekler || []) if (x.sonra) expect(SAHNELER[x.sonra]).toBeDefined();
   });
 });

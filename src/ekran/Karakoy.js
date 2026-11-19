@@ -19,6 +19,7 @@ import { RENK, UST_BOSLUK } from '../arayuz/tema';
 import KonumsalSes from '../ses/konumsal';
 import { MEKANLAR, SESLER } from '../oyun/karakoy/harita';
 import { karakoyYaz } from '../oyun/karakoy/kayit';
+import { SAHNELER, sahneParagraflari, sahneSec, sahneSecenekleri } from '../oyun/karakoy/sahneler';
 import { ZEMIN, bekle, cevreMetni, durumKisa, durumMetni, etkiles, eylemUygula, ilerle, kisiler, otoBaslat, saatMetni, tramvayYeri, yeniDunya, yerlerListesi } from '../oyun/karakoy/dunya';
 import {
   DELILLER,
@@ -239,7 +240,8 @@ export default function Karakoy({ onGeri, baslangic = null, onDurum }) {
 
   useEffect(() => {
     ortamCal(MEKANLAR.dis.ortam, ortamOrani(dunya.current));
-    if (baslangic) soyle('Kaldığın yerden. ' + durumKisa(dunya.current) + ' Menü için iki parmakla çift dokun.', 'istek', true);
+    if (dunya.current.sahne) sahneGoster(dunya.current.sahne);
+    else if (baslangic) soyle('Kaldığın yerden. ' + durumKisa(dunya.current) + ' Menü için iki parmakla çift dokun.', 'istek', true);
     else soyle(ACILIS + HAREKET_YARDIMI, 'istek', true);
     return () => {
       karakoyYaz(dunya.current);
@@ -259,9 +261,45 @@ export default function Karakoy({ onGeri, baslangic = null, onDurum }) {
     setKatman({ ...k, no: katmanNo.current });
   };
   const katmanKapat = (soz) => {
+    // Bir eylem ya da konuşma hikâye sahnesi açtıysa önce sözü söylenir, sahne ardından gelir
+    if (dunya.current.sahne) {
+      sahneGoster(dunya.current.sahne, soz);
+      return;
+    }
     durakli.current = false;
     setKatman(null);
+    sesleriEsitle(true);
     if (soz) soyle(soz, 'istek', true);
+  };
+
+  // Hikâye sahnesi: metin okunur, seçenekler listelenir; zaman durur
+  const sahneGoster = (id, onEk) => {
+    const d = dunya.current;
+    const sahne = SAHNELER[id];
+    if (!sahne) {
+      d.sahne = null;
+      katmanKapat();
+      return;
+    }
+    d.sahne = id;
+    if (sahne.ortam) ortamCal(sahne.ortam, sahne.ortamOran ?? 0.8);
+    if (sahne.efekt) sahne.efekt.forEach((e, i) => setTimeout(() => cal(e, 1), i * 400));
+    katmanAc({
+      baslik: sahne.baslik,
+      giris: [onEk, ...sahneParagraflari(d, id)].filter(Boolean).join(' '),
+      onGeri: null,
+      ogeler: sahneSecenekleri(d, id).map((x) => ({
+        id: 's' + x.i,
+        etiket: x.etiket,
+        sec: () => {
+          const sonraki = sahneSec(d, id, x.i);
+          karakoyYaz(d);
+          if (sonraki) sahneGoster(sonraki);
+          else katmanKapat(d.gorevBitti && id === 'kapanis' ? 'Menüden görevini ve Yerler\'i her zaman açabilirsin.' : null);
+          return 'sessiz';
+        },
+      })),
+    });
   };
 
   const beklet = (dakika) => {

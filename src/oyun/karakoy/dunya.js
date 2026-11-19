@@ -28,8 +28,9 @@ export function yeniDunya() {
   return {
     gun: 1, // 4 Aralık 1918, Çarşamba
     dakika: BASLANGIC_DAKIKA, // günün dakikası (kesirli)
-    oyuncu: { x: 20, y: 5, yon: Math.PI / 2 },
-    mekan: 'dis',
+    oyuncu: { x: -40, y: 5, yon: Math.PI / 2 },
+    mekan: 'kayikhane',
+    sahne: 'acilis', // açık hikâye sahnesi (sahneler.js)
     yurunen: 0,
     yakin: {}, // bildirilmiş yakınlıklar: kapı, nesne ve kişi kimlikleri
     gece: geceMi(BASLANGIC_DAKIKA),

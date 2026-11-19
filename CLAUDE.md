@@ -69,6 +69,12 @@
   Adım sesleri: ElevenLabs (flow H13uSGbaUNJZNoPkxW7V, düğümler adim_tas/adim_ahsap, 8 sn) → sessizlikten bölünmüş 8+8 tek adım,
   assets/ses/konumsal/adim_{tas,ahsap}_1..8.wav. dunya.js ZEMIN (dis/han/buro taş; kayikhane/oda/antrepo ahşap). Motor adimOrnegi:
   rastgele örnek, hız 0,93-1,07, düzey ±%20; kişilerin 'ayak' kaynağı da kendi mekânının zeminiyle.
+  Sürüm 0.81 (Murat: "oyun direkt haritada başlıyor, hikâye başlangıcı böyle değildi"): src/oyun/karakoy/sahneler.js (saf) hikâye
+  sahneleri: acilis → ani1 (ilkNefes say/bastir, travma) → cagri → baslangic_yardim → serbest dolaşma (kayıkhanenin içinde,
+  Süleyman 1. gün 06.00'da mangal başında); belge (denk açılınca), fotograf (pervaz; travma seçimi); Süleyman'ın karar düğümü
+  "Bildiklerimi anlatayım" → karar_oncesi → gece_konusma (arifNeden) → gece_suleyman (Kemal, aramaSozu) → karar (karar1) →
+  son_* → kapanis (lavanta not, gorevBitti). d.sahne kayıtta; Karakoy.js sahneGoster (zaman durur, ortam ve efekt çalar);
+  katmanKapat d.sahne varsa sahneyi açar. Metinler eski bölüm 1'den.
 - Bu ortamda npm yok; bağımlılık sürümleri Expo dokümanından (react-native-webview 14.0.1, SDK 58). bun build'e -e react-native-webview ekle.
 
 ## Tasarım

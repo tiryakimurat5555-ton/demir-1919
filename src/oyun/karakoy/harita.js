@@ -119,7 +119,7 @@ export const KISILER = [
     giris: { x: -36, y: 41 },
     rutin: [
       { bas: 0, mekan: 'kayikhane', x: -46, y: 6, eylem: 'uyuyor', soz: 'Süleyman Kaptan uyuyor. Horultusu sobanın çıtırtısına karışıyor.' },
-      { bas: 6 * 60, gun: 1, mekan: 'dis', x: 26.5, y: 3.5, eylem: 'Sabri\'nin başında bekliyor' },
+      { bas: 6 * 60, gun: 1, mekan: 'kayikhane', x: -45, y: 5, eylem: 'mangalın başında oturuyor' },
       { bas: 7 * 60, mekan: 'dis', x: -36, y: 3, eylem: 'kayığını kalafatlıyor', soz: 'Gel evlat. Şu kayığın karnı yine su alıyor. Leventis bu sabah erken yanaştı, gördün mü?' },
       { bas: 12 * 60, mekan: 'han', x: 32, y: 20, eylem: 'Ohannes Usta\'yla çay içiyor', soz: 'Öğle çayı, evlat. Ohannes\'in çayı Karaköy\'ün en iyisidir, ona söyleme ama.' },
       { bas: 13 * 60, mekan: 'dis', x: -36, y: 3, eylem: 'kayığını kalafatlıyor', soz: 'Akşama bitirmem lazım. Zifti karıştır da elin boş durmasın.' },

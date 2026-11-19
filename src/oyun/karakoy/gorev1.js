@@ -136,10 +136,10 @@ export const NESNELER = [
       {
         id: 'ac',
         etiket: 'Denki aç',
-        yap: () => ({
-          metin: 'İki gömlek, bir tespih, Trabzon\'dan gelmiş bir mektup. En dipte yağlı beze sarılı kalın bir kâğıt: harflerle, rakamlarla yazılmış isimler, Fransızca şehir adları, tarihler, okuyamadığın siyakat satırları. Altında mürekkeple basılmış bir işaret: kanatlı bir anahtar.',
-          delil: ['belge', 'kanatli_anahtar'],
-        }),
+        yap: (d) => {
+          d.sahne = 'belge';
+          return { metin: '', delil: ['belge', 'kanatli_anahtar'] };
+        },
       },
     ],
   },
@@ -239,11 +239,10 @@ export const NESNELER = [
       {
         id: 'kaldir',
         etiket: 'Pervazı kaldır',
-        yap: (d) => ({
-          metin: 'Pervazın altında bir fotoğraf. Genç bir kadın, bir bahçe kapısının önünde. Arkasında damga: Manastır, Fotoğrafhane-i Hilal. Yüzüne bakınca nefesin kesiliyor; neden olduğunu bilmiyorsun.',
-          delil: ['fotograf'],
-          travma: d.bayrak.fotoTravma ? 0 : 1,
-        }),
+        yap: (d) => {
+          d.sahne = 'fotograf';
+          return { metin: '', delil: ['fotograf'] };
+        },
       },
     ],
   },
@@ -380,15 +379,24 @@ export const KONUSMALAR = {
           d.teoriler = d.teoriler.filter((t) => t.dogru);
           return [
             duzelt.length ? 'Süleyman panona kulak veriyor. Bazı bağlarını söküyor: ' + duzelt.join(' ') : '',
-            'Sabri öldürüldü. Ferrante\'nin sandıklarında silah var. Ve bu belge, o işaretin sahiplerinin. Süleyman belgeyi avucunda tartıyor. Bunu kime götüreceğiz, evlat?',
+            'Sabri öldürüldü, diyor Süleyman. Ferrante\'nin sandıklarında silah var. Ve bu belge, o işaretin sahiplerinin. Gel, kayıkhaneye geçelim; burada konuşulmaz.',
           ]
             .filter(Boolean)
             .join(' ');
         },
         secenekler: [
-          { etiket: 'İngiliz askerî polisine. Silahlar onların şehrine iniyor.', yap: (d) => kararVer(d, 'ingiliz') },
-          { etiket: 'Senin güvendiğin eski bir polise.', yap: (d) => kararVer(d, 'polis') },
-          { etiket: 'Kimseye. Saklayacağız; bu işi ben çözeceğim.', yap: (d) => kararVer(d, 'sakla') },
+          {
+            etiket: 'Bildiklerimi anlatayım kaptan.',
+            yap: (d) => {
+              d.sahne = 'karar_oncesi';
+              if (d.mekan !== 'kayikhane') {
+                d.mekan = 'kayikhane';
+                d.oyuncu = { x: -43, y: 5, yon: -Math.PI / 2 };
+                d.yakin = {};
+              }
+            },
+          },
+          { etiket: 'Henüz değil. Biraz daha araştırayım.' },
         ],
       },
       bitti: {

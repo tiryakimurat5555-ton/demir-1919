@@ -15,6 +15,7 @@ import {
   envanterMetni,
 } from '../src/oyun/karakoy/gorev1';
 import { MEKANLAR } from '../src/oyun/karakoy/harita';
+import { sahneSec, sahneParagraflari } from '../src/oyun/karakoy/sahneler';
 import { engel } from '../src/oyun/karakoy/dunya';
 
 // Konuşmada etiketi verilen seçeneği seçer; cevabı ve sonraki düğümü döndürür
@@ -171,7 +172,7 @@ describe('Sudaki Adam baştan sona', () => {
     yerles(d, 'oda', 45, 25);
     eylemUygula(d, 'pervaz', 'kaldir');
     expect(d.deliller).toEqual(['paltolu', 'mektup', 'fotograf']);
-    expect(d.travma).toBe(1);
+    expect(d.sahne).toBe('fotograf');
   });
 
   test('kötü itibarla Ohannes ancak parayla verir', () => {
@@ -211,10 +212,20 @@ describe('Sudaki Adam baştan sona', () => {
     const g = dugum(d, 'suleyman', 'karar');
     expect(g.metin).toContain('içki koymazdı');
     expect(d.teoriler.every((t) => t.dogru)).toBe(true);
-    const r = konus(d, 'suleyman', 'karar', 'Senin güvendiğin');
+    konus(d, 'suleyman', 'karar', 'Bildiklerimi');
+    expect(d.sahne).toBe('karar_oncesi');
+    expect(d.mekan).toBe('kayikhane');
+    sahneSec(d, 'karar_oncesi', 0);
+    sahneSec(d, 'gece_konusma', 1);
+    expect(d.bayrak.arifNeden).toBe('korktum');
+    sahneSec(d, 'gece_suleyman', 0);
+    sahneSec(d, 'karar', 1);
     expect(d.bayrak.karar1).toBe('polis');
+    expect(sahneParagraflari(d, 'kapanis').join(' ')).toContain('Yaşlı adamlar');
+    sahneSec(d, d.sahne, 0);
+    sahneSec(d, 'kapanis', 0);
     expect(d.gorevBitti).toBe(true);
-    expect(r.metin).toContain('Rıza');
+    expect(d.sahne).toBeNull();
   });
 
   test('ilgisiz iki delil için "bağ yok" seçeneği sunulur', () => {
