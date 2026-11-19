@@ -26,7 +26,7 @@ import { ayarlarOku, ayarlarYaz, kayitOku, kayitSil, VARSAYILAN_AYARLAR } from '
 const HAKKINDA_METNI = [
   'Demir 1919. 1918 ile 1923 arasında, işgal altındaki İstanbul\'da başlayan bir tarihsel macera ve dedektiflik oyunu.',
   'Oyundaki gizli örgüt ve olay örgüsü kurgudur. Gerçek tarihî olaylar arka plan olarak kullanılır.',
-  'Sürüm 0.70 (Karaköy denemesi): Sudaki Adam, Ölüler Konuşur, On Yedi Numara, Kül, Kalliope, Hotel Olympos, Montaigne, Kalay, Imperial, Kurşun Mühür, Kordon, İmza, Satranç, Que sais-je?, Genel Kurul, 16 Mart, Kağnı, Kinin, Yeşil Mürekkep, Tarife, Arethusa, Üç Akşam, Sofra, Baston, Kırmızı Sayfalar, Zarf, Moda, Cehennem Otuz Üç, Melek, Tanıklar, Ninni, Pusula, Koza, Tebeşir, İncir, İhale, Taş, Kar, Ekvator, Calle Junín, İskele Taşı.',
+  'Sürüm 0.71 (Karaköy: Sudaki Adam): Sudaki Adam, Ölüler Konuşur, On Yedi Numara, Kül, Kalliope, Hotel Olympos, Montaigne, Kalay, Imperial, Kurşun Mühür, Kordon, İmza, Satranç, Que sais-je?, Genel Kurul, 16 Mart, Kağnı, Kinin, Yeşil Mürekkep, Tarife, Arethusa, Üç Akşam, Sofra, Baston, Kırmızı Sayfalar, Zarf, Moda, Cehennem Otuz Üç, Melek, Tanıklar, Ninni, Pusula, Koza, Tebeşir, İncir, İhale, Taş, Kar, Ekvator, Calle Junín, İskele Taşı.',
 ];
 
 const HAREKETLER = [
@@ -143,7 +143,7 @@ export default function App() {
           {
             id: 'karakoy',
             etiket: 'Yeni oyun denemesi: Karaköy',
-            ipucu: 'Yeni oyunun ilk adımı. Karaköy\'ü kulağınla serbestçe dolaşırsın; hikâye henüz yok. Kulaklık tak.',
+            ipucu: 'Yeni oyunun dikey dilimi. Karaköy\'ü kulağınla serbestçe dolaşırsın; birinci görev Sudaki Adam. Kulaklık tak.',
             sec: () => setEkran('karakoy'),
           },
           {

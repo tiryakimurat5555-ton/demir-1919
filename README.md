@@ -420,3 +420,4 @@ ambarda ona Neslihan öğretmiştir. Yeni ortam sesi: İskenderiye limanı.
 
 - Sürüm 0.62: gerçek ses dosyalarıyla konumsal ses denemesi (köpek, vapur düdüğü, kilise çanı).
 - Sürüm 0.70: yeni oyunun ilk adımı, Karaköy'ü sesle serbest dolaşma (gece-gündüz, kişilerin rutinleri, kapılar, tramvay).
+- Sürüm 0.71: Karaköy'de birinci görev Sudaki Adam: inceleme, sorgu, fotoğraf ve karanlık oda, antrepoda gizlilik, serbest pano, para ve itibar.

@@ -1,22 +1,39 @@
-// Karaköy: yeni oyunun dikey diliminin ilk adımı. Sesle serbest dolaşma, gece-gündüz,
-// kişilerin günlük rutinleri, kapılar ve iç mekânlar. Hikâye bir sonraki adımda eklenecek.
+// Karaköy: yeni oyunun dikey dilimi. Sesle serbest dolaşma, gece-gündüz, kişilerin günlük rutinleri,
+// kapılar ve iç mekânlar; birinci görev "Sudaki Adam": nesneleri inceleme, konuşma ve sorgu,
+// fotoğraf ve karanlık oda, antrepoda gizlilik, serbest soruşturma panosu, para ve itibar.
 //
 // Hareketler:
 //   tek parmakla sürükleyip tut: yukarı ileri yürür, aşağı geri; sağa-sola döner (parmak ne kadar uzaksa o kadar hızlı)
-//   dokun: çevrende ne var          çift dokun: kapıdan geç ya da yanındakiyle konuş
+//   dokun: çevrende ne var          çift dokun: kapıdan geç, eşyayı incele ya da yanındakiyle konuş
 //   uzun bas: saat, yer, yön         iki parmakla dokun: sustur
-//   iki parmakla çift dokun: duraklatma menüsü (bekle, ana menü)
+//   iki parmakla çift dokun: menü (görev, pano, defter, envanter, bekle, ana menü)
+// Menülerde (SesliListe): sağa-sola kaydır gez, çift dokun seç, iki parmakla çift dokun geri.
 import React, { useEffect, useRef, useState } from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 import * as Haptics from 'expo-haptics';
 import { useJestler } from '../arayuz/jestler';
 import SesliListe from '../arayuz/SesliListe';
 import { soyle, sustur } from '../ses/rehber';
-import { ortamCal } from '../ses/efektler';
+import { cal, ortamCal } from '../ses/efektler';
 import { RENK, UST_BOSLUK } from '../arayuz/tema';
 import KonumsalSes from '../ses/konumsal';
 import { MEKANLAR, SESLER } from '../oyun/karakoy/harita';
-import { bekle, cevreMetni, durumMetni, etkiles, ilerle, kisiler, saatMetni, tramvayYeri, yeniDunya } from '../oyun/karakoy/dunya';
+import { bekle, cevreMetni, durumMetni, etkiles, eylemUygula, ilerle, kisiler, saatMetni, tramvayYeri, yeniDunya } from '../oyun/karakoy/dunya';
+import {
+  DELILLER,
+  delilAdi,
+  dugum,
+  envanterMetni,
+  gorevIpucu,
+  konusmaBasla,
+  konusmaVarMi,
+  nesneBul,
+  nesneEylemleri,
+  panoIfadeleri,
+  sec,
+  teoriKur,
+  teoriSil,
+} from '../oyun/karakoy/gorev1';
 
 const ADIM_MS = 100;
 const OLU_BOLGE = 16; // piksel
@@ -30,7 +47,10 @@ const DOSYALAR = {
 };
 
 const HAREKET_YARDIMI =
-  'Parmağını ekrana koyup yukarı kaydır ve tut: ileri yürürsün. Aşağı: geri. Sağa ya da sola: dönersin. Parmak ne kadar uzaksa o kadar hızlı. Dokun: çevrende ne var. Çift dokun: kapıdan geç ya da yanındakiyle konuş. Uzun bas: saat ve yerin. İki parmakla dokun: sustur. İki parmakla çift dokun: menü.';
+  'Parmağını ekrana koyup yukarı kaydır ve tut: ileri yürürsün. Aşağı: geri. Sağa ya da sola: dönersin. Parmak ne kadar uzaksa o kadar hızlı; birinin yakınında yavaş yürü. Dokun: çevrende ne var. Çift dokun: kapıdan geç, eşyayı incele ya da yanındakiyle konuş. Uzun bas: saat ve yerin. İki parmakla dokun: sustur. İki parmakla çift dokun: menü; görev, soruşturma panosu, defter ve bekleme orada.';
+
+const ACILIS =
+  '4 Aralık 1918, Çarşamba, şafaktan önce. Karaköy rıhtımı. Leventis vapurunun yanında bağrışmalar: hamallar sudan bir adam çıkarmış. Ateşçi Sabri. Süleyman Kaptan cesedin başında, doğu tarafında, birkaç adım ötende. Kulaklık tak. ';
 
 function guc(piksel) {
   const p = Math.abs(piksel);
@@ -43,6 +63,11 @@ function ortamOrani(d) {
   return d.gece ? 0.35 : 0.55;
 }
 
+function delilDuyurusu(yeni) {
+  if (!yeni || !yeni.length) return '';
+  return ' Yeni delil: ' + yeni.map(delilAdi).join(', ') + '.';
+}
+
 export default function Karakoy({ onGeri }) {
   const motor = useRef(null);
   const dunya = useRef(yeniDunya());
@@ -51,7 +76,8 @@ export default function Karakoy({ onGeri }) {
   const calanlar = useRef({});
   const hazir = useRef(false);
   const durakli = useRef(false);
-  const [menu, setMenu] = useState(false);
+  const katmanNo = useRef(0);
+  const [katman, setKatman] = useState(null); // { baslik, giris, ogeler, onGeri, no }
   const [yazi, setYazi] = useState('Karaköy yükleniyor');
 
   const m = () => motor.current;
@@ -92,7 +118,7 @@ export default function Karakoy({ onGeri }) {
     for (const id of Object.keys(calanlar.current))
       if (id.startsWith('ayak_') && !kisi.some((k) => 'ayak_' + k.id === id)) kaynakKapat(id);
     const suleyman = kisi.find((k) => k.id === 'suleyman');
-    if (suleyman && !suleyman.yuruyor && suleyman.mekan === 'dis') kaynakAc('cekic', 'cekic', SESLER.cekic);
+    if (suleyman && !suleyman.yuruyor && suleyman.mekan === 'dis' && suleyman.eylem === 'kayığını kalafatlıyor') kaynakAc('cekic', 'cekic', SESLER.cekic);
     else kaynakKapat('cekic');
     const t = tramvayYeri(d.dakika);
     if (t && yuklu.current.tramvay) {
@@ -107,35 +133,51 @@ export default function Karakoy({ onGeri }) {
     }
   };
 
-  const olaylariIsle = (olaylar) => {
+  // Olayların sözleri; sessizMi ise söylenmez, metin olarak döner
+  const olaylariIsle = (olaylar, sessizMi = false) => {
     const d = dunya.current;
+    const sozler = [];
     for (const o of olaylar) {
       if (o.tur === 'adim') {
         if (m()) m().adim();
       } else if (o.tur === 'carpti') {
         Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Medium).catch(() => {});
-        if (o.neden === 'su') soyle('Rıhtımın kenarı. Önün deniz.', 'istek', true);
-        else if (o.neden === 'sinir') soyle('Bu taraf bu denemede kapalı.', 'istek', true);
-        else soyle('Duvar.', 'istek', true);
+        if (o.neden === 'su') sozler.push('Rıhtımın kenarı. Önün deniz.');
+        else if (o.neden === 'sinir') sozler.push('Bu taraf bu denemede kapalı.');
+        else sozler.push('Duvar.');
       } else if (o.tur === 'kapi') {
         Haptics.selectionAsync().catch(() => {});
-        soyle(o.ad + ', saat ' + o.saat + ' yönünde. Çift dokun: geç.', 'istek', true);
+        sozler.push(o.ad + ', saat ' + o.saat + ' yönünde. Çift dokun: geç.');
+      } else if (o.tur === 'nesne') {
+        Haptics.selectionAsync().catch(() => {});
+        sozler.push(o.ad + ', saat ' + o.saat + ' yönünde. Çift dokun: incele.');
       } else if (o.tur === 'kisi') {
-        soyle(o.ad + ', saat ' + o.saat + ' yönünde. ' + o.eylem + '.', 'istek', true);
+        sozler.push(o.ad + ', saat ' + o.saat + ' yönünde. ' + o.eylem + '.');
       } else if (o.tur === 'aksam') {
-        soyle('Hava karardı. Rıhtımın fenerleri yanıyor.', 'istek', false);
+        sozler.push('Hava karardı. Rıhtımın fenerleri yanıyor.');
         ortamCal(MEKANLAR[d.mekan].ortam, ortamOrani(d));
       } else if (o.tur === 'sabah') {
-        soyle('Gün ağarıyor.', 'istek', false);
+        sozler.push('Gün ağarıyor.');
         ortamCal(MEKANLAR[d.mekan].ortam, ortamOrani(d));
       } else if (o.tur === 'saatBasi') {
         if (o.saat >= 7 && o.saat <= 21 && m() && yuklu.current.can) m().tek('can', SESLER.can, 0.9);
       } else if (o.tur === 'vapur') {
         if (m() && yuklu.current.vapur) m().tek('vapur', SESLER.vapur, 1);
       } else if (o.tur === 'yeniGun') {
-        soyle('Gece yarısı. Yeni bir gün.', 'istek', false);
+        sozler.push('Gece yarısı. Yeni bir gün.');
+      } else if (o.tur === 'cesetGitti') {
+        sozler.push('Rıhtımdan araba tekerleri. Komiser Halim\'in adamları Sabri\'yi götürdü; kimsesizler mezarlığına.');
+      } else if (o.tur === 'suphe') {
+        Haptics.notificationAsync(Haptics.NotificationFeedbackType.Warning).catch(() => {});
+        sozler.push('Bekçinin adımları duruyor. Bir şey duydu. Kıpırdama.');
+      } else if (o.tur === 'yakalandi') {
+        Haptics.notificationAsync(Haptics.NotificationFeedbackType.Error).catch(() => {});
+        sozler.push('Bir fener yüzüne vuruyor. Bekçi yakandan tutup seni arka kapıdan dışarı atıyor. Bu gece bir daha giremezsin; limanda da konuşulacak.');
+        sesleriEsitle(true);
       }
     }
+    if (sozler.length && !sessizMi) soyle(sozler.join(' '), 'istek', true);
+    return sozler.join(' ');
   };
 
   // Ana döngü
@@ -153,7 +195,7 @@ export default function Karakoy({ onGeri }) {
       if (sayac % 3 === 0) sesleriEsitle(false);
       if (d.gece && d.mekan === 'dis' && Math.random() < 0.0025 && m() && yuklu.current.kopek)
         m().tek('kopek', { x: SESLER.kopek.x - Math.random() * 30, y: SESLER.kopek.y }, 0.8);
-      if (sayac % 10 === 0) setYazi('Saat ' + saatMetni(d.dakika) + ' · ' + (MEKANLAR[d.mekan].ad || 'Karaköy'));
+      if (sayac % 10 === 0) setYazi('Saat ' + saatMetni(d.dakika) + ' · ' + (MEKANLAR[d.mekan].ad || 'Karaköy') + ' · ' + d.deliller.length + ' delil');
     }, ADIM_MS);
     return () => clearInterval(z);
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -161,12 +203,7 @@ export default function Karakoy({ onGeri }) {
 
   useEffect(() => {
     ortamCal(MEKANLAR.dis.ortam, ortamOrani(dunya.current));
-    soyle(
-      'Karaköy. 4 Aralık 1918, Çarşamba, saat 15.00. Rıhtımdasın, doğuya bakıyorsun. Bu denemede hikâye yok; Karaköy\'ü kulağınla dolaş. Kulaklık tak. ' +
-        HAREKET_YARDIMI,
-      'istek',
-      true,
-    );
+    soyle(ACILIS + HAREKET_YARDIMI, 'istek', true);
     return () => {
       if (m()) m().durdur();
       ortamCal(null);
@@ -175,26 +212,198 @@ export default function Karakoy({ onGeri }) {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  const menuyuAc = () => {
+  // --- Katmanlar (menüler) ---
+  const katmanAc = (k) => {
     durakli.current = true;
     surukle.current = { aktif: false, dx: 0, dy: 0 };
-    setMenu(true);
+    katmanNo.current += 1;
+    setKatman({ ...k, no: katmanNo.current });
   };
-  const menuyuKapat = () => {
+  const katmanKapat = (soz) => {
     durakli.current = false;
-    setMenu(false);
-    soyle('Devam.', 'istek', true);
+    setKatman(null);
+    if (soz) soyle(soz, 'istek', true);
   };
+
   const beklet = (dakika) => {
     const d = dunya.current;
     const olaylar = bekle(d, dakika);
-    durakli.current = false;
-    setMenu(false);
     sesleriEsitle(true);
-    const ek = [];
-    if (olaylar.some((o) => o.tur === 'aksam')) ek.push('Bu arada hava karardı.');
-    if (olaylar.some((o) => o.tur === 'sabah')) ek.push('Bu arada gün ağardı.');
-    soyle('Bekledin. Saat ' + saatMetni(d.dakika) + '. ' + ek.join(' '), 'istek', true);
+    const ek = olaylariIsle(olaylar.filter((o) => o.tur !== 'kisi' && o.tur !== 'kapi'), true);
+    katmanKapat('Bekledin. Saat ' + saatMetni(d.dakika) + '. ' + ek);
+  };
+
+  // Bir konuşma düğümünü gösterir. onEk: önceki cevabın metni
+  const konusmaGoster = (kisiId, ad, dugumId, onEk = '') => {
+    const d = dunya.current;
+    const g = dugum(d, kisiId, dugumId);
+    katmanAc({
+      baslik: ad,
+      giris: [onEk, g.metin].filter(Boolean).join(' '),
+      onGeri: () => katmanKapat('Konuşmayı bitirdin.'),
+      ogeler: g.secenekler.map((s) => ({
+        id: 's' + s.i,
+        etiket: s.etiket,
+        sec: () => {
+          const r = sec(d, kisiId, dugumId, s.i);
+          if (r.yeniDeliller.length) cal('delil', 0.8);
+          const cevap = r.metin + delilDuyurusu(r.yeniDeliller);
+          if (d.bekleme) {
+            const dk = d.bekleme;
+            d.bekleme = 0;
+            bekle(d, dk);
+            sesleriEsitle(true);
+          }
+          if (r.sonra) konusmaGoster(kisiId, ad, r.sonra, cevap);
+          else katmanKapat(cevap || null);
+          return 'sessiz';
+        },
+      })),
+    });
+  };
+
+  const nesneGoster = (id, onEk) => {
+    const d = dunya.current;
+    const n = nesneBul(id);
+    const eylemler = nesneEylemleri(d, id);
+    katmanAc({
+      baslik: n.ad,
+      giris: onEk || n.giris,
+      onGeri: () => katmanKapat(),
+      ogeler: [
+        ...eylemler.map((e) => ({
+          id: e.id,
+          etiket: e.etiket,
+          sec: () => {
+            const r = eylemUygula(d, id, e.id);
+            if (r.yeniDeliller && r.yeniDeliller.length) cal('delil', 0.8);
+            if (r.ses === 'deklansor') Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light).catch(() => {});
+            const olaySoz = olaylariIsle(r.olaylar || [], true);
+            const metin = [r.metin + delilDuyurusu(r.yeniDeliller), olaySoz].filter(Boolean).join(' ');
+            if ((r.olaylar || []).some((o) => o.tur === 'yakalandi')) katmanKapat(metin);
+            else nesneGoster(id, metin);
+            return 'sessiz';
+          },
+        })),
+        { id: 'geri', etiket: 'Geri dön', sec: () => (katmanKapat(), 'sessiz') },
+      ],
+    });
+  };
+
+  // --- Soruşturma panosu ---
+  const panoGoster = (onEk) => {
+    const d = dunya.current;
+    const ogeler = [
+      {
+        id: 'bagla',
+        etiket: 'İki delili bağla',
+        ipucu: 'Önce bir delil, sonra ikincisini seçersin; aralarındaki bağı kendin kurarsın.',
+        sec: () => (d.deliller.length < 2 ? soyle('Bağlamak için en az iki delil gerekir.', 'istek', true) : delilSec(null), 'sessiz'),
+      },
+      ...d.teoriler.map((t, i) => ({
+        id: 't' + i,
+        etiket: t.ifade,
+        ipucu: delilAdi(t.a) + ' ile ' + delilAdi(t.b) + '.',
+        sec: () => (teoriGoster(t), 'sessiz'),
+      })),
+      { id: 'geri', etiket: 'Menüye dön', sec: () => (menuyuAc(), 'sessiz') },
+    ];
+    katmanAc({
+      baslik: 'Soruşturma panosu',
+      giris: (onEk ? onEk + ' ' : '') + (d.teoriler.length ? d.teoriler.length + ' teori iğneli.' : 'Pano boş.') + ' ' + d.deliller.length + ' delil.',
+      onGeri: () => menuyuAc(),
+      ogeler,
+    });
+  };
+
+  const delilSec = (ilk) => {
+    const d = dunya.current;
+    const liste = d.deliller.filter((x) => x !== ilk);
+    katmanAc({
+      baslik: ilk ? 'İkinci delil' : 'Birinci delil',
+      giris: ilk ? delilAdi(ilk) + ' ile neyi bağlayacaksın?' : 'Hangi delille başlıyorsun?',
+      onGeri: () => panoGoster(),
+      ogeler: liste.map((id) => ({
+        id,
+        etiket: delilAdi(id),
+        ipucu: DELILLER[id].tarif,
+        sec: () => (ilk ? ifadeSec(ilk, id) : delilSec(id), 'sessiz'),
+      })),
+    });
+  };
+
+  const ifadeSec = (a, b) => {
+    const d = dunya.current;
+    katmanAc({
+      baslik: 'Bağ',
+      giris: delilAdi(a) + ' ve ' + delilAdi(b) + '. Bunlar sana ne söylüyor?',
+      onGeri: () => panoGoster(),
+      ogeler: panoIfadeleri(d, a, b).map((ifade, i) => ({
+        id: 'i' + i,
+        etiket: ifade,
+        sec: () => {
+          const r = teoriKur(d, a, b, ifade);
+          if (r.yeniTeori) cal('delil', 0.5);
+          panoGoster(r.metin);
+          return 'sessiz';
+        },
+      })),
+    });
+  };
+
+  const teoriGoster = (t) => {
+    katmanAc({
+      baslik: 'Teori',
+      giris: t.ifade + ' Dayanağı: ' + delilAdi(t.a) + ' ve ' + delilAdi(t.b) + '.',
+      onGeri: () => panoGoster(),
+      ogeler: [
+        { id: 'kalsin', etiket: 'Panoda kalsın', sec: () => (panoGoster(), 'sessiz') },
+        {
+          id: 'sok',
+          etiket: 'Panodan sök',
+          ipucu: 'Yanlış olduğunu düşündüğün bir bağı kaldırırsın.',
+          sec: () => (teoriSil(dunya.current, t.ifade), panoGoster('Teoriyi söktün.'), 'sessiz'),
+        },
+      ],
+    });
+  };
+
+  const defterGoster = () => {
+    const d = dunya.current;
+    katmanAc({
+      baslik: 'Defter',
+      giris: d.deliller.length ? d.deliller.length + ' delil. Birini seçince tamamı okunur.' : 'Henüz delil yok.',
+      onGeri: () => menuyuAc(),
+      ogeler: [
+        ...d.deliller.map((id) => ({
+          id,
+          etiket: delilAdi(id),
+          sec: () => (soyle(delilAdi(id) + '. ' + DELILLER[id].tarif, 'istek', true), 'sessiz'),
+        })),
+        { id: 'geri', etiket: 'Menüye dön', sec: () => (menuyuAc(), 'sessiz') },
+      ],
+    });
+  };
+
+  const menuyuAc = () => {
+    const d = dunya.current;
+    katmanAc({
+      baslik: 'Menü',
+      giris: 'Saat ' + saatMetni(d.dakika) + '.',
+      onGeri: () => katmanKapat('Devam.'),
+      ogeler: [
+        { id: 'devam', etiket: 'Devam et', sec: () => (katmanKapat('Devam.'), 'sessiz') },
+        { id: 'gorev', etiket: 'Görev', ipucu: 'Şu an ne yapabileceğini söyler.', sec: () => (soyle(gorevIpucu(d), 'istek', true), 'sessiz') },
+        { id: 'pano', etiket: 'Soruşturma panosu', ipucu: 'Delilleri bağla, teorilerini gözden geçir.', sec: () => (panoGoster(), 'sessiz') },
+        { id: 'defter', etiket: 'Defter', ipucu: 'Topladığın deliller.', sec: () => (defterGoster(), 'sessiz') },
+        { id: 'envanter', etiket: 'Üstündekiler', ipucu: 'Envanter, para ve itibar.', sec: () => (soyle(envanterMetni(d), 'istek', true), 'sessiz') },
+        { id: 'yarim', etiket: 'Yarım saat bekle', sec: () => (beklet(30), 'sessiz') },
+        { id: 'iki', etiket: 'İki saat bekle', sec: () => (beklet(120), 'sessiz') },
+        { id: 'alti', etiket: 'Altı saat bekle', ipucu: 'Geceyi ya da günü geçirmek için.', sec: () => (beklet(360), 'sessiz') },
+        { id: 'yardim', etiket: 'Hareketler', sec: () => (soyle(HAREKET_YARDIMI, 'istek', true), 'sessiz') },
+        { id: 'cik', etiket: 'Ana menüye dön', ipucu: 'Bu denemede kayıt yok; Karaköy baştan başlar.', sec: () => (onGeri(), 'sessiz') },
+      ],
+    });
   };
 
   const jest = useJestler(
@@ -223,8 +432,9 @@ export default function Karakoy({ onGeri }) {
         if (e.tur === 'gecti') {
           Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light).catch(() => {});
           sesleriEsitle(true);
-          soyle(e.metin, 'istek', true);
-        } else if (e.tur === 'konus') soyle(e.metin, 'istek', true);
+          soyle(e.metin + (d.mekan === 'antrepo' ? ' Burada yavaş yürü; bekçinin adımlarını dinle.' : ''), 'istek', true);
+        } else if (e.tur === 'nesne') nesneGoster(e.id);
+        else if (e.tur === 'konus' && !e.yuruyor && konusmaVarMi(e.kisiId)) konusmaGoster(e.kisiId, e.ad, konusmaBasla(d, e.kisiId));
         else soyle(e.metin, 'istek', true);
       },
       onUzunBas: () => soyle(durumMetni(dunya.current), 'istek', true),
@@ -234,7 +444,7 @@ export default function Karakoy({ onGeri }) {
 
   return (
     <View style={stiller.dis}>
-      <View style={stiller.kap} {...(menu ? {} : jest)}>
+      <View style={stiller.kap} {...(katman ? {} : jest)}>
         <KonumsalSes
           ref={motor}
           onMesaj={(x) => {
@@ -247,22 +457,9 @@ export default function Karakoy({ onGeri }) {
         <Text style={stiller.baslik}>Karaköy, Aralık 1918</Text>
         <Text style={stiller.yazi}>{yazi}</Text>
       </View>
-      {menu ? (
+      {katman ? (
         <View style={StyleSheet.absoluteFill}>
-          <SesliListe
-            baslik="Duraklatıldı"
-            giris={'Duraklatıldı. Saat ' + saatMetni(dunya.current.dakika) + '.'}
-            rehberAcik
-            onGeri={menuyuKapat}
-            ogeler={[
-              { id: 'devam', etiket: 'Devam et', sec: menuyuKapat },
-              { id: 'yarim', etiket: 'Yarım saat bekle', ipucu: 'Saati otuz dakika ilerletir.', sec: () => beklet(30) },
-              { id: 'iki', etiket: 'İki saat bekle', ipucu: 'Saati iki saat ilerletir.', sec: () => beklet(120) },
-              { id: 'alti', etiket: 'Altı saat bekle', ipucu: 'Geceyi ya da günü geçirmek için.', sec: () => beklet(360) },
-              { id: 'yardim', etiket: 'Hareketler', ipucu: HAREKET_YARDIMI, sec: () => soyle(HAREKET_YARDIMI, 'istek', true) },
-              { id: 'cik', etiket: 'Ana menüye dön', ipucu: 'Bu denemede kayıt yok; Karaköy baştan başlar.', sec: onGeri },
-            ]}
-          />
+          <SesliListe key={'k' + katman.no} baslik={katman.baslik} giris={katman.giris} rehberAcik onGeri={katman.onGeri} ogeler={katman.ogeler} />
         </View>
       ) : null}
     </View>

@@ -1,6 +1,7 @@
 // Karaköy benzetimi (saf JavaScript): oyuncunun hareketi, çarpışma, saat, gece-gündüz,
 // kişilerin günlük rutinleri ve tramvay. Ekran bu durumu okur, sesleri ona göre kurar.
-import { BINALAR, GUN_BATIMI, GUN_DOGUMU, KISILER, MEKANLAR, SINIR, TRAMVAY, YERLER, SESLER } from './harita';
+import { BINALAR, GUN_BATIMI, GUN_DOGUMU, KISILER, MEKANLAR, SINIR, TRAMVAY, YERLER, SESLER, geceKimligi } from './harita';
+import { BASLANGIC_PARA, mevcutNesneler, nesneEylem } from './gorev1';
 import { aciDuzelt, goreliAci, saatYonu, tarif, uzaklik } from '../konum';
 
 // Zaman: gerçek 1 saniye = oyunda ZAMAN_ORANI saniye (1 gerçek dakika = 10 oyun dakikası)
@@ -18,17 +19,34 @@ const PAY = 0.35; // duvarlara en çok bu kadar yaklaşılır
 // Oyun dakikası başına metre (gerçek hızdan)
 const dakikaMetre = (hiz) => (hiz * 60) / ZAMAN_ORANI;
 
+export const BASLANGIC_DAKIKA = 6 * 60 + 40;
+export const SUPHE_UYARI = 40;
+const NESNE_MENZILI = 2;
+
 export function yeniDunya() {
   return {
-    gun: 1, // 4 Aralık 1918
-    dakika: 15 * 60, // günün dakikası (kesirli)
-    oyuncu: { x: -30, y: 6, yon: Math.PI / 2 },
+    gun: 1, // 4 Aralık 1918, Çarşamba
+    dakika: BASLANGIC_DAKIKA, // günün dakikası (kesirli)
+    oyuncu: { x: 20, y: 5, yon: Math.PI / 2 },
     mekan: 'dis',
     yurunen: 0,
-    yakin: {}, // bildirilmiş yakınlıklar: kapı ve kişi kimlikleri
-    gece: geceMi(15 * 60),
-    sonSaat: 15,
-    sonVapur: 15 * 60,
+    yakin: {}, // bildirilmiş yakınlıklar: kapı, nesne ve kişi kimlikleri
+    gece: geceMi(BASLANGIC_DAKIKA),
+    sonSaat: Math.floor(BASLANGIC_DAKIKA / 60),
+    sonVapur: BASLANGIC_DAKIKA,
+    // soruşturma
+    deliller: [],
+    teoriler: [],
+    bayrak: {},
+    para: BASLANGIC_PARA,
+    itibar: 0,
+    travma: 0,
+    envanter: {},
+    film: 0,
+    negatifler: [],
+    fotograflar: [],
+    suphe: 0,
+    gorevBitti: false,
   };
 }
 
@@ -75,6 +93,7 @@ export function engel(mekan, p) {
 // Oyuncunun yeri için kısa ad
 export function konumAdi(d) {
   if (d.mekan !== 'dis') return MEKANLAR[d.mekan].ad;
+  if (d.oyuncu.x > 24 && d.oyuncu.x < 28 && d.oyuncu.y > 14 && d.oyuncu.y < 30) return 'antrepo ile hanın arasındaki geçit';
   const { x, y } = d.oyuncu;
   if (y < 10) return 'rıhtım';
   if (y < 14) return 'Rıhtım Caddesi';
@@ -94,6 +113,7 @@ function kapiNoktasi(mekan) {
 
 // Bir rutin satırının yerini verir; devriyede o anki devriye noktası
 function satirYeri(kisi, satir, dakika) {
+  const dm = kisi.devriyeMekan || 'dis';
   if (satir.mekan === 'yok') return { mekan: 'yok', x: kisi.giris.x, y: kisi.giris.y };
   if (satir.mekan === 'devriye') {
     const n = kisi.devriye;
@@ -110,11 +130,11 @@ function satirYeri(kisi, satir, dakika) {
         const a = n[i];
         const b = n[(i + 1) % n.length];
         const t = uzun[i] ? yol / uzun[i] : 0;
-        return { mekan: 'dis', x: a.x + (b.x - a.x) * t, y: a.y + (b.y - a.y) * t, yuruyor: true };
+        return { mekan: dm, x: a.x + (b.x - a.x) * t, y: a.y + (b.y - a.y) * t, yuruyor: true };
       }
       yol -= uzun[i];
     }
-    return { mekan: 'dis', x: n[0].x, y: n[0].y, yuruyor: true };
+    return { mekan: dm, x: n[0].x, y: n[0].y, yuruyor: true };
   }
   return { mekan: satir.mekan, x: satir.x, y: satir.y };
 }
@@ -156,9 +176,9 @@ function rotadaYer(r, yol) {
 }
 
 // Kişinin şu andaki durumu: { id, ad, mekan, x, y, yuruyor, eylem, soz } ya da null (Karaköy'de değil)
-export function kisiDurumu(kisi, dakika) {
+export function kisiDurumu(kisi, dakika, gun = 1) {
   const gd = ((dakika % 1440) + 1440) % 1440;
-  const r = kisi.rutin;
+  const r = kisi.rutin.filter((x) => !x.gun || x.gun === gun);
   let i = 0;
   for (let k = 0; k < r.length; k++) if (r[k].bas <= gd) i = k;
   const satir = r[i];
@@ -167,7 +187,7 @@ export function kisiDurumu(kisi, dakika) {
   const hedef = satirYeri(kisi, satir, gd);
   // Önceki yerden yeni yere yürüyüş (devriyeye ve devriyeden gidişte devriyenin ilk noktası kullanılır)
   const oncekiYer = satirYeri(kisi, onceki, onceki.mekan === 'devriye' ? satir.bas : 0);
-  const varis = satir.mekan === 'devriye' ? { mekan: 'dis', x: kisi.devriye[0].x, y: kisi.devriye[0].y } : hedef;
+  const varis = satir.mekan === 'devriye' ? { mekan: kisi.devriyeMekan || 'dis', x: kisi.devriye[0].x, y: kisi.devriye[0].y } : hedef;
   const ayni = oncekiYer.mekan === varis.mekan && uzaklik(oncekiYer, varis) < 0.5;
   if (!ayni) {
     const yol = rota(oncekiYer, varis);
@@ -189,7 +209,7 @@ export function kisiDurumu(kisi, dakika) {
 }
 
 export function kisiler(d) {
-  return KISILER.map((k) => kisiDurumu(k, d.dakika)).filter(Boolean);
+  return KISILER.map((k) => kisiDurumu(k, d.dakika, d.gun)).filter(Boolean);
 }
 
 // Aynı mekândaki kişiler
@@ -252,8 +272,43 @@ export function ilerle(d, girdi, dt) {
       }
     }
   } else d.carpti = false;
+  gizlilik(d, Math.abs(ileri), dt, olaylar);
   yakinlikOlaylari(d, olaylar);
   return olaylar;
+}
+
+// Antrepoda bekçi: yakınken hareket etmek şüphe doğurur; 100'e varınca yakalanırsın
+export function bekci(d) {
+  return kisiler(d).find((k) => k.id === 'bekci' && k.mekan === d.mekan) || null;
+}
+
+function gizlilik(d, hiz, dt, olaylar) {
+  const b = d.mekan === 'antrepo' ? bekci(d) : null;
+  const once = d.suphe;
+  if (!b) {
+    d.suphe = Math.max(0, d.suphe - 12 * dt);
+    return;
+  }
+  const u = uzaklik(d.oyuncu, b);
+  let art;
+  if (u < 2.5) art = 200;
+  else if (u < 6) art = hiz > 0.5 ? 30 : hiz > 0 ? 12 : 4;
+  else if (u < 10) art = hiz > 0.8 ? 8 : -10;
+  else art = -12;
+  d.suphe = Math.max(0, Math.min(100, d.suphe + art * dt));
+  if (once < SUPHE_UYARI && d.suphe >= SUPHE_UYARI) olaylar.push({ tur: 'suphe' });
+  if (d.suphe >= 100) yakalan(d, olaylar);
+}
+
+function yakalan(d, olaylar) {
+  d.suphe = 0;
+  d.itibar -= 1;
+  d.bayrak.antrepoKapaliGece = geceKimligi(d);
+  d.bayrak.yakalandiSayi = (d.bayrak.yakalandiSayi || 0) + 1;
+  d.mekan = 'dis';
+  d.oyuncu = { x: 25.6, y: 22, yon: Math.PI / 2 };
+  d.yakin = {};
+  olaylar.push({ tur: 'yakalandi' });
 }
 
 function zamanOlaylari(d, eski, olaylar) {
@@ -273,6 +328,10 @@ function zamanOlaylari(d, eski, olaylar) {
     olaylar.push({ tur: 'vapur' });
   }
   if (gd < d.sonVapur) d.sonVapur = gd;
+  if (!d.bayrak.cesetGitti && (d.gun > 1 || gd >= 9 * 60 + 5)) {
+    d.bayrak.cesetGitti = true;
+    olaylar.push({ tur: 'cesetGitti' });
+  }
   const ot = tramvayYeri(eski);
   const yt = tramvayYeri(d.dakika);
   if (!ot && yt) olaylar.push({ tur: 'tramvay' });
@@ -287,6 +346,14 @@ function yakinlikOlaylari(d, olaylar) {
       olaylar.push({ tur: 'kapi', ad: c.ad, saat: saatYonu(goreliAci(o, c)) });
     } else if (u > KAPI_MENZILI + 1.5) delete d.yakin[c.id];
   }
+  for (const n of mevcutNesneler(d)) {
+    const anahtar = 'nesne_' + n.id;
+    const u = uzaklik(o, n);
+    if (u <= NESNE_MENZILI && !d.yakin[anahtar]) {
+      d.yakin[anahtar] = true;
+      olaylar.push({ tur: 'nesne', ad: n.ad, saat: saatYonu(goreliAci(o, n)) });
+    } else if (u > NESNE_MENZILI + 1.5) delete d.yakin[anahtar];
+  }
   for (const k of kisiler(d)) {
     const anahtar = 'kisi_' + k.id;
     const ayni = k.mekan === d.mekan;
@@ -298,32 +365,63 @@ function yakinlikOlaylari(d, olaylar) {
   }
 }
 
-// Çift dokunuş: yakındaki kapıdan geç ya da yakındaki kişiyle konuş
+// Çift dokunuş: en yakındaki kapı, nesne ya da kişi.
+// Döner: { tur: 'gecti' | 'kilitli' | 'nesne' | 'konus' | 'bos', ... }
 export function etkiles(d) {
   const o = d.oyuncu;
-  const kapi = MEKANLAR[d.mekan].cikislar
-    .map((c) => ({ c, u: uzaklik(o, c) }))
-    .filter((x) => x.u <= KAPI_MENZILI)
-    .sort((a, b) => a.u - b.u)[0];
-  const kisi = yakindakiKisiler(d)
-    .map((k) => ({ k, u: uzaklik(o, k) }))
-    .filter((x) => x.u <= KISI_MENZILI)
-    .sort((a, b) => a.u - b.u)[0];
-  if (kisi && (!kapi || kisi.u < kapi.u)) {
-    return { tur: 'konus', ad: kisi.k.ad, metin: kisi.k.soz || kisi.k.ad + ' yürüyor; durup konuşacak gibi değil.' };
+  const adaylar = [];
+  for (const c of MEKANLAR[d.mekan].cikislar) {
+    const u = uzaklik(o, c);
+    if (u <= KAPI_MENZILI) adaylar.push({ tur: 'kapi', c, u });
   }
-  if (kapi) {
-    const c = kapi.c;
-    d.mekan = c.hedef;
-    d.oyuncu = { ...c.varis };
-    d.yakin = {};
-    MEKANLAR[d.mekan].cikislar.forEach((k) => {
-      if (uzaklik(d.oyuncu, k) <= KAPI_MENZILI + 1.5) d.yakin[k.id] = true;
-    });
-    const yer = d.mekan === 'dis' ? 'Dışarıdasın, ' + konumAdi(d) + '.' : MEKANLAR[d.mekan].ad + '.';
-    return { tur: 'gecti', mekan: d.mekan, metin: yer };
+  for (const n of mevcutNesneler(d)) {
+    const u = uzaklik(o, n);
+    if (u <= NESNE_MENZILI) adaylar.push({ tur: 'nesne', n, u: u - 0.3 });
   }
-  return { tur: 'bos', metin: 'Yakında kapı da kimse de yok.' };
+  for (const k of yakindakiKisiler(d)) {
+    const u = uzaklik(o, k);
+    if (u <= KISI_MENZILI) adaylar.push({ tur: 'kisi', k, u: u - 0.2 });
+  }
+  adaylar.sort((a, b) => a.u - b.u);
+  const s = adaylar[0];
+  if (!s) return { tur: 'bos', metin: 'Yakında kapı, eşya ya da kimse yok.' };
+  if (s.tur === 'kisi') {
+    const k = s.k;
+    if (k.yuruyor && k.id !== 'bekci') return { tur: 'konus', kisiId: k.id, ad: k.ad, metin: k.ad + ' yürüyor; durup konuşacak gibi değil.', yuruyor: true };
+    return { tur: 'konus', kisiId: k.id, ad: k.ad, metin: k.soz || '' };
+  }
+  if (s.tur === 'nesne') return { tur: 'nesne', id: s.n.id, ad: s.n.ad, metin: s.n.giris };
+  const c = s.c;
+  if (c.acik && !c.acik(d)) return { tur: 'kilitli', metin: c.kilitli || 'Kapı kilitli.' };
+  d.mekan = c.hedef;
+  d.oyuncu = { ...c.varis };
+  d.yakin = {};
+  MEKANLAR[d.mekan].cikislar.forEach((k) => {
+    if (uzaklik(d.oyuncu, k) <= KAPI_MENZILI + 1.5) d.yakin[k.id] = true;
+  });
+  const yer = d.mekan === 'dis' ? 'Dışarıdasın, ' + konumAdi(d) + '.' : MEKANLAR[d.mekan].ad + '.';
+  return { tur: 'gecti', mekan: d.mekan, metin: yer };
+}
+
+// Bir nesne eylemini uygular; gürültü bekçiye ulaşırsa şüphe artar, süren işler saati ilerletir
+export function eylemUygula(d, nesneId, eylemId) {
+  const ctx = {
+    gece: d.gece,
+    kisiYakin: (id, metre) => kisiler(d).some((k) => k.id === id && k.mekan === d.mekan && uzaklik(k, d.oyuncu) <= metre),
+  };
+  const s = nesneEylem(d, nesneId, eylemId, ctx);
+  const olaylar = [];
+  if (s.gurultu) {
+    const b = bekci(d);
+    if (b && uzaklik(b, d.oyuncu) < 10) {
+      const once = d.suphe;
+      d.suphe = Math.min(100, d.suphe + s.gurultu);
+      if (once < SUPHE_UYARI && d.suphe >= SUPHE_UYARI) olaylar.push({ tur: 'suphe' });
+      if (d.suphe >= 100) yakalan(d, olaylar);
+    }
+  }
+  if (s.sure) olaylar.push(...bekle(d, s.sure));
+  return { ...s, olaylar };
 }
 
 // Dokunuş: çevrede ne var? En yakın beş şey, saat yönüyle
@@ -332,6 +430,7 @@ export function cevreMetni(d) {
   const seyler = [];
   for (const c of MEKANLAR[d.mekan].cikislar) seyler.push({ ad: c.ad, x: c.x, y: c.y });
   for (const k of yakindakiKisiler(d)) seyler.push({ ad: k.ad + ' (' + k.eylem + ')', x: k.x, y: k.y });
+  for (const n of mevcutNesneler(d)) seyler.push({ ad: n.ad, x: n.x, y: n.y });
   if (d.mekan === 'dis') {
     for (const y of YERLER) seyler.push(y);
     const t = tramvayYeri(d.dakika);
@@ -357,7 +456,8 @@ export function bakisYonu(yon) {
 export function durumMetni(d) {
   const parcalar = ['Saat ' + saatMetni(d.dakika) + ', ' + gunBolumu(d.dakika) + '.'];
   parcalar.push(d.gece ? 'Hava karanlık.' : 'Hava aydınlık.');
-  parcalar.push(konumAdi(d) + ', ' + bakisYonu(d.oyuncu.yon) + ' bakıyorsun.');
+  const yer = konumAdi(d);
+  parcalar.push(yer.charAt(0).toLocaleUpperCase('tr') + yer.slice(1) + ', ' + bakisYonu(d.oyuncu.yon) + ' bakıyorsun.');
   if (d.mekan === 'dis') parcalar.push(d.oyuncu.y < 10 ? 'Deniz güneyinde.' : 'Deniz güneyde, rıhtımın ötesinde.');
   return parcalar.join(' ');
 }
@@ -377,5 +477,5 @@ export function bekle(d, dakika) {
   }
   d.sonVapur = ((d.dakika % 1440) + 1440) % 1440;
   yakinlikOlaylari(d, olaylar);
-  return olaylar.filter((o) => o.tur === 'aksam' || o.tur === 'sabah' || o.tur === 'kisi' || o.tur === 'kapi');
+  return olaylar.filter((o) => ['aksam', 'sabah', 'kisi', 'kapi', 'cesetGitti'].includes(o.tur));
 }

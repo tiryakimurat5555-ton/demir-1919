@@ -41,8 +41,20 @@
   kapi/kisi/aksam/sabah/saatBasi/vapur/tramvay; etkiles (kapı ya da konuş), cevreMetni, durumMetni, bekle, kisiDurumu yürüyerek geçiş).
   Hareket joystick gibi: sürükleyip tut (ölü bölge 16 px, tam güç 140 px). konumsal.js'e sil, tek, boguk (içeride alçak geçiren), 'ayak'
   kaynağı eklendi; assets/ses/konumsal/tramvay.wav. Motor HTML'i headless Chrome'da hatasız çalıştı (sözdizimi + komutlar).
-  Testler testler/karakoy.test.js. Sonraki adımlar: Sabri olayı ve deliller, fotoğraf + karanlık oda, serbest pano, sorgu, gizlilik,
-  itibar, para, envanter, kayıt. Açık oynanış sorusu Murat'a: zaman oranı (önerim 1 dk = 10 dk).
+  Testler testler/karakoy.test.js. Zaman oranı önerisine itiraz gelmedi (1 dk = 10 dk kaldı).
+  2. adım (sürüm 0.71, telefonda denenmedi): birinci görev src/oyun/karakoy/gorev1.js (saf): DELILLER (15), CIKARIMLAR (gerekli
+  olduruldu/silah/orgut; kume iki delil kümesi), YANLISLAR (akla yatkın yanlış teoriler, Süleyman kararda düzeltir), NESNELER
+  (ceset 09.05'te kalkar ve Halim 7 m içindeyken incelenemez; denk; karanlik_oda banyo 30 dk, ceset_el negatifi → mum_izi; yük ve
+  vinç defteri gulceIzin ister; oda: döşek → mektup, pervaz → fotograf travma +1; antrepo sandıkları gürültü 40), KONUSMALAR
+  (giris(d) → düğüm; secenek yap(d) metin döndürür, sonra dize ya da işlev): suleyman (ilk/rapor: denkAcik + Kodak 6 poz +
+  gulceOnerildi/karar), husnu (Süleyman'ın adı, 5 kuruş, tehdit itibar -1), gulce (yalan → gulceYalan; gulceIzin; ferrante_damga),
+  ohannes (itibar < 0 ise 10 kuruş; odaAnahtari, paltolu), hamallar (günde bir yardım: 1 saat, +8 kuruş, itibar +1; d.bekleme),
+  halim, bekci. panoIfadeleri (doğru ifade + 2 yanlış ya da "bağ yok", tohumlu karışık), teoriKur (doğruluğu söylenmez), kararVer
+  (karar1 ingiliz/polis/sakla, gorevBitti), gorevIpucu, envanterMetni. dunya.js: başlangıç 06.40, rutin satırlarında gun (yalnız o
+  gün), devriyeMekan, antrepo mekânı + arka kapı (acik(d): 21.00-05.00 ve o gece yakalanmadıysan; geceKimligi), merdiven odaAnahtari
+  ister, gizlilik (bekçiye 2,5 m'den yakın → yakalanır; 6 m içinde hareket şüphe artırır; SUPHE_UYARI 40), etkiles en yakın kapı/nesne/
+  kişi, eylemUygula. Ekran: SesliListe katmanları (menü: görev, pano, defter, üstündekiler, bekle; konuşma; nesne eylemleri; pano
+  delil seç → ikinci delil → ifade; teori sök). Testler karakoy-gorev1.test.js. Kayıt yok (sonraki adım).
 - Bu ortamda npm yok; bağımlılık sürümleri Expo dokümanından (react-native-webview 14.0.1, SDK 58). bun build'e -e react-native-webview ekle.
 
 ## Tasarım

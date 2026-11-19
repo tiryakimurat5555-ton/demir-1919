@@ -16,6 +16,16 @@ import {
 } from '../src/oyun/karakoy/dunya';
 import { KISILER, MEKANLAR, BINALAR } from '../src/oyun/karakoy/harita';
 
+// Saat 15.00'te başlayan bir dünya (ilk adımdaki testler için)
+function ogleden() {
+  const d = yeniDunya();
+  d.dakika = 15 * 60;
+  d.gece = false;
+  d.sonSaat = 15;
+  d.sonVapur = 15 * 60;
+  return d;
+}
+
 const kisi = (id) => KISILER.find((k) => k.id === id);
 
 function yuruSaniye(d, sn, girdi = { ileri: 1 }) {
@@ -95,6 +105,8 @@ describe('kapılar ve iç mekânlar', () => {
     const d = yeniDunya();
     d.mekan = 'han';
     d.oyuncu = { x: 44, y: 28, yon: 0 };
+    expect(etkiles(d).tur).toBe('kilitli');
+    d.bayrak.odaAnahtari = true;
     const g = etkiles(d);
     expect(d.mekan).toBe('oda');
     expect(g.metin).toContain('Sabri');
@@ -130,13 +142,13 @@ describe('saat ve gece', () => {
     expect(geceMi(8 * 60)).toBe(false);
   });
   test('bekleyince akşam olur', () => {
-    const d = yeniDunya();
+    const d = ogleden();
     const olaylar = bekle(d, 120);
     expect(olaylar.some((o) => o.tur === 'aksam')).toBe(true);
     expect(saatMetni(d.dakika)).toBe('17.00');
   });
   test('gece yarısını geçince gün artar', () => {
-    const d = yeniDunya();
+    const d = ogleden();
     bekle(d, 10 * 60);
     expect(d.gun).toBe(2);
   });
@@ -200,7 +212,7 @@ describe('tarif ve tramvay', () => {
     expect(m).toMatch(/saat \d+ yönünde/);
   });
   test('durum metni saati ve yönü söyler', () => {
-    const d = yeniDunya();
+    const d = ogleden();
     expect(durumMetni(d)).toContain('Saat 15.00');
     expect(durumMetni(d)).toContain('doğuya');
   });

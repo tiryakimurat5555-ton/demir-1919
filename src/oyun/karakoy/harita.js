@@ -26,6 +26,20 @@ export const MEKANLAR = {
       { id: 'kayikhane_kapi', ad: 'Kayıkhanenin kapısı', x: -37.5, y: 5, hedef: 'kayikhane', varis: { x: -39.5, y: 5, yon: -Math.PI / 2 } },
       { id: 'buro_kapi', ad: 'Liman kayıt bürosunun kapısı', x: -1, y: 13.5, hedef: 'buro', varis: { x: -1, y: 15.5, yon: 0 } },
       { id: 'han_kapi', ad: 'Kalafatçı Hanı\'nın kapısı', x: 37, y: 15.5, hedef: 'han', varis: { x: 37, y: 17.5, yon: 0 } },
+      {
+        id: 'antrepo_arka',
+        ad: 'Antreponun arka kapısı',
+        x: 24.6,
+        y: 22,
+        hedef: 'antrepo',
+        varis: { x: 23, y: 22, yon: -Math.PI / 2 },
+        // Akşam dokuza kadar Ferrante'nin adamları içeride sayım yapar; sonra yalnız bekçi kalır
+        acik: (d) => {
+          const gd = ((d.dakika % 1440) + 1440) % 1440;
+          return (gd >= 21 * 60 || gd < 5 * 60) && d.bayrak.antrepoKapaliGece !== geceKimligi(d);
+        },
+        kilitli: 'Arka kapı kilitli. İçeriden sesler geliyor; Ferrante\'nin adamları akşam dokuza kadar sayım yapıyor.',
+      },
     ],
   },
   kayikhane: {
@@ -49,8 +63,24 @@ export const MEKANLAR = {
     alan: { x1: 28, x2: 46, y1: 16, y2: 30 },
     cikislar: [
       { id: 'han_cik', ad: 'Hanın kapısı', x: 37, y: 16.5, hedef: 'dis', varis: { x: 37, y: 13.5, yon: Math.PI } },
-      { id: 'merdiven_cik', ad: 'Üst kata çıkan merdiven', x: 44.5, y: 28.5, hedef: 'oda', varis: { x: 44, y: 27, yon: Math.PI } },
+      {
+        id: 'merdiven_cik',
+        ad: 'Üst kata çıkan merdiven',
+        x: 44.5,
+        y: 28.5,
+        hedef: 'oda',
+        varis: { x: 44, y: 27, yon: Math.PI },
+        acik: (d) => !!d.bayrak.odaAnahtari,
+        kilitli: 'Merdivenin başındaki kapı kilitli. Sabri\'nin odasının anahtarı Ohannes Usta\'da.',
+      },
     ],
+  },
+  antrepo: {
+    id: 'antrepo',
+    ad: 'Ferrante\'nin antreposu, karanlık',
+    ortam: 'ortam_depo',
+    alan: { x1: 12, x2: 24, y1: 14, y2: 28 },
+    cikislar: [{ id: 'antrepo_cik', ad: 'Arka kapı', x: 23.4, y: 22, hedef: 'dis', varis: { x: 25.6, y: 22, yon: Math.PI / 2 } }],
   },
   oda: {
     id: 'oda',
@@ -60,6 +90,12 @@ export const MEKANLAR = {
     cikislar: [{ id: 'merdiven_in', ad: 'Aşağı inen merdiven', x: 44.5, y: 29, hedef: 'han', varis: { x: 43.5, y: 27.5, yon: Math.PI } }],
   },
 };
+
+// Bir gecenin kimliği: öğleden önceki saatler önceki günün gecesine sayılır
+export function geceKimligi(d) {
+  const gd = ((d.dakika % 1440) + 1440) % 1440;
+  return gd < 12 * 60 ? d.gun - 1 : d.gun;
+}
 
 // Tarifte anılan sabit yerler (yalnızca sokakta)
 export const YERLER = [
@@ -83,6 +119,7 @@ export const KISILER = [
     giris: { x: -36, y: 41 },
     rutin: [
       { bas: 0, mekan: 'kayikhane', x: -46, y: 6, eylem: 'uyuyor', soz: 'Süleyman Kaptan uyuyor. Horultusu sobanın çıtırtısına karışıyor.' },
+      { bas: 6 * 60, gun: 1, mekan: 'dis', x: 26.5, y: 3.5, eylem: 'Sabri\'nin başında bekliyor' },
       { bas: 7 * 60, mekan: 'dis', x: -36, y: 3, eylem: 'kayığını kalafatlıyor', soz: 'Gel evlat. Şu kayığın karnı yine su alıyor. Leventis bu sabah erken yanaştı, gördün mü?' },
       { bas: 12 * 60, mekan: 'han', x: 32, y: 20, eylem: 'Ohannes Usta\'yla çay içiyor', soz: 'Öğle çayı, evlat. Ohannes\'in çayı Karaköy\'ün en iyisidir, ona söyleme ama.' },
       { bas: 13 * 60, mekan: 'dis', x: -36, y: 3, eylem: 'kayığını kalafatlıyor', soz: 'Akşama bitirmem lazım. Zifti karıştır da elin boş durmasın.' },
@@ -142,6 +179,8 @@ export const KISILER = [
     ],
     rutin: [
       { bas: 0, mekan: 'yok' },
+      { bas: 8 * 60 + 20, gun: 1, mekan: 'dis', x: 31.5, y: 4, eylem: 'cesedin başında bekliyor' },
+      { bas: 9 * 60 + 10, gun: 1, mekan: 'yok' },
       { bas: 10 * 60, mekan: 'devriye', eylem: 'devriye geziyor', soz: 'Komiser Halim bıyığını sıvazlıyor: Ne dikiliyorsun burada? Hamal mısın, işsiz mi? İşine bak.' },
       { bas: 11 * 60, mekan: 'yok' },
       { bas: 20 * 60, mekan: 'devriye', eylem: 'devriye geziyor', soz: 'Komiser Halim fenerini yüzüne tutuyor: Gece yarısı rıhtımda ne arıyorsun? Evine git.' },
@@ -149,6 +188,25 @@ export const KISILER = [
     ],
   },
 ];
+
+// Ferrante'nin bekçisi: geceleri antreponun içinde dolaşır
+KISILER.push({
+  id: 'bekci',
+  ad: 'Ferrante\'nin bekçisi',
+  giris: { x: 18, y: 13 },
+  devriyeMekan: 'antrepo',
+  devriye: [
+    { x: 14.5, y: 16 },
+    { x: 22.5, y: 16 },
+    { x: 22.5, y: 26.5 },
+    { x: 14.5, y: 26.5 },
+  ],
+  rutin: [
+    { bas: 0, mekan: 'devriye', eylem: 'feneriyle dolaşıyor' },
+    { bas: 5 * 60, mekan: 'yok' },
+    { bas: 21 * 60, mekan: 'devriye', eylem: 'feneriyle dolaşıyor' },
+  ],
+});
 
 // Tramvay kuzeydeki caddeden geçer (y 36)
 export const TRAMVAY = { y: 36, bati: -75, dogu: 75, aralik: 30, ilk: 5, gece: { bas: 23 * 60, bit: 6 * 60 } };
