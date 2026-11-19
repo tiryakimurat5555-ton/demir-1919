@@ -171,6 +171,8 @@ describe('İkinci görev: İkinci Adım Sesi', () => {
     expect(r.metin).toContain('kopyayı');
     expect(dugum(d, 'cemil', 'sonra').secenekler.some((s) => s.etiket.startsWith('Şu belgeye'))).toBe(false);
     expect(konusmaBasla(d, 'cemil')).toBe('sonra');
+    d.mekan = 'dis';
+    d.oyuncu = { x: -30, y: 5, yon: 0 };
     expect(yerlerListesi(d).some((y) => y.id === 'kisi_cemil')).toBe(true);
     // akşam kayıkhanede
     bekle(d, 18 * 60 - d.dakika);

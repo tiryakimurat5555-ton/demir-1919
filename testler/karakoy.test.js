@@ -299,7 +299,13 @@ describe('Yerler: kendiliğinden yürüme', () => {
     const d = yeniDunya();
     d.dakika = 10 * 60;
     d.bayrak.gulceOnerildi = true;
+    // Gülce başka bir yerde: listede yok; önce büroya gidilir, içeride listede o çıkar
+    expect(yerlerListesi(d).some((y) => y.id === 'kisi_gulce')).toBe(false);
+    otoBaslat(d, yerlerListesi(d).find((y) => y.id === 'buro'));
+    otoYuru(d);
+    expect(d.mekan).toBe('buro');
     const g = yerlerListesi(d).find((y) => y.id === 'kisi_gulce');
+    expect(yerlerListesi(d)[0].tur).not.toBe('yer');
     otoBaslat(d, g);
     otoYuru(d);
     expect(d.mekan).toBe('buro');
@@ -347,8 +353,15 @@ describe('Yerler: yalnızca bilinen ve gidilebilen', () => {
     ilerle(d, {}, 0.1);
     const ids = yerlerListesi(d).map((y) => y.id);
     expect(ids).toContain('buro');
-    expect(ids).toContain('nesne_denk');
+    expect(ids).not.toContain('nesne_denk'); // kayıkhanenin içinde: dışarıdan listelenmez
     expect(ids).toContain('antrepo_arka');
+    d.mekan = 'kayikhane';
+    d.oyuncu = { x: -42, y: 5, yon: 0 };
+    const ic = yerlerListesi(d).map((y) => y.id);
+    expect(ic).toContain('nesne_denk');
+    expect(ic).not.toContain('kayikhane');
+    expect(ic).not.toContain('nesne_ceset');
+    expect(ic).toContain('buro');
   });
   test('kayıt temizlenir ve geri yüklenir', async () => {
     const { kayitTemizle, kayittanDunya } = await import('../src/oyun/karakoy/dunya');

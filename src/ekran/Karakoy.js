@@ -477,7 +477,7 @@ export default function Karakoy({ onGeri, baslangic = null, onDurum }) {
     const tur = { yer: 'Yer', kisi: 'Kişi', nesne: 'Eşya' };
     katmanAc({
       baslik: 'Yerler',
-      giris: 'Gitmek istediğin yeri seç; Arif kendisi yürür. Yolda ekrana dokunursan durur.',
+      giris: 'Önce burada olan kişiler ve eşyalar, sonra gidebileceğin yerler. Birini seç; Arif kendisi yürür. Yolda ekrana dokunursan durur.',
       onGeri: () => menuyuAc(),
       ogeler: [
         ...liste.map((y) => ({

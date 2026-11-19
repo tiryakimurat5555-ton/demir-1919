@@ -655,7 +655,10 @@ export function yerlerListesi(d) {
     if (bilinen[n.id] || k['nesne_' + n.id]) ekle('nesne_' + n.id, n.ad, n.mekan, n.x, n.y, 1.2, 'nesne');
   }
   for (const y of liste) y.uzaklik = y.mekan === d.mekan ? Math.round(uzaklik(d.oyuncu, y)) : null;
-  return liste.filter((y) => !(y.mekan === d.mekan && y.uzaklik !== null && y.uzaklik < 1.5 && y.tur === 'yer'));
+  // Kişiler ve eşyalar yalnızca bulunduğun yerdekiler; yerler (mekânlar) her yerden. Önce buradakiler, yakından uzağa.
+  const burada = liste.filter((y) => y.tur !== 'yer' && y.mekan === d.mekan).sort((a, b) => a.uzaklik - b.uzaklik);
+  const yerler = liste.filter((y) => y.tur === 'yer' && !(y.mekan === d.mekan && y.uzaklik < 1.5) && !(y.mekan === d.mekan && d.mekan !== 'dis'));
+  return [...burada, ...yerler];
 }
 
 // Bir yere kendiliğinden yürümeyi başlatır. Döner: { metin, tamam }

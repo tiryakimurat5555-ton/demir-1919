@@ -62,6 +62,8 @@ describe('Dördüncü görev: Kül', () => {
     expect(mevcutNesneler(d).some((n) => n.id === 'yasar')).toBe(true);
     expect(gorevIpucu(d)).toContain('Rıza Bey');
     expect(yerlerListesi(d).some((y) => y.id === 'meyhane')).toBe(true);
+    bekle(d, 10);
+    d.mekan = 'han';
     expect(yerlerListesi(d).some((y) => y.id === 'kisi_riza')).toBe(true);
   });
 
