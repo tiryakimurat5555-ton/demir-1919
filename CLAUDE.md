@@ -140,6 +140,8 @@
   g5_kapanis (Gülce siyakat okur; gulceKamil soyle ise "Babam bana öğretti") → gorev5Bitir (perşembe 08.00 han, g5Bitti).
   Sıradaki: altıncı görev "Siyakat" (Gülce belgenin alt yarısını okur; dört şehir; birinci perdenin kapanışına doğru).
   Testler karakoy-gorev5.test.js. Telefonda denenmedi.
+  Sürüm 0.98 (19 Kasım, Murat: "Karakter yürümesi çok yavaş gibi"): YURUME_HIZI 2,4 m/sn (1,4'tü), ADIM_BOYU 1,0, OTO_HIZ 2,4,
+  OTO_HIZ_GIZLI 0,9; takipçi TAKIP_HIZ 2,8, KACIS_HIZ 4,5 (oyuncudan hızlı kalsın). Gizlilik eşikleri parmak gücüne (0-1) bağlı, değişmedi.
 - Bu ortamda npm yok; bağımlılık sürümleri Expo dokümanından (react-native-webview 14.0.1, SDK 58). bun build'e -e react-native-webview ekle.
 
 ## Tasarım

@@ -165,8 +165,8 @@ export const G2_NESNELER = [
 
 // --- Takip: kasketli adam ---
 const TAKIP_ARA = 12; // oyuncunun yolunda bu kadar metre geriden gelir
-const TAKIP_HIZ = 1.6; // m/sn, gerçek
-const KACIS_HIZ = 3.2;
+const TAKIP_HIZ = 2.8; // m/sn, gerçek (oyuncudan biraz hızlı)
+const KACIS_HIZ = 4.5;
 const TAKIP_BAS = 8 * 60;
 const TAKIP_BIT = 18 * 60 + 40;
 const FARK_ACI = 0.45; // radyan; bu açıdan dar bakarsan onu görürsün

@@ -11,9 +11,9 @@ import { aciDuzelt, goreliAci, saatYonu, tarif, uzaklik } from '../konum';
 
 // Zaman: gerçek 1 saniye = oyunda ZAMAN_ORANI saniye (1 gerçek dakika = 10 oyun dakikası)
 export const ZAMAN_ORANI = 10;
-export const YURUME_HIZI = 1.4; // m/sn, gerçek zamanda
+export const YURUME_HIZI = 2.4; // m/sn, gerçek zamanda (Murat 1,4'ü çok yavaş buldu)
 export const DONUS_HIZI = 1.6; // radyan/sn
-export const ADIM_BOYU = 0.75;
+export const ADIM_BOYU = 1.0; // her bu kadar metrede bir adım sesi
 export const KISI_HIZI = 1.2; // kişilerin yürüyüşü, m/sn gerçek
 export const DEVRIYE_HIZI = 1.0;
 export const TRAMVAY_HIZI = 4; // m/sn gerçek
@@ -604,8 +604,8 @@ export function bekle(d, dakika) {
 
 // --- Kendiliğinden yürüme ("Yerler" menüsü) ---
 
-const OTO_HIZ = 1.3; // m/sn
-const OTO_HIZ_GIZLI = 0.6; // antrepoda, bekçiyi uyandırmamak için
+const OTO_HIZ = 2.4; // m/sn
+const OTO_HIZ_GIZLI = 0.9; // gizli yerlerde, gözcüyü uyandırmamak için
 
 // Bu kişileri Arif zaten tanır (limanda çalışıyor); ötekiler karşılaşınca listeye girer
 const TANIDIK = ['suleyman', 'husnu', 'ohannes', 'hamallar', 'halim', 'riza'];
