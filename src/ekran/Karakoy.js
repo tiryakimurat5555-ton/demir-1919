@@ -20,7 +20,7 @@ import KonumsalSes from '../ses/konumsal';
 import { MEKANLAR, SESLER } from '../oyun/karakoy/harita';
 import { karakoyYaz } from '../oyun/karakoy/kayit';
 import { SAHNELER, sahneParagraflari, sahneSec, sahneSecenekleri } from '../oyun/karakoy/sahneler';
-import { ZEMIN, bekle, cevreMetni, durumKisa, durumMetni, etkiles, eylemUygula, ilerle, kisiler, otoBaslat, saatMetni, tramvayYeri, yeniDunya, yerlerListesi } from '../oyun/karakoy/dunya';
+import { ZEMIN, bekle, cevreMetni, durumKisa, durumMetni, etkiles, eylemUygula, ilerle, sesliKisiler, otoBaslat, saatMetni, tramvayYeri, yeniDunya, yerlerListesi } from '../oyun/karakoy/dunya';
 import {
   DELILLER,
   delilAdi,
@@ -127,7 +127,7 @@ export default function Karakoy({ onGeri, baslangic = null, onDurum }) {
     const s = m();
     if (!s || !hazir.current) return;
     s.dinleyici(d.oyuncu);
-    const kisi = kisiler(d);
+    const kisi = sesliKisiler(d);
     for (const k of kisi) {
       const duyulur = k.yuruyor && (k.mekan === d.mekan || k.mekan === 'dis');
       if (duyulur) {
@@ -206,6 +206,11 @@ export default function Karakoy({ onGeri, baslangic = null, onDurum }) {
       } else if (o.tur === 'suphe') {
         Haptics.notificationAsync(Haptics.NotificationFeedbackType.Warning).catch(() => {});
         sozler.push('Bekçinin adımları duruyor. Bir şey duydu. Kıpırdama.');
+      } else if (o.tur === 'anlatim') {
+        if (o.uyari) Haptics.notificationAsync(Haptics.NotificationFeedbackType.Warning).catch(() => {});
+        else if (o.dinle) Haptics.selectionAsync().catch(() => {});
+        if (o.yeniDeliller && o.yeniDeliller.length) cal('delil', 0.6);
+        sozler.push(o.metin + delilDuyurusu(o.yeniDeliller));
       } else if (o.tur === 'yakalandi') {
         Haptics.notificationAsync(Haptics.NotificationFeedbackType.Error).catch(() => {});
         sozler.push('Bir fener yüzüne vuruyor. Bekçi yakandan tutup seni arka kapıdan dışarı atıyor. Bu gece bir daha giremezsin; limanda da konuşulacak.');
@@ -295,7 +300,7 @@ export default function Karakoy({ onGeri, baslangic = null, onDurum }) {
           const sonraki = sahneSec(d, id, x.i);
           karakoyYaz(d);
           if (sonraki) sahneGoster(sonraki);
-          else katmanKapat(d.gorevBitti && id === 'kapanis' ? 'Menüden görevini ve Yerler\'i her zaman açabilirsin.' : null);
+          else katmanKapat(sahne.bitisSozu || null);
           return 'sessiz';
         },
       })),
@@ -560,7 +565,7 @@ export default function Karakoy({ onGeri, baslangic = null, onDurum }) {
           sesleriEsitle(true);
           soyle(e.metin + (d.mekan === 'antrepo' ? ' Burada yavaş yürü; bekçinin adımlarını dinle.' : ''), 'istek', true);
         } else if (e.tur === 'nesne') nesneGoster(e.id);
-        else if (e.tur === 'konus' && !e.yuruyor && konusmaVarMi(e.kisiId)) konusmaGoster(e.kisiId, e.ad, konusmaBasla(d, e.kisiId));
+        else if (e.tur === 'konus' && !e.yuruyor && konusmaVarMi(e.kisiId, d)) konusmaGoster(e.kisiId, e.ad, konusmaBasla(d, e.kisiId));
         else soyle(e.metin, 'istek', true);
       },
       onUzunBas: () => soyle(durumMetni(dunya.current), 'istek', true),

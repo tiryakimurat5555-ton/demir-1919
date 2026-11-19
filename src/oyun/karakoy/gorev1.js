@@ -60,6 +60,13 @@ export const YANLISLAR = [
   { ifade: 'Bu işin arkasında hamallar var.', duzeltme: 'Hamallar Sabri\'yi severdi. Onlar o motoru süremez, Frenk ağzıyla da konuşmaz.' },
 ];
 
+// İkinci görevin tanımları bu tablolara katılır
+import { G2_CIKARIMLAR, G2_DELILLER, G2_KONUSMALAR, G2_NESNELER, G2_YANLISLAR, TUM_YANLISLAR, g2Ipucu } from './gorev2';
+Object.assign(DELILLER, G2_DELILLER);
+Object.assign(CIKARIMLAR, G2_CIKARIMLAR);
+TUM_YANLISLAR.push(...YANLISLAR);
+YANLISLAR.push(...G2_YANLISLAR);
+
 export const BASLANGIC_PARA = 35;
 export const FILM = 6;
 
@@ -87,9 +94,9 @@ export function cikarimVar(d, id) {
   return d.teoriler.some((t) => t.dogru && t.cikarim === id);
 }
 
-export function gerekliCikarimlarTamam(d) {
+export function gerekliCikarimlarTamam(d, gorev = d.gorev || 1) {
   return Object.keys(CIKARIMLAR)
-    .filter((k) => CIKARIMLAR[k].gerekli)
+    .filter((k) => CIKARIMLAR[k].gerekli && (CIKARIMLAR[k].gorev || 1) === gorev)
     .every((k) => cikarimVar(d, k));
 }
 
@@ -130,7 +137,7 @@ export const NESNELER = [
     mekan: 'kayikhane',
     x: -48,
     y: 8,
-    mevcut: (d) => bayrak(d, 'denkAcik'),
+    mevcut: (d) => bayrak(d, 'denkAcik') && bayrak(d, 'kayikhaneYandi') !== 'tam',
     giris: 'Duvarın dibinde, yağlı bir branda altında Sabri\'nin denki. Süleyman sakla dediği için burada.',
     eylemler: [
       {
@@ -149,7 +156,7 @@ export const NESNELER = [
     mekan: 'kayikhane',
     x: -50.5,
     y: 2.5,
-    mevcut: (d) => !!d.envanter.kamera,
+    mevcut: (d) => !!d.envanter.kamera && bayrak(d, 'kayikhaneYandi') !== 'tam',
     giris: 'Süleyman\'ın gençliğinde fotoğrafçılık hevesinden kalma, perdeyle ayrılmış küçük bir köşe: leğenler, şişeler, kırmızı camlı bir fener.',
     eylemler: [
       {
@@ -268,6 +275,8 @@ export const NESNELER = [
     ],
   },
 ];
+
+NESNELER.push(...G2_NESNELER);
 
 export function mevcutNesneler(d) {
   return NESNELER.filter((n) => n.mekan === d.mekan && n.mevcut(d));
@@ -602,17 +611,32 @@ export const KONUSMALAR = {
   },
 };
 
-export function konusmaVarMi(kisiId) {
-  return !!KONUSMALAR[kisiId];
+// Görev 2'de o kişinin ikinci görev konuşması uygunsa o, değilse birinci görevinki
+function kaynak(d, kisiId) {
+  const g2 = G2_KONUSMALAR[kisiId];
+  if (d && d.gorev === 2 && g2 && g2.uygun(d)) return g2;
+  return KONUSMALAR[kisiId];
+}
+
+// Düğüm önce seçili kaynakta, yoksa öbüründe aranır (konuşma sürerken kaynak değişebilir)
+function dugumBul(d, kisiId, dugumId) {
+  const k = kaynak(d, kisiId);
+  if (k && k.dugumler[dugumId]) return k.dugumler[dugumId];
+  if (KONUSMALAR[kisiId] && KONUSMALAR[kisiId].dugumler[dugumId]) return KONUSMALAR[kisiId].dugumler[dugumId];
+  return G2_KONUSMALAR[kisiId].dugumler[dugumId];
+}
+
+export function konusmaVarMi(kisiId, d = null) {
+  return !!kaynak(d, kisiId);
 }
 
 export function konusmaBasla(d, kisiId) {
-  return KONUSMALAR[kisiId].giris(d);
+  return kaynak(d, kisiId).giris(d);
 }
 
 // Düğümün metni ve o anda görünen seçenekleri (dizindeki yerleriyle)
 export function dugum(d, kisiId, dugumId) {
-  const g = KONUSMALAR[kisiId].dugumler[dugumId];
+  const g = dugumBul(d, kisiId, dugumId);
   const metin = typeof g.metin === 'function' ? g.metin(d) : g.metin;
   const secenekler = g.secenekler.map((s, i) => ({ ...s, i })).filter((s) => !s.kosul || s.kosul(d));
   return { metin, secenekler: secenekler.map((s) => ({ etiket: s.etiket, i: s.i })) };
@@ -620,7 +644,7 @@ export function dugum(d, kisiId, dugumId) {
 
 // Seçeneği uygular: { metin (söylenecek cevap ya da boş), sonra (düğüm ya da null), yeniDeliller }
 export function sec(d, kisiId, dugumId, i) {
-  const s = KONUSMALAR[kisiId].dugumler[dugumId].secenekler[i];
+  const s = dugumBul(d, kisiId, dugumId).secenekler[i];
   const once = [...d.deliller];
   let metin;
   if (s.yap) {
@@ -668,7 +692,8 @@ function cikarimBul(a, b) {
 export function panoIfadeleri(d, a, b) {
   const dogru = cikarimBul(a, b);
   const tohum = (a + b).split('').reduce((t, c) => t + c.charCodeAt(0), 0);
-  const yanlislar = [YANLISLAR[tohum % YANLISLAR.length], YANLISLAR[(tohum + 1) % YANLISLAR.length]].map((y) => y.ifade);
+  const havuz = YANLISLAR.filter((y) => (y.gorev || 1) === (d.gorev || 1));
+  const yanlislar = [havuz[tohum % havuz.length], havuz[(tohum + 1) % havuz.length]].map((y) => y.ifade);
   const liste = dogru ? [CIKARIMLAR[dogru].ifade, ...yanlislar] : [...yanlislar, 'Bu ikisi arasında bir bağ yok.'];
   const kayma = tohum % liste.length;
   return [...liste.slice(kayma), ...liste.slice(0, kayma)];
@@ -699,12 +724,16 @@ export function envanterMetni(d) {
   if (delilVar(d, 'belge')) p.push('Yağlı beze sarılı belge.');
   if (delilVar(d, 'fotograf')) p.push('Manastır\'da çekilmiş fotoğraf.');
   if (d.bayrak.odaAnahtari) p.push('Sabri\'nin oda anahtarı.');
+  if (delilVar(d, 'lavanta_not')) p.push('Lavanta kokulu not.');
+  if (delilVar(d, 'jeton')) p.push('Pirinç bir jeton: Mercure, Pera, 17.');
+  if (d.bayrak.yaraKol) p.push('Sol kolunda Cemil\'in sardığı yanık.');
   p.push('Limandaki itibarın: ' + (d.itibar > 0 ? 'iyi' : d.itibar < 0 ? 'kötü' : 'sıradan') + '.');
   return p.join(' ');
 }
 
 // Duraklatma menüsündeki "Görev" satırı: şu an ne yapılabilir?
 export function gorevIpucu(d) {
+  if (d.gorev === 2) return g2Ipucu(d);
   if (d.gorevBitti) return 'Birinci görev bitti. Karaköy\'de dolaşmayı sürdürebilirsin.';
   if (!bayrak(d, 'denkAcik'))
     return bayrak(d, 'cesetGitti')

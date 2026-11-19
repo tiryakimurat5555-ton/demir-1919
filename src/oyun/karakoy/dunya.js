@@ -3,6 +3,7 @@
 import { BINALAR, GUN_BATIMI, GUN_DOGUMU, KISILER, MEKANLAR, SINIR, TRAMVAY, YERLER, SESLER, geceKimligi } from './harita';
 import { BASLANGIC_PARA, NESNELER, mevcutNesneler, nesneEylem } from './gorev1';
 import { rotaKur } from './yol';
+import { gorev2Ilerle, kisiDuzelt, takipciKisi } from './gorev2';
 import { aciDuzelt, goreliAci, saatYonu, tarif, uzaklik } from '../konum';
 
 // Zaman: gerçek 1 saniye = oyunda ZAMAN_ORANI saniye (1 gerçek dakika = 10 oyun dakikası)
@@ -49,6 +50,8 @@ export function yeniDunya() {
     fotograflar: [],
     suphe: 0,
     gorevBitti: false,
+    gorev: 1,
+    gorevGun: 1,
     kesif: { kayikhane: true, han: true }, // bilinen yerler, kişiler, eşyalar (Yerler menüsü bunlardan oluşur)
   };
 }
@@ -112,6 +115,7 @@ export function konumAdi(d) {
   if (x > -38 && x < -34) return 'gümrük ambarının yanındaki ara sokak';
   if (x > 8 && x < 12) return 'büronun yanındaki dar geçit';
   if (x > 24 && x < 28) return 'antrepo ile hanın arasındaki geçit';
+  if (x > 46 && x < 50) return 'han ile yapıların arasındaki karanlık geçit';
   return 'ara sokak';
 }
 
@@ -186,10 +190,20 @@ function rotadaYer(r, yol) {
   return { mekan: s.mekan, x: s.x, y: s.y, yuruyor: false };
 }
 
+// Rutin satırının bugün geçerli olup olmadığı. ctx: { gorev, gorevGun }
+function satirGecerli(x, gun, ctx) {
+  const gorev = ctx.gorev || 1;
+  if (x.gun && x.gun !== gun) return false;
+  if (x.gorev && x.gorev !== gorev) return false;
+  if (x.gorevMin && gorev < x.gorevMin) return false;
+  if (x.gorevGunu && gun !== ctx.gorevGun) return false;
+  return true;
+}
+
 // Kişinin şu andaki durumu: { id, ad, mekan, x, y, yuruyor, eylem, soz } ya da null (Karaköy'de değil)
-export function kisiDurumu(kisi, dakika, gun = 1) {
+export function kisiDurumu(kisi, dakika, gun = 1, ctx = {}) {
   const gd = ((dakika % 1440) + 1440) % 1440;
-  const r = kisi.rutin.filter((x) => !x.gun || x.gun === gun);
+  const r = kisi.rutin.filter((x) => satirGecerli(x, gun, ctx));
   let i = 0;
   for (let k = 0; k < r.length; k++) if (r[k].bas <= gd) i = k;
   const satir = r[i];
@@ -219,8 +233,24 @@ export function kisiDurumu(kisi, dakika, gun = 1) {
   return { id: kisi.id, ad: kisi.ad, mekan: hedef.mekan, x: hedef.x, y: hedef.y, yuruyor: false, eylem: satir.eylem, soz: satir.soz };
 }
 
+// Karaköy'deki kişiler. Fark edilmemiş takipçi bu listede yoktur (yalnızca adımları duyulur).
 export function kisiler(d) {
-  return KISILER.map((k) => kisiDurumu(k, d.dakika, d.gun)).filter(Boolean);
+  const ctx = { gorev: d.gorev || 1, gorevGun: d.gorevGun };
+  const liste = KISILER.map((k) => kisiDurumu(k, d.dakika, d.gun, ctx))
+    .filter(Boolean)
+    .map((k) => kisiDuzelt(d, k))
+    .filter(Boolean);
+  const t = takipciKisi(d);
+  if (t && !t.gizli) liste.push(t);
+  return liste;
+}
+
+// Ses için: gizli takipçi de dahil (adımları duyulur)
+export function sesliKisiler(d) {
+  const liste = kisiler(d);
+  const t = takipciKisi(d);
+  if (t && t.gizli) liste.push(t);
+  return liste;
 }
 
 // Aynı mekândaki kişiler
@@ -260,6 +290,7 @@ export function ilerle(d, girdi, dt) {
   if (d.oto) {
     otoHareket(d, dt, olaylar);
     gizlilik(d, d.mekan === 'antrepo' ? 0.3 : 0.7, dt, olaylar);
+    gorev2Ilerle(d, d.mekan === 'antrepo' ? OTO_HIZ_GIZLI / YURUME_HIZI : OTO_HIZ / YURUME_HIZI, dt, olaylar);
     yakinlikOlaylari(d, olaylar);
     return olaylar;
   }
@@ -294,6 +325,7 @@ export function ilerle(d, girdi, dt) {
     }
   } else d.carpti = false;
   gizlilik(d, Math.abs(ileri), dt, olaylar);
+  gorev2Ilerle(d, Math.abs(ileri), dt, olaylar);
   yakinlikOlaylari(d, olaylar);
   return olaylar;
 }
@@ -503,10 +535,11 @@ export function bekle(d, dakika) {
       d.gun += 1;
     }
     zamanOlaylari(d, eski, olaylar);
+    gorev2Ilerle(d, 0, (Math.min(adim, dakika - g) * 60) / ZAMAN_ORANI, olaylar, true);
   }
   d.sonVapur = ((d.dakika % 1440) + 1440) % 1440;
   yakinlikOlaylari(d, olaylar);
-  return olaylar.filter((o) => ['aksam', 'sabah', 'kisi', 'kapi', 'cesetGitti'].includes(o.tur));
+  return olaylar.filter((o) => ['aksam', 'sabah', 'kisi', 'kapi', 'cesetGitti', 'anlatim'].includes(o.tur));
 }
 
 // --- Kendiliğinden yürüme ("Yerler" menüsü) ---
@@ -516,6 +549,8 @@ const OTO_HIZ_GIZLI = 0.6; // antrepoda, bekçiyi uyandırmamak için
 
 // Bu kişileri Arif zaten tanır (limanda çalışıyor); ötekiler karşılaşınca listeye girer
 const TANIDIK = ['suleyman', 'husnu', 'ohannes', 'hamallar', 'halim'];
+// Bu kişiler listeye hiç girmez (gizlice izlenir ya da kaçar)
+const LISTEDISI = ['bekci', 'takipci', 'kasketli'];
 
 // Şu an gidilebilecek ve bilinen yerler: { id, ad, mekan, x, y, menzil, tur, uzaklik }
 export function yerlerListesi(d) {
@@ -531,9 +566,11 @@ export function yerlerListesi(d) {
   ekle('leventis', 'Leventis vapurunun yanı', 'dis', 30, 1.3, 1, 'yer');
   ekle('iskele', 'Kayıkçı iskelesi', 'dis', 5, 1.3, 1, 'yer');
   ekle('durak', 'Tramvay durağı', 'dis', 0, 34, 1, 'yer');
+  if (b.gecitBiliniyor || d.deliller.includes('halim_bulusma')) ekle('gecit', 'Karanlık geçidin rıhtım ağzı', 'dis', 48, 13, 0.6, 'yer');
   for (const p of kisiler(d)) {
-    if (p.id === 'bekci' || p.mekan === 'antrepo') continue;
-    const taniniyor = TANIDIK.includes(p.id) || k['kisi_' + p.id] || (p.id === 'gulce' && b.gulceOnerildi);
+    if (LISTEDISI.includes(p.id) || p.mekan === 'antrepo') continue;
+    const taniniyor =
+      TANIDIK.includes(p.id) || k['kisi_' + p.id] || (p.id === 'gulce' && b.gulceOnerildi) || (p.id === 'cemil' && (b.cemilTanisti || b.s2Selam));
     if (taniniyor) ekle('kisi_' + p.id, p.ad, p.mekan, p.x, p.y, 1.6, 'kisi');
   }
   const bilinen = {
@@ -642,6 +679,8 @@ export function kayittanDunya(k) {
   const temel = yeniDunya();
   const d = { ...temel, ...k, oto: null, yakin: {} };
   delete d.surum;
+  // Birinci görevi ikinci görev yokken bitiren kayıt: ikinci görev gecenin sahnesiyle başlar
+  if (d.gorev === 1 && d.gorevBitti && !d.sahne) d.sahne = 'g2_gece';
   return d;
 }
 

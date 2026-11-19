@@ -225,7 +225,7 @@ describe('Sudaki Adam baştan sona', () => {
     sahneSec(d, d.sahne, 0);
     sahneSec(d, 'kapanis', 0);
     expect(d.gorevBitti).toBe(true);
-    expect(d.sahne).toBeNull();
+    expect(d.sahne).toBe('g2_gece');
   });
 
   test('ilgisiz iki delil için "bağ yok" seçeneği sunulur', () => {

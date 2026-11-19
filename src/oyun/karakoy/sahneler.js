@@ -4,6 +4,8 @@
 // sonra null ise sahne kapanır, serbest dolaşma sürer. Seçeneği olmayan sahnede tek "Devam" vardır.
 // d.sahne o an açık olan sahnedir (kayıtta saklanır; oyun yeniden açılınca sahne kaldığı yerden okunur).
 
+import { G2_SAHNELER } from './gorev2';
+
 const bayrak = (d, k) => d.bayrak[k];
 const delilVar = (d, id) => d.deliller.includes(id);
 
@@ -237,10 +239,11 @@ export const SAHNELER = {
         (d.travma || 0) >= 2
           ? 'Ellerin titriyor. Uzun zamandır ilk kez, savaşın bittiğinden emin değilsin.'
           : 'Kâğıdı katlayıp cebine koyuyorsun. Korkuyorsun; ama bu korku tanıdık. Ne yapacağını bilen bir korku.',
-        'Birinci görevin sonu. Karaköy\'de dolaşmayı sürdürebilirsin; hikâye bir sonraki görevle sürecek.',
+        'Birinci görevin sonu: Sudaki Adam.',
       ].filter(Boolean),
-    secenekler: [{ etiket: 'Devam', yap: (d) => (d.gorevBitti = true), sonra: null }],
+    secenekler: [{ etiket: 'Devam', yap: (d) => (d.gorevBitti = true), sonra: 'g2_gece' }],
   },
+  ...G2_SAHNELER,
 };
 
 export function sahneParagraflari(d, id) {

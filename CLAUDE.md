@@ -75,6 +75,26 @@
   "Bildiklerimi anlatayım" → karar_oncesi → gece_konusma (arifNeden) → gece_suleyman (Kemal, aramaSozu) → karar (karar1) →
   son_* → kapanis (lavanta not, gorevBitti). d.sahne kayıtta; Karakoy.js sahneGoster (zaman durur, ortam ve efekt çalar);
   katmanKapat d.sahne varsa sahneyi açar. Metinler eski bölüm 1'den.
+  SÜRÜM 0.90 (19 Kasım, Murat: "Hikayeyi taslağımıza göre devam ettir ... sıradan olmasın"; "2/3 saat uğraş bana bir şey sorma"):
+  ikinci görev "İkinci Adım Sesi" src/oyun/karakoy/gorev2.js (saf; gorev1.js'i içe aktarmaz, gorev1 onun DELILLER/CIKARIMLAR/
+  NESNELER/YANLISLAR'ını kendi tablolarına katar; sahneler.js G2_SAHNELER'i yayar). d.gorev (1/2), d.gorevGun. kapanis → g2_gece
+  (gorev2Baslat: ertesi sabah 07.25 han, lavanta_not) → g2_sabah (bitisSozu: sahne kapanınca söylenen söz). Konuşmalar
+  G2_KONUSMALAR[kisi].uygun(d) ise onlar, değilse birinci görevinki (dugumBul düğümü iki kaynakta da arar; konusmaVarMi(id, d)).
+  Takipçi (kasketli adam, d.takip): görev günü 08.00-18.40, oyuncu sokağa çıkınca kapının karşısında bekler, 12 m uzaklaşınca
+  izinden (iz noktaları) 12 m geride gelir; yalnızca adımları duyulur (sesliKisiler; kisiler'de fark edilene dek yok). Oyuncu 5 sn
+  durursa ipucu; 18 m içinde 0,45 rad'dan dar bakarsa 1,5 sn'de fark (delil takipci), sonra 5 m'ye yaklaşınca kaçar. Buluşma:
+  KISILER halim (gorev 2, gorevGunu satırları) ve kasketli, BULUSMA (48,25), 19.04'ten 3 dk arayla altı satır (dinleSatirlari);
+  7 m içinde duyulur, 15 m içinde fısıltı; 3 m'den yakın ya da 7 m içinde hız > 0,4 → bulusmaBozuldu. 2,3,4 duyulursa kulak_misafiri.
+  Bekleme de dinlemedir (gorev2Ilerle sessiz). Olay türü 'anlatim' {metin, yeniDeliller, uyari, dinle}. Kişi satırlarında gorev,
+  gorevMin, gorevGunu (kisiDurumu ctx). Cemil gorevMin 2 (10.00 rıhtım, 17.30 kayıkhane). Gaz nesnesi 19.40'tan (gazAtildi).
+  Gerekli çıkarımlar toplanti / katil / tehlike (gorev: 2; gerekliCikarimlarTamam(d, gorev)); isteğe bağlı halim_bagli, ihanet.
+  panoIfadeleri yanlışları görevin havuzundan alır. Süleyman karar → g2_karar_oncesi → g2_karar: karar2 tasi / pusu (pusuYardim
+  riza [karar1 polis] / hamallar [itibar >= 1] / yalniz; gazAtildi ya da yardım → yakalandi, delormeAdi; yoksa yaraKol, travma+1) /
+  haber (gazAtildi değilse suleymanYarali, kayikhaneYandi tam) → g2_kapanis (cemilEkipte, cemilKabul) → g2_son (gorev2Bitir: g2Bitti,
+  ertesi gün 08.00 han). kayikhaneYandi tam: denk ve karanlık oda yok, 'kul' nesnesi; suleymanHanda ise Süleyman handa (kisiDuzelt).
+  Yeni bayraklar (sonraki görevlerde karşılık bekler): kemalSoz soz/durust/sessiz, cemilFikri teselli/sert/sus, haticeKarar yolla/sakla,
+  sabriTasi, gulceNazim, halimGordu2, rizaTanisti, delormeAdi, karar2, pusuSonuc, suleymanYarali, kayikhaneYandi, cemilKabul.
+  Eski kayıt: gorev 1, gorevBitti, sahne yok → g2_gece. Testler testler/karakoy-gorev2.test.js. Telefonda denenmedi.
 - Bu ortamda npm yok; bağımlılık sürümleri Expo dokümanından (react-native-webview 14.0.1, SDK 58). bun build'e -e react-native-webview ekle.
 
 ## Tasarım

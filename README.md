@@ -423,3 +423,5 @@ ambarda ona Neslihan öğretmiştir. Yeni ortam sesi: İskenderiye limanı.
 - Sürüm 0.71: Karaköy'de birinci görev Sudaki Adam: inceleme, sorgu, fotoğraf ve karanlık oda, antrepoda gizlilik, serbest pano, para ve itibar.
 - Sürüm 0.72: Karaköy menüsünde Yerler: seçilen yere, kişiye ya da eşyaya Arif kendisi yürür.
 - Sürüm 0.80: Karaköy asıl oyun oldu (eski bölümler ve denemeler menüden kalktı), otomatik kayıt, Yerler yalnızca bilinen yerler, kayıtlı adım sesleri (taş ve ahşap).
+- Sürüm 0.81: hikâye başlangıcı sahnelerle (açılış, Seddülbahir anısı, Süleyman'ın çağrısı, karar gecesi).
+- Sürüm 0.90: ikinci görev İkinci Adım Sesi: Doktor Cemil, peşindeki kasketli adam (adımlarını dinle, dönüp bak), karanlık geçitte Halim'in buluşmasını gizlice dinlemek, gaz tenekeleri, gecenin kararı (taşı / pusu / haber ver) ve kayıkhanenin yangını.

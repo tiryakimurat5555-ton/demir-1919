@@ -103,6 +103,7 @@ export const YERLER = [
   { id: 'iskele', ad: 'Kayıkçı iskelesi', x: 5, y: 0.5 },
   { id: 'durak', ad: 'Tramvay durağı', x: 0, y: 34 },
   { id: 'antrepo_kapi', ad: 'Antreponun kapalı kapısı', x: 18, y: 13.5 },
+  { id: 'gecit', ad: 'Han ile yapıların arasındaki karanlık geçit', x: 48, y: 20 },
 ];
 
 // Gün dakikası (0-1439). Aralık 1918 İstanbul: güneş yaklaşık 07.15'te doğar, 16.40'ta batar.
@@ -183,11 +184,40 @@ export const KISILER = [
       { bas: 9 * 60 + 10, gun: 1, mekan: 'yok' },
       { bas: 10 * 60, mekan: 'devriye', eylem: 'devriye geziyor', soz: 'Komiser Halim bıyığını sıvazlıyor: Ne dikiliyorsun burada? Hamal mısın, işsiz mi? İşine bak.' },
       { bas: 11 * 60, mekan: 'yok' },
+      // İkinci görevin ilk akşamı: karanlık geçitte kasketli adamla buluşma
+      { bas: 18 * 60 + 30, gorev: 2, gorevGunu: true, mekan: 'dis', x: 48, y: 33, eylem: 'geçidin ağzında sigara içiyor', soz: 'Komiser Halim sigarasının ateşini avucuna saklıyor: Yolun açık olsun. Burada durma.' },
+      { bas: 18 * 60 + 52, gorev: 2, gorevGunu: true, mekan: 'dis', x: 48, y: 25.6, eylem: 'karanlık geçitte biriyle fısıldaşıyor' },
+      { bas: 19 * 60 + 35, gorev: 2, gorevGunu: true, mekan: 'yok' },
       { bas: 20 * 60, mekan: 'devriye', eylem: 'devriye geziyor', soz: 'Komiser Halim fenerini yüzüne tutuyor: Gece yarısı rıhtımda ne arıyorsun? Evine git.' },
       { bas: 21 * 60, mekan: 'yok' },
     ],
   },
 ];
+
+// İkinci görev: Gureba'dan gelen Doktor Cemil ve geçitteki buluşmada kasketli adam
+KISILER.push(
+  {
+    id: 'cemil',
+    ad: 'Doktor Cemil',
+    giris: { x: -36, y: 41 },
+    rutin: [
+      { bas: 0, mekan: 'yok' },
+      { bas: 10 * 60, gorevMin: 2, mekan: 'dis', x: -33.5, y: 4.5, eylem: 'Süleyman\'ın kayığının yanında, ziftten uzak duruyor', soz: 'Cemil gözlüklerini siliyor: Deniz kokusu morg kokusundan iyidir, derdi hocam. Haklıymış.' },
+      { bas: 17 * 60 + 30, gorevMin: 2, mekan: 'kayikhane', x: -47, y: 4, eylem: 'sobanın başında ellerini ısıtıyor', soz: 'Cemil ellerini sobaya tutuyor: Ölülerle çalışan adamın elleri hiç ısınmaz.' },
+      { bas: 21 * 60, gorevMin: 2, mekan: 'yok' },
+    ],
+  },
+  {
+    id: 'kasketli',
+    ad: 'Kasketli adam',
+    giris: { x: 48, y: 41 },
+    rutin: [
+      { bas: 0, mekan: 'yok' },
+      { bas: 18 * 60 + 50, gorev: 2, gorevGunu: true, mekan: 'dis', x: 48, y: 24.4, eylem: 'karanlık geçitte biriyle fısıldaşıyor' },
+      { bas: 19 * 60 + 35, gorev: 2, gorevGunu: true, mekan: 'yok' },
+    ],
+  },
+);
 
 // Ferrante'nin bekçisi: geceleri antreponun içinde dolaşır
 KISILER.push({
