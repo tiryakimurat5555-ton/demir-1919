@@ -167,6 +167,17 @@
   raf yakıldı) → g6_kapanis (dört kapı; notKarar sakla ise pusula hâlâ Arif'te) → gorev6Bitir (g6Bitti; gün gorevGun + {riza 0, yuzles 1,
   gazete 2} + 1, 08.00 han). Yeni iplikler: notKarar sakla (pusula), nazimUyarildi/muhurUyarildi/kollarUyarildi (omurgadaki kimlik
   açığa çıkması), dosyaRizada (Adalet sonu). Testler karakoy-gorev6.test.js. Telefonda denenmedi. Sıradaki: yedinci görev.
+- HİKÂYENİN TAMAMI (19 Kasım, Murat: "Başla. Müthiş bir hikaye oluştur baştan sona"): https://claude.ai/artifact/5zJRKsQz68zXf1qfmwAkFP
+  (görev görev plan; yeni görev yazmadan önce oku, tutarlı kal). Ana kararlar: telgraftaki "SALONIQUE. N. 23 ARALIK" = Neslihan
+  Selanik'ten İstanbul'a geliyor; Delorme Selanik'te (Göz kolu bekler). Birinci perde 10 görev: 7 Madam N. (23-25 Aralık, Kalliope,
+  Pera Palas, Noel; ninni "Dandini dastana" ile tanıma; Brenner ve Garnier; "Ahit" kelimesi), 8 Kasa (Ocak 1919, Brenner ölü,
+  Rainer ve Ortakları Galata şubesi, Ferrante, Ceneviz hanı bodrumunda dört dişle açılan kasa; Weisz'ın adı; Ferrante teslim/kaçır/muhbir),
+  9 Balo (Mart 1919, Kont Szalay ve Nazım; karar6'ya göre Nazım'ın karşı hamlesi: Gülce'yi tutuklatma ya da Rıza'nın evi),
+  10 Pusula (Nisan-Mayıs 1919, Hatice, Sabri'nin taşı, 15 Mayıs, ilk kol seçimi, Süleyman'ın pusulası içinde kazınmış kanatlı anahtar).
+  BÜYÜK SIR: "Bkz. S." = Süleyman. 1915'te Göz, Pendle'in gemisindeki oğlu Kemal'i rehin tutup kalıpçının oğlunu bulmasını istedi;
+  Süleyman Arif'i buldu, hiç ihbar etmedi (Göz arşivi / üçüncü perde Kemal görevi). "Hamal canlı kalsın": Rivière beşinci koltuğu kalıbı
+  döken ustanın çocuklarından biri için bekletiyor. Ahit'i Rivière yazdı. Nermin'in abisi Cevdet Kasa kolunun taşıdığı çürük kaputla
+  dondu. Binbaşı Fikri Kılıç'ın İstanbul adamı. Delorme'un zaafı Neslihan. Anne Zehra Tekirdağ'da yaşıyor (gizli son).
 - Bu ortamda npm yok; bağımlılık sürümleri Expo dokümanından (react-native-webview 14.0.1, SDK 58). bun build'e -e react-native-webview ekle.
 
 ## Tasarım
