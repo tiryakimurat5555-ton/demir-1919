@@ -55,7 +55,7 @@ export const G5_NESNELER = [
         yap: (d) => {
           d.bayrak.cantaAlindi = true;
           return {
-            metin: 'Kayışı parmağına dolayıp çantayı sandıktan kaldırıyorsun. İçinde kâğıtlar hışırdıyor. Şimdi açma; önce buradan çık.',
+            metin: 'Deri çanta, köşeleri pirinç, kilidi açık; Delorme bir an bile bırakmayacağını düşünmüş olmalı. Kayışı parmağına dolayıp sandıktan kaldırıyorsun. Kapağı bir parmak aralıyorsun; kapının aralığından sızan sokak fenerinin ışığı yetiyor. Üstte bir telgraf kâğıdı, büyük harfler: SALONIQUE. N. 23 ARALIK. FOTOGRAF ONEMLI. HAMAL CANLI KALSIN. Altında yine tek harf: R. Hamal sensin. Biri seni canlı istiyor. Altında katlanmış bir liste, Delorme\'un temiz, eğik el yazısıyla: Mavna Ayşegül, yirmi sandık, Pire; oradan Santa Lucia\'nın kardeş gemisine. Kapağı kapatıyorsun. Şimdi okuma zamanı değil; önce buradan çık.',
             delil: ['salonique_n', 'mavna_listesi'],
           };
         },

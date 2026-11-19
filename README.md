@@ -430,3 +430,4 @@ ambarda ona Neslihan öğretmiştir. Yeni ortam sesi: İskenderiye limanı.
 - Sürüm 0.97: beşinci görev Antrepo: çarşamba gecesi plan (Rıza polislerle / Süleyman denizde / Nermin damda), antrepoya gizlice girmek, Delorme'un deri çantası, yüzleşme (saldır / konuştur / fotoğrafı göster), Selanik telgrafı.
 - Sürüm 0.98: yürüme hızı 1,4'ten 2,4 m/sn'ye çıktı (kendiliğinden yürüme de); adım sesi her metrede bir.
 - Sürüm 0.99: Yerler menüsü yalnızca bulunduğun yerdeki kişileri ve eşyaları, sonra gidebileceğin yerleri gösterir.
+- Sürüm 1.00: ipucu metinleri ayrıntılandı (ceset, defterler, döşek, karanlık oda, sandıklar; Hüsnü, Gülce, Ohannes, hamallar; Pera, meyhane ve antrepo bulguları).

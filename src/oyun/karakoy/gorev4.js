@@ -73,7 +73,7 @@ export const G4_NESNELER = [
         id: 'sirt',
         etiket: 'Çuvalı kaldır, sırtına bak',
         yap: () => ({
-          metin: 'Kimse seni durdurmuyor; Halim\'in adamları bile uzakta. Yaşar\'ın sırtında, sol kürek kemiğinin altında ince bir yara. Kaburgaların arasından, tek seferde. Sabri\'yi düşünüyorsun; aynı yer, aynı el.',
+          metin: 'Kimse seni durdurmuyor; Halim\'in adamları bile uzakta, sigara içiyorlar. Yaşar yüzüstü yatıyor, kasketi hâlâ başında; biri onu ölünce düzeltmiş gibi. Ceketini sırtından kaldırıyorsun. Sol kürek kemiğinin altında ince, düzgün bir yara; bir parmak eninde, kenarları temiz. Kaburgaların arasından, yukarı doğru, tek seferde. Ne bir sıyrık var ne bir boğuşma izi; tırnakları temiz. Yaşar katilini tanıyormuş, sırtını dönecek kadar. Ateş hattında böyle öldürmeyi öğretirlerdi, sessiz ve çabuk. Sabri\'yi düşünüyorsun; Cemil\'in anlattığı yarayı. Aynı yer, aynı açı, aynı el.',
           delil: ['yasar_yarasi'],
         }),
       },
@@ -355,7 +355,7 @@ export const G4_KONUSMALAR = {
         metin: (d) => {
           d.bayrak.gulce4 = true;
           delilEkle(d, 'halim_dilekce');
-          return 'Gülce sesini alçaltıyor. Halim bu sabah İdare\'ye dilekçe yollamış. Bursa\'ya tayin istiyor. Kenarına kendi eliyle yazmış: Acele. Halim hayatında hiçbir şeyi acele istememişti.';
+          return 'Gülce kapıya bakıp sesini alçaltıyor. Halim bu sabah Liman İdaresi\'ne bir dilekçe yollamış, diyor; suretini ben kaydettim. Bursa\'ya tayin istiyor, sıhhî sebeplerle. Hekim raporu yok, yalnız dilekçe. Kenarına kendi eliyle, mürekkebi dağıtarak yazmış: Acele. Ben bu limanda Halim\'i on yıldır tanırım, Arif. Hayatında hiçbir şeyi acele istemedi; maaşını bile. Korkmuş bir adamın yazısı bu. Kimden korktuğunu sen bulursun.';
         },
         secenekler: [{ etiket: 'Sağ ol Gülce Hanım.', sonra: 'sonra' }],
       },

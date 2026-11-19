@@ -144,6 +144,9 @@
   OTO_HIZ_GIZLI 0,9; takipçi TAKIP_HIZ 2,8, KACIS_HIZ 4,5 (oyuncudan hızlı kalsın). Gizlilik eşikleri parmak gücüne (0-1) bağlı, değişmedi.
   Sürüm 0.99 (19 Kasım, Murat: "bir yere girince sadece oranın içindekiler gözüksün, bir de gidilebilecek mekanlar"): yerlerListesi
   kişi ve eşyaları yalnızca bulunduğun mekândan verir (yakından uzağa, listenin başında); ardından gidilebilecek yerler (içindeysen o yer düşer).
+  Sürüm 1.00 (19 Kasım, Murat: "İpucu bulunca ki metinleri üstünkörü geçme, ilk versionda daha detaylıydı"): görev 1-5'te delil veren
+  eylem ve konuşma metinleri eski bölüm metinleri ölçüsünde yeniden yazıldı (duyusal ayrıntı + Arif'in çıkarımı). Yeni delil eklerken
+  bulma metnini tek cümle bırakma; ne görüldüğünü, nasıl görüldüğünü ve ne anlama gelebileceğini yaz (yeni olgu uydurmadan).
 - Bu ortamda npm yok; bağımlılık sürümleri Expo dokümanından (react-native-webview 14.0.1, SDK 58). bun build'e -e react-native-webview ekle.
 
 ## Tasarım

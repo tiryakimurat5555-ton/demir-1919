@@ -125,7 +125,7 @@ export const G2_NESNELER = [
         id: 'bak',
         etiket: 'Çuvalı kaldır',
         yap: () => ({
-          metin: 'Çuvalın altında iki gaz tenekesi. Biri yarı boş; duvarın alt tahtaları ıslak, parmağına bulaşan şey yakıcı kokuyor. Biri kayıkhaneyi yakmaya hazırlanmış.',
+          metin: 'Çuvalı kaldırıyorsun; altında iki gaz tenekesi. Biri dolu, ağzı bezle tıkanmış. Öbürü yarı boş. Kayıkhanenin rıhtıma bakan duvarında, alt tahtalar bir karış yükseğe kadar ıslak; parmağını sürüyorsun, yağlı ve yakıcı kokuyor, gözlerini yaşartıyor. Biri tahtaları gazla sulamış, sonra tenekeyi buraya saklayıp gitmiş. Yakacak olan, ateşi sonra getirecek. Tenekelerin dibinde tebeşirle bir işaret: bir çarpı ve yanında bir rakam, yedi. Saat mi, adam mı, bilmiyorsun.',
           delil: ['gaz'],
         }),
       },
@@ -778,7 +778,7 @@ export const G2_KONUSMALAR = {
             kosul: (d) => delilVar(d, 'takipci') && !delilVar(d, 'halimin_adami'),
             yap: (d) => {
               delilEkle(d, 'halimin_adami');
-              return 'Hüsnü tükürüyor. Kasketli Yaşar. Sabahları karakolun arka kapısından çıkar. Halim\'in muhbiri; parasını Halim\'in cebinden alır, Halim de kimin cebinden alıyorsa. Ondan uzak dur.';
+              return 'Hüsnü denize tükürüyor. Kasketli Yaşar, diyor. Tophane\'nin arka sokaklarından; babası da hamaldı, sonra kumarda her şeyini yedi. Yaşar sabahları karakolun arka kapısından çıkar, akşamları kahvelerde kulak kabartır. Halim\'in muhbiri; parasını Halim\'in cebinden alır, Halim de kimin cebinden alıyorsa. Geçen kış bir kayıkçıyı ispiyonladı, adam üç ay yattı. Yürüyüşünü bilirsen kalabalıkta da tanırsın: sol ayağını biraz sürür. Ondan uzak dur, oğul. Muhbir ölmez; muhbiri kullanan öldürür.';
             },
             sonra: 'g2',
           },

@@ -165,7 +165,7 @@ export const G3_NESNELER = [
           const gd = gunDakika(d);
           if (!ilkGun(d) || gd < TOPLANTI_BAS - 12 || gd >= TOPLANTI_BIT) return { metin: 'Paltoların cebinde mendiller, eldivenler, tiyatro biletleri. Dikkatini çeken bir şey yok.' };
           return {
-            metin: 'Paltolardan biri lavanta kokuyor. Kalın, iyi dikilmiş, siyah. İç cebinde bir kartvizit: Lucien Delorme. Arkasında kurşun kalemle bir not: Karaköy, K. Hanı, 3. Senin odan. Üç numara.',
+            metin: 'Askıların arasında elini gezdiriyorsun: yün, kürk yaka, ıslak bir yağmurluk. Sonra koku: lavanta. Kalın, iyi dikilmiş siyah bir palto; astarı ipek, etiketi Paris\'ten, Rue de la Paix. Bu kokuyu günlerdir başkalarının ağzından duyuyorsun: Ohannes\'ten, Gülce\'den, Cemil\'den. Şimdi burnunda. İç cebinde gümüş kenarlı bir kartvizit: Lucien Delorme. Unvan yok, adres yok; yalnızca ad. Arkasında kurşun kalemle, küçük ve eğik harflerle bir not: Karaköy, K. Hanı, 3. Kalafatçı Hanı. Üç numara. Senin odan. Kartı yerine koyarken parmakların titriyor.',
             delil: ['delorme_kart'],
           };
         },
@@ -185,7 +185,7 @@ export const G3_NESNELER = [
         id: 'oku',
         etiket: 'Defteri aç',
         yap: () => ({
-          metin: 'Siyakat; okuyamıyorsun. Ama kenarlardaki Fransızca notlarda baş harfler ve rakamlar seçiliyor: N. B., Maliye, iki yüz. H., Karaköy, otuz. Gümrük, liman, bir Paşa\'nın kapısı. Her satırın başında minicik bir anahtar çizilmiş.',
+          metin: 'Deri kaplı, kilitsiz bir defter; sayfaları ince ve sık yazılı. Ana yazı siyakat: kıvrılıp birbirine giren, noktasız harfler, belgenin alt yarısıyla aynı el türü. Okuyamıyorsun. Ama kenarlara biri Fransızca notlar düşmüş, Latin harfleriyle, ve onlar seçiliyor: N. B., Maliye, iki yüz lira. H., Karaköy, otuz. Gümrük Başmüdürlüğü, elli. Liman İdaresi, kırk. Bir Paşa\'nın konağı, yalnızca P. diye, yanında rakam yok, bir yıldız var. Her satırın başında minicik bir anahtar çizilmiş, kanatlarıyla. Bu bir rüşvet defteri. Şehrin yarısı bu sayfalarda maaş alıyor.',
           delil: ['rusvet_defteri'],
         }),
       },
@@ -214,7 +214,7 @@ export const G3_NESNELER = [
         id: 'bak',
         etiket: 'İzmaritlere bak',
         yap: () => ({
-          metin: 'İnce, pahalı Fransız sigaraları; hepsi yarıya kadar içilip bastırılmış. Kâğıtlarının ucunda kabartma iki harf: L. D. Tabladan lavanta kokusu yükseliyor.',
+          metin: 'Kristal bir kül tablası, ağzına kadar dolu. İnce, pahalı Fransız sigaraları; hepsi tam yarıya kadar içilip aynı biçimde, üç kez bastırılarak söndürülmüş. Sabırsız ama düzenli bir el. Kâğıtlarının ucunda kabartma iki harf: L. D. Bunlar ısmarlama yaptırılır. Tablanın kenarında bir de puro, ısırılmış ucuyla; başka biri, başka bir alışkanlık. Tabladan hâlâ ılık bir koku yükseliyor: tütün ve lavanta.',
           delil: ['kul_tablasi'],
         }),
       },
@@ -233,7 +233,7 @@ export const G3_NESNELER = [
         id: 'ac',
         etiket: 'Kâğıdı düzelt, oku',
         yap: () => ({
-          metin: 'SALONIQUE. MADAM N. MANASTIR FOTOGRAFINI ISTIYOR. HAMALDA OLABILIR. İmza yerine tek harf: R. Cebindeki fotoğraf birden ağırlaşıyor.',
+          metin: 'Masada açık bırakılmış bir telgraf kâğıdı; köşesine bir bardak konmuş, halkası kâğıda geçmiş. Büyük harfler, noktasız: SALONIQUE. MADAM N. MANASTIR FOTOGRAFINI ISTIYOR. HAMALDA OLABILIR. İmza yerine tek harf: R. Kelimeleri bir kez daha, ağır ağır okuyorsun. Manastır fotoğrafı. Hamal. Cebindeki fotoğraf birden ağırlaşıyor; bahçe kapısının önündeki örgülü saçlı kız. Selanik\'te biri, bir kadın, bu fotoğrafı istiyor. Ve senin elinde olduğunu tahmin ediyor.',
           delil: ['madam_n'],
         }),
       },

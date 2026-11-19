@@ -119,17 +119,17 @@ export const NESNELER = [
       {
         id: 'bilek',
         etiket: 'Bileklerine bak',
-        yap: () => ({ metin: 'Çuvalı biraz kaldırıyorsun. İki bileğinde de ince, morarmış bir şerit. Elleri bağlıymış.', delil: ['ip_izi'] }),
+        yap: () => ({ metin: 'Çuvalın kenarını kaldırıp Sabri\'nin kolunu çeviriyorsun. Soğuk, ağır bir kol; sudan çıkalı saatler olmuş, deri buruşmuş. İki bileğinde de ince, morarmış bir şerit var, kenarları sıyrılmış. Sol bileğinde şerit daha derin; orada deri bir yerde yarılmış, kanamış, kurumuş. Böyle iz, ip birkaç saat sıkıca bağlı kalırsa olur. Adam çırpınmış. Sonra biri ipi kesip almış, onu suya atmadan önce. Sarhoş adam düşerken ellerini bağlamaz.', delil: ['ip_izi'] }),
       },
       {
         id: 'yuz',
         etiket: 'Yüzüne bak',
-        yap: () => ({ metin: 'Yüzü sakin, gözleri yarı açık. Ağzında, burnunda köpük yok. Seddülbahir\'de boğulanların hepsinde vardı.', delil: ['kopuk_yok'] }),
+        yap: () => ({ metin: 'Çuvalı başından aralıyorsun. Sabri\'nin yüzü sakin, neredeyse uyuyor gibi; gözleri yarı açık, dudakları mavi, kirpiklerinde tuz kurumuş. Seddülbahir\'de kıyıya vuran boğulmuşları hatırlıyorsun: ağızlarında, burunlarında köpük olurdu, pembe ve ince; silsen yeniden gelirdi. Ciğerleri suyla dolan adam son nefesini köpükle verir. Sabri\'nin ağzı temiz, burnu temiz. Suya girdiğinde nefes almıyordu.', delil: ['kopuk_yok'] }),
       },
       {
         id: 'el',
         etiket: 'Ellerine bak',
-        yap: () => ({ metin: 'Tırnaklarının altında kömürden başka bir şey var: kırmızı, kırılgan kırıntılar. Mühür mumu.', delil: ['mum'] }),
+        yap: () => ({ metin: 'Ateşçi elleri: avuçları nasırlı, parmak boğumları kömür karası, sol başparmağında kazan kapağından kalma eski bir yanık. Ama tırnaklarının altında kömürden başka bir şey var: kırmızı, kırılgan kırıntılar. Birini kendi tırnağınla alıp parmaklarının arasında ovuşturuyorsun; ısınınca yumuşuyor, hafif bir reçine kokusu veriyor. Mum. Mühür mumu. Bir ateşçinin mühürlü bir şeyle işi olmaz. Sabri ölmeden önce mühürlü bir şeyi açmış; bıçakla değil, tırnaklarıyla kazıyarak, acele içinde.', delil: ['mum'] }),
       },
       { id: 'foto', etiket: 'Ellerinin fotoğrafını çek', foto: 'ceset_el' },
     ],
@@ -169,13 +169,13 @@ export const NESNELER = [
         yap: (d) => {
           const konular = d.negatifler.splice(0);
           d.fotograflar.push(...konular);
-          const parca = ['Kırmızı fenerin ışığında yarım saat. Kâğıtlar leğende yavaşça kararıyor.'];
+          const parca = ['Perdeyi çekip kırmızı fenerin fitilini kısıyorsun. Leğenlerdeki ilaç keskin kokuyor; Süleyman\'ın şişelerinin yarısının etiketi silinmiş, hangisinin hangisi olduğunu kokusundan biliyorsun. Filmi makarasından karanlıkta, parmak uçlarınla söküyorsun. Yarım saat boyunca sayarak bekliyorsun. Kâğıtlar leğende yavaş yavaş beliriyor: önce gölgeler, sonra çizgiler.'];
           const delil = [];
           if (konular.includes('ceset_el')) {
-            parca.push('Sabri\'nin ellerinin fotoğrafını büyütecin altına alıyorsun. Tırnaktaki mum kırıntısında gözle görülmeyen bir şey var: yarım bir mühür izi. Bir kanadın ucu, bir anahtar dişi.');
+            parca.push('Sabri\'nin ellerinin fotoğrafını ıslakken mandala asıp Süleyman\'ın büyütecini üstüne tutuyorsun. Rıhtımda gözle göremediğin şey kâğıtta duruyor: tırnağın altındaki en iri mum kırıntısında yarım bir mühür izi. Bir kanadın ucu, tüyleri ince ince oyulmuş; yanında bir anahtar dişi. Usta işi bir mühür, tüccar mührü değil. Sabri mumu yeni basılmış bir mühürden koparmış.');
             delil.push('mum_izi');
           }
-          if (konular.includes('sandik')) parca.push('Sandığın fotoğrafında kapağın iç yüzündeki boya yazısı okunuyor: Liège. Fabrika damgası kazınmış.');
+          if (konular.includes('sandik')) parca.push('Sandığın fotoğrafında, antreponun karanlığında göremediğin bir şey çıkıyor: kapağın iç yüzünde boya şablonuyla basılmış bir kelime, Liège. Belçika\'nın silah fabrikalarının şehri. Hemen altında fabrika damgasının olduğu yer bıçakla kazınmış; kazıyan acele etmemiş, her harfi tek tek oymuş.');
           if (!delil.length && !konular.includes('sandik')) parca.push('Fotoğraflar çıktı ama yeni bir şey göstermiyor.');
           return { metin: parca.join(' '), delil, sure: 30 };
         },
@@ -195,7 +195,7 @@ export const NESNELER = [
         id: 'oku',
         etiket: 'Leventis\'in sayfasını oku',
         kosul: (d) => bayrak(d, 'gulceIzin'),
-        yap: () => ({ metin: 'Leventis. Ferrante ve Ortakları adına kırk sandık makine yedek parçası. Gemi sahibi Pendle Shipping, Pire.', delil: ['manifest'] }),
+        yap: () => ({ metin: 'Gülce defteri senin için açıp parmağıyla satırı gösteriyor; kendi el yazısı, düzgün ve küçük. Leventis: Pire\'den, Kasım sonu. Alıcı: Ferrante ve Ortakları, Galata. Yük: makine yedek parçası, kırk sandık. Armatör: Pendle Shipping, Pire. İngiliz bir efendi, diyor Gülce; gemilerinin yarısı Pire\'den, yarısı İskenderiye\'den gelir, hiçbirine kendisi binmez. Satırın altında bir şey daha var: dün tarihli bir silinti. Biri ağırlık sütunundaki rakamı ustura ağzıyla kazıyıp yeniden yazmış; mürekkep kâğıdın tüylerine dağılmış. Bu benim elim değil, diyor Gülce, sesini alçaltarak. Dün akşam masamdan kalktığımda böyle değildi.', delil: ['manifest'] }),
       },
     ],
     kilitli: 'Kâtiplerden biri öksürüyor. Gülce\'nin izni olmadan deftere dokunamazsın.',
@@ -213,7 +213,7 @@ export const NESNELER = [
         id: 'oku',
         etiket: 'Dünkü kayıtları oku',
         kosul: (d) => bayrak(d, 'gulceIzin'),
-        yap: () => ({ metin: 'Leventis, Ferrante sandıkları: her biri iki adam ağırlığında. Vinççi kenara bir soru işareti koymuş.', delil: ['agirlik'] }),
+        yap: () => ({ metin: 'Vinççibaşının kaba, bastıra bastıra yazılmış el yazısı; kalem kâğıdı yer yer delmiş. Leventis\'ten iskeleye alınan ilk on sandık, her birinin karşısında aynı not: iki adam ağırlığı. Halat iki kez gerilmiş, bir kez de zincir değiştirilmiş. Satırın kenarına vinççi kurşun kalemle bir soru işareti koymuş, sonra silmeye çalışmış; izi duruyor. Gülce yanına geliyor. O boyda bir sandıkta yedek parça olsa bunun yarısı çekmez, diyor. Ben on yıldır bu defterleri tutuyorum. Pirinç, döküm, çelik: hepsinin ağırlığını bilirim. Bu başka bir şey.', delil: ['agirlik'] }),
       },
     ],
     kilitli: 'Rafa uzandığında kâtip başını kaldırıyor. Gülce\'nin izni olmadan olmaz.',
@@ -231,7 +231,7 @@ export const NESNELER = [
         id: 'ara',
         etiket: 'Yünün içini yokla',
         yap: () => ({
-          metin: 'Arayan acele etmiş. Yünün en dibinde katlanmış bir kâğıt: Trabzon\'daki kız kardeşine yarım kalmış bir mektup. Bir sandık kırılmış, içinden tüfekler çıkmış; deri bir çanta varmış. Korkuyorum, diye bitiyor.',
+          metin: 'Kesik titiz, düz; dikiş yerinden değil, kumaşın ortasından. Ne aradığını bilen biri. Ama yünü avuç avuç çıkarıp bırakmış, dibine inmemiş: aradığı şey bir kâğıttan büyükmüş. Kolunu dirseğine kadar yüne sokuyorsun. Parmakların nemden yumuşamış, katlanmış bir kâğıda değiyor. Sabri\'nin iri, eğri el yazısı; Trabzon\'daki kız kardeşine yazılmış, yarım kalmış bir mektup. Kardeşim, diye başlıyor, sana bu ay para yollayamıyorum. Sonra harfler sıklaşıyor: kömürlükte bir sandık devrilip kırılmış, içinden yağlı kâğıda sarılı tüfekler çıkmış. Sandığın dibinde bir de deri çanta varmış, kilitli. Kimseye söyleme, diye yazmış, sonra üstünü çizmiş. Son satır yarım: Korkuyorum, kardeşim. Kaptana gideceğim, o bilir...',
           delil: ['mektup'],
         }),
       },
@@ -270,7 +270,7 @@ export const NESNELER = [
         etiket: 'Bir sandığın kapağını kaldır',
         gurultu: 40,
         yap: () => ({
-          metin: 'Bıçağının ucuyla mumu kırıp kapağı kaldırıyorsun. Çivi gıcırdıyor. Samanın altında yağlı kâğıda sarılı tüfekler. Mauser; yepyeni.',
+          metin: 'Kırmızı mum mühür parmaklarının altında soğuk. Bıçağının ucuyla kırıyorsun; kırıntılar Sabri\'nin tırnaklarındakilerle aynı renk. Kapağın çivisi gıcırdıyor, ses antreponun tavanında dolaşıyor; nefesini tutup bekliyorsun. Kimse gelmiyor. Samanı aralıyorsun. Altında yağlı kâğıda sarılı, uzun, ağır biçimler; kâğıdı yırtınca silah yağının kokusu yüzüne vuruyor. Tüfekler. Mauser; yepyeni, namluları hiç ateş görmemiş. Sayıyorsun: bir sandıkta on iki. Kırk sandık. Bir taburu silahlandırır bu.',
           delil: ['tufek'],
         }),
       },
@@ -460,7 +460,7 @@ export const KONUSMALAR = {
       anlatir: {
         metin: (d) => {
           d.bayrak.husnuAnlatti = true;
-          return 'Hüsnü etrafına bakıyor, sesini alçaltıyor. Gece üç sularıydı. Işıksız bir motor geldi, Leventis\'in kıçına yanaştı. İki adam ağır bir çuval indirdi. Çuval değildi o, biliyorsun. Biri Türkçe konuşuyordu ama Frenk ağzıyla; öbürüne sus, diyordu, sus.';
+          return 'Hüsnü küreği bırakıp etrafına bakıyor; rıhtımdaki kimse duymasın diye sesini alçaltıyor. Gece üç sularıydı, diyor. Ben ağlarımı toplarken. Işıksız bir motor geldi Haliç tarafından; makinesini kesmiş, akıntıyla süzülüyordu. Leventis\'in kıçına yanaştı, orada ne fener var ne nöbetçi. İki adam ağır bir çuval indirdi, ikisi birden zor taşıdı. Çuval değildi o, oğul; çuval öyle sarkmaz. Suya bıraktılar, sesi bile çıkmadı. Biri Türkçe konuşuyordu ama Frenk ağzıyla; kelimeleri yuvarlıyordu, ağzında çakıl varmış gibi. Öbürüne sus, diyordu, sus. Sonra motor geldiği gibi gitti. Ben de görmedim say. Benim yaşımda adam ağına bakar.';
         },
         secenekler: [{ etiket: 'Teşekkür ederim, Hüsnü Reis.', yap: (d) => void deliller(d, 'motor', 'fransiz_aksan') }],
       },
@@ -506,7 +506,7 @@ export const KONUSMALAR = {
             kosul: (d) => !bayrak(d, 'ferranteAnlatti'),
             yap: (d) => {
               d.bayrak.ferranteAnlatti = true;
-              return 'Dün geldi. Bir kaydı düzeltmek istedi; vermedim. Temiz paltolu, eldivenli. Türkçesi düzgün ama yabancı. Kokusu lavanta. Bıraktığı mektup hâlâ çekmecemde.';
+              return 'Gülce kalemi parmaklarının arasında çeviriyor. Dün öğleden sonra geldi, diyor. Ferrante\'nin adamıyım dedi, adını söylemedi. Leventis\'in kaydında bir yanlışlık varmış, düzeltmek istedi. Vermedim; defter benim imzamla gider. Gülümsedi, sanki önceden biliyormuş gibi. Temiz paltolu, eldivenleri hiç çıkarmadı. Türkçesi düzgün, fazla düzgün; kitaptan öğrenilmiş gibi, hiç ağız yok. Gittikten sonra oda lavanta koktu, bir saat çıkmadı. Bir de mektup bıraktı, Ferrante\'nin antetli kâğıdına: ricalarını yazılı da yapmışlar. Hâlâ çekmecemde.';
             },
             sonra: 'guvenli',
           },
@@ -515,7 +515,7 @@ export const KONUSMALAR = {
             kosul: (d) => delilVar(d, 'kanatli_anahtar') && bayrak(d, 'ferranteAnlatti') && !delilVar(d, 'ferrante_damga'),
             yap: (d) => {
               deliller(d, 'ferrante_damga');
-              return 'Gülce\'nin yüzü bembeyaz oluyor. Çekmeceden Ferrante\'nin mektubunu çıkarıyor. Antetli kâğıdın köşesinde, iğne başı kadar: kanatlı bir anahtar. Bunu kimseye gösterme, diyor. Sesi titriyor; sebebini söylemiyor.';
+              return 'Parmağınla masanın tozuna çiziyorsun: bir anahtar, iki yanında kanat. Gülce\'nin yüzü bembeyaz oluyor. Elini uzatıp çizgiyi siliyor, sonra kimse bakmıyor mu diye odaya göz atıyor. Çekmeceyi açıp Ferrante\'nin mektubunu çıkarıyor, masaya ters koyuyor, sonra çeviriyor. Antetli kâğıdın sağ alt köşesinde, matbaa harflerinin arasında, iğne başı kadar bir kabartma: kanatlı bir anahtar. Kâğıdı ışığa tutmasan görmezsin. Bunu kimseye gösterme, diyor. Sesi titriyor. Neden diye soruyorsun; cevap vermiyor, kalemi yeniden eline alıyor. Ama yazmıyor.';
             },
             sonra: 'guvenli',
           },
@@ -536,7 +536,7 @@ export const KONUSMALAR = {
               if (d.itibar < 0) return 'Ohannes başını sallıyor. Rıhtımda Hüsnü\'ye yaptığını konuşuyorlar, Arif. Bugün olmaz. Ya yarın gel ya da elini cebine at.';
               d.bayrak.odaAnahtari = true;
               deliller(d, 'paltolu');
-              return 'Ohannes usulca anahtarı uzatıyor. Dün akşam biri geldi, diyor. Sabri\'nin kuzeniyim dedi. Temiz paltolu, lavanta kokulu. Türkçeyi yabancı gibi ama düzgün konuşuyordu. Kuzen değildi o, Arif. Merdiven avlunun dibinde.';
+              return 'Ohannes çayını yudumlayıp uzun süre sana bakıyor. Sonra tezgâhın altından ağır bir anahtar çıkarıp usulca uzatıyor. Dün akşam, ezandan sonra biri geldi, diyor. Sabri\'nin kuzeniyim dedi, eşyalarını almaya gelmiş. Temiz paltolu, eldivenli; ayakkabısında rıhtım çamuru yoktu. Lavanta kokuyordu, berber dükkânı gibi. Türkçeyi düzgün konuşuyordu ama yabancı gibi, kelimeleri tartarak. Trabzonlu bir ateşçinin kuzeni böyle konuşmaz, Arif. Ama elinde para vardı, ben de yaşlı adamım. Yarım saat kaldı yukarıda. İndiğinde eli boştu, yüzü kızgındı. Merdiven avlunun dibinde.';
             },
           },
           {
@@ -546,7 +546,7 @@ export const KONUSMALAR = {
               if (!harca(d, 10)) return 'On kuruşun yok.';
               d.bayrak.odaAnahtari = true;
               deliller(d, 'paltolu');
-              return 'Ohannes parayı görmezden geliyor ama anahtarı tezgâhın üstüne koyuyor. Dün akşam lavanta kokulu bir bey de çıktı o odaya, diyor. Kuzeniyim dedi. Kuzen değildi.';
+              return 'Ohannes parayı görmezden geliyor; bakmadan çekmeceye süpürüyor. Anahtarı tezgâhın üstüne koyuyor. Dün akşam lavanta kokulu bir bey de çıktı o odaya, diyor, gözünü çaydanlıktan ayırmadan. Temiz paltolu, eldivenli. Sabri\'nin kuzeniyim dedi; Türkçeyi yabancı gibi konuşuyordu. Kuzen değildi. Yarım saat kaldı, eli boş indi. Merdiven avlunun dibinde.';
             },
           },
           { etiket: 'Bir çay içeyim, usta.', yap: () => 'İnce belli bardak elini ısıtıyor. Ohannes susuyor; sen de.' },
@@ -577,7 +577,7 @@ export const KONUSMALAR = {
             yap: (d) => {
               if (d.itibar >= 1) d.bayrak.arkaKapiBiliniyor = true;
               return d.itibar >= 1
-                ? 'Biz taşıdık, diyor biri sesini alçaltarak. Her biri iki adam ağırlığında. Ferrante\'nin bekçisi gece antrepoyu kolaçan eder, arka kapının kilidi gevşektir; söylemedim say.'
+                ? 'Hamallar birbirine bakıyor. Biz taşıdık, diyor biri sesini alçaltarak; omzunda hâlâ halat izi var. Her biri iki adam ağırlığında. Sırığa iki kişi girdik, yine de bel büküldü. İçinden tıngırtı gelmedi; makine parçası tıngırdar. Rıhtımın hemen arkasındaki antreposuna indirdik. Bekçisi gece içeriyi fenerle kolaçan eder; ayak sesine kulak verir, fenerine değil. Arka kapının kilidi gevşektir; biz yük indirirken kırdık, kimse yaptırmadı. Söylemedim say.'
                 : 'Hamal omuz silkiyor. Biz yük taşırız, soru sormayız.';
             },
           },
