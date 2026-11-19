@@ -62,10 +62,11 @@ export const YANLISLAR = [
 
 // İkinci görevin tanımları bu tablolara katılır
 import { G2_CIKARIMLAR, G2_DELILLER, G2_KONUSMALAR, G2_NESNELER, G2_YANLISLAR, TUM_YANLISLAR, g2Ipucu } from './gorev2';
-Object.assign(DELILLER, G2_DELILLER);
-Object.assign(CIKARIMLAR, G2_CIKARIMLAR);
-TUM_YANLISLAR.push(...YANLISLAR);
-YANLISLAR.push(...G2_YANLISLAR);
+import { G3_CIKARIMLAR, G3_DELILLER, G3_KONUSMALAR, G3_NESNELER, G3_YANLISLAR, g3Ipucu } from './gorev3';
+Object.assign(DELILLER, G2_DELILLER, G3_DELILLER);
+Object.assign(CIKARIMLAR, G2_CIKARIMLAR, G3_CIKARIMLAR);
+TUM_YANLISLAR.push(...YANLISLAR, ...G3_YANLISLAR);
+YANLISLAR.push(...G2_YANLISLAR, ...G3_YANLISLAR);
 
 export const BASLANGIC_PARA = 35;
 export const FILM = 6;
@@ -276,7 +277,7 @@ export const NESNELER = [
   },
 ];
 
-NESNELER.push(...G2_NESNELER);
+NESNELER.push(...G2_NESNELER, ...G3_NESNELER);
 
 export function mevcutNesneler(d) {
   return NESNELER.filter((n) => n.mekan === d.mekan && n.mevcut(d));
@@ -312,6 +313,10 @@ export function nesneEylem(d, id, eylemId, ctx = {}) {
     d.film -= 1;
     d.negatifler.push(e.foto);
     return { metin: 'Deklanşörün tıkırtısı. Bir poz. Film karanlık odada banyo edilmeli.', ses: 'deklansor' };
+  }
+  if (e.engel) {
+    const engelMetni = e.engel(d, ctx);
+    if (engelMetni) return { metin: engelMetni };
   }
   if (e.kosul && !e.kosul(d)) return { metin: n.kilitli || 'Şimdi olmaz.' };
   const s = e.yap(d) || {};
@@ -612,9 +617,13 @@ export const KONUSMALAR = {
 };
 
 // Görev 2'de o kişinin ikinci görev konuşması uygunsa o, değilse birinci görevinki
+// Görev kaynakları: o anki görevden geriye doğru, uygun olan ilk konuşma
+const GOREV_KONUSMALARI = { 2: G2_KONUSMALAR, 3: G3_KONUSMALAR };
 function kaynak(d, kisiId) {
-  const g2 = G2_KONUSMALAR[kisiId];
-  if (d && d.gorev === 2 && g2 && g2.uygun(d)) return g2;
+  for (let g = (d && d.gorev) || 1; g >= 2; g--) {
+    const k = GOREV_KONUSMALARI[g] && GOREV_KONUSMALARI[g][kisiId];
+    if (k && k.uygun(d)) return k;
+  }
   return KONUSMALAR[kisiId];
 }
 
@@ -622,8 +631,8 @@ function kaynak(d, kisiId) {
 function dugumBul(d, kisiId, dugumId) {
   const k = kaynak(d, kisiId);
   if (k && k.dugumler[dugumId]) return k.dugumler[dugumId];
-  if (KONUSMALAR[kisiId] && KONUSMALAR[kisiId].dugumler[dugumId]) return KONUSMALAR[kisiId].dugumler[dugumId];
-  return G2_KONUSMALAR[kisiId].dugumler[dugumId];
+  for (const t of [KONUSMALAR, G2_KONUSMALAR, G3_KONUSMALAR]) if (t[kisiId] && t[kisiId].dugumler[dugumId]) return t[kisiId].dugumler[dugumId];
+  return null;
 }
 
 export function konusmaVarMi(kisiId, d = null) {
@@ -726,6 +735,11 @@ export function envanterMetni(d) {
   if (d.bayrak.odaAnahtari) p.push('Sabri\'nin oda anahtarı.');
   if (delilVar(d, 'lavanta_not')) p.push('Lavanta kokulu not.');
   if (delilVar(d, 'jeton')) p.push('Pirinç bir jeton: Mercure, Pera, 17.');
+  if (d.kilik === 'bey') p.push('Cemil\'in Paris\'ten kalma takımı; bir bey gibi görünüyorsun.');
+  if (d.kilik === 'usak') p.push('Yorgo\'nun verdiği beyaz garson ceketi.');
+  if (d.bayrak.anahtar17) p.push('On yedinin pirinç anahtarı.');
+  if (d.bayrak.defterAlindi) p.push('On yedinin deri defteri, ceketinin içinde.');
+  if (d.bayrak.dosyaKarar === 'al') p.push('Kendi dosyan.');
   if (d.bayrak.yaraKol) p.push('Sol kolunda Cemil\'in sardığı yanık.');
   p.push('Limandaki itibarın: ' + (d.itibar > 0 ? 'iyi' : d.itibar < 0 ? 'kötü' : 'sıradan') + '.');
   return p.join(' ');
@@ -733,6 +747,7 @@ export function envanterMetni(d) {
 
 // Duraklatma menüsündeki "Görev" satırı: şu an ne yapılabilir?
 export function gorevIpucu(d) {
+  if (d.gorev === 3) return g3Ipucu(d);
   if (d.gorev === 2) return g2Ipucu(d);
   if (d.gorevBitti) return 'Birinci görev bitti. Karaköy\'de dolaşmayı sürdürebilirsin.';
   if (!bayrak(d, 'denkAcik'))

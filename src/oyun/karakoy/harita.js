@@ -2,6 +2,8 @@
 // Düzlem: x doğuya, y kuzeye doğru metre. Deniz güneyde (y < 0,5), rıhtım kıyı boyunca uzanır.
 // İç mekânlar binanın kendi alanını kullanır; böylece dışarıdaki sesler içeride de doğru yerden gelir.
 
+import { PERA_KISILER, PERA_MEKANLAR } from './pera';
+
 export const SU_KENARI = 0.5;
 export const SINIR = { bati: -60, dogu: 60, guney: SU_KENARI, kuzey: 42 };
 
@@ -90,6 +92,19 @@ export const MEKANLAR = {
     cikislar: [{ id: 'merdiven_in', ad: 'Aşağı inen merdiven', x: 44.5, y: 29, hedef: 'han', varis: { x: 43.5, y: 27.5, yon: Math.PI } }],
   },
 };
+
+// Pera (üçüncü görev) iç mekânları ve sokaktan Pera'ya çıkan yokuş
+Object.assign(MEKANLAR, PERA_MEKANLAR);
+MEKANLAR.dis.cikislar.push({
+  id: 'pera_cik',
+  ad: 'Yüksekkaldırım, Pera\'ya çıkan yokuş',
+  x: 2,
+  y: 41.2,
+  hedef: 'pera_cadde',
+  varis: { x: 202.5, y: 2.5, yon: Math.PI / 2 },
+  acik: (d) => (d.gorev || 1) >= 3,
+  kilitli: 'Yüksekkaldırım\'ın basamakları Pera\'ya tırmanıyor. Senin orada işin yok; henüz.',
+});
 
 // Bir gecenin kimliği: öğleden önceki saatler önceki günün gecesine sayılır
 export function geceKimligi(d) {
@@ -225,6 +240,7 @@ KISILER.push({
   ad: 'Ferrante\'nin bekçisi',
   giris: { x: 18, y: 13 },
   devriyeMekan: 'antrepo',
+  gozcu: true,
   devriye: [
     { x: 14.5, y: 16 },
     { x: 22.5, y: 16 },
@@ -237,6 +253,13 @@ KISILER.push({
     { bas: 21 * 60, mekan: 'devriye', eylem: 'feneriyle dolaşıyor' },
   ],
 });
+
+// Pera'nın kişileri: aynı kimlik varsa satırlar o kişinin rutinine eklenir
+for (const p of PERA_KISILER) {
+  const var_ = KISILER.find((k) => k.id === p.id);
+  if (var_) var_.rutin = [...var_.rutin, ...p.rutin.filter((x) => x.bas > 0)].sort((a, b) => a.bas - b.bas);
+  else KISILER.push(p);
+}
 
 // Tramvay kuzeydeki caddeden geçer (y 36)
 export const TRAMVAY = { y: 36, bati: -75, dogu: 75, aralik: 30, ilk: 5, gece: { bas: 23 * 60, bit: 6 * 60 } };

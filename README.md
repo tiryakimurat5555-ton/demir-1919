@@ -425,3 +425,4 @@ ambarda ona Neslihan öğretmiştir. Yeni ortam sesi: İskenderiye limanı.
 - Sürüm 0.80: Karaköy asıl oyun oldu (eski bölümler ve denemeler menüden kalktı), otomatik kayıt, Yerler yalnızca bilinen yerler, kayıtlı adım sesleri (taş ve ahşap).
 - Sürüm 0.81: hikâye başlangıcı sahnelerle (açılış, Seddülbahir anısı, Süleyman'ın çağrısı, karar gecesi).
 - Sürüm 0.90: ikinci görev İkinci Adım Sesi: Doktor Cemil, peşindeki kasketli adam (adımlarını dinle, dönüp bak), karanlık geçitte Halim'in buluşmasını gizlice dinlemek, gaz tenekeleri, gecenin kararı (taşı / pusu / haber ver) ve kayıkhanenin yangını.
+- Sürüm 0.95: üçüncü görev On Yedi Numara: Pera (Cemil'in Cihangir'deki evi, Grand Rue, Mercure Kulübü'nün salonu, servis koridoru, 17 numaralı oda). Nermin Hanım katılır; kılık (bey ya da garson ceketi), baş garsonun gözü, yemek asansöründen dinlenen toplantı, Delorme'un Arif dosyası, gecenin kararı (gazete / ihbar / sakla).

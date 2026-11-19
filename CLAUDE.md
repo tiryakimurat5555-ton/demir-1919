@@ -95,6 +95,28 @@
   Yeni bayraklar (sonraki görevlerde karşılık bekler): kemalSoz soz/durust/sessiz, cemilFikri teselli/sert/sus, haticeKarar yolla/sakla,
   sabriTasi, gulceNazim, halimGordu2, rizaTanisti, delormeAdi, karar2, pusuSonuc, suleymanYarali, kayikhaneYandi, cemilKabul.
   Eski kayıt: gorev 1, gorevBitti, sahne yok → g2_gece. Testler testler/karakoy-gorev2.test.js. Telefonda denenmedi.
+  SÜRÜM 0.95 (19 Kasım, aynı istek): üçüncü görev "On Yedi Numara" src/oyun/karakoy/gorev3.js (saf) + pera.js (PERA_MEKANLAR:
+  cihangir, pera_cadde, kulup_salon, servis_koridoru, oda17; Karaköy düzleminde x 200'ün doğusunda iç mekânlar; harita.js katar;
+  dis'te pera_cik yokuşu gorev >= 3; PERA_KISILER: nermin, cemil (var olan Cemil'e satır eklenir), hargreaves, yorgo, achille
+  (salon devriyesi), nobetci ve lavantali (gozcu: true)). Rutin satırında yalniz: o günün bütün rutini (Karaköy satırları düşer);
+  90 m'den uzun yer değiştirmede yürünmez. bekci(d) artık aynı mekândaki en yakın gözcü; yakalan koridorda/odada kulüpten atar
+  (kulupKapali). GIZLI_MEKANLAR (antrepo, servis_koridoru, oda17). Başlangıç: g2Bitti sonrası g2Gun+2 (cumartesi) 17.15'te
+  gorev3Ilerle d.sahne = 'g3_cagri' (Karakoy ana döngüsü d.sahne'yi açar; bekle sahne açılınca durur) ya da Cemil 'bitti' →
+  "Hazırım". gorev3Baslat: cumartesi 18.00 cihangir, kilik 'bey'. g3_acilis kimlik sahte/gercek. Kapılar: kulup_kapi kilik bey,
+  servis_kapi ve salon_servis kilik usak (ya da Nermin oyalarken: oyalaBitis mutlak dakika, oyalaSayi en çok 2, Achille onun
+  masasında), merdiven17 anahtar17 + toplantı dışında (TOPLANTI_BAS 21.18 - TOPLANTI_BIT 22.45). Nesne eylemlerinde engel(d, ctx):
+  pano17 ve vestiyer Achille 7 m içindeyse olmaz. Yorgo: Süleyman'ın adı → yorgoGuven → garson ceketi (kilik usak), asansör
+  bilgisi, anahtar (kayikhaneYandi tam / suleymanYarali / suleymanBag >= 2). Asansör → g3_dinle (dinleNefes say [ilkNefes say ise
+  travma -1] / bastir travma +1) → g3_dinle2 (asansorSecim tuttu / kaydi [travma >= 2 ve say değil; suphe 60] / cekildi) →
+  g3_dinle_son (dinle_toplanti, santa_lucia, madam_n, delormeAdi). oda17: defter17 (rusvet_defteri, defterAlindi, foto 'defter'),
+  kul17, telgraf17, dosya17 → g3_dosya (arif_dosyasi; "Bkz. S."; dosyaKarar al/birak). Atılınca Nermin 22.50'den arka sokakta
+  (kisiDuzelt3) → disari düğümü: delorme_kart, santa_lucia, hargreaves_zarf. Gerekli çıkarımlar delorme / sevkiyat / rusvet;
+  isteğe bağlı madam, dosya. Karar: Nermin/Cemil "Bildiklerimi" ya da Cihangir'de masa_cemil → g3_karar_oncesi → g3_karar
+  (karar3 gazete [nerminBag +1] / ihbar [karar1 ingiliz ise sevkiyatSonuc kacti, değilse el_konuldu] / sakla) → g3_kapanis
+  (nerminEkipte, nerminKabul gel/uyar) → g3_son (Kasketli Yaşar Haliç'te ölü; gorev3Bitir: pazartesi 09.00 han, kilik null).
+  Yeni bayraklar: kimlik, nerminCevdet soru/anlat/sus, cemilDelorme, dinleNefes, asansorSecim, dosyaKarar, defterAlindi, karar3,
+  sevkiyatSonuc, nerminKabul, kulupKapali. Sıradaki: dördüncü görev "Kül" (Halim; Rıza Bey katılır). Testler karakoy-gorev3.test.js.
+  Telefonda denenmedi.
 - Bu ortamda npm yok; bağımlılık sürümleri Expo dokümanından (react-native-webview 14.0.1, SDK 58). bun build'e -e react-native-webview ekle.
 
 ## Tasarım

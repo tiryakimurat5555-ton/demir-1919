@@ -5,6 +5,7 @@
 // d.sahne o an açık olan sahnedir (kayıtta saklanır; oyun yeniden açılınca sahne kaldığı yerden okunur).
 
 import { G2_SAHNELER } from './gorev2';
+import { G3_SAHNELER } from './gorev3';
 
 const bayrak = (d, k) => d.bayrak[k];
 const delilVar = (d, id) => d.deliller.includes(id);
@@ -244,6 +245,7 @@ export const SAHNELER = {
     secenekler: [{ etiket: 'Devam', yap: (d) => (d.gorevBitti = true), sonra: 'g2_gece' }],
   },
   ...G2_SAHNELER,
+  ...G3_SAHNELER,
 };
 
 export function sahneParagraflari(d, id) {

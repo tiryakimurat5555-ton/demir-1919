@@ -468,6 +468,7 @@ export function gorev2Baslat(d) {
   if (gd >= 7 * 60) d.gun += 1;
   d.gorev = 2;
   d.gorevGun = d.gun;
+  d.bayrak.g2Gun = d.gun;
   d.dakika = 7 * 60 + 25;
   d.gece = false;
   d.sonSaat = 7;
@@ -736,8 +737,17 @@ export const G2_KONUSMALAR = {
         ],
       },
       bitti: {
-        metin: () => 'Cemil çantasını kapatıyor. Cumartesiye kadar Pera\'yı öğren, diyor. Ben Mercure\'ün kapısını bilirim; içini bilmem.',
-        secenekler: [{ etiket: 'Öğrenirim.' }],
+        metin: () => 'Cemil çantasını kapatıyor. Cumartesiye kadar Pera\'yı öğren, diyor. Ben Mercure\'ün kapısını bilirim; içini bilmem. Cumartesi akşamı altıda Cihangir\'deki evimde ol.',
+        secenekler: [
+          {
+            etiket: 'Hazırım doktor. Cumartesiye kadar bekleyelim.',
+            kosul: (d) => d.gorev === 2,
+            yap: (d) => {
+              d.sahne = 'g3_cagri';
+            },
+          },
+          { etiket: 'Öğrenirim.' },
+        ],
       },
     },
   },
@@ -1080,7 +1090,7 @@ export const G2_SAHNELER = {
             ? 'Süleyman pencerenin önünde, pusula avucunda. Gidin, diyor. Tahta yanar. Adam yanmasın.'
             : 'Süleyman kayıkhanesinin is kokan duvarını elleriyle yokluyor. Gidin, diyor. Ben burada, siz orada.',
         'Avucundaki jetonu çeviriyorsun. Kanatlı anahtar. Mercure, Pera, 17. Cumartesi gecesi.',
-        'İkinci görevin sonu. Karaköy\'de dolaşmayı sürdürebilirsin. Üçüncü görev, On Yedi Numara, bir sonraki adımda: Pera.',
+        'İkinci görevin sonu. Cuma sabahı. Cumartesi akşamına kadar Karaköy\'de dolaşabilirsin; Pera\'ya çağrı vakti gelince gelir.',
       ].filter(Boolean),
     secenekler: [{ etiket: 'Devam', yap: (d) => gorev2Bitir(d), sonra: null }],
     bitisSozu: 'Kalafatçı Hanı\'nın avlusu, sabah sekiz. Menüden Görev\'i ve Yerler\'i her zaman açabilirsin.',
@@ -1089,7 +1099,7 @@ export const G2_SAHNELER = {
 
 // --- Görev satırı ---
 export function g2Ipucu(d) {
-  if (bayrak(d, 'g2Bitti')) return 'İkinci görev bitti. Cumartesi gecesi Pera\'da, Mercure Kulübü\'nde, on yedi numarada toplanıyorlar. Üçüncü görev bir sonraki adımda.';
+  if (bayrak(d, 'g2Bitti')) return 'İkinci görev bitti. Cumartesi gecesi Pera\'da, Mercure Kulübü\'nde, on yedi numarada toplanıyorlar. Cemil cumartesi akşamı altıda seni Cihangir\'de bekliyor; vakit gelince çağrı kendiliğinden gelir. Beklemek istemezsen Cemil\'le konuş.';
   const gd = gunDakika(d);
   const p = [];
   if (!bayrak(d, 'cemilTanisti'))
