@@ -128,8 +128,18 @@
   halimKarar teslim (halimSonu asildi) / birak (bicaklandi) / sakla (sakli, rizaBag +1). Konuşturulmazsa ertesi sabah 06.00
   gorev4Ilerle → g4_sabah_olu. Rıza: rizaHalim4 soru/soz/sus, rizaBabaAnlatti, rizaGelir. Gülce: gulce4 → kamil düğümü
   (gulceKamil soyle [gulceyeAnlatti, gulceGuven +1] / sakla). g4_kapanis: rizaEkipte, rizaKabul sart/itiraz → g4_son (gorev4Bitir).
-  Sıradaki: beşinci görev "Antrepo" (çarşamba gecesi saat on, Delorme yüzleşmesi; Topal Hasan; Santa Lucia sonucu; madam_n ve
-  fotoğraf; Gülce'nin damgayı geciktirmesi). Testler karakoy-gorev4.test.js. Telefonda denenmedi.
+  Testler karakoy-gorev4.test.js. Telefonda denenmedi.
+  SÜRÜM 0.97 (19 Kasım, aynı istek): beşinci görev "Antrepo" src/oyun/karakoy/gorev5.js (saf). Başlangıç: g4Bitti sonrası g4 günü+2
+  (çarşamba) 20.30'da gorev5Ilerle → g5_cagri, ya da Rıza 'bitti' "Hazırım" (gorev4.js'te). gorev5Baslat: 21.40 han, g4Gun, antrepo
+  kapısı o gece açık. g5_plan: g5Plan polis / deniz / foto. KISILER delorme (gozcu, gorev 5, antrepo (15.5,15.8) 21.42-23.55).
+  Nesne canta (antrepo dip köşe (20.5,25.5), gürültü 25: salonique_n + mavna_listesi, cantaAlindi). Yüzleşme (g5Yuzlesti, g5Nasil):
+  Delorme'a 4 m (YUZLESME_MENZILI) → yaklasti; çantayla sokağa çıkınca → canta; antrepoda yakalanma (dunya yakalan → g5Yakalanma) →
+  yakalandi; 23.50'ye kadar olmazsa g5_gec. g5_yuzlesme: yuzlesmeSecim saldir (yaraKol, travma +1) / oyala / fotograf [fotograf
+  delili; fotografGosterildi, "Ne kadar benziyorsunuz"] → g5_sonuc (efekt silah): sandikSonu el_konuldu [polis + oyala] / yarim
+  [polis] / batti [deniz] / gitti [foto: delorme_fotografi]; Delorme her yolda denizden kaçar ("Selanik'te görüşürüz") →
+  g5_kapanis (Gülce siyakat okur; gulceKamil soyle ise "Babam bana öğretti") → gorev5Bitir (perşembe 08.00 han, g5Bitti).
+  Sıradaki: altıncı görev "Siyakat" (Gülce belgenin alt yarısını okur; dört şehir; birinci perdenin kapanışına doğru).
+  Testler karakoy-gorev5.test.js. Telefonda denenmedi.
 - Bu ortamda npm yok; bağımlılık sürümleri Expo dokümanından (react-native-webview 14.0.1, SDK 58). bun build'e -e react-native-webview ekle.
 
 ## Tasarım

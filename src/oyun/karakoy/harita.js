@@ -278,6 +278,19 @@ KISILER.push({
   ],
 });
 
+// Beşinci görev: Delorme antreponun içinde, rıhtım kapısının yanında
+KISILER.push({
+  id: 'delorme',
+  ad: 'Lavanta kokulu adam',
+  gozcu: true,
+  giris: { x: 18, y: 13 },
+  rutin: [
+    { bas: 0, mekan: 'yok' },
+    { bas: 21 * 60 + 42, gorev: 5, gorevGunu: true, mekan: 'antrepo', x: 15.5, y: 15.8, eylem: 'sandıkların başında, sesini yükseltmeden emir veriyor' },
+    { bas: 23 * 60 + 55, gorev: 5, gorevGunu: true, mekan: 'yok' },
+  ],
+});
+
 // Ferrante'nin bekçisi: geceleri antreponun içinde dolaşır
 KISILER.push({
   id: 'bekci',

@@ -268,7 +268,16 @@ export const G4_KONUSMALAR = {
       },
       bitti: {
         metin: () => 'Rıza bastonunu kaldırıyor. Çarşamba gecesi antrepo, diyor. Bu kez yasayla gideceğiz, ya da hiç gitmeyeceğiz.',
-        secenekler: [{ etiket: 'Peki Rıza Bey.' }],
+        secenekler: [
+          {
+            etiket: 'Hazırım Rıza Bey. Çarşamba gecesini bekleyelim.',
+            kosul: (d) => d.gorev === 4,
+            yap: (d) => {
+              d.sahne = 'g5_cagri';
+            },
+          },
+          { etiket: 'Peki Rıza Bey.' },
+        ],
       },
     },
   },
@@ -536,7 +545,7 @@ export const G4_SAHNELER = {
           : 'Rıza başını eğiyor. Sözünü tutan adamla çalışırım, diyor. Tutamayanı da yakalarım.',
         bayrak(d, 'gulceKamil') === 'soyle' ? 'Gülce avlunun kapısında, kollarını kavuşturmuş duruyor. İçeri girmiyor; gitmiyor da.' : '',
         'Beş kişisiniz artık. Bir hamal, bir doktor, bir gazeteci, bir kaptan ve bir emekli komiser. Kanatlı anahtarın karşısında küçük bir sofra.',
-        'Dördüncü görevin sonu. Karaköy\'de dolaşmayı sürdürebilirsin. Beşinci görev, Antrepo, bir sonraki adımda: çarşamba gecesi, saat on.',
+        'Dördüncü görevin sonu. Salı sabahı. Çarşamba gecesine kadar Karaköy\'de dolaşabilirsin.',
       ].filter(Boolean),
     secenekler: [{ etiket: 'Devam', yap: (d) => gorev4Bitir(d), sonra: null }],
     bitisSozu: 'Kalafatçı Hanı\'nın avlusu. Menüden Görev\'i ve Yerler\'i her zaman açabilirsin.',
@@ -596,7 +605,7 @@ export function ekKisiler4(d) {
 }
 
 export function g4Ipucu(d) {
-  if (bayrak(d, 'g4Bitti')) return 'Dördüncü görev bitti. Rıza Bey ekipte. Beşinci görev, Antrepo, bir sonraki adımda.';
+  if (bayrak(d, 'g4Bitti')) return 'Dördüncü görev bitti. Çarşamba gecesi saat onda antrepo. Vakit gelince ekip hanın avlusunda toplanır; beklemek istemezsen Rıza Bey\'le konuş.';
   if (bayrak(d, 'halimKarar')) return 'Halim\'in işi bitti. Hana dön.';
   const gd = gunDakika(d);
   const p = [];

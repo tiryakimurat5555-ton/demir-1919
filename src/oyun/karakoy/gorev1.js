@@ -64,7 +64,8 @@ export const YANLISLAR = [
 import { G2_CIKARIMLAR, G2_DELILLER, G2_KONUSMALAR, G2_NESNELER, G2_YANLISLAR, TUM_YANLISLAR, g2Ipucu } from './gorev2';
 import { G3_CIKARIMLAR, G3_DELILLER, G3_KONUSMALAR, G3_NESNELER, G3_YANLISLAR, g3Ipucu } from './gorev3';
 import { G4_CIKARIMLAR, G4_DELILLER, G4_KONUSMALAR, G4_NESNELER, G4_YANLISLAR, g4Ipucu } from './gorev4';
-Object.assign(DELILLER, G2_DELILLER, G3_DELILLER, G4_DELILLER);
+import { G5_DELILLER, G5_NESNELER, g5Ipucu } from './gorev5';
+Object.assign(DELILLER, G2_DELILLER, G3_DELILLER, G4_DELILLER, G5_DELILLER);
 Object.assign(CIKARIMLAR, G2_CIKARIMLAR, G3_CIKARIMLAR, G4_CIKARIMLAR);
 TUM_YANLISLAR.push(...YANLISLAR, ...G3_YANLISLAR, ...G4_YANLISLAR);
 YANLISLAR.push(...G2_YANLISLAR, ...G3_YANLISLAR, ...G4_YANLISLAR);
@@ -278,7 +279,7 @@ export const NESNELER = [
   },
 ];
 
-NESNELER.push(...G2_NESNELER, ...G3_NESNELER, ...G4_NESNELER);
+NESNELER.push(...G2_NESNELER, ...G3_NESNELER, ...G4_NESNELER, ...G5_NESNELER);
 
 export function mevcutNesneler(d) {
   return NESNELER.filter((n) => n.mekan === d.mekan && n.mevcut(d));
@@ -741,6 +742,7 @@ export function envanterMetni(d) {
   if (d.bayrak.anahtar17) p.push('On yedinin pirinç anahtarı.');
   if (d.bayrak.defterAlindi) p.push('On yedinin deri defteri, ceketinin içinde.');
   if (d.bayrak.dosyaKarar === 'al') p.push('Kendi dosyan.');
+  if (d.bayrak.cantaAlindi) p.push('Delorme\'un deri çantası.');
   if (d.bayrak.yaraKol) p.push('Sol kolunda Cemil\'in sardığı yanık.');
   p.push('Limandaki itibarın: ' + (d.itibar > 0 ? 'iyi' : d.itibar < 0 ? 'kötü' : 'sıradan') + '.');
   return p.join(' ');
@@ -748,6 +750,7 @@ export function envanterMetni(d) {
 
 // Duraklatma menüsündeki "Görev" satırı: şu an ne yapılabilir?
 export function gorevIpucu(d) {
+  if (d.gorev === 5) return g5Ipucu(d);
   if (d.gorev === 4) return g4Ipucu(d);
   if (d.gorev === 3) return g3Ipucu(d);
   if (d.gorev === 2) return g2Ipucu(d);

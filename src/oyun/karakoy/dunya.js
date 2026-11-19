@@ -6,6 +6,7 @@ import { rotaKur } from './yol';
 import { gorev2Ilerle, kisiDuzelt, takipciKisi } from './gorev2';
 import { gorev3Ilerle, kisiDuzelt3 } from './gorev3';
 import { ekKisiler4, gorev4Ilerle, kisiDuzelt4 } from './gorev4';
+import { g5Yakalanma, gorev5Ilerle } from './gorev5';
 import { aciDuzelt, goreliAci, saatYonu, tarif, uzaklik } from '../konum';
 
 // Zaman: gerçek 1 saniye = oyunda ZAMAN_ORANI saniye (1 gerçek dakika = 10 oyun dakikası)
@@ -319,6 +320,7 @@ export function ilerle(d, girdi, dt) {
     gorev2Ilerle(d, gizliMi(d.mekan) ? OTO_HIZ_GIZLI / YURUME_HIZI : OTO_HIZ / YURUME_HIZI, dt, olaylar);
     gorev3Ilerle(d);
     gorev4Ilerle(d);
+    gorev5Ilerle(d);
     yakinlikOlaylari(d, olaylar);
     return olaylar;
   }
@@ -356,6 +358,7 @@ export function ilerle(d, girdi, dt) {
   gorev2Ilerle(d, Math.abs(ileri), dt, olaylar);
   gorev3Ilerle(d);
   gorev4Ilerle(d);
+  gorev5Ilerle(d);
   yakinlikOlaylari(d, olaylar);
   return olaylar;
 }
@@ -389,6 +392,10 @@ function gizlilik(d, hiz, dt, olaylar) {
 }
 
 function yakalan(d, olaylar) {
+  if (g5Yakalanma(d)) {
+    olaylar.push({ tur: 'anlatim', metin: 'Bir fener yüzüne vuruyor.', uyari: true });
+    return;
+  }
   d.suphe = 0;
   d.bayrak.yakalandiSayi = (d.bayrak.yakalandiSayi || 0) + 1;
   d.oto = null;
@@ -587,6 +594,7 @@ export function bekle(d, dakika) {
     gorev2Ilerle(d, 0, (Math.min(adim, dakika - g) * 60) / ZAMAN_ORANI, olaylar, true);
     gorev3Ilerle(d);
     gorev4Ilerle(d);
+    gorev5Ilerle(d);
     if (d.sahne && !sahneOnce) break; // bir hikâye sahnesi açıldı: bekleme biter
   }
   d.sonVapur = ((d.dakika % 1440) + 1440) % 1440;
@@ -602,7 +610,7 @@ const OTO_HIZ_GIZLI = 0.6; // antrepoda, bekçiyi uyandırmamak için
 // Bu kişileri Arif zaten tanır (limanda çalışıyor); ötekiler karşılaşınca listeye girer
 const TANIDIK = ['suleyman', 'husnu', 'ohannes', 'hamallar', 'halim', 'riza'];
 // Bu kişiler listeye hiç girmez (gizlice izlenir ya da kaçar)
-const LISTEDISI = ['bekci', 'takipci', 'kasketli', 'nobetci', 'lavantali'];
+const LISTEDISI = ['bekci', 'takipci', 'kasketli', 'nobetci', 'lavantali', 'delorme'];
 
 // Şu an gidilebilecek ve bilinen yerler: { id, ad, mekan, x, y, menzil, tur, uzaklik }
 export function yerlerListesi(d) {
