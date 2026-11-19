@@ -178,6 +178,14 @@
   Süleyman Arif'i buldu, hiç ihbar etmedi (Göz arşivi / üçüncü perde Kemal görevi). "Hamal canlı kalsın": Rivière beşinci koltuğu kalıbı
   döken ustanın çocuklarından biri için bekletiyor. Ahit'i Rivière yazdı. Nermin'in abisi Cevdet Kasa kolunun taşıdığı çürük kaputla
   dondu. Binbaşı Fikri Kılıç'ın İstanbul adamı. Delorme'un zaafı Neslihan. Anne Zehra Tekirdağ'da yaşıyor (gizli son).
+  ÖRGÜTÜN AMACI (19 Kasım, Murat): yeni dünya düzeni. İmparatorlukları büyük savaşla yıktırmak, yerlerine doğan devletlere
+  "kahraman" kılığında adam sokup (vatansever memur, halkçı gazeteci, hayırsever banker, gazi) onları içeriden ele geçirmek ve
+  sonraki dünya savaşına göre biçimlendirmek. Kahramanlar: Nazım Bey (Anadolu'ya gizlice para/silah kaçıran vatansever memur
+  kılığında; her kuruş Mühür'e borç), Rainer (Viyana'da aşevleri), Weisz (yenik askerler derneği), Göz hepsini dosyayla tutar.
+  ARİF'İN YERİ: Rivière'in planındaki son kahraman ("Hamal canlı kalsın"); bazı zaferlerine göz yumuldu, beşinci koltuk onun için;
+  Ahit'in kenarında "İstanbul için kahraman: kalıpçının oğlu". Asıl soru: örgütün yıkıcısı mı, son kahramanı mı? SINIR: gerçek
+  savaşlar/işgaller/kurtuluş hareketleri arka plan; örgüt onları kendi eseri sanır, oyun ona hak vermez; sızdırılan kahramanlar
+  hep kurgu, hiçbir gerçek tarihî kişi örgütün adamı gösterilmez.
 - Bu ortamda npm yok; bağımlılık sürümleri Expo dokümanından (react-native-webview 14.0.1, SDK 58). bun build'e -e react-native-webview ekle.
 
 ## Tasarım
