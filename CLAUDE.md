@@ -186,6 +186,15 @@
   Ahit'in kenarında "İstanbul için kahraman: kalıpçının oğlu". Asıl soru: örgütün yıkıcısı mı, son kahramanı mı? SINIR: gerçek
   savaşlar/işgaller/kurtuluş hareketleri arka plan; örgüt onları kendi eseri sanır, oyun ona hak vermez; sızdırılan kahramanlar
   hep kurgu, hiçbir gerçek tarihî kişi örgütün adamı gösterilmez.
+  İSTANBUL PLANI (19 Kasım, Murat: "Sabri'nin gördüğü silahlar örgütün İstanbul'a gizlice soktuğu silahlar; büyük nümayiş için;
+  gazete ve kahvehaneyle kandırılan halk vatanseverlik maskesiyle kendi devletine karşı ayaklandırılacak"): sevkiyatlar dışarıya
+  satış görünür, her seferinde birkaç sandık kâğıtta yok olup İstanbul'da kalır (çoktan ekili: g2 "kırk değil otuz sekiz",
+  g4 Halim "o iki sandık benim payımdı"). Nazım Bey'in kurgu cemiyeti Vatan Muhafızları, gazetesi Seher Postası, kahvehane
+  hatipleri; Nisan 1919 Tophane'de kurgu nümayiş (ilk kurşun örgütten, İtilaf karşılık, kaos, "kahraman"). Birinci perde
+  artık 11 görev: 7 Madam N., 8 Kasa (Ferrante: kayıp sandıkları Nazım'ın adamları alır), 9 Balo (planın duyulması), 10 Kahvehane
+  (sızma, depo, Hatice, cemiyete katılmış bir hamal), 11 Nümayiş (kalabalıkta sesle av; depo boşaltıldıysa kansız; ertesi gün
+  Seher Postası'nda "Karaköy'ün hamalı" manşeti = Rivière'in istediği kahramanlık; adın yazılsın/yalanla/sus; Sabri'nin taşı;
+  15 Mayıs; ilk kol; pusula). Gerçek 1919 mitingleri ve gerçek örgütlenmeler bu kurguya karıştırılmaz; kalabalık iyi niyetlidir.
 - Bu ortamda npm yok; bağımlılık sürümleri Expo dokümanından (react-native-webview 14.0.1, SDK 58). bun build'e -e react-native-webview ekle.
 
 ## Tasarım
