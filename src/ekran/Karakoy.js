@@ -18,7 +18,8 @@ import { cal, ortamCal } from '../ses/efektler';
 import { RENK, UST_BOSLUK } from '../arayuz/tema';
 import KonumsalSes from '../ses/konumsal';
 import { MEKANLAR, SESLER } from '../oyun/karakoy/harita';
-import { bekle, cevreMetni, durumMetni, etkiles, eylemUygula, ilerle, kisiler, otoBaslat, saatMetni, tramvayYeri, yeniDunya, yerlerListesi } from '../oyun/karakoy/dunya';
+import { karakoyYaz } from '../oyun/karakoy/kayit';
+import { ZEMIN, bekle, cevreMetni, durumKisa, durumMetni, etkiles, eylemUygula, ilerle, kisiler, otoBaslat, saatMetni, tramvayYeri, yeniDunya, yerlerListesi } from '../oyun/karakoy/dunya';
 import {
   DELILLER,
   delilAdi,
@@ -44,9 +45,25 @@ const DOSYALAR = {
   vapur: require('../../assets/ses/konumsal/vapur_duduk.wav'),
   can: require('../../assets/ses/konumsal/kilise_cani.wav'),
   tramvay: require('../../assets/ses/konumsal/tramvay.wav'),
+  adim_tas_1: require('../../assets/ses/konumsal/adim_tas_1.wav'),
+  adim_tas_2: require('../../assets/ses/konumsal/adim_tas_2.wav'),
+  adim_tas_3: require('../../assets/ses/konumsal/adim_tas_3.wav'),
+  adim_tas_4: require('../../assets/ses/konumsal/adim_tas_4.wav'),
+  adim_tas_5: require('../../assets/ses/konumsal/adim_tas_5.wav'),
+  adim_tas_6: require('../../assets/ses/konumsal/adim_tas_6.wav'),
+  adim_tas_7: require('../../assets/ses/konumsal/adim_tas_7.wav'),
+  adim_tas_8: require('../../assets/ses/konumsal/adim_tas_8.wav'),
+  adim_ahsap_1: require('../../assets/ses/konumsal/adim_ahsap_1.wav'),
+  adim_ahsap_2: require('../../assets/ses/konumsal/adim_ahsap_2.wav'),
+  adim_ahsap_3: require('../../assets/ses/konumsal/adim_ahsap_3.wav'),
+  adim_ahsap_4: require('../../assets/ses/konumsal/adim_ahsap_4.wav'),
+  adim_ahsap_5: require('../../assets/ses/konumsal/adim_ahsap_5.wav'),
+  adim_ahsap_6: require('../../assets/ses/konumsal/adim_ahsap_6.wav'),
+  adim_ahsap_7: require('../../assets/ses/konumsal/adim_ahsap_7.wav'),
+  adim_ahsap_8: require('../../assets/ses/konumsal/adim_ahsap_8.wav'),
 };
 
-const HAREKET_YARDIMI =
+export const HAREKET_YARDIMI =
   'Menüdeki Yerler\'den bir yer seçersen Arif oraya kendisi yürür. Parmağını ekrana koyup yukarı kaydır ve tut: ileri yürürsün. Aşağı: geri. Sağa ya da sola: dönersin. Parmak ne kadar uzaksa o kadar hızlı; birinin yakınında yavaş yürü. Dokun: çevrende ne var. Çift dokun: kapıdan geç, eşyayı incele ya da yanındakiyle konuş. Uzun bas: saat ve yerin. İki parmakla dokun: sustur. İki parmakla çift dokun: menü; görev, soruşturma panosu, defter ve bekleme orada.';
 
 const ACILIS =
@@ -68,9 +85,9 @@ function delilDuyurusu(yeni) {
   return ' Yeni delil: ' + yeni.map(delilAdi).join(', ') + '.';
 }
 
-export default function Karakoy({ onGeri }) {
+export default function Karakoy({ onGeri, baslangic = null, onDurum }) {
   const motor = useRef(null);
-  const dunya = useRef(yeniDunya());
+  const dunya = useRef(baslangic || yeniDunya());
   const surukle = useRef({ aktif: false, dx: 0, dy: 0 });
   const yuklu = useRef({});
   const calanlar = useRef({});
@@ -112,7 +129,10 @@ export default function Karakoy({ onGeri }) {
     const kisi = kisiler(d);
     for (const k of kisi) {
       const duyulur = k.yuruyor && (k.mekan === d.mekan || k.mekan === 'dis');
-      if (duyulur) kaynakAc('ayak_' + k.id, 'ayak', k);
+      if (duyulur) {
+        calanlar.current['ayak_' + k.id] = true;
+        if (m()) m().kaynak('ayak_' + k.id, 'ayak', k, ZEMIN[k.mekan] || 'tas');
+      }
       else kaynakKapat('ayak_' + k.id);
     }
     for (const id of Object.keys(calanlar.current))
@@ -139,7 +159,7 @@ export default function Karakoy({ onGeri }) {
     const sozler = [];
     for (const o of olaylar) {
       if (o.tur === 'adim') {
-        if (m()) m().adim();
+        if (m()) m().adim(ZEMIN[d.mekan] || 'tas', d.mekan === 'antrepo' ? 0.3 : 0.45);
       } else if (o.tur === 'carpti') {
         Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Medium).catch(() => {});
         if (o.neden === 'su') sozler.push('Rıhtımın kenarı. Önün deniz.');
@@ -210,6 +230,7 @@ export default function Karakoy({ onGeri }) {
       if (sayac % 3 === 0) sesleriEsitle(false);
       if (d.gece && d.mekan === 'dis' && Math.random() < 0.0025 && m() && yuklu.current.kopek)
         m().tek('kopek', { x: SESLER.kopek.x - Math.random() * 30, y: SESLER.kopek.y }, 0.8);
+      if (sayac % 100 === 0) karakoyYaz(d);
       if (sayac % 10 === 0) setYazi('Saat ' + saatMetni(d.dakika) + ' · ' + (MEKANLAR[d.mekan].ad || 'Karaköy') + ' · ' + d.deliller.length + ' delil');
     }, ADIM_MS);
     return () => clearInterval(z);
@@ -218,8 +239,11 @@ export default function Karakoy({ onGeri }) {
 
   useEffect(() => {
     ortamCal(MEKANLAR.dis.ortam, ortamOrani(dunya.current));
-    soyle(ACILIS + HAREKET_YARDIMI, 'istek', true);
+    if (baslangic) soyle('Kaldığın yerden. ' + durumKisa(dunya.current) + ' Menü için iki parmakla çift dokun.', 'istek', true);
+    else soyle(ACILIS + HAREKET_YARDIMI, 'istek', true);
     return () => {
+      karakoyYaz(dunya.current);
+      if (onDurum) onDurum(dunya.current);
       if (m()) m().durdur();
       ortamCal(null);
       sustur();
@@ -243,6 +267,7 @@ export default function Karakoy({ onGeri }) {
   const beklet = (dakika) => {
     const d = dunya.current;
     const olaylar = bekle(d, dakika);
+    karakoyYaz(d);
     sesleriEsitle(true);
     const ek = olaylariIsle(olaylar.filter((o) => o.tur !== 'kisi' && o.tur !== 'kapi'), true);
     katmanKapat('Bekledin. Saat ' + saatMetni(d.dakika) + '. ' + ek);
@@ -269,6 +294,7 @@ export default function Karakoy({ onGeri }) {
             bekle(d, dk);
             sesleriEsitle(true);
           }
+          karakoyYaz(d);
           if (r.sonra) konusmaGoster(kisiId, ad, r.sonra, cevap);
           else katmanKapat(cevap || null);
           return 'sessiz';
@@ -291,6 +317,7 @@ export default function Karakoy({ onGeri }) {
           etiket: e.etiket,
           sec: () => {
             const r = eylemUygula(d, id, e.id);
+            karakoyYaz(d);
             if (r.yeniDeliller && r.yeniDeliller.length) cal('delil', 0.8);
             if (r.ses === 'deklansor') Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light).catch(() => {});
             const olaySoz = olaylariIsle(r.olaylar || [], true);
@@ -424,6 +451,20 @@ export default function Karakoy({ onGeri }) {
     });
   };
 
+  const bekleGoster = () => {
+    katmanAc({
+      baslik: 'Bekle',
+      giris: 'Saat ' + saatMetni(dunya.current.dakika) + '. Ne kadar bekleyeceksin?',
+      onGeri: () => menuyuAc(),
+      ogeler: [
+        { id: 'yarim', etiket: 'Yarım saat', sec: () => (beklet(30), 'sessiz') },
+        { id: 'iki', etiket: 'İki saat', sec: () => (beklet(120), 'sessiz') },
+        { id: 'alti', etiket: 'Altı saat', ipucu: 'Geceyi ya da günü geçirmek için.', sec: () => (beklet(360), 'sessiz') },
+        { id: 'geri', etiket: 'Menüye dön', sec: () => (menuyuAc(), 'sessiz') },
+      ],
+    });
+  };
+
   const menuyuAc = () => {
     const d = dunya.current;
     katmanAc({
@@ -437,11 +478,13 @@ export default function Karakoy({ onGeri }) {
         { id: 'pano', etiket: 'Soruşturma panosu', ipucu: 'Delilleri bağla, teorilerini gözden geçir.', sec: () => (panoGoster(), 'sessiz') },
         { id: 'defter', etiket: 'Defter', ipucu: 'Topladığın deliller.', sec: () => (defterGoster(), 'sessiz') },
         { id: 'envanter', etiket: 'Üstündekiler', ipucu: 'Envanter, para ve itibar.', sec: () => (soyle(envanterMetni(d), 'istek', true), 'sessiz') },
-        { id: 'yarim', etiket: 'Yarım saat bekle', sec: () => (beklet(30), 'sessiz') },
-        { id: 'iki', etiket: 'İki saat bekle', sec: () => (beklet(120), 'sessiz') },
-        { id: 'alti', etiket: 'Altı saat bekle', ipucu: 'Geceyi ya da günü geçirmek için.', sec: () => (beklet(360), 'sessiz') },
-        { id: 'yardim', etiket: 'Hareketler', sec: () => (soyle(HAREKET_YARDIMI, 'istek', true), 'sessiz') },
-        { id: 'cik', etiket: 'Ana menüye dön', ipucu: 'Bu denemede kayıt yok; Karaköy baştan başlar.', sec: () => (onGeri(), 'sessiz') },
+        { id: 'bekle', etiket: 'Bekle', ipucu: 'Saati ileri al.', sec: () => (bekleGoster(), 'sessiz') },
+        {
+          id: 'cik',
+          etiket: 'Ana menüye dön',
+          ipucu: 'Oyun kaydedilir; Devam et ile kaldığın yerden sürersin.',
+          sec: () => (karakoyYaz(dunya.current), onGeri(), 'sessiz'),
+        },
       ],
     });
   };

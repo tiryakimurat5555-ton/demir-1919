@@ -80,7 +80,23 @@ const MOTOR_HTML = `<!DOCTYPE html><html><head><meta charset="utf-8"></head><bod
     lfo.connect(lg); lg.connect(g.gain); s.connect(f); f.connect(g); g.connect(k.p); s.start(); lfo.start();
     k.durdur = function(){ try { s.stop(); lfo.stop(); } catch(e){} };
   }
-  function adimCal(hedef, duzey){
+  // Kayıtlı adım sesleri: 'adim_<zemin>_N' adlı tamponlardan rastgele biri, hafif hız ve düzey farkıyla
+  var sonAdim = {};
+  function adimOrnegi(zemin, hedef, duzey){
+    var adlar = [];
+    for (var a in tamponlar) if (a.indexOf('adim_' + zemin + '_') === 0) adlar.push(a);
+    if (!adlar.length) return false;
+    var ad = adlar[Math.floor(Math.random() * adlar.length)];
+    if (ad === sonAdim[zemin] && adlar.length > 1) ad = adlar[(adlar.indexOf(ad) + 1) % adlar.length];
+    sonAdim[zemin] = ad;
+    var s = ctx.createBufferSource(), g = ctx.createGain();
+    s.buffer = tamponlar[ad]; s.playbackRate.value = 0.93 + Math.random() * 0.14;
+    g.gain.value = (duzey || 0.5) * (0.8 + Math.random() * 0.2);
+    s.connect(g); g.connect(hedef || ana); s.start();
+    return true;
+  }
+  function adimCal(hedef, duzey, zemin){
+    if (zemin && adimOrnegi(zemin, hedef, duzey)) return;
     var t = ctx.currentTime, s = ctx.createBufferSource(), f = ctx.createBiquadFilter(), g = ctx.createGain();
     s.buffer = gurultu(0.09); f.type = 'lowpass'; f.frequency.value = 900;
     g.gain.setValueAtTime(duzey || 0.5, t); g.gain.exponentialRampToValueAtTime(0.0001, t + 0.08);
@@ -136,19 +152,20 @@ const MOTOR_HTML = `<!DOCTYPE html><html><head><meta charset="utf-8"></head><bod
     dosyaCal(k);
     k.zaman = setInterval(function(){ dosyaCal(k); }, aralik);
   }
-  function kaynak(id, tur, n){
+  function kaynak(id, tur, n, zemin){
     baglam();
     var k = kaynaklar[id];
+    if (k && zemin) k.zemin = zemin;
     if (k && k.tur === 'dosya') { konumla(k.p, n); return; }
     if (!k || k.tur !== tur){
       if (k && k.durdur) k.durdur();
       if (k && k.zaman) clearInterval(k.zaman);
-      k = { tur: tur, p: panner() };
+      k = { tur: tur, p: panner(), zemin: zemin };
       kaynaklar[id] = k;
       if (tur === 'zil') { zilCal(k); k.zaman = setInterval(function(){ zilCal(k); }, 1500); }
       else if (tur === 'cekic') { k.zaman = setInterval(function(){ cekicCal(k); }, 700); }
       else if (tur === 'deniz') denizBaslat(k);
-      else if (tur === 'ayak') { k.zaman = setInterval(function(){ adimCal(k.p, 0.8); }, 520); }
+      else if (tur === 'ayak') { k.zaman = setInterval(function(){ adimCal(k.p, 0.9, k.zemin || 'tas'); }, 540); }
     }
     konumla(k.p, n);
   }
@@ -171,9 +188,9 @@ const MOTOR_HTML = `<!DOCTYPE html><html><head><meta charset="utf-8"></head><bod
     komut: function(c){
       try {
         if (c.ad === 'baslat') { baglam(); ctx.resume().then(function(){ bildir({ tur: 'hazir', durum: ctx.state }); }, function(e){ bildir({ tur: 'hata', metin: String(e) }); }); }
-        else if (c.ad === 'kaynak') kaynak(c.id, c.tur, c.n);
+        else if (c.ad === 'kaynak') kaynak(c.id, c.tur, c.n, c.zemin);
         else if (c.ad === 'dinleyici') dinleyici(c.n, c.y);
-        else if (c.ad === 'adim') { baglam(); adimCal(); }
+        else if (c.ad === 'adim') { baglam(); adimCal(null, c.duzey || 0.45, c.zemin); }
         else if (c.ad === 'yukle') yukle(c.dosya, c.veri);
         else if (c.ad === 'dosyaKaynak') dosyaKaynak(c.id, c.dosya, c.n, c.aralik);
         else if (c.ad === 'model') modelSec(c.model);
@@ -204,9 +221,9 @@ function KonumsalSes({ onMesaj }, ref) {
   };
   useImperativeHandle(ref, () => ({
     baslat: () => gonder({ ad: 'baslat' }),
-    kaynak: (id, tur, nokta) => gonder({ ad: 'kaynak', id, tur, n: sesKoordinati(nokta) }),
+    kaynak: (id, tur, nokta, zemin) => gonder({ ad: 'kaynak', id, tur, n: sesKoordinati(nokta), zemin }),
     dinleyici: (d) => gonder({ ad: 'dinleyici', n: sesKoordinati(d), y: sesYonu(d.yon) }),
-    adim: () => gonder({ ad: 'adim' }),
+    adim: (zemin, duzey) => gonder({ ad: 'adim', zemin, duzey }),
     model: (ad) => gonder({ ad: 'model', model: ad }),
     durdur: () => gonder({ ad: 'durdur' }),
     sil: (id) => gonder({ ad: 'sil', id }),

@@ -257,6 +257,7 @@ describe('Yerler: kendiliğinden yürüme', () => {
     const d = yeniDunya();
     d.mekan = 'kayikhane';
     d.oyuncu = { x: -48, y: 7, yon: 0 };
+    d.bayrak.gulceOnerildi = true;
     otoBaslat(d, yerlerListesi(d).find((y) => y.id === 'buro'));
     const olaylar = otoYuru(d);
     expect(olaylar.filter((o) => o.tur === 'otoKapi').length).toBe(2);
@@ -273,8 +274,10 @@ describe('Yerler: kendiliğinden yürüme', () => {
       const d = yeniDunya();
       d.dakika = 10 * 60;
       d.oyuncu = { ...b, yon: 0 };
+      d.bayrak.gulceOnerildi = true;
+      d.bayrak.arkaKapiBiliniyor = true;
       for (const y of yerlerListesi(d).filter((x) => x.tur === 'yer' && x.id !== 'oda')) {
-        const d2 = { ...d, oyuncu: { ...d.oyuncu }, yakin: {}, bayrak: {} };
+        const d2 = { ...d, oyuncu: { ...d.oyuncu }, yakin: {}, bayrak: { ...d.bayrak }, kesif: { ...d.kesif } };
         expect(otoBaslat(d2, y).tamam).toBe(true);
         otoYuru(d2);
         expect(d2.mekan).toBe(y.mekan);
@@ -285,6 +288,7 @@ describe('Yerler: kendiliğinden yürüme', () => {
   test('kişiye yürür ve yanında durur', () => {
     const d = yeniDunya();
     d.dakika = 10 * 60;
+    d.bayrak.gulceOnerildi = true;
     const g = yerlerListesi(d).find((y) => y.id === 'kisi_gulce');
     otoBaslat(d, g);
     otoYuru(d);
@@ -309,5 +313,43 @@ describe('Yerler: kendiliğinden yürüme', () => {
     const o = ilerle(d, { ileri: 1 }, 0.1);
     expect(o.some((x) => x.tur === 'otoIptal')).toBe(true);
     expect(d.oto).toBeNull();
+  });
+});
+
+describe('Yerler: yalnızca bilinen ve gidilebilen', () => {
+  test('başta büro, Gülce, oda ve antrepo kapısı listede yok', () => {
+    const d = yeniDunya();
+    d.dakika = 10 * 60;
+    const ids = yerlerListesi(d).map((y) => y.id);
+    expect(ids).toContain('kayikhane');
+    expect(ids).toContain('kisi_suleyman');
+    expect(ids).not.toContain('buro');
+    expect(ids).not.toContain('kisi_gulce');
+    expect(ids).not.toContain('oda');
+    expect(ids).not.toContain('antrepo_arka');
+    expect(ids).not.toContain('nesne_denk');
+  });
+  test('hamlelerle açılır: Süleyman büroyu söyler, antrepo kapısına yaklaşınca öğrenilir', () => {
+    const d = yeniDunya();
+    d.bayrak.gulceOnerildi = true;
+    d.bayrak.denkAcik = true;
+    d.oyuncu = { x: 26, y: 20, yon: 0 };
+    ilerle(d, {}, 0.1);
+    const ids = yerlerListesi(d).map((y) => y.id);
+    expect(ids).toContain('buro');
+    expect(ids).toContain('nesne_denk');
+    expect(ids).toContain('antrepo_arka');
+  });
+  test('kayıt temizlenir ve geri yüklenir', async () => {
+    const { kayitTemizle, kayittanDunya } = await import('../src/oyun/karakoy/dunya');
+    const d = yeniDunya();
+    d.deliller.push('ip_izi');
+    otoBaslat(d, yerlerListesi(d).find((y) => y.id === 'durak'));
+    const k = JSON.parse(JSON.stringify(kayitTemizle(d)));
+    expect(k.oto).toBeUndefined();
+    const g = kayittanDunya(k);
+    expect(g.deliller).toEqual(['ip_izi']);
+    expect(g.oto).toBeNull();
+    expect(kayittanDunya({ surum: 99 })).toBeNull();
   });
 });

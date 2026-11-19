@@ -48,7 +48,16 @@ export function yeniDunya() {
     fotograflar: [],
     suphe: 0,
     gorevBitti: false,
+    kesif: { kayikhane: true, han: true }, // bilinen yerler, kişiler, eşyalar (Yerler menüsü bunlardan oluşur)
   };
+}
+
+// Mekânların zemini (adım sesleri): taş ya da ahşap
+export const ZEMIN = { dis: 'tas', han: 'tas', buro: 'tas', kayikhane: 'ahsap', oda: 'ahsap', antrepo: 'ahsap' };
+
+function kesfet(d, anahtar) {
+  if (!d.kesif) d.kesif = {};
+  d.kesif[anahtar] = true;
 }
 
 export function geceMi(dakika) {
@@ -354,6 +363,7 @@ function yakinlikOlaylari(d, olaylar) {
     const u = uzaklik(o, c);
     if (u <= KAPI_MENZILI && !d.yakin[c.id]) {
       d.yakin[c.id] = true;
+      kesfet(d, 'kapi_' + c.id);
       olaylar.push({ tur: 'kapi', ad: c.ad, saat: saatYonu(goreliAci(o, c)) });
     } else if (u > KAPI_MENZILI + 1.5) delete d.yakin[c.id];
   }
@@ -362,6 +372,7 @@ function yakinlikOlaylari(d, olaylar) {
     const u = uzaklik(o, n);
     if (u <= NESNE_MENZILI && !d.yakin[anahtar]) {
       d.yakin[anahtar] = true;
+      kesfet(d, anahtar);
       olaylar.push({ tur: 'nesne', ad: n.ad, saat: saatYonu(goreliAci(o, n)) });
     } else if (u > NESNE_MENZILI + 1.5) delete d.yakin[anahtar];
   }
@@ -371,6 +382,7 @@ function yakinlikOlaylari(d, olaylar) {
     const u = ayni ? uzaklik(o, k) : 99;
     if (u <= KISI_MENZILI && !d.yakin[anahtar]) {
       d.yakin[anahtar] = true;
+      kesfet(d, anahtar);
       olaylar.push({ tur: 'kisi', ad: k.ad, eylem: k.eylem, saat: saatYonu(goreliAci(o, k)) });
     } else if (u > KISI_MENZILI + 2) delete d.yakin[anahtar];
   }
@@ -409,6 +421,7 @@ export function etkiles(d) {
 
 export function kapidanGec(d, c) {
   d.mekan = c.hedef;
+  kesfet(d, c.hedef);
   d.oyuncu = { ...c.varis };
   d.yakin = {};
   MEKANLAR[d.mekan].cikislar.forEach((k) => {
@@ -500,24 +513,43 @@ export function bekle(d, dakika) {
 const OTO_HIZ = 1.3; // m/sn
 const OTO_HIZ_GIZLI = 0.6; // antrepoda, bekçiyi uyandırmamak için
 
-// Gidilebilecek yerler: binalar, kişiler, eşyalar, sabit yerler. { id, ad, mekan, x, y, menzil, uzaklik }
+// Bu kişileri Arif zaten tanır (limanda çalışıyor); ötekiler karşılaşınca listeye girer
+const TANIDIK = ['suleyman', 'husnu', 'ohannes', 'hamallar', 'halim'];
+
+// Şu an gidilebilecek ve bilinen yerler: { id, ad, mekan, x, y, menzil, tur, uzaklik }
 export function yerlerListesi(d) {
+  const k = d.kesif || {};
+  const b = d.bayrak;
   const liste = [];
   const ekle = (id, ad, mekan, x, y, menzil, tur) => liste.push({ id, ad, mekan, x, y, menzil, tur });
   ekle('kayikhane', 'Süleyman Kaptan\'ın kayıkhanesi', 'kayikhane', -41, 5, 1, 'yer');
-  ekle('buro', 'Liman kayıt bürosu', 'buro', -1, 17, 1, 'yer');
+  if (k.buro || b.gulceOnerildi) ekle('buro', 'Liman kayıt bürosu', 'buro', -1, 17, 1, 'yer');
   ekle('han', 'Kalafatçı Hanı', 'han', 37, 19, 1, 'yer');
-  if (d.bayrak.odaAnahtari) ekle('oda', 'Sabri\'nin odası', 'oda', 43, 26, 1, 'yer');
-  ekle('antrepo_arka', 'Antreponun arka kapısı', 'dis', 25.4, 22, 0.5, 'yer');
+  if (b.odaAnahtari) ekle('oda', 'Sabri\'nin odası', 'oda', 43, 26, 1, 'yer');
+  if (k.kapi_antrepo_arka || b.arkaKapiBiliniyor) ekle('antrepo_arka', 'Antreponun arka kapısı', 'dis', 25.4, 22, 0.5, 'yer');
   ekle('leventis', 'Leventis vapurunun yanı', 'dis', 30, 1.3, 1, 'yer');
   ekle('iskele', 'Kayıkçı iskelesi', 'dis', 5, 1.3, 1, 'yer');
   ekle('durak', 'Tramvay durağı', 'dis', 0, 34, 1, 'yer');
-  for (const k of kisiler(d)) if (k.id !== 'bekci') ekle('kisi_' + k.id, k.ad, k.mekan, k.x, k.y, 1.6, 'kisi');
-  for (const n of NESNELER) if (n.mevcut(d) && (n.mekan !== 'oda' || d.bayrak.odaAnahtari)) ekle('nesne_' + n.id, n.ad, n.mekan, n.x, n.y, 1.2, 'nesne');
-  for (const y of liste) {
-    y.uzaklik = y.mekan === d.mekan ? Math.round(uzaklik(d.oyuncu, y)) : null;
+  for (const p of kisiler(d)) {
+    if (p.id === 'bekci' || p.mekan === 'antrepo') continue;
+    const taniniyor = TANIDIK.includes(p.id) || k['kisi_' + p.id] || (p.id === 'gulce' && b.gulceOnerildi);
+    if (taniniyor) ekle('kisi_' + p.id, p.ad, p.mekan, p.x, p.y, 1.6, 'kisi');
   }
-  return liste;
+  const bilinen = {
+    ceset: true,
+    denk: b.denkAcik,
+    karanlik_oda: d.envanter.kamera,
+    yuk_defteri: b.gulceIzin,
+    vinc_defteri: b.gulceIzin,
+  };
+  for (const n of NESNELER) {
+    if (!n.mevcut(d)) continue;
+    if (n.mekan === 'oda' && !b.odaAnahtari) continue;
+    if (n.mekan === 'antrepo') continue; // yalnızca gece, gizlice; menüden yürünmez
+    if (bilinen[n.id] || k['nesne_' + n.id]) ekle('nesne_' + n.id, n.ad, n.mekan, n.x, n.y, 1.2, 'nesne');
+  }
+  for (const y of liste) y.uzaklik = y.mekan === d.mekan ? Math.round(uzaklik(d.oyuncu, y)) : null;
+  return liste.filter((y) => !(y.mekan === d.mekan && y.uzaklik !== null && y.uzaklik < 1.5 && y.tur === 'yer'));
 }
 
 // Bir yere kendiliğinden yürümeyi başlatır. Döner: { metin, tamam }
@@ -593,4 +625,28 @@ function otoBitir(d, olaylar) {
   // Hedefe dön
   if (h.mekan === d.mekan && uzaklik(d.oyuncu, h) > 0.2) d.oyuncu = { ...d.oyuncu, yon: aciDuzelt(Math.atan2(h.x - d.oyuncu.x, h.y - d.oyuncu.y)) };
   olaylar.push({ tur: 'otoVardi', ad: h.ad });
+}
+
+// --- Kayıt ---
+export const KARAKOY_SURUM = 1;
+
+// Kaydedilecek durum: geçici alanlar (kendiliğinden yürüme, yakınlık bildirimleri) atılır
+export function kayitTemizle(d) {
+  const { oto, yakin, carpti, bekleme, ...kalan } = d;
+  return { ...kalan, surum: KARAKOY_SURUM };
+}
+
+export function kayittanDunya(k) {
+  if (!k || k.surum !== KARAKOY_SURUM || !k.oyuncu || !Array.isArray(k.deliller) || !MEKANLAR[k.mekan]) return null;
+  const temel = yeniDunya();
+  const d = { ...temel, ...k, oto: null, yakin: {} };
+  delete d.surum;
+  return d;
+}
+
+// Kayıttan dönüşte söylenen kısa durum: gün, saat, yer
+export function durumKisa(d) {
+  const tarih = 3 + d.gun + ' Aralık 1918';
+  const yer = konumAdi(d);
+  return tarih + ', saat ' + saatMetni(d.dakika) + '. ' + yer.charAt(0).toLocaleUpperCase('tr') + yer.slice(1) + '.';
 }

@@ -14,28 +14,28 @@ import { StatusBar } from 'expo-status-bar';
 import SesliListe from './src/arayuz/SesliListe';
 import { rehberAyarla, rehberHazirla, soyle, sustur } from './src/ses/rehber';
 import { RENK } from './src/arayuz/tema';
-import Oyun from './src/ekran/Oyun';
 import Ayarlar from './src/ekran/Ayarlar';
-import SesDenemesi from './src/ekran/SesDenemesi';
 import Karakoy from './src/ekran/Karakoy';
-import { BOLUMLER, ILK_BOLUM } from './src/hikaye';
-import { bolumeGec, yeniDurum } from './src/oyun/motor';
 import { ortamCal, ortamSesiAyarla, sesleriHazirla } from './src/ses/efektler';
-import { ayarlarOku, ayarlarYaz, kayitOku, kayitSil, VARSAYILAN_AYARLAR } from './src/oyun/kayit';
+import { ayarlarOku, ayarlarYaz, VARSAYILAN_AYARLAR } from './src/oyun/kayit';
+import { karakoyOku, karakoySil } from './src/oyun/karakoy/kayit';
+import { durumKisa } from './src/oyun/karakoy/dunya';
 
 const HAKKINDA_METNI = [
   'Demir 1919. 1918 ile 1923 arasında, işgal altındaki İstanbul\'da başlayan bir tarihsel macera ve dedektiflik oyunu.',
   'Oyundaki gizli örgüt ve olay örgüsü kurgudur. Gerçek tarihî olaylar arka plan olarak kullanılır.',
-  'Sürüm 0.72 (Karaköy: Sudaki Adam, Yerler): Sudaki Adam, Ölüler Konuşur, On Yedi Numara, Kül, Kalliope, Hotel Olympos, Montaigne, Kalay, Imperial, Kurşun Mühür, Kordon, İmza, Satranç, Que sais-je?, Genel Kurul, 16 Mart, Kağnı, Kinin, Yeşil Mürekkep, Tarife, Arethusa, Üç Akşam, Sofra, Baston, Kırmızı Sayfalar, Zarf, Moda, Cehennem Otuz Üç, Melek, Tanıklar, Ninni, Pusula, Koza, Tebeşir, İncir, İhale, Taş, Kar, Ekvator, Calle Junín, İskele Taşı.',
+  'Sürüm 0.80. Birinci perde, birinci görev: Sudaki Adam. Karaköy, Aralık 1918.',
 ];
 
 const HAREKETLER = [
-  'Sağa kaydır: sonraki öğe. Sola kaydır: önceki öğe.',
-  'Bir öğeye dokun: o öğeyi oku. Parmağını ekranda yavaşça gezdirmek de öğeleri okur.',
-  'Ekranın herhangi bir yerine çift dokun: okunan öğeyi seç.',
-  'Uzun bas: okunan öğeyi açıklamasıyla yeniden oku.',
+  'Oyunda: parmağını ekrana koyup yukarı kaydır ve tut, ileri yürürsün. Aşağı kaydırırsan geri, sağa ya da sola kaydırırsan dönersin. Parmak ne kadar uzaksa o kadar hızlı.',
+  'Dokun: çevrende ne var; yerler, kişiler ve eşyalar saat yönüyle söylenir. Saat 12 önün, 3 sağın, 6 arkan, 9 solun.',
+  'Çift dokun: kapıdan geç, eşyayı incele ya da yanındakiyle konuş.',
+  'Uzun bas: saat, yer ve baktığın yön.',
   'İki parmakla dokun: konuşmayı sustur.',
-  'İki parmakla çift dokun: bir önceki ekrana dön.',
+  'İki parmakla çift dokun: oyun menüsü. Görev, Yerler, soruşturma panosu, defter, üstündekiler, bekleme ve ana menü orada. Yerler\'den bir yer seçersen Arif oraya kendisi yürür; yolda ekrana dokunursan durur.',
+  'Menülerde: sağa ya da sola kaydır, sonraki ya da önceki öğe. Çift dokun, seç. Uzun bas, açıklama. İki parmakla çift dokun, geri.',
+  'Kulaklık takarak oyna: sesler bulundukları yönden gelir.',
 ];
 
 // Paragrafları okunabilir liste öğelerine çevirir; sona "geri" öğesi eklenir
@@ -54,7 +54,7 @@ export default function App() {
   const [girisNo, setGirisNo] = useState(0);
   const [ayarlar, setAyarlar] = useState(VARSAYILAN_AYARLAR);
   const [kayit, setKayit] = useState(null);
-  const [oyunDurumu, setOyunDurumu] = useState(null);
+  const [baslangic, setBaslangic] = useState(null);
 
   useEffect(() => {
     (async () => {
@@ -65,7 +65,7 @@ export default function App() {
       rehberAyarla({ konusmaHizi: a.konusmaHizi, sesKimligi: a.sesKimligi });
       await sesleriHazirla();
       ortamSesiAyarla(a.ortamDuzeyi);
-      setKayit(await kayitOku());
+      setKayit(await karakoyOku());
       setHazir(true);
     })();
   }, []);
@@ -81,20 +81,14 @@ export default function App() {
     setAyarlar(yeni);
   }, []);
 
-  // Oyunun en son durumu (ekran okuyucu açılıp kapanınca ya da menüye dönünce kullanılır)
-  const sonDurum = useRef(null);
   const oyunuBaslat = useCallback((d) => {
-    sonDurum.current = d;
-    setOyunDurumu(d);
-    setEkran('oyun');
+    setBaslangic(d);
+    setEkran('karakoy');
   }, []);
 
-  const oyundanCik = useCallback(() => {
+  const oyundanCik = useCallback(async () => {
     sustur();
-    if (sonDurum.current) {
-      setKayit(sonDurum.current);
-      setOyunDurumu(sonDurum.current);
-    }
+    setKayit(await karakoyOku());
     setEkran('menu');
   }, []);
 
@@ -118,7 +112,7 @@ export default function App() {
 
   // Menülerde rıhtımın sesi uzaktan duyulur; oyunda ortamı Oyun ekranı yönetir
   useEffect(() => {
-    if (hazir && ekran !== 'oyun' && ekran !== 'sesdeneme' && ekran !== 'sesdeneme2' && ekran !== 'karakoy') ortamCal('ortam_rihtim', 0.45);
+    if (hazir && ekran !== 'karakoy') ortamCal('ortam_rihtim', 0.45);
   }, [hazir, ekran]);
 
   let icerik = null;
@@ -131,33 +125,15 @@ export default function App() {
         rehberAcik
         ogeler={[
           ...(kayit
-            ? [{ id: 'devam', etiket: 'Devam et', ipucu: 'Kaldığın yerden sürdürürsün.', sec: () => oyunuBaslat(kayit) }]
+            ? [{ id: 'devam', etiket: 'Devam et', ipucu: () => 'Kaldığın yer: ' + durumKisa(kayit), sec: () => oyunuBaslat(kayit) }]
             : []),
           {
             id: 'yeni',
             etiket: 'Yeni oyun',
-            ipucu: 'Hikâyeyi birinci bölümden başlatır.',
-            sec: () => (kayit ? setEkran('yeniOnay') : oyunuBaslat(yeniDurum(ILK_BOLUM))),
+            ipucu: 'Karaköy, 4 Aralık 1918. Birinci görev: Sudaki Adam. Kulaklık tak.',
+            sec: () => (kayit ? setEkran('yeniOnay') : oyunuBaslat(null)),
           },
           { id: 'ayarlar', etiket: 'Ayarlar', ipucu: 'Konuşma hızı ve ses.', sec: () => setEkran('ayarlar') },
-          {
-            id: 'karakoy',
-            etiket: 'Yeni oyun denemesi: Karaköy',
-            ipucu: 'Yeni oyunun dikey dilimi. Karaköy\'ü kulağınla serbestçe dolaşırsın; birinci görev Sudaki Adam. Kulaklık tak.',
-            sec: () => setEkran('karakoy'),
-          },
-          {
-            id: 'sesdeneme',
-            etiket: 'Konumsal ses denemesi',
-            ipucu: 'Yeni oyunun ilk denemesi. Kulaklıkla sesin yönünü dinlersin.',
-            sec: () => setEkran('sesdeneme'),
-          },
-          {
-            id: 'sesdeneme2',
-            etiket: 'Gerçek seslerle deneme',
-            ipucu: 'Köpek, vapur düdüğü ve kilise çanı; oyunun kendi ses dosyalarıyla.',
-            sec: () => setEkran('sesdeneme2'),
-          },
           { id: 'hareket', etiket: 'Hareketler', ipucu: 'Oyunu nasıl kullanacağını anlatır.', sec: () => setEkran('hareketler') },
           { id: 'hakkinda', etiket: 'Hakkında', sec: () => setEkran('hakkinda') },
         ]}
@@ -177,39 +153,18 @@ export default function App() {
             id: 'evet',
             etiket: 'Evet, baştan başla',
             sec: () => {
-              kayitSil();
+              karakoySil();
               setKayit(null);
-              oyunuBaslat(yeniDurum(ILK_BOLUM));
+              oyunuBaslat(null);
             },
           },
         ]}
       />
     );
   } else if (ekran === 'karakoy') {
-    icerik = <Karakoy key={'karakoy' + girisNo} onGeri={menuyeDon} />;
-  } else if (ekran === 'sesdeneme2') {
-    icerik = <SesDenemesi key={'sesdeneme2' + girisNo} gercek onGeri={menuyeDon} />;
-  } else if (ekran === 'sesdeneme') {
-    icerik = <SesDenemesi key={'sesdeneme' + girisNo} onGeri={menuyeDon} />;
+    icerik = <Karakoy key={'karakoy' + girisNo} baslangic={baslangic} onGeri={oyundanCik} onDurum={setBaslangic} />;
   } else if (ekran === 'ayarlar') {
     icerik = <Ayarlar key={'ayar' + girisNo} ayarlar={ayarlar} ayarDegistir={ayarDegistir} onGeri={menuyeDon} />;
-  } else if (ekran === 'oyun' && oyunDurumu) {
-    icerik = (
-      <Oyun
-        key={'oyun' + girisNo + (sonDurum.current || oyunDurumu).bolum}
-        bolum={BOLUMLER[(sonDurum.current || oyunDurumu).bolum] || ILK_BOLUM}
-        baslangicDurumu={sonDurum.current || oyunDurumu}
-        onDurum={(d) => {
-          sonDurum.current = d;
-        }}
-        onAnaMenu={oyundanCik}
-        onBolumGec={(bolumId, d) => {
-          const yeni = bolumeGec(BOLUMLER[bolumId], d);
-          sustur();
-          oyunuBaslat(yeni);
-        }}
-      />
-    );
   } else if (ekran === 'hareketler') {
     icerik = (
       <SesliListe

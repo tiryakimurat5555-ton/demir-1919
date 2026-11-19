@@ -59,6 +59,16 @@
   (sokakta 1 m ızgarada A* + görüş açık oldukça sadeleştirme, yolun iki yanında 0,2 m pay; mekânlar arası kapı zinciri BFS; kilitli
   kapıda durur). dunya.js yerlerListesi (yerler, kişiler, eşyalar), otoBaslat, ilerle'de d.oto (sürükleme ya da dokunuş durdurur;
   olaylar otoVardi/otoKapi/otoKilitli/otoTakildi/otoIptal; antrepoda yavaş, gizlilik sürer).
+  SÜRÜM 0.80 (19 Kasım, Murat: "denemeler düzgün çalışıyor, gerçek oyuna geç; gereksiz menüleri kaldır"): Karaköy artık asıl oyun.
+  Ana menü: Devam et (karakoy kaydı varsa) / Yeni oyun / Ayarlar / Hareketler / Hakkında. Eski 41 bölüm (Oyun.js, src/hikaye, motor)
+  ve ses denemeleri menüden kalktı; kodları depoda duruyor, testleri sürüyor. Kayıt src/oyun/karakoy/kayit.js (AsyncStorage
+  demir1919.karakoy + yedek; dunya.js kayitTemizle/kayittanDunya, KARAKOY_SURUM 1; 10 sn'de bir, her eylem ve konuşmada, çıkışta).
+  Oyun menüsü: Devam, Görev, Yerler, Soruşturma panosu, Defter, Üstündekiler, Bekle (alt menü), Ana menüye dön.
+  Yerler yalnız bilinen ve gidilebilen: d.kesif (girilen mekânlar, yaklaşılan kapı/eşya/kişi); büro gulceOnerildi, oda odaAnahtari,
+  antrepo arka kapısı kesif ya da hamallardan arkaKapiBiliniyor; tanıdık kişiler TANIDIK, Gülce karşılaşınca; antrepo eşyaları hiç.
+  Adım sesleri: ElevenLabs (flow H13uSGbaUNJZNoPkxW7V, düğümler adim_tas/adim_ahsap, 8 sn) → sessizlikten bölünmüş 8+8 tek adım,
+  assets/ses/konumsal/adim_{tas,ahsap}_1..8.wav. dunya.js ZEMIN (dis/han/buro taş; kayikhane/oda/antrepo ahşap). Motor adimOrnegi:
+  rastgele örnek, hız 0,93-1,07, düzey ±%20; kişilerin 'ayak' kaynağı da kendi mekânının zeminiyle.
 - Bu ortamda npm yok; bağımlılık sürümleri Expo dokümanından (react-native-webview 14.0.1, SDK 58). bun build'e -e react-native-webview ekle.
 
 ## Tasarım

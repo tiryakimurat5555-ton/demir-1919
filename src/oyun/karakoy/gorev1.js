@@ -550,10 +550,12 @@ export const KONUSMALAR = {
           },
           {
             etiket: 'Ferrante\'nin sandıklarını kim taşıdı?',
-            yap: (d) =>
-              d.itibar >= 1
+            yap: (d) => {
+              if (d.itibar >= 1) d.bayrak.arkaKapiBiliniyor = true;
+              return d.itibar >= 1
                 ? 'Biz taşıdık, diyor biri sesini alçaltarak. Her biri iki adam ağırlığında. Ferrante\'nin bekçisi gece antrepoyu kolaçan eder, arka kapının kilidi gevşektir; söylemedim say.'
-                : 'Hamal omuz silkiyor. Biz yük taşırız, soru sormayız.',
+                : 'Hamal omuz silkiyor. Biz yük taşırız, soru sormayız.';
+            },
           },
           { etiket: 'Kolay gelsin.' },
         ],
