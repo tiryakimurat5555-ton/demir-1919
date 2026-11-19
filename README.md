@@ -431,3 +431,4 @@ ambarda ona Neslihan öğretmiştir. Yeni ortam sesi: İskenderiye limanı.
 - Sürüm 0.98: yürüme hızı 1,4'ten 2,4 m/sn'ye çıktı (kendiliğinden yürüme de); adım sesi her metrede bir.
 - Sürüm 0.99: Yerler menüsü yalnızca bulunduğun yerdeki kişileri ve eşyaları, sonra gidebileceğin yerleri gösterir.
 - Sürüm 1.00: ipucu metinleri ayrıntılandı (ceset, defterler, döşek, karanlık oda, sandıklar; Hüsnü, Gülce, Ohannes, hamallar; Pera, meyhane ve antrepo bulguları).
+- Sürüm 1.01: kendi etrafında dönerken her 30 derecede tık sesi (ana yönlerde daha güçlü), Kayıp Okyanus'taki gibi.

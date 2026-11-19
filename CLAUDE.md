@@ -147,6 +147,9 @@
   Sürüm 1.00 (19 Kasım, Murat: "İpucu bulunca ki metinleri üstünkörü geçme, ilk versionda daha detaylıydı"): görev 1-5'te delil veren
   eylem ve konuşma metinleri eski bölüm metinleri ölçüsünde yeniden yazıldı (duyusal ayrıntı + Arif'in çıkarımı). Yeni delil eklerken
   bulma metnini tek cümle bırakma; ne görüldüğünü, nasıl görüldüğünü ve ne anlama gelebileceğini yaz (yeni olgu uydurmadan).
+  Sürüm 1.01 (19 Kasım, Murat: "kendi etrafında dönerken Vahşi Yaşam ve Kayıp Okyanus'taki gibi tık tık"): dunya.js donusTikirtisi
+  (DILIM 30°, yarım dilim payı, d.sonDilim; oto yürüyüşte sıfırlanır) → olay 'tik' {guc 0,65 ana yönde / 0,3}; Karakoy.js cal('tik').
+  assets/ses/tik.wav kayip-okyanus'tan kopyalandı; efektler.js KAYNAKLAR'da (SesliListe'nin menü tıkı da artık bu sesi çalar).
 - Bu ortamda npm yok; bağımlılık sürümleri Expo dokümanından (react-native-webview 14.0.1, SDK 58). bun build'e -e react-native-webview ekle.
 
 ## Tasarım

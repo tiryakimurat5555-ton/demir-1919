@@ -159,7 +159,9 @@ export default function Karakoy({ onGeri, baslangic = null, onDurum }) {
     const d = dunya.current;
     const sozler = [];
     for (const o of olaylar) {
-      if (o.tur === 'adim') {
+      if (o.tur === 'tik') {
+        cal('tik', o.guc);
+      } else if (o.tur === 'adim') {
         if (m()) m().adim(ZEMIN[d.mekan] || 'tas', GIZLI_MEKANLAR.includes(d.mekan) ? 0.3 : 0.45);
       } else if (o.tur === 'carpti') {
         Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Medium).catch(() => {});

@@ -1,11 +1,12 @@
 // Ortam sesleri ve efektler. Bütün sesler uygulamanın içindedir (internet gerekmez).
 // Ortam döngüleri ve efektler ElevenLabs (eleven_text_to_sound_v2) ile üretildi;
 // adresler araclar/indirilecek-sesler.json, dönüştürme CLAUDE.md'de.
-// Arayüz sesleri (tik, secim, dip) için ses dosyası yok; telefon titreşimi kullanılır.
+// Dönüş tıkırtısı tik.wav (Kayıp Okyanus'tan); secim ve dip için ses dosyası yok, titreşim kullanılır.
 import { createAudioPlayer, setAudioModeAsync, setIsAudioActiveAsync } from 'expo-audio';
 import * as Haptics from 'expo-haptics';
 
 const KAYNAKLAR = {
+  tik: require('../../assets/ses/tik.wav'),
   sessiz: require('../../assets/ses/sessiz.wav'),
   ortam_rihtim: require('../../assets/ses/ortam_rihtim.wav'),
   ortam_kayikhane: require('../../assets/ses/ortam_kayikhane.wav'),

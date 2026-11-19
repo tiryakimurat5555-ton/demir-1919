@@ -297,6 +297,25 @@ export function tramvayYeri(dakika) {
   return { x: TRAMVAY.dogu - yol, y: TRAMVAY.y };
 }
 
+// --- Dönüş tıkırtısı (Kayıp Okyanus ve Vahşi Yaşam'daki gibi) ---
+// Baktığın yön 30 derecelik on iki dilime bölünür; dilim değişince 'tik' olayı.
+// Ana yönlerde (kuzey, doğu, güney, batı) tık daha güçlü. Sınırda art arda tık olmasın diye yarım dilim payı.
+export const DILIM = Math.PI / 6;
+export function donusTikirtisi(d, olaylar) {
+  const v = aciDuzelt(d.oyuncu.yon) / DILIM;
+  if (d.sonDilim === undefined || d.sonDilim === null) {
+    d.sonDilim = Math.round(v);
+    return;
+  }
+  let fark = v - d.sonDilim;
+  while (fark > 6) fark -= 12;
+  while (fark < -6) fark += 12;
+  if (Math.abs(fark) < 0.6) return;
+  d.sonDilim = Math.round(v);
+  const yeni = ((Math.round(v) % 12) + 12) % 12;
+  olaylar.push({ tur: 'tik', guc: yeni % 3 === 0 ? 0.65 : 0.3, anaYon: yeni % 3 === 0 });
+}
+
 // --- İlerleme ---
 // girdi: { ileri: -1..1, donus: -1..1 }, dt: gerçek saniye. Olaylar dizisi döner.
 export function ilerle(d, girdi, dt) {
@@ -315,6 +334,7 @@ export function ilerle(d, girdi, dt) {
     olaylar.push({ tur: 'otoIptal' });
   }
   if (d.oto) {
+    d.sonDilim = undefined;
     otoHareket(d, dt, olaylar);
     gizlilik(d, gizliMi(d.mekan) ? 0.3 : 0.7, dt, olaylar);
     gorev2Ilerle(d, gizliMi(d.mekan) ? OTO_HIZ_GIZLI / YURUME_HIZI : OTO_HIZ / YURUME_HIZI, dt, olaylar);
@@ -327,6 +347,7 @@ export function ilerle(d, girdi, dt) {
   const ileri = Math.max(-1, Math.min(1, girdi.ileri || 0));
   const donus = Math.max(-1, Math.min(1, girdi.donus || 0));
   if (donus) d.oyuncu = { ...d.oyuncu, yon: aciDuzelt(d.oyuncu.yon + donus * DONUS_HIZI * dt) };
+  donusTikirtisi(d, olaylar);
   if (ileri) {
     const metre = ileri * YURUME_HIZI * dt * (ileri < 0 ? 0.6 : 1);
     const o = d.oyuncu;

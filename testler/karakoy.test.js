@@ -399,3 +399,20 @@ describe('Açılış sahneleri', () => {
       for (const x of sh.secenekler || []) if (x.sonra) expect(SAHNELER[x.sonra]).toBeDefined();
   });
 });
+
+describe('dönüş tıkırtısı', () => {
+  test('her 30 derecede bir tık, ana yönlerde güçlü', async () => {
+    const { yeniDunya, ilerle } = await import('../src/oyun/karakoy/dunya.js');
+    const d = yeniDunya();
+    d.sahne = null;
+    d.oyuncu = { ...d.oyuncu, yon: 0.01 };
+    const tiklar = [];
+    for (let i = 0; i < 400; i++) tiklar.push(...ilerle(d, { donus: 1 }, 0.01).filter((o) => o.tur === 'tik'));
+    // 4 sn × 1,6 rad/sn ≈ 367 derece: bir tur, 12 tık
+    expect(tiklar.length).toBeGreaterThanOrEqual(11);
+    expect(tiklar.length).toBeLessThanOrEqual(13);
+    expect(tiklar.some((t) => t.anaYon && t.guc === 0.65)).toBe(true);
+    // yerinde dururken tık yok
+    expect(ilerle(d, {}, 0.5).filter((o) => o.tur === 'tik').length).toBe(0);
+  });
+});
