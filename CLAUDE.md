@@ -138,7 +138,6 @@
   delili; fotografGosterildi, "Ne kadar benziyorsunuz"] → g5_sonuc (efekt silah): sandikSonu el_konuldu [polis + oyala] / yarim
   [polis] / batti [deniz] / gitti [foto: delorme_fotografi]; Delorme her yolda denizden kaçar ("Selanik'te görüşürüz") →
   g5_kapanis (Gülce siyakat okur; gulceKamil soyle ise "Babam bana öğretti") → gorev5Bitir (perşembe 08.00 han, g5Bitti).
-  Sıradaki: altıncı görev "Siyakat" (Gülce belgenin alt yarısını okur; dört şehir; birinci perdenin kapanışına doğru).
   Testler karakoy-gorev5.test.js. Telefonda denenmedi.
   Sürüm 0.98 (19 Kasım, Murat: "Karakter yürümesi çok yavaş gibi"): YURUME_HIZI 2,4 m/sn (1,4'tü), ADIM_BOYU 1,0, OTO_HIZ 2,4,
   OTO_HIZ_GIZLI 0,9; takipçi TAKIP_HIZ 2,8, KACIS_HIZ 4,5 (oyuncudan hızlı kalsın). Gizlilik eşikleri parmak gücüne (0-1) bağlı, değişmedi.
@@ -150,6 +149,24 @@
   Sürüm 1.01 (19 Kasım, Murat: "kendi etrafında dönerken Vahşi Yaşam ve Kayıp Okyanus'taki gibi tık tık"): dunya.js donusTikirtisi
   (DILIM 30°, yarım dilim payı, d.sonDilim; oto yürüyüşte sıfırlanır) → olay 'tik' {guc 0,65 ana yönde / 0,3}; Karakoy.js cal('tik').
   assets/ses/tik.wav kayip-okyanus'tan kopyalandı; efektler.js KAYNAKLAR'da (SesliListe'nin menü tıkı da artık bu sesi çalar).
+  SÜRÜM 1.02 (19 Kasım, Murat: "Devam et"): altıncı görev "Siyakat" src/oyun/karakoy/gorev6.js (saf) + maliye.js (MALIYE_MEKANLAR
+  evrak_odasi (x 300-318, y 0-12, ortam_buro) ve evrak_mahzeni (y 14-30, ortam_arsiv, GIZLI); dis'te KOPRU_CIKISI (-59.2, 12) gorev >= 6,
+  09.00-17.00, mahzenKapaliGun değilse; MALIYE_KISILER tahsin (masa 315,9; öğle 12.00-12.45 yok), rustu (gozcu devriye, öğle yok), nazim
+  (14.30-14.50 Tahsin'in masasında), gulce (08.00 han, 09.00 evrak_odasi, 14.15 gider, 17.00-22.30 han). Satırlarda G6 = {gorev 6, yalniz,
+  kosul !g6Bitti}; dunya.js satirGecerli artık x.kosul(ctx.d) da sınar). g5_kapanis "Devam" → gorev5Bitir + gorev6Baslat → g6_acilis
+  (Gülce zimmeti okur: Selanik/Göz, Viyana/Kasa, Berlin/Kılıç, Mühür = Maliye Gümrük Kalemi 1329 no 417; gulce6 soz [gulceKamil sakla] /
+  el / anlat / birak [gulceGuven -1]) → g6_kamil (kamil_olumu: 9 Nisan 1329, Haliç, bileklerde şerit, raporu Halim; siyakat_satirlari;
+  g6Pusula). Eski kayıt: gorev 5 + g5Bitti + sahne yok → gorev6Ilerle açar. Mahzen kapısı Gülce oyalarken (g6OyalaBitis, en çok 2, 20 dk,
+  14.15'e kadar) ya da öğle arası. Raflar raf_1327/1328/1329_tahrirat/1329_gumruk/1330 (gürültü 30; yanlışı 10 dk); doğru raf →
+  kamil_dosyasi + g6_dosya (Elpis, Atina, Kont S. = Szalay; "İmzalamam. K."; N. B. parafı; pusula "Gülce'ye": notKarar ver/oku [g6_not]/
+  sakla). Tahsin'e pusula → evrak_kaydi (4-9 Nisan Nazım Bey kalemi) ama tahsinSoruldu → 14.30'da nazimUyarildi. 14.32-14.50 evrak odasında
+  9 m içinde → anlatim nazim_sozu. Mahzende yakalanma: köprü başına atılır, mahzenKapaliGun, nazimUyarildi. Gerekli çıkarımlar dorduncu_dis /
+  ayni_yontem / emri_veren (gorev 6). Gülce "Bildiklerimi" → g6_karar_oncesi (yanlış teorileri söker, g6Duzelt) → g6_karar: karar6 yuzles
+  (Nazım Bey: tayin teklifi yırtılır, "Selanik'te sizi soruyorlar"; nazimUyarildi, muhurUyarildi, gulceGuven +1) / riza (Rıza Halim'in
+  ilk raporunu kendisi mühürlemiş; rizaBag +1, dosyaRizada) / gazete ("Bir Gümrük Kâtibinin Ölümü", imza N.; nerminBag +1, kollarUyarildi,
+  raf yakıldı) → g6_kapanis (dört kapı; notKarar sakla ise pusula hâlâ Arif'te) → gorev6Bitir (g6Bitti; gün gorevGun + {riza 0, yuzles 1,
+  gazete 2} + 1, 08.00 han). Yeni iplikler: notKarar sakla (pusula), nazimUyarildi/muhurUyarildi/kollarUyarildi (omurgadaki kimlik
+  açığa çıkması), dosyaRizada (Adalet sonu). Testler karakoy-gorev6.test.js. Telefonda denenmedi. Sıradaki: yedinci görev.
 - Bu ortamda npm yok; bağımlılık sürümleri Expo dokümanından (react-native-webview 14.0.1, SDK 58). bun build'e -e react-native-webview ekle.
 
 ## Tasarım

@@ -65,10 +65,11 @@ import { G2_CIKARIMLAR, G2_DELILLER, G2_KONUSMALAR, G2_NESNELER, G2_YANLISLAR, T
 import { G3_CIKARIMLAR, G3_DELILLER, G3_KONUSMALAR, G3_NESNELER, G3_YANLISLAR, g3Ipucu } from './gorev3';
 import { G4_CIKARIMLAR, G4_DELILLER, G4_KONUSMALAR, G4_NESNELER, G4_YANLISLAR, g4Ipucu } from './gorev4';
 import { G5_DELILLER, G5_NESNELER, g5Ipucu } from './gorev5';
-Object.assign(DELILLER, G2_DELILLER, G3_DELILLER, G4_DELILLER, G5_DELILLER);
-Object.assign(CIKARIMLAR, G2_CIKARIMLAR, G3_CIKARIMLAR, G4_CIKARIMLAR);
-TUM_YANLISLAR.push(...YANLISLAR, ...G3_YANLISLAR, ...G4_YANLISLAR);
-YANLISLAR.push(...G2_YANLISLAR, ...G3_YANLISLAR, ...G4_YANLISLAR);
+import { G6_CIKARIMLAR, G6_DELILLER, G6_KONUSMALAR, G6_NESNELER, G6_YANLISLAR, g6Ipucu } from './gorev6';
+Object.assign(DELILLER, G2_DELILLER, G3_DELILLER, G4_DELILLER, G5_DELILLER, G6_DELILLER);
+Object.assign(CIKARIMLAR, G2_CIKARIMLAR, G3_CIKARIMLAR, G4_CIKARIMLAR, G6_CIKARIMLAR);
+TUM_YANLISLAR.push(...YANLISLAR, ...G3_YANLISLAR, ...G4_YANLISLAR, ...G6_YANLISLAR);
+YANLISLAR.push(...G2_YANLISLAR, ...G3_YANLISLAR, ...G4_YANLISLAR, ...G6_YANLISLAR);
 
 export const BASLANGIC_PARA = 35;
 export const FILM = 6;
@@ -279,7 +280,7 @@ export const NESNELER = [
   },
 ];
 
-NESNELER.push(...G2_NESNELER, ...G3_NESNELER, ...G4_NESNELER, ...G5_NESNELER);
+NESNELER.push(...G2_NESNELER, ...G3_NESNELER, ...G4_NESNELER, ...G5_NESNELER, ...G6_NESNELER);
 
 export function mevcutNesneler(d) {
   return NESNELER.filter((n) => n.mekan === d.mekan && n.mevcut(d));
@@ -620,7 +621,7 @@ export const KONUSMALAR = {
 
 // Görev 2'de o kişinin ikinci görev konuşması uygunsa o, değilse birinci görevinki
 // Görev kaynakları: o anki görevden geriye doğru, uygun olan ilk konuşma
-const GOREV_KONUSMALARI = { 2: G2_KONUSMALAR, 3: G3_KONUSMALAR, 4: G4_KONUSMALAR };
+const GOREV_KONUSMALARI = { 2: G2_KONUSMALAR, 3: G3_KONUSMALAR, 4: G4_KONUSMALAR, 6: G6_KONUSMALAR };
 function kaynak(d, kisiId) {
   for (let g = (d && d.gorev) || 1; g >= 2; g--) {
     const k = GOREV_KONUSMALARI[g] && GOREV_KONUSMALARI[g][kisiId];
@@ -633,7 +634,7 @@ function kaynak(d, kisiId) {
 function dugumBul(d, kisiId, dugumId) {
   const k = kaynak(d, kisiId);
   if (k && k.dugumler[dugumId]) return k.dugumler[dugumId];
-  for (const t of [KONUSMALAR, G2_KONUSMALAR, G3_KONUSMALAR, G4_KONUSMALAR]) if (t[kisiId] && t[kisiId].dugumler[dugumId]) return t[kisiId].dugumler[dugumId];
+  for (const t of [KONUSMALAR, G2_KONUSMALAR, G3_KONUSMALAR, G4_KONUSMALAR, G6_KONUSMALAR]) if (t[kisiId] && t[kisiId].dugumler[dugumId]) return t[kisiId].dugumler[dugumId];
   return null;
 }
 
@@ -743,6 +744,8 @@ export function envanterMetni(d) {
   if (d.bayrak.defterAlindi) p.push('On yedinin deri defteri, ceketinin içinde.');
   if (d.bayrak.dosyaKarar === 'al') p.push('Kendi dosyan.');
   if (d.bayrak.cantaAlindi) p.push('Delorme\'un deri çantası.');
+  if (d.bayrak.dosyaAlindi6 && !d.bayrak.dosyaRizada) p.push('Dosya 417, ceketinin içinde.');
+  if (d.bayrak.notKarar === 'sakla') p.push('Kâmil Efendi\'nin pusulası: Gülce\'ye.');
   if (d.bayrak.yaraKol) p.push('Sol kolunda Cemil\'in sardığı yanık.');
   p.push('Limandaki itibarın: ' + (d.itibar > 0 ? 'iyi' : d.itibar < 0 ? 'kötü' : 'sıradan') + '.');
   return p.join(' ');
@@ -750,6 +753,7 @@ export function envanterMetni(d) {
 
 // Duraklatma menüsündeki "Görev" satırı: şu an ne yapılabilir?
 export function gorevIpucu(d) {
+  if (d.gorev === 6) return g6Ipucu(d);
   if (d.gorev === 5) return g5Ipucu(d);
   if (d.gorev === 4) return g4Ipucu(d);
   if (d.gorev === 3) return g3Ipucu(d);

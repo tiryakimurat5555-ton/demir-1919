@@ -98,7 +98,8 @@ describe('Beşinci görev: Antrepo', () => {
     expect(d.bayrak.g5Bitti).toBe(true);
     expect(d.mekan).toBe('han');
     expect(d.gun).toBe(9);
-    expect(gorevIpucu(d)).toContain('Siyakat');
+    expect(d.gorev).toBe(6);
+    expect(d.sahne).toBe('g6_acilis');
   });
 
   test('çantayı alıp dışarı çıkan geçitte Delorme\'la karşılaşır; fotoğrafı göstermek', () => {

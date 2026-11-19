@@ -7,6 +7,7 @@ import { gorev2Ilerle, kisiDuzelt, takipciKisi } from './gorev2';
 import { gorev3Ilerle, kisiDuzelt3 } from './gorev3';
 import { ekKisiler4, gorev4Ilerle, kisiDuzelt4 } from './gorev4';
 import { g5Yakalanma, gorev5Ilerle } from './gorev5';
+import { gorev6Ilerle } from './gorev6';
 import { aciDuzelt, goreliAci, saatYonu, tarif, uzaklik } from '../konum';
 
 // Zaman: gerçek 1 saniye = oyunda ZAMAN_ORANI saniye (1 gerçek dakika = 10 oyun dakikası)
@@ -28,7 +29,7 @@ export const BASLANGIC_DAKIKA = 6 * 60 + 40;
 export const SUPHE_UYARI = 40;
 const NESNE_MENZILI = 2;
 // Gizlice girilen mekânlar: kendiliğinden yürüyüş yavaştır, adımlar kısıktır
-export const GIZLI_MEKANLAR = ['antrepo', 'servis_koridoru', 'oda17'];
+export const GIZLI_MEKANLAR = ['antrepo', 'servis_koridoru', 'oda17', 'evrak_mahzeni'];
 const gizliMi = (m) => GIZLI_MEKANLAR.includes(m);
 
 export function yeniDunya() {
@@ -77,6 +78,8 @@ export const ZEMIN = {
   servis_koridoru: 'tas',
   oda17: 'ahsap',
   meyhane: 'ahsap',
+  evrak_odasi: 'tas',
+  evrak_mahzeni: 'tas',
 };
 
 function kesfet(d, anahtar) {
@@ -217,6 +220,7 @@ function satirGecerli(x, gun, ctx) {
   if (x.gorev && x.gorev !== gorev) return false;
   if (x.gorevMin && gorev < x.gorevMin) return false;
   if (x.gorevGunu && gun !== ctx.gorevGun) return false;
+  if (x.kosul && !(ctx.d && x.kosul(ctx.d))) return false;
   return true;
 }
 
@@ -258,7 +262,7 @@ export function kisiDurumu(kisi, dakika, gun = 1, ctx = {}) {
 
 // Karaköy'deki kişiler. Fark edilmemiş takipçi bu listede yoktur (yalnızca adımları duyulur).
 export function kisiler(d) {
-  const ctx = { gorev: d.gorev || 1, gorevGun: d.gorevGun };
+  const ctx = { gorev: d.gorev || 1, gorevGun: d.gorevGun, d };
   const liste = KISILER.map((k) => kisiDurumu(k, d.dakika, d.gun, ctx))
     .filter(Boolean)
     .map((k) => kisiDuzelt(d, k))
@@ -341,6 +345,7 @@ export function ilerle(d, girdi, dt) {
     gorev3Ilerle(d);
     gorev4Ilerle(d);
     gorev5Ilerle(d);
+    gorev6Ilerle(d, olaylar);
     yakinlikOlaylari(d, olaylar);
     return olaylar;
   }
@@ -380,6 +385,7 @@ export function ilerle(d, girdi, dt) {
   gorev3Ilerle(d);
   gorev4Ilerle(d);
   gorev5Ilerle(d);
+  gorev6Ilerle(d, olaylar);
   yakinlikOlaylari(d, olaylar);
   return olaylar;
 }
@@ -429,6 +435,20 @@ function yakalan(d, olaylar) {
     olaylar.push({
       tur: 'yakalandi',
       metin: 'İri bir el ensenden yakalıyor. Seni koridor boyunca sürükleyip arka kapıdan sokağa fırlatıyorlar; kaldırım taşları dizlerini parçalıyor. Kapı arkandan sürgüleniyor. Bu gece kulübe bir daha giremezsin. Nermin ile Cemil hâlâ içeride.',
+    });
+    return;
+  }
+  if (d.mekan === 'evrak_mahzeni') {
+    // Nezaret'ten kapı dışarı: bugün bir daha giremezsin, Tahsin Efendi adını Nazım Bey'e götürür
+    d.bayrak.mahzenKapaliGun = d.gun;
+    d.bayrak.nazimUyarildi = true;
+    d.bayrak.g6OyalaBitis = null;
+    d.mekan = 'dis';
+    d.oyuncu = { x: -57.5, y: 12, yon: Math.PI / 2 };
+    d.yakin = {};
+    olaylar.push({
+      tur: 'yakalandi',
+      metin: 'Bir gaz lambası yüzüne kalkıyor; ihtiyar bir ses öksürükle karışık bağırıyor: Hırsız! Tahsin Efendi merdivenden iniyor. Seni kolundan tutup evrak odasından, Nezaret\'in kapısından, köprünün başına kadar götürüyorlar. Tahsin Efendi adını soruyor, bir kâğıda yazıyor. Bugün bir daha giremezsin.',
     });
     return;
   }
@@ -616,6 +636,7 @@ export function bekle(d, dakika) {
     gorev3Ilerle(d);
     gorev4Ilerle(d);
     gorev5Ilerle(d);
+    gorev6Ilerle(d, olaylar);
     if (d.sahne && !sahneOnce) break; // bir hikâye sahnesi açıldı: bekleme biter
   }
   d.sonVapur = ((d.dakika % 1440) + 1440) % 1440;
@@ -631,7 +652,7 @@ const OTO_HIZ_GIZLI = 0.9; // gizli yerlerde, gözcüyü uyandırmamak için
 // Bu kişileri Arif zaten tanır (limanda çalışıyor); ötekiler karşılaşınca listeye girer
 const TANIDIK = ['suleyman', 'husnu', 'ohannes', 'hamallar', 'halim', 'riza'];
 // Bu kişiler listeye hiç girmez (gizlice izlenir ya da kaçar)
-const LISTEDISI = ['bekci', 'takipci', 'kasketli', 'nobetci', 'lavantali', 'delorme'];
+const LISTEDISI = ['bekci', 'takipci', 'kasketli', 'nobetci', 'lavantali', 'delorme', 'rustu', 'nazim'];
 
 // Şu an gidilebilecek ve bilinen yerler: { id, ad, mekan, x, y, menzil, tur, uzaklik }
 export function yerlerListesi(d) {
@@ -654,6 +675,10 @@ export function yerlerListesi(d) {
     ekle('kulup', 'Mercure Kulübü\'nün kapısı', 'pera_cadde', 230, 8.3, 0.8, 'yer');
     ekle('servis', 'Kulübün servis kapısı, arka sokak', 'pera_cadde', 250, 8.3, 0.8, 'yer');
     if (k.kulup_salon) ekle('salon', 'Mercure Kulübü\'nün salonu', 'kulup_salon', 230, 16, 1, 'yer');
+  }
+  if ((d.gorev || 1) >= 6) {
+    ekle('kopru', 'Galata Köprüsü\'nün başı', 'dis', -57.5, 12, 1, 'yer');
+    ekle('evrak', 'Maliye Nezareti, evrak odası', 'evrak_odasi', 306, 6, 1, 'yer');
   }
   if (b.gecitBiliniyor || d.deliller.includes('halim_bulusma')) ekle('gecit', 'Karanlık geçidin rıhtım ağzı', 'dis', 48, 13, 0.6, 'yer');
   for (const p of kisiler(d)) {

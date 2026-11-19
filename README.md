@@ -432,3 +432,4 @@ ambarda ona Neslihan öğretmiştir. Yeni ortam sesi: İskenderiye limanı.
 - Sürüm 0.99: Yerler menüsü yalnızca bulunduğun yerdeki kişileri ve eşyaları, sonra gidebileceğin yerleri gösterir.
 - Sürüm 1.00: ipucu metinleri ayrıntılandı (ceset, defterler, döşek, karanlık oda, sandıklar; Hüsnü, Gülce, Ohannes, hamallar; Pera, meyhane ve antrepo bulguları).
 - Sürüm 1.01: kendi etrafında dönerken her 30 derecede tık sesi (ana yönlerde daha güçlü), Kayıp Okyanus'taki gibi.
+- Sürüm 1.02: altıncı görev Siyakat. Gülce belgenin siyakat yazısını okur (dört diş, dört şehir); dördüncü satır babasının dosyasına çıkar. Galata Köprüsü'nden Maliye Nezareti'nin evrak odasına ve mahzenine geçilir: Tahsin Efendi, Rüştü Efendi, saat iki buçukta Nazım Bey; Rumi yıl bulmacası; Kâmil Efendi'nin pusulası; karar Nazım Bey'in yüzüne / Rıza Bey'e / Nermin'in gazetesine.

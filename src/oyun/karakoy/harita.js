@@ -3,6 +3,7 @@
 // İç mekânlar binanın kendi alanını kullanır; böylece dışarıdaki sesler içeride de doğru yerden gelir.
 
 import { PERA_KISILER, PERA_MEKANLAR } from './pera';
+import { KOPRU_CIKISI, MALIYE_KISILER, MALIYE_MEKANLAR } from './maliye';
 
 export const SU_KENARI = 0.5;
 export const SINIR = { bati: -60, dogu: 60, guney: SU_KENARI, kuzey: 42 };
@@ -127,6 +128,10 @@ MEKANLAR.dis.cikislar.push({
   },
   kilitli: 'Meyhanenin kepenkleri kapalı. On birde açılır.',
 });
+
+// Altıncı görev: köprünün öte yakasında Maliye Nezareti'nin evrak odası ve mahzeni
+Object.assign(MEKANLAR, MALIYE_MEKANLAR);
+MEKANLAR.dis.cikislar.push(KOPRU_CIKISI);
 
 // Bir gecenin kimliği: öğleden önceki saatler önceki günün gecesine sayılır
 export function geceKimligi(d) {
@@ -311,8 +316,8 @@ KISILER.push({
   ],
 });
 
-// Pera'nın kişileri: aynı kimlik varsa satırlar o kişinin rutinine eklenir
-for (const p of PERA_KISILER) {
+// Pera'nın ve Maliye'nin kişileri: aynı kimlik varsa satırlar o kişinin rutinine eklenir
+for (const p of [...PERA_KISILER, ...MALIYE_KISILER]) {
   const var_ = KISILER.find((k) => k.id === p.id);
   if (var_) var_.rutin = [...var_.rutin, ...p.rutin.filter((x) => x.bas > 0)].sort((a, b) => a.bas - b.bas);
   else KISILER.push(p);

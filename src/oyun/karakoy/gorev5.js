@@ -9,6 +9,8 @@
 //
 // d alanları: gorev 5, gorevGun, bayrak.*
 
+import { gorev6Baslat } from './gorev6';
+
 const bayrak = (d, k) => d.bayrak[k];
 const delilVar = (d, id) => d.deliller.includes(id);
 function delilEkle(d, id) {
@@ -231,10 +233,18 @@ export const G5_SAHNELER = {
         bayrak(d, 'gulceKamil') === 'soyle'
           ? 'Babam bana öğretti, diyor. Siyakat. Maliye kâtiplerinin yazısı. İmzalamadığı o kâğıt da siyakatla yazılmıştı. Ver, okuyayım.'
           : 'Ben siyakat okurum, diyor. Nereden mi? Bir gün anlatırım. Ver.',
-        'Beşinci görevin sonu. Karaköy\'de dolaşmayı sürdürebilirsin. Altıncı görev, Siyakat, bir sonraki adımda: belgenin alt yarısı ve dört şehir.',
+        'Beşinci görevin sonu: Antrepo.',
       ].filter(Boolean),
-    secenekler: [{ etiket: 'Devam', yap: (d) => gorev5Bitir(d), sonra: null }],
-    bitisSozu: 'Kalafatçı Hanı\'nın avlusu, perşembe sabahı. Menüden Görev\'i ve Yerler\'i her zaman açabilirsin.',
+    secenekler: [
+      {
+        etiket: 'Devam',
+        yap: (d) => {
+          gorev5Bitir(d);
+          gorev6Baslat(d);
+        },
+        sonra: 'g6_acilis',
+      },
+    ],
   },
 };
 

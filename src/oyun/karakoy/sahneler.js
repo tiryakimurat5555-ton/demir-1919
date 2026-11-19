@@ -8,6 +8,7 @@ import { G2_SAHNELER } from './gorev2';
 import { G3_SAHNELER } from './gorev3';
 import { G4_SAHNELER } from './gorev4';
 import { G5_SAHNELER } from './gorev5';
+import { G6_SAHNELER } from './gorev6';
 
 const bayrak = (d, k) => d.bayrak[k];
 const delilVar = (d, id) => d.deliller.includes(id);
@@ -250,6 +251,7 @@ export const SAHNELER = {
   ...G3_SAHNELER,
   ...G4_SAHNELER,
   ...G5_SAHNELER,
+  ...G6_SAHNELER,
 };
 
 export function sahneParagraflari(d, id) {
