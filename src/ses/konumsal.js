@@ -215,13 +215,15 @@ const MOTOR_HTML = `<!DOCTYPE html><html><head><meta charset="utf-8"></head><bod
   }
   function yanki(tur){
     if (yankilar[tur]) return yankilar[tur];
-    var c = ctx.createConvolver(), f = ctx.createBiquadFilter(), g = ctx.createGain();
+    var giris = ctx.createBiquadFilter(), c = ctx.createConvolver(), f = ctx.createBiquadFilter(), g = ctx.createGain();
+    // Yankıya yalnız sesin gövdesi gider: bas uğultu ve tıslama kuyrukta birikmesin
+    giris.type = 'highpass'; giris.frequency.value = 280;
     f.type = 'lowpass';
-    if (tur === 'ic'){ c.buffer = yankiTamponu(0.55, 3, [[0.006, 0.55], [0.011, 0.45], [0.017, 0.35], [0.024, 0.3], [0.031, 0.2]]); f.frequency.value = 4500; g.gain.value = 0.55; }
-    else { c.buffer = yankiTamponu(1.8, 4, [[0.038, 0.4], [0.071, 0.3], [0.118, 0.22], [0.19, 0.12]]); f.frequency.value = 3000; g.gain.value = 0.4; }
-    c.connect(f); f.connect(g); g.connect(tur === 'ic' ? yakin : ana);
-    yankilar[tur] = c;
-    return c;
+    if (tur === 'ic'){ c.buffer = yankiTamponu(0.5, 3, [[0.006, 0.55], [0.011, 0.45], [0.017, 0.35], [0.024, 0.3], [0.031, 0.2]]); f.frequency.value = 4000; g.gain.value = 0.38; }
+    else { c.buffer = yankiTamponu(1.4, 5, [[0.038, 0.4], [0.071, 0.3], [0.118, 0.22], [0.19, 0.12]]); f.frequency.value = 2600; g.gain.value = 0.2; }
+    giris.connect(c); c.connect(f); f.connect(g); g.connect(tur === 'ic' ? yakin : ana);
+    yankilar[tur] = giris;
+    return giris;
   }
   // --- Konuşan kişiler: hareket eden, sesi uzaklıkla süzülen, yankısı olan kaynaklar ---
   function uzaklik3(a, b){ var x = a.x - b.x, y = a.y - b.y, z = a.z - b.z; return Math.sqrt(x * x + y * y + z * z); }
@@ -250,7 +252,7 @@ const MOTOR_HTML = `<!DOCTYPE html><html><head><meta charset="utf-8"></head><bod
     hava.type = 'lowpass'; hava.frequency.value = 18000;
     // Ses öne çıksın: hafif sıkıştırma ve kazanç (ortam sesinin altında kalmasın)
     sik.threshold.value = -24; sik.ratio.value = 3; sik.attack.value = 0.005; sik.release.value = 0.2; sik.knee.value = 10;
-    g.gain.value = 1.9;
+    g.gain.value = 1.6;
     g.connect(sik); sik.connect(hava); hava.connect(p); p.connect(ic ? yakin : ana);
     g.connect(gonder); gonder.connect(yanki(ic ? 'ic' : 'dis'));
     var k = { g: g, hava: hava, p: p, gonder: gonder, n: n, ic: !!ic };

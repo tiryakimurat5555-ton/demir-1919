@@ -166,6 +166,10 @@
   kişi zinciri g 1,9 → DynamicsCompressor (-24 dB, 3:1) → hava → panner. Seslendirmede SESLI_CEVRE 0,55, ortam döngüsü SESLI_ORTAM 0,3.
   Sahne alanı kulak ({x,y,yon,boguk}; RIHTIM_KULAK acilis/ani1/ani1_nefes/ani1_bastir/cagri): sahneGoster ve sahneKur dinleyiciyi oraya
   koyar (önceden açılış sahneleri kayıkhanede dinleniyordu, cagri'da kulak rıhtıma sıçrıyordu). cagri planında 'don' yok; Ali (-6.9,2.3).
+  Sürüm 1.06 (20 Kasım, Murat: "Ali'nin sesinde çok dip ses var, kayıt temiz değil; sadece sesi duyulmalı"): ali_cagri ElevenLabs
+  Voice Isolator'dan (audio_isolation düğümü, connect_from tts düğümü; 4,6 sn'den kısa seste çalışmaz) geçirildi; üç Ali dosyası ffmpeg
+  highpass 110 + lowpass 11k + afftdn nr 14 + agate (kelime aralarında -18 dB) ile temizlendi (sessiz yerler ~12 dB indi). Motor: yankı
+  girişine highpass 280, 'dis' yankı 0,2 (1,4 sn), 'ic' 0,38; kişi kazancı 1,6. Ali'nin konuşma sesi "Enes" sesinin kendi kaydında nefes/oda sesi taşıyor olabilir.
   Sürüm 1.01 (19 Kasım, Murat: "kendi etrafında dönerken Vahşi Yaşam ve Kayıp Okyanus'taki gibi tık tık"): dunya.js donusTikirtisi
   (DILIM 30°, yarım dilim payı, d.sonDilim; oto yürüyüşte sıfırlanır) → olay 'tik' {guc 0,65 ana yönde / 0,3}; Karakoy.js cal('tik').
   assets/ses/tik.wav kayip-okyanus'tan kopyalandı; efektler.js KAYNAKLAR'da (SesliListe'nin menü tıkı da artık bu sesi çalar).
