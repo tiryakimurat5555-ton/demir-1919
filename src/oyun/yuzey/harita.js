@@ -60,6 +60,74 @@ export const MEKANLAR = {
     firtinali: true, // ara sıra rüzgâr hamlesi: yürürken yakalarsa savurur (dunya.js firtinaIlerle)
     radarMenzili: 45, // fırtına radarı biraz kısaltır
   },
+  // --- Faz 2 bölgeleri (gezegen-gelisimi-ve-yerel-gorevler-v2.md 2.1, 2.2, 3.1-3.5) ---
+  dogu: {
+    ad: 'Manyetik Sis ve Kristal Bataklıkları',
+    tarif: 'Doğu sektörü. Topraktan sütun boyunda piezo-elektrik kuvars kristalleri yükseliyor; havada iyonize bir sis asılı. Zemin ara sıra statikle boşalıyor.',
+    alan: { bati: 1300, dogu: 1380, guney: 0, kuzey: 70 },
+    ortam: 'ortam_dogu',
+    zemin: 'tas',
+    dis: true,
+    statik: true, // kristal sütunların yanında statik boşalma (dunya.js statikIlerle)
+    radarMenzili: 40, // manyetik sis radarı kısaltır
+  },
+  civa: {
+    ad: 'Cıva Şelaleleri ve Ağır Metal Havzası',
+    tarif: 'Manyetik sis vadisinin batı ucunda dik bir vadi. Gümüş renkli, ağır sıvı metal nehirleri kayalara tok tok çarpıyor; nehrin üstünde manyetik bir vızıltı.',
+    alan: { bati: 1500, dogu: 1560, guney: 0, kuzey: 50 },
+    ortam: 'ortam_civa',
+    zemin: 'tas',
+    dis: true,
+    zehirli: true,
+    maruziyet: 'Cıva buharı maruziyeti',
+  },
+  lav: {
+    ad: 'Lav Koridorları',
+    tarif: 'Sırtların güneyinde aktif volkanik menfezler. Yerin altından magma basıncıyla erimiş mineral akıntıları fışkırıyor; hava yanık kükürt kokuyor.',
+    alan: { bati: 500, dogu: 580, guney: -130, kuzey: -65 },
+    ortam: 'ortam_lav',
+    zemin: 'tas',
+    dis: true,
+    zehirli: true,
+    magma: true, // ayağının altında magma kabarır; hemen uzaklaş (dunya.js magmaIlerle)
+    radarMenzili: 30,
+  },
+  mantar: {
+    ad: 'Biyo-Işıldayan Mantar Ormanları',
+    tarif: 'Kükürt çatlaklarının derinliğinde nemli, devasa bir mağara. Tavanlardan ışıldayan spor saçakları sarkıyor; mantar zarları nefes alır gibi hışırdıyor, su damlaları yankılanıyor.',
+    alan: { bati: 1700, dogu: 1760, guney: 0, kuzey: 60 },
+    ortam: 'ortam_mantar',
+    zemin: 'tas',
+    dis: true,
+    yarasa: true, // kör yarasa sürüleri sonik yankıyla uçuşur
+  },
+  kriyo: {
+    ad: 'Kriyojenik Metan Mağaraları',
+    tarif: 'Kuzey platosunun derin yarıklarında, mutlak sıfıra yakın sıvı metan göletleri ve mavi buzul sarkıtları. Menfezler tiz tiz tıslıyor; buz cam gibi çatlıyor.',
+    alan: { bati: 1900, dogu: 1960, guney: 0, kuzey: 60 },
+    ortam: 'ortam_kriyo',
+    zemin: 'tas',
+    dis: true,
+    soguk: true, // donma: maruziyet artar; termal giysi korur
+    maruziyet: 'Donma',
+  },
+  obsidyen: {
+    ad: 'Camlaşmış Obsidyen Ovası',
+    tarif: 'Kuyruklu yıldızın erittiği dev bir krater tabanı; ayna gibi siyah bir cam denizi. Her adım çınlıyor; kraterin çanağı fısıltıları bile uzaklara taşıyor.',
+    alan: { bati: 2100, dogu: 2200, guney: 0, kuzey: 80 },
+    ortam: 'ortam_obsidyen',
+    zemin: 'cam',
+    dis: true,
+    radarMenzili: 110, // parabolik krater yankıyı uzağa taşır
+  },
+  kuleler: {
+    ad: 'Havada Asılı Bazalt Kuleleri',
+    tarif: 'Manyetik kutupların kırılma noktasındaki dev çukurda, yerçekimine meydan okuyup süzülen bazalt bloklar. Kayalar birbirine sürtünüp inliyor; aralarından geçen rüzgâr flüt gibi çalıyor.',
+    alan: { bati: 2300, dogu: 2380, guney: 0, kuzey: 80 },
+    ortam: 'ortam_kuleler',
+    zemin: 'tas',
+    dis: true,
+  },
   mabet: {
     ad: 'İç mabet',
     tarif: 'Küçük, yuvarlak bir oda. Ortada bir kaide; duvarlar parmaklarının altında hafifçe titriyor.',
@@ -103,6 +171,74 @@ export const KAPILAR = {
       'Dik yokuşu tırmanıyorsun. Kanyonun kenarını aşınca rüzgâr bütün gücüyle yüzüne çarpıyor: Uğultulu Plato. Hamlelerin ıslığını dinle; geldiğini duyunca dur.',
       'Yokuştan vadiye iniyorsun. Rüzgâr kanyon duvarlarının ardında kalıyor.',
     ],
+  },
+  dogu_gecit: {
+    ad: 'Doğu geçidi',
+    uclar: [
+      { mekan: 'vadi', x: 54, y: 10, yon: Math.PI / 2, ad: 'Doğu geçidi' },
+      { mekan: 'dogu', x: 1301.5, y: 35, yon: Math.PI / 2, ad: 'Vadiye dönen geçit' },
+    ],
+    kosul: (d) => !!d.bayrak.dokumhane,
+    kilitMetni: 'Doğuya açılan dar bir geçit; içinden kulak tırmalayan çınlamalar ve statik çıtırtılar geliyor. Manyetik sis yön duygunu bozuyor. Koloni önce sanayisini kurmalı: dökümhane.',
+    gecisMetni: ['Geçidin ağzında sis yüzüne yapışıyor; kulağında fısıltılı yankılar. Manyetik Sis ve Kristal Bataklıkları. Çınlayan kristal sütunların yanında oyalanma: zemin statikle boşalıyor.', 'Sisten çıkıp vadiye dönüyorsun.'],
+  },
+  civa_gecit: {
+    ad: 'Cıva vadisinin yokuşu',
+    uclar: [
+      { mekan: 'dogu', x: 1302, y: 4, yon: Math.PI, ad: 'Cıva vadisine inen yokuş' },
+      { mekan: 'civa', x: 1530, y: 48.5, yon: Math.PI, ad: 'Bataklıklara çıkan yokuş' },
+    ],
+    kosul: (d) => !!d.bayrak.maske,
+    kilitMetni: 'Aşağıdan ağır, metalik bir buhar yükseliyor. Maskesiz inersen ciğerlerin dayanmaz.',
+    gecisMetni: ['Maskeni sıkılaştırıp yokuştan iniyorsun. Cıva Şelaleleri: gümüş nehirler tok tok gümbürdüyor.', 'Yokuştan bataklıklara çıkıyorsun.'],
+  },
+  lav_gecit: {
+    ad: 'Lav koridorlarının ağzı',
+    uclar: [
+      { mekan: 'sirtlar', x: 540, y: -59, yon: Math.PI, ad: 'Lav koridorlarının ağzı' },
+      { mekan: 'lav', x: 540, y: -66.5, yon: Math.PI, ad: 'Sırtlara dönen yol' },
+    ],
+    kosul: (d) => !!d.bayrak.sondaj,
+    kilitMetni: 'Güneyden yanık bir sıcaklık ve kaynama uğultusu geliyor. Bacalar dengelenmeden bu basınçla aşağı inilmez.',
+    gecisMetni: ['Kayalar ısınıyor, maskenin filtresi tıslıyor. Lav Koridorları. Ayağının altında gümbürtü duyarsan hemen uzaklaş: magma kabarıyor.', 'Sırtlara dönüyorsun; sıcaklık arkanda kalıyor.'],
+  },
+  mantar_gecit: {
+    ad: 'Mağaraya inen çatlak',
+    uclar: [
+      { mekan: 'lav', x: 512, y: -127, yon: Math.PI, ad: 'Mağaraya inen çatlak' },
+      { mekan: 'mantar', x: 1730, y: 1.5, yon: 0, ad: 'Lav koridorlarına çıkan çatlak' },
+    ],
+    gecisMetni: ['Çatlaktan aşağı kayıyorsun. Hava birden serinleyip nemleniyor; damlalar yankılanıyor. Biyo-Işıldayan Mantar Ormanları.', 'Çatlaktan tırmanıp sıcağa çıkıyorsun.'],
+  },
+  kriyo_gecit: {
+    ad: 'Buzul yarığı',
+    uclar: [
+      { mekan: 'plato', x: 1176, y: 68, yon: 0, ad: 'Buzul yarığı' },
+      { mekan: 'kriyo', x: 1930, y: 1.5, yon: 0, ad: 'Platoya çıkan yarık' },
+    ],
+    kosul: (d) => !!d.bayrak.zemin,
+    kilitMetni: 'Platonun kuzey ucunda derin bir yarık; dibinden dondurucu bir hava yükseliyor. Halatlar ve iskele olmadan inilmez; kızak işi bitince mühendis kurar.',
+    gecisMetni: ['Halatla yarığa iniyorsun. Nefesin donuyor; buz cam gibi çatlıyor. Kriyojenik Metan Mağaraları. Soğuk seni hızla tüketir; termal giysi yoksa kısa tut.', 'Halatla platoya tırmanıyorsun; fırtına yeniden yüzünde.'],
+  },
+  obsidyen_gecit: {
+    ad: 'Güneybatı kanyonu',
+    uclar: [
+      { mekan: 'vadi', x: -50, y: -43.5, yon: Math.PI, ad: 'Güneybatı kanyonu' },
+      { mekan: 'obsidyen', x: 2150, y: 1.5, yon: 0, ad: 'Vadiye dönen kanyon' },
+    ],
+    kosul: (d) => !!d.bayrak.dokumhane,
+    kilitMetni: 'Güneybatıda göçükle kapanmış bir kanyon. Dökümhanenin kirişleriyle açılabilir.',
+    gecisMetni: ['Kanyonun sonunda zemin birden pürüzsüz ve sert oluyor; adımların çınlıyor. Camlaşmış Obsidyen Ovası.', 'Kanyondan vadiye dönüyorsun.'],
+  },
+  kule_inisi: {
+    ad: 'Kulelere uçuş',
+    uclar: [
+      { mekan: 'plato', x: 1104, y: 66, yon: 0, ad: 'Kulelere uçuş noktası' },
+      { mekan: 'kuleler', x: 2340, y: 1.5, yon: 0, ad: 'Platoya dönüş uçuşu' },
+    ],
+    kosul: (d) => d.arac === 'atmosphere_x',
+    kilitMetni: 'Platonun kenarından, uzakta havada süzülen kayaların inlemesi geliyor. Oraya ancak dikey iniş yapabilen bir mekikle gidilir: Atmosphere-X.',
+    gecisMetni: ['Jetler kükrüyor; mekik uçurumun üstünde süzülüp bir bazalt bloğun sırtına iniyor. Havada Asılı Bazalt Kuleleri.', 'Mekik kalkıyor; platoya dönüyorsun.'],
   },
   bati_gecit: {
     ad: 'Batı geçidi',
@@ -178,6 +314,23 @@ export const NOKTALAR = {
   kristal_4: { mekan: 'krater', x: 775, y: 62, ad: 'Silikat kristal kümesi', yaricap: 2.2, kaynak: 'kristal', stok: 2, ses: 'kristal' },
   titanyum_3: { mekan: 'krater', x: 726, y: 8, ad: 'Kadim metal yığını', yaricap: 2.2, kaynak: 'titanyum', stok: 4, tarif: 'Çöküntünün kıyısında, işlenmiş metal parçalarından bir yığın.' },
   // --- Gömülü yapı: veri kristali kaideleri ve iç mabet ---
+  // Faz 2 bölgelerinin yatakları
+  kuvars_1: { mekan: 'dogu', x: 1320, y: 20, ad: 'Piezo kuvars sütunu', yaricap: 2.4, engel: 1, kaynak: 'kristal', stok: 6, sutun: true, ses: 'kristal' },
+  kuvars_2: { mekan: 'dogu', x: 1345, y: 48, ad: 'Piezo kuvars sütunu', yaricap: 2.4, engel: 1, kaynak: 'kristal', stok: 6, sutun: true, ses: 'kristal' },
+  kuvars_3: { mekan: 'dogu', x: 1368, y: 15, ad: 'Piezo kuvars sütunu', yaricap: 2.4, engel: 1, kaynak: 'kristal', stok: 6, sutun: true, ses: 'kristal' },
+  sivi_metal_1: { mekan: 'civa', x: 1512, y: 20, ad: 'Sıvı metal gölü', yaricap: 2.4, kaynak: 'sivi_metal', stok: 3, tarif: 'Gümüş, ağır bir sıvı; kabın içinde tok tok sallanıyor.' },
+  civa_tortusu_1: { mekan: 'civa', x: 1548, y: 12, ad: 'Manyetik cıva tortusu', yaricap: 2.4, kaynak: 'civa_tortusu', stok: 3, tarif: 'Şelalenin dibinde, manyetik alanla titreşen koyu bir tortu.' },
+  agir_metal_1: { mekan: 'lav', x: 520, y: -90, ad: 'Ağır metal damarı', yaricap: 2.4, kaynak: 'titanyum', stok: 5 },
+  agir_metal_2: { mekan: 'lav', x: 565, y: -110, ad: 'Ağır metal damarı', yaricap: 2.4, kaynak: 'titanyum', stok: 5 },
+  foton_1: { mekan: 'mantar', x: 1715, y: 25, ad: 'Fotonik yosun yatağı', yaricap: 2.4, kaynak: 'foton_recinesi', stok: 3, tarif: 'Dokundukça parlaklığı artan iletken bir yosun; avucunda ılık bir ışık reçinesi kalıyor.' },
+  spor_1: { mekan: 'mantar', x: 1745, y: 45, ad: 'Sütun mantar', yaricap: 2.4, engel: 1.2, kaynak: 'kseno_spor', stok: 3, tarif: 'İnsan boyunda bir mantar gövdesi; zarı nefes alır gibi genişleyip daralıyor, sakinleştirici sporlar savuruyor.' },
+  kriyolit_1: { mekan: 'kriyo', x: 1915, y: 30, ad: 'Süperiletken kriyolit damarı', yaricap: 2.4, kaynak: 'kriyolit', stok: 3, tarif: 'Buzun içinde mavi, soğuk ışıldayan bir mineral.' },
+  metan_1: { mekan: 'kriyo', x: 1948, y: 45, ad: 'Sıvı metan göleti', yaricap: 2.6, kaynak: 'metan', stok: 3, tarif: 'Dondurucu bir sıvının kenarında kriyo-kristal çiçekleri; ısındıkça tıslayıp gaz salıyorlar.' },
+  menfez_1: { mekan: 'kriyo', x: 1935, y: 52, ad: 'Kriyojenik gaz menfezi', yaricap: 2.4, engel: 1, menfez: true, tarif: 'Basınç altındaki gazı tiz tiz tıslayan bir buz bacası. Yanında soğuk ikiye katlanıyor.' },
+  plazma_cami_1: { mekan: 'obsidyen', x: 2125, y: 40, ad: 'Kusursuz plazma camı', yaricap: 2.4, kaynak: 'plazma_cami', stok: 3, tarif: 'Erimiş kuvarsın donduğu, cam gibi pürüzsüz bir damar.' },
+  obsidyen_1: { mekan: 'obsidyen', x: 2178, y: 62, ad: 'Obsidyen tabakası', yaricap: 2.4, kaynak: 'obsidyen', stok: 4, tarif: 'Ayna gibi siyah, keskin kenarlı katmanlar.' },
+  antigrav_1: { mekan: 'kuleler', x: 2320, y: 40, ad: 'Antigravitasyon tozu', yaricap: 2.4, kaynak: 'antigrav_tozu', stok: 3, tarif: 'Süzülen bir bloğun altından dökülen, avucunda yukarı doğru çeken ince bir toz; içinde çekirdek jeotlar.' },
+  antigrav_2: { mekan: 'kuleler', x: 2362, y: 66, ad: 'Antigravitasyon tozu', yaricap: 2.4, kaynak: 'antigrav_tozu', stok: 3 },
   // Uğultulu Plato: tersane kızağının dört hidrolik ayağı, dağıtım kutusu, kaynaklar
   ayak_1: { mekan: 'plato', x: 1125, y: 30, ad: 'Güneybatı ayağı', yaricap: 2.4, ayak: true, tarif: 'Kızağın güneybatı köşesindeki hidrolik ayak. Altındaki bazalt gevşek; topuk taşın içine gömülmüş.' },
   ayak_2: { mekan: 'plato', x: 1155, y: 30, ad: 'Güneydoğu ayağı', yaricap: 2.4, ayak: true, tarif: 'Kızağın güneydoğu köşesindeki hidrolik ayak. Rüzgâr çelik gövdesinde uğulduyor.' },

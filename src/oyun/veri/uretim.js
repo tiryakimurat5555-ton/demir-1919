@@ -28,7 +28,8 @@ export const PARCALAR = {
   // Kademe 4-5 malzemeleri: kaynakları uzay görevlerinde (Faz 4)
   kompozit_blok: { ad: 'ağır titanyum-kompozit zırh bloğu', tarif: 'Gökdelen\'in gövdesi.', uzaydan: true },
   notron_matris: { ad: 'birim nötron-yoğun çelik ve kristal matris', tarif: 'Parçalanan gezegen çekirdeğinden (G-07) gelen nötron-yoğun çekirdekle yapılır.', uzaydan: true },
-  hiper_bobin: { ad: 'çift hatlı ağır hiper-sürücü bobini', tarif: 'Gökdelen\'in sürücüsü.', uzaydan: true },
+  hiper_bobin: { ad: 'çift hatlı ağır hiper-sürücü bobini', tarif: 'Gökdelen\'in sürücüsü; kriyolit çekirdekli.' },
+  yatistirici: { ad: 'doz sakinleştirici ilaç', tarif: 'Kseno-sporlardan; revirlerde ve uyum merkezlerinde.' },
   super_alasim: { ad: 'nötron takviyeli süper alaşım plakası', tarif: 'Hisar-ı Kadim\'in gövdesi.', uzaydan: true },
   kadim_disk: { ad: 'birim kadim kseno-kristal ve optik şifreleme diski', tarif: 'Kadim tapınaklardan (G-10).', uzaydan: true },
   kuantum_cekirdek: { ad: 'kuantum rezonans çekirdeği', tarif: 'Hisar-ı Kadim\'in dört çekirdeğinden biri.', uzaydan: true },
@@ -63,6 +64,8 @@ export const TARIFLER = {
     { id: 'plazma', ad: '15 litre plazma yakıtı', girdi: { izotop: 2 }, cikti: { plazma_yakiti: 15 }, sure: 40 },
     { id: 'fuzyon', ad: 'Standart plazma füzyon reaktörü', girdi: { izotop: 4, kristal: 2, titanyum: 3 }, cikti: { plazma_reaktoru: 1 }, sure: 150 },
     { id: 'graviton', ad: '10 litre graviton yakıtı', girdi: { graviton: 1 }, cikti: { graviton_yakiti: 10 }, sure: 60 },
+    { id: 'metan', ad: '15 litre itki yakıtı (metandan)', girdi: { metan: 1 }, cikti: { itki_yakiti: 15 }, sure: 30 },
+    { id: 'bobin', ad: 'Çift hatlı ağır hiper-sürücü bobini (kriyolit çekirdekli)', girdi: { kriyolit: 3, graviton_yakiti: 20, kseno_alasim: 30 }, cikti: { hiper_bobin: 1 }, sure: 240 },
     { id: 'kalkan', ad: 'Ağır korvet sınıfı kalkan projektörü', girdi: { saf_kristal: 20, kseno_alasim: 20, graviton_yakiti: 10 }, cikti: { kalkan_projektoru: 1 }, sure: 180 },
   ],
   sinyal_kulesi: [
@@ -71,7 +74,13 @@ export const TARIFLER = {
   ],
   biyo_kubbe: [
     { id: 'karantina', ad: 'Biyo-karantina bölmesi', girdi: { kseno: 1, polimer: 1, kristal: 1 }, cikti: { mod_bolme_a: 1 }, sure: 60 },
+    { id: 'yatistirici', ad: '10 doz sakinleştirici ilaç', girdi: { kseno_spor: 1 }, cikti: { yatistirici: 10 }, sure: 40 },
+    { id: 'foton', ad: 'Foton reçinesiyle kubbe aydınlatması (moral)', girdi: { foton_recinesi: 1 }, cikti: { moral: 8 }, sure: 30 },
     { id: 'kseno_alasim', ad: '50 birim kseno-alaşım ve iletken kristal', girdi: { kseno: 1, saf_kristal: 10 }, cikti: { kseno_alasim: 50 }, sure: 60 },
+  ],
+  kriyo_atolye: [
+    { id: 'kriyo_helyum', ad: '40 helyum-3 soğutma tüpü (kriyolitten)', girdi: { kriyolit: 1 }, cikti: { helyum: 40 }, sure: 45 },
+    { id: 'giysi', ad: 'Termal giysi', girdi: { polimer_levha: 20, helyum: 20 }, cikti: { esya_termal_giysi: 1 }, sure: 60 },
   ],
   // Yüzey araçları montaj hangarı: şasi çeliği atölyesi ve beş araç (araclar-ve-gemi-filosu.md bölüm 3)
   arac_hangari: [

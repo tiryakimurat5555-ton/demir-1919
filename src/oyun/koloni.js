@@ -54,7 +54,17 @@ export function moralCarpani(d) {
 }
 
 export function uretimHizi(d) {
-  return (1 + 0.25 * nufus(d).sanayi) * moralCarpani(d);
+  // Jeotermal santral (lav koridorlarının enerjisi) ve Vanguard-01'in fırın jeneratörü üretimi hızlandırır
+  const enerji = (d.koloni.binalar.includes('jeotermal_santral') ? 1.2 : 1) * (d.bayrak.firin ? 1.25 : 1);
+  return (1 + 0.25 * nufus(d).sanayi) * moralCarpani(d) * enerji;
+}
+// İlaç dağıtımı: 10 doz yatıştırıcı → moral +5
+export function ilacDagit(d) {
+  const p = d.koloni.parcalar || {};
+  if ((p.yatistirici || 0) < 10) return { metin: '10 doz sakinleştirici gerekir; elinde ' + (p.yatistirici || 0) + '. Biyo-kubbede kseno-sporlardan yapılır.', olmadi: true };
+  p.yatistirici -= 10;
+  d.koloni.moral = Math.min(100, d.koloni.moral + 5);
+  return { metin: 'Revirden koloniye ilaç dağıtıldı. Moral yüzde ' + d.koloni.moral + '.' };
 }
 
 export function tecrubeCarpani(d) {
@@ -82,6 +92,15 @@ export function miktar(d, ad) {
   return (d.koloni.parcalar || {})[ad] || 0;
 }
 function ekle(d, ad, n) {
+  if (ad === 'moral') {
+    d.koloni.moral = Math.min(100, d.koloni.moral + n);
+    return;
+  }
+  if (ad.indexOf('esya_') === 0) {
+    const e = ad.slice(5);
+    if (!d.envanter.includes(e)) d.envanter.push(e);
+    return;
+  }
   if (ad.indexOf('arac_') === 0) {
     // Araç: hangara girer
     if (!d.araclar) d.araclar = [];

@@ -27,6 +27,11 @@ export const DONANIMLAR = {
   jammer: { ad: 'diplomatik karartma ve jammer kalkanı', tesis: 'komuta_merkezi', girdi: { mikrocip: 30, saf_kristal: 20, kalkan_projektoru: 1 }, sure: 180, tarif: 'İki tarafın hedefleme kilitlerini bozar (Tarras Boğazı).', minSinif: 4 },
   genis_telsiz: { ad: 'geniş bantlı telsiz vericisi', tesis: 'sinyal_kulesi', girdi: { kablo: 40, saf_kristal: 20 }, sure: 120, tarif: 'Kanıtları bütün filoların açık frekansına aynı anda basar (Tarras Boğazı).' },
   graviton_surucu: { ad: 'gelişmiş graviton mancınık sürücüsü', tesis: 'yuksek_reaktor', girdi: { graviton_yakiti: 50, kseno_alasim: 50, plazma_reaktoru: 1 }, sure: 300, tarif: 'Kara deliğin kütleçekiminde gövdenin ezilmesini önler (Kızıl Yutucu).', minSinif: 5 },
+  // Yerel biyomların malzemeleriyle (gezegen-gelisimi-v2 bölüm 3)
+  sivi_iletken: { ad: 'sıvı metal ana enerji hattı', tesis: 'dokumhane', girdi: { sivi_metal: 2, kablo: 20 }, sure: 90, tarif: 'Ana enerji kablolarının yerine geçer, voltaj kaybını sıfırlar: yakıt tüketimi yüzde on beş azalır.', minSinif: 1 },
+  optik_prizma: { ad: 'plazma camı sensör prizması', tesis: 'sinyal_kulesi', girdi: { plazma_cami: 2, saf_kristal: 10 }, sure: 90, tarif: 'Kusursuz camdan hedefleme ve teleskop prizması: fenerler yüzde otuz daha uzaktan duyulur.', minSinif: 1 },
+  obsidyen_zirh: { ad: 'obsidyen yansıtıcı zırh kaplaması', tesis: 'askeri_tersane', girdi: { obsidyen: 3, zirhli_plaka: 50 }, sure: 120, tarif: 'Lazer ve enerji silahlarını yansıtan kaplama (çatışmalar için).', minSinif: 2 },
+  grav_kalkani: { ad: 'gravitasyon kalkanı', tesis: 'reaktor_lab', girdi: { antigrav_tozu: 2, saf_kristal: 10 }, sure: 120, tarif: 'İniş takımlarında dikey kalkış-iniş desteği: kalkış yakıtının yarısını kurtarır.', minSinif: 1 },
   kadim_anahtar: { ad: 'kadim rezonans anahtarı', tarif: 'Mabetteki yazıtın deşifresinden çıkan antik kseno-şifre modülü; mancınığın kilidini açar (Kızıl Yutucu).', kendi: true },
 };
 

@@ -47,16 +47,24 @@ bütün bölümlerini sırayla sayar. Her sürümde güncellenir; bir bölüm bu
       Komuta Merkezi, Yüksek Enerji Reaktörü. Tesis kurulunca nokta haritada belirir. Son sütun (ödül gemileri) Faz 4.
 
 ## 3. gezegen-gelisimi-ve-yerel-gorevler-v2.md
-- [~] 1 Coğrafi ve atmosferik katmanlaşma: dört ana bölge var; katmanların sesli tarifleri kısmen.
-- [~] 2.1 Kükürt çatlakları ve lav koridorları (güney): sırtlar ve kükürt çatlakları [x]; lav koridorları [ ].
-- [ ] 2.2 Manyetik sis ve kristal bataklıkları (doğu sektörü): yok.
+- [x] 1 Üç katman: üst (platolar, kuleler), orta (vadi, sırtlar, krater, doğu, cıva, lav, obsidyen), alt (mantar
+      ormanı, metan mağaraları, kadim salonlar) (0.8).
+- [x] 2.1 Kükürt çatlakları ve lav koridorları (güney, 0.8): lav koridorları, magma kabarması (kaç), kaynama uğultusu,
+      ağır metal damarları; jeotermal enerji santrali (üretim ×1,2).
+- [x] 2.2 Manyetik sis ve kristal bataklıkları (doğu, 0.8): piezo kuvars sütunları (stok 6), statik boşalma (yüklenen
+      sütundan uzaklaş), sis radarı kısaltır, çınlama ve fısıltılı yankılar.
 - [x] 2.3 Asit yağmurlu fırtına platosu (kuzey): Uğultulu Plato, rüzgâr hamleleri.
 - [x] 2.4 Kseno-harabeleri (batı): Kadim Krater, salon, mabet.
-- [ ] 3.1 Biyo-ışıldayan mantar ormanları.
-- [ ] 3.2 Kriyojenik metan mağaraları.
-- [ ] 3.3 Obsidyen ovası ve akustik yankı krateri.
-- [ ] 3.4 Cıva şelaleleri ve hidro-havza.
-- [ ] 3.5 Havada asılı bazalt kuleleri.
+- [x] 3.1 Mantar ormanları (0.8): damla yankıları, nefes alan zarlar, kör yarasa sürüleri (konumlu cıvıltı); fotonik yosun
+      → foton reçinesi (kubbe aydınlatması, moral), sütun mantar → kseno-spor (sakinleştirici ilaç, koloniye dağıtım).
+- [x] 3.2 Kriyojenik metan mağaraları (0.8): donma maruziyeti, gaz menfezleri, buzul çatlamaları; kriyolit (hiper-sürücü
+      bobini, helyum), sıvı metan (yakıt); kriyo-atölyede termal giysi.
+- [x] 3.3 Obsidyen ovası (0.8): cam zeminde çınlayan adımlar, uzun yankı (radar ×1,6); plazma camı (sensör prizması:
+      fener ×1,3), obsidyen (yansıtıcı zırh). Eksik: elektromanyetik sülükler.
+- [x] 3.4 Cıva şelaleleri (0.8): cıva buharı maruziyeti, tok metal gümbürtüleri; sıvı metal (ana enerji hattı: yakıt
+      ×0,85), manyetik cıva tortusu (koloni kalkan jeneratörü, bariyer iki kat).
+- [x] 3.5 Asılı bazalt kuleleri (0.8): yalnız Atmosphere-X ile; taş gıcırtıları ve flüt armonileri; antigravitasyon tozu
+      (gravitasyon kalkanı: kalkış yakıtı yarıya). Eksik: iplik böcekleri.
 - [ ] 4.1 Vanguard-01 enkazı · [x] 4.2 Kseno-rezonans çanları ve tapınak (0.3) · [ ] 4.3 Fosil solucan tünelleri
       · [ ] 4.4 Manyetik tersinme monoliti · [ ] 4.5 Saklı jeotermal kseno-vaha.
 - [ ] 5 Güvensiz bölgeleri arındırma protokolü (keşif, tehdit izolasyonu, stabilizasyon, karakol).
@@ -82,7 +90,7 @@ bütün bölümlerini sırayla sayar. Her sürümde güncellenir; bir bölüm bu
 - [x] 3 Yüzey araçları (0.6): Çöl Tilkisi (hız ×2,6, zehir ×0,4, sonar radarı ×1,4, manyetik vızıltı), Mammoth (derin
       graviton kuyusunu kazar, zehir ×0,2, palet gümbürtüsü), Demir Kervan (ocaklardan koloniye 3 dakikada bir bazalt ve
       titanyum), Atmosphere-X (hız ×4, jet sesi), Akrep (2 dakikada bir yataklardan bir birim); belgedeki üretim girdileri.
-      Eksik: Çöl Tilkisi'nin sinyal feneri fırlatıcısı, Atmosphere-X'in kulelere inişi (3.5 biyomuyla gelecek).
+      Atmosphere-X kulelere iner (0.8). Eksik: Çöl Tilkisi'nin sinyal feneri fırlatıcısı.
 - [~] 4 Malzeme matrisi: plaka, şasi çeliği, saf kristal, plazma yakıtı, graviton yakıtı (derin kuyudan, Mammoth'la),
       helyum-3, kseno-kristal (salonda yenilenen damar), polimer [x]; nötron-yoğun çekirdek [ ] (G-07).
 - [x] 5 Dokunsal iç gezinti: iki parmakla sağa-sola oda, kapı tıslaması ve kilit sesi, her odanın ortam sesi

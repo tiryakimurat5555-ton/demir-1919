@@ -172,6 +172,29 @@ Demir 1919 oyunu silindi; geçmişi git kaydında (son sürüm 1.06, commit 556f
     yazit p_sifre), 6 tamam sahnesi, projeMetni (görev ipucunda). G3 kapiDizisi uzunluk dis 3 / ic 4 / kalibre 5 /
     sifre 6; G2 valfBaslat(d, id, amac); G1 ayarBaslat(d, amac 'ag' → hedef 10-40, bayrak ag, sahne ag_tamam);
     gemi.js KAPLAMA + kaplamaBaslat (vinçle 100 zırhlı plaka). harita: kalibrasyon_sutunu (krater 740,24).
+- SÜRÜM 0.8 (21 Kasım): Faz 2 bölgeleri. Telefonda denenmedi.
+  - harita.js: MEKANLAR dogu (1300-1380, statik), civa (1500-1560, zehirli, maruziyet adı), lav (500-580 × -130..-65,
+    zehirli, magma), mantar (1700-1760, yarasa), kriyo (1900-1960, soguk), obsidyen (2100-2200, zemin cam,
+    radarMenzili 110), kuleler (2300-2380). KAPILAR dogu_gecit (vadi 54,10; dokumhane), civa_gecit (maske), lav_gecit
+    (sırtlar 540,-59; sondaj), mantar_gecit (lav 512,-127), kriyo_gecit (plato 1176,68; zemin), obsidyen_gecit
+    (vadi -50,-43.5; dokumhane), kule_inisi (plato 1104,66; d.arac atmosphere_x). Yataklar kuvars_1..3 (sutun),
+    sivi_metal_1, civa_tortusu_1, agir_metal_1/2, foton_1, spor_1, kriyolit_1, metan_1, menfez_1, plazma_cami_1,
+    obsidyen_1, antigrav_1/2. 9 yeni hammadde (tesisler.js).
+  - dunya.js: maruziyetAdi; zehirIlerle soğuk (0,6/sn, menfeze 7 m'den yakın 1,3; termal giysi ×0,25), bayilmaNedeni;
+    statikIlerle (2 sn yükleme, 6 m içinde çarpılma: 3 m savrulma, +10), magmaIlerle (3 sn içinde 4 m uzaklaş yoksa
+    +20), yarasaIlerle; d.gorulenMekanlar (gec). Yerler'de bölge geçitleri.
+  - Donanım: sivi_iletken, optik_prizma, obsidyen_zirh, grav_kalkani (seyir: yakıt ×0,85, fener ×1,3, kalkış yakıtı
+    2 L → 1 L). Tarifler: metan yakıtı, hiper_bobin (kriyolit; artık uzaydan değil), yatistirici, foton (moral +8),
+    kriyo_atolye helyum ve termal giysi (esya_ çıktısı). Tesisler jeotermal_santral (üretim ×1,2), koloni_kalkani
+    (koloni.kalkan 2). koloni.js ilacDagit (10 doz → moral +5). bolgeler.js telsiz bildirimleri.
+  - Sesler (Drive Efektler): ortam_dogu ← "Ton Ses Tasarımı Elektrik Kıvılcımı ..." + "Fısıltı C.wav"; ortam_civa ←
+    "Su Kabarması.wav" (×0,6) + 60 Hz; ortam_lav ← "Bilim Kurgu Metal Kaynayan Metal Sızıntısı.wav" (×0,55) + kahverengi
+    gürültü; ortam_mantar ← "WATRDrip Metal Tencere Kapağına Su Damlıyor ..." + nefes; ortam_kriyo ← "ICEMisc Buz
+    Cızırtısı MWSFX SEC.wav"; ortam_obsidyen ← ortam_yuzey + uzun yankı; ortam_kuleler sentez (taş gıcırtısı + flüt
+    armonileri); ortam_vaha ← "Kırsal Gece Çiftlik Evi Kuşlar ve Böcekler Ortamı 44.mp3" (0.9 vaha için); statik ←
+    "Enerji Elektrik Sigortası 08.wav"; buz_catlak ← "Gölde Çatlayan İnce Buz Tabakası 16.wav"; magma ← "Orta Patlama
+    Uzun Kuyruklu Yankı 01.wav" (×0,7); konumsal/adim_cam_1..4 ← "Küçük Cam Çatlaması Orta Şiddette Darbe.wav".
+  - Düzeltme: yürürken maruziyet uyarıları (50/75/90) artık söyleniyor (önceden yalnız valfte).
 - Sıradaki: KAPSAM.md "Sıradaki adımlar".
 
 ## Sesler

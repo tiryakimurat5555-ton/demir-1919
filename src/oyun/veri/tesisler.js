@@ -9,10 +9,19 @@ export const HAMMADDELER = {
   izotop: { ad: 'ağır izotop', tarif: 'Manyetik sırtların gaz bacalarından. Reaktör yakıtı.' },
   kseno: { ad: 'kadim kseno-kristal', tarif: 'Harabelerden; melodik tonlar yayan antik teknoloji.' },
   polimer: { ad: 'asit-direnç polimeri', tarif: 'Kükürt çatlaklarından; kimyasala dayanıklı yalıtım.' },
+  sivi_metal: { ad: 'sıvı metal iletkeni', tarif: 'Cıva şelalelerinden; voltaj kaybını sıfırlayan olağanüstü iletken alaşım.' },
+  civa_tortusu: { ad: 'manyetik cıva tortusu', tarif: 'Koloninin kalkan jeneratörlerine katılınca koruma bariyerini iki kat güçlendirir.' },
+  foton_recinesi: { ad: 'organik foton reçinesi', tarif: 'Mantar ormanının fotonik yosunundan; gemi ve kubbe aydınlatmasında doğal ışık kaynağı.' },
+  kseno_spor: { ad: 'sakinleştirici kseno-spor', tarif: 'Revirlerde ve uyum merkezlerinde yatıştırıcı ve antibakteriyel ilaç yapımında.' },
+  kriyolit: { ad: 'süperiletken kriyolit', tarif: 'Metan mağaralarından; reaktör soğutma borularında ve hiper-sürücü çekirdeklerinde.' },
+  metan: { ad: 'sıvılaştırılmış metan', tarif: 'Acil manevra roketleri ve yerel fırlatma yakıtı.' },
+  plazma_cami: { ad: 'kusursuz plazma camı', tarif: 'Obsidyen ovasından; kokpit camları, teleskop mercekleri ve sensör prizmaları.' },
+  obsidyen: { ad: 'obsidyen kompozit tabaka', tarif: 'Lazer ve enerji silahlarına karşı yansıtıcı zırh kaplaması.' },
+  antigrav_tozu: { ad: 'antigravitasyon tozu ve çekirdek jeot', tarif: 'Asılı kulelerden; gravitasyon kalkanı ve iniş yakıtı tasarrufu.' },
   graviton: { ad: 'graviton minerali', tarif: 'Manyetik sırtların derin kuyularından; yalnız sondaj tankıyla çıkar. Graviton yakıtının hammaddesi.' },
 };
 
-export const HAMMADDE_SIRASI = ['bazalt', 'titanyum', 'kristal', 'izotop', 'kseno', 'polimer', 'graviton'];
+export const HAMMADDE_SIRASI = ['bazalt', 'titanyum', 'kristal', 'izotop', 'kseno', 'polimer', 'graviton', 'sivi_metal', 'civa_tortusu', 'foton_recinesi', 'kseno_spor', 'kriyolit', 'metan', 'plazma_cami', 'obsidyen', 'antigrav_tozu'];
 
 // Tesisler. maliyet: hammadde kimliği → miktar. kosul(d): inşa edilebilmesi için hikâye koşulu.
 export const TESISLER = {
@@ -121,7 +130,29 @@ matrisTesisi('askeri_tersane', 'Askeri Tersane', 'Askeri Tersane', 'Zırh ve sil
 matrisTesisi('komuta_merkezi', 'Komuta Merkezi', 'Komuta Merkezi', 'Kule, dökümhane ve jeneratörü tek bir ağda yönetir.', 'Karadutu analizörü, optik kripto-bellek, jammer kalkanı.', 'Uzay haritasında Tarras Boğazı.', { bazalt: 12, titanyum: 8, kristal: 6 }, 'ag', 'Önce Gözcü Tepesi\'nde koloninin ağ şebekesini kur.');
 matrisTesisi('yuksek_reaktor', 'Yüksek Enerji Reaktörü', 'Yüksek Enerji Reaktörü', 'Kadim şifreyle çalışan dev graviton reaktörü.', 'Graviton mancınık sürücüsü.', 'Uzay haritasında Kızıl Yutucu olay ufku.', { bazalt: 20, titanyum: 14, kseno: 4, graviton: 4 }, 'sifre', 'Önce iç mabetteki yazıtın kadim şifresini çöz.');
 
-export const TESIS_SIRASI = ['sinyal_kulesi', 'dokumhane', 'yasam_blogu', 'arac_hangari', 'reaktor_lab', 'biyo_kubbe', 'tersane', 'tersane_2', 'tersane_3', 'kuantum_lab', 'itki_hangari', 'kriyo_atolye', 'askeri_tersane', 'komuta_merkezi', 'yuksek_reaktor'];
+// Yerel biyomlardan beslenen tesisler (gezegen-gelisimi-v2 2.1 ve 3.4)
+TESISLER.jeotermal_santral = {
+  ad: 'Jeotermal Enerji Santrali',
+  kisa: 'Jeotermal Santral',
+  islev: 'Lav koridorlarının derin ısısını koloninin şebekesine verir.',
+  katki: 'Bütün tesislerde üretim yüzde yirmi hızlanır.',
+  acar: 'Koloniye bol enerji.',
+  maliyet: { bazalt: 10, titanyum: 6, polimer: 2 },
+  kosul: (d) => (d.gorulenMekanlar || []).includes('lav'),
+  kosulMetni: 'Önce güneydeki lav koridorlarını keşfet.',
+};
+TESISLER.koloni_kalkani = {
+  ad: 'Koloni Kalkan Jeneratörü',
+  kisa: 'Kalkan Jeneratörü',
+  islev: 'Koloniyi radyasyon fırtınalarına ve saldırılara karşı bir enerji bariyeriyle örter; manyetik cıva tortusu bariyeri iki kat güçlendirir.',
+  katki: 'Manyetosfer terraformingi ve savunma için.',
+  acar: 'Koloni kalkanı.',
+  maliyet: { civa_tortusu: 3, titanyum: 6, kristal: 4 },
+  kosul: (d) => (d.gorulenMekanlar || []).includes('civa'),
+  kosulMetni: 'Önce cıva şelalelerini keşfet; tortusu gerekir.',
+};
+
+export const TESIS_SIRASI = ['sinyal_kulesi', 'dokumhane', 'yasam_blogu', 'arac_hangari', 'reaktor_lab', 'biyo_kubbe', 'tersane', 'tersane_2', 'tersane_3', 'kuantum_lab', 'itki_hangari', 'kriyo_atolye', 'askeri_tersane', 'komuta_merkezi', 'yuksek_reaktor', 'jeotermal_santral', 'koloni_kalkani'];
 
 // Koloni kademeleri (gezegen-gelisimi-ve-yerel-gorevler-v2.md bölüm 9)
 export const KOLONI_KADEMELERI = [

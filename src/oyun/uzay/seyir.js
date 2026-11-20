@@ -154,8 +154,9 @@ function uzak(a, b) {
 }
 
 export function fenerMenzili(d) {
-  return FENER_MENZILI * telsizSubayiCarpani(d);
+  return FENER_MENZILI * telsizSubayiCarpani(d) * (d.gemi && d.gemi.moduller.optik_prizma ? 1.3 : 1);
 }
+export const KALKIS_YAKITI = 2;
 
 // --- Kalkış ve iniş ---
 export function kalkisOlur(d) {
@@ -168,6 +169,7 @@ export function kalkisOlur(d) {
 export function kalkis(d) {
   const engel = kalkisOlur(d);
   if (engel) return { metin: engel, ses: 'red' };
+  d.gemi.yakit = Math.max(0, d.gemi.yakit - KALKIS_YAKITI * (d.gemi.moduller.grav_kalkani ? 0.5 : 1));
   d.gemi.yer = 'uzay';
   d.uzay = { x: 0, y: 45, yon: 0, hiz: 0, yaklasilan: {}, kilitli: null, yakitUyari: false };
   d.sahne = 'kalkis';
@@ -209,7 +211,7 @@ export function uzayIlerle(d, dt) {
   if (!u) return olaylar;
   const g = d.gemi;
   if (u.hiz > 0) {
-    const yakit = u.hiz * YAKIT_TUKETIM * dt;
+    const yakit = u.hiz * YAKIT_TUKETIM * dt * (g.moduller.sivi_iletken ? 0.85 : 1);
     g.yakit = Math.max(0, g.yakit - yakit);
     const birim = HIZ_BIRIMI * gucDagitimi(d).hiz;
     u.x += Math.sin(u.yon) * u.hiz * birim * dt;

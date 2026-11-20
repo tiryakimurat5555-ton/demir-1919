@@ -10,6 +10,7 @@ import * as G4 from './gorev4';
 import * as G5 from './gorev5';
 import * as H from './hangar';
 import * as G6 from './gorev6';
+import * as B from './bolgeler';
 import { koloniIlerle } from '../koloni';
 import * as S from '../uzay/seyir';
 import { TESISLER } from '../veri/tesisler';
@@ -20,11 +21,11 @@ export const { NOTALAR, kapiDizisi, rezonansBaslat, rezonansSecimDegis, rezonans
 
 export const { AYAKLAR, ayakSayisi, ayakFrek, teraziBaslat, teraziPompa, teraziIlerle, teraziMetni, DENGE_ESIGI } = G4;
 
-export const SAHNELER = { ...G1.SAHNELER, ...G2.SAHNELER, ...G3.SAHNELER, ...G4.SAHNELER, ...G5.SAHNELER, ...G6.SAHNELER };
+export const SAHNELER = { ...G1.SAHNELER, ...G2.SAHNELER, ...G3.SAHNELER, ...G4.SAHNELER, ...G5.SAHNELER, ...G6.SAHNELER, ...B.SAHNELER };
 
 // Telsiz bildirimleri (belgeler/savas-yetenek-ve-murettebat-mekanikleri.md 4.3): koşulu sağlanınca bir kez kuyruğa
 // girer. gorev alanı varsa yalnız o görev sürerken.
-const BILDIRIMLER = [...G2.BILDIRIMLER, ...G3.BILDIRIMLER, ...G4.BILDIRIMLER, ...G5.BILDIRIMLER];
+const BILDIRIMLER = [...G2.BILDIRIMLER, ...G3.BILDIRIMLER, ...G4.BILDIRIMLER, ...G5.BILDIRIMLER, ...B.BILDIRIMLER];
 export function bildirimIlerle(d) {
   if (!d.bildirimler) d.bildirimler = [];
   if (!d.duyulanBildirimler) d.duyulanBildirimler = [];
@@ -101,6 +102,15 @@ export function konusma(d, kisiId) {
 }
 
 export function insaEt(d, id) {
+  if (id === 'koloni_kalkani' || id === 'jeotermal_santral') {
+    const kurulu = d.koloni.binalar.includes(id);
+    const r = G1.insaEt(d, id);
+    if (!kurulu && d.koloni.binalar.includes(id)) {
+      if (id === 'koloni_kalkani') d.koloni.kalkan = 2;
+      return { metin: TESISLER[id].ad + ' kuruldu. ' + TESISLER[id].katki, ses: 'kur' };
+    }
+    return r;
+  }
   if (id === 'yasam_blogu') {
     const kurulu = d.koloni.binalar.includes(id);
     const r = G1.insaEt(d, id);

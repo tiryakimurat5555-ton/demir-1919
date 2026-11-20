@@ -2,7 +2,7 @@
 // anteni kur, frekansı ayarla, kaynak topla, Sinyal Kulesi'ni kur.
 import { describe, expect, test } from 'bun:test';
 import { yeniOyun, gecerliMi, kaydiTamamla } from '../src/oyun/durum';
-import { NOKTALAR } from '../src/oyun/yuzey/harita';
+import { NOKTALAR, MEKANLAR } from '../src/oyun/yuzey/harita';
 import { cevreMetni, durumMetni, etkiles, firtinaIlerle, gec, ilerle, otoBaslat, radar, yerlerListesi } from '../src/oyun/yuzey/dunya';
 import { KAPILAR } from '../src/oyun/yuzey/harita';
 import {
@@ -928,5 +928,128 @@ describe('kükürt', () => {
     expect(d.mekan).toBe('kapsul');
     expect(d.sahne).toBe('bayilma');
     expect(SAHNELER.bayilma).toBeDefined();
+  });
+});
+
+describe('Faz 2 bölgeleri', () => {
+  function hazir() {
+    const d = yeniOyun(77);
+    sahneleriGec(d);
+    Object.assign(d.bayrak, { dokumhane: true, maske: true, sondaj: true, zemin: true, biyo_kubbe: true, jenerator: true });
+    d.mekan = 'vadi';
+    d.oyuncu = { x: 0, y: 20, yon: 0 };
+    return d;
+  }
+  function git(d, kapi) {
+    const k = KAPILAR[kapi];
+    const u = k.uclar[0];
+    d.mekan = u.mekan;
+    d.oyuncu = { x: u.x, y: u.y, yon: 0 };
+    const r = gec(d, kapi, 0);
+    expect(r.gecti).toBe(true);
+    expect(d.mekan).toBe(k.uclar[1].mekan);
+  }
+  test('doğu sektörü: statik boşalma sütun yanındakini çarpar, uzaktakini değil', () => {
+    const d = hazir();
+    expect(gec({ ...d, bayrak: {} }, 'dogu_gecit', 0).kilitli).toBe(true);
+    git(d, 'dogu_gecit');
+    // Sütunun dibinde bekle
+    d.oyuncu = { x: NOKTALAR.kuvars_1.x + 2, y: NOKTALAR.kuvars_1.y, yon: 0 };
+    const o = [];
+    for (let i = 0; i < 400; i++) o.push(...ilerle(d, {}, 0.1));
+    expect(o.some((x) => x.tur === 'statikGeliyor')).toBe(true);
+    expect(o.some((x) => x.tur === 'statik')).toBe(true);
+    expect(radar(d).metin.length).toBeGreaterThan(5);
+    // Kuvars sütunundan kristal
+    d.oyuncu = { x: NOKTALAR.kuvars_2.x + 2, y: NOKTALAR.kuvars_2.y, yon: 0 };
+    eylemUygula(d, 'kuvars_2', 'topla');
+    expect(d.koloni.kaynaklar.kristal).toBe(1);
+    // Cıva vadisi: maske ister, maruziyet artar
+    git(d, 'civa_gecit');
+    const z = d.zehir || 0;
+    for (let i = 0; i < 50; i++) ilerle(d, {}, 0.1);
+    expect(d.zehir).toBeGreaterThan(z);
+    d.oyuncu = { x: NOKTALAR.civa_tortusu_1.x + 1, y: NOKTALAR.civa_tortusu_1.y, yon: 0 };
+    eylemUygula(d, 'civa_tortusu_1', 'topla');
+    expect(d.koloni.kaynaklar.civa_tortusu).toBe(1);
+    expect(d.gorulenMekanlar).toContain('civa');
+    expect(TESISLER.koloni_kalkani.kosul(d)).toBe(true);
+  });
+  test('lav koridorları: magmadan kaçan yanmaz, kalan yanar; mantar ormanı yarasaları', () => {
+    const d = hazir();
+    d.mekan = 'sirtlar';
+    git(d, 'lav_gecit');
+    expect(TESISLER.jeotermal_santral.kosul(d)).toBe(true);
+    d.zehir = 0;
+    const o = [];
+    for (let i = 0; i < 200 && !o.some((x) => x.tur === 'magma'); i++) o.push(...ilerle(d, {}, 0.1));
+    const m = o.find((x) => x.tur === 'magma');
+    expect(m.yandi).toBe(true);
+    // Uyarıyı duyunca kaç
+    d.zehir = 0;
+    const o2 = [];
+    let kac = 0;
+    for (let i = 0; i < 400 && !o2.some((x) => x.tur === 'magma'); i++) {
+      const s = ilerle(d, kac > 0 ? { ileri: 1 } : {}, 0.1);
+      if (s.some((x) => x.tur === 'magmaGeliyor')) {
+        kac = 25;
+        d.oyuncu.yon = Math.PI / 2;
+        if (d.oyuncu.x > 560) d.oyuncu.yon = -Math.PI / 2;
+      }
+      if (kac > 0) kac--;
+      o2.push(...s);
+    }
+    expect(o2.find((x) => x.tur === 'magma').yandi).toBe(false);
+    // Mantar ormanı
+    d.oyuncu = { x: 512, y: -125, yon: 0 };
+    git(d, 'mantar_gecit');
+    const o3 = [];
+    for (let i = 0; i < 300; i++) o3.push(...ilerle(d, {}, 0.1));
+    expect(o3.some((x) => x.tur === 'yarasa')).toBe(true);
+    d.oyuncu = { x: NOKTALAR.spor_1.x + 2, y: NOKTALAR.spor_1.y, yon: 0 };
+    eylemUygula(d, 'spor_1', 'topla');
+    expect(d.koloni.kaynaklar.kseno_spor).toBe(1);
+  });
+  test('kriyo mağaraları: termal giysi donmayı yavaşlatır; obsidyen camda çınlar; kuleler VTOL ister', () => {
+    const d = hazir();
+    d.mekan = 'plato';
+    git(d, 'kriyo_gecit');
+    d.zehir = 0;
+    for (let i = 0; i < 100; i++) ilerle(d, {}, 0.1);
+    const ciplak = d.zehir;
+    d.zehir = 0;
+    d.envanter.push('termal_giysi');
+    for (let i = 0; i < 100; i++) ilerle(d, {}, 0.1);
+    expect(d.zehir).toBeLessThan(ciplak / 2);
+    // Obsidyen: cam zemin, uzun yankı
+    d.mekan = 'vadi';
+    git(d, 'obsidyen_gecit');
+    expect(MEKANLAR.obsidyen.zemin).toBe('cam');
+    const o = [];
+    for (let i = 0; i < 20; i++) o.push(...ilerle(d, { ileri: 1 }, 0.1));
+    expect(o.some((x) => x.tur === 'adim' && x.zemin === 'cam')).toBe(true);
+    // Kuleler yalnız Atmosphere-X ile
+    d.mekan = 'plato';
+    d.oyuncu = { x: 1104, y: 66, yon: 0 };
+    expect(gec(d, 'kule_inisi', 0).kilitli).toBe(true);
+    d.araclar = ['atmosphere_x'];
+    d.arac = 'atmosphere_x';
+    expect(gec(d, 'kule_inisi', 0).gecti).toBe(true);
+    expect(d.mekan).toBe('kuleler');
+  });
+  test('yerel malzemeli donanım ve tarifler', () => {
+    const d = hazir();
+    expect(TARIFLER.reaktor_lab.some((t) => t.id === 'metan')).toBe(true);
+    expect(TARIFLER.reaktor_lab.some((t) => t.cikti.hiper_bobin)).toBe(true);
+    expect(TARIFLER.kriyo_atolye.some((t) => t.cikti.esya_termal_giysi)).toBe(true);
+    expect(TARIFLER.dokumhane.some((t) => t.cikti.mod_sivi_iletken)).toBe(true);
+    expect(TARIFLER.sinyal_kulesi.some((t) => t.cikti.mod_optik_prizma)).toBe(true);
+    // Kriyo-atölyede giysi
+    d.koloni.binalar.push('kriyo_atolye');
+    d.koloni.parcalar.polimer_levha = 20;
+    d.koloni.parcalar.helyum = 20;
+    expect(uretimBaslat(d, 'kriyo_atolye', 'giysi').ses).toBe('dugme');
+    bekle(d, 80);
+    expect(d.envanter).toContain('termal_giysi');
   });
 });

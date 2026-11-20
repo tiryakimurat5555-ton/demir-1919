@@ -24,7 +24,11 @@ export const SAHNELER = {
     ortam: 'ortam_kapsul',
     metin: (d) => [
       'Kulaklarında bir uğultu, ağzında metal tadı. Gözlerini açtığında kapsülün ranzasındasın.',
-      'Hekim ' + ad(d, 2) + ': "Maske kükürdü süzer ama sonsuza dek değil. Sırtlarda fazla kaldın; ' + ilkAd(d, 0) + ' seni sırtında taşıdı. Bacaların dibinde oyalanma, arada temiz havaya çık."',
+      d.bayilmaNedeni === 'soguk'
+        ? 'Hekim ' + ad(d, 2) + ': "Donmak üzereydin. ' + ilkAd(d, 0) + ' seni halatla yukarı çekti. Termal giysi olmadan o mağarada uzun kalma."'
+        : d.bayilmaNedeni === 'civa'
+          ? 'Hekim ' + ad(d, 2) + ': "Cıva buharı maskeyi bile aşar. ' + ilkAd(d, 0) + ' seni sırtında taşıdı. Şelalelerde kısa kal."'
+          : 'Hekim ' + ad(d, 2) + ': "Maske kükürdü süzer ama sonsuza dek değil. Sırtlarda fazla kaldın; ' + ilkAd(d, 0) + ' seni sırtında taşıdı. Bacaların dibinde oyalanma, arada temiz havaya çık."',
       'Taşıdığın her şey yanında. Yerleştirdiğin sondalar yerinde duruyor.',
     ],
     secenekler: () => [{ etiket: 'Kalk', sonra: null }],

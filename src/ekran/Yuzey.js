@@ -33,7 +33,7 @@ import { cal, ortamCal } from '../ses/efektler';
 import { RENK, UST_BOSLUK } from '../arayuz/tema';
 import KonumsalSes from '../ses/konumsal';
 import { ALANLAR, KAPILAR, MEKANLAR, NOKTALAR } from '../oyun/yuzey/harita';
-import { cevreMetni, durumMetni, esyaMetni, etkiles, firtinaIlerle, ilerle, kisiAdi, otoBaslat, radar, yerlerListesi, zehirIlerle } from '../oyun/yuzey/dunya';
+import { cevreMetni, durumMetni, esyaMetni, etkiles, firtinaIlerle, maruziyetAdi, ilerle, kisiAdi, otoBaslat, radar, yerlerListesi, zehirIlerle } from '../oyun/yuzey/dunya';
 import {
   ESYALAR,
   HAREKET_KISA,
@@ -83,7 +83,7 @@ import {
   fenerMenzili,
   aractanIn,
 } from '../oyun/yuzey/gorevler';
-import { SEKTORLER, bosta, isGucuDegis, moralMetni, moralSesi, parcaMetni, uretimBaslat, uretimListesi } from '../oyun/koloni';
+import { SEKTORLER, bosta, ilacDagit, isGucuDegis, moralMetni, moralSesi, parcaMetni, uretimBaslat, uretimListesi } from '../oyun/koloni';
 import {
   VINC_ESIGI,
   atamaYap,
@@ -137,13 +137,18 @@ const DOSYALAR = {
   sonar: require('../../assets/ses/konumsal/sonar.wav'),
   baca: require('../../assets/ses/konumsal/baca.wav'),
   hamle: require('../../assets/ses/konumsal/hamle.wav'),
+  adim_cam_1: require('../../assets/ses/konumsal/adim_cam_1.wav'),
+  adim_cam_2: require('../../assets/ses/konumsal/adim_cam_2.wav'),
+  adim_cam_3: require('../../assets/ses/konumsal/adim_cam_3.wav'),
+  adim_cam_4: require('../../assets/ses/konumsal/adim_cam_4.wav'),
 };
 
 // Eylem sesleri: gorev1.js'teki ses adlarını çalınacak efekte çevirir
 const EYLEM_SESI = { bip: 'bip', red: 'red', tislama: 'tislama', jenerator: 'jenerator', kes: 'tislama', kur: 'kapi', topla: 'dugme', kristal: 'dugme', sonda: 'sonda', polimer: 'polimer', hidrolik: 'hidrolik', kaynak: 'kaynak', kapi_gemi: 'kapi_gemi', dugme: 'dugme' };
 const BACALAR = ['baca_1', 'baca_2', 'baca_3'];
 const CANLAR = ['can_1', 'can_2', 'can_3', 'can_4', 'can_5'];
-const KRISTALLER = ['kristal_1', 'kristal_2', 'kristal_3', 'kristal_4'];
+// Rüzgârda kendiliğinden çınlayan kristaller (ses: 'kristal'): vadi, krater ve doğu sektörünün kuvars sütunları
+const KRISTALLER = Object.keys(NOKTALAR).filter((id) => NOKTALAR[id].ses === 'kristal');
 const NOTA_ARASI = 750; // kapının dizisindeki notalar arası (ms)
 
 function guc(piksel) {
@@ -336,6 +341,30 @@ export default function Yuzey({ onGeri, baslangic, yeniOyunUret }) {
         if (m() && yuklu.current.hamle) m().tek('hamle', o.kaynak, 1);
         Haptics.impactAsync(o.savruldu || o.sarsti ? Haptics.ImpactFeedbackStyle.Heavy : Haptics.ImpactFeedbackStyle.Light).catch(() => {});
         sozler.push(o.metin);
+      } else if (o.tur === 'zehir') {
+        Haptics.notificationAsync(Haptics.NotificationFeedbackType.Warning).catch(() => {});
+        sozler.push(maruziyetAdi(d) + ' yüzde ' + o.duzey + '.' + (o.duzey >= 90 ? ' Hemen çık!' : ''));
+      } else if (o.tur === 'statikGeliyor') {
+        cal('statik', 0.35);
+        if (m()) m().nota(2400, o.kaynak, 0.25, 1.8);
+        Haptics.notificationAsync(Haptics.NotificationFeedbackType.Warning).catch(() => {});
+        sozler.push(o.metin);
+      } else if (o.tur === 'statik') {
+        cal('statik', o.carpti ? 1 : 0.6);
+        if (o.carpti) Haptics.notificationAsync(Haptics.NotificationFeedbackType.Error).catch(() => {});
+        sozler.push(o.metin);
+      } else if (o.tur === 'magmaGeliyor') {
+        if (m()) m().nota(48, o.kaynak, 0.9, 3);
+        Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Heavy).catch(() => {});
+        sozler.push(o.metin);
+      } else if (o.tur === 'magma') {
+        cal('magma', o.yandi ? 1 : 0.6);
+        if (o.yandi) Haptics.notificationAsync(Haptics.NotificationFeedbackType.Error).catch(() => {});
+        sozler.push(o.metin);
+      } else if (o.tur === 'yarasa') {
+        // Kör yarasa sürüsü: kısa, tiz cıvıltılar bir yandan öbür yana geçer
+        const s = m();
+        if (s) for (let i = 0; i < 9; i++) setTimeout(() => s.nota(3000 + Math.random() * 1500, { x: o.bas.x + ((o.son.x - o.bas.x) * i) / 8, y: o.bas.y + ((o.son.y - o.bas.y) * i) / 8 }, 0.18, 0.12), i * 160);
       } else if (o.tur === 'otoTakildi') sozler.push('Yol kapandı; durdun.');
       else if (o.tur === 'otoIptal') sozler.push('Durdun.');
     }
@@ -394,6 +423,8 @@ export default function Yuzey({ onGeri, baslangic, yeniOyunUret }) {
       }
       if (sayac % 5 === 0) sesleriEsitle(false);
       if (sayac % 3 === 0 && d.arac && m()) m().motorAyar(s.aktif || d.oto ? 3 : 0.4);
+      // Kriyo mağaralarında ara sıra buz çatlar
+      if (d.mekan === 'kriyo' && sayac % 10 === 0 && Math.random() < 0.08) cal('buz_catlak', 0.4 + Math.random() * 0.4);
       if (sayac % 10 === 0 && d.mekan === 'vadi') ortamCal(MEKANLAR.vadi.ortam, ortamOrani(d));
       if (sayac % KAYIT_ARALIGI === 0) kaydet();
       if (sayac % 10 === 0) setYazi(MEKANLAR[d.mekan].ad + ' · ' + d.koloni.binalar.length + ' tesis');
@@ -1082,7 +1113,22 @@ export default function Yuzey({ onGeri, baslangic, yeniOyunUret }) {
       baslik: 'Koloni yönetimi',
       giris: (onEk ? onEk + ' ' : '') + 'Nüfus ' + n.toplam + ', barınma ' + n.barinma + ', boşta ' + bosta(d) + '. Moral yüzde ' + d.koloni.moral + '. ' + moralMetni(d),
       onGeri: () => noktaGoster('terminal'),
-      ogeler: [...ogeler, { id: 'geri', etiket: 'Terminale dön', sec: () => (noktaGoster('terminal'), 'sessiz') }],
+      ogeler: [
+        ...ogeler,
+        {
+          id: 'ilac',
+          etiket: 'Koloniye ilaç dağıt',
+          ipucu: '10 doz sakinleştirici; moral artar.',
+          sec: () => {
+            const r = ilacDagit(d);
+            kaydet();
+            if (r.olmadi) cal('red', 0.6);
+            isGucuGoster(r.metin);
+            return 'sessiz';
+          },
+        },
+        { id: 'geri', etiket: 'Terminale dön', sec: () => (noktaGoster('terminal'), 'sessiz') },
+      ],
     });
   };
 

@@ -41,6 +41,17 @@ const KAYNAKLAR = {
   arayuz: require('../../assets/ses/arayuz.wav'),
   moral_yuksek: require('../../assets/ses/moral_yuksek.wav'),
   moral_dusuk: require('../../assets/ses/moral_dusuk.wav'),
+  ortam_dogu: require('../../assets/ses/ortam_dogu.wav'),
+  ortam_civa: require('../../assets/ses/ortam_civa.wav'),
+  ortam_lav: require('../../assets/ses/ortam_lav.wav'),
+  ortam_mantar: require('../../assets/ses/ortam_mantar.wav'),
+  ortam_kriyo: require('../../assets/ses/ortam_kriyo.wav'),
+  ortam_obsidyen: require('../../assets/ses/ortam_obsidyen.wav'),
+  ortam_kuleler: require('../../assets/ses/ortam_kuleler.wav'),
+  ortam_vaha: require('../../assets/ses/ortam_vaha.wav'),
+  statik: require('../../assets/ses/statik.wav'),
+  buz_catlak: require('../../assets/ses/buz_catlak.wav'),
+  magma: require('../../assets/ses/magma.wav'),
 };
 
 // Ortam döngülerinin kendi düzeyleri (konuşmanın altında kalsınlar diye düşük)
@@ -56,6 +67,14 @@ const DONGULER = {
   ortam_kargo: 0.5,
   ortam_reaktor: 0.5,
   ortam_revir: 0.45,
+  ortam_dogu: 0.5,
+  ortam_civa: 0.55,
+  ortam_lav: 0.6,
+  ortam_mantar: 0.55,
+  ortam_kriyo: 0.5,
+  ortam_obsidyen: 0.5,
+  ortam_kuleler: 0.55,
+  ortam_vaha: 0.55,
 };
 
 const oynaticilar = {};

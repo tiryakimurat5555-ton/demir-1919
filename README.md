@@ -6,7 +6,7 @@ tesis kurar, ileride gemini parça parça inşa edip uzaya açılırsın.
 
 Tasarım: Bahtiyar Cankurt (belgeler/). Yapım: Murat ve Bahtiyar. Expo Go ile iPhone ve Android'de çalışır.
 
-## Bu sürümde (0.7)
+## Bu sürümde (0.8)
 - Vadi-i Sukût'ta sesle serbest dolaşma; iniş kapsülünün içi ve dışı.
 - Radar: uzun basınca yankılar nesnelerin yönünden döner.
 - Birinci görev "Sinyal Arayışı": alet dolabı, kopan arka modül, yedek jeneratör, Gözcü Tepesi'nde anten
@@ -30,6 +30,9 @@ Tasarım: Bahtiyar Cankurt (belgeler/). Yapım: Murat ve Bahtiyar. Expo Go ile i
 - Koloni projeleri (entegrasyon matrisi): rezonatör kalibrasyonu, izotop sıkıştırma, ısı izolasyonu, zemin alaşım
   kaplaması, ağ şebekesi, kadim şifre; altı yeni tesis; dokuz montaj katmanı ve büyük görevlerin bütün donanımları;
   uzay haritasında dokuz görev noktası ve ön taramaları.
+- Yedi yeni bölge: doğu kristal bataklıkları (statik boşalma), cıva şelaleleri, lav koridorları (magma), mantar
+  ormanı (kör yarasalar), metan mağaraları (donma, termal giysi), obsidyen ovası (cam adımlar), asılı bazalt kuleleri
+  (yalnız Atmosphere-X); dokuz yeni malzeme ve onlardan gemi donanımları, jeotermal santral, koloni kalkanı.
 - Belgelerin hangi bölümünün yapıldığı: KAPSAM.md.
 - Mürettebattan telsiz çağrıları (çift dokun dinle, iki parmakla aşağı kaydır ertele).
 - Otomatik kayıt (uygulamadan çıkınca ya da telefon kilitlenince) ve kapsüldeki terminalden üç yuvaya elle kayıt.

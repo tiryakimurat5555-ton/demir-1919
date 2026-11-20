@@ -111,7 +111,7 @@ export function durumMetni(d) {
   const donus = donusYolu(d);
   if (donus) parca.push(konumMetni(d, donus) + '.');
   if (d.envanter.length) parca.push('Taşıdığın: ' + esyaMetni(d) + '.');
-  if (mk.zehirli || d.zehir > 0) parca.push('Kükürt maruziyeti yüzde ' + Math.round(d.zehir || 0) + '.');
+  if (mk.zehirli || mk.soguk || d.zehir > 0) parca.push(maruziyetAdi(d) + ' yüzde ' + Math.round(d.zehir || 0) + '.');
   return parca.join(' ');
 }
 
@@ -154,6 +154,8 @@ export function gec(d, kapiId, uc) {
   const k = KAPILAR[kapiId];
   if (k.kosul && !k.kosul(d)) return { metin: k.kilitMetni, kilitli: true, kapi: kapiId, rezonans: k.rezonans };
   const ote = k.uclar[1 - uc];
+  if (!d.gorulenMekanlar) d.gorulenMekanlar = [];
+  if (!d.gorulenMekanlar.includes(ote.mekan) && !(d.arac && !MEKANLAR[ote.mekan].dis)) d.gorulenMekanlar.push(ote.mekan);
   if (d.arac && !MEKANLAR[ote.mekan].dis) return { metin: 'Araçla içeri giremezsin. Önce araçtan in: menüde Araç.', kilitli: true, kapi: kapiId };
   d.mekan = ote.mekan;
   d.oyuncu = { x: ote.x, y: ote.y, yon: ote.yon };
@@ -216,6 +218,7 @@ export function ilerle(d, girdi, dt) {
     if (o) {
       if (d.oto) zehirIlerle(d, dt, 0, olaylar);
       firtinaIlerle(d, dt, !!d.oto, olaylar);
+      tehlikeIlerle(d, dt, olaylar);
       return olaylar;
     }
   } else if (d.oto && (ileri || donus)) {
@@ -237,7 +240,108 @@ export function ilerle(d, girdi, dt) {
   yaklasmaHaberi(d, olaylar);
   zehirIlerle(d, dt, 0, olaylar);
   firtinaIlerle(d, dt, !!ileri, olaylar);
+  tehlikeIlerle(d, dt, olaylar);
   return olaylar;
+}
+function tehlikeIlerle(d, dt, olaylar) {
+  statikIlerle(d, dt, olaylar);
+  magmaIlerle(d, dt, olaylar);
+  yarasaIlerle(d, dt, olaylar);
+}
+
+// --- Statik boşalma (doğu sektörü, kristal bataklıkları) ---
+// Ara sıra bir kuvars sütunu yüklenir: 2 sn çıtırdayarak tizleşir (statikGeliyor), sonra boşalır. O an sütunun 6 metre
+// yakınındaysan çarpılırsın: 3 metre geri savrulur, maruziyet +10. Yükü dinle, sütundan uzaklaş.
+export const STATIK_YUKLEME = 2;
+export const STATIK_MESAFE = 6;
+export function statikIlerle(d, dt, olaylar) {
+  const mk = MEKANLAR[d.mekan];
+  if (!mk.statik) {
+    d.statik = null;
+    return;
+  }
+  if (!d.statik) d.statik = { sayac: 0, sonraki: (d.sure || 0) + 10, evre: null };
+  const s = d.statik;
+  const t = d.sure || 0;
+  if (!s.evre && t >= s.sonraki) {
+    const sutunlar = Object.keys(NOKTALAR).filter((id) => NOKTALAR[id].sutun && NOKTALAR[id].mekan === d.mekan);
+    // En yakın sütun yüklenir (oyuncu nerede olursa olsun duysun diye)
+    sutunlar.sort((a, b) => uzaklik(d.oyuncu, NOKTALAR[a]) - uzaklik(d.oyuncu, NOKTALAR[b]));
+    s.sutun = sutunlar[Math.floor(karisim(d.tohum || 1, s.sayac + 300) * Math.min(2, sutunlar.length))] || sutunlar[0];
+    s.evre = 'yuk';
+    s.bitis = t + STATIK_YUKLEME;
+    const n = NOKTALAR[s.sutun];
+    olaylar.push({ tur: 'statikGeliyor', kaynak: { x: n.x, y: n.y }, metin: 'Saat ' + saatYonu(goreliAci(d.oyuncu, n)) + ' yönündeki sütun çıtırdıyor: yükleniyor!' });
+  } else if (s.evre === 'yuk' && t >= s.bitis) {
+    const n = NOKTALAR[s.sutun];
+    const m = uzaklik(d.oyuncu, n);
+    if (m < STATIK_MESAFE) {
+      const a = Math.atan2(d.oyuncu.x - n.x, d.oyuncu.y - n.y);
+      for (let i = 0; i < 12; i++) {
+        const nx = d.oyuncu.x + Math.sin(a) * 0.25;
+        const ny = d.oyuncu.y + Math.cos(a) * 0.25;
+        if (sinirDisi(d, nx, ny) || engelVar(d, nx, ny)) break;
+        d.oyuncu.x = nx;
+        d.oyuncu.y = ny;
+      }
+      d.zehir = Math.min(99, (d.zehir || 0) + 10);
+      olaylar.push({ tur: 'statik', kaynak: { x: n.x, y: n.y }, carpti: true, metin: 'Statik boşalma seni çarptı ve geri savurdu! Sütun yüklenirken uzaklaş.' });
+    } else olaylar.push({ tur: 'statik', kaynak: { x: n.x, y: n.y }, carpti: false, metin: 'Sütun boşaldı; uzaktaydın.' });
+    s.evre = null;
+    s.sayac += 1;
+    s.sonraki = t + 14 + karisim(d.tohum || 1, s.sayac + 400) * 10;
+  }
+}
+
+// --- Magma kabarması (lav koridorları) ---
+// Ara sıra ayağının altında yer gümbürder (magmaGeliyor); 3 sn içinde en az 4 metre uzaklaşmazsan erimiş mineral
+// fışkırır: maruziyet +20. Burada durmak değil, kaçmak gerekir (platodaki hamlenin tersi).
+export const MAGMA_SURE = 3;
+export const MAGMA_MESAFE = 4;
+export function magmaIlerle(d, dt, olaylar) {
+  const mk = MEKANLAR[d.mekan];
+  if (!mk.magma) {
+    d.magma = null;
+    return;
+  }
+  if (!d.magma) d.magma = { sayac: 0, sonraki: (d.sure || 0) + 9, evre: null };
+  const g = d.magma;
+  const t = d.sure || 0;
+  if (!g.evre && t >= g.sonraki) {
+    g.evre = 'kabarma';
+    g.bitis = t + MAGMA_SURE;
+    g.x = d.oyuncu.x;
+    g.y = d.oyuncu.y;
+    olaylar.push({ tur: 'magmaGeliyor', kaynak: { x: g.x, y: g.y }, metin: 'Ayağının altında yer gümbürdüyor: magma kabarıyor! Hemen uzaklaş.' });
+  } else if (g.evre === 'kabarma' && t >= g.bitis) {
+    const m = Math.hypot(d.oyuncu.x - g.x, d.oyuncu.y - g.y);
+    if (m < MAGMA_MESAFE) {
+      d.zehir = Math.min(99, (d.zehir || 0) + 20);
+      olaylar.push({ tur: 'magma', kaynak: { x: g.x, y: g.y }, yandi: true, metin: 'Erimiş mineral yanında fışkırdı; sıcak gaz ve kıvılcımlar! Maruziyet yüzde ' + Math.round(d.zehir) + '.' });
+    } else olaylar.push({ tur: 'magma', kaynak: { x: g.x, y: g.y }, yandi: false, metin: 'Arkanda magma fışkırdı; zamanında uzaklaştın.' });
+    g.evre = null;
+    g.sayac += 1;
+    g.sonraki = t + 15 + karisim(d.tohum || 1, g.sayac + 500) * 10;
+  }
+}
+
+// --- Kör yarasa sürüleri (mantar ormanı): ara sıra bir sürü bir yandan öbür yana uçar ---
+export function yarasaIlerle(d, dt, olaylar) {
+  const mk = MEKANLAR[d.mekan];
+  if (!mk.yarasa) {
+    d.yarasa = null;
+    return;
+  }
+  if (!d.yarasa) d.yarasa = { sayac: 0, sonraki: (d.sure || 0) + 6 };
+  const y = d.yarasa;
+  if ((d.sure || 0) >= y.sonraki) {
+    y.sayac += 1;
+    const a = karisim(d.tohum || 1, y.sayac + 600) * Math.PI * 2;
+    const bas = { x: d.oyuncu.x + Math.sin(a) * 15, y: d.oyuncu.y + Math.cos(a) * 15 };
+    const son = { x: d.oyuncu.x - Math.sin(a) * 15, y: d.oyuncu.y - Math.cos(a) * 15 };
+    olaylar.push({ tur: 'yarasa', bas, son });
+    y.sonraki = (d.sure || 0) + 18 + karisim(d.tohum || 1, y.sayac + 700) * 14;
+  }
 }
 
 // --- Fırtına hamleleri (Uğultulu Plato) ---
@@ -307,19 +411,26 @@ export function firtinaIlerle(d, dt, hareketli, olaylar) {
 // Sırtlarda yavaşça, gaz bacalarının dibinde hızlı artar; dışarıda hızla düşer. 100 olunca bayılırsın:
 // mürettebat seni kapsüle taşır (eşyalar ve ilerleme kalır).
 export const ZEHIR_UYARILARI = [50, 75, 90];
+// Mekâna göre maruziyetin adı: kükürt (sırtlar), cıva buharı, donma (kriyo mağaraları)
+export function maruziyetAdi(d) {
+  const mk = MEKANLAR[d.mekan];
+  return mk.maruziyet || 'Kükürt maruziyeti';
+}
 export function zehirIlerle(d, dt, ek, olaylar) {
   const mk = MEKANLAR[d.mekan];
   const once = d.zehir || 0;
-  if (mk.zehirli) {
-    let hiz = 0.35;
+  if (mk.zehirli || mk.soguk) {
+    let hiz = mk.soguk ? 0.6 : 0.35;
     for (const id of Object.keys(NOKTALAR)) {
       const n = NOKTALAR[id];
-      if (n.baca && n.mekan === d.mekan && uzaklik(d.oyuncu, n) < 7) hiz = 0.8;
+      if ((n.baca || n.menfez) && n.mekan === d.mekan && uzaklik(d.oyuncu, n) < 7) hiz = mk.soguk ? 1.3 : 0.8;
     }
+    if (mk.soguk && d.envanter.includes('termal_giysi')) hiz *= 0.25;
     d.zehir = Math.min(100, once + (hiz + (ek || 0)) * aracCarpani(d, 'zehir') * dt);
   } else if (once > 0) d.zehir = Math.max(0, once - 3 * dt);
   for (const e of ZEHIR_UYARILARI) if (once < e && d.zehir >= e) olaylar.push({ tur: 'zehir', duzey: e });
   if (d.zehir >= 100) {
+    d.bayilmaNedeni = mk.soguk ? 'soguk' : mk.maruziyet ? 'civa' : 'kukurt';
     d.zehir = 0;
     d.mekan = 'kapsul';
     d.oyuncu = { x: 303, y: 3.5, yon: 0 };
@@ -406,6 +517,14 @@ export function yerlerListesi(d) {
   if (d.bayrak.biyo_kubbe) {
     const u = KAPILAR.kuzey_gecit.uclar[0];
     ekle('kapi', 'kuzey_gecit', u.ad, u.mekan, u.x, u.y);
+  }
+  // Faz 2 bölgelerinin geçitleri: koşulu sağlananlar ya da görülmüş bölgeye açılanlar
+  for (const id of ['dogu_gecit', 'civa_gecit', 'lav_gecit', 'mantar_gecit', 'kriyo_gecit', 'obsidyen_gecit', 'kule_inisi']) {
+    const k = KAPILAR[id];
+    if ((k.kosul && !k.kosul(d)) && !(d.gorulenMekanlar || []).includes(k.uclar[1].mekan)) continue;
+    if (!k.kosul && !(d.gorulenMekanlar || []).includes(k.uclar[0].mekan)) continue;
+    const u = k.uclar[0];
+    ekle('kapi', id, u.ad, u.mekan, u.x, u.y);
   }
   return liste.sort((a, b) => (a.mekan === d.mekan ? 0 : 1) - (b.mekan === d.mekan ? 0 : 1) || (a.uzaklik || 0) - (b.uzaklik || 0));
 }
