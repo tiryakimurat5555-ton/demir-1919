@@ -6,12 +6,15 @@ tesis kurar, ileride gemini parça parça inşa edip uzaya açılırsın.
 
 Tasarım: Bahtiyar Cankurt (belgeler/). Yapım: Murat ve Bahtiyar. Expo Go ile iPhone ve Android'de çalışır.
 
-## Bu sürümde (0.1)
+## Bu sürümde (0.2)
 - Vadi-i Sukût'ta sesle serbest dolaşma; iniş kapsülünün içi ve dışı.
 - Radar: uzun basınca yankılar nesnelerin yönünden döner.
 - Birinci görev "Sinyal Arayışı": alet dolabı, kopan arka modül, yedek jeneratör, Gözcü Tepesi'nde anten
   ve kulakla frekans ayarı; yörüngedeki Kestrel-7 uydusundan telemetri.
 - Kaynak toplama (bazalt, titanyum hurdası, silikat kristali) ve Sinyal Kulesi inşası.
+- İkinci görev "Jeotermal Sondaj": filtre maskesiyle Manyetik Sırtlar'a iniş, kükürt maruziyeti, gaz bacalarına
+  termal sonda ve kulakla valf dengeleme, ağır izotop, Ağır Alaşım Dökümhanesi; koloni ikinci kademeye çıkar.
+- Mürettebattan telsiz çağrıları (çift dokun dinle, iki parmakla aşağı kaydır ertele).
 - Otomatik kayıt (uygulamadan çıkınca ya da telefon kilitlenince) ve kapsüldeki terminalden üç yuvaya elle kayıt.
 
 ## Hareketler

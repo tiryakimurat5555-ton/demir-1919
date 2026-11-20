@@ -1,11 +1,14 @@
 // Aethelis-IV yüzeyi: sesle serbest dolaşma, radar, kaynak toplama, kapsülün içi, kişilerle konuşma,
-// birinci görev "Sinyal Arayışı" ve Gözcü Tepesi'nde frekans ayarı.
+// birinci görev "Sinyal Arayışı" (Gözcü Tepesi'nde frekans ayarı), ikinci görev "Jeotermal Sondaj"
+// (Manyetik Sırtlar, kükürt maruziyeti, gaz bacalarında valf dengeleme) ve telsiz bildirimleri.
 //
 // Hareketler (yüzeyde):
 //   tek parmakla sürükleyip tut: yukarı ileri, aşağı geri; sağa-sola döner (parmak ne kadar uzaksa o kadar hızlı)
 //   dokun: çevrende ne var            çift dokun: yanındakini kullan, kapıdan geç ya da konuş
 //   uzun bas: radar (yankılar nesnelerin yönünden döner)
 //   iki parmakla dokun: sustur        iki parmakla çift dokun: menü
+// Telsiz çağrısı gelince: çift dokun dinle, iki parmakla aşağı kaydır ertele.
+// Valf dengelemede: alarm çalınca çift dokun; dokun basıncı söyler; iki parmakla çift dokun çekil.
 // Frekans ayarında: yukarı-aşağı sürükle ya da iki parmakla çevir: kanal; sağa-sola hızlı kaydır: ince ayar;
 //   dokun: kanalı söyler; iki parmakla çift dokun: ayardan çık.
 // Menülerde (SesliListe): sağa-sola kaydır gez, çift dokun seç, iki parmakla çift dokun geri.
@@ -19,7 +22,7 @@ import { cal, ortamCal } from '../ses/efektler';
 import { RENK, UST_BOSLUK } from '../arayuz/tema';
 import KonumsalSes from '../ses/konumsal';
 import { MEKANLAR, NOKTALAR } from '../oyun/yuzey/harita';
-import { cevreMetni, durumMetni, etkiles, ilerle, kisiAdi, otoBaslat, radar, yerlerListesi } from '../oyun/yuzey/dunya';
+import { cevreMetni, durumMetni, esyaMetni, etkiles, ilerle, kisiAdi, otoBaslat, radar, yerlerListesi, zehirIlerle } from '../oyun/yuzey/dunya';
 import {
   ESYALAR,
   HAREKET_KISA,
@@ -39,7 +42,12 @@ import {
   sahneMetni,
   sahneSec,
   sahneSecenekleri,
-} from '../oyun/yuzey/gorev1';
+  valfBaslat,
+  valfBirak,
+  valfIlerle,
+  valfMetni,
+  bildirimIlerle,
+} from '../oyun/yuzey/gorevler';
 import { HAMMADDELER, HAMMADDE_SIRASI } from '../oyun/veri/tesisler';
 import { NITELIKLER } from '../oyun/veri/murettebat';
 import { otoYaz, tarihMetni, yuvalariOku, yuvayaYaz } from '../oyun/kayit';
@@ -62,10 +70,12 @@ const DOSYALAR = {
   jenerator: require('../../assets/ses/konumsal/jenerator_ugultu.wav'),
   parazit: require('../../assets/ses/konumsal/parazit.wav'),
   sonar: require('../../assets/ses/konumsal/sonar.wav'),
+  baca: require('../../assets/ses/konumsal/baca.wav'),
 };
 
 // Eylem sesleri: gorev1.js'teki ses adlarını çalınacak efekte çevirir
-const EYLEM_SESI = { bip: 'bip', red: 'red', tislama: 'tislama', jenerator: 'jenerator', kes: 'tislama', kur: 'kapi', topla: 'dugme', kristal: 'dugme' };
+const EYLEM_SESI = { bip: 'bip', red: 'red', tislama: 'tislama', jenerator: 'jenerator', kes: 'tislama', kur: 'kapi', topla: 'dugme', kristal: 'dugme', sonda: 'sonda' };
+const BACALAR = ['baca_1', 'baca_2', 'baca_3'];
 
 function guc(piksel) {
   const p = Math.abs(piksel);
@@ -74,6 +84,7 @@ function guc(piksel) {
 }
 
 function ortamOrani(d) {
+  if (d.mekan === 'sirtlar') return 0.8;
   if (d.mekan !== 'vadi') return 0.75;
   return d.oyuncu.y > 38 ? 0.95 : 0.6;
 }
@@ -89,6 +100,7 @@ export default function Yuzey({ onGeri, baslangic, yeniOyunUret }) {
   const katmanNo = useRef(0);
   const [katman, setKatman] = useState(null);
   const [ayarAcik, setAyarAcik] = useState(false);
+  const [valfAcik, setValfAcik] = useState(false);
   const [yazi, setYazi] = useState('Yükleniyor');
 
   const m = () => motor.current;
@@ -139,6 +151,13 @@ export default function Yuzey({ onGeri, baslangic, yeniOyunUret }) {
         }
       } else kaynakKapat(id);
     }
+    // Gaz bacaları (yalnız sırtlardayken): dengede olanlar daha sakin
+    for (const id of BACALAR) {
+      if (d.mekan === 'sirtlar' && yuklu.current.baca) {
+        calanlar.current[id] = true;
+        s.dongu(id, 'baca', NOKTALAR[id], g['baca_' + id] ? 0.35 : 1);
+      } else kaynakKapat(id);
+    }
     if (ortamDa) {
       s.boguk(!mk.dis);
       ortamCal(mk.ortam, ortamOrani(d));
@@ -182,10 +201,20 @@ export default function Yuzey({ onGeri, baslangic, yeniOyunUret }) {
         frekansAdimi();
         return;
       }
+      if (d.valf) {
+        valfAdimi();
+        return;
+      }
       if (durakli.current) return;
+      if (sayac % 10 === 0) bildirimKontrol();
       const s = surukle.current;
       const girdi = s.aktif ? { ileri: guc(-s.dy), donus: guc(s.dx) } : {};
       olaylariIsle(ilerle(d, girdi, ADIM_MS / 1000));
+      if (d.sahne) {
+        sesleriEsitle(true);
+        sahneGoster(d.sahne);
+        return;
+      }
       if (m() && hazir.current) {
         const mk = MEKANLAR[d.mekan];
         m().dinleyici(mk.dis ? d.oyuncu : { x: mk.disariKonum.x, y: mk.disariKonum.y, yon: d.oyuncu.yon });
@@ -204,6 +233,7 @@ export default function Yuzey({ onGeri, baslangic, yeniOyunUret }) {
     const d = dunya.current;
     ortamCal(MEKANLAR[d.mekan].ortam, ortamOrani(d));
     if (d.ayar) d.ayar = null;
+    if (d.valf) d.valf = null;
     if (d.sahne) sahneGoster(d.sahne);
     else if (baslangic) soyle('Sistemler devrede. Kaldığın yerden: ' + durumMetni(d) + ' Menü için iki parmakla çift dokun.', 'istek', true);
     const abone = AppState.addEventListener('change', (durum) => {
@@ -287,6 +317,11 @@ export default function Yuzey({ onGeri, baslangic, yeniOyunUret }) {
             if (r.ayar) {
               katmanKapatSessiz();
               frekansAc();
+              return 'sessiz';
+            }
+            if (r.valf) {
+              katmanKapatSessiz();
+              valfAc(id);
               return 'sessiz';
             }
             if (r.insa) return insaGoster(), 'sessiz';
@@ -406,7 +441,7 @@ export default function Yuzey({ onGeri, baslangic, yeniOyunUret }) {
 
   const tasinanMetni = () => {
     const d = dunya.current;
-    const esya = d.envanter.map((e) => ESYALAR[e].ad);
+    const esya = d.envanter.length ? [esyaMetni(d)] : [];
     const k = d.koloni.kaynaklar;
     const ham = HAMMADDE_SIRASI.filter((x) => k[x] > 0).map((x) => k[x] + ' ' + HAMMADDELER[x].ad);
     return 'Taşıdığın: ' + (esya.length ? esya.join(', ') : 'hiçbir şey') + '. Hammadde: ' + (ham.length ? ham.join(', ') : 'yok') + '.';
@@ -433,6 +468,7 @@ export default function Yuzey({ onGeri, baslangic, yeniOyunUret }) {
   const haritaMetni = () => {
     const d = dunya.current;
     if (!d.harita.poiler.length) return 'Uzay haritası boş. Yörüngeyle bağlantı yok.';
+    // Ekran üstünde: harita.poiler şimdilik yalnız sektor15
     return 'Uzay haritası: Sektör 15, gaz bulutunun içindeki asteroit üssü. Prometheus adlı bir acil durum çağrısı. Oraya gitmek için bir gemi gerekir; tersane henüz yok.';
   };
 
@@ -450,6 +486,7 @@ export default function Yuzey({ onGeri, baslangic, yeniOyunUret }) {
         { id: 'koloni', etiket: 'Koloni', sec: () => (soyle(koloniMetni(dunya.current), 'istek', true), 'sessiz') },
         { id: 'murettebat', etiket: 'Mürettebat', sec: () => (murettebatGoster(), 'sessiz') },
         { id: 'harita', etiket: 'Uzay haritası', sec: () => (soyle(haritaMetni(), 'istek', true), 'sessiz') },
+        { id: 'telsiz', etiket: 'Telsiz kayıtları', ipucu: 'Dinlediğin ve ertelediğin telsiz çağrıları.', sec: () => (telsizGoster(), 'sessiz') },
         { id: 'hareket', etiket: 'Hareketler', sec: () => (soyle(HAREKET_KISA, 'istek', true), 'sessiz') },
         {
           id: 'cik',
@@ -460,6 +497,147 @@ export default function Yuzey({ onGeri, baslangic, yeniOyunUret }) {
       ],
     });
   };
+
+  // --- Telsiz bildirimleri ---
+  const bildirimKontrol = () => {
+    const d = dunya.current;
+    const yeni = bildirimIlerle(d);
+    if (!yeni.length) return;
+    cal('telsiz_zil', 0.9);
+    Haptics.selectionAsync().catch(() => {});
+    setTimeout(() => soyle('Telsiz çağrısı: ' + yeni[0].kim + '. Dinlemek için çift dokun; ertelemek için iki parmakla aşağı kaydır.', 'istek', true), 700);
+  };
+  const bildirimDinle = () => {
+    const d = dunya.current;
+    const x = d.bildirimler.shift();
+    if (!x) return false;
+    d.duyulanBildirimler.push(x.id);
+    if (!d.telsizKayitlari) d.telsizKayitlari = [];
+    d.telsizKayitlari.push({ kim: x.kim, metin: x.metin });
+    cal('tislama', 0.3);
+    soyle(x.kim + ': ' + x.metin, 'istek', true);
+    kaydet();
+    return true;
+  };
+  const bildirimErtele = () => {
+    const d = dunya.current;
+    const x = (d.bildirimler || []).shift();
+    if (!x) return false;
+    d.duyulanBildirimler.push(x.id);
+    if (!d.telsizKayitlari) d.telsizKayitlari = [];
+    d.telsizKayitlari.push({ kim: x.kim, metin: x.metin, ertelendi: true });
+    cal('dugme', 0.6);
+    soyle('Arşive alındı. Menüdeki telsiz kayıtlarından dinleyebilirsin.', 'istek', true);
+    kaydet();
+    return true;
+  };
+  const telsizGoster = () => {
+    const d = dunya.current;
+    const liste = (d.telsizKayitlari || []).slice().reverse();
+    katmanAc({
+      baslik: 'Telsiz kayıtları',
+      giris: liste.length ? liste.length + ' kayıt; en yenisi başta.' : 'Henüz telsiz kaydı yok.',
+      onGeri: () => menuyuAc(),
+      ogeler: [
+        ...liste.map((x, i) => ({
+          id: 't' + i,
+          etiket: x.kim + (x.ertelendi ? ', ertelendi' : ''),
+          sec: () => (soyle(x.kim + ': ' + x.metin, 'istek', true), 'sessiz'),
+        })),
+        { id: 'geri', etiket: 'Menüye dön', sec: () => (menuyuAc(), 'sessiz') },
+      ],
+    });
+  };
+
+  // --- Valf dengeleme (gaz bacası) ---
+  const valfAc = (id) => {
+    const d = dunya.current;
+    durakli.current = true;
+    const r = valfBaslat(d, id);
+    if (m()) m().basincKur();
+    ortamCal(MEKANLAR.sirtlar.ortam, 0.4);
+    setValfAcik(true);
+    soyle(
+      'Valf dengeleme. Basınç yükseldikçe gazın tıslaması tizleşip güçlenir. Kesik bir alarm başlayınca çift dokun: valfi açarsın. Erken açarsan basınç boşa gider; geç kalırsan baca patlar. Üç tahliye gerekir; şu ana dek ' +
+        r.basari +
+        '. Dokun: basıncı söylerim. İki parmakla çift dokun: valften çekil.',
+      'istek',
+      true,
+    );
+  };
+
+  const valfKapat = (soz) => {
+    if (m()) m().basincSil();
+    dunya.current.valf = null;
+    setValfAcik(false);
+    durakli.current = false;
+    sesleriEsitle(true);
+    if (soz) soyle(soz, 'istek', true);
+  };
+
+  const valfAdimi = () => {
+    const d = dunya.current;
+    const olaylar = valfIlerle(d, ADIM_MS / 1000);
+    const z = [];
+    zehirIlerle(d, ADIM_MS / 1000, 0.25, z);
+    if (z.some((o) => o.tur === 'bayildi')) {
+      if (m()) m().basincSil();
+      setValfAcik(false);
+      Haptics.notificationAsync(Haptics.NotificationFeedbackType.Error).catch(() => {});
+      kaydet();
+      sesleriEsitle(true);
+      sahneGoster(d.sahne);
+      return;
+    }
+    const uyari = z.find((o) => o.tur === 'zehir');
+    if (uyari) soyle('Kükürt maruziyeti yüzde ' + uyari.duzey + '.', 'istek', false);
+    if (!d.valf) return;
+    if (m()) m().basincAyar(d.valf.basinc, d.valf.alarm);
+    if (olaylar.includes('alarm')) Haptics.notificationAsync(Haptics.NotificationFeedbackType.Warning).catch(() => {});
+    if (olaylar.includes('patlama')) {
+      cal('patlama', 1);
+      Haptics.notificationAsync(Haptics.NotificationFeedbackType.Error).catch(() => {});
+      soyle('Geç kaldın! Baca patladı, sıcak gaz yüzüne çarptı. Kükürt maruziyeti yüzde ' + Math.round(d.zehir) + '. Basınç yeniden doluyor.', 'istek', true);
+    }
+  };
+
+  const valfJest = useJestler(
+    {
+      onCiftDokun: (parmak) => {
+        const d = dunya.current;
+        if (parmak >= 2) {
+          valfKapat('Valften çekildin. ' + (d.zehir ? 'Kükürt maruziyeti yüzde ' + Math.round(d.zehir) + '.' : ''));
+          return;
+        }
+        const r = valfBirak(d);
+        kaydet();
+        if (r.sonuc === 'erken') {
+          cal('red', 0.7);
+          soyle(r.metin, 'istek', true);
+        } else if (r.sonuc === 'iyi') {
+          cal('valf', 1);
+          Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Heavy).catch(() => {});
+          soyle(r.metin, 'istek', true);
+        } else if (r.sonuc === 'bitti') {
+          cal('valf', 1);
+          Haptics.notificationAsync(Haptics.NotificationFeedbackType.Success).catch(() => {});
+          if (m()) m().basincSil();
+          setValfAcik(false);
+          sesleriEsitle(true);
+          if (d.sahne) sahneGoster(d.sahne, r.metin);
+          else {
+            durakli.current = false;
+            soyle(r.metin, 'istek', true);
+          }
+        }
+      },
+      onDokun: (parmak) => {
+        if (parmak >= 2) sustur();
+        else soyle(valfMetni(dunya.current), 'istek', true);
+      },
+    },
+    { dokunmaBekle: true },
+  );
 
   // --- Frekans ayarı ---
   const frekansAc = () => {
@@ -558,8 +736,12 @@ export default function Yuzey({ onGeri, baslangic, yeniOyunUret }) {
           return;
         }
         const d = dunya.current;
+        if (d.bildirimler && d.bildirimler.length && bildirimDinle()) return;
         const e = etkiles(d);
-        if (e.tur === 'kapi') {
+        if (e.tur === 'kapi' && e.kilitli) {
+          cal('red', 0.8);
+          soyle(e.metin, 'istek', true);
+        } else if (e.tur === 'kapi') {
           cal('tislama', 0.9);
           Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light).catch(() => {});
           sesleriEsitle(true);
@@ -568,6 +750,9 @@ export default function Yuzey({ onGeri, baslangic, yeniOyunUret }) {
         } else if (e.tur === 'nokta') noktaGoster(e.id);
         else if (e.tur === 'kisi') konusmaGoster(e.id);
         else soyle(e.metin, 'istek', true);
+      },
+      onKaydir: (yon, parmak) => {
+        if (parmak >= 2 && yon === 'asagi') bildirimErtele();
       },
       onUzunBas: () => {
         const d = dunya.current;
@@ -586,7 +771,7 @@ export default function Yuzey({ onGeri, baslangic, yeniOyunUret }) {
 
   return (
     <View style={stiller.dis}>
-      <View style={stiller.kap} {...(katman || ayarAcik ? {} : jest)}>
+      <View style={stiller.kap} {...(katman || ayarAcik || valfAcik ? {} : jest)}>
         <KonumsalSes
           ref={motor}
           onMesaj={(x) => {
@@ -605,6 +790,12 @@ export default function Yuzey({ onGeri, baslangic, yeniOyunUret }) {
         <View style={[StyleSheet.absoluteFill, stiller.ayar]} {...ayarJest}>
           <Text style={stiller.baslik}>Frekans ayarı</Text>
           <Text style={stiller.yazi}>Yukarı-aşağı sürükle ya da iki parmakla çevir</Text>
+        </View>
+      ) : null}
+      {valfAcik ? (
+        <View style={[StyleSheet.absoluteFill, stiller.ayar]} {...valfJest}>
+          <Text style={stiller.baslik}>Valf dengeleme</Text>
+          <Text style={stiller.yazi}>Alarm çalınca çift dokun</Text>
         </View>
       ) : null}
       {katman ? (

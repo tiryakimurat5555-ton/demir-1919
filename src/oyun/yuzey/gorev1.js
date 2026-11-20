@@ -17,6 +17,8 @@ export const ESYALAR = {
   kesici: { ad: 'plazma kesici', tarif: 'Avuç içi büyüklüğünde; tetiğe basınca mavi bir ark çıkarır.' },
   anten: { ad: 'iletişim anteni', tarif: 'Katlanır, üç metrelik faz dizili anten. Hafif ama hantal.' },
   guc_hucresi: { ad: 'füzyon güç hücresi', tarif: 'Silindir biçiminde, avucunu ısıtan ağır bir hücre.' },
+  sonda: { ad: 'termal sonda', tarif: 'Kol boyu, ucu seramik bir çubuk; gaz bacasının ağzına çakılır.' },
+  maske: { ad: 'filtre maskesi', tarif: 'Kükürt gazını süzen iki kartuşlu yüz maskesi.' },
 };
 
 export const HAREKET_KISA =
@@ -72,7 +74,7 @@ export const SAHNELER = {
       'Koloninin önünde uzun bir yol var: manyetik sırtlardaki gaz bacalarından reaktör yakıtı, kadim kraterdeki harabeler ve platoda bir tersane. Bir gün bu vadiden bir gemi kalkacak.',
     ],
     secenekler: () => [{ etiket: 'Devam', sonra: null }],
-    bitisSozu: 'Sıradaki görev Jeotermal Sondaj ve İzotop Hasadı. Bu sürümde henüz yok; vadide dolaşmaya devam edebilirsin.',
+    bitisSozu: 'Yeni görev: Jeotermal Sondaj ve İzotop Hasadı. Jeneratörün başındaki mühendisle konuş.',
   },
 };
 
@@ -98,7 +100,7 @@ export function sahneSec(d, id, i) {
 // --- Görev ipucu (menüde "Görev") ---
 export function gorevIpucu(d) {
   const g = b(d);
-  if (d.gorev.id !== 'sinyal') return 'Birinci görev tamamlandı. Sıradaki görev, Jeotermal Sondaj, bu sürümde henüz yok. Kaynak toplayabilir, vadide dolaşabilirsin.';
+  if (d.gorev.id !== 'sinyal') return '';
   const bas = 'Sinyal Arayışı. ';
   if (!g.kesiciAlindi && !g.antenAlindi) return bas + 'Kapsüldeki alet dolabından plazma kesiciyi al. Anten kopan modülde, kirişlere sıkışmış olabilir.';
   if (!g.antenAlindi || !g.hucreAlindi)

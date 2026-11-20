@@ -3,7 +3,8 @@
 import { describe, expect, test } from 'bun:test';
 import { yeniOyun, gecerliMi } from '../src/oyun/durum';
 import { NOKTALAR } from '../src/oyun/yuzey/harita';
-import { cevreMetni, durumMetni, etkiles, ilerle, otoBaslat, radar, yerlerListesi } from '../src/oyun/yuzey/dunya';
+import { cevreMetni, durumMetni, etkiles, gec, ilerle, otoBaslat, radar, yerlerListesi } from '../src/oyun/yuzey/dunya';
+import { KAPILAR } from '../src/oyun/yuzey/harita';
 import {
   SAHNELER,
   ayarBaslat,
@@ -18,7 +19,11 @@ import {
   noktaEylemleri,
   sahneSec,
   sahneSecenekleri,
-} from '../src/oyun/yuzey/gorev1';
+  valfBaslat,
+  valfBirak,
+  valfIlerle,
+  bildirimIlerle,
+} from '../src/oyun/yuzey/gorevler';
 import { TESISLER } from '../src/oyun/veri/tesisler';
 
 // Bir yere kendiliğinden yürür (en çok 120 benzetim saniyesi)
@@ -172,8 +177,109 @@ describe('Sinyal Arayışı', () => {
     sahneleriGec(d);
     expect(d.bitenGorevler).toContain('sinyal');
     expect(d.harita.poiler).toContain('sektor15');
-    expect(gorevIpucu(d)).toContain('tamamlandı');
+    expect(gorevIpucu(d)).toContain('mühendis');
     // Kayıt JSON'a sorunsuz döner
     expect(gecerliMi(JSON.parse(JSON.stringify(d)))).toBe(true);
+    ikinciGorev(d);
+  });
+});
+
+function konus(d, kisi, etiket) {
+  const k = konusma(d, kisi);
+  const s = k.secenekler.find((x) => x.etiket === etiket);
+  expect(s).toBeDefined();
+  return s.cevap(d);
+}
+
+// Jeotermal Sondaj: sondalar, maske, sırtlar, üç bacada valf, dökümhane
+function ikinciGorev(d) {
+  expect(d.gorev.id).toBe('jeotermal');
+  // Maskesiz güney geçidi kilitli
+  const r0 = gec(d, 'guney_gecit', 0);
+  expect(r0.kilitli).toBe(true);
+  yuru(d, 'jenerator');
+  konus(d, 'muhendis', 'Sondaları ver');
+  expect(d.envanter.filter((x) => x === 'sonda').length).toBe(3);
+  yuru(d, 'dolap');
+  konus(d, 'hekim', 'Maskeyi al');
+  expect(d.bayrak.maske).toBe(true);
+  // Kapsülden doğrudan bacaya: vadiden ve geçitten kendisi geçer
+  const olaylar = yuru(d, 'baca_1');
+  expect(d.mekan).toBe('sirtlar');
+  expect(olaylar.some((o) => o.tur === 'otoKapi')).toBe(true);
+  expect(bildirimIlerle(d).map((x) => x.id)).toContain('sirtlar_ilk');
+  expect(radar(d).metin).toContain('parazit');
+  // Zehir artıyor
+  const z0 = d.zehir;
+  for (let i = 0; i < 20; i++) ilerle(d, {}, 0.1);
+  expect(d.zehir).toBeGreaterThan(z0);
+
+  for (const id of ['baca_1', 'baca_2', 'baca_3']) {
+    yuru(d, id);
+    expect(etkiles(d).id).toBe(id);
+    expect(noktaEylemleri(d, id).map((e) => e.id)).toContain('sonda');
+    eylemUygula(d, id, 'sonda');
+    expect(eylemUygula(d, id, 'valf').valf).toBe(true);
+    valfBaslat(d, id);
+    // Erken tahliye işe yaramaz
+    expect(valfBirak(d).sonuc).toBe('erken');
+    let sonuc = null;
+    for (let i = 0; i < 2000 && d.valf; i++) {
+      const o = valfIlerle(d, 0.1);
+      expect(o).not.toContain('patlama');
+      if (d.valf.alarm) sonuc = valfBirak(d).sonuc;
+    }
+    expect(sonuc).toBe('bitti');
+    // Arada temiz havaya çık
+    d.zehir = 0;
+  }
+  expect(d.koloni.kaynaklar.izotop).toBe(6);
+  expect(d.bayrak.sondaj).toBe(true);
+  expect(d.sahne).toBe('sondaj_tamam');
+  sahneleriGec(d);
+  expect(gorevIpucu(d)).toContain('Dökümhane');
+
+  // Geç kalınca patlar ve zehir artar
+  const z = d.zehir;
+  d.valf = { baca: 'baca_1', basinc: 0.99, alarm: true };
+  expect(valfIlerle(d, 0.5)).toContain('patlama');
+  expect(d.zehir).toBeGreaterThan(z);
+  d.valf = null;
+
+  // Dökümhane kaynakları: sırtlardaki yataklar
+  const m = TESISLER.dokumhane.maliyet;
+  for (const id of Object.keys(NOKTALAR).filter((x) => NOKTALAR[x].kaynak)) {
+    const tur = NOKTALAR[id].kaynak;
+    if (!m[tur] || (d.koloni.kaynaklar[tur] || 0) >= m[tur] || (d.stok[id] || 0) <= 0) continue;
+    if (!d.kesif.includes(id)) d.kesif.push(id);
+    yuru(d, id);
+    d.zehir = 0;
+    while ((d.stok[id] || 0) > 0) eylemUygula(d, id, 'topla');
+  }
+  for (const k of Object.keys(m)) expect(d.koloni.kaynaklar[k]).toBeGreaterThanOrEqual(m[k]);
+  yuru(d, 'terminal');
+  expect(d.mekan).toBe('kapsul');
+  insaEt(d, 'dokumhane');
+  expect(d.koloni.binalar).toContain('dokumhane');
+  expect(d.koloni.seviye).toBe(2);
+  expect(d.sahne).toBe('dokumhane');
+  sahneleriGec(d);
+  expect(d.bitenGorevler).toEqual(['sinyal', 'jeotermal']);
+  expect(d.gorev.id).toBe('kazi');
+}
+
+describe('kükürt', () => {
+  test('yüzde yüzde bayılınca kapsüle taşınır', () => {
+    const d = yeniOyun(5);
+    sahneleriGec(d);
+    d.bayrak.maske = true;
+    d.mekan = 'sirtlar';
+    d.oyuncu = { x: 522, y: -15, yon: 0 };
+    d.zehir = 99.5;
+    const o = ilerle(d, {}, 1);
+    expect(o.some((x) => x.tur === 'bayildi')).toBe(true);
+    expect(d.mekan).toBe('kapsul');
+    expect(d.sahne).toBe('bayilma');
+    expect(SAHNELER.bayilma).toBeDefined();
   });
 });

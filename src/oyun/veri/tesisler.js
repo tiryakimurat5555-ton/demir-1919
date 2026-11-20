@@ -4,7 +4,7 @@
 // Hammaddeler: kimlik → ad ve sesli tarif
 export const HAMMADDELER = {
   bazalt: { ad: 'bazalt', tarif: 'Vadinin gevşek bazalt kayası. Dökümhanede eritilip temel plakaya döner.' },
-  titanyum: { ad: 'titanyum hurdası', tarif: 'Kapsülün kopan modülünden sökülen titanyum-karbon parçalar.' },
+  titanyum: { ad: 'titanyum', tarif: 'Titanyum-karbon: kopan modülün hurdasından ya da sırtlardaki ağır metal damarlarından.' },
   kristal: { ad: 'silikat kristali', tarif: 'Tıklandığında cam gibi tınlayan piezo-optik kristal. Sensörlerde ve kalkanlarda kullanılır.' },
   izotop: { ad: 'ağır izotop', tarif: 'Manyetik sırtların gaz bacalarından. Reaktör yakıtı.' },
   kseno: { ad: 'kadim kseno-kristal', tarif: 'Harabelerden; melodik tonlar yayan antik teknoloji.' },
@@ -31,9 +31,9 @@ export const TESISLER = {
     islev: 'Bazalt, titanyum ve karbonu eritip zırh levhalarına dönüştürür.',
     katki: 'Geminin omurgasını, gövde plakalarını ve basınç perdelerini imal eder.',
     acar: 'Geminin meteorit ve plazma darbelerine dayanımı.',
-    maliyet: { bazalt: 12, titanyum: 6 },
-    kosul: () => false,
-    kosulMetni: 'Jeotermal sondaj görevinden sonra açılacak.',
+    maliyet: { bazalt: 10, titanyum: 5 },
+    kosul: (d) => !!d.bayrak.sondaj,
+    kosulMetni: 'Önce Manyetik Sırtlar\'daki gaz bacalarından ağır izotop hasat edilmeli.',
   },
   reaktor_lab: {
     ad: 'Graviton ve Reaktör Laboratuvarı',

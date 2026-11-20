@@ -53,7 +53,28 @@ Demir 1919 oyunu silindi; geçmişi git kaydında (son sürüm 1.06, commit 556f
     (kulaklıkta parazit + kesik sinyal tonu; kayma tonun perdesini kaydırır). Headless Chrome'da hatasız.
   - Hareketler src/arayuz/jestler.js: onDondur(radyan) iki parmakla çevirme eklendi.
   - Testler testler/yuzey.test.js (görevi baştan sona oynar).
-- Sıradaki (yol haritası): Faz 2 Jeotermal Sondaj (Manyetik Sırtlar, güney yolu), dökümhane, nüfus ve iş gücü,
+- SÜRÜM 0.2 (20 Kasım, Murat: "Devam"): ikinci görev "Jeotermal Sondaj ve İzotop Hasadı". Telefonda denenmedi.
+  - Görev girişi src/oyun/yuzey/gorevler.js (ekran ve testler buradan alır; G1 + G2 birleşik SAHNELER, eylem ve
+    konuşma yönlendirmesi; d.gorev.id 'sinyal' değilse önce G2.konusma). gorev2.js saf.
+  - harita.js: MEKANLAR.sirtlar (x 500-580, y -60..0; zehirli, radarMenzili 22, ortam_sirtlar), KAPILAR.guney_gecit
+    (vadi (0,-41.5) ↔ sirtlar (540,-1.5); kosul bayrak.maske, kilitMetni, gecisMetni [uc]); NOKTALAR baca_1/2/3 (baca,
+    engel), bazalt_4/5 (stok 4), agir_1/2 (titanyum, stok 3). guney_yol noktası kalktı (artık geçit).
+  - dunya.js: gec kosul/kilitli; zehirIlerle(d, dt, ek, olaylar) (sırtlarda 0,35/sn, bacaya 7 m'den yakın 0,8/sn,
+    dışarıda -3/sn; uyarılar 50/75/90; 100 → kapsüle taşınır, sahne bayilma); kendiliğinden yürüme kapı yoksa vadi
+    üzerinden; esyaMetni (aynı eşyalar sayıyla); otoKilitli.
+  - Akış: kule sonrası gorev jeotermal → mühendis "Sondaları ver" (3 sonda, sondaAlindi) → hekim "Maskeyi al" (maske)
+    → sırtlar → baca: sonda yerleştir (bayrak sonda_<id>) → valf dengeleme: basınç 0,15'ten 0,07/sn × (1 + 0,3 × başarı),
+    ALARM_ESIGI 0,78'de alarm, çift dokun = tahliye (erken: boşa, sıfırlanır; 1'e varınca patlama, zehir +20);
+    3 başarı (valf_<id>) → baca_<id>, izotop +2. Üç baca → sondaj, sahne sondaj_tamam, gorev dokumhane →
+    dökümhane (10 bazalt, 5 titanyum; kosul sondaj) → dokumhaneKuruldu: koloni seviye 2, sanayi 2, sahne dokumhane,
+    bitenGorevler jeotermal, gorev kazi (yok; batı geçidi, Kadim Krater).
+  - Telsiz bildirimleri (gorev2 bildirimIlerle, d.bildirimler kuyruk, d.duyulanBildirimler, d.telsizKayitlari):
+    sirtlar_ilk (telsizci), zehir_yarim (hekim), ilk_baca (mühendis). Üç tonlu zil (telsiz_zil.wav); çift dokun dinle
+    (başka her şeyden önce), iki parmakla aşağı kaydır ertele; menüde "Telsiz kayıtları".
+  - Ses motoru: basincKur/basincAyar(basinc, alarm)/basincSil (kulaklıkta tıslama + kesik alarm tonu). Bacalar
+    'baca' döngüsüyle konumlu (yalnız sırtlarda; dengede olanlar 0,35).
+- Sıradaki (yol haritası): Faz 2 sürüyor: Antik Kseno-Laboratuvar Kazısı (batı geçidi, frekans rezonatörü), nüfus ve iş gücü;
+  Faz 2 Jeotermal Sondaj (Manyetik Sırtlar, güney yolu), dökümhane, nüfus ve iş gücü,
   mürettebat telsiz bildirimleri; Faz 3 tersane ve Kıvılcım; Faz 4 uzay haritası ve görevler; Faz 5 savaş.
 
 ## Sesler
@@ -65,6 +86,9 @@ Demir 1919 oyunu silindi; geçmişi git kaydında (son sürüm 1.06, commit 556f
   dugme ← "Eski Radyo Düğmesi.wav" (5), jenerator_calis ← "Enerji El Jeneratörleri 6.wav" (6), kapi ← "Bilim Kurgu
   Kapısı Açılışı 04.wav" (6), reddedildi ← "Arayüz Bip Sesleri Erişim Reddedildi.wav" (6), sinyal ← "Sinyal Kalibre
   Edilmiş Com.wav" (2), sonar ← "Geçiş Uzaylı Sonarı.wav" (1), tislama ← "Basınçlı Hava Tıslama ve Püskürme 06.wav" (6).
+  0.2 ile: ortam_sirtlar ← "Volkan Patlaması.wav" (Efektler 4, 3,5-19,5 sn arası gürleme), patlama ← aynı dosyanın
+  1,2-5,2 sn'si, valf ← "Buhar Püskürtme Tüpü Veya Borusu Uzak.wav" (4), sonda ← "Özel Tasarım Mega Buhar Kolu
+  Mekanizması 001.wav" (6), konumsal/baca ← "Buhar.wav" (2, 1-5,2 sn döngü), telsiz_zil ffmpeg ile üretildi (880/1175/1568 Hz).
   Konumsal (tek kanal 24 kHz): jenerator_ugultu (Ortam Enerji Drone'dan 12 sn), parazit ("Bluezone Radyo Parazit
   Sinyali 025.wav"), sonar, bip; adim_tas_1..8 Demir 1919'dan (ElevenLabs).
   Dönüştürme: döngüler çapraz geçişle (python numpy, 2-2,5 sn) → loudnorm I=-24 TP=-3, 22050 Hz iki kanal;

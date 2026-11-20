@@ -20,6 +20,11 @@ const KAYNAKLAR = {
   sinyal: require('../../assets/ses/sinyal.wav'),
   sonar: require('../../assets/ses/sonar.wav'),
   tislama: require('../../assets/ses/tislama.wav'),
+  ortam_sirtlar: require('../../assets/ses/ortam_sirtlar.wav'),
+  valf: require('../../assets/ses/valf.wav'),
+  sonda: require('../../assets/ses/sonda.wav'),
+  patlama: require('../../assets/ses/patlama.wav'),
+  telsiz_zil: require('../../assets/ses/telsiz_zil.wav'),
 };
 
 // Ortam döngülerinin kendi düzeyleri (konuşmanın altında kalsınlar diye düşük)
@@ -28,6 +33,7 @@ const DONGULER = {
   ortam_kapsul: 0.6,
   ortam_harabe: 0.55,
   ortam_menu: 0.45,
+  ortam_sirtlar: 0.6,
 };
 
 const oynaticilar = {};

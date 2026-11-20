@@ -21,6 +21,16 @@ export const MEKANLAR = {
     // Dışarıdaki seslerin geldiği yer: kapsülün vadideki konumu
     disariKonum: { x: 0, y: 0 },
   },
+  sirtlar: {
+    ad: 'Manyetik Sırtlar',
+    tarif: 'Tektonik olarak canlı, dağlık bir bölge. Yerden süper ısınmış gaz fışkırıyor; hava kükürt kokuyor, pusulan şaşıyor.',
+    alan: { bati: 500, dogu: 580, guney: -60, kuzey: 0 },
+    ortam: 'ortam_sirtlar',
+    zemin: 'tas',
+    dis: true,
+    zehirli: true, // kükürt gazı: maruziyet artar (dunya.js zehir)
+    radarMenzili: 22, // manyetik parazit radarı kısaltır
+  },
 };
 
 // Kapılar: iki yönlü geçitler. Çift dokununca öteki uca geçilir.
@@ -31,6 +41,17 @@ export const KAPILAR = {
       { mekan: 'vadi', x: 0, y: 3.2, yon: Math.PI, ad: 'Kapsülün hava kilidi' },
       { mekan: 'kapsul', x: 303, y: 0.8, yon: 0, ad: 'Hava kilidi' },
     ],
+  },
+  guney_gecit: {
+    ad: 'Güney kanyon ağzı',
+    uclar: [
+      { mekan: 'vadi', x: 0, y: -41.5, yon: Math.PI, ad: 'Güney kanyon ağzı' },
+      { mekan: 'sirtlar', x: 540, y: -1.5, yon: Math.PI, ad: 'Vadiye dönen yol' },
+    ],
+    // Kükürt gazı: filtre maskesi olmadan geçilmez
+    kosul: (d) => !!d.bayrak.maske,
+    kilitMetni: 'Kanyon ağzından kükürt kokusu yoğun geliyor; birkaç adımda gözlerin yanmaya başlıyor. Filtre maskesi olmadan geçemezsin. Hekime sor.',
+    gecisMetni: ['Maskeyi takıyorsun. Kükürt kokusu filtreden süzülüp metalik bir tada dönüşüyor. Güneye, Manyetik Sırtlar\'a iniyorsun.', 'Kanyon ağzından vadiye dönüyorsun. Maskeyi çıkarıyorsun; hava temiz.'],
   },
 };
 
@@ -53,9 +74,16 @@ export const NOKTALAR = {
   titanyum_1: { mekan: 'vadi', x: -19, y: 24, ad: 'Titanyum hurdası', yaricap: 2.2, kaynak: 'titanyum', stok: 2 },
   titanyum_2: { mekan: 'vadi', x: -29, y: 15, ad: 'Titanyum hurdası', yaricap: 2.2, kaynak: 'titanyum', stok: 2 },
   // Vadiden çıkışlar (sonraki görevlerde açılacak)
-  guney_yol: { mekan: 'vadi', x: 0, y: -43, ad: 'Güney kanyon ağzı', yaricap: 3, tarif: 'Kükürt kokusu buradan geliyor. Ötesi Kükürt Çatlakları ve lav koridorları.' },
   bati_yol: { mekan: 'vadi', x: -53, y: 20, ad: 'Batı geçidi', yaricap: 3, tarif: 'Rüzgârın hiç girmediği dar bir yarık. Ötesi Kadim Krater ve harabeler.' },
   kuzey_yol: { mekan: 'vadi', x: 4, y: 58, ad: 'Plato yokuşu', yaricap: 3, tarif: 'Tepeden yukarı, fırtınalı Uğultulu Plato\'ya çıkan dik yol.' },
+  // --- Manyetik Sırtlar ---
+  baca_1: { mekan: 'sirtlar', x: 522, y: -18, ad: 'Batı gaz bacası', yaricap: 2.8, engel: 1.1, baca: true, tarif: 'Kayadaki bir yarıktan kesik kesik süper ısınmış gaz fışkırıyor.' },
+  baca_2: { mekan: 'sirtlar', x: 558, y: -28, ad: 'Doğu gaz bacası', yaricap: 2.8, engel: 1.1, baca: true, tarif: 'Geniş ağızlı, gürültülü bir baca; zemin ayağının altında titriyor.' },
+  baca_3: { mekan: 'sirtlar', x: 534, y: -50, ad: 'Derin gaz bacası', yaricap: 2.8, engel: 1.1, baca: true, tarif: 'Sırtın dibinde, derinden kaynayan bir baca. Buradan gelen basınç en sert olanı.' },
+  bazalt_4: { mekan: 'sirtlar', x: 548, y: -10, ad: 'Bazalt yığını', yaricap: 2.2, kaynak: 'bazalt', stok: 4 },
+  bazalt_5: { mekan: 'sirtlar', x: 524, y: -38, ad: 'Bazalt yığını', yaricap: 2.2, kaynak: 'bazalt', stok: 4 },
+  agir_1: { mekan: 'sirtlar', x: 566, y: -46, ad: 'Ağır metal damarı', yaricap: 2.2, kaynak: 'titanyum', stok: 3 },
+  agir_2: { mekan: 'sirtlar', x: 510, y: -30, ad: 'Ağır metal damarı', yaricap: 2.2, kaynak: 'titanyum', stok: 3 },
 };
 
 // Kişiler: kapsülden sağ çıkan öncüler. Adları oyun başında üretilir (durum.murettebat).

@@ -24,6 +24,9 @@
 //   telsizKur(), telsizAyar(yakinlik, kayma), telsizSil()
 //                                    kulaklıktaki telsiz: parazit + kesik sinyal tonu. yakinlik 0-1 parazitle tonu
 //                                    karıştırır; kayma (kanal farkı) tonun perdesini kaydırır, hedefte sıfırlanır
+//   basincKur(), basincAyar(basinc, alarm), basincSil()
+//                                    valf dengeleme: basınç yükseldikçe tizleşen ve güçlenen gaz tıslaması;
+//                                    alarm açıkken üstüne kesik bir uyarı tonu
 // Kişi sesleri uzaklıkla boğuklaşır (hava yutumu) ve mekânın yankısını alır ('dis' rıhtım, 'ic' ahşap oda).
 // kaynak türleri: 'zil', 'cekic', 'deniz', 'ayak' (yürüyen birinin ayak sesleri), 'kristal' (ara sıra çınlayan kristal)
 // Motor hazır olunca ve hata olursa onMesaj({ tur, ... }) çağrılır.
@@ -212,7 +215,7 @@ const MOTOR_HTML = `<!DOCTYPE html><html><head><meta charset="utf-8"></head><bod
   }
   function durdur(){
     for (var kid in kisiler) kisiSil(kid);
-    telsizSil();
+    telsizSil(); basincSil();
     for (var id in kaynaklar){ var k = kaynaklar[id]; if (k.zaman) clearInterval(k.zaman); if (k.durdur) k.durdur(); try { k.p.disconnect(); } catch(e){} }
     kaynaklar = {};
     if (ctx) { try { ctx.close(); } catch(e){} ctx = null; }
@@ -371,6 +374,34 @@ const MOTOR_HTML = `<!DOCTYPE html><html><head><meta charset="utf-8"></head><bod
     telsiz.gt.gain.setTargetAtTime(0.55 * y * y + 0.0001, t, 0.06);
     telsiz.o.frequency.setTargetAtTime(1150 + Math.max(-30, Math.min(30, kayma)) * 35, t, 0.05);
   }
+  // --- Valf basıncı (kulaklıkta) ---
+  var basinc = null;
+  function basincSil(){
+    if (!basinc) return;
+    try { basinc.src.stop(); basinc.o.stop(); basinc.lfo.stop(); } catch(e){}
+    try { basinc.g.disconnect(); basinc.ag.disconnect(); } catch(e){}
+    basinc = null;
+  }
+  function basincKur(){
+    baglam(); basincSil();
+    var src = ctx.createBufferSource(), bp = ctx.createBiquadFilter(), g = ctx.createGain();
+    src.buffer = gurultu(2); src.loop = true;
+    bp.type = 'bandpass'; bp.frequency.value = 400; bp.Q.value = 1.4; g.gain.value = 0.0001;
+    src.connect(bp); bp.connect(g); g.connect(yakin);
+    var o = ctx.createOscillator(), lfo = ctx.createOscillator(), lg = ctx.createGain(), tg = ctx.createGain(), ag = ctx.createGain();
+    o.type = 'square'; o.frequency.value = 1480;
+    lfo.type = 'square'; lfo.frequency.value = 5; lg.gain.value = 0.5; tg.gain.value = 0.5;
+    lfo.connect(lg); lg.connect(tg.gain); o.connect(tg); tg.connect(ag); ag.gain.value = 0.0001; ag.connect(yakin);
+    src.start(); o.start(); lfo.start();
+    basinc = { src: src, bp: bp, g: g, o: o, lfo: lfo, ag: ag };
+  }
+  function basincAyar(p, alarm){
+    if (!basinc) return;
+    var t = ctx.currentTime;
+    basinc.bp.frequency.setTargetAtTime(300 + p * 2600, t, 0.08);
+    basinc.g.gain.setTargetAtTime(0.06 + p * 0.6, t, 0.08);
+    basinc.ag.gain.setTargetAtTime(alarm ? 0.09 : 0.0001, t, 0.02);
+  }
   window.motor = {
     komut: function(c){
       try {
@@ -397,6 +428,9 @@ const MOTOR_HTML = `<!DOCTYPE html><html><head><meta charset="utf-8"></head><bod
         else if (c.ad === 'telsizKur') telsizKur();
         else if (c.ad === 'telsizAyar') telsizAyar(c.yakinlik, c.kayma);
         else if (c.ad === 'telsizSil') telsizSil();
+        else if (c.ad === 'basincKur') basincKur();
+        else if (c.ad === 'basincAyar') basincAyar(c.basinc, c.alarm);
+        else if (c.ad === 'basincSil') basincSil();
       } catch(e){ bildir({ tur: 'hata', metin: String(e) }); }
     }
   };
@@ -450,6 +484,9 @@ function KonumsalSes({ onMesaj }, ref) {
     telsizKur: () => gonder({ ad: 'telsizKur' }),
     telsizAyar: (yakinlik, kayma) => gonder({ ad: 'telsizAyar', yakinlik, kayma }),
     telsizSil: () => gonder({ ad: 'telsizSil' }),
+    basincKur: () => gonder({ ad: 'basincKur' }),
+    basincAyar: (basinc, alarm) => gonder({ ad: 'basincAyar', basinc, alarm: !!alarm }),
+    basincSil: () => gonder({ ad: 'basincSil' }),
   }));
   return (
     <View style={stiller.gizli} pointerEvents="none" importantForAccessibility="no-hide-descendants" accessibilityElementsHidden>
