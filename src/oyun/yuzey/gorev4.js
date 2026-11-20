@@ -62,7 +62,7 @@ export const SAHNELER = {
       ilkAd(d, 0) + ': "İlk geminin adı hazır, Kaptan: Kıvılcım. İki bölme; bir kokpit, bir kargo. Küçük ama yıldızlara yeter."',
     ],
     secenekler: () => [{ etiket: 'Devam', sonra: null }],
-    bitisSozu: 'Sıradaki adım Kıvılcım\'ın parça parça montajı. Bu sürümde henüz yok.',
+    bitisSozu: 'Yeni görev: Kıvılcım\'ın montajı. Jeneratörün başındaki mühendisle konuş.',
   },
 };
 
@@ -100,7 +100,6 @@ export function gorevIpucu(d) {
       '. Platoda bazalt ve titanyum, sırtlarda polimer var.'
     );
   }
-  if (d.gorev.id === 'kivilcim') return 'Dört görev tamamlandı. Sıradaki adım, Kıvılcım gemisinin montajı, bu sürümde henüz yok. Kaynak toplayabilir, bölgeleri dolaşabilirsin.';
   return '';
 }
 
@@ -251,7 +250,7 @@ export function tersaneKuruldu(d) {
 // --- Konuşmalar ---
 export function konusma(d, kisiId) {
   const g = b(d);
-  if (d.gorev.id !== 'zemin' && d.gorev.id !== 'tersane' && d.gorev.id !== 'kivilcim') return null;
+  if (d.gorev.id !== 'zemin' && d.gorev.id !== 'tersane') return null;
   if (kisiId === 'muhendis') {
     const secenekler = [];
     let metin;

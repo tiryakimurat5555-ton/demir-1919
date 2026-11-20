@@ -2,7 +2,8 @@
 // birinci görev "Sinyal Arayışı" (Gözcü Tepesi'nde frekans ayarı), ikinci görev "Jeotermal Sondaj"
 // (Manyetik Sırtlar, kükürt maruziyeti, gaz bacalarında valf dengeleme), üçüncü görev "Antik Kseno-Laboratuvar
 // Kazısı" (Kadim Krater'in çanları, rezonatörle kapı dizisi, görünmez yerçekimi alanları), dördüncü görev "Tersane
-// Zemin Güçlendirmesi" (Uğultulu Plato'da rüzgâr hamleleri, kulakla hidrolik ayak dengeleme) ve telsiz bildirimleri.
+// Zemin Güçlendirmesi" (Uğultulu Plato'da rüzgâr hamleleri, kulakla hidrolik ayak dengeleme), beşinci görev
+// "Kıvılcım ve İlk Uçuş" (üretim, iş gücü, vinçle montaj, gemi içi, uzayda fenerlerle seyir) ve telsiz bildirimleri.
 //
 // Hareketler (yüzeyde):
 //   tek parmakla sürükleyip tut: yukarı ileri, aşağı geri; sağa-sola döner (parmak ne kadar uzaksa o kadar hızlı)
@@ -15,6 +16,10 @@
 //   dokun: kapının dizisini yeniden dinle; iki parmakla çift dokun: kapıdan çekil.
 // Ayak dengelemede: yukarı-aşağı sürükle pompala (yukarı ayağı kaldırır); dokun: durumu söyler;
 //   iki parmakla çift dokun: ayaktan çekil. Platoda rüzgâr ıslığı yükselince dur.
+// Vinçte: sağa-sola sürükle (ses iki kulakta eşitlenince ortada); aşağı kaydır indir; çift dokun kenetle;
+//   dokun durumu söyler; iki parmakla çift dokun çekil.
+// Gemide: iki parmakla sağa-sola kaydır oda değiştir; dokun oda terminali; basılı tut görevliyle konuş.
+//   Uzayda kokpitte: yukarı kaydır itki, aşağı ters itici, sağa-sola burun; basılı tut radar; çift dokun kenetlen.
 // Frekans ayarında: yukarı-aşağı sürükle ya da iki parmakla çevir: kanal; sağa-sola hızlı kaydır: ince ayar;
 //   dokun: kanalı söyler; iki parmakla çift dokun: ayardan çık.
 // Menülerde (SesliListe): sağa-sola kaydır gez, çift dokun seç, iki parmakla çift dokun geri.
@@ -63,7 +68,43 @@ import {
   teraziIlerle,
   teraziMetni,
   teraziPompa,
+  zamanIlerle,
+  uzayAdim,
+  kenetlen,
+  kalkis,
+  itki,
+  burunDondur,
+  uzayRadar,
+  uzayDurumu,
+  onTarama,
+  UZAY_NOKTALARI,
+  gorunurNoktalar,
+  sesYeri,
+  fenerMenzili,
 } from '../oyun/yuzey/gorevler';
+import { SEKTORLER, bosta, isGucuDegis, moralMetni, moralSesi, parcaMetni, uretimBaslat, uretimListesi } from '../oyun/koloni';
+import {
+  VINC_ESIGI,
+  atamaYap,
+  gemiDurumu,
+  gemiOdalari,
+  gemidenIn,
+  modulListesi,
+  modulTak,
+  montajBaslat,
+  montajListesi,
+  odaDegis,
+  odaKonusmasi,
+  odaMetni,
+  odaSu,
+  vincIlerle,
+  vincIndir,
+  vincIptal,
+  vincKaydir,
+  vincKenetle,
+  vincMetni,
+} from '../oyun/gemi/gemi';
+import { SES_OLCEK } from '../oyun/uzay/seyir';
 import { HAMMADDELER, HAMMADDE_SIRASI } from '../oyun/veri/tesisler';
 import { NITELIKLER } from '../oyun/veri/murettebat';
 import { otoYaz, tarihMetni, yuvalariOku, yuvayaYaz } from '../oyun/kayit';
@@ -91,7 +132,7 @@ const DOSYALAR = {
 };
 
 // Eylem sesleri: gorev1.js'teki ses adlarını çalınacak efekte çevirir
-const EYLEM_SESI = { bip: 'bip', red: 'red', tislama: 'tislama', jenerator: 'jenerator', kes: 'tislama', kur: 'kapi', topla: 'dugme', kristal: 'dugme', sonda: 'sonda', polimer: 'polimer', hidrolik: 'hidrolik' };
+const EYLEM_SESI = { bip: 'bip', red: 'red', tislama: 'tislama', jenerator: 'jenerator', kes: 'tislama', kur: 'kapi', topla: 'dugme', kristal: 'dugme', sonda: 'sonda', polimer: 'polimer', hidrolik: 'hidrolik', kaynak: 'kaynak', kapi_gemi: 'kapi_gemi', dugme: 'dugme' };
 const BACALAR = ['baca_1', 'baca_2', 'baca_3'];
 const CANLAR = ['can_1', 'can_2', 'can_3', 'can_4', 'can_5'];
 const KRISTALLER = ['kristal_1', 'kristal_2', 'kristal_3', 'kristal_4'];
@@ -125,6 +166,9 @@ export default function Yuzey({ onGeri, baslangic, yeniOyunUret }) {
   const [valfAcik, setValfAcik] = useState(false);
   const [rezAcik, setRezAcik] = useState(false);
   const [teraziAcik, setTeraziAcik] = useState(false);
+  const [vincAcik, setVincAcik] = useState(false);
+  const [gemiAcik, setGemiAcik] = useState(false);
+  const sonDx = useRef(0);
   const pompaZamani = useRef(0);
   const melodiNo = useRef(0);
   const [yazi, setYazi] = useState('Yükleniyor');
@@ -153,6 +197,11 @@ export default function Yuzey({ onGeri, baslangic, yeniOyunUret }) {
     const d = dunya.current;
     const s = m();
     if (!s || !hazir.current) return;
+    if (d.gemide && d.gemi && d.gemi.yer === 'uzay') {
+      uzaySesleri(ortamDa);
+      return;
+    }
+    for (const id of Object.keys(calanlar.current)) if (id.indexOf('fener_') === 0) kaynakKapat(id);
     const mk = MEKANLAR[d.mekan];
     // Kapsülün içindeyken vadinin sesleri gövdenin ardından, kapsülün yerinden duyulur
     s.dinleyici(kulakYeri(d));
@@ -203,8 +252,36 @@ export default function Yuzey({ onGeri, baslangic, yeniOyunUret }) {
       } else kaynakKapat(id);
     });
     if (ortamDa) {
-      s.boguk(d.mekan === 'kapsul');
-      ortamCal(mk.ortam, ortamOrani(d));
+      s.boguk(d.mekan === 'kapsul' || !!d.gemide);
+      const oda = odaSu(d);
+      if (oda) ortamCal(oda.ortam, 0.8);
+      else ortamCal(mk.ortam, ortamOrani(d));
+    }
+  };
+
+  // Uzayda: yüzey sesleri kapanır; dinleyici gemi, fenerler ziyaret noktalarında (20 birim = 1 metre)
+  const uzaySesleri = (ortamDa) => {
+    const d = dunya.current;
+    const s = m();
+    const u = d.uzay;
+    if (!s || !u) return;
+    for (const id of Object.keys(calanlar.current)) if (id.indexOf('fener_') !== 0) kaynakKapat(id);
+    s.dinleyici({ x: u.x / SES_OLCEK, y: u.y / SES_OLCEK, yon: u.yon });
+    const menzil = fenerMenzili(d);
+    for (const id of Object.keys(UZAY_NOKTALARI)) {
+      const n = UZAY_NOKTALARI[id];
+      const kid = 'fener_' + id;
+      if (gorunurNoktalar(d).includes(id) && Math.hypot(n.x - u.x, n.y - u.y) < menzil) {
+        if (!calanlar.current[kid]) {
+          calanlar.current[kid] = true;
+          s.kaynak(kid, 'fener', sesYeri(n), null, n.frek);
+        }
+      } else kaynakKapat(kid);
+    }
+    if (ortamDa) {
+      s.boguk(false);
+      const oda = odaSu(d);
+      ortamCal(oda ? oda.ortam : 'ortam_uzay', 0.6);
     }
   };
 
@@ -259,6 +336,9 @@ export default function Yuzey({ onGeri, baslangic, yeniOyunUret }) {
     const z = setInterval(() => {
       const d = dunya.current;
       sayac++;
+      // Koloni zamanla ilerler (üretim, yenilenme, nüfus, tersane), her modda
+      const ko = zamanIlerle(d, ADIM_MS / 1000);
+      if (ko.length) koloniOlaylari(ko);
       if (d.ayar) {
         frekansAdimi();
         return;
@@ -272,7 +352,21 @@ export default function Yuzey({ onGeri, baslangic, yeniOyunUret }) {
         teraziAdimi();
         return;
       }
+      if (d.vinc) {
+        vincAdimi();
+        return;
+      }
       if (durakli.current) return;
+      if (d.gemide) {
+        if (sayac % 10 === 0) bildirimKontrol();
+        gemiAdimi(sayac);
+        if (d.sahne) {
+          sesleriEsitle(true);
+          sahneGoster(d.sahne);
+        }
+        if (sayac % KAYIT_ARALIGI === 0) kaydet();
+        return;
+      }
       if (sayac % 10 === 0) bildirimKontrol();
       const s = surukle.current;
       const girdi = s.aktif ? { ileri: guc(-s.dy), donus: guc(s.dx) } : {};
@@ -302,6 +396,8 @@ export default function Yuzey({ onGeri, baslangic, yeniOyunUret }) {
     if (d.valf) d.valf = null;
     if (d.rezonans) d.rezonans = null;
     if (d.terazi) d.terazi = null;
+    if (d.vinc) vincIptal(d);
+    if (d.gemide) gemiModuAc(true);
     if (d.sahne) sahneGoster(d.sahne);
     else if (baslangic) soyle('Sistemler devrede. Kaldığın yerden: ' + durumMetni(d) + ' Menü için iki parmakla çift dokun.', 'istek', true);
     const abone = AppState.addEventListener('change', (durum) => {
@@ -346,6 +442,18 @@ export default function Yuzey({ onGeri, baslangic, yeniOyunUret }) {
     }
     d.sahne = id;
     if (sahne.ortam) ortamCal(sahne.ortam, 0.8);
+    if (id === 'inis') {
+      // Moral nabzı: dinleme kulesinden koloninin uğultusu
+      const ms = moralSesi(d);
+      if (ms) setTimeout(() => cal(ms, 0.9), 2500);
+      if (m()) m().motorSil();
+    }
+    if (id === 'kalkis' && m()) {
+      m().motorKur();
+      m().motorAyar(4);
+      setTimeout(() => m() && m().motorAyar(0), 9000);
+    }
+    if (id === 'kurtarma' && m()) m().motorSil();
     if (sahne.efekt) sahne.efekt.forEach((e, i) => setTimeout(() => cal(e, 1), i * 400));
     katmanAc({
       baslik: sahne.baslik,
@@ -404,6 +512,16 @@ export default function Yuzey({ onGeri, baslangic, yeniOyunUret }) {
               return 'sessiz';
             }
             if (r.insa) return insaGoster(), 'sessiz';
+            if (r.uretim) return uretimGoster(), 'sessiz';
+            if (r.isgucu) return isGucuGoster(), 'sessiz';
+            if (r.montaj) return montajGoster(), 'sessiz';
+            if (r.modul) return modulGoster(), 'sessiz';
+            if (r.gemi) {
+              katmanKapatSessiz();
+              durakli.current = false;
+              gemiModuAc(false, r.metin);
+              return 'sessiz';
+            }
             if (r.kaydet) return kayitGoster(), 'sessiz';
             sesleriEsitle(false);
             noktaGoster(id, r.metin);
@@ -836,6 +954,454 @@ export default function Yuzey({ onGeri, baslangic, yeniOyunUret }) {
     { dokunmaBekle: true },
   );
 
+  // --- Koloni olayları: üretim, montaj, nüfus (telsiz çağrısı olarak) ---
+  const koloniOlaylari = (olaylar) => {
+    const d = dunya.current;
+    const sozler = olaylar.filter((o) => o.metin).map((o) => o.metin);
+    if (!sozler.length) return;
+    if (!d.bildirimler) d.bildirimler = [];
+    d.bildirimler.push({ id: 'koloni_' + Date.now(), kim: 'Koloni bilgisayarı', metin: sozler.join(' ') });
+    cal('telsiz_zil', 0.7);
+    Haptics.selectionAsync().catch(() => {});
+    if (!durakli.current) setTimeout(() => soyle('Koloniden haber. Dinlemek için çift dokun.', 'istek', false), 700);
+  };
+
+  // --- Terminal: üretim ve iş gücü ---
+  const uretimGoster = (onEk) => {
+    const d = dunya.current;
+    const liste = uretimListesi(d);
+    katmanAc({
+      baslik: 'Üretim',
+      giris: (onEk ? onEk + ' ' : '') + 'Elindeki parçalar: ' + parcaMetni(d) + '. Bir iş seç; tesis meşgul değilse başlar ve zamanla biter.',
+      onGeri: () => noktaGoster('terminal'),
+      ogeler: [
+        ...liste.map((t) => ({
+          id: t.tesis + t.id,
+          etiket: t.ad + '. ' + t.durum,
+          sec: () => {
+            if (!t.yapilabilir) {
+              soyle(t.ad + '. ' + t.durum, 'istek', true);
+              return 'sessiz';
+            }
+            const r = uretimBaslat(d, t.tesis, t.id);
+            kaydet();
+            if (r.ses) cal(EYLEM_SESI[r.ses] || r.ses, 0.8);
+            uretimGoster(r.metin);
+            return 'sessiz';
+          },
+        })),
+        { id: 'geri', etiket: 'Terminale dön', sec: () => (noktaGoster('terminal'), 'sessiz') },
+      ],
+    });
+  };
+  const isGucuGoster = (onEk) => {
+    const d = dunya.current;
+    const n = d.koloni.nufus;
+    const ogeler = [];
+    for (const k of Object.keys(SEKTORLER)) {
+      ogeler.push({
+        id: k + '+',
+        etiket: SEKTORLER[k].ad + ': ' + (n[k] || 0) + ' kişi. Bir kişi ver.',
+        ipucu: SEKTORLER[k].tarif,
+        sec: () => {
+          const r = isGucuDegis(d, k, 1);
+          kaydet();
+          if (r.olmadi) cal('red', 0.6);
+          isGucuGoster(r.metin);
+          return 'sessiz';
+        },
+      });
+      ogeler.push({
+        id: k + '-',
+        etiket: SEKTORLER[k].ad + ': bir kişi al.',
+        sec: () => {
+          const r = isGucuDegis(d, k, -1);
+          kaydet();
+          if (r.olmadi) cal('red', 0.6);
+          isGucuGoster(r.metin);
+          return 'sessiz';
+        },
+      });
+    }
+    katmanAc({
+      baslik: 'Koloni yönetimi',
+      giris: (onEk ? onEk + ' ' : '') + 'Nüfus ' + n.toplam + ', barınma ' + n.barinma + ', boşta ' + bosta(d) + '. Moral yüzde ' + d.koloni.moral + '. ' + moralMetni(d),
+      onGeri: () => noktaGoster('terminal'),
+      ogeler: [...ogeler, { id: 'geri', etiket: 'Terminale dön', sec: () => (noktaGoster('terminal'), 'sessiz') }],
+    });
+  };
+
+  // --- Kızak: montaj ve modüller ---
+  const montajGoster = (onEk) => {
+    const d = dunya.current;
+    katmanAc({
+      baslik: 'Kıvılcım montajı',
+      giris: (onEk ? onEk + ' ' : '') + 'Dört aşama, sırayla. Elindeki parçalar: ' + parcaMetni(d) + '.',
+      onGeri: () => noktaGoster('kizak'),
+      ogeler: [
+        ...montajListesi(d).map((a) => ({
+          id: a.id,
+          etiket: a.ad + '. ' + a.metin,
+          sec: () => {
+            const r = montajBaslat(d, a.id);
+            kaydet();
+            if (r.vinc) {
+              katmanKapatSessiz();
+              vincAc();
+              return 'sessiz';
+            }
+            if (r.ses) cal(EYLEM_SESI[r.ses] || r.ses, 0.8);
+            montajGoster(r.metin);
+            return 'sessiz';
+          },
+        })),
+        { id: 'geri', etiket: 'Kızağa dön', sec: () => (noktaGoster('kizak'), 'sessiz') },
+      ],
+    });
+  };
+  const modulGoster = (onEk) => {
+    const d = dunya.current;
+    katmanAc({
+      baslik: 'Modül tak',
+      giris: (onEk ? onEk + ' ' : '') + 'Üretilmiş modüller geminin uygun katmanına takılır.',
+      onGeri: () => noktaGoster('kizak'),
+      ogeler: [
+        ...modulListesi(d).map((x) => ({
+          id: x.id,
+          etiket: x.ad + '. ' + x.durum,
+          sec: () => {
+            const r = modulTak(d, x.id);
+            kaydet();
+            if (r.ses) cal(EYLEM_SESI[r.ses] || r.ses, 0.8);
+            modulGoster(r.metin);
+            return 'sessiz';
+          },
+        })),
+        { id: 'geri', etiket: 'Kızağa dön', sec: () => (noktaGoster('kizak'), 'sessiz') },
+      ],
+    });
+  };
+
+  // --- Vinç: parçayı sesle ortalayıp indirme ---
+  const vincAc = () => {
+    const d = dunya.current;
+    durakli.current = true;
+    sonDx.current = 0;
+    if (m()) {
+      m().vincKur();
+      m().vincAyar(d.vinc.x, d.vinc.yukseklik, false);
+    }
+    ortamCal(MEKANLAR.plato.ortam, 0.35);
+    cal('zincir', 0.7);
+    setVincAcik(true);
+    soyle(
+      'Vinç. Parça kulaklığında bir yana kaymış sallanıyor. Parmağını sağa ya da sola sürükle; ses iki kulağında eşitlenince ve düzenli bir tık duyunca parça yuvanın tam üstünde. Aşağı kaydır: bir basamak indir; üç basamakta oturur. Oturunca çift dokun: kenetle. Dokun: durumu söylerim. İki parmakla çift dokun: vinçten çekil.',
+      'istek',
+      true,
+    );
+  };
+  const vincKapat = (soz) => {
+    const d = dunya.current;
+    if (m()) m().vincSil();
+    if (d.vinc) vincIptal(d);
+    setVincAcik(false);
+    durakli.current = false;
+    kaydet();
+    sesleriEsitle(true);
+    if (soz) soyle(soz, 'istek', true);
+  };
+  const vincAdimi = () => {
+    const d = dunya.current;
+    if (!d.vinc) return;
+    d.sure = (d.sure || 0) + ADIM_MS / 1000;
+    const f = [];
+    firtinaIlerle(d, ADIM_MS / 1000, false, f);
+    if (f.length) olaylariIsle(f);
+    vincIlerle(d, ADIM_MS / 1000);
+    if (m() && d.vinc) m().vincAyar(d.vinc.x, d.vinc.yukseklik, Math.abs(d.vinc.x) < VINC_ESIGI);
+  };
+  const vincJest = useJestler(
+    {
+      onSurukle: (mod, dx) => {
+        if (mod !== 'tek') return;
+        vincKaydir(dunya.current, (dx - sonDx.current) * 0.004);
+        sonDx.current = dx;
+      },
+      onSurukleBitti: () => {
+        sonDx.current = 0;
+      },
+      onKaydir: (yon, parmak) => {
+        if (parmak > 1 || yon !== 'asagi') return;
+        const r = vincIndir(dunya.current);
+        if (r.sonuc === 'carpti') {
+          cal('zincir', 1);
+          Haptics.notificationAsync(Haptics.NotificationFeedbackType.Error).catch(() => {});
+        } else if (r.sonuc === 'indi') cal('hidrolik', 0.5);
+        else if (r.sonuc === 'oturdu') {
+          cal('zincir', 0.6);
+          Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Heavy).catch(() => {});
+        }
+        soyle(r.metin, 'istek', true);
+      },
+      onDokun: (parmak) => {
+        if (parmak >= 2) sustur();
+        else soyle(vincMetni(dunya.current), 'istek', true);
+      },
+      onCiftDokun: (parmak) => {
+        const d = dunya.current;
+        if (parmak >= 2) {
+          vincKapat('Vinçten çekildin; parça depoya döndü.');
+          return;
+        }
+        const r = vincKenetle(d);
+        if (r.sonuc !== 'kenetlendi') {
+          cal('red', 0.6);
+          soyle(r.metin, 'istek', true);
+          return;
+        }
+        cal('kaynak', 1);
+        Haptics.notificationAsync(Haptics.NotificationFeedbackType.Success).catch(() => {});
+        if (m()) m().vincSil();
+        setVincAcik(false);
+        durakli.current = false;
+        kaydet();
+        sesleriEsitle(true);
+        soyle(r.metin, 'istek', true);
+      },
+    },
+    { dokunmaBekle: true },
+  );
+
+  // --- Gemi içi ve uzay ---
+  const gemiModuAc = (yuklemeden, soz) => {
+    const d = dunya.current;
+    setGemiAcik(true);
+    if (d.uzay && m()) {
+      m().motorKur();
+      m().motorAyar(d.uzay.hiz);
+    }
+    sesleriEsitle(true);
+    if (!yuklemeden) {
+      cal('kapi_gemi', 0.9);
+      soyle((soz ? soz + ' ' : '') + 'Odalar arasında iki parmakla sağa ya da sola kaydır. Dokun: oda terminali. Basılı tut: görevliyle konuş.', 'istek', true);
+    }
+  };
+  const gemiModuKapat = (soz) => {
+    setGemiAcik(false);
+    if (m()) m().motorSil();
+    durakli.current = false;
+    sesleriEsitle(true);
+    if (soz) soyle(soz, 'istek', true);
+  };
+  const gemiAdimi = (sayac) => {
+    const d = dunya.current;
+    if (!d.uzay) {
+      if (sayac % 5 === 0) sesleriEsitle(false);
+      return;
+    }
+    const olaylar = uzayAdim(d, ADIM_MS / 1000);
+    if (m()) {
+      if (d.uzay) m().dinleyici({ x: d.uzay.x / SES_OLCEK, y: d.uzay.y / SES_OLCEK, yon: d.uzay.yon });
+      m().motorAyar(d.uzay ? d.uzay.hiz : 0);
+    }
+    const sozler = [];
+    for (const o of olaylar) {
+      if (o.tur === 'pruvaKilit') {
+        cal('arayuz', 0.7);
+        Haptics.selectionAsync().catch(() => {});
+        sozler.push(o.metin);
+      } else if (o.tur === 'yaklasti') {
+        Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light).catch(() => {});
+        sozler.push(o.metin);
+      } else if (o.tur === 'yakitAz' || o.tur === 'sinir') {
+        Haptics.notificationAsync(Haptics.NotificationFeedbackType.Warning).catch(() => {});
+        sozler.push(o.metin);
+      }
+    }
+    if (sozler.length) soyle(sozler.join(' '), 'istek', true);
+    if (sayac % 5 === 0) sesleriEsitle(false);
+  };
+  const ucustaKokpitte = () => {
+    const d = dunya.current;
+    const o = odaSu(d);
+    return !!(d.uzay && o && o.id === 'kokpit');
+  };
+
+  const gemiTerminali = (onEk) => {
+    const d = dunya.current;
+    const o = odaSu(d);
+    if (!o) return;
+    const ogeler = [];
+    if (o.id === 'kokpit') {
+      ogeler.push({ id: 'durum', etiket: 'Gemi durumu', sec: () => (soyle(gemiDurumu(d), 'istek', true), 'sessiz') });
+      if (d.uzay) ogeler.push({ id: 'seyir', etiket: 'Seyir durumu', sec: () => (soyle(uzayDurumu(d), 'istek', true), 'sessiz') });
+      ogeler.push({ id: 'harita', etiket: 'Uzay haritası ve ön tarama', ipucu: 'Bir noktayı seç: tehlike analizi ve gerekli donanım.', sec: () => (haritaGoster(), 'sessiz') });
+      if (!d.uzay)
+        ogeler.push({
+          id: 'kalk',
+          etiket: 'Kalkış',
+          sec: () => {
+            const r = kalkis(d);
+            kaydet();
+            if (r.ses) {
+              cal('red', 0.7);
+              soyle(r.metin, 'istek', true);
+              return 'sessiz';
+            }
+            katmanKapatSessiz();
+            sahneGoster('kalkis');
+            return 'sessiz';
+          },
+        });
+      ogeler.push({ id: 'ata', etiket: 'Mürettebat ata', sec: () => (atamaGoster(), 'sessiz') });
+      if (!d.uzay)
+        ogeler.push({
+          id: 'in',
+          etiket: 'Gemiden in',
+          sec: () => {
+            const r = gemidenIn(d);
+            kaydet();
+            cal('kapi_gemi', 0.8);
+            katmanKapatSessiz();
+            gemiModuKapat(r.metin);
+            return 'sessiz';
+          },
+        });
+    } else {
+      ogeler.push({ id: 'kasa', etiket: 'Numune kasası', sec: () => (soyle(d.gemi.kargo.length ? 'Kasada: ' + d.gemi.kargo.join(', ') + '.' : 'Numune kasası boş.', 'istek', true), 'sessiz') });
+      ogeler.push({ id: 'dolap', etiket: 'İlk yardım dolabı', sec: () => (soyle('Dolap dolu: sargılar, yanık jeli, iki doz radyasyon ilacı.', 'istek', true), 'sessiz') });
+      ogeler.push({ id: 'ranza', etiket: 'Acil durum ranzası', sec: () => (soyle('İki kişilik dar bir ranza. Bir süre uzanıp gözlerini kapatıyorsun; türbinin vızıltısı uzaklaşıyor.', 'istek', true), 'sessiz') });
+    }
+    ogeler.push({ id: 'konus', etiket: 'Görevliyle konuş', sec: () => (soyle(odaKonusmasi(d), 'istek', true), 'sessiz') });
+    ogeler.push({ id: 'geri', etiket: 'Kapat', sec: () => (katmanKapat(), 'sessiz') });
+    cal('arayuz', 0.6);
+    katmanAc({ baslik: o.ad, giris: onEk || null, onGeri: () => katmanKapat(), ogeler });
+  };
+  const haritaGoster = () => {
+    const d = dunya.current;
+    katmanAc({
+      baslik: 'Uzay haritası',
+      giris: 'Ziyaret noktaları. Birini seç: ön tarama raporu.',
+      onGeri: () => gemiTerminali(),
+      ogeler: [
+        ...gorunurNoktalar(d).map((id) => ({ id, etiket: UZAY_NOKTALARI[id].ad, sec: () => (soyle(onTarama(d, id), 'istek', true), 'sessiz') })),
+        { id: 'geri', etiket: 'Terminale dön', sec: () => (gemiTerminali(), 'sessiz') },
+      ],
+    });
+  };
+  const atamaGoster = (onEk) => {
+    const d = dunya.current;
+    const ogeler = [];
+    for (const o of gemiOdalari(d)) {
+      for (const u of d.murettebat) {
+        const burada = d.gemi.atamalar[o.id] === u.id;
+        ogeler.push({
+          id: o.id + u.id,
+          etiket: o.ad + ': ' + u.rol + ' ' + u.ad + (burada ? ', atanmış' : ''),
+          ipucu: o.gorevYeri + ' görevi.',
+          sec: () => {
+            const r = atamaYap(d, o.id, burada ? null : u.id);
+            kaydet();
+            atamaGoster(r.metin);
+            return 'sessiz';
+          },
+        });
+      }
+    }
+    katmanAc({
+      baslik: 'Mürettebat ata',
+      giris: (onEk ? onEk + ' ' : '') + 'Her odaya bir görevli. Kokpitteki telsiz subayı fenerleri daha uzaktan duyar.',
+      onGeri: () => gemiTerminali(),
+      ogeler: [...ogeler, { id: 'geri', etiket: 'Terminale dön', sec: () => (gemiTerminali(), 'sessiz') }],
+    });
+  };
+
+  const gemiJest = useJestler(
+    {
+      onKaydir: (yon, parmak) => {
+        const d = dunya.current;
+        if (parmak >= 2 && (yon === 'sag' || yon === 'sol')) {
+          const r = odaDegis(d, yon === 'sol' ? 1 : -1);
+          if (!r) return;
+          if (r.sinir) {
+            cal('red', 0.4);
+            soyle(r.metin, 'istek', true);
+            return;
+          }
+          cal('tislama', 0.6);
+          setTimeout(() => cal('kilit', 0.6), 350);
+          sesleriEsitle(true);
+          kaydet();
+          soyle(r.metin, 'istek', true);
+          return;
+        }
+        if (parmak >= 2 && yon === 'asagi') {
+          bildirimErtele();
+          return;
+        }
+        if (!ucustaKokpitte()) return;
+        if (yon === 'yukari' || yon === 'asagi') {
+          const r = itki(d, yon === 'yukari' ? 1 : -1);
+          cal(r.ses ? 'red' : 'dugme', 0.5);
+          soyle(r.metin, 'istek', true);
+        } else {
+          burunDondur(d, (yon === 'sag' ? 1 : -1) * (Math.PI / 12));
+          cal('tik', 0.5);
+        }
+      },
+      onDokun: (parmak) => {
+        if (parmak >= 2) {
+          sustur();
+          return;
+        }
+        gemiTerminali();
+      },
+      onUzunBas: () => {
+        const d = dunya.current;
+        if (ucustaKokpitte()) {
+          const r = uzayRadar(d);
+          cal('sonar', 0.7);
+          const s = m();
+          if (s) r.pingler.forEach((p) => setTimeout(() => s.nota(p.frek, sesYeri(p), 0.5, 0.8), 600 + p.gecikme));
+          setTimeout(() => soyle(r.metin, 'istek', true), 900);
+          return;
+        }
+        soyle(odaKonusmasi(d), 'istek', true);
+      },
+      onCiftDokun: (parmak) => {
+        const d = dunya.current;
+        if (parmak >= 2) {
+          menuyuAc();
+          return;
+        }
+        if (d.bildirimler && d.bildirimler.length && bildirimDinle()) return;
+        if (!d.uzay) {
+          soyle('Gemi kızakta. Kalkmak ya da inmek için kokpit terminali: dokun.', 'istek', true);
+          return;
+        }
+        const r = kenetlen(d);
+        kaydet();
+        if (r.inis) {
+          cal('hidrolik', 0.9);
+          sahneGoster('inis');
+          return;
+        }
+        if (r.ses) cal('red', 0.6);
+        else cal('kilit', 0.8);
+        soyle(r.metin, 'istek', true);
+      },
+      onDondur: () => {
+        const d = dunya.current;
+        if (!ucustaKokpitte() || d.telsizTarandi) return;
+        d.telsizTarandi = true;
+        cal('dugme', 0.5);
+        soyle('Telsiz taraması: bu bölgede yalnız fenerler ve kozmik parazit var.', 'istek', true);
+        setTimeout(() => (dunya.current.telsizTarandi = false), 4000);
+      },
+    },
+    { dokunmaBekle: true },
+  );
+
   // --- Hidrolik ayak dengeleme (kulakla) ---
   const teraziAc = (id) => {
     const d = dunya.current;
@@ -1047,7 +1613,7 @@ export default function Yuzey({ onGeri, baslangic, yeniOyunUret }) {
 
   return (
     <View style={stiller.dis}>
-      <View style={stiller.kap} {...(katman || ayarAcik || valfAcik || rezAcik || teraziAcik ? {} : jest)}>
+      <View style={stiller.kap} {...(katman || ayarAcik || valfAcik || rezAcik || teraziAcik || vincAcik || gemiAcik ? {} : jest)}>
         <KonumsalSes
           ref={motor}
           onMesaj={(x) => {
@@ -1078,6 +1644,18 @@ export default function Yuzey({ onGeri, baslangic, yeniOyunUret }) {
         <View style={[StyleSheet.absoluteFill, stiller.ayar]} {...rezJest}>
           <Text style={stiller.baslik}>Rezonans</Text>
           <Text style={stiller.yazi}>Yukarı-aşağı kaydır nota seç, çift dokun çal</Text>
+        </View>
+      ) : null}
+      {gemiAcik ? (
+        <View style={[StyleSheet.absoluteFill, stiller.ayar]} {...gemiJest}>
+          <Text style={stiller.baslik}>{(dunya.current.gemi && dunya.current.gemi.ad) || 'Gemi'}</Text>
+          <Text style={stiller.yazi}>İki parmakla sağa-sola: oda. Dokun: terminal.</Text>
+        </View>
+      ) : null}
+      {vincAcik ? (
+        <View style={[StyleSheet.absoluteFill, stiller.ayar]} {...vincJest}>
+          <Text style={stiller.baslik}>Vinç</Text>
+          <Text style={stiller.yazi}>Sağa-sola sürükle, aşağı kaydır, çift dokun</Text>
         </View>
       ) : null}
       {teraziAcik ? (

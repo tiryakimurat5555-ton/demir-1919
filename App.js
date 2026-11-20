@@ -22,13 +22,13 @@ import { ayarlarOku, ayarlarYaz, otoOku, otoSil, tarihMetni, VARSAYILAN_AYARLAR,
 import { yeniOyun } from './src/oyun/durum';
 import { durumKisa } from './src/oyun/yuzey/dunya';
 
-const SURUM = '0.4';
+const SURUM = '0.5';
 const OYUN_ADI = 'Aethelis';
 
 const HAKKINDA_METNI = [
   OYUN_ADI + '. İnsanlığın derin uzaydaki sığınağı Aethelis-IV\'te bir koloni kurup gemi inşa ettiğin, sesle oynanan bir uzay keşif oyunu.',
   'Tasarım: Bahtiyar Cankurt. Yapım: Murat ve Bahtiyar.',
-  'Sürüm ' + SURUM + '. Görevler: Sinyal Arayışı, Jeotermal Sondaj, Antik Kseno-Laboratuvar Kazısı ve Tersane Zemin Güçlendirmesi. Vadi-i Sukût, iniş kapsülü, Gözcü Tepesi, Manyetik Sırtlar, Kadim Krater ve Uğultulu Plato.',
+  'Sürüm ' + SURUM + '. Görevler: Sinyal Arayışı, Jeotermal Sondaj, Antik Kseno-Laboratuvar Kazısı Tersane Zemin Güçlendirmesi, Kıvılcım ve İlk Uçuş. Vadi-i Sukût, iniş kapsülü, Gözcü Tepesi, Manyetik Sırtlar, Kadim Krater, Uğultulu Plato ve yörünge.',
   'Ortam sesleri ve efektler Bahtiyar\'ın ses arşivinden.',
 ];
 
@@ -43,6 +43,9 @@ const HAREKETLER = [
   'Valf dengelemede: basınç yükseldikçe gazın tıslaması tizleşir. Kesik alarm başlayınca çift dokun. Dokun: basıncı söyler. İki parmakla çift dokun: valften çekil.',
   'Ayak dengelemede: kulaklıkta iki ton. Ayak yüksekse tonu ince: aşağı sürükle; alçaksa yukarı. Tonlar birleşip titreşim durunca kıpırdama. Dokun: durumu söyler. İki parmakla çift dokun: çekil.',
   'Uğultulu Plato\'da rüzgâr ıslığı yükselince dur: yürürken hamle yakalarsa savrulursun.',
+  'Vinçte: parça kulaklığında bir yana kaymış sallanır. Sağa ya da sola sürükle; ses iki kulakta eşitlenip düzenli tık duyulunca parça ortada. Aşağı kaydır: bir basamak indir. Oturunca çift dokun: kenetle. Dokun: durum. İki parmakla çift dokun: çekil.',
+  'Gemide: iki parmakla sağa ya da sola kaydır, odalar arasında geç. Dokun: odanın terminali. Basılı tut: odadaki görevliyle konuş.',
+  'Uzayda, kokpitteyken: yukarı kaydır itki, aşağı ters itici; sağa ya da sola kaydır, burnu çevir. Her noktanın feneri kendi perdesinde çalar; ses iki kulakta eşitlenince pruva kilitlenir. Basılı tut: radar. Çift dokun: yakındaki noktaya kenetlen. Aethelis-IV\'e kenetlenince inersin.',
   'Rezonansta (kilitli kadim kapılarda): kapı nota dizisini çalar. Yukarı ya da aşağı kaydır: nota seçilir ve çalar; yukarı inceltir. Çift dokun: notayı kapıya çal. Dokun: diziyi yeniden dinle. İki parmakla çift dokun: kapıdan çekil.',
   'Frekans ayarında: yukarı ya da aşağı sürükle, ya da iki parmakla çevir; kanal değişir. Sağa ya da sola hızlı kaydır: ince ayar. Dokun: kanalı söyler. İki parmakla çift dokun: ayardan çık.',
   'Menülerde: sağa ya da sola kaydır, sonraki ya da önceki öğe. Çift dokun, seç. Uzun bas, açıklama. İki parmakla çift dokun, geri.',

@@ -131,6 +131,14 @@ const MOTOR_HTML = `<!DOCTYPE html><html><head><meta charset="utf-8"></head><bod
     lfo.connect(lg); lg.connect(g.gain); o.connect(g); o2.connect(g); g.connect(k.p); o.start(); o2.start(); lfo.start();
     k.durdur = function(){ try { o.stop(); o2.stop(); lfo.stop(); } catch(e){} };
   }
+  // Uzay feneri: kendi perdesinde kısa, düzenli bir bip (uzak mesafeler için geniş menzilli panner)
+  function fenerCal(k){
+    var t = ctx.currentTime, o = ctx.createOscillator(), o2 = ctx.createOscillator(), g = ctx.createGain();
+    o.type = 'sine'; o.frequency.value = k.frek || 440; o2.type = 'sine'; o2.frequency.value = (k.frek || 440) * 2;
+    var g2 = ctx.createGain(); g2.gain.value = 0.25;
+    g.gain.setValueAtTime(0.0001, t); g.gain.exponentialRampToValueAtTime(0.6, t + 0.01); g.gain.exponentialRampToValueAtTime(0.0001, t + 0.35);
+    o.connect(g); o2.connect(g2); g2.connect(g); g.connect(k.p); o.start(t); o2.start(t); o.stop(t + 0.4); o2.stop(t + 0.4);
+  }
   // Deniz: sürekli, yavaşça kabarıp inen alçak gürültü
   function denizBaslat(k){
     var s = ctx.createBufferSource(), f = ctx.createBiquadFilter(), g = ctx.createGain(), lfo = ctx.createOscillator(), lg = ctx.createGain();
@@ -233,6 +241,11 @@ const MOTOR_HTML = `<!DOCTYPE html><html><head><meta charset="utf-8"></head><bod
         k.zaman = setInterval(function(){ notaCal(k.frek || 262, k.p, 0.12, 2.6); }, ara);
       }
       else if (tur === 'yercekimi') yercekimiBaslat(k);
+      else if (tur === 'fener') {
+        k.p.refDistance = 10; k.p.rolloffFactor = 0.8; k.p.maxDistance = 200;
+        setTimeout(function(){ if (kaynaklar[id] === k) fenerCal(k); }, Math.floor(Math.random() * 1200));
+        k.zaman = setInterval(function(){ fenerCal(k); }, 1600);
+      }
     }
     konumla(k.p, n);
   }
@@ -251,7 +264,7 @@ const MOTOR_HTML = `<!DOCTYPE html><html><head><meta charset="utf-8"></head><bod
   }
   function durdur(){
     for (var kid in kisiler) kisiSil(kid);
-    telsizSil(); basincSil();
+    telsizSil(); basincSil(); teraziSil(); vincSil(); motorSil();
     for (var id in kaynaklar){ var k = kaynaklar[id]; if (k.zaman) clearInterval(k.zaman); if (k.durdur) k.durdur(); try { k.p.disconnect(); } catch(e){} }
     kaynaklar = {};
     if (ctx) { try { ctx.close(); } catch(e){} ctx = null; }
@@ -467,6 +480,71 @@ const MOTOR_HTML = `<!DOCTYPE html><html><head><meta charset="utf-8"></head><bod
     terazi.a.frequency.setTargetAtTime(frek, t, 0.05);
     terazi.gg.gain.setTargetAtTime(pompa ? 0.22 : 0.05, t, 0.08);
   }
+  // --- Vinç (kulakta): parçanın yeri stereo dengesiyle; ortadayken düzenli tık ---
+  var vinc = null;
+  function vincSil(){
+    if (!vinc) return;
+    try { vinc.o.stop(); vinc.n.stop(); clearInterval(vinc.zaman); } catch(e){}
+    try { vinc.cikis.disconnect(); } catch(e){}
+    vinc = null;
+  }
+  function vincKur(){
+    baglam(); vincSil();
+    var pan = ctx.createStereoPanner ? ctx.createStereoPanner() : null;
+    var cikis = ctx.createGain(); cikis.gain.value = 0.0001;
+    if (pan) { cikis.connect(pan); pan.connect(yakin); } else cikis.connect(yakin);
+    var o = ctx.createOscillator(), og = ctx.createGain();
+    o.type = 'triangle'; o.frequency.value = 110; og.gain.value = 0.2; o.connect(og); og.connect(cikis);
+    // Zincir şıkırtısı: süzülmüş gürültü, yavaşça kabarıp iner
+    var n = ctx.createBufferSource(), f = ctx.createBiquadFilter(), ng = ctx.createGain();
+    n.buffer = gurultu(2); n.loop = true; f.type = 'bandpass'; f.frequency.value = 2400; f.Q.value = 3; ng.gain.value = 0.06;
+    n.connect(f); f.connect(ng); ng.connect(cikis);
+    o.start(); n.start();
+    cikis.gain.setTargetAtTime(1, ctx.currentTime, 0.2);
+    vinc = { o: o, n: n, cikis: cikis, pan: pan, ortada: false };
+    vinc.zaman = setInterval(function(){
+      if (!vinc || !vinc.ortada) return;
+      var t = ctx.currentTime, k = ctx.createOscillator(), kg = ctx.createGain();
+      k.type = 'square'; k.frequency.value = 1800; kg.gain.setValueAtTime(0.08, t); kg.gain.exponentialRampToValueAtTime(0.0001, t + 0.04);
+      k.connect(kg); kg.connect(yakin); k.start(t); k.stop(t + 0.05);
+    }, 400);
+  }
+  function vincAyar(x, yukseklik, ortada){
+    if (!vinc) return;
+    var t = ctx.currentTime;
+    if (vinc.pan) vinc.pan.pan.setTargetAtTime(Math.max(-1, Math.min(1, x)), t, 0.05);
+    vinc.o.frequency.setTargetAtTime(90 + yukseklik * 20, t, 0.1);
+    vinc.ortada = !!ortada;
+  }
+  // --- Gemi motoru (Kıvılcım: ince, yüksek devirli türbin vızıltısı; hızlandıkça tizleşen ıslık) ---
+  var motorS = null;
+  function motorSil(){
+    if (!motorS) return;
+    try { motorS.a.stop(); motorS.i.stop(); } catch(e){}
+    try { motorS.cikis.disconnect(); } catch(e){}
+    motorS = null;
+  }
+  function motorKur(){
+    baglam(); motorSil();
+    var cikis = ctx.createGain(); cikis.gain.value = 0.0001; cikis.connect(yakin);
+    var a = ctx.createOscillator(), af = ctx.createBiquadFilter(), ag = ctx.createGain();
+    a.type = 'sawtooth'; a.frequency.value = 180; af.type = 'bandpass'; af.frequency.value = 900; af.Q.value = 2; ag.gain.value = 0.12;
+    a.connect(af); af.connect(ag); ag.connect(cikis);
+    var i = ctx.createOscillator(), ig = ctx.createGain();
+    i.type = 'sine'; i.frequency.value = 1400; ig.gain.value = 0.0001; i.connect(ig); ig.connect(cikis);
+    a.start(); i.start();
+    cikis.gain.setTargetAtTime(1, ctx.currentTime, 0.3);
+    motorS = { a: a, af: af, ag: ag, i: i, ig: ig, cikis: cikis };
+  }
+  function motorAyar(hiz){
+    if (!motorS) return;
+    var t = ctx.currentTime, h = Math.max(0, Math.min(5, hiz));
+    motorS.a.frequency.setTargetAtTime(180 + h * 70, t, 0.4);
+    motorS.af.frequency.setTargetAtTime(900 + h * 350, t, 0.4);
+    motorS.ag.gain.setTargetAtTime(0.06 + h * 0.03, t, 0.4);
+    motorS.i.frequency.setTargetAtTime(1400 + h * 450, t, 0.4);
+    motorS.ig.gain.setTargetAtTime(h ? 0.01 + h * 0.012 : 0.0001, t, 0.4);
+  }
   window.motor = {
     komut: function(c){
       try {
@@ -511,6 +589,12 @@ const MOTOR_HTML = `<!DOCTYPE html><html><head><meta charset="utf-8"></head><bod
         else if (c.ad === 'teraziKur') teraziKur(c.ref);
         else if (c.ad === 'teraziAyar') teraziAyar(c.frek, c.pompa);
         else if (c.ad === 'teraziSil') teraziSil();
+        else if (c.ad === 'vincKur') vincKur();
+        else if (c.ad === 'vincAyar') vincAyar(c.x, c.yukseklik, c.ortada);
+        else if (c.ad === 'vincSil') vincSil();
+        else if (c.ad === 'motorKur') motorKur();
+        else if (c.ad === 'motorAyar') motorAyar(c.hiz);
+        else if (c.ad === 'motorSil') motorSil();
       } catch(e){ bildir({ tur: 'hata', metin: String(e) }); }
     }
   };
@@ -573,6 +657,12 @@ function KonumsalSes({ onMesaj }, ref) {
     teraziKur: (ref) => gonder({ ad: 'teraziKur', ref }),
     teraziAyar: (frek, pompa) => gonder({ ad: 'teraziAyar', frek, pompa: !!pompa }),
     teraziSil: () => gonder({ ad: 'teraziSil' }),
+    vincKur: () => gonder({ ad: 'vincKur' }),
+    vincAyar: (x, yukseklik, ortada) => gonder({ ad: 'vincAyar', x, yukseklik, ortada: !!ortada }),
+    vincSil: () => gonder({ ad: 'vincSil' }),
+    motorKur: () => gonder({ ad: 'motorKur' }),
+    motorAyar: (hiz) => gonder({ ad: 'motorAyar', hiz }),
+    motorSil: () => gonder({ ad: 'motorSil' }),
   }));
   return (
     <View style={stiller.gizli} pointerEvents="none" importantForAccessibility="no-hide-descendants" accessibilityElementsHidden>

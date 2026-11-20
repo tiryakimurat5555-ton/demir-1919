@@ -182,6 +182,7 @@ export const NOKTALAR = {
   ayak_2: { mekan: 'plato', x: 1155, y: 30, ad: 'Güneydoğu ayağı', yaricap: 2.4, ayak: true, tarif: 'Kızağın güneydoğu köşesindeki hidrolik ayak. Rüzgâr çelik gövdesinde uğulduyor.' },
   ayak_3: { mekan: 'plato', x: 1125, y: 55, ad: 'Kuzeybatı ayağı', yaricap: 2.4, ayak: true, tarif: 'Kızağın kuzeybatı köşesindeki hidrolik ayak; pistonu yarıya kadar dışarıda.' },
   ayak_4: { mekan: 'plato', x: 1155, y: 55, ad: 'Kuzeydoğu ayağı', yaricap: 2.4, ayak: true, tarif: 'Kızağın kuzeydoğu köşesindeki hidrolik ayak. Gövdesine dolu taneleri çarpıyor.' },
+  kizak: { mekan: 'plato', x: 1140, y: 49, ad: 'Tersane kızağı', yaricap: 3, tarif: 'Dört hidrolik ayağın taşıdığı uzun çelik kızak. Rayları enerjiyle uğulduyor.' },
   dagitim_kutusu: { mekan: 'plato', x: 1140, y: 42, ad: 'Dağıtım kutusu', yaricap: 2.2, engel: 0.8, tarif: 'Kızağın ortasında, rüzgâra karşı perçinlenmiş bir enerji dağıtım kutusu. Kapağı açık, yuvaları boş.' },
   bazalt_6: { mekan: 'plato', x: 1110, y: 15, ad: 'Bazalt yığını', yaricap: 2.2, kaynak: 'bazalt', stok: 6 },
   bazalt_7: { mekan: 'plato', x: 1170, y: 64, ad: 'Bazalt yığını', yaricap: 2.2, kaynak: 'bazalt', stok: 6 },

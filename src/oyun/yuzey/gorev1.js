@@ -6,7 +6,8 @@
 // Görev bayrakları (d.bayrak): kesiciAlindi, antenAlindi, hucreAlindi, jenerator, antenKuruldu,
 // telemetri, kule. Envanter: kesici, anten, guc_hucresi.
 import { NOKTALAR } from './harita';
-import { HAMMADDELER, TESISLER, eksikMetni, karsilanirMi, maliyetMetni } from '../veri/tesisler';
+import { HAMMADDELER, KOLONI_KADEMELERI, TESISLER, eksikMetni, karsilanirMi, maliyetMetni } from '../veri/tesisler';
+import { bosta, moralMetni, parcaMetni } from '../koloni';
 
 const b = (d) => d.bayrak;
 const var_ = (d, esya) => d.envanter.includes(esya);
@@ -157,6 +158,8 @@ export function noktaEylemleri(d, id) {
   } else if (id === 'terminal') {
     e.push({ id: 'durum', etiket: 'Koloni durumu' });
     e.push({ id: 'insa', etiket: 'İnşa' });
+    if (d.koloni.binalar.includes('dokumhane')) e.push({ id: 'uretim', etiket: 'Üretim', ipucu: 'Tesislerde gemi parçası ve modül üret.' });
+    e.push({ id: 'isgucu', etiket: 'Koloni yönetimi', ipucu: 'Nüfusu sanayi, tersane ve bilime paylaştır.' });
     e.push({ id: 'kaydet', etiket: 'Elle kaydet', ipucu: 'Üç kayıt yuvası.' });
   } else if (id === 'kapsul_dis') {
     e.push({ id: 'incele', etiket: 'Kapsülü incele' });
@@ -236,6 +239,10 @@ export function eylemUygula(d, id, eylemId) {
       return { metin: '', insa: true };
     case 'terminal.kaydet':
       return { metin: '', kaydet: true };
+    case 'terminal.uretim':
+      return { metin: '', uretim: true };
+    case 'terminal.isgucu':
+      return { metin: '', isgucu: true };
     case 'kapsul_dis.incele':
       return { metin: 'Kapsülün gövdesi iniş ısısından kararmış. Kuzey yüzünde hava kilidi; içeriden fanların sesi geliyor.' };
     default:
@@ -251,8 +258,10 @@ export function koloniMetni(d) {
     .map((x) => k.kaynaklar[x] + ' ' + HAMMADDELER[x].ad);
   const binalar = k.binalar.map((x) => TESISLER[x].kisa);
   return [
-    'Koloni kademesi ' + k.seviye + ': Düşmüş İskelet.',
-    'Nüfus ' + k.nufus.toplam + ', barınma ' + k.nufus.barinma + '. Moral yüzde ' + k.moral + '.',
+    'Koloni kademesi ' + k.seviye + ': ' + KOLONI_KADEMELERI[k.seviye].unvan + '.',
+    'Nüfus ' + k.nufus.toplam + ', barınma ' + k.nufus.barinma + '. Sanayide ' + (k.nufus.sanayi || 0) + ', tersanede ' + (k.nufus.tersane || 0) + ', bilimde ' + (k.nufus.bilim || 0) + ', boşta ' + bosta(d) + '.',
+    'Moral yüzde ' + k.moral + '. ' + moralMetni(d),
+    'Parçalar: ' + parcaMetni(d) + '.',
     'Hammadde: ' + (kaynak.length ? kaynak.join(', ') : 'yok') + '.',
     'Tesisler: ' + (binalar.length ? binalar.join(', ') : 'yok') + '.',
     'Galaktik itibar: ' + d.itibar + '.',

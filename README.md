@@ -6,7 +6,7 @@ tesis kurar, ileride gemini parça parça inşa edip uzaya açılırsın.
 
 Tasarım: Bahtiyar Cankurt (belgeler/). Yapım: Murat ve Bahtiyar. Expo Go ile iPhone ve Android'de çalışır.
 
-## Bu sürümde (0.4)
+## Bu sürümde (0.5)
 - Vadi-i Sukût'ta sesle serbest dolaşma; iniş kapsülünün içi ve dışı.
 - Radar: uzun basınca yankılar nesnelerin yönünden döner.
 - Birinci görev "Sinyal Arayışı": alet dolabı, kopan arka modül, yedek jeneratör, Gözcü Tepesi'nde anten
@@ -20,6 +20,11 @@ Tasarım: Bahtiyar Cankurt (belgeler/). Yapım: Murat ve Bahtiyar. Expo Go ile i
 - Dördüncü görev "Tersane Zemin Güçlendirmesi": Uğultulu Plato'da fırtına ve rüzgâr hamleleri (ıslığı duyunca
   dur), kükürt çatlaklarından polimer, kızağın dört hidrolik ayağını polimerle sertleştirip kulakla dengeleme
   (iki ton birleşince), dağıtım kutusuna enerji, Merkezi Montaj Tersanesi; koloni üçüncü kademeye çıkar.
+- Beşinci görev "Kıvılcım ve İlk Uçuş": tesislerde üretim (plaka, kablo, yakıt, iyon reaktörü, modüller), iş gücü
+  (sanayi, tersane, bilim), yataklar zamanla yenilenir, nüfus büyür, yaşam bloğu; platodaki kızakta vinçle montaj
+  (ses iki kulakta eşitlenince parça ortada), Kıvılcım'ın iki odası, mürettebat ataması, kalkış, uzayda fenerlerle
+  seyir, ziyaret noktalarında ön tarama, iniş ve koloninin moral nabzı.
+- Belgelerin hangi bölümünün yapıldığı: KAPSAM.md.
 - Mürettebattan telsiz çağrıları (çift dokun dinle, iki parmakla aşağı kaydır ertele).
 - Otomatik kayıt (uygulamadan çıkınca ya da telefon kilitlenince) ve kapsüldeki terminalden üç yuvaya elle kayıt.
 
@@ -30,6 +35,8 @@ Tasarım: Bahtiyar Cankurt (belgeler/). Yapım: Murat ve Bahtiyar. Expo Go ile i
 - Frekans ayarında: yukarı-aşağı sürükle ya da iki parmakla çevir.
 - Rezonansta: yukarı-aşağı kaydır nota seç, çift dokun çal, dokun diziyi yeniden dinle.
 - Ayak dengelemede: yukarı-aşağı sürükle; iki ton birleşince dur.
+- Vinçte: sağa-sola sürükle, aşağı kaydır, çift dokun kenetle.
+- Gemide: iki parmakla sağa-sola oda; dokun terminal. Uzayda: yukarı itki, aşağı fren, sağa-sola burun, basılı tut radar, çift dokun kenetlen.
 
 Oyun VoiceOver ve TalkBack kapalıyken, kendi Türkçe sesli rehberiyle oynanır. Kulaklıkla oynayın.
 

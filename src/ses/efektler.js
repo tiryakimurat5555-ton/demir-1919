@@ -29,6 +29,16 @@ const KAYNAKLAR = {
   hidrolik: require('../../assets/ses/hidrolik.wav'),
   kilit: require('../../assets/ses/kilit.wav'),
   polimer: require('../../assets/ses/polimer.wav'),
+  ortam_uzay: require('../../assets/ses/ortam_uzay.wav'),
+  ortam_kokpit: require('../../assets/ses/ortam_kokpit.wav'),
+  ortam_kargo: require('../../assets/ses/ortam_kargo.wav'),
+  kapi_gemi: require('../../assets/ses/kapi_gemi.wav'),
+  kalkis: require('../../assets/ses/kalkis.wav'),
+  kaynak: require('../../assets/ses/kaynak.wav'),
+  zincir: require('../../assets/ses/zincir.wav'),
+  arayuz: require('../../assets/ses/arayuz.wav'),
+  moral_yuksek: require('../../assets/ses/moral_yuksek.wav'),
+  moral_dusuk: require('../../assets/ses/moral_dusuk.wav'),
 };
 
 // Ortam döngülerinin kendi düzeyleri (konuşmanın altında kalsınlar diye düşük)
@@ -39,6 +49,9 @@ const DONGULER = {
   ortam_menu: 0.45,
   ortam_sirtlar: 0.6,
   ortam_plato: 0.6,
+  ortam_uzay: 0.55,
+  ortam_kokpit: 0.5,
+  ortam_kargo: 0.5,
 };
 
 const oynaticilar = {};

@@ -13,6 +13,8 @@ Demir 1919 oyunu silindi; geçmişi git kaydında (son sürüm 1.06, commit 556f
 - Diğer projeler (kayip-okyanus, TaslarPro, Deneme/Galaktik İmparatorluk) ayrıdır; onlara dokunma.
 - Test edilmemiş bir özelliği çalışıyor diye sunma; telefonda ancak Murat Expo Go'da denediğinde doğrulanır.
 - Bahtiyar Android/TalkBack ile test eder; Drive'ı (bahtiyar.oflu.61@gmail.com) bu sohbete bağlı.
+- Murat (20 Kasım): "Belgedeki hiçbir şeyi atlama." KAPSAM.md dokuz belgenin her bölümünü ve durumunu sayar;
+  her sürümde güncellenir. Bir bölüm orada yapıldı işaretlenmeden atlanmış sayılmaz.
 
 ## Tasarım kaynağı
 - belgeler/ içindeki 9 belge (Bahtiyar'ın). Okuma sırası ve yol haritası:
@@ -111,8 +113,39 @@ Demir 1919 oyunu silindi; geçmişi git kaydında (son sürüm 1.06, commit 556f
   - Sesler: ortam_plato ← "Wind Int Howl Güçlü Ton Vokal Rüzgarı.wav", konumsal/hamle ← "Hızlı Geçiş Rüzgarı 049.wav",
     hidrolik ← "Whoosh Hidrolik Bomba.wav", kilit ← "Çelik Kilit Kolu Kapanma Bırakma Gıcırtı Çınlama.wav",
     polimer ← "Bilim Kurgu Metal Kaynayan Metal Sızıntısı.wav" (ilk 4 sn). Hepsi Bahtiyar'ın Drive'ı, Efektler.
-- Sıradaki (yol haritası): Faz 3 Kıvılcım'ın parça parça montajı (tersane, 2 bölme) ve kalkış; Faz 2'nin kalanı
-  nüfus ve iş gücü; Faz 4 uzay haritası ve görevler; Faz 5 savaş.
+  0.5 ile: ortam_uzay ← "Uzay Aracı Pedi.wav", ortam_kokpit ← "Uzay İstasyonu Döngüsü.wav", ortam_kargo ← ortam_kapsul
+  + yankı (ffmpeg aecho), kapi_gemi ← "Elektrikli Yıldız Gemisi Kapısı 02.wav", kalkis ← "UZAY GEMİSİ Büyük Uzun
+  Gümbürtüyle Uçuyor.wav", kaynak ← "METLFric Çelik Kaynak Ve Taşlama Makinesi Endüstriyel JF SoS.wav" (4 sn),
+  zincir ← "Metal Zincir Çarpması 10.wav", arayuz ← "Uzay Gemisi Arayüzü.wav", moral_yuksek ← "WALLA Kalabalık Gülüyor
+  Ve Bağırıyor Interior Medium.wav" (×3), moral_dusuk ← "SmlAlarm Tek DDM Döngüsü.wav" + aynı kalabalık (pes, süzülmüş)
+  + "Büyük Cam Kırılması ve Parçalanması Çok Sayıda Parça.wav".
+- SÜRÜM 0.5 (20 Kasım, Murat: "Devam. Belgedeki hiçbir şeyi atlama"): Faz 3 çekirdeği + Faz 2 ekonomisi. Telefonda denenmedi.
+  - src/oyun/koloni.js koloniIlerle(d, dt): yataklar 120/(1+0,15×sanayi) sn'de bir birim yenilenir; sondaj sonrası
+    boru hattı 150 sn'de 1 izotop (tavan 20); üretim kuyruğu (tesis başına bir iş, süre/(1+0,25×sanayi)×moral);
+    tersane kaynak işi (×(1+0,5×tersane)); nüfus 300 sn'de +1 (barınma yetiyorsa; biyo-kubbe ×1,5, moral<50 ×0,3),
+    barınma aşılırsa moral düşer. İş gücü isGucuDegis (sanayi/tersane/bilim, boşta). Moral ≥75 üretim ×1,2, <30 ×0,8;
+    moralSesi (moral_yuksek ≥60, moral_dusuk <35) inişte çalar. gorevler.js zamanIlerle = koloniIlerle + görev kancası.
+  - veri/uretim.js: PARCALAR (plaka, kablo, itki_yakiti, iyon_reaktoru, mod_burun, mod_govde, mod_bolme_a) ve TARIFLER
+    (dökümhane: 50 plaka ← 2 ti + 1 bazalt; 20 kablo ← 1 kristal + 1 ti; zırh; reaktör lab: 10 L yakıt ← 1 izotop,
+    iyon reaktörü ← 2 izotop + 1 kristal + 1 ti; sinyal kulesi: kripto anten; biyo-kubbe: biyo-karantina).
+    tesisler.js: reaktor_lab (4 izotop, 3 ti, 2 kristal; kosul tersane), yasam_blogu (+10 barınma).
+  - gemi/gemi.js: KIVILCIM_MONTAJ (govde 150 plaka, kokpit 40 kablo, reaktor 1 iyon reaktörü: vinçle; itki 25 L: dolum),
+    vinç (x tohumdan ±0,5-0,9, rüzgâr kayması, hamle ±0,35; |x|<0,08'de indirilir, 3 basamak, çift dokun kenetle,
+    vincIptal parçaları geri verir), montajIlerle; gemiOlustur (Starship alanları), ODALAR (Kıvılcım: kokpit, kargo;
+    ortam_kokpit, ortam_kargo), SINIF_KATMANLARI, modulTak, yakitDoldur, gemiyeBin/gemidenIn/odaDegis/atamaYap,
+    telsizSubayiCarpani (kokpitte ses_hassas 1,6, başkası 1,25).
+  - uzay/seyir.js: UZAY_NOKTALARI aethelis (0,0; 196 Hz), sektor15 (640,860; 523 Hz; graviton reaktörü, kripto anten,
+    hisar topları; kademe 3), moloz_kusagi (-820,470; 784 Hz; çekici kiriş, biyo-karantina; kademe 3). Hız 0-5 kademe ×8
+    birim/sn, yakıt 0,04 L/sn/kademe, kenet 40 birim ve hız ≤1, pruva kilidi ±6°, sınır 1600, fener menzili 1300 ×
+    telsiz subayı. Ses düzlemi 20 birim = 1 m. onTarama raporu; eksikse kilit. Yakıt biterse sahne kurtarma.
+  - gorev5.js: gorev kivilcim → (gemi hazır) ilk_ucus → (bir noktayı tarayıp Aethelis'e kenetlenince) filo.
+    Sahneler kivilcim_hazir, kalkis, inis (moral metni), kurtarma. Platoda 'kizak' noktası (montaj, modül, yakıt, bin).
+  - Ses motoru: vincKur/vincAyar(x, yukseklik, ortada)/vincSil (StereoPanner + zincir şıkırtısı + ortadayken tık),
+    motorKur/motorAyar(hiz)/motorSil (türbin + ıslık), kaynak 'fener' (frek; geniş menzilli panner). Headless Chrome'da hatasız.
+  - Yuzey.js: Üretim ve Koloni yönetimi menüleri (terminal), montaj/modül menüleri (kızak), vinç katmanı, gemi katmanı
+    (odalar, oda terminali, harita ve ön tarama, mürettebat atama, kalkış, uzayda itki/burun/radar/kenetlenme),
+    koloni olayları telsiz çağrısı olarak ("Koloni bilgisayarı"). durum.js kaydiTamamla parcalar/uretimler ekler.
+- Sıradaki: KAPSAM.md "Sıradaki adımlar".
 
 ## Sesler
 - Drive'daki Efektler/Ambians dosyaları 14 MB; Drive bağlayıcısı 10 MB'tan büyük dosyayı indiremiyor. Bu yüzden

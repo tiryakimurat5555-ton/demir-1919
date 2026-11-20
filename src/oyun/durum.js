@@ -33,6 +33,8 @@ export function yeniOyun(tohum = Date.now() % 2147483647) {
       binalar: [],
       nufus: { toplam: 4, barinma: 6, sanayi: 0, tersane: 0, bilim: 0 },
       kaynaklar,
+      parcalar: {}, // üretilmiş gemi parçaları ve modüller (veri/uretim.js)
+      uretimler: [], // tesislerde süren işler
       moral: 55,
     },
     gemi: null,
@@ -56,6 +58,8 @@ export function kaydiTamamla(d) {
   if (!d.stok) d.stok = {};
   for (const id of Object.keys(NOKTALAR)) if (NOKTALAR[id].kaynak && d.stok[id] == null) d.stok[id] = NOKTALAR[id].stok;
   for (const k of HAMMADDE_SIRASI) if (d.koloni && d.koloni.kaynaklar[k] == null) d.koloni.kaynaklar[k] = 0;
+  if (d.koloni && !d.koloni.parcalar) d.koloni.parcalar = {};
+  if (d.koloni && !d.koloni.uretimler) d.koloni.uretimler = [];
   return d;
 }
 

@@ -263,7 +263,11 @@ export function firtinaIlerle(d, dt, hareketli, olaylar) {
     f.evre = 'hamle';
     f.bitis = t + HAMLE_SURE;
     const kaynak = { x: d.oyuncu.x + Math.sin(f.yon) * 3, y: d.oyuncu.y + Math.cos(f.yon) * 3 };
-    if (d.terazi) {
+    if (d.vinc && !d.vinc.oturdu) {
+      // Hamle vinçteki parçayı savurur
+      d.vinc.x = Math.max(-1, Math.min(1, d.vinc.x + (karisim(d.tohum || 1, f.sayac + 70) < 0.5 ? -0.35 : 0.35)));
+      olaylar.push({ tur: 'hamle', kaynak, savruldu: false, sarsti: true, metin: 'Hamle vinçteki parçayı savurdu!' });
+    } else if (d.terazi) {
       // Hamle kızağı sarsar: ayak dengeden kayar (yön tohumdan)
       d.terazi.sapma = Math.max(-1, Math.min(1, d.terazi.sapma + (karisim(d.tohum || 1, f.sayac + 50) < 0.5 ? -0.3 : 0.3)));
       d.terazi.kilit = 0;
@@ -366,7 +370,7 @@ export function yerlerListesi(d) {
   for (const id of Object.keys(NOKTALAR)) {
     const n = NOKTALAR[id];
     if (n.kaynak && (d.stok[id] || 0) <= 0) continue;
-    const bilinen = d.kesif.includes(id) || n.mekan === 'kapsul' || id === 'kapsul_dis' || id === 'jenerator' || (id === 'tepe' && d.bayrak.jenerator) || (id === 'enkaz' && d.bayrak.kesiciAlindi) || (n.baca && d.bayrak.sondaAlindi) || ((n.ayak || id === 'dagitim_kutusu') && d.bayrak.zeminHazir);
+    const bilinen = d.kesif.includes(id) || n.mekan === 'kapsul' || id === 'kapsul_dis' || id === 'jenerator' || (id === 'tepe' && d.bayrak.jenerator) || (id === 'enkaz' && d.bayrak.kesiciAlindi) || (n.baca && d.bayrak.sondaAlindi) || ((n.ayak || id === 'dagitim_kutusu') && d.bayrak.zeminHazir) || (id === 'kizak' && d.bayrak.zemin);
     if (bilinen) ekle('nokta', id, n.ad, n.mekan, n.x, n.y);
   }
   for (const id of Object.keys(KISILER)) {

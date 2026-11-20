@@ -41,9 +41,19 @@ export const TESISLER = {
     islev: 'Jeotermal gazları plazma yakıt hücrelerine dönüştürür.',
     katki: 'Ana Enerji Çekirdeği ve İtki Motorları.',
     acar: 'Derin uzay sıçramaları için menzil ve güç.',
-    maliyet: { izotop: 6, titanyum: 4, kristal: 2 },
-    kosul: () => false,
-    kosulMetni: 'Manyetik sırtlardan ağır izotop getirilmeli.',
+    maliyet: { izotop: 4, titanyum: 3, kristal: 2 },
+    kosul: (d) => !!d.bayrak.tersane,
+    kosulMetni: 'Önce tersane kurulmalı; laboratuvar geminin yakıtını ve reaktörünü yapar.',
+  },
+  yasam_blogu: {
+    ad: 'Basınçlı Yaşam Bloğu',
+    kisa: 'Yaşam Bloğu',
+    islev: 'Öncüler ve yeni gelenler için basınçlı, ısıtmalı konutlar.',
+    katki: 'Gemiye katkısı yok; koloninin taşıyabileceği nüfusu artırır.',
+    acar: 'Barınma kapasitesi on kişi artar; nüfus büyüyebilir.',
+    maliyet: { bazalt: 8, titanyum: 2, polimer: 1 },
+    kosul: (d) => !!d.bayrak.dokumhane,
+    kosulMetni: 'Önce dökümhane kurulmalı.',
   },
   biyo_kubbe: {
     ad: 'Kseno-Biyoloji Araştırma Kubbesi',
@@ -67,7 +77,7 @@ export const TESISLER = {
   },
 };
 
-export const TESIS_SIRASI = ['sinyal_kulesi', 'dokumhane', 'reaktor_lab', 'biyo_kubbe', 'tersane'];
+export const TESIS_SIRASI = ['sinyal_kulesi', 'dokumhane', 'yasam_blogu', 'reaktor_lab', 'biyo_kubbe', 'tersane'];
 
 // Koloni kademeleri (gezegen-gelisimi-ve-yerel-gorevler-v2.md bölüm 9)
 export const KOLONI_KADEMELERI = [

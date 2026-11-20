@@ -32,7 +32,18 @@ import {
   teraziMetni,
   teraziPompa,
   AYAKLAR,
+  zamanIlerle,
+  uzayAdim,
+  kenetlen,
+  kalkis,
+  itki,
+  burunDondur,
+  UZAY_NOKTALARI,
+  uzayRadar,
 } from '../src/oyun/yuzey/gorevler';
+import { uretimBaslat, isGucuDegis, bosta, miktar } from '../src/oyun/koloni';
+import { montajBaslat, vincKaydir, vincIndir, vincKenetle, atamaYap, odaDegis, gemidenIn, modulListesi } from '../src/oyun/gemi/gemi';
+import { goreliAci } from '../src/oyun/konum';
 import { TESISLER } from '../src/oyun/veri/tesisler';
 
 // Bir yere kendiliğinden yürür (en çok 120 benzetim saniyesi)
@@ -465,7 +476,175 @@ function dorduncuGorev(d) {
   expect(d.gorev.id).toBe('kivilcim');
   expect(gorevIpucu(d)).toContain('Kıvılcım');
   expect(gecerliMi(JSON.parse(JSON.stringify(d)))).toBe(true);
+  besinciGorev(d);
 }
+
+// Zaman geçirir (koloni: yenilenme, boru hattı, üretim, kaynak)
+function bekle(d, sn) {
+  const o = [];
+  for (let i = 0; i < sn; i++) o.push(...zamanIlerle(d, 1));
+  return o;
+}
+// Hammaddeyi edinir: yataklardan toplar, yetmezse yenilenmeyi bekler
+function edin(d, ihtiyac) {
+  for (let tur = 0; tur < 30; tur++) {
+    const eksik = Object.keys(ihtiyac).filter((k) => miktar(d, k) < ihtiyac[k]);
+    if (!eksik.length) return;
+    const tam = {};
+    for (const k of eksik) tam[k] = ihtiyac[k];
+    for (const id of Object.keys(NOKTALAR).filter((x) => NOKTALAR[x].kaynak)) {
+      const t = NOKTALAR[id].kaynak;
+      if (!tam[t] || miktar(d, t) >= tam[t] || (d.stok[id] || 0) <= 0) continue;
+      if (!d.kesif.includes(id)) d.kesif.push(id);
+      yuru(d, id);
+      d.zehir = 0;
+      while ((d.stok[id] || 0) > 0 && miktar(d, t) < tam[t]) eylemUygula(d, id, 'topla');
+    }
+    if (Object.keys(ihtiyac).some((k) => miktar(d, k) < ihtiyac[k])) bekle(d, 150);
+  }
+  for (const k of Object.keys(ihtiyac)) expect(miktar(d, k)).toBeGreaterThanOrEqual(ihtiyac[k]);
+}
+function uret(d, tesis, tarif, girdi, kez) {
+  for (let i = 0; i < kez; i++) {
+    edin(d, girdi);
+    const r = uretimBaslat(d, tesis, tarif);
+    expect(r.ses).toBe('dugme');
+    let n = 0;
+    while (d.koloni.uretimler.some((u) => u.tesis === tesis) && n++ < 400) bekle(d, 1);
+    expect(d.koloni.uretimler.some((u) => u.tesis === tesis)).toBe(false);
+  }
+}
+// Uzayda bir noktaya uçar: burnu döndürür, hızlanır, yaklaşınca durur
+function uc(d, id) {
+  const n = UZAY_NOKTALARI[id];
+  const o = [];
+  for (let adim = 0; adim < 4000 && d.uzay; adim++) {
+    const u = d.uzay;
+    const m = Math.hypot(n.x - u.x, n.y - u.y);
+    if (m < 25) {
+      while (d.uzay.hiz > 0) itki(d, -1);
+      return o;
+    }
+    let a = goreliAci({ x: u.x, y: u.y, yon: u.yon }, n);
+    if (a > Math.PI) a -= Math.PI * 2;
+    if (Math.abs(a) > Math.PI / 12) burunDondur(d, Math.sign(a) * (Math.PI / 12));
+    const istenen = m > 150 ? 5 : m > 60 ? 2 : 1;
+    if (u.hiz < istenen) itki(d, 1);
+    else if (u.hiz > istenen) itki(d, -1);
+    o.push(...uzayAdim(d, 0.1));
+  }
+  return o;
+}
+
+// Kıvılcım ve ilk uçuş: reaktör laboratuvarı, üretim, dört aşamalı montaj, gemi içi, kalkış, uzay, iniş
+function besinciGorev(d) {
+  expect(gorevIpucu(d)).toContain('Laboratuvar');
+  expect(konusma(d, 'muhendis').metin).toContain('Kıvılcım');
+  // İş gücü: tersaneye ve sanayiye
+  if (bosta(d) > 0) isGucuDegis(d, 'sanayi', 1);
+  expect(isGucuDegis(d, 'bilim', -5).olmadi).toBe(true);
+  expect(d.koloni.nufus.bilim).toBeGreaterThanOrEqual(0);
+  // Reaktör laboratuvarı
+  edin(d, TESISLER.reaktor_lab.maliyet);
+  yuru(d, 'terminal');
+  expect(noktaEylemleri(d, 'terminal').some((e) => e.id === 'uretim')).toBe(true);
+  insaEt(d, 'reaktor_lab');
+  expect(d.koloni.binalar).toContain('reaktor_lab');
+  // Üretim
+  uret(d, 'dokumhane', 'plaka', { titanyum: 2, bazalt: 1 }, 3);
+  uret(d, 'dokumhane', 'kablo', { kristal: 1, titanyum: 1 }, 2);
+  uret(d, 'reaktor_lab', 'iyon', { izotop: 2, kristal: 1, titanyum: 1 }, 1);
+  uret(d, 'reaktor_lab', 'yakit', { izotop: 1 }, 3);
+  expect(d.koloni.parcalar.plaka).toBe(150);
+  expect(d.koloni.parcalar.kablo).toBe(40);
+  expect(d.koloni.parcalar.itki_yakiti).toBe(30);
+  // Montaj (kızak)
+  yuru(d, 'kizak');
+  expect(d.mekan).toBe('plato');
+  expect(montajBaslat(d, 'kokpit').ses).toBe('red'); // sıra
+  for (const asama of ['govde', 'kokpit', 'reaktor']) {
+    expect(montajBaslat(d, asama).vinc).toBe(true);
+    expect(Math.abs(d.vinc.x)).toBeGreaterThan(0.4);
+    // Ortalanmadan indirirsen çarpar
+    expect(vincIndir(d).sonuc).toBe('carpti');
+    for (let i = 0; i < 3; i++) {
+      vincKaydir(d, -d.vinc.x);
+      vincIndir(d);
+    }
+    expect(d.vinc.oturdu).toBe(true);
+    expect(vincKenetle(d).sonuc).toBe('kenetlendi');
+    let n = 0;
+    while (d.tersane.kaynak && n++ < 200) bekle(d, 1);
+    expect(d.tersane.asamalar[asama]).toBe('bitti');
+  }
+  montajBaslat(d, 'itki');
+  let hazir = [];
+  for (let i = 0; i < 60 && !d.gemi; i++) hazir.push(...bekle(d, 1));
+  expect(d.gemi.ad).toBe('Kıvılcım');
+  expect(d.sahne).toBe('kivilcim_hazir');
+  sahneleriGec(d);
+  expect(d.gorev.id).toBe('ilk_ucus');
+  expect(modulListesi(d).find((m) => m.id === 'mod_bolme_a').takilabilir).toBe(false);
+  // Gemi içi
+  const r = eylemUygula(d, 'kizak', 'bin');
+  expect(r.gemi).toBe(true);
+  expect(d.gemide.oda).toBe(0);
+  atamaYap(d, 'kokpit', d.murettebat[1].id);
+  expect(odaDegis(d, 1).oda.id).toBe('kargo');
+  expect(odaDegis(d, 1).sinir).toBe(true);
+  odaDegis(d, -1);
+  // Kalkış
+  kalkis(d);
+  expect(d.sahne).toBe('kalkis');
+  sahneleriGec(d);
+  expect(d.gemi.yer).toBe('uzay');
+  expect(gemidenIn(d).ses).toBe('red');
+  expect(uzayRadar(d).metin).toContain('Aethelis');
+  // Moloz Kuşağı: ön tarama, kilitli
+  const o = uc(d, 'moloz_kusagi');
+  expect(o.some((x) => x.tur === 'pruvaKilit')).toBe(true);
+  expect(o.some((x) => x.tur === 'yaklasti')).toBe(true);
+  const t = kenetlen(d);
+  expect(t.kilitli).toBe(true);
+  expect(t.metin).toContain('Zorunlu donanım');
+  // Eve dönüş ve iniş
+  uc(d, 'aethelis');
+  const i = kenetlen(d);
+  expect(i.inis).toBe(true);
+  expect(d.sahne).toBe('inis');
+  sahneleriGec(d);
+  expect(d.gemi.yer).toBe('kizak');
+  expect(d.gorev.id).toBe('filo');
+  expect(d.bitenGorevler).toEqual(['sinyal', 'jeotermal', 'kazi', 'zemin', 'kivilcim']);
+  expect(d.gemi.yakit).toBeGreaterThan(5);
+  gemidenIn(d);
+  expect(d.gemide).toBe(null);
+  // Yakıt biterse kurtarılır
+  kalkis(d);
+  sahneleriGec(d);
+  d.gemi.yakit = 0.05;
+  itki(d, 1);
+  for (let k = 0; k < 50 && d.uzay; k++) uzayAdim(d, 0.1);
+  expect(d.sahne).toBe('kurtarma');
+  expect(d.gemi.yer).toBe('kizak');
+  expect(gecerliMi(JSON.parse(JSON.stringify(d)))).toBe(true);
+}
+
+describe('koloni', () => {
+  test('yataklar yenilenir, nüfus büyür, iş gücü paylaşılır', () => {
+    const d = yeniOyun(9);
+    d.stok.bazalt_1 = 0;
+    for (let i = 0; i < 121; i++) zamanIlerle(d, 1);
+    expect(d.stok.bazalt_1).toBe(1);
+    expect(bosta(d)).toBe(4);
+    expect(isGucuDegis(d, 'sanayi', 1).metin).toContain('1 kişi');
+    expect(bosta(d)).toBe(3);
+    const o = [];
+    for (let i = 0; i < 400; i++) o.push(...zamanIlerle(d, 1));
+    expect(o.some((x) => x.tur === 'nufus')).toBe(true);
+    expect(d.koloni.nufus.toplam).toBe(5);
+  });
+});
 
 describe('kayıt', () => {
   test('eski kayda sonradan eklenen yatakların stoku eklenir', () => {
