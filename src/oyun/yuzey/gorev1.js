@@ -189,7 +189,15 @@ export function eylemUygula(d, id, eylemId) {
     d.stok[id] -= 1;
     // Fosil kabuk delici uç: derin damarda çift verim
     d.koloni.kaynaklar[tur] = (d.koloni.kaynaklar[tur] || 0) + (n.gerekArac && b(d).deliciUc ? 2 : 1);
-    const metin = (KAYNAK_METNI[tur] || [])[sira] || 'Bir parça daha.';
+    // Klipsomanyak (toplayıcı) mürettebat: her dördüncü toplamada beklenmedik fazladan bir parça
+    let ek = '';
+    const toplayici = d.murettebat.find((u) => u.nitelik === 'toplayici');
+    d.toplamaSayac = (d.toplamaSayac || 0) + 1;
+    if (toplayici && d.toplamaSayac % 4 === 0) {
+      d.koloni.kaynaklar[tur] += 1;
+      ek = ' ' + toplayici.ad.split(' ')[0] + ' yanındaki kayanın altından bir parça daha çıkardı.';
+    }
+    const metin = ((KAYNAK_METNI[tur] || [])[sira] || 'Bir parça daha.') + ek;
     return { metin: metin + (n.gerekArac ? ' Matkap derinden gümbürdüyor.' : '') + ' ' + HAMMADDELER[tur].ad[0].toUpperCase() + HAMMADDELER[tur].ad.slice(1) + ': ' + d.koloni.kaynaklar[tur] + '.', ses: tur === 'kristal' ? 'kristal' : 'topla' };
   }
   switch (id + '.' + eylemId) {

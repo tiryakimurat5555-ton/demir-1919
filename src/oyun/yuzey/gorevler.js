@@ -17,6 +17,8 @@ import * as T from '../terraform';
 import * as M from './mini';
 import * as O from '../uzay/operasyon';
 import * as F from '../uzay/fenomen';
+import * as SV from '../uzay/savas';
+import * as SF from '../uzay/sefer';
 import { HAMMADDELER } from '../veri/tesisler';
 import { FENOMENLER } from '../veri/gozlem';
 import { PARCALAR } from '../veri/uretim';
@@ -30,7 +32,7 @@ export const { NOTALAR, kapiDizisi, rezonansBaslat, rezonansSecimDegis, rezonans
 
 export const { AYAKLAR, ayakSayisi, ayakFrek, teraziBaslat, teraziPompa, teraziIlerle, teraziMetni, DENGE_ESIGI } = G4;
 
-export const SAHNELER = { ...G1.SAHNELER, ...G2.SAHNELER, ...G3.SAHNELER, ...G4.SAHNELER, ...G5.SAHNELER, ...G6.SAHNELER, ...B.SAHNELER, ...K.SAHNELER, ...A.SAHNELER, ...M.SAHNELER, ...O.SAHNELER };
+export const SAHNELER = { ...G1.SAHNELER, ...G2.SAHNELER, ...G3.SAHNELER, ...G4.SAHNELER, ...G5.SAHNELER, ...G6.SAHNELER, ...B.SAHNELER, ...K.SAHNELER, ...A.SAHNELER, ...M.SAHNELER, ...O.SAHNELER, ...SV.SAHNELER, ...SF.SAHNELER };
 
 // Telsiz bildirimleri (belgeler/savas-yetenek-ve-murettebat-mekanikleri.md 4.3): koşulu sağlanınca bir kez kuyruğa
 // girer. gorev alanı varsa yalnız o görev sürerken.
@@ -216,8 +218,10 @@ export function zamanIlerle(d, dt) {
 // --- Uzay: kalkış, ilerleme, kenetlenme (görev kancalarıyla) ---
 export const { UZAY_NOKTALARI, gorunurNoktalar, itki, burunDondur, uzayRadar, uzayDurumu, onTarama, kalkis, kalkisOlur, sesYeri, enYakin, fenerMenzili, HIZ_EN_COK } = S;
 export function uzayAdim(d, dt) {
+  if (d.savas) return [];
   const olaylar = S.uzayIlerle(d, dt);
   olaylar.push(...F.fenomenIlerle(d, dt));
+  olaylar.push(...SF.seferIlerle(d, dt));
   if (olaylar.some((o) => o.tur === 'yakitBitti')) {
     // Yakıt bitti: koloni bir yakıt kapsülü yollar, gemi kızağa döner
     d.gemi.yer = 'kizak';
@@ -243,4 +247,6 @@ export function kenetlen(d) {
   return r;
 }
 export const { salonListesi, itibarKademesi } = F;
+export const { savasBaslat, savasGirdi, savasIlerle, savasSes } = SV;
+export const savasDurumu = SV.durumMetni;
 export const { opGirdi, opIlerle, opSes, opDurum, opBaslat, opTamamMi } = O;

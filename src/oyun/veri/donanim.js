@@ -42,6 +42,9 @@ Object.assign(DONANIMLAR, G_DONANIMLARI);
 // Gözlem gereçleri, otomasyon ve gezegen iniş araçları (veri/gozlem.js)
 import { GOZLEM_DONANIMLARI, INIS_ARACLARI } from './gozlem';
 Object.assign(DONANIMLAR, GOZLEM_DONANIMLARI, INIS_ARACLARI);
+// Gemi modifikasyon ağacı K1-K5 (veri/yetenek.js)
+import { GEMI_MODLARI } from './yetenek';
+Object.assign(DONANIMLAR, GEMI_MODLARI);
 
 // Entegrasyon matrisi (bölüm 6): yüzey işi → tesis → üretilen birim → açılan uzay noktası
 export const MATRIS = [

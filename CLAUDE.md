@@ -255,6 +255,18 @@ Demir 1919 oyunu silindi; geçmişi git kaydında (son sürüm 1.06, commit 556f
     f_yakit/f_saat/p_yakit/p_tasarruf 0,9, p_takyon kalkış yakıtı 0. koloni.js: f_fuzyon/f_fotosentez üretim ×1,1, p_tarim nüfus ×1,3.
   - Yuzey: fenomen konumlu feneri (fener_fenomen_<id>), keşif zili; menüde "Evren Kütüphanesi" (salonlar, panoda ses imzası:
     kaydın frek'inden altı notalı arpej).
+- SÜRÜM 1.3 (21 Kasım): Faz 5 savaş, yetenekler, mürettebat, sefer olayları. Telefonda denenmedi.
+  - uzay/savas.js: DUSMANLAR (korsan_korvet, korsan_avci, yabanci_firkateyn), SILAHLAR (plazma/torpido/iyon: uyarı sn, hasar),
+    d.savas {tur, dusman {govde, kalkan, kalkanFrek, aci}, silahFrek, delik, uyari {silah, kalan, yon, savunma}, sistem
+    {itici, kalkan, reaktor}, isi, raunt, torpidoBekle}; savasGirdi/savasIlerle/savasSes/durumMetni; gorevli(d, gorevYeri);
+    bitir → d.savasSon + sahne savas_son (zafer: ganimet; yenilgi: kızak, moral −5). tonFrek(x) = 200 + 8x Hz.
+  - veri/yetenek.js: YETENEKLER A1-D3 (bedel sıra×100; d.kaptan.yetenekler, harcanan), GEMI_MODLARI k1-k5 (donanim.js'e).
+  - uzay/sefer.js: seferIlerle (HABER_SN 90 / 0,3; KORSAN_SN 45 / 0,12, iki operasyondan sonra; klostrofobi 240 sn;
+    olaySavas), sahneler sefer_olay/sefer_sonuc; uzay.hizSiniri. gorevler.js uzayAdim: savaşta durur, seferIlerle.
+  - koloni.js: subayIstihdam (boşta 1 kolonist → uyeUret), FIRTINA_SN 600 (kalkan < 2 ve nüfus ≥ 8: moral −5), BESIN_SN 240
+    (nüfus > 20 ve sera yok: −2). gorev1 topla: klipsomanyak (nitelik toplayici) her 4. toplamada +1.
+  - Yuzey: savaş katmanı (savasJest, dokunmaBekle false; düşman 'fener' kaynağı savas_dusman; uyarı sesleri nota/hidrolik/
+    hamle; kilit tonu 1760 Hz), kokpit ve koloni yönetiminde Kaptan yetenekleri, koloni yönetiminde Subay istihdam et.
 - Sıradaki: KAPSAM.md "Sıradaki adımlar".
 
 ## Sesler

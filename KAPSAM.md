@@ -22,7 +22,7 @@ bütün bölümlerini sırayla sayar. Her sürümde güncellenir; bir bölüm bu
       CrewMember [~] (atanan oda var; verimlilik/stres alanları var ama işlemiyor), SpaceMission [x] (1.1, d.op), CombatSession [ ],
       ExoPlanet [x] (1.2, gezegen operasyonları), CodexEntry [x] (salon, ses imzası tonu).
 - [x] 6 Master prompt ilkeleri (görselsiz, Türkçe, ses ve hareket).
-- [~] 7 Yol haritası: Faz 1 [x], Faz 2 [x], Faz 3 [~], Faz 4 [x], Faz 5 [ ]. Ayrıntı aşağıda.
+- [~] 7 Yol haritası: Faz 1 [x], Faz 2 [x], Faz 3 [~], Faz 4 [x], Faz 5 [~]. Ayrıntı aşağıda.
 
 ## 2. uzay-oyunu-tasarim-ve-senaryo.md
 - [~] 1 Gezegenin dört sektörü: Vadi-i Sukût [x], Manyetik Sırtlar [x], Kadim Krater ve harabeler [x],
@@ -123,20 +123,30 @@ bütün bölümlerini sırayla sayar. Her sürümde güncellenir; bir bölüm bu
       mürettebatla konuşma. Bütün sınıfların odaları tanımlı.
 
 ## 5. savas-yetenek-ve-murettebat-mekanikleri.md
-- [ ] 1 Reaktif akustik savaş modu (1.1 konumlandırma, 1.2 tur yapısı) — Faz 5.
-- [ ] 2 Savaş içi hareket kütüphanesi — Faz 5.
-- [ ] 3.1 Kaptan yetenek ağacı (4 dal) · [ ] 3.2 Gemi modifikasyon ağacı. Tecrübe puanı birikiyor, harcanmıyor.
-- [~] 4.1 Prosedürel personel: ad, uzmanlık, nitelik [x]; klipsomanyak ve klostrofobik etkileri [ ].
-- [~] 4.2 Görev yerleri: Kıvılcım'da kokpit (telsiz subayı: fenerleri uzaktan duyar) ve kargo (ikmal) [x];
-      başçarkçı, topçu, başhekim büyük gemilerde [ ].
-- [~] 4.3 Telsiz bildirimleri: üç tonlu zil, çift dokun dinle, ertele, kayıtlar [x]; seferde rastgele olaylar ve
-      karar isteyen krizler [ ].
-- [x] 5.1 Nüfus ve iş gücü: barınma, doğal artış, yaşam bloğu, üç sektöre atama ve etkileri (0.5); mülteci ve
-      kazazede göçü uzay görevleriyle (1.1: Aethel-9, Orion-Omega, Ayna Koridoru, Viridion, hastane gemisi).
-- [~] 5.2 Moral nabzı: inişte koloninin uğultusu (canlı ya da huzursuz) ve üretime etkisi [x]; moralin düşme
-      nedenleri ve yerel krizlerle onarım [ ].
-- [~] 6 Dokunsal ve sesli arayüz matrisi: yüzey, menüler, mini oyunlar, gemi, seyir [x]; savaş [ ].
-- [ ] 7 Sistem entegrasyonu ve oyun çevrimi (savaş ve yeteneklerle).
+- [x] 1 Reaktif akustik savaş modu (1.3, uzay/savas.js): savaş duruşunda dolaşım durur, düşmanın motoru konumlu;
+      pruva kilidi tonu; tur yapısı (oyuncu hamlesi → etki → düşmanın 1,5-3 sn uyarı sesi: plazma şarjı, torpido
+      kükremesi, iyon ıslığı → reaktif savunma penceresi → değerlendirme); hasarlı sistemler savunmayı kısıtlar
+      (iticiler: kaçınma yok, kalkan ısınması, reaktör kilidi: tepkisiz darbe). Korsan karşılaşmaları seferde.
+- [x] 2 Hareket kütüphanesi (1.3): dokun birincil ateş, yukarı kaydır torpido (kilit ve şarj), kalkan (iki parmakla
+      basılı tutma yerine iki parmakla dokunma), sesin ters yönüne kaydır kaçınma, iki parmakla çevir kalkan frekans
+      modülasyonu (eşleşince kalkan delinir), uyarıda çift dokun karşı ateş.
+- [x] 3.1 Kaptan yetenek ağacı (1.3, veri/yetenek.js): dört dal, on iki yetenek, sefer tecrübesiyle sırayla; hepsi
+      oyuna işler (kilit açısı, kritik vuruş, uzun pencere, salvo, bastırma, nara, basınç disiplini, aşırı yükleme,
+      hurda yama, chaff, dil sezgisi, ateşkes). Menü: kokpit terminali ve koloni yönetimi.
+- [x] 3.2 Gemi modifikasyon ağacı (1.3): K1-K5 belgedeki tesislerde üretilip takılır (dökümhane, itki hangarı,
+      reaktör lab, biyo-kubbe/kseno lab, komuta merkezi) ve savaşa işler.
+- [x] 4.1 Prosedürel personel (1.3): ad, uzmanlık, nitelik; soğukkanlı (savaşta tamir), klipsomanyak (her dördüncü
+      toplamada fazladan parça), ses hassasiyeti (düşman silahını önceden söyler), klostrofobik (uzun seferde kriz).
+      Tersanede subay istihdamı (boştaki kolonist mürettebata katılır, en çok 12).
+- [x] 4.2 Görev yerleri (1.3): Başçarkçı (arızaları hızlı onarır), Telsiz Subayı (fenerleri uzaktan duyar, düşman
+      kilitlenmesini önceden söyler), Taktik Nişancı (birincil hasar ×1,3), Başhekim ve İkmal Subayı (sefer olaylarında).
+- [x] 4.3 Telsiz bildirimleri ve seferde rastgele karar olayları (1.3, uzay/sefer.js): ikmal mekiği, mekanik arıza
+      (hız sınırı ya da yedek parça), ortak alaşım, korsan karartması (rota değiştir ya da çatış), klostrofobi.
+- [x] 5.1 Nüfus ve iş gücü (0.5, 1.1 mülteciler).
+- [x] 5.2 Moral nabzı (0.5) ve düşme nedenleri (1.3): radyasyon fırtınası (kalkan jeneratörü yoksa), yetersiz besin
+      (yirmiden fazla nüfus ve sera yok), seferde kaybedilen çatışmanın yası; yerel krizler (1.0) morali onarır.
+- [x] 6 Dokunsal ve sesli arayüz matrisi (1.3 savaş dahil). Mürettebat listesi menüde, atama oda seçerek.
+- [x] 7 Sistem entegrasyonu (1.3): gezegen → kalkış (yetenek ve mürettebat) → uzay (savaş) → kriz (telsiz) → dönüş.
 
 ## 6. derin-uzay-gorevleri.md (Cilt I)
 - [x] 1 Seyrüsefer hareketleri: yukarı itki, aşağı fren, sağa-sola pruva ve stereo kilit, basılı tut radar, çift
@@ -187,4 +197,5 @@ bütün bölümlerini sırayla sayar. Her sürümde güncellenir; bir bölüm bu
       keşif zili; zaman sınırı yok; keşfedildi mührü, yeniden rastlanınca dinlenir.
 
 ## Sıradaki adımlar (sırayla)
-1. Faz 5: savaş modu, yetenek ağaçları, ElevenLabs sesleri, cila.
+1. Faz 5 kalanı: ElevenLabs kısa efektleri ve telsiz sesleri (bu ortam indiremiyor; iş akışı hazır), sesleri
+   dengeleme ve erişilebilirlik testleri (telefonda Murat ve Bahtiyar).

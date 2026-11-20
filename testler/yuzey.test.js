@@ -18,6 +18,7 @@ import {
   konusma,
   noktaEylemleri,
   sahneSec,
+  sahneMetni,
   sahneSecenekleri,
   valfBaslat,
   valfBirak,
@@ -1483,5 +1484,117 @@ describe('Fenomenler, gezegenler ve Evren Kütüphanesi', () => {
     expect(poiGuncelle(d)).toContain('p01');
     expect(eksikDonanim(d, 'p01').eksik.map((x) => x.katman)).toEqual(['spektrometre', 'termal_rover']);
     expect(TARIFLER.arac_hangari.some((t) => t.cikti.mod_termal_rover)).toBe(true);
+  });
+});
+
+describe('Savaş, yetenekler, mürettebat ve sefer olayları', () => {
+  async function yukle() {
+    const SV = await import('../src/oyun/uzay/savas');
+    const G = await import('../src/oyun/gemi/gemi');
+    const Y = await import('../src/oyun/veri/yetenek');
+    return { SV, G, Y };
+  }
+  // Kulakla savaşır: kilitlen, ateş et, uyarıda doğru savun
+  function savas(SV, d, savunma) {
+    for (let i = 0; i < 20000 && d.savas; i++) {
+      const s = d.savas;
+      if (s.uyari && !s.uyari.savunma) {
+        if (savunma === 'kacinma') SV.savasGirdi(d, { tur: 'kaydir', yon: s.uyari.yon === 'sag' ? 'sol' : 'sag', parmak: 1 });
+        else if (savunma === 'kalkan') SV.savasGirdi(d, { tur: 'dokun', parmak: 2 });
+      } else if (!s.uyari) {
+        if (!SV.kilitliMi(d)) SV.savasGirdi(d, { tur: 'kaydir', yon: s.dusman.aci > 0 ? 'sol' : 'sag', parmak: 1 });
+        else SV.savasGirdi(d, { tur: 'dokun', parmak: 1 });
+      }
+      if (d.savas) SV.savasIlerle(d, 0.1);
+    }
+  }
+  test('kaçınarak kazanılan savaş: ganimet ve tecrübe', async () => {
+    const { SV, G } = await yukle();
+    const d = yeniOyun(12);
+    G.gemiOlustur(d, 2);
+    d.uzay = { x: 0, y: 0, yon: 0, hiz: 0, yaklasilan: {} };
+    SV.savasBaslat(d, 'korsan_korvet');
+    const t = d.kaptan.tecrube;
+    savas(SV, d, 'kacinma');
+    expect(d.savas).toBe(null);
+    expect(d.savasSon.sonuc).toBe('zafer');
+    expect(d.koloni.parcalar.sasi_celigi).toBe(30);
+    expect(d.kaptan.tecrube).toBeGreaterThan(t);
+    expect(d.gemi.govde).toBe(d.gemi.maxGovde);
+  });
+  test('savunmasız kalan gemi yenilir ve koloniye çekilir; kalkan ısınır', async () => {
+    const { SV, G } = await yukle();
+    const d = yeniOyun(13);
+    G.gemiOlustur(d, 1);
+    d.gemi.yer = 'uzay';
+    d.uzay = { x: 0, y: 0, yon: 0, hiz: 0, yaklasilan: {} };
+    SV.savasBaslat(d, 'yabanci_firkateyn');
+    for (let i = 0; i < 20000 && d.savas; i++) SV.savasIlerle(d, 0.1);
+    expect(d.savasSon.sonuc).toBe('yenilgi');
+    expect(d.gemi.yer).toBe('kizak');
+    const d2 = yeniOyun(14);
+    G.gemiOlustur(d2, 3);
+    d2.uzay = { x: 0, y: 0, yon: 0, hiz: 0, yaklasilan: {} };
+    SV.savasBaslat(d2, 'korsan_avci');
+    savas(SV, d2, 'kalkan');
+    expect(d2.savasSon.sonuc).toBe('zafer');
+  });
+  test('frekans eşleme kalkanı deler; yetenek ağacı sırayla açılır', async () => {
+    const { SV, G, Y } = await yukle();
+    const d = yeniOyun(15);
+    G.gemiOlustur(d, 1);
+    d.uzay = { x: 0, y: 0, yon: 0, hiz: 0, yaklasilan: {} };
+    SV.savasBaslat(d, 'korsan_korvet');
+    SV.savasGirdi(d, { tur: 'dondur', f: (d.savas.dusman.kalkanFrek - d.savas.silahFrek) / 7 });
+    expect(d.savas.delik).toBe(true);
+    d.kaptan.tecrube = 250;
+    expect(Y.yetenekAc(d, 'A2').ses).toBe('red');
+    expect(Y.yetenekAc(d, 'A1').ses).toBe('kur');
+    expect(Y.yetenekAc(d, 'A2').ses).toBe('red'); // 150 kaldı, 200 gerekir
+    d.kaptan.tecrube = 450;
+    expect(Y.yetenekAc(d, 'A2').ses).toBe('kur');
+    expect(Y.harcanabilir(d)).toBe(150);
+    expect(TARIFLER.dokumhane.some((t) => t.cikti.mod_k1_sonumleme)).toBe(true);
+  });
+  test('sefer olayları karar ister; korsan karşılaşması; istihdam', async () => {
+    const { G } = await yukle();
+    const { subayIstihdam } = await import('../src/oyun/koloni');
+    const { kalkis } = await import('../src/oyun/uzay/seyir');
+    const d = yeniOyun(16);
+    G.gemiOlustur(d, 1);
+    d.gemi.yakit = d.gemi.maxYakit = 999;
+    d.gemide = true;
+    kalkis(d);
+    d.uzay.hiz = 1;
+    for (let i = 0; i < 20000 && d.sahne !== 'sefer_olay'; i++) {
+      uzayAdim(d, 0.1);
+      if (d.sahne && d.sahne !== 'sefer_olay') d.sahne = null;
+      if (Math.hypot(d.uzay.x, d.uzay.y) > 1400) d.uzay.yon += Math.PI;
+    }
+    expect(d.sahne).toBe('sefer_olay');
+    const sec = sahneSecenekleri(d, 'sefer_olay');
+    expect(sec.length).toBeGreaterThan(0);
+    sahneSec(d, 'sefer_olay', 0);
+    expect(d.sahne).toBe('sefer_sonuc');
+    expect(sahneMetni(d, 'sefer_sonuc')[0].length).toBeGreaterThan(3);
+    // Korsan: iki operasyon sonra
+    d.sahne = null;
+    d.tamamlananOp = ['g01', 'g02'];
+    d.uzay.hiz = 1;
+    let o = [];
+    for (let i = 0; i < 40000 && !d.savas; i++) {
+      o = uzayAdim(d, 0.1);
+      if (d.sahne) d.sahne = null;
+      if (d.olay) d.olay = null;
+      if (Math.hypot(d.uzay.x, d.uzay.y) > 1400) d.uzay.yon += Math.PI;
+      d.uzay.hiz = Math.max(1, d.uzay.hiz);
+    }
+    expect(d.savas).toBeTruthy();
+    // İstihdam
+    d.koloni.nufus.toplam = 5;
+    const n = d.murettebat.length;
+    expect(subayIstihdam(d, 'muharebe').ses).toBe('kur');
+    expect(d.murettebat.length).toBe(n + 1);
+    expect(d.murettebat[n].rol).toBe('Taktik Nişancı');
   });
 });

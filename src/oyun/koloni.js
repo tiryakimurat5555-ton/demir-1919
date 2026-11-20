@@ -12,6 +12,7 @@ import { NOKTALAR } from './yuzey/harita';
 import { HAMMADDELER } from './veri/tesisler';
 import { PARCALAR, TARIFLER } from './veri/uretim';
 import { montajIlerle } from './gemi/gemi';
+import { UZMANLIKLAR, uretec, uyeUret } from './veri/murettebat';
 import { ARINDIRMA, guvenliMi } from './yuzey/arindirma';
 import { KATMANLAR, katmanTamamMi, seviye4Eksikleri } from './terraform';
 
@@ -22,6 +23,8 @@ export const NUFUS_SN = 300; // doğal artış: bir kişi
 export const KERVAN_SN = 180; // Demir Kervan: bir bazalt + bir titanyum
 export const AKREP_SN = 120; // Akrep: yataklardan bir birim
 export const TICARET_SN = 180;
+export const FIRTINA_SN = 600;
+export const BESIN_SN = 240;
 export const KARAKOL_SN = 180; // güvenli bölgenin ikmal karakolu: bölgenin yataklarından bir birim
 export const SEKTORLER = {
   sanayi: { ad: 'Sanayi ve maden', tarif: 'Maden ocaklarında ve dökümhanede çalışır; üretimi ve yatakların yenilenmesini hızlandırır.' },
@@ -260,6 +263,23 @@ export function koloniIlerle(d, dt) {
     if (id === 'manyetosfer') k.kalkan = Math.max(k.kalkan || 1, 3);
     olaylar.push({ tur: 'terraform', id, metin: 'Terraforming: ' + KATMANLAR[id].ad + ' tamamlandı. ' + KATMANLAR[id].sonuc });
   }
+  // Moralin düşme nedenleri (savas-yetenek 5.2): radyasyon fırtınaları (kalkan jeneratörü yoksa) ve yetersiz besin
+  k.firtina = (k.firtina || 0) + dt;
+  if (k.firtina >= FIRTINA_SN) {
+    k.firtina = 0;
+    if ((k.kalkan || 1) < 2 && n.toplam >= 8) {
+      k.moral = Math.max(0, k.moral - 5);
+      olaylar.push({ tur: 'moral', metin: 'Radyasyon fırtınası koloniyi dövdü; insanlar sığınaklarda. Moral düştü. Bir kalkan jeneratörü bunu önler.' });
+    }
+  }
+  if (n.toplam > 20 && !k.binalar.includes('sera')) {
+    k.besin = (k.besin || 0) + dt;
+    if (k.besin >= BESIN_SN) {
+      k.besin = 0;
+      k.moral = Math.max(0, k.moral - 2);
+      olaylar.push({ tur: 'moral', metin: 'Yirmiden fazla insana sentetik gıda yetmiyor; moral düşüyor. Bir sera hubu gerek.' });
+    }
+  }
   // Kademe 4: Galaktik Başkent
   if (k.seviye === 3 && !seviye4Eksikleri(d, guvenliMi).length) {
     k.seviye = 4;
@@ -297,3 +317,17 @@ export function koloniIlerle(d, dt) {
   }
   return olaylar;
 }
+
+// Tersanede yeni subay istihdamı (savas-yetenek bölüm 7): boştaki bir kolonist gemi mürettebatına katılır
+export function subayIstihdam(d, uzmanlik) {
+  if (bosta(d) < 1) return { metin: 'Boşta kolonist yok; önce iş gücünden birini al ya da nüfusun büyümesini bekle.', ses: 'red' };
+  if (d.murettebat.length >= 12) return { metin: 'Mürettebat on iki kişiyle dolu.', ses: 'red' };
+  const r = uretec((d.tohum || 1) * 101 + d.murettebat.length * 17);
+  const u = uyeUret(r, uzmanlik, d.murettebat.map((x) => x.ad));
+  d.murettebat.push(u);
+  d.koloni.nufus.toplam -= 1; // kolonist gemiye geçti
+  return { metin: u.rol + ' ' + u.ad + ' mürettebata katıldı. Nitelik: ' + NITELIK_ADI(u.nitelik) + '. Gemide bir odaya ata.', ses: 'kur' };
+}
+import { NITELIKLER } from './veri/murettebat';
+const NITELIK_ADI = (k) => (NITELIKLER[k] ? NITELIKLER[k].ad : k);
+export { UZMANLIKLAR };

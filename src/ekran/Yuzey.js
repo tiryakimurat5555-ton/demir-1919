@@ -35,10 +35,15 @@ import KonumsalSes from '../ses/konumsal';
 import { ALANLAR, KAPILAR, MEKANLAR, NOKTALAR } from '../oyun/yuzey/harita';
 import { monolitEtkisi } from '../oyun/yuzey/kesifler';
 import { FENOMENLER, ITIBAR_KADEMELERI } from '../oyun/veri/gozlem';
+import { harcanabilir, yetenekAc, yetenekListesi } from '../oyun/veri/yetenek';
 import { cevreMetni, durumMetni, esyaMetni, etkiles, firtinaIlerle, maruziyetAdi, ilerle, kisiAdi, otoBaslat, radar, yerlerListesi, zehirIlerle } from '../oyun/yuzey/dunya';
 import {
   terraformListesi,
   terraformTeslim,
+  savasGirdi,
+  savasIlerle,
+  savasSes,
+  savasDurumu,
   salonListesi,
   itibarKademesi,
   opGirdi,
@@ -97,7 +102,7 @@ import {
   fenerMenzili,
   aractanIn,
 } from '../oyun/yuzey/gorevler';
-import { SEKTORLER, bosta, ilacDagit, isGucuDegis, moralMetni, moralSesi, parcaMetni, uretimBaslat, uretimListesi } from '../oyun/koloni';
+import { UZMANLIKLAR, subayIstihdam, SEKTORLER, bosta, ilacDagit, isGucuDegis, moralMetni, moralSesi, parcaMetni, uretimBaslat, uretimListesi } from '../oyun/koloni';
 import {
   VINC_ESIGI,
   atamaYap,
@@ -201,6 +206,8 @@ export default function Yuzey({ onGeri, baslangic, yeniOyunUret }) {
   const [vincAcik, setVincAcik] = useState(false);
   const [gemiAcik, setGemiAcik] = useState(false);
   const [opAcik, setOpAcik] = useState(false);
+  const [savasAcik, setSavasAcik] = useState(false);
+  const savasRef = useRef({ acik: false, dusman: false });
   const opRef = useRef({ acik: false, ses: {}, hedef: null, sonDx: 0, sonDy: 0 });
   const sonDx = useRef(0);
   const pompaZamani = useRef(0);
@@ -460,6 +467,10 @@ export default function Yuzey({ onGeri, baslangic, yeniOyunUret }) {
       }
       if (d.vinc) {
         vincAdimi();
+        return;
+      }
+      if (d.savas && savasRef.current.acik) {
+        savasAdimi();
         return;
       }
       if (d.op && opRef.current.acik) {
@@ -1228,6 +1239,8 @@ export default function Yuzey({ onGeri, baslangic, yeniOyunUret }) {
       onGeri: () => noktaGoster('terminal'),
       ogeler: [
         ...ogeler,
+        { id: 'istihdam', etiket: 'Subay istihdam et', ipucu: 'Boştaki bir kolonist gemi mürettebatına katılır.', sec: () => (istihdamGoster(), 'sessiz') },
+        { id: 'yetenek', etiket: 'Kaptan yetenekleri', sec: () => (yetenekGoster(null, () => isGucuGoster()), 'sessiz') },
         { id: 'terraform', etiket: 'Terraforming katmanları', sec: () => (terraformGoster(), 'sessiz') },
         { id: 'bolgeler', etiket: 'Bölge arındırma durumu', sec: () => (bolgeGoster(), 'sessiz') },
         {
@@ -1243,6 +1256,54 @@ export default function Yuzey({ onGeri, baslangic, yeniOyunUret }) {
           },
         },
         { id: 'geri', etiket: 'Terminale dön', sec: () => (noktaGoster('terminal'), 'sessiz') },
+      ],
+    });
+  };
+
+  // Kaptan yetenek ağacı (veri/yetenek.js)
+  const yetenekGoster = (onEk, geri) => {
+    const d = dunya.current;
+    const don = geri || (() => gemiTerminali());
+    katmanAc({
+      baslik: 'Kaptan yetenekleri',
+      giris: (onEk ? onEk + ' ' : '') + 'Harcanabilir sefer tecrübesi: ' + harcanabilir(d) + '. Her dalda sırayla açılır.',
+      onGeri: don,
+      ogeler: [
+        ...yetenekListesi(d).map((x) => ({
+          id: x.id,
+          etiket: x.ad + '. ' + x.durum,
+          ipucu: x.tarif,
+          sec: () => {
+            const r = yetenekAc(d, x.id);
+            kaydet();
+            if (r.ses) cal(EYLEM_SESI[r.ses] || r.ses, 0.8);
+            yetenekGoster(r.metin, geri);
+            return 'sessiz';
+          },
+        })),
+        { id: 'geri', etiket: 'Geri', sec: () => (don(), 'sessiz') },
+      ],
+    });
+  };
+  const istihdamGoster = (onEk) => {
+    const d = dunya.current;
+    katmanAc({
+      baslik: 'Subay istihdamı',
+      giris: (onEk ? onEk + ' ' : '') + 'Mürettebat ' + d.murettebat.length + ' kişi. Boşta kolonist: ' + bosta(d) + '. Bir uzmanlık seç.',
+      onGeri: () => isGucuGoster(),
+      ogeler: [
+        ...Object.keys(UZMANLIKLAR).map((k) => ({
+          id: k,
+          etiket: UZMANLIKLAR[k].ad + ': ' + UZMANLIKLAR[k].rol,
+          sec: () => {
+            const r = subayIstihdam(d, k);
+            kaydet();
+            if (r.ses) cal(EYLEM_SESI[r.ses] || r.ses, 0.8);
+            istihdamGoster(r.metin);
+            return 'sessiz';
+          },
+        })),
+        { id: 'geri', etiket: 'Koloni yönetimine dön', sec: () => (isGucuGoster(), 'sessiz') },
       ],
     });
   };
@@ -1526,6 +1587,11 @@ export default function Yuzey({ onGeri, baslangic, yeniOyunUret }) {
       } else if (o.tur === 'yaklasti') {
         Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light).catch(() => {});
         sozler.push(o.metin);
+      } else if (o.tur === 'savas') {
+        savasAc(o.olaylar);
+        return;
+      } else if (o.tur === 'haber') {
+        sozler.push(o.metin);
       } else if (o.tur === 'fenomen') {
         cal('sinyal', 0.8);
         Haptics.notificationAsync(Haptics.NotificationFeedbackType.Success).catch(() => {});
@@ -1573,6 +1639,7 @@ export default function Yuzey({ onGeri, baslangic, yeniOyunUret }) {
           },
         });
       ogeler.push({ id: 'ata', etiket: 'Mürettebat ata', sec: () => (atamaGoster(), 'sessiz') });
+      ogeler.push({ id: 'yetenek', etiket: 'Kaptan yetenekleri', ipucu: 'Sefer tecrübesiyle dört dalda yetenek aç.', sec: () => (yetenekGoster(), 'sessiz') });
       if (!d.uzay)
         ogeler.push({
           id: 'in',
@@ -1892,6 +1959,103 @@ export default function Yuzey({ onGeri, baslangic, yeniOyunUret }) {
     { dokunmaBekle: true },
   );
 
+  // --- Reaktif akustik savaş (uzay/savas.js) ---
+  const SAVAS_SESI = { alarm: 'red', tik: 'tik' };
+  const savasAc = (olaylar) => {
+    const s = m();
+    for (const id of Object.keys(calanlar.current)) if (id.indexOf('fener_') === 0) kaynakKapat(id);
+    if (s) {
+      s.dinleyici({ x: 0, y: 0, yon: 0 });
+      s.boguk(false);
+    }
+    ortamCal('ortam_uzay', 0.25); // dolaşım sesleri geri plana
+    savasRef.current = { acik: true, dusman: false };
+    setSavasAcik(true);
+    Haptics.notificationAsync(Haptics.NotificationFeedbackType.Warning).catch(() => {});
+    savasOlaylari(olaylar);
+  };
+  const savasKapat = () => {
+    const s = m();
+    if (s && savasRef.current.dusman) s.sil('savas_dusman');
+    savasRef.current = { acik: false, dusman: false };
+    setSavasAcik(false);
+    kaydet();
+    sesleriEsitle(true);
+    const d = dunya.current;
+    if (d.sahne) sahneGoster(d.sahne);
+  };
+  const savasOlaylari = (olaylar) => {
+    const d = dunya.current;
+    const s = m();
+    const sozler = [];
+    let bitti = false;
+    for (const o of olaylar) {
+      if (o.soz) sozler.push(o.soz);
+      if (o.ses === 'kilitTonu') {
+        if (s) s.nota(1760, null, 0.7, 0.35);
+        Haptics.selectionAsync().catch(() => {});
+      } else if (o.ses) cal(SAVAS_SESI[o.ses] || o.ses, o.ses === 'tik' ? 0.4 : 0.9);
+      if (o.hasar) Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Heavy).catch(() => {});
+      if (o.nota && s) s.nota(o.nota.frek, null, 0.6, o.nota.sure);
+      if (o.uyari && s) {
+        // Uyarı sesi (telegraph): silahın kendi sesi, düşmanın yanından
+        const yan = { x: o.yon === 'sag' ? 8 : -8, y: 3 };
+        if (o.uyari === 'plazma') [330, 494, 740, 1109].forEach((f, i) => setTimeout(() => m() && m().nota(f, yan, 0.8, 0.5), i * 420));
+        else if (o.uyari === 'torpido') {
+          cal('hidrolik', 0.9);
+          if (yuklu.current.hamle) setTimeout(() => m() && m().tek('hamle', yan, 1), 900);
+        } else [1500, 1600, 1700, 1800].forEach((f, i) => setTimeout(() => m() && m().nota(f, yan, 0.55, 0.45), i * 350));
+        Haptics.notificationAsync(Haptics.NotificationFeedbackType.Warning).catch(() => {});
+      }
+      if (o.bitti) bitti = true;
+    }
+    if (sozler.length) soyle(sozler.join(' '), 'istek', true);
+    if (bitti || !d.savas) savasKapat();
+  };
+  const savasAdimi = () => {
+    const d = dunya.current;
+    savasOlaylari(savasIlerle(d, ADIM_MS / 1000));
+    const s = m();
+    if (!s || !d.savas) return;
+    const x = savasSes(d);
+    if (x.dusman) {
+      s.kaynak('savas_dusman', 'fener', { x: x.dusman.x, y: x.dusman.y }, null, x.dusman.frek);
+      savasRef.current.dusman = true;
+    }
+  };
+  const savasVer = (g) => {
+    const d = dunya.current;
+    if (!d.savas) return [];
+    const r = savasGirdi(d, g);
+    savasOlaylari(r);
+    return r;
+  };
+  const savasJest = useJestler(
+    {
+      onDokun: (parmak) => {
+        const d = dunya.current;
+        if (!savasVer({ tur: 'dokun', parmak }).length && d.savas) soyle(savasDurumu(d), 'istek', true);
+      },
+      onCiftDokun: (parmak) => {
+        const d = dunya.current;
+        if (parmak >= 2) {
+          if (d.savas) soyle(savasDurumu(d), 'istek', true);
+          return;
+        }
+        savasVer({ tur: 'cift' });
+      },
+      onUzunBas: () => {
+        const d = dunya.current;
+        if (!d.savas) return;
+        if (m()) m().nota(200 + d.savas.dusman.kalkanFrek * 8, null, 0.6, 1.2);
+        soyle(savasDurumu(d), 'istek', true);
+      },
+      onKaydir: (yon, parmak) => savasVer({ tur: 'kaydir', yon, parmak }),
+      onDondur: (f) => savasVer({ tur: 'dondur', f }),
+    },
+    { dokunmaBekle: false },
+  );
+
   // --- Hidrolik ayak dengeleme (kulakla) ---
   const teraziAc = (id) => {
     const d = dunya.current;
@@ -2103,7 +2267,7 @@ export default function Yuzey({ onGeri, baslangic, yeniOyunUret }) {
 
   return (
     <View style={stiller.dis}>
-      <View style={stiller.kap} {...(katman || ayarAcik || valfAcik || rezAcik || teraziAcik || vincAcik || gemiAcik || opAcik ? {} : jest)}>
+      <View style={stiller.kap} {...(katman || ayarAcik || valfAcik || rezAcik || teraziAcik || vincAcik || gemiAcik || opAcik || savasAcik ? {} : jest)}>
         <KonumsalSes
           ref={motor}
           onMesaj={(x) => {
@@ -2146,6 +2310,12 @@ export default function Yuzey({ onGeri, baslangic, yeniOyunUret }) {
         <View style={[StyleSheet.absoluteFill, stiller.ayar]} {...vincJest}>
           <Text style={stiller.baslik}>Vinç</Text>
           <Text style={stiller.yazi}>Sağa-sola sürükle, aşağı kaydır, çift dokun</Text>
+        </View>
+      ) : null}
+      {savasAcik ? (
+        <View style={[StyleSheet.absoluteFill, stiller.ayar]} {...savasJest}>
+          <Text style={stiller.baslik}>Savaş duruşu</Text>
+          <Text style={stiller.yazi}>Dokun: ateş. Uyarıda iki parmakla dokun: kalkan.</Text>
         </View>
       ) : null}
       {opAcik ? (

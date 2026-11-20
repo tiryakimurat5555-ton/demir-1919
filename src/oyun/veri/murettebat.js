@@ -13,7 +13,7 @@ export const UZMANLIKLAR = {
 
 export const NITELIKLER = {
   sogukkanli: { ad: 'Soğukkanlı', tarif: 'Çatışmada panik yapmaz, tamir hızını korur.' },
-  toplayici: { ad: 'Toplayıcı', tarif: 'Hurda toplarken beklenmedik fazladan malzeme bulur.' },
+  toplayici: { ad: 'Klipsomanyak (toplayıcı)', tarif: 'Hurda toplarken beklenmedik fazladan malzeme bulur.' },
   ses_hassas: { ad: 'Ses hassasiyeti', tarif: 'Frekans değişimlerini kaptandan önce duyar.' },
   klostrofobik: { ad: 'Klostrofobik', tarif: 'Uzun seferlerde morali çabuk düşer; geniş koğuş ister.' },
 };
