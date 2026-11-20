@@ -14,6 +14,7 @@ import * as B from './bolgeler';
 import * as K from './kesifler';
 import * as A from './arindirma';
 import * as T from '../terraform';
+import * as M from './mini';
 import { HAMMADDELER } from '../veri/tesisler';
 import { koloniIlerle } from '../koloni';
 import * as S from '../uzay/seyir';
@@ -25,7 +26,7 @@ export const { NOTALAR, kapiDizisi, rezonansBaslat, rezonansSecimDegis, rezonans
 
 export const { AYAKLAR, ayakSayisi, ayakFrek, teraziBaslat, teraziPompa, teraziIlerle, teraziMetni, DENGE_ESIGI } = G4;
 
-export const SAHNELER = { ...G1.SAHNELER, ...G2.SAHNELER, ...G3.SAHNELER, ...G4.SAHNELER, ...G5.SAHNELER, ...G6.SAHNELER, ...B.SAHNELER, ...K.SAHNELER, ...A.SAHNELER };
+export const SAHNELER = { ...G1.SAHNELER, ...G2.SAHNELER, ...G3.SAHNELER, ...G4.SAHNELER, ...G5.SAHNELER, ...G6.SAHNELER, ...B.SAHNELER, ...K.SAHNELER, ...A.SAHNELER, ...M.SAHNELER };
 
 // Telsiz bildirimleri (belgeler/savas-yetenek-ve-murettebat-mekanikleri.md 4.3): koşulu sağlanınca bir kez kuyruğa
 // girer. gorev alanı varsa yalnız o görev sürerken.
@@ -66,11 +67,12 @@ export function sahneSec(d, id, i) {
 }
 
 export function gorevIpucu(d) {
-  return G1.gorevIpucu(d) || G2.gorevIpucu(d) || G3.gorevIpucu(d) || G4.gorevIpucu(d) || G5.gorevIpucu(d) || 'Şu an bir görev yok.';
+  const mi = d.mini && d.mini.aktif ? 'Yerel operasyon, ' + M.MINI[d.mini.aktif].ad + ': ' + M.MINI[d.mini.aktif].ipucu(d) + ' ' : '';
+  return mi + ( G1.gorevIpucu(d) || G2.gorevIpucu(d) || G3.gorevIpucu(d) || G4.gorevIpucu(d) || G5.gorevIpucu(d) || (mi ? '' : 'Şu an bir görev yok.'));
 }
 
 export function noktaEylemleri(d, id) {
-  const ek = [...G6.ekEylemler(d, id), ...K.ekEylemler(d, id)];
+  const ek = [...G6.ekEylemler(d, id), ...K.ekEylemler(d, id), ...M.ekEylemler(d, id)];
   if (G6.noktaMi(id)) return [...ek, { id: 'incele', etiket: 'Sütunu incele' }];
   const temel = temelEylemler(d, id);
   if (!ek.length) return temel;
@@ -79,6 +81,7 @@ export function noktaEylemleri(d, id) {
   return i < 0 ? [...temel, ...ek] : [...temel.slice(0, i), ...ek, ...temel.slice(i)];
 }
 function temelEylemler(d, id) {
+  if (M.noktaMi(id)) return M.noktaEylemleri(d, id);
   if (K.noktaMi(id)) return K.noktaEylemleri(d, id);
   if (A.noktaMi(id)) return A.noktaEylemleri(d, id);
   if (G2.bacaMi(id)) return G2.noktaEylemleri(d, id);
@@ -91,6 +94,7 @@ function temelEylemler(d, id) {
 
 export function eylemUygula(d, id, eylemId) {
   if (G6.ekEylemMi(eylemId) || G6.noktaMi(id)) return G6.eylemUygula(d, id, eylemId);
+  if (M.ekEylemMi(eylemId) || M.noktaMi(id)) return M.eylemUygula(d, id, eylemId);
   if (K.ekEylemMi(eylemId) || K.noktaMi(id)) return K.eylemUygula(d, id, eylemId);
   if (A.noktaMi(id)) return A.eylemUygula(d, id, eylemId);
   if (G2.bacaMi(id)) return G2.eylemUygula(d, id, eylemId);
@@ -190,9 +194,11 @@ export function kademeMetni(d) {
 // --- Zaman: koloni, üretim, tersane (her karede çağrılır) ---
 export const { aracaBin, aractanIn, aracListesi } = H;
 export const { projeMetni, projeListesi } = G6;
+export const { miniBaslat, MINI, olgunMu, miniGorunur } = M;
 
 export function zamanIlerle(d, dt) {
   const olaylar = koloniIlerle(d, dt);
+  olaylar.push(...M.miniIlerle(d, dt));
   if (d.vahaGirisi) {
     d.vahaGirisi = false;
     K.vahaBulundu(d);

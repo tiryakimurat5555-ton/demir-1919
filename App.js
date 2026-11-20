@@ -22,7 +22,7 @@ import { ayarlarOku, ayarlarYaz, otoOku, otoSil, tarihMetni, VARSAYILAN_AYARLAR,
 import { yeniOyun } from './src/oyun/durum';
 import { durumKisa } from './src/oyun/yuzey/dunya';
 
-const SURUM = '0.9';
+const SURUM = '1.0';
 const OYUN_ADI = 'Aethelis';
 
 const HAKKINDA_METNI = [
@@ -33,7 +33,7 @@ const HAKKINDA_METNI = [
 ];
 
 const HAREKETLER = [
-  'Yüzeyde: parmağını ekrana koyup yukarı sürükle ve tut, ileri yürürsün. Aşağı sürüklersen geri, sağa ya da sola sürüklersen dönersin. Parmak ne kadar uzaksa o kadar hızlı. Dönerken her otuz derecede bir tık duyarsın.',
+  'Yüzeyde: parmağını ekrana koyup yukarı sürükle ve tut, ileri yürürsün. Aşağı sürüklersen geri, sağa ya da sola sürüklersen dönersin. Parmak ne kadar uzaksa o kadar hızlı; az sürüklersen sessizce, yavaş yürürsün. Dönerken her otuz derecede bir tık duyarsın.',
   'Dokun: çevrende ne var; yerler ve kişiler saat yönüyle söylenir. Saat 12 önün, 3 sağın, 6 arkan, 9 solun.',
   'Uzun bas: radar. Bir dalga gönderirsin; yankılar nesnelerin yönünden, uzaklarsa geç döner. En yakın üç şey söylenir.',
   'Çift dokun: yanındaki şeyi kullan, hava kilidinden geç ya da yanındakiyle konuş.',

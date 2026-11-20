@@ -38,6 +38,8 @@ import { cevreMetni, durumMetni, esyaMetni, etkiles, firtinaIlerle, maruziyetAdi
 import {
   terraformListesi,
   terraformTeslim,
+  olgunMu,
+  miniGorunur,
   bolgeListesi,
   kademeMetni,
   ESYALAR,
@@ -254,6 +256,27 @@ export default function Yuzey({ onGeri, baslangic, yeniOyunUret }) {
         s.dongu('vaha', 'vaha', KAPILAR.vaha_yolu.uclar[0], 0.7);
       }
     } else kaynakKapat('vaha');
+    // Yerel mini görevlerin konumlu sesleri (mini.js)
+    const istenen = {};
+    const mi = d.mini && d.mini.aktif;
+    if (mi) {
+      for (const id of Object.keys(NOKTALAR)) {
+        const n = NOKTALAR[id];
+        if (n.mini !== mi || n.mekan !== d.mekan || !miniGorunur(d, id)) continue;
+        if (mi === 'mantar_hasadi' && olgunMu(d, id)) istenen['mini_' + id] = () => s.kaynak('mini_' + id, 'kristal', n);
+        if (mi === 'vana_donmasi' && n.secenek === d.mini.secim && yuklu.current.baca) istenen['mini_' + id] = () => s.dongu('mini_' + id, 'baca', n, 0.9);
+        if (mi === 'kayip_ekip') istenen['mini_' + id] = () => s.kaynak('mini_' + id, 'fener', n, null, 311);
+        if (mi === 'yagmaci_tuzagi' && yuklu.current.parazit) istenen['mini_' + id] = () => s.dosyaKaynak('mini_' + id, 'parazit', n, 2600);
+        if ((mi === 'basinc_dususu' || mi === 'solucan_gocu' || mi === 'vaha_kanali') && yuklu.current.bip) istenen['mini_' + id] = () => s.dosyaKaynak('mini_' + id, 'bip', n, 3000);
+      }
+      if (mi === 'solucan_gocu' && d.mekan === 'sirtlar') istenen.mini_suru = () => s.kaynak('mini_suru', 'yercekimi', { x: 540, y: -62 });
+    }
+    for (const id of Object.keys(calanlar.current)) if (id.indexOf('mini_') === 0 && !istenen[id]) kaynakKapat(id);
+    for (const id of Object.keys(istenen))
+      if (!calanlar.current[id]) {
+        calanlar.current[id] = true;
+        istenen[id]();
+      }
     // Jeneratör uğultusu
     if (g.jenerator && yuklu.current.jenerator) {
       calanlar.current.jenerator = true;
@@ -875,8 +898,12 @@ export default function Yuzey({ onGeri, baslangic, yeniOyunUret }) {
     durakli.current = true;
     const r = valfBaslat(d, id, amac);
     if (m()) m().basincKur();
-    ortamCal(MEKANLAR.sirtlar.ortam, 0.4);
     setValfAcik(true);
+    if (amac === 'mini_kompresor') {
+      soyle('Yedek kompresör. Basınç yükseldikçe tıslama tizleşir. Kesik alarm başlayınca çift dokun: kompresörü devreye al. Erken açarsan boşa gider; geç kalırsan emniyet atar. Üç kez gerekir; şu ana dek ' + r.basari + '. İki parmakla çift dokun: çekil.', 'istek', true);
+      return;
+    }
+    ortamCal(MEKANLAR.sirtlar.ortam, 0.4);
     soyle(
       'Valf dengeleme. Basınç yükseldikçe gazın tıslaması tizleşip güçlenir. Kesik bir alarm başlayınca çift dokun: valfi açarsın. Erken açarsan basınç boşa gider; geç kalırsan baca patlar. Üç tahliye gerekir; şu ana dek ' +
         r.basari +
@@ -917,7 +944,8 @@ export default function Yuzey({ onGeri, baslangic, yeniOyunUret }) {
     if (olaylar.includes('patlama')) {
       cal('patlama', 1);
       Haptics.notificationAsync(Haptics.NotificationFeedbackType.Error).catch(() => {});
-      soyle('Geç kaldın! Baca patladı, sıcak gaz yüzüne çarptı. Kükürt maruziyeti yüzde ' + Math.round(d.zehir) + '. Basınç yeniden doluyor.', 'istek', true);
+      if (d.valf.amac === 'mini_kompresor') soyle('Geç kaldın! Emniyet attı; basınç yeniden doluyor.', 'istek', true);
+      else soyle('Geç kaldın! Baca patladı, sıcak gaz yüzüne çarptı. Kükürt maruziyeti yüzde ' + Math.round(d.zehir) + '. Basınç yeniden doluyor.', 'istek', true);
     }
   };
 
@@ -1068,7 +1096,17 @@ export default function Yuzey({ onGeri, baslangic, yeniOyunUret }) {
   // --- Koloni olayları: üretim, montaj, nüfus (telsiz çağrısı olarak) ---
   const koloniOlaylari = (olaylar) => {
     const d = dunya.current;
-    const sozler = olaylar.filter((o) => o.metin).map((o) => o.metin);
+    // Yerel operasyonlar: acil uyarılar hemen söylenir, yeni operasyon telsiz çağrısıdır
+    for (const o of olaylar.filter((x) => x.acil)) {
+      soyle(o.metin, 'istek', true);
+      if (o.tasindi) sesleriEsitle(true);
+    }
+    if (olaylar.some((x) => x.tur === 'miniBasladi')) {
+      cal('telsiz_zil', 0.9);
+      Haptics.selectionAsync().catch(() => {});
+      if (!durakli.current) setTimeout(() => soyle('Telsiz çağrısı: yerel operasyon. Dinlemek için çift dokun.', 'istek', false), 700);
+    }
+    const sozler = olaylar.filter((o) => o.metin && !o.acil).map((o) => o.metin);
     if (!sozler.length) return;
     if (!d.bildirimler) d.bildirimler = [];
     d.bildirimler.push({ id: 'koloni_' + Date.now(), kim: 'Koloni bilgisayarı', metin: sozler.join(' ') });

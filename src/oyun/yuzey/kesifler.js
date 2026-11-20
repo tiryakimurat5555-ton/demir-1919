@@ -84,7 +84,7 @@ export function eylemUygula(d, id, eylemId) {
     if (!d.kodeks.some((k) => k.id === 'vanguard_gunluk'))
       d.kodeks.push({ id: 'vanguard_gunluk', ad: 'Vanguard-01 ses günlükleri', tarif: 'Gezegene ilk inmeye çalışan öncülerin kayıtları: fırtınada son dakikalar, umut ve vedalar. Yanlarında gezegenin ilk topoğrafik haritası.', itibar: 10 });
     // Topoğrafik harita: yüzeyin bütün noktaları bilinir
-    for (const n of Object.keys(NOKTALAR)) if (!d.kesif.includes(n)) d.kesif.push(n);
+    for (const n of Object.keys(NOKTALAR)) if (!NOKTALAR[n].mini && !d.kesif.includes(n)) d.kesif.push(n);
     return {
       metin:
         'Karadutunun hoparlöründen cızırtılı sesler: "Burası Vanguard-01... manyetik fırtına... iniş takımları gitti..." Son kayıtta bir kadın, gezegenin haritasını tamamladıklarını söylüyor. Haritayı kapsül bilgisayarına aktarıyorsun: bütün yüzey artık Yerler menüsünde.',

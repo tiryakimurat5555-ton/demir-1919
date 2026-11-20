@@ -4,6 +4,7 @@
 // Saf JavaScript. Bayraklar: sondaAlindi, maske, sonda_<baca>, valf_<baca> (başarı sayısı), baca_<baca> (bitti),
 // sondaj (üç baca bitti), dokumhane. Dökümhane kurulunca koloni ikinci kademeye çıkar.
 import { NOKTALAR } from './harita';
+import { miniValfBitti } from './mini';
 import { HAMMADDELER, TESISLER, maliyetMetni } from '../veri/tesisler';
 
 const b = (d) => d.bayrak;
@@ -131,7 +132,7 @@ const VALF_BAS = 0.15;
 const VALF_HIZ = 0.07; // saniyede; her başarıda hızlanır
 
 // amac: 'sondaj' (ikinci görev) ya da 'sikistirma' (gorev6.js, izotop sıkıştırma: aynı dengeleme, ayrı sayaç)
-const sayacAnahtari = (v) => (v.amac === 'sikistirma' ? 'sikistir_' : 'valf_') + v.baca;
+const sayacAnahtari = (v) => (v.amac === 'sikistirma' ? 'sikistir_' : v.amac === 'mini_kompresor' ? 'kompresor_' : 'valf_') + v.baca;
 export function valfBaslat(d, id, amac = 'sondaj') {
   d.valf = { baca: id, basinc: VALF_BAS, alarm: false, amac };
   const basari = b(d)[sayacAnahtari(d.valf)] || 0;
@@ -151,7 +152,7 @@ export function valfIlerle(d, dt) {
   if (v.basinc >= 1) {
     v.basinc = VALF_BAS;
     v.alarm = false;
-    d.zehir = Math.min(99, (d.zehir || 0) + 20);
+    if (v.amac !== 'mini_kompresor') d.zehir = Math.min(99, (d.zehir || 0) + 20);
     olaylar.push('patlama');
   }
   return olaylar;
@@ -172,6 +173,7 @@ export function valfBirak(d) {
   v.basinc = VALF_BAS;
   v.alarm = false;
   if (g[anahtar] < VALF_GEREKEN) return { sonuc: 'iyi', metin: 'Tam zamanında. Gaz kontrollü tıslayarak çıkıyor. ' + g[anahtar] + ' / ' + VALF_GEREKEN + '. Basınç yeniden yükseliyor, bu sefer daha hızlı.' };
+  if (v.amac === 'mini_kompresor') return miniValfBitti(d, v.baca);
   if (v.amac === 'sikistirma') {
     // İzotop sıkıştırması tamam: itki hangarı açılır
     g.sikistirma = true;

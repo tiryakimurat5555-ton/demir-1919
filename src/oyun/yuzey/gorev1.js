@@ -6,6 +6,7 @@
 // Görev bayrakları (d.bayrak): kesiciAlindi, antenAlindi, hucreAlindi, jenerator, antenKuruldu,
 // telemetri, kule. Envanter: kesici, anten, guc_hucresi.
 import { NOKTALAR } from './harita';
+import { miniKilitlendi } from './mini';
 import { HAMMADDELER, KOLONI_KADEMELERI, TESISLER, eksikMetni, karsilanirMi, maliyetMetni } from '../veri/tesisler';
 import { bosta, moralMetni, parcaMetni } from '../koloni';
 
@@ -354,6 +355,8 @@ export function ayarIlerle(d, dt) {
     if (a.amac === 'ag') {
       b(d).ag = true;
       d.sahne = 'ag_tamam';
+    } else if (a.amac.indexOf('mini_') === 0) {
+      miniKilitlendi(d, a.amac);
     } else if (a.amac === 'mors') {
       b(d).morsBulundu = true;
       d.sahne = 'mors_bulundu';

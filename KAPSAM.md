@@ -84,7 +84,13 @@ bütün bölümlerini sırayla sayar. Her sürümde güncellenir; bir bölüm bu
       (Vaka 1, 2, 5, 7) [ ] Faz 4 görevlerine bağlı.
 - [~] 7 Uzaydan gelen ırklar ve yapılar (0.9): dört yapı tesis listesinde [x], kilitleri uzay görevlerinin bayraklarına
       bağlı [ ] Faz 4.
-- [ ] 8 Yerel mini görevler: 8.1 dört biyom görevi, 8.2 iki sosyal kriz, 8.3 iki güvenlik görevi.
+- [x] 8 Yerel mini görevler (1.0, mini.js): telsizden sırayla gelir (biri bitince 150 sn sonra, koşulu sağlanan sıradaki).
+      8.1.1 fotonik mantar hasadı (olgun kristaller çınlar, spor yoğunluğu, terminalden teslim) · 8.1.2 kriyojenik vana
+      (dört bağlantıdan kaçak tıslaması, termal meşale) · 8.1.3 obsidyende kayıp ekip (radar kör, korna sesini izle)
+      · 8.1.4 vaha su kanalı (sonik patlatıcı: frekans ayarı) · 8.2.1 akademide çeviri krizi (iki uzman, sentez seçimi;
+      akademi gerekir) · 8.2.2 metan kubbesi basıncı (üç kompresör: valf dengeleme; kseno-habitat gerekir) · 8.3.1 kör
+      solucan göçü (150 sn içinde üç frekans kazığı) · 8.3.2 Vanguard yağmacıları (yavaş yürüyerek sız, kesiciyle
+      sersemlet; hızlı yürürsen alarm). 8.2'nin ikisi ırk yapılarını bekler (Faz 4).
 - [x] 9 Koloni kademeleri: 1-3 (Düşmüş İskelet → Sağlamlaşmış Vaha → Endüstriyel Koloni); 4 Galaktik Başkent (0.9):
       dört terraforming katmanı + altı bölge güvenli + dört ırk yapısı; eksikler koloni yönetiminde söylenir.
 
@@ -157,6 +163,5 @@ bütün bölümlerini sırayla sayar. Her sürümde güncellenir; bir bölüm bu
 - [ ] 6 Keşif, gereç ve itibar matrisi.
 
 ## Sıradaki adımlar (sırayla)
-1. Faz 2'nin kalanı: bölüm 8 yerel mini görevler (8.1 dört biyom görevi, 8.2 iki sosyal kriz, 8.3 iki güvenlik görevi).
-2. Faz 4: görev motoru (SpaceMission), 9 büyük görev, G-01 … G-24, 20 gezegen, gözlem gereçleri ve fenomenler, kütüphane.
-3. Faz 5: savaş modu, yetenek ağaçları, ElevenLabs sesleri, cila.
+1. Faz 4: görev motoru (SpaceMission), 9 büyük görev, G-01 … G-24, 20 gezegen, gözlem gereçleri ve fenomenler, kütüphane.
+2. Faz 5: savaş modu, yetenek ağaçları, ElevenLabs sesleri, cila.

@@ -33,7 +33,7 @@ export function guvenliMi(d, mekan) {
 
 // Öncü keşif: bölgenin bütün noktaları bilinmeli
 function kesifTamamMi(d, mekan) {
-  return Object.keys(NOKTALAR).filter((id) => NOKTALAR[id].mekan === mekan && !NOKTALAR[id].karakol).every((id) => d.kesif.includes(id));
+  return Object.keys(NOKTALAR).filter((id) => NOKTALAR[id].mekan === mekan && !NOKTALAR[id].karakol && !NOKTALAR[id].mini).every((id) => d.kesif.includes(id));
 }
 
 function gerekMetni(gerek) {
@@ -90,7 +90,7 @@ export function eylemUygula(d, id, eylemId) {
   if (eylemId === 'a_durum') return { metin: durumMetni(d, mekan) };
   if (eylemId === 'a_kesif') {
     if (!kesifTamamMi(d, mekan)) {
-      const eksik = Object.keys(NOKTALAR).filter((x) => NOKTALAR[x].mekan === mekan && !NOKTALAR[x].karakol && !d.kesif.includes(x)).length;
+      const eksik = Object.keys(NOKTALAR).filter((x) => NOKTALAR[x].mekan === mekan && !NOKTALAR[x].karakol && !NOKTALAR[x].mini && !d.kesif.includes(x)).length;
       return { metin: 'Bölgenin akustik profili eksik: ' + eksik + ' nokta henüz bulunmadı. Bölgeyi dolaşıp radarı kullan.', ses: 'red' };
     }
     return ilerlet(d, mekan, null, 'Bölgenin akustik profili kaydedildi: ' + a.tehdit + ' haritalandı.');

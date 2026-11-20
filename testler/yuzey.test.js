@@ -1091,7 +1091,7 @@ describe('Gezegenin gizemleri, arındırma ve terraforming', () => {
     expect(d.mekan).toBe('vanguard');
     const r = eylemUygula(d, 'vanguard_enkaz', 'k_gunluk');
     expect(r.metin).toContain('Vanguard');
-    expect(d.kesif.length).toBe(Object.keys(NOKTALAR).length);
+    expect(d.kesif.length).toBe(Object.keys(NOKTALAR).filter((x) => !NOKTALAR[x].mini).length);
     expect(eylemUygula(d, 'vanguard_enkaz', 'k_firin').ses).toBe('red');
     d.araclar = ['demir_kervan'];
     eylemUygula(d, 'vanguard_enkaz', 'k_firin');
@@ -1185,5 +1185,135 @@ describe('Gezegenin gizemleri, arındırma ve terraforming', () => {
     expect(TESISLER.akademi.kosul(d)).toBe(false);
     d.koloni.seviye = 3;
     expect(kademeMetni(d)).toContain('eksik');
+  });
+});
+
+describe('Yerel mini görevler', () => {
+  async function hazir() {
+    const M = await import('../src/oyun/yuzey/mini');
+    const d = yeniOyun(55);
+    sahneleriGec(d);
+    d.envanter.push('kesici');
+    return { d, M };
+  }
+  test('sıra: koşulu sağlanan ilk operasyon telsizden gelir', async () => {
+    const { d, M } = await hazir();
+    d.gorulenMekanlar = ['kriyo'];
+    bekle(d, M.MINI_BEKLEME + 2);
+    expect(d.mini.aktif).toBe('vana_donmasi');
+    expect(d.bildirimler.some((b) => b.id === 'mini_vana_donmasi')).toBe(true);
+    expect(gorevIpucu(d)).toContain('Kriyojenik');
+  });
+  test('mantar hasadı: olgunu topla, sporu izle, teslim et', async () => {
+    const { d, M } = await hazir();
+    M.miniBaslat(d, 'mantar_hasadi');
+    d.mekan = 'mantar';
+    const ids = ['foton_olgun_1', 'foton_olgun_2', 'foton_olgun_3'];
+    expect(eylemUygula(d, 'foton_olgun_3', 'm_hasat').ses).toBe('red');
+    let t = 0;
+    while (d.mini.toplanan < 3 && t < 200) {
+      zamanIlerle(d, 0.5);
+      t += 0.5;
+      for (const id of ids) if (M.olgunMu(d, id)) eylemUygula(d, id, 'm_hasat');
+    }
+    expect(d.mini.toplanan).toBe(3);
+    expect(noktaEylemleri(d, 'terminal').some((e) => e.id === 'm_teslim')).toBe(true);
+    eylemUygula(d, 'terminal', 'm_teslim');
+    expect(d.koloni.kaynaklar.foton_recinesi).toBe(4);
+    expect(d.sahne).toBe('mini_tamam');
+    // Spor yüzde yüze çıkarsa dışarı taşınır
+    d.sahne = null;
+    M.miniBaslat(d, 'mantar_hasadi');
+    d.mekan = 'mantar';
+    const o = [];
+    for (let i = 0; i < 200 && d.mekan === 'mantar'; i++) o.push(...zamanIlerle(d, 0.5));
+    expect(d.mekan).not.toBe('mantar');
+    expect(o.some((x) => x.tasindi)).toBe(true);
+  });
+  test('vana, kayıp ekip, vaha bendi', async () => {
+    const { d, M } = await hazir();
+    M.miniBaslat(d, 'vana_donmasi');
+    const dogru = ['boru_1', 'boru_2', 'boru_3', 'boru_4'][d.mini.secim];
+    const yanlis = ['boru_1', 'boru_2', 'boru_3', 'boru_4'].find((x) => x !== dogru);
+    expect(eylemUygula(d, yanlis, 'm_muhurle').metin).toContain('sağlam');
+    d.koloni.parcalar.polimer_levha = 5;
+    eylemUygula(d, dogru, 'm_muhurle');
+    expect(d.koloni.kaynaklar.metan).toBe(3);
+    // Kayıp ekip radarda yok, yakında görünür
+    M.miniBaslat(d, 'kayip_ekip');
+    const ek = ['kayip_ekip_a', 'kayip_ekip_b', 'kayip_ekip_c'][d.mini.secim];
+    d.mekan = 'obsidyen';
+    d.oyuncu = { x: NOKTALAR[ek].x + 5, y: NOKTALAR[ek].y, yon: 0 };
+    expect(radar(d).pingler.some((p) => p.id === ek)).toBe(false);
+    expect(cevreMetni(d)).toContain('Kayıp keşif aracı');
+    const n = d.koloni.nufus.toplam;
+    eylemUygula(d, ek, 'm_kurtar');
+    expect(d.koloni.nufus.toplam).toBe(n + 2);
+    // Görev bitince nokta yok olur
+    expect(cevreMetni(d)).not.toContain('Kayıp keşif aracı');
+    // Vaha bendi: frekans ayarı
+    M.miniBaslat(d, 'vaha_kanali');
+    expect(eylemUygula(d, 'vaha_bent', 'm_patlat')).toEqual({ ayar: true, amac: 'mini_bent' });
+    ayarBaslat1(d, 'mini_bent');
+    d.ayar.frekans = d.ayar.hedef;
+    for (let i = 0; i < 40 && d.ayar; i++) ayarIlerle1(d, 0.1);
+    expect(d.mini.bitenGorevler).toContain('vaha_kanali');
+    expect(d.sahne).toBe('mini_tamam');
+  });
+  test('çeviri krizi, kompresörler, solucan göçü, yağmacılar', async () => {
+    const { d, M } = await hazir();
+    M.miniBaslat(d, 'ceviri_krizi');
+    eylemUygula(d, 'terminal', 'm_ceviri');
+    expect(d.sahne).toBe('ceviri_krizi');
+    const it = d.itibar;
+    sahneSec(d, 'ceviri_krizi', 0);
+    expect(d.itibar).toBe(it + 15);
+    expect(d.sahne).toBe('mini_tamam');
+    // Kompresörler: valf dengeleme
+    M.miniBaslat(d, 'basinc_dususu');
+    for (const k of ['kompresor_1', 'kompresor_2', 'kompresor_3']) {
+      expect(eylemUygula(d, k, 'm_kompresor').valf).toBe(true);
+      valfBaslat2(d, k, 'mini_kompresor');
+      let r;
+      for (let i = 0; i < 3; i++) {
+        while (!d.valf.alarm) valfIlerle2(d, 0.1);
+        r = valfBirak2(d);
+      }
+      expect(r.sonuc).toBe('bitti');
+    }
+    expect(d.mini.bitenGorevler).toContain('basinc_dususu');
+    expect(d.zehir || 0).toBe(0);
+    // Solucan göçü: süre dolarsa ocaklar boşalır
+    M.miniBaslat(d, 'solucan_gocu');
+    d.koloni.kaynaklar.kristal = 3;
+    eylemUygula(d, 'kazik_1', 'm_kazik');
+    eylemUygula(d, 'kazik_2', 'm_kazik');
+    eylemUygula(d, 'kazik_3', 'm_kazik');
+    expect(d.koloni.kaynaklar.kseno_kabuk).toBe(2);
+    d.mini.bitenGorevler = d.mini.bitenGorevler.filter((x) => x !== 'solucan_gocu');
+    M.miniBaslat(d, 'solucan_gocu');
+    bekle(d, 160);
+    expect(d.stok.bazalt_4).toBe(0);
+    // Yağmacılar: hızlı yürürsen alarm
+    d.sahne = null;
+    M.miniBaslat(d, 'yagmaci_tuzagi');
+    d.mekan = 'vanguard';
+    d.oyuncu = { x: 2512, y: 18, yon: 0 };
+    for (let i = 0; i < 120 && d.mini.aktif; i++) {
+      d.oyuncu.x += i % 2 ? 0.26 : -0.26;
+      zamanIlerle(d, 0.1);
+    }
+    expect(d.mini.aktif).toBe(null);
+    expect(d.miniSon.sonuc).toBe('yanlis');
+    // Sessizce: yavaş yaklaş ve sersemlet
+    d.mini.bitenGorevler = d.mini.bitenGorevler.filter((x) => x !== 'yagmaci_tuzagi');
+    M.miniBaslat(d, 'yagmaci_tuzagi');
+    for (const k of ['yagmaci_1', 'yagmaci_2', 'yagmaci_3']) {
+      d.oyuncu = { x: NOKTALAR[k].x + 1, y: NOKTALAR[k].y, yon: 0 };
+      zamanIlerle(d, 0.1);
+      zamanIlerle(d, 0.1);
+      eylemUygula(d, k, 'm_etkisiz');
+    }
+    expect(d.miniSon.sonuc).toBe('dogru');
   });
 });

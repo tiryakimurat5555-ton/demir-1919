@@ -6,7 +6,7 @@ tesis kurar, ileride gemini parça parça inşa edip uzaya açılırsın.
 
 Tasarım: Bahtiyar Cankurt (belgeler/). Yapım: Murat ve Bahtiyar. Expo Go ile iPhone ve Android'de çalışır.
 
-## Bu sürümde (0.9)
+## Bu sürümde (1.0)
 - Vadi-i Sukût'ta sesle serbest dolaşma; iniş kapsülünün içi ve dışı.
 - Radar: uzun basınca yankılar nesnelerin yönünden döner.
 - Birinci görev "Sinyal Arayışı": alet dolabı, kopan arka modül, yedek jeneratör, Gözcü Tepesi'nde anten
@@ -38,6 +38,8 @@ Tasarım: Bahtiyar Cankurt (belgeler/). Yapım: Murat ve Bahtiyar. Expo Go ile i
   her şey susar; graviton dengeleyicisi), saklı kseno-vaha (maskesiz ilk alan, Sera Hubu).
 - Bölge arındırma: altı tehlikeli bölgede karakol yerinde dört adım; güvenli bölgede tehlike kalkar, ikmal karakolu
   madenleri koloniye taşır. Terraforming'in dört katmanı, uzaydan gelecek ırkların dört yapısı, Galaktik Başkent kademesi.
+- Telsizden gelen sekiz yerel operasyon: mantar hasadı, donan yakıt hattı, obsidyende kayıp ekip, vahanın tıkanan
+  kaynağı, akademide çeviri krizi, metan kubbesinde basınç düşüşü, kör solucan göçü, Vanguard enkazında yağmacılar.
 - Belgelerin hangi bölümünün yapıldığı: KAPSAM.md.
 - Mürettebattan telsiz çağrıları (çift dokun dinle, iki parmakla aşağı kaydır ertele).
 - Otomatik kayıt (uygulamadan çıkınca ya da telefon kilitlenince) ve kapsüldeki terminalden üç yuvaya elle kayıt.

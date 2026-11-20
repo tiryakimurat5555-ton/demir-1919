@@ -212,6 +212,17 @@ Demir 1919 oyunu silindi; geçmişi git kaydında (son sürüm 1.06, commit 556f
     (akademi, kseno_habitat, multeci_kampusu, tina_cekirdegi; tesisler.js'e eklenir, bayraklar Faz 4); seviye4Eksikleri →
     koloni.seviye 4. Yuzey: koloni yönetiminde "Terraforming katmanları" ve "Bölge arındırma durumu".
   - Sesler: konumsal/vaha ← ortam_vaha (tek kanal 24 kHz), ortam_tunel 0.9 ile eklendi.
+- SÜRÜM 1.0 (21 Kasım): gezegen-gelisimi bölüm 8, yerel mini görevler. Telefonda denenmedi.
+  - mini.js: MINI (8 görev, MINI_SIRASI belge sırası), d.mini {aktif, bekle, bitenGorevler, bitenler, secim, toplanan,
+    spor, olgunluk, kalan, dikkat}; miniIlerle (MINI_BEKLEME 150 sn; mantar sporu 1,4/sn, olgunluk /40 sn, >1,15 patlar;
+    solucan 150 sn; yağmacı dikkat: vanguardda >1,3 m/sn hızla korsana 14 m içinde 45×(1-u/14)/sn, yoksa -6/sn);
+    miniBaslat (bildirim mini_<id>), bitir → d.miniSon + sahne mini_tamam; ceviri_krizi sahnesi (yap: ceviriSec).
+    Noktalar harita.js'te mini: id (secenek, radarsiz); dunya.js yakindakiler miniGorunur ile süzer, radar radarsiz'i
+    atlar. Kancalar: G1 ayar amac 'mini_bent' → miniKilitlendi; G2 valf amac 'mini_kompresor' (sayaç kompresor_<id>,
+    patlamada zehir yok) → miniValfBitti. gorevler.js: ekEylemler (terminal m_teslim, m_ceviri), gorevIpucu başında
+    yerel operasyon, zamanIlerle olaylar (acil: hemen söylenir; tasindi; miniBasladi: zil).
+  - Yuzey: mini konumlu sesler (olgun kristal 'kristal', kaçak 'baca' döngüsü, korna 'fener' 311 Hz, korsan 'parazit'
+    2,6 sn, kompresör/kazık/bent 'bip' 3 sn, sürü 'yercekimi' (540,-62)); kompresör valf sözleri.
 - Sıradaki: KAPSAM.md "Sıradaki adımlar".
 
 ## Sesler

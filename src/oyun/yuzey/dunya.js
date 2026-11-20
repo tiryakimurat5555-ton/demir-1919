@@ -7,6 +7,7 @@ import { ESYALAR } from './gorev1';
 import { ARACLAR } from '../veri/gemiler';
 import { monolitEtkisi } from './kesifler';
 import { guvenliMi } from './arindirma';
+import { miniGorunur } from './mini';
 import { katmanTamamMi } from '../terraform';
 
 // Arındırılmış (güvenli) bölgede tehlikeler kalkar (arindirma.js)
@@ -79,7 +80,8 @@ export function yakindakiler(d) {
     const n = NOKTALAR[id];
     if (n.mekan !== d.mekan) continue;
     if (n.kaynak && (d.stok[id] || 0) <= 0) continue;
-    sonuc.push({ tur: 'nokta', id, ad: n.ad, x: n.x, y: n.y, yaricap: n.yaricap || 2 });
+    if (n.mini && !miniGorunur(d, id)) continue;
+    sonuc.push({ tur: 'nokta', id, ad: n.ad, x: n.x, y: n.y, yaricap: n.yaricap || 2, radarsiz: n.radarsiz });
   }
   for (const id of Object.keys(KAPILAR)) {
     KAPILAR[id].uclar.forEach((u, i) => {
@@ -128,7 +130,7 @@ function cevreMetniHam(d) {
 // Uzun bas: durum + radar. Radar her şeyi keşfedilmiş sayar ve yankıların geleceği yerleri döndürür.
 function radarHam(d) {
   const menzil = (MEKANLAR[d.mekan].radarMenzili || RADAR_MENZILI) * aracCarpani(d, 'radar');
-  const liste = siraliYakin(d).filter((n) => n.m <= menzil && n.tur !== 'kapi');
+  const liste = siraliYakin(d).filter((n) => n.m <= menzil && n.tur !== 'kapi' && !n.radarsiz);
   const pingler = liste.slice(0, 6).map((n) => ({ id: n.id, x: n.x, y: n.y, gecikme: Math.round(250 + n.m * 22) }));
   for (const n of liste) if (n.tur === 'nokta' && !d.kesif.includes(n.id)) d.kesif.push(n.id);
   const sozler = liste
