@@ -83,3 +83,14 @@ export const TARIFLER = {
     { id: 'akrep', ad: 'Akrep otonom toplama dronu', girdi: { hafif_alasim: 30, mikrocip: 15, itki_yakiti: 5 }, cikti: { arac_akrep: 1 }, sure: 60 },
   ],
 };
+
+// Donanımlar (veri/donanim.js): her biri 'mod_<id>' parçası ve kendi tesisinde bir tarif olur
+import { DONANIMLAR } from './donanim';
+for (const id of Object.keys(DONANIMLAR)) {
+  const x = DONANIMLAR[id];
+  PARCALAR['mod_' + id] = { ad: x.ad, tarif: x.tarif, katman: id, ek: !x.katman, minSinif: x.minSinif || 3 };
+  if (x.kendi) continue;
+  if (!TARIFLER[x.tesis]) TARIFLER[x.tesis] = [];
+  TARIFLER[x.tesis].push({ id: 'mod_' + id, ad: x.ad[0].toUpperCase() + x.ad.slice(1), girdi: x.girdi, cikti: { ['mod_' + id]: 1 }, sure: x.sure });
+}
+PARCA_SIRASI.splice(0, PARCA_SIRASI.length, ...Object.keys(PARCALAR));

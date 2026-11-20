@@ -53,7 +53,97 @@ export const UZAY_NOKTALARI = {
     ],
     sinif: 3,
   },
+  k12: {
+    ad: 'Sektör K-12, asteroit kanyonundaki korsan kalesi', x: 1100, y: -300, frek: 440, poi: 'k12', acan: 'dokumhane', sinif: 3,
+    gorev: 'Gölge Armada ve Kaçırılan Filo',
+    tehlike: 'Yoğun manyetik fırtınaların ardında, yüksek hızlı meteoritlerin uçuştuğu bir asteroit kanyonu. Pusuya düşmüş müttefik konvoyun eskortları rehin.',
+    hedef: 'Kaleye fark edilmeden sızmak, ana jeneratörü felç etmek, kaçırılan gemilerin otopilotunu sıfırlayıp komutayı geri almak.',
+    gerekli: [
+      { katman: 'govde', ad: 'Lamine zırh kaplaması' },
+      { katman: 'termal_karartma', ad: 'Pasif termal karartma modülü' },
+      { katman: 'komuta', ad: 'Geniş kapsamlı askeri karadutu ünitesi' },
+    ],
+  },
+  zaman_havzasi: {
+    ad: 'Kuantum kırılma noktası, Zaman Döngüsü Havzası', x: -300, y: -1100, frek: 659, poi: 'zaman_havzasi', acan: 'kuantum_lab', sinif: 3,
+    gorev: 'Yankılanan Kuantum Çöküşü',
+    tehlike: 'Zaman çizgisini büken bir kuantum feneri; geçmiş ve gelecek telsiz konuşmaları aynı anda yankılanıyor. Bir prototip korvet döngüde kaybolmak üzere.',
+    hedef: 'Geminin zaman çizgisini sabitlemek, yankıların içinden gerçek korvetin imzasını ayıklayıp onu yarıktan çekmek.',
+    gerekli: [
+      { katman: 'tahrik', ad: 'Kuantum rezonans sürücüsü' },
+      { katman: 'zaman_capasi', ad: 'Zaman çapası dengeleyicisi' },
+      { katman: 'takonik_cozucu', ad: 'Çok kanallı takonik frekans çözücü' },
+    ],
+  },
+  xerad: {
+    ad: 'Xerad Sektörü, kararsız boyut yarığı', x: 1250, y: 600, frek: 349, poi: 'xerad', acan: 'itki_hangari', sinif: 3,
+    gorev: 'Deney 07 ve Tonoflenya Anomalisi',
+    tehlike: 'Boyut atlama deneyi felaketle bitmiş; istasyonun ortasında büyüyen bir yarık. Ağzında canlı bir denek ve Malken prototip motoru asılı.',
+    hedef: 'Yarığın çekimine karşı sabit kalmak, kabini kirişle koparıp almak, deneği yaşatmak.',
+    gerekli: [
+      { katman: 'dis_a', ad: 'Ağır hizmet tipi manyetik çekici kiriş' },
+      { katman: 'asiri_iyon', ad: 'Aşırı yüklü iyon iticileri' },
+      { katman: 'biyo_stabilizasyon', ad: 'Biyo-stabilizasyon yaşam destek odası' },
+    ],
+  },
+  yanan_gemi: {
+    ad: 'Yanan araştırma gemisinin reaktör çekirdeği', x: -1200, y: -400, frek: 587, poi: 'yanan_gemi', acan: 'kriyo_atolye', sinif: 3,
+    gorev: 'Alevin Ruhu ve Yapay Bilinç Tina',
+    tehlike: 'Plazma sızıntısıyla eriyen bir Konfederasyon araştırma gemisi; beş bin derecelik koridorlar. Çekirdekte yapay bilinç Tina kilitli.',
+    hedef: "Plazma hatlarını dondurmak, Tina'nın bilincini veri kaybı olmadan gemiye aktarmak.",
+    gerekli: [
+      { katman: 'yangin_kalkani', ad: 'Termal koruma ve yangın bastırma kalkanı' },
+      { katman: 'kriyo_pompa', ad: 'Kriyo-plazma soğutma pompaları' },
+      { katman: 'bolme_b', ad: 'Yüksek hacimli optik kripto-bellek bankası' },
+    ],
+  },
+  aethel9: {
+    ad: 'Aethel-9 maden gezegeni yörünge hattı', x: 300, y: 1350, frek: 392, poi: 'aethel9', acan: 'askeri_tersane', sinif: 4,
+    gorev: 'Aethel-9 Gezegen Kuşatması',
+    tehlike: 'Dev bir yabancı filo gezegeni yörüngeden bombalıyor; kalkanlar çökmek üzere, binlerce kolonist tahliye bekliyor.',
+    hedef: 'Yörünge savunma koridorunu açmak, amiral gemisinin kalkanını tek salvoda delmek, tahliye mekiklerini korumak.',
+    gerekli: [
+      { katman: 'hisar_zirhi', ad: 'Ağır hisar zırhı ve çift katmanlı deflektör kalkanı' },
+      { katman: 'dis_b', ad: 'Ağır torpido istasyonu' },
+      { katman: 'tahliye_ambari', ad: 'Genişletilmiş tahliye ambarı' },
+    ],
+  },
+  tarras: {
+    ad: 'Tarras Geçidi, galaktik boğaz çatışma alanı', x: -1000, y: 1000, frek: 466, poi: 'tarras', acan: 'komuta_merkezi', sinif: 4,
+    gorev: 'Tarras Boğazı Donanma Mahşeri',
+    tehlike: 'İki süper gücün binlerce gemisi boğazda karşı karşıya; çapraz lazer ve plazma ateşi.',
+    hedef: 'Tarafsız bölgede hayatta kalmak, iki donanmanın gizli protokollerini derlemek, kanıtları bütün frekanslara yayıp ateşkese zorlamak.',
+    gerekli: [
+      { katman: 'jammer', ad: 'Diplomatik karartma ve jammer kalkanı' },
+      { katman: 'komuta', ad: 'Süper-işlemcili karadutu analizörü' },
+      { katman: 'genis_telsiz', ad: 'Geniş bantlı telsiz vericisi' },
+    ],
+  },
+  kizil_yutucu: {
+    ad: 'Kızıl Yutucu olay ufku, kadim çekim kapanı', x: 900, y: -1200, frek: 293, poi: 'kizil_yutucu', acan: 'yuksek_reaktor', sinif: 5,
+    gorev: 'Kızıl Yutucu ve Alt-Evren Mancınığı',
+    tehlike: 'Süper-kütleli bir kara deliğin olay ufkunda, gezegen boyutunda kadim bir mancınık; çekim kirişleri gemiyi içeri çekiyor.',
+    hedef: 'Gövdeyi çekime karşı korumak, mancınığın kontrol merkezine kilitlenmek, kadim anahtarla mancınığı çalıştırmak.',
+    gerekli: [
+      { katman: 'graviton_surucu', ad: 'Gelişmiş graviton sürücüsü' },
+      { katman: 'ters_itki', ad: 'Ters itki kuantum bobinleri' },
+      { katman: 'kadim_anahtar', ad: 'Kadim rezonans anahtarı' },
+    ],
+  },
 };
+
+// Tesisler kuruldukça haritada yeni ziyaret noktaları belirir (bölüm 4 ve 6). Yeni çıkanların listesi döner.
+export function poiGuncelle(d) {
+  const yeni = [];
+  for (const id of Object.keys(UZAY_NOKTALARI)) {
+    const n = UZAY_NOKTALARI[id];
+    if (n.acan && d.koloni.binalar.includes(n.acan) && !d.harita.poiler.includes(n.poi)) {
+      d.harita.poiler.push(n.poi);
+      yeni.push(id);
+    }
+  }
+  return yeni;
+}
 
 export function gorunurNoktalar(d) {
   return Object.keys(UZAY_NOKTALARI).filter((id) => UZAY_NOKTALARI[id].ev || d.harita.poiler.includes(UZAY_NOKTALARI[id].poi));

@@ -163,11 +163,23 @@ export function vincIndir(d) {
   }
   return { sonuc: 'indi', metin: v.yukseklik === 2 ? 'İniyor.' : 'Biraz daha. Hâlâ ortada mı, dinle.' };
 }
+// Zemin alaşım kaplaması (gorev6.js): kızağın zeminine vinçle zırhlı plaka oturtulur
+export const KAPLAMA = { id: 'kaplama', ad: 'Zemin alaşım kaplaması', gerek: { zirhli_plaka: 100 }, vinc: true, parca: 'alaşım kaplama levhaları' };
+function asamaBul(d, id) {
+  return id === 'kaplama' ? KAPLAMA : montajAsamalari(d).find((x) => x.id === id);
+}
+export function kaplamaBaslat(d) {
+  const p = d.koloni.parcalar || {};
+  if ((p.zirhli_plaka || 0) < 100) return { metin: '100 zırhlı şasi metali ve titanyum plaka gerekir; elinde ' + (p.zirhli_plaka || 0) + '. Dökümhanede üretilir.', ses: 'red' };
+  p.zirhli_plaka -= 100;
+  vincBaslat(d, 'kaplama');
+  return { vinc: true };
+}
 // Vinçten çekilince parça depoya döner (harcanan parçalar geri eklenir)
 export function vincIptal(d) {
   const v = d.vinc;
   if (!v) return;
-  const a = montajAsamalari(d).find((x) => x.id === v.asama);
+  const a = asamaBul(d, v.asama);
   if (!d.koloni.parcalar) d.koloni.parcalar = {};
   for (const k of Object.keys(a.gerek)) d.koloni.parcalar[k] = (d.koloni.parcalar[k] || 0) + a.gerek[k];
   d.vinc = null;
@@ -175,7 +187,13 @@ export function vincIptal(d) {
 export function vincKenetle(d) {
   const v = d.vinc;
   if (!v || !v.oturdu) return { sonuc: 'yok', metin: 'Parça daha oturmadı.' };
-  const a = montajAsamalari(d).find((x) => x.id === v.asama);
+  if (v.asama === 'kaplama') {
+    d.vinc = null;
+    d.bayrak.kaplama = true;
+    d.sahne = 'kaplama_tamam';
+    return { sonuc: 'kenetlendi', metin: 'Son levha da kenetlendi; kızağın zemini zırhlı alaşımla kaplandı.' };
+  }
+  const a = asamaBul(d, v.asama);
   tersane(d).kaynak = { asama: a.id, kalan: a.kaynak };
   d.vinc = null;
   return { sonuc: 'kenetlendi', metin: a.ad + ' kenetlendi. Mühendisler kaynağa başladı; bitince haber verirler.' };
@@ -253,10 +271,11 @@ export function modulListesi(d) {
     .filter((k) => PARCALAR[k].katman)
     .map((k) => {
       const katman = PARCALAR[k].katman;
-      const uygun = SINIF_KATMANLARI[g.sinif].includes(katman);
+      // Katman modülleri sınıfın katmanlarına; ek donanımlar en az belli kademedeki gemiye takılır
+      const uygun = PARCALAR[k].ek ? g.sinif >= PARCALAR[k].minSinif : SINIF_KATMANLARI[g.sinif].includes(katman);
       let durum;
       if (g.moduller[katman]) durum = 'Takılı.';
-      else if (!uygun) durum = g.ad + '\'da bu katman için yer yok.';
+      else if (!uygun) durum = PARCALAR[k].ek ? 'En az kademe ' + PARCALAR[k].minSinif + ' gemi gerekir.' : g.ad + '\'da bu katman için yer yok.';
       else if ((p[k] || 0) < 1) durum = 'Üretilmedi.';
       else durum = 'Takılabilir.';
       return { id: k, ad: PARCALAR[k].ad, durum, takilabilir: uygun && !g.moduller[katman] && (p[k] || 0) >= 1 };

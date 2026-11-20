@@ -160,6 +160,18 @@ Demir 1919 oyunu silindi; geçmişi git kaydında (son sürüm 1.06, commit 556f
     palet, kervan, vtol. ortam_reaktor ve ortam_revir ffmpeg ile üretildi (kahverengi gürültü + 55 Hz + tremolo;
     süzülmüş pembe gürültü + 1 kHz monitör bipi).
   - gorev5.js: kızakta yeni gemi / filo seçimi, sahne yeni_gemi.
+- SÜRÜM 0.7 (21 Kasım): entegrasyon matrisi. Telefonda denenmedi.
+  - veri/donanim.js: DONANIMLAR (katman: true olan 6 katman + 14 ek donanım; tesis, girdi, süre, minSinif; kadim_anahtar
+    kendi: true, deşifreden gelir) ve MATRIS (9 satır). uretim.js bunlardan mod_<id> parçaları ve tarifleri üretir;
+    gemi.js modulListesi ek donanımı minSinif'e göre takar (moduller anahtarı donanım kimliği).
+  - tesisler.js: kuantum_lab, itki_hangari, kriyo_atolye, askeri_tersane, komuta_merkezi, yuksek_reaktor
+    (kosul bayrak kalibrasyon/sikistirma/izolasyon/kaplama/ag/sifre).
+  - seyir.js: 7 yeni nokta (k12, zaman_havzasi, xerad, yanan_gemi, aethel9, tarras, kizil_yutucu; belgedeki üç
+    donanım, kademe 3-5, acan tesis); poiGuncelle (zamanIlerle'de; 'poi' olayı koloni çağrısı olarak).
+  - gorev6.js: ekEylemler (kalibrasyon_sutunu p_kalibre, bacalarda p_sikistir/p_izole, kizak p_kapla, tepe p_ag,
+    yazit p_sifre), 6 tamam sahnesi, projeMetni (görev ipucunda). G3 kapiDizisi uzunluk dis 3 / ic 4 / kalibre 5 /
+    sifre 6; G2 valfBaslat(d, id, amac); G1 ayarBaslat(d, amac 'ag' → hedef 10-40, bayrak ag, sahne ag_tamam);
+    gemi.js KAPLAMA + kaplamaBaslat (vinçle 100 zırhlı plaka). harita: kalibrasyon_sutunu (krater 740,24).
 - Sıradaki: KAPSAM.md "Sıradaki adımlar".
 
 ## Sesler

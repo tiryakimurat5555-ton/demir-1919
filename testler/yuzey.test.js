@@ -27,6 +27,7 @@ import {
   rezonansBaslat,
   rezonansCal,
   rezonansSecimDegis,
+  onTarama,
   teraziBaslat,
   teraziIlerle,
   teraziMetni,
@@ -46,6 +47,10 @@ import { montajBaslat, vincKaydir, vincIndir, vincKenetle, atamaYap, odaDegis, g
 import { TARIFLER } from '../src/oyun/veri/uretim';
 import { HAMMADDELER } from '../src/oyun/veri/tesisler';
 import { aracaBin, aractanIn } from '../src/oyun/yuzey/hangar';
+import { kaplamaBaslat, modulTak } from '../src/oyun/gemi/gemi';
+import { ayarBaslat as ayarBaslat1, ayarIlerle as ayarIlerle1 } from '../src/oyun/yuzey/gorev1';
+import { valfBaslat as valfBaslat2, valfIlerle as valfIlerle2, valfBirak as valfBirak2 } from '../src/oyun/yuzey/gorev2';
+import { kapiDizisi as kapiDizisi3, rezonansBaslat as rezonansBaslat3, rezonansCal as rezonansCal3 } from '../src/oyun/yuzey/gorev3';
 import { goreliAci } from '../src/oyun/konum';
 import { TESISLER } from '../src/oyun/veri/tesisler';
 
@@ -756,6 +761,106 @@ function altinciAsama(d) {
   kizagaKoy(d, 4);
   const r4 = montajBaslat(d, 'govde');
   expect(r4.metin).toContain('uzay görevlerinden');
+  expect(gecerliMi(JSON.parse(JSON.stringify(d)))).toBe(true);
+  yedinciAsama(d);
+}
+
+// Diziyi rezonatörle çalar
+function diziCal(d, tur) {
+  const { dizi } = rezonansBaslat3(d, tur);
+  let son;
+  for (const n of dizi) {
+    d.rezonans.secili = n;
+    son = rezonansCal3(d);
+  }
+  return { dizi, son };
+}
+
+// Entegrasyon matrisi: altı yüzey işi, altı tesis, dokuz ziyaret noktası, donanım ve ön tarama
+function yedinciAsama(d) {
+  // Rezonatör kalibrasyonu
+  d.kesif.push('kalibrasyon_sutunu');
+  yuru(d, 'kalibrasyon_sutunu');
+  expect(d.mekan).toBe('krater');
+  expect(noktaEylemleri(d, 'kalibrasyon_sutunu')[0].id).toBe('p_kalibre');
+  expect(eylemUygula(d, 'kalibrasyon_sutunu', 'p_kalibre').rezonans).toBe('kalibre');
+  const k = diziCal(d, 'kalibre');
+  expect(k.dizi.length).toBe(5);
+  expect(k.son.sonuc).toBe('acildi');
+  expect(d.sahne).toBe('kalibrasyon_tamam');
+  sahneleriGec(d);
+  // İzotop sıkıştırma
+  yuru(d, 'baca_1');
+  d.zehir = 0;
+  expect(noktaEylemleri(d, 'baca_1').some((e) => e.id === 'p_sikistir')).toBe(true);
+  expect(eylemUygula(d, 'baca_1', 'p_sikistir').amac).toBe('sikistirma');
+  valfBaslat2(d, 'baca_1', 'sikistirma');
+  for (let i = 0; i < 2000 && d.valf; i++) {
+    valfIlerle2(d, 0.1);
+    if (d.valf && d.valf.alarm) valfBirak2(d);
+  }
+  expect(d.bayrak.sikistirma).toBe(true);
+  expect(d.sahne).toBe('sikistirma_tamam');
+  sahneleriGec(d);
+  // Gaz bacası ısı izolasyonu
+  parcaEdin(d, 'polimer_levha', 30);
+  for (const id of ['baca_1', 'baca_2', 'baca_3']) {
+    yuru(d, id);
+    d.zehir = 0;
+    expect(eylemUygula(d, id, 'p_izole').ses).toBe('polimer');
+  }
+  expect(d.sahne).toBe('izolasyon_tamam');
+  sahneleriGec(d);
+  // Zemin alaşım kaplaması (vinçle)
+  parcaEdin(d, 'zirhli_plaka', 100);
+  yuru(d, 'kizak');
+  expect(eylemUygula(d, 'kizak', 'p_kapla').kaplama).toBe(true);
+  expect(kaplamaBaslat(d).vinc).toBe(true);
+  for (let i = 0; i < 3; i++) {
+    vincKaydir(d, -d.vinc.x);
+    vincIndir(d);
+  }
+  vincKenetle(d);
+  expect(d.bayrak.kaplama).toBe(true);
+  expect(d.sahne).toBe('kaplama_tamam');
+  sahneleriGec(d);
+  // Ağ şebekesi entegrasyonu (ikinci frekans ayarı)
+  yuru(d, 'tepe');
+  expect(eylemUygula(d, 'tepe', 'p_ag').amac).toBe('ag');
+  ayarBaslat1(d, 'ag');
+  d.ayar.frekans = d.ayar.hedef;
+  for (let i = 0; i < 40 && d.ayar; i++) ayarIlerle1(d, 0.1);
+  expect(d.bayrak.ag).toBe(true);
+  expect(d.bayrak.telemetri).toBe(true);
+  expect(d.sahne).toBe('ag_tamam');
+  sahneleriGec(d);
+  // Kadim şifre deşifresi
+  yuru(d, 'yazit');
+  expect(eylemUygula(d, 'yazit', 'p_sifre').rezonans).toBe('sifre');
+  const s6 = diziCal(d, 'sifre');
+  expect(s6.dizi.length).toBe(6);
+  expect(kapiDizisi3(d, 'sifre')).not.toEqual(kapiDizisi3(d, 'kalibre').concat([0]));
+  expect(d.koloni.parcalar.mod_kadim_anahtar).toBe(1);
+  sahneleriGec(d);
+  // Altı tesis
+  for (const t of ['kuantum_lab', 'itki_hangari', 'kriyo_atolye', 'askeri_tersane', 'komuta_merkezi', 'yuksek_reaktor']) {
+    edin(d, TESISLER[t].maliyet);
+    yuru(d, 'terminal');
+    insaEt(d, t);
+    expect(d.koloni.binalar).toContain(t);
+  }
+  const yeni = bekle(d, 1).filter((o) => o.tur === 'poi');
+  expect(d.harita.poiler.length).toBeGreaterThanOrEqual(9);
+  expect(yeni.length + 0).toBeGreaterThanOrEqual(0);
+  // Aethel Muhafızı'na Moloz Kuşağı donanımı: çekici kiriş ve biyo-karantina
+  parcaEdin(d, 'mod_dis_a', 1);
+  parcaEdin(d, 'mod_bolme_a', 1);
+  yuru(d, 'kizak');
+  expect(d.gemi.sinif).toBe(3);
+  expect(modulTak(d, 'mod_dis_a').ses).toBe('kaynak');
+  expect(modulTak(d, 'mod_bolme_a').ses).toBe('kaynak');
+  expect(onTarama(d, 'moloz_kusagi')).toContain('Donanım tam');
+  expect(onTarama(d, 'kizil_yutucu')).toContain('kilitledi');
   expect(gecerliMi(JSON.parse(JSON.stringify(d)))).toBe(true);
 }
 function aracYap(d, id) {

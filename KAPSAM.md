@@ -29,16 +29,22 @@ bütün bölümlerini sırayla sayar. Her sürümde güncellenir; bir bölüm bu
       Uğultulu Plato [x]. Ayrıntılı alt biyomlar gezegen-gelisimi-v2'de (aşağıda).
 - [x] 1 Yüzey görevleri 1-4: Sinyal Arayışı (0.1), Jeotermal Sondaj (0.2), Antik Kseno-Laboratuvar Kazısı (0.3),
       Tersane Zemin Güçlendirmesi (0.4).
-- [~] 2 Tesisler: Sinyal Kulesi [x], Dökümhane [x], Graviton ve Reaktör Laboratuvarı [x] (0.5), Kseno-Biyoloji Kubbesi [x],
-      Merkezi Montaj Tersanesi [x]. Tesislerin ürettiği gemi birimleri: kripto anten [x], gövde zırhı [x],
-      biyo-karantina [x], reaktör ve itki [~] (Kıvılcım'ınki var; graviton reaktörü ve itki motorları yok).
-- [~] 3 Modüler gemi ve 9 montaj katmanı: veri [x]; üretilen ve takılabilen: burun, gövde, iç bölme A [x];
-      komuta, iç bölme B, makine, tahrik, dış A, dış B [ ] (Faz 3 devamı / Faz 4).
+- [x] 2 Tesisler: Sinyal Kulesi, Dökümhane, Graviton ve Reaktör Laboratuvarı, Kseno-Biyoloji Kubbesi, Merkezi Montaj
+      Tersanesi; her biri belgedeki gemi birimini üretir (kripto anten, gövde zırhı, graviton reaktörü ve yakıtlar,
+      biyo-karantina, montaj).
+- [x] 3 Modüler gemi ve 9 montaj katmanı: dokuzu da üretilir ve takılır (0.7): burun, komuta (karadutu), gövde,
+      bölme A, bölme B (optik kripto-bellek), makine (graviton reaktörü), tahrik (kuantum sürücü), dış A (çekici kiriş),
+      dış B (hisar topları ve torpido); sınıfa göre katman sınırı.
 - [x] 4 Uzay haritası, otomatik ziyaret noktaları, ön tarama ve donanım gereksinim listesi, eksikse kilit (0.5).
 - [~] 4 Operasyon sahası (donanım sırayla devreye girer): [ ] Faz 4.
-- [ ] 5 Dokuz büyük uzay görevi (5.1 Prometheus ... 5.9 Kızıl Yutucu): ön taramaları 5.1 ve 5.2 için var; görevlerin
-      kendisi Faz 4.
-- [~] 6 Entegrasyon matrisi: yüzey işi → tesis → modül → ziyaret noktası zinciri ilk iki satır için kuruldu.
+- [~] 5 Dokuz büyük uzay görevi: dokuzunun da ziyaret noktası, tehlike analizi, operasyon hedefi, belgedeki üç zorunlu
+      donanımı ve gemi kademesi tanımlı; her donanım bir tesiste üretilir (0.7). Görevlerin icrası (operasyon sahası)
+      ve ödül gemileri [ ] Faz 4.
+- [x] 6 Entegrasyon matrisi (0.7): dokuz satırın hepsi: yüzey işi → tesis → birim → ziyaret noktası. Altı yeni yüzey işi:
+      rezonatör kalibrasyonu (kalibrasyon sütunu, 5 nota), izotop sıkıştırma (valf), gaz bacası ısı izolasyonu (polimer
+      levha), zemin alaşım kaplaması (vinç), ağ şebekesi entegrasyonu (ikinci frekans ayarı), kadim şifre deşifresi
+      (6 nota, kadim rezonans anahtarı). Altı tesis: Kuantum Laboratuvarı, İtki Hangarı, Kriyo-Atölye, Askeri Tersane,
+      Komuta Merkezi, Yüksek Enerji Reaktörü. Tesis kurulunca nokta haritada belirir. Son sütun (ödül gemileri) Faz 4.
 
 ## 3. gezegen-gelisimi-ve-yerel-gorevler-v2.md
 - [~] 1 Coğrafi ve atmosferik katmanlaşma: dört ana bölge var; katmanların sesli tarifleri kısmen.
@@ -63,8 +69,9 @@ bütün bölümlerini sırayla sayar. Her sürümde güncellenir; bir bölüm bu
 - [x] 1.1 Yüzey Araçları Montaj Hangarı (0.6): dökümhane ve elektrik şebekesi ister; şasi çeliği atölyesi; vadide hangar.
 - [x] 1.2 Kuru tersane ve kızak: Kademe I kızak (0.5), Kademe II Manyetik Beşik ve Kademe III Hisar Tersanesi (0.6);
       gemi sınıfları kızak kademesine bağlı.
-- [~] 1.3 Kuantum itki ve reaktör kalibrasyon laboratuvarı: Graviton ve Reaktör Laboratuvarı yakıt, reaktör, kalkan
-      projektörü üretir; kuantum kalibrasyonu [ ] (0.7: Kuantum Laboratuvarı).
+- [x] 1.3 Kuantum itki ve reaktör kalibrasyon laboratuvarı: Graviton ve Reaktör Laboratuvarı (yakıt, reaktör, kalkan
+      projektörü) ve rezonatör kalibrasyonuyla açılan Kuantum Laboratuvarı (sürücü, zaman çapası, takonik çözücü,
+      ters itki bobinleri) (0.7).
 - [x] 2 Kademe 1 Kıvılcım: 2 oda, türbin sesi, belgedeki malzemeler (150 plaka, 40 kablo, 25 litre yakıt, 1 iyon reaktörü).
 - [x] 2 Kademe 2 Rüzgarkıran (4 oda, çift pistonlu homurtu; 350 alaşım, 120 şasi çeliği, 80 saf kristal, 60 L plazma,
       1 füzyon reaktörü) ve Kademe 3 Aethel Muhafızı (6 oda, manyetik uğultu; 700 zırhlı plaka, 250 kseno-alaşım,
@@ -127,9 +134,7 @@ bütün bölümlerini sırayla sayar. Her sürümde güncellenir; bir bölüm bu
 - [ ] 6 Keşif, gereç ve itibar matrisi.
 
 ## Sıradaki adımlar (sırayla)
-1. Faz 3'ün kalanı: entegrasyon matrisindeki altı yüzey işi ve altı tesis (Kuantum Laboratuvarı, İtki Hangarı,
-   Kriyo-Atölye, Askeri Tersane, Komuta Merkezi, Yüksek Enerji Reaktörü) ve kalan modül katmanları.
-2. Faz 2'nin kalanı: doğu sektörü, beş mikro-biyom, kalan dört POI, arındırma protokolü, terraforming, yerel mini
+1. Faz 2'nin kalanı: doğu sektörü, beş mikro-biyom, kalan dört POI, arındırma protokolü, terraforming, yerel mini
    görevler, ırk yapıları, Kademe 4.
-3. Faz 4: görev motoru (SpaceMission), 9 büyük görev, G-01 … G-24, 20 gezegen, gözlem gereçleri ve fenomenler, kütüphane.
-4. Faz 5: savaş modu, yetenek ağaçları, ElevenLabs sesleri, cila.
+2. Faz 4: görev motoru (SpaceMission), 9 büyük görev, G-01 … G-24, 20 gezegen, gözlem gereçleri ve fenomenler, kütüphane.
+3. Faz 5: savaş modu, yetenek ağaçları, ElevenLabs sesleri, cila.

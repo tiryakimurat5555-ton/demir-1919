@@ -9,6 +9,7 @@ import * as G3 from './gorev3';
 import * as G4 from './gorev4';
 import * as G5 from './gorev5';
 import * as H from './hangar';
+import * as G6 from './gorev6';
 import { koloniIlerle } from '../koloni';
 import * as S from '../uzay/seyir';
 import { TESISLER } from '../veri/tesisler';
@@ -19,7 +20,7 @@ export const { NOTALAR, kapiDizisi, rezonansBaslat, rezonansSecimDegis, rezonans
 
 export const { AYAKLAR, ayakSayisi, ayakFrek, teraziBaslat, teraziPompa, teraziIlerle, teraziMetni, DENGE_ESIGI } = G4;
 
-export const SAHNELER = { ...G1.SAHNELER, ...G2.SAHNELER, ...G3.SAHNELER, ...G4.SAHNELER, ...G5.SAHNELER };
+export const SAHNELER = { ...G1.SAHNELER, ...G2.SAHNELER, ...G3.SAHNELER, ...G4.SAHNELER, ...G5.SAHNELER, ...G6.SAHNELER };
 
 // Telsiz bildirimleri (belgeler/savas-yetenek-ve-murettebat-mekanikleri.md 4.3): koşulu sağlanınca bir kez kuyruğa
 // girer. gorev alanı varsa yalnız o görev sürerken.
@@ -64,6 +65,15 @@ export function gorevIpucu(d) {
 }
 
 export function noktaEylemleri(d, id) {
+  const ek = G6.ekEylemler(d, id);
+  if (G6.noktaMi(id)) return [...ek, { id: 'incele', etiket: 'Sütunu incele' }];
+  const temel = temelEylemler(d, id);
+  if (!ek.length) return temel;
+  // Ek proje eylemleri "incele"den önce
+  const i = temel.findIndex((e) => e.id === 'incele');
+  return i < 0 ? [...temel, ...ek] : [...temel.slice(0, i), ...ek, ...temel.slice(i)];
+}
+function temelEylemler(d, id) {
   if (G2.bacaMi(id)) return G2.noktaEylemleri(d, id);
   if (G3.noktaMi(id)) return G3.noktaEylemleri(d, id);
   if (G4.noktaMi(id)) return G4.noktaEylemleri(d, id);
@@ -73,6 +83,7 @@ export function noktaEylemleri(d, id) {
 }
 
 export function eylemUygula(d, id, eylemId) {
+  if (G6.ekEylemMi(eylemId) || G6.noktaMi(id)) return G6.eylemUygula(d, id, eylemId);
   if (G2.bacaMi(id)) return G2.eylemUygula(d, id, eylemId);
   if (G3.noktaMi(id)) return G3.eylemUygula(d, id, eylemId);
   if (G4.noktaMi(id)) return G4.eylemUygula(d, id, eylemId);
@@ -134,10 +145,12 @@ export { TESISLER };
 
 // --- Zaman: koloni, üretim, tersane (her karede çağrılır) ---
 export const { aracaBin, aractanIn, aracListesi } = H;
+export const { projeMetni, projeListesi } = G6;
 
 export function zamanIlerle(d, dt) {
   const olaylar = koloniIlerle(d, dt);
   for (const o of olaylar) if (o.tur === 'gemiHazir') G5.gemiHazir(d, o.sinif);
+  for (const id of S.poiGuncelle(d)) olaylar.push({ tur: 'poi', id, metin: 'Sinyal kulesi yeni bir nokta yakaladı: ' + S.UZAY_NOKTALARI[id].ad + '. Uzay haritasında.' });
   return olaylar;
 }
 

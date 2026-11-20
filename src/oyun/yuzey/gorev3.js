@@ -27,10 +27,15 @@ export const NOTALAR = [
   { ad: 'beşinci çan', frek: 330 },
 ];
 
+// Dizi uzunlukları: dış kapı 3, iç kapı 4; rezonatör kalibrasyonu 5, kadim şifre 6 (gorev6.js)
+const DIZI_UZUNLUGU = { dis: 3, ic: 4, kalibre: 5, sifre: 6 };
+const KAPI_TOHUM = { dis: 104729, ic: 7919, kalibre: 15485863, sifre: 32452843 };
+// Dizi tamamlanınca konan bayrak ve açılan sahne
+const DIZI_BITIS = { dis: { bayrak: 'kapi_dis' }, ic: { bayrak: 'kapi_ic' }, kalibre: { bayrak: 'kalibrasyon', sahne: 'kalibrasyon_tamam' }, sifre: { bayrak: 'sifre', sahne: 'sifre_tamam' } };
 // Kapının dizisi oyunun tohumundan gelir: aynı nota art arda gelmez
 export function kapiDizisi(d, kapi) {
-  const r = uretec(d.tohum + (kapi === 'ic' ? 7919 : 104729));
-  const uzun = kapi === 'ic' ? 4 : 3;
+  const r = uretec(d.tohum + (KAPI_TOHUM[kapi] || 104729));
+  const uzun = DIZI_UZUNLUGU[kapi] || 3;
   const dizi = [];
   while (dizi.length < uzun) {
     const n = Math.floor(r() * NOTALAR.length);
@@ -212,9 +217,18 @@ export function rezonansCal(d) {
   }
   r.sira += 1;
   if (r.sira < dizi.length) return { sonuc: 'dogru', metin: r.sira + '. nota tuttu.' };
-  b(d)[r.kapi === 'ic' ? 'kapi_ic' : 'kapi_dis'] = true;
+  const bitis = DIZI_BITIS[r.kapi] || DIZI_BITIS.dis;
+  b(d)[bitis.bayrak] = true;
   d.kaptan.tecrube += 10;
   d.rezonans = null;
+  if (bitis.sahne) {
+    if (r.kapi === 'sifre') {
+      if (!d.koloni.parcalar) d.koloni.parcalar = {};
+      d.koloni.parcalar.mod_kadim_anahtar = (d.koloni.parcalar.mod_kadim_anahtar || 0) + 1;
+    }
+    d.sahne = bitis.sahne;
+    return { sonuc: 'acildi', metin: 'Son nota yerine oturuyor; bütün dizi bir an tek bir tını olup çınlıyor.' };
+  }
   return { sonuc: 'acildi', metin: 'Son nota kapının tınısıyla birleşiyor. Bir an iki ses tek ses oluyor; sonra kapı açılıyor.' };
 }
 

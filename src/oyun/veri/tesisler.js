@@ -110,7 +110,18 @@ TESISLER.tersane_3 = {
   kosulMetni: 'Önce Kademe II Manyetik Beşik kurulmalı.',
 };
 
-export const TESIS_SIRASI = ['sinyal_kulesi', 'dokumhane', 'yasam_blogu', 'arac_hangari', 'reaktor_lab', 'biyo_kubbe', 'tersane', 'tersane_2', 'tersane_3'];
+// Entegrasyon matrisi tesisleri (uzay-oyunu-tasarim-ve-senaryo.md bölüm 6): her biri bir yüzey işiyle açılır
+const matrisTesisi = (id, ad, kisa, islev, katki, acar, maliyet, bayrak, kosulMetni) => {
+  TESISLER[id] = { ad, kisa, islev, katki, acar, maliyet, kosul: (d) => !!d.bayrak[bayrak], kosulMetni };
+};
+matrisTesisi('kuantum_lab', 'Kuantum İtki ve Reaktör Kalibrasyon Laboratuvarı', 'Kuantum Laboratuvarı', 'Reaktörlerin frekans ayarını yapar, sürücü bobinlerini sızıntı testinden geçirir.', 'Kuantum rezonans sürücüsü, zaman çapası, takonik çözücü, ters itki bobinleri.', 'Uzay haritasında Zaman Döngüsü Havzası.', { bazalt: 12, titanyum: 8, kristal: 6, kseno: 2 }, 'kalibrasyon', 'Önce Kadim Krater\'deki kalibrasyon sütununda rezonatörü kalibre et.');
+matrisTesisi('itki_hangari', 'İtki Hangarı', 'İtki Hangarı', 'Sıkıştırılmış izotopla ağır itki ve çekim sistemlerini sınar.', 'Ağır çekici kiriş ve aşırı yüklü iyon iticileri.', 'Uzay haritasında Xerad Boyut Yarığı.', { bazalt: 14, titanyum: 8, izotop: 3 }, 'sikistirma', 'Önce bir gaz bacasında izotop sıkıştırması yap.');
+matrisTesisi('kriyo_atolye', 'Kriyo-Atölye', 'Kriyo-Atölye', 'Isı yalıtımı ve soğutma sistemleri üretir.', 'Yangın bastırma kalkanı ve kriyo-plazma pompaları.', 'Uzay haritasında yanan araştırma gemisi.', { bazalt: 10, titanyum: 6, polimer: 3 }, 'izolasyon', 'Önce sırtlardaki üç gaz bacasını ısıya karşı yalıt.');
+matrisTesisi('askeri_tersane', 'Askeri Tersane', 'Askeri Tersane', 'Zırh ve silah donanımı için alaşım kaplı ağır kızak.', 'Ağır hisar bataryası, hisar zırhı, termal karartma, tahliye ambarı.', 'Uzay haritasında Aethel-9 yörünge hattı.', { bazalt: 20, titanyum: 12, polimer: 4 }, 'kaplama', 'Önce platodaki kızağın zeminini zırhlı alaşımla kapla.');
+matrisTesisi('komuta_merkezi', 'Komuta Merkezi', 'Komuta Merkezi', 'Kule, dökümhane ve jeneratörü tek bir ağda yönetir.', 'Karadutu analizörü, optik kripto-bellek, jammer kalkanı.', 'Uzay haritasında Tarras Boğazı.', { bazalt: 12, titanyum: 8, kristal: 6 }, 'ag', 'Önce Gözcü Tepesi\'nde koloninin ağ şebekesini kur.');
+matrisTesisi('yuksek_reaktor', 'Yüksek Enerji Reaktörü', 'Yüksek Enerji Reaktörü', 'Kadim şifreyle çalışan dev graviton reaktörü.', 'Graviton mancınık sürücüsü.', 'Uzay haritasında Kızıl Yutucu olay ufku.', { bazalt: 20, titanyum: 14, kseno: 4, graviton: 4 }, 'sifre', 'Önce iç mabetteki yazıtın kadim şifresini çöz.');
+
+export const TESIS_SIRASI = ['sinyal_kulesi', 'dokumhane', 'yasam_blogu', 'arac_hangari', 'reaktor_lab', 'biyo_kubbe', 'tersane', 'tersane_2', 'tersane_3', 'kuantum_lab', 'itki_hangari', 'kriyo_atolye', 'askeri_tersane', 'komuta_merkezi', 'yuksek_reaktor'];
 
 // Koloni kademeleri (gezegen-gelisimi-ve-yerel-gorevler-v2.md bölüm 9)
 export const KOLONI_KADEMELERI = [

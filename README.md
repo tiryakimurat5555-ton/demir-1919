@@ -6,7 +6,7 @@ tesis kurar, ileride gemini parça parça inşa edip uzaya açılırsın.
 
 Tasarım: Bahtiyar Cankurt (belgeler/). Yapım: Murat ve Bahtiyar. Expo Go ile iPhone ve Android'de çalışır.
 
-## Bu sürümde (0.6)
+## Bu sürümde (0.7)
 - Vadi-i Sukût'ta sesle serbest dolaşma; iniş kapsülünün içi ve dışı.
 - Radar: uzun basınca yankılar nesnelerin yönünden döner.
 - Birinci görev "Sinyal Arayışı": alet dolabı, kopan arka modül, yedek jeneratör, Gözcü Tepesi'nde anten
@@ -27,6 +27,9 @@ Tasarım: Bahtiyar Cankurt (belgeler/). Yapım: Murat ve Bahtiyar. Expo Go ile i
 - Gemi filosu: Rüzgarkıran (Kademe 2) ve Aethel Muhafızı (Kademe 3) belgedeki malzemelerle üretilip toplanır; Kızak
   Kademe II ve III; büyük gemilerde reaktör odasında güç dağıtımı, revirde tıbbi tarama. Kademe 4-5 malzemeleri uzaydan.
 - Yüzey araçları hangarı ve beş araç: Çöl Tilkisi, Mammoth, Demir Kervan, Atmosphere-X, Akrep.
+- Koloni projeleri (entegrasyon matrisi): rezonatör kalibrasyonu, izotop sıkıştırma, ısı izolasyonu, zemin alaşım
+  kaplaması, ağ şebekesi, kadim şifre; altı yeni tesis; dokuz montaj katmanı ve büyük görevlerin bütün donanımları;
+  uzay haritasında dokuz görev noktası ve ön taramaları.
 - Belgelerin hangi bölümünün yapıldığı: KAPSAM.md.
 - Mürettebattan telsiz çağrıları (çift dokun dinle, iki parmakla aşağı kaydır ertele).
 - Otomatik kayıt (uygulamadan çıkınca ya da telefon kilitlenince) ve kapsüldeki terminalden üç yuvaya elle kayıt.

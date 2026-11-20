@@ -190,6 +190,7 @@ export const NOKTALAR = {
   bazalt_7: { mekan: 'plato', x: 1170, y: 64, ad: 'Bazalt yığını', yaricap: 2.2, kaynak: 'bazalt', stok: 6 },
   titanyum_4: { mekan: 'plato', x: 1172, y: 12, ad: 'Devrik anten direği', yaricap: 2.2, kaynak: 'titanyum', stok: 4, tarif: 'Eski bir keşif sondasının rüzgârla devrilmiş titanyum direği.' },
   kseno_damari: { mekan: 'kseno_lab', x: 921, y: 21.5, ad: 'Kseno-kristal damarı', yaricap: 1.8, kaynak: 'kseno', stok: 2, tarif: 'Duvarın dibinden filizlenen, melodik tonlar yayan kadim kristaller.' },
+  kalibrasyon_sutunu: { mekan: 'krater', x: 740, y: 24, ad: 'Kalibrasyon sütunu', yaricap: 2, engel: 0.7, tarif: 'Kapının önünde, çanların tam ortasında duran beline kadar bir taş sütun. Dokununca beş perdeli bir dizi çalıyor.' },
   kaide_1: { mekan: 'kseno_lab', x: 903, y: 10, ad: 'Batı kaidesi', yaricap: 1.8, kaide: true, tarif: 'Göğüs hizasında bir taş kaide; üstünde soluk ışıklı bir veri kristali.' },
   kaide_2: { mekan: 'kseno_lab', x: 921, y: 9, ad: 'Doğu kaidesi', yaricap: 1.8, kaide: true, tarif: 'Duvara yaslı bir kaide; kristali hafifçe vızıldıyor.' },
   kaide_3: { mekan: 'kseno_lab', x: 904, y: 20, ad: 'Kuzey kaidesi', yaricap: 1.8, kaide: true, tarif: 'Salonun dibinde, iç kapının yanında bir kaide.' },

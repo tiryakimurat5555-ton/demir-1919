@@ -11,6 +11,7 @@ import { KIVILCIM_MONTAJ, gemiyeBin, yakitDoldur, filo, yeniGemiSiniflari } from
 import { GEMI_SINIFLARI } from '../veri/gemiler';
 import { PARCALAR } from '../veri/uretim';
 import { moralMetni } from '../koloni';
+import { projeMetni } from './gorev6';
 
 const b = (d) => d.bayrak;
 const ad = (d, rol) => (d.murettebat[rol] ? d.murettebat[rol].ad : '');
@@ -106,7 +107,7 @@ export function gorevIpucu(d) {
     return 'İlk uçuş. Ön tarama tamam. Aethelis-IV\'ün pes fenerine dön, yavaşla ve kenetlen.';
   }
   if (d.gorev.id === 'filo')
-    return 'Beş görev tamamlandı. Uzaydaki görevler için daha büyük gemiler ve yeni modüller gerekiyor; bunlar sonraki sürümlerde. Kıvılcım\'la uçabilir, kaynak toplayabilir, koloniyi büyütebilirsin.';
+    return 'Beş görev tamamlandı. Uzaydaki görevler büyük gemiler ve özel donanım ister; noktaların ön taramaları neyin eksik olduğunu söyler. ' + projeMetni(d) + ' Uzay görevlerinin kendisi sonraki sürümlerde.';
   return '';
 }
 

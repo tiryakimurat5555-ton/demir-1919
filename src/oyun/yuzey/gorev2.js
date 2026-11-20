@@ -126,9 +126,11 @@ export const ALARM_ESIGI = 0.78;
 const VALF_BAS = 0.15;
 const VALF_HIZ = 0.07; // saniyede; her başarıda hızlanır
 
-export function valfBaslat(d, id) {
-  const basari = b(d)['valf_' + id] || 0;
-  d.valf = { baca: id, basinc: VALF_BAS, alarm: false };
+// amac: 'sondaj' (ikinci görev) ya da 'sikistirma' (gorev6.js, izotop sıkıştırma: aynı dengeleme, ayrı sayaç)
+const sayacAnahtari = (v) => (v.amac === 'sikistirma' ? 'sikistir_' : 'valf_') + v.baca;
+export function valfBaslat(d, id, amac = 'sondaj') {
+  d.valf = { baca: id, basinc: VALF_BAS, alarm: false, amac };
+  const basari = b(d)[sayacAnahtari(d.valf)] || 0;
   return { basari };
 }
 
@@ -136,7 +138,7 @@ export function valfIlerle(d, dt) {
   const v = d.valf;
   if (!v) return [];
   const olaylar = [];
-  const basari = b(d)['valf_' + v.baca] || 0;
+  const basari = b(d)[sayacAnahtari(v)] || 0;
   v.basinc += VALF_HIZ * (1 + basari * 0.3) * dt;
   if (!v.alarm && v.basinc >= ALARM_ESIGI) {
     v.alarm = true;
@@ -156,7 +158,7 @@ export function valfBirak(d) {
   const v = d.valf;
   if (!v) return { sonuc: 'yok', metin: '' };
   const g = b(d);
-  const anahtar = 'valf_' + v.baca;
+  const anahtar = sayacAnahtari(v);
   if (v.basinc < ALARM_ESIGI) {
     const yuzde = Math.round(v.basinc * 100);
     v.basinc = VALF_BAS;
@@ -166,6 +168,14 @@ export function valfBirak(d) {
   v.basinc = VALF_BAS;
   v.alarm = false;
   if (g[anahtar] < VALF_GEREKEN) return { sonuc: 'iyi', metin: 'Tam zamanında. Gaz kontrollü tıslayarak çıkıyor. ' + g[anahtar] + ' / ' + VALF_GEREKEN + '. Basınç yeniden yükseliyor, bu sefer daha hızlı.' };
+  if (v.amac === 'sikistirma') {
+    // İzotop sıkıştırması tamam: itki hangarı açılır
+    g.sikistirma = true;
+    d.valf = null;
+    d.kaptan.tecrube += 15;
+    d.sahne = 'sikistirma_tamam';
+    return { sonuc: 'bitti', metin: 'Sıkıştırma odası doldu; izotop yoğun bir kristale dönüştü.' };
+  }
   // Baca dengede
   g['baca_' + v.baca] = true;
   d.koloni.kaynaklar.izotop = (d.koloni.kaynaklar.izotop || 0) + IZOTOP_BACA_BASI;

@@ -314,9 +314,10 @@ const KILIT_PAYI = 1.2;
 const KILIT_SURESI = 2.5;
 const DUYMA_ARALIGI = 25;
 
-export function ayarBaslat(d) {
-  const hedef = 70 + ((d.tohum % 400) / 10 - 20); // 50-90 arası
-  d.ayar = { frekans: 30, hedef: Math.round(hedef * 10) / 10, kilit: 0, yakinDendi: false };
+// amac: 'telemetri' (birinci görev) ya da 'ag' (gorev6.js ağ şebekesi entegrasyonu: hedef 10-40 arası)
+export function ayarBaslat(d, amac = 'telemetri') {
+  const hedef = amac === 'ag' ? 25 + (((d.tohum * 7) % 300) / 10 - 15) : 70 + ((d.tohum % 400) / 10 - 20); // 50-90 arası
+  d.ayar = { frekans: amac === 'ag' ? 90 : 30, hedef: Math.round(hedef * 10) / 10, kilit: 0, yakinDendi: false, amac };
   return d.ayar;
 }
 
@@ -346,9 +347,14 @@ export function ayarIlerle(d, dt) {
   }
   if (a.kilit >= KILIT_SURESI) {
     d.ayar = null;
-    b(d).telemetri = true;
     d.kaptan.tecrube += 20;
-    d.sahne = 'telemetri';
+    if (a.amac === 'ag') {
+      b(d).ag = true;
+      d.sahne = 'ag_tamam';
+    } else {
+      b(d).telemetri = true;
+      d.sahne = 'telemetri';
+    }
     olaylar.push('kilitlendi');
   }
   return olaylar;

@@ -109,6 +109,7 @@ import {
   yeniGemiSiniflari,
   kizagaKoy,
   aktifGemiSec,
+  kaplamaBaslat,
 } from '../oyun/gemi/gemi';
 import { ARACLAR } from '../oyun/veri/gemiler';
 import { SES_OLCEK } from '../oyun/uzay/seyir';
@@ -506,12 +507,30 @@ export default function Yuzey({ onGeri, baslangic, yeniOyunUret }) {
             if (r.nota != null && m()) m().nota(NOTALAR[r.nota].frek, NOKTALAR[id], 0.9, 4);
             if (r.ayar) {
               katmanKapatSessiz();
-              frekansAc();
+              frekansAc(r.amac);
               return 'sessiz';
             }
             if (r.valf) {
               katmanKapatSessiz();
-              valfAc(id);
+              valfAc(id, r.amac);
+              return 'sessiz';
+            }
+            if (r.rezonans) {
+              katmanKapatSessiz();
+              durakli.current = false;
+              rezonansAc(id, r.rezonans);
+              return 'sessiz';
+            }
+            if (r.kaplama) {
+              const k = kaplamaBaslat(d);
+              kaydet();
+              if (k.vinc) {
+                katmanKapatSessiz();
+                vincAc();
+                return 'sessiz';
+              }
+              cal('red', 0.7);
+              noktaGoster(id, k.metin);
               return 'sessiz';
             }
             if (r.terazi) {
@@ -795,10 +814,10 @@ export default function Yuzey({ onGeri, baslangic, yeniOyunUret }) {
   };
 
   // --- Valf dengeleme (gaz bacası) ---
-  const valfAc = (id) => {
+  const valfAc = (id, amac) => {
     const d = dunya.current;
     durakli.current = true;
-    const r = valfBaslat(d, id);
+    const r = valfBaslat(d, id, amac);
     if (m()) m().basincKur();
     ortamCal(MEKANLAR.sirtlar.ortam, 0.4);
     setValfAcik(true);
@@ -887,6 +906,7 @@ export default function Yuzey({ onGeri, baslangic, yeniOyunUret }) {
   // --- Rezonans: kapının nota dizisini rezonatörle çalmak ---
   const kapiYeri = (kapiId) => {
     const d = dunya.current;
+    if (!KAPILAR[kapiId]) return NOKTALAR[kapiId] ? { x: NOKTALAR[kapiId].x, y: NOKTALAR[kapiId].y } : { x: d.oyuncu.x, y: d.oyuncu.y };
     const u = KAPILAR[kapiId].uclar.find((x) => x.mekan === d.mekan) || d.oyuncu;
     return { x: u.x, y: u.y };
   };
@@ -914,7 +934,7 @@ export default function Yuzey({ onGeri, baslangic, yeniOyunUret }) {
     d.rezonans.kapiId = kapiId;
     setRezAcik(true);
     soyle(
-      'Rezonatörü kapıya tutuyorsun. Kapı ' + r.dizi.length + ' notalık dizisini çalacak; dinle. Sonra yukarı ya da aşağı kaydırıp notayı seç, çift dokunup kapıya çal. Yukarı kaydırmak notayı inceltir. Dokun: diziyi yeniden çalar. İki parmakla çift dokun: kapıdan çekil.',
+      (tur === 'kalibre' ? 'Rezonatörü sütuna tutuyorsun. Sütun ' : tur === 'sifre' ? 'Rezonatörü yazıta tutuyorsun. Yazıt ' : 'Rezonatörü kapıya tutuyorsun. Kapı ') + r.dizi.length + ' notalık dizisini çalacak; dinle. Sonra yukarı ya da aşağı kaydırıp notayı seç, çift dokunup kapıya çal. Yukarı kaydırmak notayı inceltir. Dokun: diziyi yeniden çalar. İki parmakla çift dokun: kapıdan çekil.',
       'istek',
       true,
     );
@@ -978,7 +998,10 @@ export default function Yuzey({ onGeri, baslangic, yeniOyunUret }) {
           Haptics.notificationAsync(Haptics.NotificationFeedbackType.Success).catch(() => {});
           setTimeout(() => {
             cal('kapi', 1);
-            rezonansKapat(r.metin + ' Çift dokun: içeri gir.');
+            if (dunya.current.sahne) {
+              rezonansKapat();
+              sahneGoster(dunya.current.sahne, r.metin);
+            } else rezonansKapat(r.metin + ' Çift dokun: içeri gir.');
           }, 900);
         }
       },
@@ -1593,10 +1616,10 @@ export default function Yuzey({ onGeri, baslangic, yeniOyunUret }) {
   );
 
   // --- Frekans ayarı ---
-  const frekansAc = () => {
+  const frekansAc = (amac) => {
     const d = dunya.current;
     durakli.current = true;
-    ayarBaslat(d);
+    ayarBaslat(d, amac);
     if (m()) m().telsizKur();
     ortamCal(MEKANLAR.vadi.ortam, 0.3);
     setAyarAcik(true);
