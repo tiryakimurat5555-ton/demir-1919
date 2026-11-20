@@ -1,0 +1,69 @@
+// Prosedürel mürettebat üretimi (belgeler/savas-yetenek-ve-murettebat-mekanikleri.md bölüm 4.1).
+// Tohumlu rastgele sayı: aynı oyun her açılışta aynı isimleri verir.
+
+const ADLAR = ['Demir', 'Lyra', 'Aras', 'Selin', 'Kaan', 'Mira', 'Tolga', 'Ece', 'Bora', 'Nil', 'Orhan', 'Defne', 'Rüzgar', 'İlke', 'Toprak', 'Asya', 'Umut', 'Ada'];
+const SOYADLAR = ['Kaya', 'Thorne', 'Yıldız', 'Vale', 'Akın', 'Soykan', 'Erdem', 'Okyay', 'Varol', 'Karan', 'Ilgaz', 'Tunç'];
+
+export const UZMANLIKLAR = {
+  muhendis: { ad: 'Mühendislik', rol: 'Başçarkçı' },
+  telsiz: { ad: 'Telsiz ve Keşif', rol: 'Telsiz Subayı' },
+  muharebe: { ad: 'Muharebe', rol: 'Taktik Nişancı' },
+  tip: { ad: 'Biyo-Tıp', rol: 'Başhekim' },
+};
+
+export const NITELIKLER = {
+  sogukkanli: { ad: 'Soğukkanlı', tarif: 'Çatışmada panik yapmaz, tamir hızını korur.' },
+  toplayici: { ad: 'Toplayıcı', tarif: 'Hurda toplarken beklenmedik fazladan malzeme bulur.' },
+  ses_hassas: { ad: 'Ses hassasiyeti', tarif: 'Frekans değişimlerini kaptandan önce duyar.' },
+  klostrofobik: { ad: 'Klostrofobik', tarif: 'Uzun seferlerde morali çabuk düşer; geniş koğuş ister.' },
+};
+
+// Basit tohumlu üreteç (mulberry32)
+export function uretec(tohum) {
+  let a = tohum >>> 0;
+  return () => {
+    a = (a + 0x6d2b79f5) >>> 0;
+    let t = a;
+    t = Math.imul(t ^ (t >>> 15), t | 1);
+    t ^= t + Math.imul(t ^ (t >>> 7), t | 61);
+    return ((t ^ (t >>> 14)) >>> 0) / 4294967296;
+  };
+}
+
+function sec(r, dizi) {
+  return dizi[Math.floor(r() * dizi.length)];
+}
+
+// Yeni bir mürettebat üyesi. kullanilan: aynı adın iki kez çıkmaması için
+export function uyeUret(r, uzmanlik, kullanilan = []) {
+  let ad;
+  for (let i = 0; i < 20; i++) {
+    ad = sec(r, ADLAR) + ' ' + sec(r, SOYADLAR);
+    if (!kullanilan.includes(ad)) break;
+  }
+  const nitelikler = Object.keys(NITELIKLER);
+  return {
+    id: 'm' + Math.floor(r() * 1e9).toString(36),
+    ad,
+    uzmanlik,
+    rol: UZMANLIKLAR[uzmanlik].rol,
+    nitelik: sec(r, nitelikler),
+    oda: null,
+    verimlilik: 1,
+    stres: 0,
+    tecrube: 0,
+    kayit: [],
+  };
+}
+
+// Kapsülden sağ çıkan öncüler: bir mühendis ve bir telsizci hikâyede konuşur
+export function oncuUret(tohum) {
+  const r = uretec(tohum);
+  const muhendis = uyeUret(r, 'muhendis');
+  const telsizci = uyeUret(r, 'telsiz', [muhendis.ad]);
+  const hekim = uyeUret(r, 'tip', [muhendis.ad, telsizci.ad]);
+  // Hikâye kişilerinin nitelikleri sabittir: telsizcinin kulağı iyidir
+  telsizci.nitelik = 'ses_hassas';
+  muhendis.nitelik = 'sogukkanli';
+  return [muhendis, telsizci, hekim];
+}

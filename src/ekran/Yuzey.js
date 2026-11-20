@@ -1,0 +1,625 @@
+// Aethelis-IV yüzeyi: sesle serbest dolaşma, radar, kaynak toplama, kapsülün içi, kişilerle konuşma,
+// birinci görev "Sinyal Arayışı" ve Gözcü Tepesi'nde frekans ayarı.
+//
+// Hareketler (yüzeyde):
+//   tek parmakla sürükleyip tut: yukarı ileri, aşağı geri; sağa-sola döner (parmak ne kadar uzaksa o kadar hızlı)
+//   dokun: çevrende ne var            çift dokun: yanındakini kullan, kapıdan geç ya da konuş
+//   uzun bas: radar (yankılar nesnelerin yönünden döner)
+//   iki parmakla dokun: sustur        iki parmakla çift dokun: menü
+// Frekans ayarında: yukarı-aşağı sürükle ya da iki parmakla çevir: kanal; sağa-sola hızlı kaydır: ince ayar;
+//   dokun: kanalı söyler; iki parmakla çift dokun: ayardan çık.
+// Menülerde (SesliListe): sağa-sola kaydır gez, çift dokun seç, iki parmakla çift dokun geri.
+import React, { useEffect, useRef, useState } from 'react';
+import { AppState, StyleSheet, Text, View } from 'react-native';
+import * as Haptics from 'expo-haptics';
+import { useJestler } from '../arayuz/jestler';
+import SesliListe from '../arayuz/SesliListe';
+import { soyle, sustur } from '../ses/rehber';
+import { cal, ortamCal } from '../ses/efektler';
+import { RENK, UST_BOSLUK } from '../arayuz/tema';
+import KonumsalSes from '../ses/konumsal';
+import { MEKANLAR, NOKTALAR } from '../oyun/yuzey/harita';
+import { cevreMetni, durumMetni, etkiles, ilerle, kisiAdi, otoBaslat, radar, yerlerListesi } from '../oyun/yuzey/dunya';
+import {
+  ESYALAR,
+  HAREKET_KISA,
+  SAHNELER,
+  ayarBaslat,
+  ayarDegis,
+  ayarIlerle,
+  ayarMetni,
+  ayarYakinlik,
+  eylemUygula,
+  gorevIpucu,
+  insaEt,
+  insaListesi,
+  koloniMetni,
+  konusma,
+  noktaEylemleri,
+  sahneMetni,
+  sahneSec,
+  sahneSecenekleri,
+} from '../oyun/yuzey/gorev1';
+import { HAMMADDELER, HAMMADDE_SIRASI } from '../oyun/veri/tesisler';
+import { NITELIKLER } from '../oyun/veri/murettebat';
+import { otoYaz, tarihMetni, yuvalariOku, yuvayaYaz } from '../oyun/kayit';
+
+const ADIM_MS = 100;
+const OLU_BOLGE = 16;
+const TAM_GUC = 140;
+const KAYIT_ARALIGI = 100; // adım (10 sn)
+
+const DOSYALAR = {
+  adim_tas_1: require('../../assets/ses/konumsal/adim_tas_1.wav'),
+  adim_tas_2: require('../../assets/ses/konumsal/adim_tas_2.wav'),
+  adim_tas_3: require('../../assets/ses/konumsal/adim_tas_3.wav'),
+  adim_tas_4: require('../../assets/ses/konumsal/adim_tas_4.wav'),
+  adim_tas_5: require('../../assets/ses/konumsal/adim_tas_5.wav'),
+  adim_tas_6: require('../../assets/ses/konumsal/adim_tas_6.wav'),
+  adim_tas_7: require('../../assets/ses/konumsal/adim_tas_7.wav'),
+  adim_tas_8: require('../../assets/ses/konumsal/adim_tas_8.wav'),
+  bip: require('../../assets/ses/konumsal/bip.wav'),
+  jenerator: require('../../assets/ses/konumsal/jenerator_ugultu.wav'),
+  parazit: require('../../assets/ses/konumsal/parazit.wav'),
+  sonar: require('../../assets/ses/konumsal/sonar.wav'),
+};
+
+// Eylem sesleri: gorev1.js'teki ses adlarını çalınacak efekte çevirir
+const EYLEM_SESI = { bip: 'bip', red: 'red', tislama: 'tislama', jenerator: 'jenerator', kes: 'tislama', kur: 'kapi', topla: 'dugme', kristal: 'dugme' };
+
+function guc(piksel) {
+  const p = Math.abs(piksel);
+  if (p < OLU_BOLGE) return 0;
+  return Math.sign(piksel) * Math.min(1, (p - OLU_BOLGE) / (TAM_GUC - OLU_BOLGE));
+}
+
+function ortamOrani(d) {
+  if (d.mekan !== 'vadi') return 0.75;
+  return d.oyuncu.y > 38 ? 0.95 : 0.6;
+}
+
+export default function Yuzey({ onGeri, baslangic, yeniOyunUret }) {
+  const motor = useRef(null);
+  const dunya = useRef(baslangic || yeniOyunUret());
+  const surukle = useRef({ aktif: false, dx: 0, dy: 0, sonDy: 0 });
+  const yuklu = useRef({});
+  const calanlar = useRef({});
+  const hazir = useRef(false);
+  const durakli = useRef(false);
+  const katmanNo = useRef(0);
+  const [katman, setKatman] = useState(null);
+  const [ayarAcik, setAyarAcik] = useState(false);
+  const [yazi, setYazi] = useState('Yükleniyor');
+
+  const m = () => motor.current;
+  const kaydet = () => otoYaz(dunya.current);
+
+  // --- Ses sahnesi ---
+  const sahneKur = () => {
+    const s = m();
+    if (!s) return;
+    s.baslat();
+    for (const ad of Object.keys(DOSYALAR)) s.yukle(ad, DOSYALAR[ad]);
+    hazir.current = true;
+    sesleriEsitle(true);
+  };
+
+  const kaynakKapat = (id) => {
+    if (!calanlar.current[id]) return;
+    delete calanlar.current[id];
+    if (m()) m().sil(id);
+  };
+
+  // Benzetimdeki duruma göre konumlu sesleri kurar ya da kaldırır
+  const sesleriEsitle = (ortamDa) => {
+    const d = dunya.current;
+    const s = m();
+    if (!s || !hazir.current) return;
+    const mk = MEKANLAR[d.mekan];
+    // Kapsülün içindeyken vadinin sesleri gövdenin ardından, kapsülün yerinden duyulur
+    const kulak = mk.dis ? d.oyuncu : { x: mk.disariKonum.x, y: mk.disariKonum.y, yon: d.oyuncu.yon };
+    s.dinleyici(kulak);
+    const g = d.bayrak;
+    // Kopan modülün acil durum feneri
+    if (yuklu.current.bip && !calanlar.current.fener) {
+      calanlar.current.fener = true;
+      s.dosyaKaynak('fener', 'bip', NOKTALAR.enkaz, 2000);
+    }
+    // Jeneratör uğultusu
+    if (g.jenerator && yuklu.current.jenerator) {
+      calanlar.current.jenerator = true;
+      s.dongu('jenerator', 'jenerator', NOKTALAR.jenerator, 0.9);
+    } else kaynakKapat('jenerator');
+    // Kristal kümeleri rüzgârda çınlar
+    for (const id of ['kristal_1', 'kristal_2']) {
+      if ((d.stok[id] || 0) > 0) {
+        if (!calanlar.current[id]) {
+          calanlar.current[id] = true;
+          s.kaynak(id, 'kristal', NOKTALAR[id]);
+        }
+      } else kaynakKapat(id);
+    }
+    if (ortamDa) {
+      s.boguk(!mk.dis);
+      ortamCal(mk.ortam, ortamOrani(d));
+    }
+  };
+
+  const olaylariIsle = (olaylar, sessizMi = false) => {
+    const d = dunya.current;
+    const sozler = [];
+    for (const o of olaylar) {
+      if (o.tur === 'tik') cal('tik', o.guc);
+      else if (o.tur === 'adim') {
+        if (m()) m().adim(o.zemin || 'tas', 0.45);
+      } else if (o.tur === 'carpti') {
+        Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Medium).catch(() => {});
+        sozler.push(o.metin);
+      } else if (o.tur === 'yakin') {
+        Haptics.selectionAsync().catch(() => {});
+        sozler.push(o.metin);
+      } else if (o.tur === 'otoVardi') {
+        Haptics.selectionAsync().catch(() => {});
+        sozler.push('Vardın: ' + o.ad + '. Çift dokun.');
+      } else if (o.tur === 'otoKapi') {
+        cal('tislama', 0.8);
+        sesleriEsitle(true);
+        sozler.push(o.metin);
+      } else if (o.tur === 'otoTakildi') sozler.push('Yol kapandı; durdun.');
+      else if (o.tur === 'otoIptal') sozler.push('Durdun.');
+    }
+    if (sozler.length && !sessizMi) soyle(sozler.join(' '), 'istek', true);
+    return sozler.join(' ');
+  };
+
+  // --- Ana döngü ---
+  useEffect(() => {
+    let sayac = 0;
+    const z = setInterval(() => {
+      const d = dunya.current;
+      sayac++;
+      if (d.ayar) {
+        frekansAdimi();
+        return;
+      }
+      if (durakli.current) return;
+      const s = surukle.current;
+      const girdi = s.aktif ? { ileri: guc(-s.dy), donus: guc(s.dx) } : {};
+      olaylariIsle(ilerle(d, girdi, ADIM_MS / 1000));
+      if (m() && hazir.current) {
+        const mk = MEKANLAR[d.mekan];
+        m().dinleyici(mk.dis ? d.oyuncu : { x: mk.disariKonum.x, y: mk.disariKonum.y, yon: d.oyuncu.yon });
+      }
+      if (sayac % 5 === 0) sesleriEsitle(false);
+      if (sayac % 10 === 0 && d.mekan === 'vadi') ortamCal(MEKANLAR.vadi.ortam, ortamOrani(d));
+      if (sayac % KAYIT_ARALIGI === 0) kaydet();
+      if (sayac % 10 === 0) setYazi(MEKANLAR[d.mekan].ad + ' · ' + d.koloni.binalar.length + ' tesis');
+    }, ADIM_MS);
+    return () => clearInterval(z);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+  // Açılış, çıkışta ve arka plana atılınca otomatik kayıt
+  useEffect(() => {
+    const d = dunya.current;
+    ortamCal(MEKANLAR[d.mekan].ortam, ortamOrani(d));
+    if (d.ayar) d.ayar = null;
+    if (d.sahne) sahneGoster(d.sahne);
+    else if (baslangic) soyle('Sistemler devrede. Kaldığın yerden: ' + durumMetni(d) + ' Menü için iki parmakla çift dokun.', 'istek', true);
+    const abone = AppState.addEventListener('change', (durum) => {
+      if (durum !== 'active') kaydet();
+    });
+    return () => {
+      abone.remove();
+      kaydet();
+      if (m()) m().durdur();
+      ortamCal(null);
+      sustur();
+    };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+  // --- Katmanlar ---
+  const katmanAc = (k) => {
+    durakli.current = true;
+    surukle.current = { aktif: false, dx: 0, dy: 0, sonDy: 0 };
+    katmanNo.current += 1;
+    setKatman({ ...k, no: katmanNo.current });
+  };
+  const katmanKapat = (soz) => {
+    const d = dunya.current;
+    if (d.sahne) {
+      sahneGoster(d.sahne, soz);
+      return;
+    }
+    durakli.current = false;
+    setKatman(null);
+    sesleriEsitle(true);
+    if (soz) soyle(soz, 'istek', true);
+  };
+
+  const sahneGoster = (id, onEk) => {
+    const d = dunya.current;
+    const sahne = SAHNELER[id];
+    if (!sahne) {
+      d.sahne = null;
+      katmanKapat(onEk);
+      return;
+    }
+    d.sahne = id;
+    if (sahne.ortam) ortamCal(sahne.ortam, 0.8);
+    if (sahne.efekt) sahne.efekt.forEach((e, i) => setTimeout(() => cal(e, 1), i * 400));
+    katmanAc({
+      baslik: sahne.baslik,
+      giris: [onEk, ...sahneMetni(d, id)].filter(Boolean).join(' '),
+      onGeri: null,
+      ogeler: sahneSecenekleri(d, id).map((x, i) => ({
+        id: 's' + i,
+        etiket: x.etiket,
+        sec: () => {
+          const sonraki = sahneSec(d, id, i);
+          kaydet();
+          if (sonraki) sahneGoster(sonraki);
+          else katmanKapat(sahne.bitisSozu || null);
+          return 'sessiz';
+        },
+      })),
+    });
+  };
+
+  const noktaGoster = (id, onEk) => {
+    const d = dunya.current;
+    const n = NOKTALAR[id];
+    const eylemler = noktaEylemleri(d, id);
+    katmanAc({
+      baslik: n.ad,
+      giris: onEk || (n.tarif || n.ad) + (n.kaynak ? ' ' + HAMMADDELER[n.kaynak].tarif : ''),
+      onGeri: () => katmanKapat(),
+      ogeler: [
+        ...eylemler.map((e) => ({
+          id: e.id,
+          etiket: e.etiket,
+          ipucu: e.ipucu,
+          sec: () => {
+            const r = eylemUygula(d, id, e.id);
+            kaydet();
+            if (r.ses && EYLEM_SESI[r.ses]) cal(EYLEM_SESI[r.ses], 0.9);
+            if (r.ayar) {
+              katmanKapatSessiz();
+              frekansAc();
+              return 'sessiz';
+            }
+            if (r.insa) return insaGoster(), 'sessiz';
+            if (r.kaydet) return kayitGoster(), 'sessiz';
+            sesleriEsitle(false);
+            noktaGoster(id, r.metin);
+            return 'sessiz';
+          },
+        })),
+        { id: 'geri', etiket: 'Geri dön', sec: () => (katmanKapat(), 'sessiz') },
+      ],
+    });
+  };
+
+  const katmanKapatSessiz = () => {
+    setKatman(null);
+  };
+
+  const konusmaGoster = (kisiId, onEk) => {
+    const d = dunya.current;
+    const k = konusma(d, kisiId);
+    const ad = kisiAdi(d, kisiId);
+    katmanAc({
+      baslik: ad,
+      giris: [onEk, onEk ? null : ad + ': ' + k.metin].filter(Boolean).join(' '),
+      onGeri: () => katmanKapat('Konuşmayı bitirdin.'),
+      ogeler: k.secenekler.map((s, i) => ({
+        id: 'k' + i,
+        etiket: s.etiket,
+        sec: () => {
+          const cevap = s.cevap(d);
+          if (cevap) konusmaGoster(kisiId, ad + ': ' + cevap);
+          else katmanKapat('Konuşmayı bitirdin.');
+          return 'sessiz';
+        },
+      })),
+    });
+  };
+
+  // --- Terminal: inşa ve elle kayıt ---
+  const insaGoster = (onEk) => {
+    const d = dunya.current;
+    const liste = insaListesi(d);
+    katmanAc({
+      baslik: 'İnşa',
+      giris: (onEk ? onEk + ' ' : '') + 'Koloni tesisleri. Birini seç; kurulabiliyorsa inşa başlar.',
+      onGeri: () => noktaGoster('terminal'),
+      ogeler: [
+        ...liste.map((t) => ({
+          id: t.id,
+          etiket: t.ad + '. ' + t.durum,
+          ipucu: t.tarif,
+          sec: () => {
+            if (t.kurulu || !t.acik) {
+              soyle(t.ad + '. ' + t.durum, 'istek', true);
+              return 'sessiz';
+            }
+            const r = insaEt(d, t.id);
+            kaydet();
+            if (r.ses) cal(EYLEM_SESI[r.ses] || r.ses, 0.9);
+            if (d.sahne) {
+              katmanKapatSessiz();
+              sahneGoster(d.sahne);
+            } else insaGoster(r.metin);
+            return 'sessiz';
+          },
+        })),
+        { id: 'geri', etiket: 'Terminale dön', sec: () => (noktaGoster('terminal'), 'sessiz') },
+      ],
+    });
+  };
+
+  const kayitGoster = async (onEk) => {
+    const yuvalar = await yuvalariOku();
+    katmanAc({
+      baslik: 'Elle kayıt',
+      giris: (onEk ? onEk + ' ' : '') + 'Bir yuva seç; oyun oraya kaydedilir. Doluysa üstüne yazılır.',
+      onGeri: () => noktaGoster('terminal'),
+      ogeler: [
+        ...yuvalar.map((y) => ({
+          id: 'y' + y.no,
+          etiket: 'Yuva ' + y.no + (y.d ? ': ' + tarihMetni(y.tarih) : ': boş'),
+          sec: () => {
+            yuvayaYaz(y.no, dunya.current).then((oldu) => kayitGoster(oldu ? 'Yuva ' + y.no + '\'e kaydedildi.' : 'Kaydedilemedi.'));
+            cal('bip', 0.8);
+            return 'sessiz';
+          },
+        })),
+        { id: 'geri', etiket: 'Terminale dön', sec: () => (noktaGoster('terminal'), 'sessiz') },
+      ],
+    });
+  };
+
+  // --- Menü ---
+  const yerlerGoster = () => {
+    const d = dunya.current;
+    const liste = yerlerListesi(d);
+    katmanAc({
+      baslik: 'Yerler',
+      giris: 'Bildiğin yerler ve kişiler. Birini seç; oraya kendin yürürsün. Yolda ekrana dokunursan durursun. Yeni yerleri radarla bulursun.',
+      onGeri: () => menuyuAc(),
+      ogeler: [
+        ...liste.map((y) => ({
+          id: y.tur + y.id,
+          etiket: y.ad + (y.uzaklik != null ? ', ' + y.uzaklik + ' metre' : ''),
+          ipucu: y.mekan !== d.mekan ? 'Hava kilidinden geçerek gidersin.' : '',
+          sec: () => {
+            const r = otoBaslat(d, y);
+            katmanKapat(r.metin);
+            return 'sessiz';
+          },
+        })),
+        { id: 'geri', etiket: 'Menüye dön', sec: () => (menuyuAc(), 'sessiz') },
+      ],
+    });
+  };
+
+  const tasinanMetni = () => {
+    const d = dunya.current;
+    const esya = d.envanter.map((e) => ESYALAR[e].ad);
+    const k = d.koloni.kaynaklar;
+    const ham = HAMMADDE_SIRASI.filter((x) => k[x] > 0).map((x) => k[x] + ' ' + HAMMADDELER[x].ad);
+    return 'Taşıdığın: ' + (esya.length ? esya.join(', ') : 'hiçbir şey') + '. Hammadde: ' + (ham.length ? ham.join(', ') : 'yok') + '.';
+  };
+
+  const murettebatGoster = () => {
+    const d = dunya.current;
+    katmanAc({
+      baslik: 'Mürettebat',
+      giris: d.murettebat.length + ' öncü kapsülden sağ çıktı.',
+      onGeri: () => menuyuAc(),
+      ogeler: [
+        ...d.murettebat.map((u) => ({
+          id: u.id,
+          etiket: u.rol + ' ' + u.ad,
+          ipucu: NITELIKLER[u.nitelik].ad + ': ' + NITELIKLER[u.nitelik].tarif,
+          sec: () => (soyle(u.rol + ' ' + u.ad + '. ' + NITELIKLER[u.nitelik].ad + '. ' + NITELIKLER[u.nitelik].tarif, 'istek', true), 'sessiz'),
+        })),
+        { id: 'geri', etiket: 'Menüye dön', sec: () => (menuyuAc(), 'sessiz') },
+      ],
+    });
+  };
+
+  const haritaMetni = () => {
+    const d = dunya.current;
+    if (!d.harita.poiler.length) return 'Uzay haritası boş. Yörüngeyle bağlantı yok.';
+    return 'Uzay haritası: Sektör 15, gaz bulutunun içindeki asteroit üssü. Prometheus adlı bir acil durum çağrısı. Oraya gitmek için bir gemi gerekir; tersane henüz yok.';
+  };
+
+  const menuyuAc = () => {
+    katmanAc({
+      baslik: 'Menü',
+      giris: null,
+      onGeri: () => katmanKapat('Devam.'),
+      ogeler: [
+        { id: 'devam', etiket: 'Devam et', sec: () => (katmanKapat('Devam.'), 'sessiz') },
+        { id: 'gorev', etiket: 'Görev', ipucu: 'Şu an ne yapabileceğini söyler.', sec: () => (soyle(gorevIpucu(dunya.current), 'istek', true), 'sessiz') },
+        { id: 'yerler', etiket: 'Yerler', ipucu: 'Bir yer ya da kişi seç; oraya kendin yürürsün.', sec: () => (yerlerGoster(), 'sessiz') },
+        { id: 'durum', etiket: 'Neredeyim', sec: () => (soyle(durumMetni(dunya.current), 'istek', true), 'sessiz') },
+        { id: 'tasinan', etiket: 'Taşıdıkların ve hammadde', sec: () => (soyle(tasinanMetni(), 'istek', true), 'sessiz') },
+        { id: 'koloni', etiket: 'Koloni', sec: () => (soyle(koloniMetni(dunya.current), 'istek', true), 'sessiz') },
+        { id: 'murettebat', etiket: 'Mürettebat', sec: () => (murettebatGoster(), 'sessiz') },
+        { id: 'harita', etiket: 'Uzay haritası', sec: () => (soyle(haritaMetni(), 'istek', true), 'sessiz') },
+        { id: 'hareket', etiket: 'Hareketler', sec: () => (soyle(HAREKET_KISA, 'istek', true), 'sessiz') },
+        {
+          id: 'cik',
+          etiket: 'Ana menüye dön',
+          ipucu: 'Oyun kendiliğinden kaydedilir; Devam et ile kaldığın yerden sürersin.',
+          sec: () => (kaydet(), onGeri(), 'sessiz'),
+        },
+      ],
+    });
+  };
+
+  // --- Frekans ayarı ---
+  const frekansAc = () => {
+    const d = dunya.current;
+    durakli.current = true;
+    ayarBaslat(d);
+    if (m()) m().telsizKur();
+    ortamCal(MEKANLAR.vadi.ortam, 0.3);
+    setAyarAcik(true);
+    soyle('Frekans ayarı. Kulaklığında parazit. İçinde ince, kesik kesik bir ses ara. Parmağını yukarı ya da aşağı sürükle, ya da iki parmakla çevir: kanal değişir. Sağa ya da sola hızlı kaydır: ince ayar. Ses netleşince kıpırdama, kilitlenene kadar bekle. Dokun: kanalı söylerim. İki parmakla çift dokun: ayardan çık. ' + ayarMetni(d), 'istek', true);
+  };
+
+  const frekansKapat = (soz) => {
+    if (m()) m().telsizSil();
+    dunya.current.ayar = null;
+    setAyarAcik(false);
+    durakli.current = false;
+    ortamCal(MEKANLAR.vadi.ortam, ortamOrani(dunya.current));
+    if (soz) soyle(soz, 'istek', true);
+  };
+
+  const frekansAdimi = () => {
+    const d = dunya.current;
+    if (!d.ayar) return;
+    const y = ayarYakinlik(d);
+    if (m()) m().telsizAyar(y, d.ayar.frekans - d.ayar.hedef);
+    const olaylar = ayarIlerle(d, ADIM_MS / 1000);
+    if (olaylar.includes('yakin')) {
+      Haptics.selectionAsync().catch(() => {});
+      soyle(kisiAdi(d, 'telsizci').split(' ')[0] + ' telsizden: "Bir şey var! Yavaş, çok yavaş."', 'istek', true);
+    }
+    if (olaylar.includes('kilitlendi')) {
+      Haptics.notificationAsync(Haptics.NotificationFeedbackType.Success).catch(() => {});
+      if (m()) m().telsizSil();
+      setAyarAcik(false);
+      kaydet();
+      sahneGoster(d.sahne);
+    }
+  };
+
+  const ayarJest = useJestler(
+    {
+      onSurukle: (mod, dx, dy) => {
+        if (mod !== 'tek') return;
+        const s = surukle.current;
+        ayarDegis(dunya.current, -(dy - s.sonDy) * 0.06);
+        s.sonDy = dy;
+      },
+      onSurukleBitti: () => {
+        surukle.current = { aktif: false, dx: 0, dy: 0, sonDy: 0 };
+      },
+      onDondur: (f) => ayarDegis(dunya.current, f * 7),
+      onKaydir: (yon, parmak) => {
+        if (parmak > 1) return;
+        if (yon === 'sag') ayarDegis(dunya.current, 0.2);
+        else if (yon === 'sol') ayarDegis(dunya.current, -0.2);
+        if (yon === 'sag' || yon === 'sol') cal('dugme', 0.5);
+      },
+      onDokun: (parmak) => {
+        if (parmak >= 2) sustur();
+        else soyle(ayarMetni(dunya.current), 'istek', true);
+      },
+      onCiftDokun: (parmak) => {
+        if (parmak >= 2) frekansKapat('Ayardan çıktın. Antenin başındasın.');
+      },
+    },
+    { dokunmaBekle: true },
+  );
+
+  // --- Yüzey hareketleri ---
+  const jest = useJestler(
+    {
+      onSurukle: (mod, dx, dy) => {
+        if (mod !== 'tek' || durakli.current) return;
+        surukle.current = { aktif: true, dx, dy, sonDy: dy };
+      },
+      onSurukleBitti: () => {
+        surukle.current = { aktif: false, dx: 0, dy: 0, sonDy: 0 };
+      },
+      onDokun: (parmak) => {
+        if (parmak >= 2) {
+          sustur();
+          return;
+        }
+        const d = dunya.current;
+        if (d.oto) {
+          d.oto = null;
+          soyle('Durdun.', 'istek', true);
+          return;
+        }
+        soyle(cevreMetni(d), 'istek', true);
+      },
+      onCiftDokun: (parmak) => {
+        if (parmak >= 2) {
+          menuyuAc();
+          return;
+        }
+        const d = dunya.current;
+        const e = etkiles(d);
+        if (e.tur === 'kapi') {
+          cal('tislama', 0.9);
+          Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light).catch(() => {});
+          sesleriEsitle(true);
+          kaydet();
+          soyle(e.metin, 'istek', true);
+        } else if (e.tur === 'nokta') noktaGoster(e.id);
+        else if (e.tur === 'kisi') konusmaGoster(e.id);
+        else soyle(e.metin, 'istek', true);
+      },
+      onUzunBas: () => {
+        const d = dunya.current;
+        const r = radar(d);
+        cal('sonar', 0.7);
+        const s = m();
+        const mk = MEKANLAR[d.mekan];
+        // Yankılar: dışarıdaysan nesnelerin yönünden, uzaklığa göre gecikmeyle döner
+        if (s && yuklu.current.bip && mk.dis)
+          r.pingler.forEach((p) => setTimeout(() => s.tek('bip', p, 0.8), 600 + p.gecikme));
+        setTimeout(() => soyle(r.metin, 'istek', true), 900);
+      },
+    },
+    { dokunmaBekle: true },
+  );
+
+  return (
+    <View style={stiller.dis}>
+      <View style={stiller.kap} {...(katman || ayarAcik ? {} : jest)}>
+        <KonumsalSes
+          ref={motor}
+          onMesaj={(x) => {
+            if (x.tur === 'yuklendi') sahneKur();
+            else if (x.tur === 'dosyaHazir') {
+              yuklu.current[x.ad] = true;
+              sesleriEsitle(false);
+            } else if (x.tur === 'hazir' && x.durum !== 'running') soyle('Ses motoru başlayamadı. Durum: ' + x.durum, 'istek', false);
+            else if (x.tur === 'hata') soyle('Ses motorunda hata: ' + x.metin, 'istek', false);
+          }}
+        />
+        <Text style={stiller.baslik}>Aethelis-IV</Text>
+        <Text style={stiller.yazi}>{yazi}</Text>
+      </View>
+      {ayarAcik ? (
+        <View style={[StyleSheet.absoluteFill, stiller.ayar]} {...ayarJest}>
+          <Text style={stiller.baslik}>Frekans ayarı</Text>
+          <Text style={stiller.yazi}>Yukarı-aşağı sürükle ya da iki parmakla çevir</Text>
+        </View>
+      ) : null}
+      {katman ? (
+        <View style={StyleSheet.absoluteFill}>
+          <SesliListe key={'k' + katman.no} baslik={katman.baslik} giris={katman.giris} rehberAcik onGeri={katman.onGeri} ogeler={katman.ogeler} />
+        </View>
+      ) : null}
+    </View>
+  );
+}
+
+const stiller = StyleSheet.create({
+  dis: { flex: 1, backgroundColor: RENK.zemin },
+  kap: { flex: 1, backgroundColor: RENK.zemin, paddingTop: UST_BOSLUK, paddingHorizontal: 20 },
+  ayar: { backgroundColor: RENK.zemin, paddingTop: UST_BOSLUK, paddingHorizontal: 20 },
+  baslik: { color: RENK.yazi, fontSize: 26, fontWeight: '700', marginBottom: 12 },
+  yazi: { color: RENK.soluk, fontSize: 17 },
+});

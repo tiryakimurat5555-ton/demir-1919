@@ -1,13 +1,13 @@
-// Ortak renkler: eski kâğıt ve gaz lambası tonları, yüksek karşıtlık.
+// Ortak renkler: derin uzay laciverti ve sıcak kapsül ışığı, yüksek karşıtlık.
 export const RENK = {
-  zemin: '#1A140E',
-  kutu: '#2A2118',
-  kutuIkincil: '#211A13',
-  kutuOdak: '#4A3A26',
-  vurgu: '#D9A441',
-  yazi: '#F2E6D0',
-  soluk: '#BFAE90',
-  uyari: '#E8833A',
+  zemin: '#0B0F1A',
+  kutu: '#172033',
+  kutuIkincil: '#111827',
+  kutuOdak: '#2B4A73',
+  vurgu: '#7FC8F8',
+  yazi: '#EEF3FA',
+  soluk: '#A9B8CC',
+  uyari: '#F2A65A',
 };
 
 // Ekranın üstündeki saat ve çentik alanı için boşluk

@@ -1,7 +1,8 @@
-// Demir 1919 — ekranlar arası geçiş ve ekran okuyucu denetimi.
+// Aethelis — ekranlar arası geçiş, kayıt ve ekran okuyucu denetimi.
+// Bahtiyar Cankurt'un uzay oyunu tasarımından (belgeler/). Görsel arayüzü olmayan, sesle ve dokunma
+// hareketleriyle oynanan bir koloni ve uzay keşif oyunu. Dikey ekranda oynanır (app.json orientation).
 //
-// Erişilebilirlik kararı (17 Kasım 2026, Murat: A seçeneği):
-// Oyun VoiceOver / TalkBack KAPALIYKEN oynanır. Kendi Türkçe sesli rehberi (src/ses/rehber.js)
+// Erişilebilirlik: oyun VoiceOver / TalkBack KAPALIYKEN oynanır. Kendi Türkçe sesli rehberi (src/ses/rehber.js)
 // ve VoiceOver'a benzeyen hareketleri vardır (src/arayuz/SesliListe.js):
 //   sağa / sola kaydır: sonraki / önceki öğe
 //   dokun: parmağın altındaki öğeyi oku      çift dokun: odaktaki öğeyi seç
@@ -15,26 +16,32 @@ import SesliListe from './src/arayuz/SesliListe';
 import { rehberAyarla, rehberHazirla, soyle, sustur } from './src/ses/rehber';
 import { RENK } from './src/arayuz/tema';
 import Ayarlar from './src/ekran/Ayarlar';
-import Karakoy from './src/ekran/Karakoy';
+import Yuzey from './src/ekran/Yuzey';
 import { ortamCal, ortamSesiAyarla, sesleriHazirla } from './src/ses/efektler';
-import { ayarlarOku, ayarlarYaz, VARSAYILAN_AYARLAR } from './src/oyun/kayit';
-import { karakoyOku, karakoySil } from './src/oyun/karakoy/kayit';
-import { durumKisa } from './src/oyun/karakoy/dunya';
+import { ayarlarOku, ayarlarYaz, otoOku, otoSil, tarihMetni, VARSAYILAN_AYARLAR, yuvalariOku } from './src/oyun/kayit';
+import { yeniOyun } from './src/oyun/durum';
+import { durumKisa } from './src/oyun/yuzey/dunya';
+
+const SURUM = '0.1';
+const OYUN_ADI = 'Aethelis';
 
 const HAKKINDA_METNI = [
-  'Demir 1919. 1918 ile 1923 arasında, işgal altındaki İstanbul\'da başlayan bir tarihsel macera ve dedektiflik oyunu.',
-  'Oyundaki gizli örgüt ve olay örgüsü kurgudur. Gerçek tarihî olaylar arka plan olarak kullanılır.',
-  'Sürüm 1.06. Birinci perde: Sudaki Adam, İkinci Adım Sesi, On Yedi Numara, Kül, Antrepo, Siyakat. Karaköy, Pera ve Maliye Nezareti, Aralık 1918.',
+  OYUN_ADI + '. İnsanlığın derin uzaydaki sığınağı Aethelis-IV\'te bir koloni kurup gemi inşa ettiğin, sesle oynanan bir uzay keşif oyunu.',
+  'Tasarım: Bahtiyar Cankurt. Yapım: Murat ve Bahtiyar.',
+  'Sürüm ' + SURUM + '. Birinci görev: Sinyal Arayışı. Vadi-i Sukût, iniş kapsülü, kopan modül, yedek jeneratör ve Gözcü Tepesi.',
+  'Ortam sesleri ve efektler Bahtiyar\'ın ses arşivinden.',
 ];
 
 const HAREKETLER = [
-  'Oyunda: parmağını ekrana koyup yukarı kaydır ve tut, ileri yürürsün. Aşağı kaydırırsan geri, sağa ya da sola kaydırırsan dönersin. Parmak ne kadar uzaksa o kadar hızlı.',
-  'Dokun: çevrende ne var; yerler, kişiler ve eşyalar saat yönüyle söylenir. Saat 12 önün, 3 sağın, 6 arkan, 9 solun.',
-  'Çift dokun: kapıdan geç, eşyayı incele ya da yanındakiyle konuş.',
-  'Uzun bas: saat, yer ve baktığın yön.',
+  'Yüzeyde: parmağını ekrana koyup yukarı sürükle ve tut, ileri yürürsün. Aşağı sürüklersen geri, sağa ya da sola sürüklersen dönersin. Parmak ne kadar uzaksa o kadar hızlı. Dönerken her otuz derecede bir tık duyarsın.',
+  'Dokun: çevrende ne var; yerler ve kişiler saat yönüyle söylenir. Saat 12 önün, 3 sağın, 6 arkan, 9 solun.',
+  'Uzun bas: radar. Bir dalga gönderirsin; yankılar nesnelerin yönünden, uzaklarsa geç döner. En yakın üç şey söylenir.',
+  'Çift dokun: yanındaki şeyi kullan, hava kilidinden geç ya da yanındakiyle konuş.',
   'İki parmakla dokun: konuşmayı sustur.',
-  'İki parmakla çift dokun: oyun menüsü. Görev, Yerler, soruşturma panosu, defter, üstündekiler, bekleme ve ana menü orada. Yerler\'den bir yer seçersen Arif oraya kendisi yürür; yolda ekrana dokunursan durur.',
+  'İki parmakla çift dokun: oyun menüsü. Görev, Yerler, koloni, mürettebat, uzay haritası ve ana menü orada. Yerler\'den bir yer seçersen oraya kendin yürürsün; yolda ekrana dokunursan durursun.',
+  'Frekans ayarında: yukarı ya da aşağı sürükle, ya da iki parmakla çevir; kanal değişir. Sağa ya da sola hızlı kaydır: ince ayar. Dokun: kanalı söyler. İki parmakla çift dokun: ayardan çık.',
   'Menülerde: sağa ya da sola kaydır, sonraki ya da önceki öğe. Çift dokun, seç. Uzun bas, açıklama. İki parmakla çift dokun, geri.',
+  'Oyun kendiliğinden kaydedilir; telefonu kilitlesen ya da uygulamadan çıksan da kaldığın yerden sürer. Kapsüldeki merkez terminalinden üç yuvaya elle de kaydedebilirsin.',
   'Kulaklık takarak oyna: sesler bulundukları yönden gelir.',
 ];
 
@@ -55,6 +62,7 @@ export default function App() {
   const [ayarlar, setAyarlar] = useState(VARSAYILAN_AYARLAR);
   const [kayit, setKayit] = useState(null);
   const [baslangic, setBaslangic] = useState(null);
+  const [yuvalar, setYuvalar] = useState([]);
 
   useEffect(() => {
     (async () => {
@@ -65,7 +73,7 @@ export default function App() {
       rehberAyarla({ konusmaHizi: a.konusmaHizi, sesKimligi: a.sesKimligi });
       await sesleriHazirla();
       ortamSesiAyarla(a.ortamDuzeyi);
-      setKayit(await karakoyOku());
+      setKayit(await otoOku());
       setHazir(true);
     })();
   }, []);
@@ -83,13 +91,18 @@ export default function App() {
 
   const oyunuBaslat = useCallback((d) => {
     setBaslangic(d);
-    setEkran('karakoy');
+    setEkran('oyun');
   }, []);
 
   const oyundanCik = useCallback(async () => {
     sustur();
-    setKayit(await karakoyOku());
+    setKayit(await otoOku());
     setEkran('menu');
+  }, []);
+
+  const yuvalariAc = useCallback(async () => {
+    setYuvalar(await yuvalariOku());
+    setEkran('yuvalar');
   }, []);
 
   // Ekran okuyucu açık mı? Oyun kendi sesli rehberini kullandığı için kapalıyken oynanır.
@@ -110,9 +123,9 @@ export default function App() {
 
   const menuyeDon = useCallback(() => setEkran('menu'), []);
 
-  // Menülerde rıhtımın sesi uzaktan duyulur; oyunda ortamı Oyun ekranı yönetir
+  // Menülerde uzay gemisi uğultusu; oyunda ortamı Yüzey ekranı yönetir
   useEffect(() => {
-    if (hazir && ekran !== 'karakoy') ortamCal('ortam_rihtim', 0.45);
+    if (hazir && ekran !== 'oyun') ortamCal('ortam_menu', 0.7);
   }, [hazir, ekran]);
 
   let icerik = null;
@@ -120,7 +133,7 @@ export default function App() {
     icerik = (
       <SesliListe
         key={'menu' + girisNo}
-        baslik="Demir 1919"
+        baslik={OYUN_ADI}
         giris="Ana menü"
         rehberAcik
         ogeler={[
@@ -130,9 +143,10 @@ export default function App() {
           {
             id: 'yeni',
             etiket: 'Yeni oyun',
-            ipucu: 'Karaköy, 4 Aralık 1918. Birinci görev: Sudaki Adam. Kulaklık tak.',
+            ipucu: 'Aethelis-IV, Vadi-i Sukût. Birinci görev: Sinyal Arayışı. Kulaklık tak.',
             sec: () => (kayit ? setEkran('yeniOnay') : oyunuBaslat(null)),
           },
+          { id: 'yukle', etiket: 'Kayıt yükle', ipucu: 'Elle kaydettiğin üç yuva.', sec: yuvalariAc },
           { id: 'ayarlar', etiket: 'Ayarlar', ipucu: 'Konuşma hızı ve ses.', sec: () => setEkran('ayarlar') },
           { id: 'hareket', etiket: 'Hareketler', ipucu: 'Oyunu nasıl kullanacağını anlatır.', sec: () => setEkran('hareketler') },
           { id: 'hakkinda', etiket: 'Hakkında', sec: () => setEkran('hakkinda') },
@@ -144,7 +158,7 @@ export default function App() {
       <SesliListe
         key={'onay' + girisNo}
         baslik="Yeni oyun"
-        giris="Kayıtlı oyunun silinecek ve hikâye baştan başlayacak. Emin misin?"
+        giris="Otomatik kayıt silinecek ve oyun baştan başlayacak. Elle kaydettiğin yuvalar kalır. Emin misin?"
         rehberAcik
         onGeri={menuyeDon}
         ogeler={[
@@ -153,7 +167,7 @@ export default function App() {
             id: 'evet',
             etiket: 'Evet, baştan başla',
             sec: () => {
-              karakoySil();
+              otoSil();
               setKayit(null);
               oyunuBaslat(null);
             },
@@ -161,8 +175,27 @@ export default function App() {
         ]}
       />
     );
-  } else if (ekran === 'karakoy') {
-    icerik = <Karakoy key={'karakoy' + girisNo} baslangic={baslangic} onGeri={oyundanCik} onDurum={setBaslangic} />;
+  } else if (ekran === 'oyun') {
+    icerik = <Yuzey key={'oyun' + girisNo} baslangic={baslangic} onGeri={oyundanCik} yeniOyunUret={() => yeniOyun()} />;
+  } else if (ekran === 'yuvalar') {
+    icerik = (
+      <SesliListe
+        key={'yuva' + girisNo}
+        baslik="Kayıt yükle"
+        giris={yuvalar.some((y) => y.d) ? 'Bir yuva seç.' : 'Henüz elle kayıt yok. Kapsüldeki merkez terminalinden kaydedebilirsin.'}
+        rehberAcik
+        onGeri={menuyeDon}
+        ogeler={[
+          ...yuvalar.map((y) => ({
+            id: 'y' + y.no,
+            etiket: 'Yuva ' + y.no + (y.d ? ': ' + tarihMetni(y.tarih) : ': boş'),
+            ipucu: y.d ? durumKisa(y.d) : '',
+            sec: () => (y.d ? oyunuBaslat(y.d) : soyle('Bu yuva boş.', 'istek', true)),
+          })),
+          { id: 'geri', etiket: 'Ana menüye dön', sec: menuyeDon },
+        ]}
+      />
+    );
   } else if (ekran === 'ayarlar') {
     icerik = <Ayarlar key={'ayar' + girisNo} ayarlar={ayarlar} ayarDegistir={ayarDegistir} onGeri={menuyeDon} />;
   } else if (ekran === 'hareketler') {
@@ -215,7 +248,7 @@ export default function App() {
             Ekran okuyucu açık
           </Text>
           <Text style={stiller.voYazi}>
-            Demir 1919 kendi Türkçe sesli rehberini kullanır ve dokunma hareketlerini doğrudan algılar. Oynamak için
+            {OYUN_ADI} kendi Türkçe sesli rehberini kullanır ve dokunma hareketlerini doğrudan algılar. Oynamak için
             VoiceOver'ı kapat: yan tuşa üç kez bas ya da Siri'ye "VoiceOver'ı kapat" de. Android'de TalkBack'i
             kısayoluyla kapat. Ekran okuyucu kapanınca oyun kendiliğinden başlar.
           </Text>
@@ -228,7 +261,7 @@ export default function App() {
             style={stiller.voDugme}
             onPress={() => {
               setVoIzin(true);
-              setTimeout(() => soyle('Demir 1919.', 'istek', true), 300);
+              setTimeout(() => soyle(OYUN_ADI + '.', 'istek', true), 300);
             }}
           >
             <Text style={stiller.voDugmeYazi}>Ekran okuyucu açıkken devam et</Text>

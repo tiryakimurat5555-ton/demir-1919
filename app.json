@@ -1,12 +1,12 @@
 {
   "expo": {
-    "name": "Demir 1919",
+    "name": "Aethelis",
     "slug": "demir-1919",
     "owner": "murat5561",
     "version": "0.1.0",
     "orientation": "portrait",
     "userInterfaceStyle": "dark",
-    "backgroundColor": "#1A140E",
+    "backgroundColor": "#0B0F1A",
     "ios": {
       "bundleIdentifier": "com.murat5561.demir1919",
       "supportsTablet": true

@@ -1,4 +1,4 @@
-// Konumsal ses motoru (deneme). Expo Go'daki ses kütüphanesinde sağ-sol ve ön-arka konumlandırma yok;
+// Konumsal ses motoru (Demir 1919'dan alındı; Expo Go'da doğrulandı). Expo Go'daki ses kütüphanesinde sağ-sol ve ön-arka konumlandırma yok;
 // bu yüzden görünmez bir WebView içinde tarayıcının Web Audio API'si kullanılır (PannerNode, HRTF).
 // WebView Expo Go'nun içinde gelir; ayrı bir uygulama kurmak gerekmez.
 //
@@ -19,8 +19,13 @@
 //   kisiCal(id, ad, duzey, dongu, oran) kişinin ağzından/ayağından ses çalar; döngü değilse bitince 'kisiBitti'
 //   kisiOran(id, oran, sure), kisiDur(id), kisiSil(id)
 //   cevreDuzey(oran)                 çevre seslerinin (deniz vb.) taban düzeyi; konuşma sürerken ayrıca kısılır
+//   dongu(id, ad, nokta, duzey)      yüklenmiş sesi bir noktadan kesintisiz döngüyle çalar (jeneratör uğultusu)
+//   duzey(id, duzey)                 döngünün düzeyini yumuşakça değiştirir
+//   telsizKur(), telsizAyar(yakinlik, kayma), telsizSil()
+//                                    kulaklıktaki telsiz: parazit + kesik sinyal tonu. yakinlik 0-1 parazitle tonu
+//                                    karıştırır; kayma (kanal farkı) tonun perdesini kaydırır, hedefte sıfırlanır
 // Kişi sesleri uzaklıkla boğuklaşır (hava yutumu) ve mekânın yankısını alır ('dis' rıhtım, 'ic' ahşap oda).
-// kaynak türleri: 'zil', 'cekic', 'deniz', 'ayak' (yürüyen birinin ayak sesleri)
+// kaynak türleri: 'zil', 'cekic', 'deniz', 'ayak' (yürüyen birinin ayak sesleri), 'kristal' (ara sıra çınlayan kristal)
 // Motor hazır olunca ve hata olursa onMesaj({ tur, ... }) çağrılır.
 import React, { forwardRef, useImperativeHandle, useRef } from 'react';
 import { StyleSheet, View } from 'react-native';
@@ -81,6 +86,18 @@ const MOTOR_HTML = `<!DOCTYPE html><html><head><meta charset="utf-8"></head><bod
     s.buffer = gurultu(0.12); f.type = 'bandpass'; f.frequency.value = 1800; f.Q.value = 3;
     g.gain.setValueAtTime(0.9, t); g.gain.exponentialRampToValueAtTime(0.0001, t + 0.11);
     s.connect(f); f.connect(g); g.connect(k.p); s.start(t);
+  }
+  // Kristal: ara sıra, rüzgârda kendiliğinden çınlayan cam gibi uzun bir tını
+  function kristalCal(k){
+    if (Math.random() < 0.35) return;
+    var t = ctx.currentTime, kok = [2093, 2349, 2637, 3136][Math.floor(Math.random() * 4)], oranlar = [1, 2.76, 5.4];
+    for (var i = 0; i < oranlar.length; i++){
+      var o = ctx.createOscillator(), g = ctx.createGain();
+      o.frequency.value = kok * oranlar[i]; o.type = 'sine';
+      g.gain.setValueAtTime(0.0001, t); g.gain.exponentialRampToValueAtTime(0.22 / (i * 2 + 1), t + 0.008);
+      g.gain.exponentialRampToValueAtTime(0.0001, t + 2.6 - i * 0.7);
+      o.connect(g); g.connect(k.p); o.start(t); o.stop(t + 2.7);
+    }
   }
   // Deniz: sürekli, yavaşça kabarıp inen alçak gürültü
   function denizBaslat(k){
@@ -176,6 +193,7 @@ const MOTOR_HTML = `<!DOCTYPE html><html><head><meta charset="utf-8"></head><bod
       else if (tur === 'cekic') { k.zaman = setInterval(function(){ cekicCal(k); }, 700); }
       else if (tur === 'deniz') denizBaslat(k);
       else if (tur === 'ayak') { k.zaman = setInterval(function(){ adimCal(k.p, 0.9, k.zemin || 'tas'); }, 540); }
+      else if (tur === 'kristal') { kristalCal(k); k.zaman = setInterval(function(){ kristalCal(k); }, 2300); }
     }
     konumla(k.p, n);
   }
@@ -194,6 +212,7 @@ const MOTOR_HTML = `<!DOCTYPE html><html><head><meta charset="utf-8"></head><bod
   }
   function durdur(){
     for (var kid in kisiler) kisiSil(kid);
+    telsizSil();
     for (var id in kaynaklar){ var k = kaynaklar[id]; if (k.zaman) clearInterval(k.zaman); if (k.durdur) k.durdur(); try { k.p.disconnect(); } catch(e){} }
     kaynaklar = {};
     if (ctx) { try { ctx.close(); } catch(e){} ctx = null; }
@@ -304,6 +323,54 @@ const MOTOR_HTML = `<!DOCTYPE html><html><head><meta charset="utf-8"></head><bod
     try { s.stop(t + 0.3); } catch(e){}
     k.dongu = null;
   }
+  // --- Döngüyle çalan konumlu dosya sesi ---
+  function dongu(id, ad, n, duzey){
+    baglam();
+    var t = tamponlar[ad]; if (!t) return;
+    var eski = kaynaklar[id];
+    if (eski && eski.tur === 'dongu' && eski.ad === ad){ konumla(eski.p, n); duzeyAyarla(id, duzey); return; }
+    sil(id);
+    var p = panner(), g = ctx.createGain(), s = ctx.createBufferSource();
+    konumla(p, n); g.gain.value = 0.0001; s.buffer = t; s.loop = true;
+    s.connect(g); g.connect(p); s.start();
+    g.gain.setTargetAtTime(duzey == null ? 1 : duzey, ctx.currentTime, 0.4);
+    kaynaklar[id] = { tur: 'dongu', ad: ad, p: p, g: g, durdur: function(){ try { s.stop(); } catch(e){} } };
+  }
+  function duzeyAyarla(id, duzey){
+    var k = kaynaklar[id]; if (!k || !k.g) return;
+    k.g.gain.setTargetAtTime(Math.max(0.0001, duzey), ctx.currentTime, 0.2);
+  }
+  // --- Kulaklıktaki telsiz (frekans ayarı) ---
+  var telsiz = null;
+  function telsizSil(){
+    if (!telsiz) return;
+    try { telsiz.src.stop(); telsiz.o.stop(); telsiz.lfo.stop(); } catch(e){}
+    try { telsiz.gs.disconnect(); telsiz.gt.disconnect(); } catch(e){}
+    telsiz = null;
+  }
+  function telsizKur(){
+    baglam(); telsizSil();
+    var gs = ctx.createGain(), gt = ctx.createGain(), bp = ctx.createBiquadFilter(), src = ctx.createBufferSource();
+    src.buffer = tamponlar['parazit'] || gurultu(3); src.loop = true;
+    bp.type = 'bandpass'; bp.frequency.value = 1700; bp.Q.value = 0.6;
+    gs.gain.value = 0.0001; gt.gain.value = 0.0001;
+    src.connect(gs); gs.connect(bp); bp.connect(yakin);
+    // Sinyal: kesik kesik atan sinüs (mors gibi), kanal yaklaştıkça netleşir
+    var o = ctx.createOscillator(), lfo = ctx.createOscillator(), lg = ctx.createGain(), tg = ctx.createGain();
+    o.type = 'sine'; o.frequency.value = 1150;
+    lfo.type = 'square'; lfo.frequency.value = 2.6; lg.gain.value = 0.5; tg.gain.value = 0.5;
+    lfo.connect(lg); lg.connect(tg.gain); o.connect(tg); tg.connect(gt); gt.connect(yakin);
+    src.start(); o.start(); lfo.start();
+    gs.gain.setTargetAtTime(0.7, ctx.currentTime, 0.3);
+    telsiz = { gs: gs, gt: gt, o: o, lfo: lfo, src: src };
+  }
+  function telsizAyar(y, kayma){
+    if (!telsiz) return;
+    var t = ctx.currentTime;
+    telsiz.gs.gain.setTargetAtTime(0.75 * (1 - y * 0.88) + 0.0001, t, 0.06);
+    telsiz.gt.gain.setTargetAtTime(0.55 * y * y + 0.0001, t, 0.06);
+    telsiz.o.frequency.setTargetAtTime(1150 + Math.max(-30, Math.min(30, kayma)) * 35, t, 0.05);
+  }
   window.motor = {
     komut: function(c){
       try {
@@ -325,6 +392,11 @@ const MOTOR_HTML = `<!DOCTYPE html><html><head><meta charset="utf-8"></head><bod
         else if (c.ad === 'kisiDur') kisiDur(c.id);
         else if (c.ad === 'kisiSil') kisiSil(c.id);
         else if (c.ad === 'cevreDuzey') cevreDuzey(c.oran);
+        else if (c.ad === 'dongu') dongu(c.id, c.dosya, c.n, c.duzey);
+        else if (c.ad === 'duzey') duzeyAyarla(c.id, c.duzey);
+        else if (c.ad === 'telsizKur') telsizKur();
+        else if (c.ad === 'telsizAyar') telsizAyar(c.yakinlik, c.kayma);
+        else if (c.ad === 'telsizSil') telsizSil();
       } catch(e){ bildir({ tur: 'hata', metin: String(e) }); }
     }
   };
@@ -373,6 +445,11 @@ function KonumsalSes({ onMesaj }, ref) {
     kisiSil: (id) => gonder({ ad: 'kisiSil', id }),
     cevreDuzey: (oran) => gonder({ ad: 'cevreDuzey', oran }),
     dosyaKaynak: (id, ad, nokta, aralik) => gonder({ ad: 'dosyaKaynak', id, dosya: ad, n: sesKoordinati(nokta), aralik }),
+    dongu: (id, ad, nokta, duzey = 1) => gonder({ ad: 'dongu', id, dosya: ad, n: sesKoordinati(nokta), duzey }),
+    duzey: (id, duzey) => gonder({ ad: 'duzey', id, duzey }),
+    telsizKur: () => gonder({ ad: 'telsizKur' }),
+    telsizAyar: (yakinlik, kayma) => gonder({ ad: 'telsizAyar', yakinlik, kayma }),
+    telsizSil: () => gonder({ ad: 'telsizSil' }),
   }));
   return (
     <View style={stiller.gizli} pointerEvents="none" importantForAccessibility="no-hide-descendants" accessibilityElementsHidden>

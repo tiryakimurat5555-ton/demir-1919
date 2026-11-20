@@ -40,7 +40,7 @@ export default function Ayarlar({ ayarlar, ayarDegistir, onGeri }) {
     {
       id: 'ortam',
       etiket: 'Ortam sesi: ' + yuzde(ayarlar.ortamDuzeyi),
-      ipucu: 'Rıhtım, kayıkhane gibi yerlerin arka plan sesleri. Alttaki Artır ve Azalt ile değiştir.',
+      ipucu: 'Vadinin rüzgârı, kapsülün fanları gibi arka plan sesleri. Alttaki Artır ve Azalt ile değiştir.',
     },
     { id: 'ortamArtir', etiket: 'Artır', sec: () => ortam(ayarlar.ortamDuzeyi + 0.1) },
     { id: 'ortamAzalt', etiket: 'Azalt', sec: () => ortam(ayarlar.ortamDuzeyi - 0.1) },
@@ -64,7 +64,7 @@ export default function Ayarlar({ ayarlar, ayarDegistir, onGeri }) {
       id: 'dene',
       etiket: 'Sesi dene',
       sec: () => {
-        soyle('Sis hâlâ kalkmadı. Leventis vapurunun kara gövdesi rıhtımın yanında yükselip alçalıyor.', 'istek', true);
+        soyle('Rüzgâr kanyonun duvarlarında uğulduyor. Kopan modülün feneri hâlâ bipliyor.', 'istek', true);
         return 'sessiz';
       },
     },

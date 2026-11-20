@@ -9,6 +9,7 @@
 //   onSurukle(mod, dx, dy, bilgi) sürükleme sürerken ('tek' ya da 'iki' parmak).
 //                                bilgi: { x, y (parmağın şu anki yeri), sure (ms) }
 //   onSurukleBitti(mod)          sürükleme bitince
+//   onDondur(radyan)             iki parmakla çevirme: son hareketten bu yana açı farkı (saat yönü artı)
 //
 // dokunmaBekle: true ise tek dokunuş, çift dokunuş olmadığı anlaşılana kadar bekletilir.
 // Böylece çift dokunuşun ilk dokunuşu yanlışlıkla başka bir şey yapmaz.
@@ -120,6 +121,25 @@ export function useJestler(geriCagirmalar, secenekler = {}) {
       s.bazX = m.x - s.dx;
       s.bazY = m.y - s.dy;
       s.sonSayi = dokunuslar.length;
+    }
+    // İki parmakla çevirme: iki parmağı birleştiren çizginin açısı
+    if (dokunuslar.length >= 2 && cb.current.onDondur) {
+      const a = Math.atan2(dokunuslar[1].pageY - dokunuslar[0].pageY, dokunuslar[1].pageX - dokunuslar[0].pageX);
+      if (s.aci != null && s.aciSayi === dokunuslar.length) {
+        let f = a - s.aci;
+        if (f > Math.PI) f -= 2 * Math.PI;
+        if (f < -Math.PI) f += 2 * Math.PI;
+        if (Math.abs(f) < 1) {
+          s.donme = (s.donme || 0) + f;
+          if (Math.abs(s.donme) > 0.08 && !s.tuketildi) {
+            uzunIptal(s);
+            s.mod = s.mod || 'iki';
+            cb.current.onDondur(f);
+          }
+        }
+      }
+      s.aci = a;
+      s.aciSayi = dokunuslar.length;
     }
     s.dx = m.x - s.bazX;
     s.dy = m.y - s.bazY;

@@ -1,4 +1,9 @@
-# Demir 1919 — çalışma notları
+# Aethelis — çalışma notları
+
+Bu depo ve Expo projesi (@murat5561/demir-1919) 20 Kasım 2026'dan beri Bahtiyar Cankurt'un uzay oyunu için
+kullanılıyor (Murat: "Bahtiyar'ın projesini demir1919 projesine yaz, Demir oyununu kaldırabilirsin"). Eski
+Demir 1919 oyunu silindi; geçmişi git kaydında (son sürüm 1.06, commit 556f89a). Depo adı ve Expo kısa adı
+(slug) değişmedi; uygulamanın görünen adı "Aethelis" (çalışma adı, Murat ya da Bahtiyar değiştirebilir).
 
 ## Murat ile çalışma
 - Murat'ın yalnızca iPhone'u var; kodu elle düzenleyemez. Bütün dosyaları ben yazar, depoya gönderirim.
@@ -7,700 +12,79 @@
 - Her şey Türkçe: arayüz, sesli rehber, kod içi adlar ve yorumlar.
 - Diğer projeler (kayip-okyanus, TaslarPro, Deneme/Galaktik İmparatorluk) ayrıdır; onlara dokunma.
 - Test edilmemiş bir özelliği çalışıyor diye sunma; telefonda ancak Murat Expo Go'da denediğinde doğrulanır.
+- Bahtiyar Android/TalkBack ile test eder; Drive'ı (bahtiyar.oflu.61@gmail.com) bu sohbete bağlı.
 
-## YENİDEN KURULUM (18 Kasım 2026) — önce bunu oku
-- Murat'ın değerlendirmesi: 41 bölümlük oyun taslağa ne oynanışta ne hikâyede uymadı (menüden ilerleyen sesli hikâye
-  kitabı oldu; hikâye 26. bölümden sonra aile/kız ticaretine kaydı, 1926'ya taştı; örgüt omurgası ve açık dünya sistemleri
-  yok). YENİ BÖLÜM YAZMA. 1-41. bölümler donduruldu (yayında kalıyor; yenisi gelince yerine geçip geçmeyeceği Murat'a sorulacak).
-- Karşılaştırma belgesi: https://claude.ai/artifact/RXtegkPCrdCp8xXVLYF4qm (taslak bölüm bölüm Var/Kısmen/Yok, kurtarılabilecekler,
-  plan). Mimari analizi: https://claude.ai/artifact/UVEEFZWPHusP4538UVkeKz.
-- Plan (taslak 19. bölüm sırası, her aşamada Murat'ın onayı): 1) mimari [yapıldı] 2) hikâye omurgası 1918-1923, örgütün dört
-  kolu, asıl amaç, çok final 3) dikey dilim Karaköy: sesle serbest dolaşma, gündüz-gece, NPC rutinleri, gizlilik, sorgu,
-  fotoğraf, serbest pano, itibar, para, envanter 4) sistemler 5) şehirler 6) görüntü.
-- MİMARİ KARARI (18 Kasım, Murat "Evet"): Expo'da kal; oyun mantığı saf JS benzetim katmanı (src/oyun). Konumsal ses için
-  önce Expo Go içinde görünmez WebView + Web Audio (PannerNode HRTF) deneniyor: src/ses/konumsal.js, src/ekran/SesDenemesi.js,
-  src/oyun/konum.js (x doğu, y kuzey, yon 0 kuzey saat yönü; saatYonu, tarif), sürüm 0.61 ana menü "Konumsal ses denemesi".
-  DOĞRULANDI (18 Kasım, Murat iPhone'da denedi: "Ses işi süper oldu"): WebView + Web Audio konumsal ses Expo Go'da çalışıyor.
-  Sürüm 0.62: "Gerçek seslerle deneme" (SesDenemesi gercek): assets/ses/konumsal/*.wav (tek kanallı kopyalar) expo-asset +
-  expo-file-system ile base64 okunup WebView'e gönderilir (konumsal.js yukle/dosyaKaynak, decodeAudioData). DOĞRULANDI (18 Kasım, Murat: "Bu da oldu").
-  react-native-audio-api yalnız equalpower (HRTF yok) ve Expo Go'da yok; WebView işe yaramazsa TestFlight + kendi uygulama.
-  EAS iOS derlemesi (kredi harcar) Murat'a sormadan başlatılmaz. ASC API anahtarı Murat'ın özel Deneme deposunda (gizli/);
-  herkese açık depoya asla yazılmaz.
-- 2. AŞAMA (18 Kasım, Murat onayladı: "Uyuyor devam"; kolların sırası serbest önerisi itirazsız kabul sayıldı): hikâye omurgası belgesi https://claude.ai/artifact/YR74Ad1fbxSSqzqgHAJcq2
-  Özet: Kanatlı Anahtar'ın asıl amacı Ahit (1908 Selanik): yirmi yıl içindeki büyük savaşın borcunu şimdiden satın almak.
-  Dört kol: Kasa (ekonomik, Viktor Rainer, Viyana/Galata), Kılıç (askerî, Albay Anton Weisz, Berlin/Çanakkale; saha eli Delorme),
-  Mühür (siyasi, Kont Imre Szalay, Atina/İstanbul; Nazım Bey, Halim), Göz (istihbarat, Gaston Rivière, Selanik/Manastır; Neslihan
-  varisi). Anahtarın dört dişi; Galata kasası; beşinci kurucunun boş koltuğu dört dişi toplayana. Perdeler: 1 Sudaki Adam
-  (Kas 1918-May 1919 İstanbul), 2 Dört Kol (Haz 1919-Mar 1921, sıra serbest önerildi), 3 Ahit (Nis 1921-Eki 1922), 4 Son Toplantı
-  (Kas 1922-6 Eki 1923 Galata). Sonlar: ifşa, adalet, kasayı yakmak, anahtarı devralmak, Neslihan, yenilgi, gizli son eve dönüş.
-  Dikey dilim = 1. perdenin ilk görevi "Sudaki Adam" sesle serbest dolaşmayla.
-- 3. AŞAMA, Karaköy dikey dilimi. 1. adım (sürüm 0.70, telefonda denenmedi): ana menü "Yeni oyun denemesi: Karaköy" (src/ekran/Karakoy.js).
-  Saf benzetim src/oyun/karakoy/harita.js (BINALAR, MEKANLAR dis/kayikhane/buro/han/oda: iç mekân binanın kendi alanında, dış sesler
-  doğru yerden gelir; YERLER, KISILER günlük rutinleri: suleyman, gulce, ohannes, husnu, hamallar, halim devriye; TRAMVAY y 36; SESLER)
-  ve dunya.js (ZAMAN_ORANI 10: 1 gerçek dk = 10 oyun dk; Aralık güneşi 07.15-16.40; ilerle(d, {ileri, donus}, dt) → olaylar adim/carpti/
-  kapi/kisi/aksam/sabah/saatBasi/vapur/tramvay; etkiles (kapı ya da konuş), cevreMetni, durumMetni, bekle, kisiDurumu yürüyerek geçiş).
-  Hareket joystick gibi: sürükleyip tut (ölü bölge 16 px, tam güç 140 px). konumsal.js'e sil, tek, boguk (içeride alçak geçiren), 'ayak'
-  kaynağı eklendi; assets/ses/konumsal/tramvay.wav. Motor HTML'i headless Chrome'da hatasız çalıştı (sözdizimi + komutlar).
-  Testler testler/karakoy.test.js. Zaman oranı önerisine itiraz gelmedi (1 dk = 10 dk kaldı).
-  2. adım (sürüm 0.71, telefonda denenmedi): birinci görev src/oyun/karakoy/gorev1.js (saf): DELILLER (15), CIKARIMLAR (gerekli
-  olduruldu/silah/orgut; kume iki delil kümesi), YANLISLAR (akla yatkın yanlış teoriler, Süleyman kararda düzeltir), NESNELER
-  (ceset 09.05'te kalkar ve Halim 7 m içindeyken incelenemez; denk; karanlik_oda banyo 30 dk, ceset_el negatifi → mum_izi; yük ve
-  vinç defteri gulceIzin ister; oda: döşek → mektup, pervaz → fotograf travma +1; antrepo sandıkları gürültü 40), KONUSMALAR
-  (giris(d) → düğüm; secenek yap(d) metin döndürür, sonra dize ya da işlev): suleyman (ilk/rapor: denkAcik + Kodak 6 poz +
-  gulceOnerildi/karar), husnu (Süleyman'ın adı, 5 kuruş, tehdit itibar -1), gulce (yalan → gulceYalan; gulceIzin; ferrante_damga),
-  ohannes (itibar < 0 ise 10 kuruş; odaAnahtari, paltolu), hamallar (günde bir yardım: 1 saat, +8 kuruş, itibar +1; d.bekleme),
-  halim, bekci. panoIfadeleri (doğru ifade + 2 yanlış ya da "bağ yok", tohumlu karışık), teoriKur (doğruluğu söylenmez), kararVer
-  (karar1 ingiliz/polis/sakla, gorevBitti), gorevIpucu, envanterMetni. dunya.js: başlangıç 06.40, rutin satırlarında gun (yalnız o
-  gün), devriyeMekan, antrepo mekânı + arka kapı (acik(d): 21.00-05.00 ve o gece yakalanmadıysan; geceKimligi), merdiven odaAnahtari
-  ister, gizlilik (bekçiye 2,5 m'den yakın → yakalanır; 6 m içinde hareket şüphe artırır; SUPHE_UYARI 40), etkiles en yakın kapı/nesne/
-  kişi, eylemUygula. Ekran: SesliListe katmanları (menü: görev, pano, defter, üstündekiler, bekle; konuşma; nesne eylemleri; pano
-  delil seç → ikinci delil → ifade; teori sök). Testler karakoy-gorev1.test.js. Kayıt yok (sonraki adım).
-  Sürüm 0.72 (Murat'ın isteği, Vahşi Yaşam'daki gibi): menüde "Yerler" → seçilen yere Arif kendisi yürür. src/oyun/karakoy/yol.js
-  (sokakta 1 m ızgarada A* + görüş açık oldukça sadeleştirme, yolun iki yanında 0,2 m pay; mekânlar arası kapı zinciri BFS; kilitli
-  kapıda durur). dunya.js yerlerListesi (yerler, kişiler, eşyalar), otoBaslat, ilerle'de d.oto (sürükleme ya da dokunuş durdurur;
-  olaylar otoVardi/otoKapi/otoKilitli/otoTakildi/otoIptal; antrepoda yavaş, gizlilik sürer).
-  SÜRÜM 0.80 (19 Kasım, Murat: "denemeler düzgün çalışıyor, gerçek oyuna geç; gereksiz menüleri kaldır"): Karaköy artık asıl oyun.
-  Ana menü: Devam et (karakoy kaydı varsa) / Yeni oyun / Ayarlar / Hareketler / Hakkında. Eski 41 bölüm (Oyun.js, src/hikaye, motor)
-  ve ses denemeleri menüden kalktı; kodları depoda duruyor, testleri sürüyor. Kayıt src/oyun/karakoy/kayit.js (AsyncStorage
-  demir1919.karakoy + yedek; dunya.js kayitTemizle/kayittanDunya, KARAKOY_SURUM 1; 10 sn'de bir, her eylem ve konuşmada, çıkışta).
-  Oyun menüsü: Devam, Görev, Yerler, Soruşturma panosu, Defter, Üstündekiler, Bekle (alt menü), Ana menüye dön.
-  Yerler yalnız bilinen ve gidilebilen: d.kesif (girilen mekânlar, yaklaşılan kapı/eşya/kişi); büro gulceOnerildi, oda odaAnahtari,
-  antrepo arka kapısı kesif ya da hamallardan arkaKapiBiliniyor; tanıdık kişiler TANIDIK, Gülce karşılaşınca; antrepo eşyaları hiç.
-  Adım sesleri: ElevenLabs (flow H13uSGbaUNJZNoPkxW7V, düğümler adim_tas/adim_ahsap, 8 sn) → sessizlikten bölünmüş 8+8 tek adım,
-  assets/ses/konumsal/adim_{tas,ahsap}_1..8.wav. dunya.js ZEMIN (dis/han/buro taş; kayikhane/oda/antrepo ahşap). Motor adimOrnegi:
-  rastgele örnek, hız 0,93-1,07, düzey ±%20; kişilerin 'ayak' kaynağı da kendi mekânının zeminiyle.
-  Sürüm 0.81 (Murat: "oyun direkt haritada başlıyor, hikâye başlangıcı böyle değildi"): src/oyun/karakoy/sahneler.js (saf) hikâye
-  sahneleri: acilis → ani1 (ilkNefes say/bastir, travma) → cagri → baslangic_yardim → serbest dolaşma (kayıkhanenin içinde,
-  Süleyman 1. gün 06.00'da mangal başında); belge (denk açılınca), fotograf (pervaz; travma seçimi); Süleyman'ın karar düğümü
-  "Bildiklerimi anlatayım" → karar_oncesi → gece_konusma (arifNeden) → gece_suleyman (Kemal, aramaSozu) → karar (karar1) →
-  son_* → kapanis (lavanta not, gorevBitti). d.sahne kayıtta; Karakoy.js sahneGoster (zaman durur, ortam ve efekt çalar);
-  katmanKapat d.sahne varsa sahneyi açar. Metinler eski bölüm 1'den.
-  SÜRÜM 0.90 (19 Kasım, Murat: "Hikayeyi taslağımıza göre devam ettir ... sıradan olmasın"; "2/3 saat uğraş bana bir şey sorma"):
-  ikinci görev "İkinci Adım Sesi" src/oyun/karakoy/gorev2.js (saf; gorev1.js'i içe aktarmaz, gorev1 onun DELILLER/CIKARIMLAR/
-  NESNELER/YANLISLAR'ını kendi tablolarına katar; sahneler.js G2_SAHNELER'i yayar). d.gorev (1/2), d.gorevGun. kapanis → g2_gece
-  (gorev2Baslat: ertesi sabah 07.25 han, lavanta_not) → g2_sabah (bitisSozu: sahne kapanınca söylenen söz). Konuşmalar
-  G2_KONUSMALAR[kisi].uygun(d) ise onlar, değilse birinci görevinki (dugumBul düğümü iki kaynakta da arar; konusmaVarMi(id, d)).
-  Takipçi (kasketli adam, d.takip): görev günü 08.00-18.40, oyuncu sokağa çıkınca kapının karşısında bekler, 12 m uzaklaşınca
-  izinden (iz noktaları) 12 m geride gelir; yalnızca adımları duyulur (sesliKisiler; kisiler'de fark edilene dek yok). Oyuncu 5 sn
-  durursa ipucu; 18 m içinde 0,45 rad'dan dar bakarsa 1,5 sn'de fark (delil takipci), sonra 5 m'ye yaklaşınca kaçar. Buluşma:
-  KISILER halim (gorev 2, gorevGunu satırları) ve kasketli, BULUSMA (48,25), 19.04'ten 3 dk arayla altı satır (dinleSatirlari);
-  7 m içinde duyulur, 15 m içinde fısıltı; 3 m'den yakın ya da 7 m içinde hız > 0,4 → bulusmaBozuldu. 2,3,4 duyulursa kulak_misafiri.
-  Bekleme de dinlemedir (gorev2Ilerle sessiz). Olay türü 'anlatim' {metin, yeniDeliller, uyari, dinle}. Kişi satırlarında gorev,
-  gorevMin, gorevGunu (kisiDurumu ctx). Cemil gorevMin 2 (10.00 rıhtım, 17.30 kayıkhane). Gaz nesnesi 19.40'tan (gazAtildi).
-  Gerekli çıkarımlar toplanti / katil / tehlike (gorev: 2; gerekliCikarimlarTamam(d, gorev)); isteğe bağlı halim_bagli, ihanet.
-  panoIfadeleri yanlışları görevin havuzundan alır. Süleyman karar → g2_karar_oncesi → g2_karar: karar2 tasi / pusu (pusuYardim
-  riza [karar1 polis] / hamallar [itibar >= 1] / yalniz; gazAtildi ya da yardım → yakalandi, delormeAdi; yoksa yaraKol, travma+1) /
-  haber (gazAtildi değilse suleymanYarali, kayikhaneYandi tam) → g2_kapanis (cemilEkipte, cemilKabul) → g2_son (gorev2Bitir: g2Bitti,
-  ertesi gün 08.00 han). kayikhaneYandi tam: denk ve karanlık oda yok, 'kul' nesnesi; suleymanHanda ise Süleyman handa (kisiDuzelt).
-  Yeni bayraklar (sonraki görevlerde karşılık bekler): kemalSoz soz/durust/sessiz, cemilFikri teselli/sert/sus, haticeKarar yolla/sakla,
-  sabriTasi, gulceNazim, halimGordu2, rizaTanisti, delormeAdi, karar2, pusuSonuc, suleymanYarali, kayikhaneYandi, cemilKabul.
-  Eski kayıt: gorev 1, gorevBitti, sahne yok → g2_gece. Testler testler/karakoy-gorev2.test.js. Telefonda denenmedi.
-  SÜRÜM 0.95 (19 Kasım, aynı istek): üçüncü görev "On Yedi Numara" src/oyun/karakoy/gorev3.js (saf) + pera.js (PERA_MEKANLAR:
-  cihangir, pera_cadde, kulup_salon, servis_koridoru, oda17; Karaköy düzleminde x 200'ün doğusunda iç mekânlar; harita.js katar;
-  dis'te pera_cik yokuşu gorev >= 3; PERA_KISILER: nermin, cemil (var olan Cemil'e satır eklenir), hargreaves, yorgo, achille
-  (salon devriyesi), nobetci ve lavantali (gozcu: true)). Rutin satırında yalniz: o günün bütün rutini (Karaköy satırları düşer);
-  90 m'den uzun yer değiştirmede yürünmez. bekci(d) artık aynı mekândaki en yakın gözcü; yakalan koridorda/odada kulüpten atar
-  (kulupKapali). GIZLI_MEKANLAR (antrepo, servis_koridoru, oda17). Başlangıç: g2Bitti sonrası g2Gun+2 (cumartesi) 17.15'te
-  gorev3Ilerle d.sahne = 'g3_cagri' (Karakoy ana döngüsü d.sahne'yi açar; bekle sahne açılınca durur) ya da Cemil 'bitti' →
-  "Hazırım". gorev3Baslat: cumartesi 18.00 cihangir, kilik 'bey'. g3_acilis kimlik sahte/gercek. Kapılar: kulup_kapi kilik bey,
-  servis_kapi ve salon_servis kilik usak (ya da Nermin oyalarken: oyalaBitis mutlak dakika, oyalaSayi en çok 2, Achille onun
-  masasında), merdiven17 anahtar17 + toplantı dışında (TOPLANTI_BAS 21.18 - TOPLANTI_BIT 22.45). Nesne eylemlerinde engel(d, ctx):
-  pano17 ve vestiyer Achille 7 m içindeyse olmaz. Yorgo: Süleyman'ın adı → yorgoGuven → garson ceketi (kilik usak), asansör
-  bilgisi, anahtar (kayikhaneYandi tam / suleymanYarali / suleymanBag >= 2). Asansör → g3_dinle (dinleNefes say [ilkNefes say ise
-  travma -1] / bastir travma +1) → g3_dinle2 (asansorSecim tuttu / kaydi [travma >= 2 ve say değil; suphe 60] / cekildi) →
-  g3_dinle_son (dinle_toplanti, santa_lucia, madam_n, delormeAdi). oda17: defter17 (rusvet_defteri, defterAlindi, foto 'defter'),
-  kul17, telgraf17, dosya17 → g3_dosya (arif_dosyasi; "Bkz. S."; dosyaKarar al/birak). Atılınca Nermin 22.50'den arka sokakta
-  (kisiDuzelt3) → disari düğümü: delorme_kart, santa_lucia, hargreaves_zarf. Gerekli çıkarımlar delorme / sevkiyat / rusvet;
-  isteğe bağlı madam, dosya. Karar: Nermin/Cemil "Bildiklerimi" ya da Cihangir'de masa_cemil → g3_karar_oncesi → g3_karar
-  (karar3 gazete [nerminBag +1] / ihbar [karar1 ingiliz ise sevkiyatSonuc kacti, değilse el_konuldu] / sakla) → g3_kapanis
-  (nerminEkipte, nerminKabul gel/uyar) → g3_son (Kasketli Yaşar Haliç'te ölü; gorev3Bitir: pazartesi 09.00 han, kilik null).
-  Yeni bayraklar: kimlik, nerminCevdet soru/anlat/sus, cemilDelorme, dinleNefes, asansorSecim, dosyaKarar, defterAlindi, karar3,
-  sevkiyatSonuc, nerminKabul, kulupKapali. Testler karakoy-gorev3.test.js. Telefonda denenmedi.
-  SÜRÜM 0.96 (19 Kasım, aynı istek): dördüncü görev "Kül" src/oyun/karakoy/gorev4.js (saf). g3_son → gorev3Bitir + gorev4Baslat
-  (pazartesi 09.05 han) → g4_acilis. harita.js: MEKANLAR.meyhane (Rum meyhanesi, yapılar binasının içinde x 50-60, kapı (55,13.5),
-  11.00-02.00 açık, ortam_meyhane), KISILER riza (gorev 4, han 09.00-19.30), halim'e gorev 4 yalniz satırları (08.40 Yaşar'ın
-  cesedi başında, 19.50-23.00 meyhanede). ekKisiler4: rizaGelir ise Rıza 19.50-23.00 meyhanede (rutin dışı kişi). Nesneler yasar
-  (rıhtım, 10.30'a kadar: yasar_yarasi, cep +3 kuruş), mahzen (halimSonu sakli). Delil ikinci_motor (Hüsnü), halim_dilekce (Gülce),
-  halim_itirafi. İsteğe bağlı çıkarımlar ayni_el, kacis (pano zorunlu değil: kalıbı kıran sorgu görevi). Sorgu: halim 'sorgu' düğümü
-  meyhanede; BASKILAR (yasar +1, defter [rusvet_defteri] +2, gecit [kulak_misafiri/halim_bulusma] +1, defin +1 (sabriTasi metni),
-  emir [nazim_emri] +1), tehdit (rizaGelir ise engellenir rizaBag -1; değilse baskı +1, itibar -1, travma +1); d.baski >=
-  BASKI_SINIRI 3 → itiraf (Delorme, ayda otuz lira, çarşamba gecesi antrepo saat on, Kâmil Efendi; kamilEfendi) → g4_halim_karar:
-  halimKarar teslim (halimSonu asildi) / birak (bicaklandi) / sakla (sakli, rizaBag +1). Konuşturulmazsa ertesi sabah 06.00
-  gorev4Ilerle → g4_sabah_olu. Rıza: rizaHalim4 soru/soz/sus, rizaBabaAnlatti, rizaGelir. Gülce: gulce4 → kamil düğümü
-  (gulceKamil soyle [gulceyeAnlatti, gulceGuven +1] / sakla). g4_kapanis: rizaEkipte, rizaKabul sart/itiraz → g4_son (gorev4Bitir).
-  Testler karakoy-gorev4.test.js. Telefonda denenmedi.
-  SÜRÜM 0.97 (19 Kasım, aynı istek): beşinci görev "Antrepo" src/oyun/karakoy/gorev5.js (saf). Başlangıç: g4Bitti sonrası g4 günü+2
-  (çarşamba) 20.30'da gorev5Ilerle → g5_cagri, ya da Rıza 'bitti' "Hazırım" (gorev4.js'te). gorev5Baslat: 21.40 han, g4Gun, antrepo
-  kapısı o gece açık. g5_plan: g5Plan polis / deniz / foto. KISILER delorme (gozcu, gorev 5, antrepo (15.5,15.8) 21.42-23.55).
-  Nesne canta (antrepo dip köşe (20.5,25.5), gürültü 25: salonique_n + mavna_listesi, cantaAlindi). Yüzleşme (g5Yuzlesti, g5Nasil):
-  Delorme'a 4 m (YUZLESME_MENZILI) → yaklasti; çantayla sokağa çıkınca → canta; antrepoda yakalanma (dunya yakalan → g5Yakalanma) →
-  yakalandi; 23.50'ye kadar olmazsa g5_gec. g5_yuzlesme: yuzlesmeSecim saldir (yaraKol, travma +1) / oyala / fotograf [fotograf
-  delili; fotografGosterildi, "Ne kadar benziyorsunuz"] → g5_sonuc (efekt silah): sandikSonu el_konuldu [polis + oyala] / yarim
-  [polis] / batti [deniz] / gitti [foto: delorme_fotografi]; Delorme her yolda denizden kaçar ("Selanik'te görüşürüz") →
-  g5_kapanis (Gülce siyakat okur; gulceKamil soyle ise "Babam bana öğretti") → gorev5Bitir (perşembe 08.00 han, g5Bitti).
-  Testler karakoy-gorev5.test.js. Telefonda denenmedi.
-  Sürüm 0.98 (19 Kasım, Murat: "Karakter yürümesi çok yavaş gibi"): YURUME_HIZI 2,4 m/sn (1,4'tü), ADIM_BOYU 1,0, OTO_HIZ 2,4,
-  OTO_HIZ_GIZLI 0,9; takipçi TAKIP_HIZ 2,8, KACIS_HIZ 4,5 (oyuncudan hızlı kalsın). Gizlilik eşikleri parmak gücüne (0-1) bağlı, değişmedi.
-  Sürüm 0.99 (19 Kasım, Murat: "bir yere girince sadece oranın içindekiler gözüksün, bir de gidilebilecek mekanlar"): yerlerListesi
-  kişi ve eşyaları yalnızca bulunduğun mekândan verir (yakından uzağa, listenin başında); ardından gidilebilecek yerler (içindeysen o yer düşer).
-  Sürüm 1.00 (19 Kasım, Murat: "İpucu bulunca ki metinleri üstünkörü geçme, ilk versionda daha detaylıydı"): görev 1-5'te delil veren
-  eylem ve konuşma metinleri eski bölüm metinleri ölçüsünde yeniden yazıldı (duyusal ayrıntı + Arif'in çıkarımı). Yeni delil eklerken
-  bulma metnini tek cümle bırakma; ne görüldüğünü, nasıl görüldüğünü ve ne anlama gelebileceğini yaz (yeni olgu uydurmadan).
-  Sürüm 1.03 (20 Kasım, Murat: "limandayken Sabri'nin odası gözüküyor yerler menüsünde"): yerlerListesi'nde ekle(..., yalnizBurada)
-  (oda yalnız han/oda'dan; cihangir, kulup, servis, salon yalnız PERA bölgesinden); SOKAKLAR (dis, pera_cadde) aynı sokaktaki yerleri de listeler.
-  Yeni iç içe yer eklerken yalnizBurada ver.
-  Sürüm 1.04 (20 Kasım, Murat: "diyalogların seslendirmesi için deneme; Ali koşarak gelsin, Süleyman Kaptan'ı seslendir, 3B olsun"):
-  src/oyun/karakoy/seslendirme.js (saf) SESLI_SAHNELER {sesler, plan}: adımlar dinleyici/boguk/kisi/git/cal/oran/dur/don/yuru/anlat/bekle.
-  Sahneler cagri (Ali, rıhtım; Arif (-6,3) denize bakar, Ali (-34,6.5)'ten koşar, iki seslenme, Arif başını çevirir) ve yeni
-  cagri_kaptan (Arif kapıdan girer, ahşapta yürür, Süleyman (-45,5.3) mangalda). Sahnede sesliParagraflar (konuşmalar çıkarılmış;
-  sahneParagraflari(d, id, sesli)). Karakoy.js sesliOynat: sesler yüklüyse bir kez çalar (dinlenen), katman "Dinlemeyi geç"
-  (SesliListe sessizAc: açılışta okumaz), bitince sahne anlatımı. konumsal.js kisiKur/kisiGit/kisiCal/kisiOran/kisiDur/kisiSil:
-  HRTF + uzaklığa göre alçak geçiren (hava yutumu) + yapay yankı (ConvolverNode; 'dis' rıhtım 1,8 sn, 'ic' ahşap oda 0,55 sn);
-  ic kişiler ve oyuncunun kendi adımları 'yakin' yolundan (boguk süzgecinden geçmez). rehber.soyle(..., bitince), soyleBekle.
-  Sesler ElevenLabs (flow H13uSGbaUNJZNoPkxW7V): eleven_v4 etiketli ([shouting] [breathless] [panting] [trembling voice]);
-  Ali = "Enes - Energetic and Lively" W3uaElFBxHYNIC54Z4ty (çocuk sesi tasarımı ElevenLabs güvenlik süzgecine takıldı; genç ses),
-  Süleyman = "Ergun Kalbak" 0DihkedLJYKoWg7H1u4d (60 yaşında, derin). kosu_tas sfx (6 sn döngü). Dönüştürme: sessizlik kırpma,
-  sabit kazanç (seslenişler -15, Ali -18, Süleyman -19 LUFS; koşu tepe -3 dB), 24 kHz tek kanal WAV. Testler seslendirme.test.js. Telefonda denenmedi.
-  Sürüm 1.05 (20 Kasım, Murat: "kişi sesleri ortam sesinin üzerine binmiyor; Ali gelirken sahil sesi sola kayıyor"): konumsal.js
-  'cevre' düğümü (panner() kaynakları buradan; cevreDuzey(oran) taban), kisiCal konuşurken cevre ×0,35 (konusan sayacı, cevreKis);
-  kişi zinciri g 1,9 → DynamicsCompressor (-24 dB, 3:1) → hava → panner. Seslendirmede SESLI_CEVRE 0,55, ortam döngüsü SESLI_ORTAM 0,3.
-  Sahne alanı kulak ({x,y,yon,boguk}; RIHTIM_KULAK acilis/ani1/ani1_nefes/ani1_bastir/cagri): sahneGoster ve sahneKur dinleyiciyi oraya
-  koyar (önceden açılış sahneleri kayıkhanede dinleniyordu, cagri'da kulak rıhtıma sıçrıyordu). cagri planında 'don' yok; Ali (-6.9,2.3).
-  Sürüm 1.06 (20 Kasım, Murat: "Ali'nin sesinde çok dip ses var, kayıt temiz değil; sadece sesi duyulmalı"): ali_cagri ElevenLabs
-  Voice Isolator'dan (audio_isolation düğümü, connect_from tts düğümü; 4,6 sn'den kısa seste çalışmaz) geçirildi; üç Ali dosyası ffmpeg
-  highpass 110 + lowpass 11k + afftdn nr 14 + agate (kelime aralarında -18 dB) ile temizlendi (sessiz yerler ~12 dB indi). Motor: yankı
-  girişine highpass 280, 'dis' yankı 0,2 (1,4 sn), 'ic' 0,38; kişi kazancı 1,6. Ali'nin konuşma sesi "Enes" sesinin kendi kaydında nefes/oda sesi taşıyor olabilir.
-  Sürüm 1.01 (19 Kasım, Murat: "kendi etrafında dönerken Vahşi Yaşam ve Kayıp Okyanus'taki gibi tık tık"): dunya.js donusTikirtisi
-  (DILIM 30°, yarım dilim payı, d.sonDilim; oto yürüyüşte sıfırlanır) → olay 'tik' {guc 0,65 ana yönde / 0,3}; Karakoy.js cal('tik').
-  assets/ses/tik.wav kayip-okyanus'tan kopyalandı; efektler.js KAYNAKLAR'da (SesliListe'nin menü tıkı da artık bu sesi çalar).
-  SÜRÜM 1.02 (19 Kasım, Murat: "Devam et"): altıncı görev "Siyakat" src/oyun/karakoy/gorev6.js (saf) + maliye.js (MALIYE_MEKANLAR
-  evrak_odasi (x 300-318, y 0-12, ortam_buro) ve evrak_mahzeni (y 14-30, ortam_arsiv, GIZLI); dis'te KOPRU_CIKISI (-59.2, 12) gorev >= 6,
-  09.00-17.00, mahzenKapaliGun değilse; MALIYE_KISILER tahsin (masa 315,9; öğle 12.00-12.45 yok), rustu (gozcu devriye, öğle yok), nazim
-  (14.30-14.50 Tahsin'in masasında), gulce (08.00 han, 09.00 evrak_odasi, 14.15 gider, 17.00-22.30 han). Satırlarda G6 = {gorev 6, yalniz,
-  kosul !g6Bitti}; dunya.js satirGecerli artık x.kosul(ctx.d) da sınar). g5_kapanis "Devam" → gorev5Bitir + gorev6Baslat → g6_acilis
-  (Gülce zimmeti okur: Selanik/Göz, Viyana/Kasa, Berlin/Kılıç, Mühür = Maliye Gümrük Kalemi 1329 no 417; gulce6 soz [gulceKamil sakla] /
-  el / anlat / birak [gulceGuven -1]) → g6_kamil (kamil_olumu: 9 Nisan 1329, Haliç, bileklerde şerit, raporu Halim; siyakat_satirlari;
-  g6Pusula). Eski kayıt: gorev 5 + g5Bitti + sahne yok → gorev6Ilerle açar. Mahzen kapısı Gülce oyalarken (g6OyalaBitis, en çok 2, 20 dk,
-  14.15'e kadar) ya da öğle arası. Raflar raf_1327/1328/1329_tahrirat/1329_gumruk/1330 (gürültü 30; yanlışı 10 dk); doğru raf →
-  kamil_dosyasi + g6_dosya (Elpis, Atina, Kont S. = Szalay; "İmzalamam. K."; N. B. parafı; pusula "Gülce'ye": notKarar ver/oku [g6_not]/
-  sakla). Tahsin'e pusula → evrak_kaydi (4-9 Nisan Nazım Bey kalemi) ama tahsinSoruldu → 14.30'da nazimUyarildi. 14.32-14.50 evrak odasında
-  9 m içinde → anlatim nazim_sozu. Mahzende yakalanma: köprü başına atılır, mahzenKapaliGun, nazimUyarildi. Gerekli çıkarımlar dorduncu_dis /
-  ayni_yontem / emri_veren (gorev 6). Gülce "Bildiklerimi" → g6_karar_oncesi (yanlış teorileri söker, g6Duzelt) → g6_karar: karar6 yuzles
-  (Nazım Bey: tayin teklifi yırtılır, "Selanik'te sizi soruyorlar"; nazimUyarildi, muhurUyarildi, gulceGuven +1) / riza (Rıza Halim'in
-  ilk raporunu kendisi mühürlemiş; rizaBag +1, dosyaRizada) / gazete ("Bir Gümrük Kâtibinin Ölümü", imza N.; nerminBag +1, kollarUyarildi,
-  raf yakıldı) → g6_kapanis (dört kapı; notKarar sakla ise pusula hâlâ Arif'te) → gorev6Bitir (g6Bitti; gün gorevGun + {riza 0, yuzles 1,
-  gazete 2} + 1, 08.00 han). Yeni iplikler: notKarar sakla (pusula), nazimUyarildi/muhurUyarildi/kollarUyarildi (omurgadaki kimlik
-  açığa çıkması), dosyaRizada (Adalet sonu). Testler karakoy-gorev6.test.js. Telefonda denenmedi. Sıradaki: yedinci görev.
-- HİKÂYENİN TAMAMI (19 Kasım, Murat: "Başla. Müthiş bir hikaye oluştur baştan sona"): https://claude.ai/artifact/5zJRKsQz68zXf1qfmwAkFP
-  (görev görev plan; yeni görev yazmadan önce oku, tutarlı kal). Ana kararlar: telgraftaki "SALONIQUE. N. 23 ARALIK" = Neslihan
-  Selanik'ten İstanbul'a geliyor; Delorme Selanik'te (Göz kolu bekler). Birinci perde 10 görev: 7 Madam N. (23-25 Aralık, Kalliope,
-  Pera Palas, Noel; ninni "Dandini dastana" ile tanıma; Brenner ve Garnier; "Ahit" kelimesi), 8 Kasa (Ocak 1919, Brenner ölü,
-  Rainer ve Ortakları Galata şubesi, Ferrante, Ceneviz hanı bodrumunda dört dişle açılan kasa; Weisz'ın adı; Ferrante teslim/kaçır/muhbir),
-  9 Balo (Mart 1919, Kont Szalay ve Nazım; karar6'ya göre Nazım'ın karşı hamlesi: Gülce'yi tutuklatma ya da Rıza'nın evi),
-  10 Pusula (Nisan-Mayıs 1919, Hatice, Sabri'nin taşı, 15 Mayıs, ilk kol seçimi, Süleyman'ın pusulası içinde kazınmış kanatlı anahtar).
-  BÜYÜK SIR: "Bkz. S." = Süleyman. 1915'te Göz, Pendle'in gemisindeki oğlu Kemal'i rehin tutup kalıpçının oğlunu bulmasını istedi;
-  Süleyman Arif'i buldu, hiç ihbar etmedi (Göz arşivi / üçüncü perde Kemal görevi). "Hamal canlı kalsın": Rivière beşinci koltuğu kalıbı
-  döken ustanın çocuklarından biri için bekletiyor. Ahit'i Rivière yazdı. Nermin'in abisi Cevdet Kasa kolunun taşıdığı çürük kaputla
-  dondu. Binbaşı Fikri Kılıç'ın İstanbul adamı. Delorme'un zaafı Neslihan. Anne Zehra Tekirdağ'da yaşıyor (gizli son).
-  ÖRGÜTÜN AMACI (19 Kasım, Murat): yeni dünya düzeni. İmparatorlukları büyük savaşla yıktırmak, yerlerine doğan devletlere
-  "kahraman" kılığında adam sokup (vatansever memur, halkçı gazeteci, hayırsever banker, gazi) onları içeriden ele geçirmek ve
-  sonraki dünya savaşına göre biçimlendirmek. Kahramanlar: Nazım Bey (Anadolu'ya gizlice para/silah kaçıran vatansever memur
-  kılığında; her kuruş Mühür'e borç), Rainer (Viyana'da aşevleri), Weisz (yenik askerler derneği), Göz hepsini dosyayla tutar.
-  ARİF'İN YERİ: Rivière'in planındaki son kahraman ("Hamal canlı kalsın"); bazı zaferlerine göz yumuldu, beşinci koltuk onun için;
-  Ahit'in kenarında "İstanbul için kahraman: kalıpçının oğlu". Asıl soru: örgütün yıkıcısı mı, son kahramanı mı? SINIR: gerçek
-  savaşlar/işgaller/kurtuluş hareketleri arka plan; örgüt onları kendi eseri sanır, oyun ona hak vermez; sızdırılan kahramanlar
-  hep kurgu, hiçbir gerçek tarihî kişi örgütün adamı gösterilmez.
-  İSTANBUL PLANI (19 Kasım, Murat: "Sabri'nin gördüğü silahlar örgütün İstanbul'a gizlice soktuğu silahlar; büyük nümayiş için;
-  gazete ve kahvehaneyle kandırılan halk vatanseverlik maskesiyle kendi devletine karşı ayaklandırılacak"): sevkiyatlar dışarıya
-  satış görünür, her seferinde birkaç sandık kâğıtta yok olup İstanbul'da kalır (çoktan ekili: g2 "kırk değil otuz sekiz",
-  g4 Halim "o iki sandık benim payımdı"). Nazım Bey'in kurgu cemiyeti Vatan Muhafızları, gazetesi Seher Postası, kahvehane
-  hatipleri; Nisan 1919 Tophane'de kurgu nümayiş (ilk kurşun örgütten, İtilaf karşılık, kaos, "kahraman"). Birinci perde
-  artık 11 görev: 7 Madam N., 8 Kasa (Ferrante: kayıp sandıkları Nazım'ın adamları alır), 9 Balo (planın duyulması), 10 Kahvehane
-  (sızma, depo, Hatice, cemiyete katılmış bir hamal), 11 Nümayiş (kalabalıkta sesle av; depo boşaltıldıysa kansız; ertesi gün
-  Seher Postası'nda "Karaköy'ün hamalı" manşeti = Rivière'in istediği kahramanlık; adın yazılsın/yalanla/sus; Sabri'nin taşı;
-  15 Mayıs; ilk kol; pusula). Gerçek 1919 mitingleri ve gerçek örgütlenmeler bu kurguya karıştırılmaz; kalabalık iyi niyetlidir.
-- Bu ortamda npm yok; bağımlılık sürümleri Expo dokümanından (react-native-webview 14.0.1, SDK 58). bun build'e -e react-native-webview ekle.
+## Tasarım kaynağı
+- belgeler/ içindeki 9 belge (Bahtiyar'ın). Okuma sırası ve yol haritası:
+  belgeler/gelistirici-entegrasyon-rehberi-ve-yol-haritasi.md (Faz 1-5). Sıra: tasarim-ve-senaryo → gezegen-gelisimi-v2
+  → araclar-ve-gemi-filosu → savas-yetenek-ve-murettebat → derin-uzay-gorevleri (1, 2) → kesfedilebilir-gezegenler
+  → derin-uzay-kesifleri-ve-evren-kutuphanesi.
+- Temel kurallar: görselsiz, 3B ses + dokunma hareketleri; dikey ekran; çıkışta otomatik kayıt + istasyonda
+  elle kayıt (3 yuva); ortam sesleri Drive'daki Efektler/Ambians'tan, kısa efektler ve telsiz sesleri ElevenLabs;
+  savaş "A Blind Legend" tarzı reaktif ve tur tabanlı; görevler şansla değil doğru donanımla çözülür.
 
-## Tasarım
-- HİKÂYE KARARLARI BENİM (17 Kasım, Murat: "Hikayenin gidişatını bana sorma. Derinliği olan sürükleyici hikayeyi,
-  olayları, her şeyi sen oluştur"). Hikâye, olaylar, karakter kaderleri, ekibe katılış sırası için soru SORMA;
-  belgeler/hikaye-plani.md'ye göre yaz ve tutarlı tut. Bu, taslaktaki "her kararda soru sor" talimatını hikâye
-  için geçersiz kılar. Teknik/oynanış/erişilebilirlik kararlarında taslaktaki tek soru + öneri düzeni sürer.
-- Kaynak: belgeler/tasarim-taslagi.pdf (8 sayfa). 19. bölümdeki çalışma talimatına uy:
-  önceki seçimleri yeniden sorma ya da sessizce değiştirme; her yeni tasarım kararında tek soru sor,
-  önerilen seçeneği ve kısa gerekçesini söyle; 186. soru (dünya büyüklüğü) açık karar olarak kalır.
-- Tarihsel gerçekler ile kurgu (örgüt, karakterler) ayrı tutulur; gerçek kişileri uydurma bilgilerle ilişkilendirme.
-- Taslaktaki ölçek (fotogerçekçi, 80+ saat, çok şehir) hedeftir, taahhüt değildir. Önce dikey dilim:
-  İstanbul limanı, Süleyman Kaptan, denizcinin eşyaları, belge, soruşturma panosu.
-- Erişilebilirlik KARARI (17 Kasım, Murat A'yı seçti): oyun VoiceOver/TalkBack kapalıyken oynanır, Kayıp Okyanus
-  düzeni. Kendi rehberi src/ses/rehber.js (expo-speech tr-TR), hareketler src/arayuz/jestler.js ve SesliListe.js
-  (kayip-okyanus'tan alındı): kaydır = gez, dokun = oku, çift dokun = seç, uzun bas = açıklama, iki parmakla
-  dokun = sustur, iki parmakla çift dokun = geri. Ekran okuyucu açıksa App.js uyarı katmanı gösterir.
-- Ses (17 Kasım): src/ses/efektler.js (expo-audio). Ortam döngüleri ortam_rihtim/kayikhane/buro/han/oda
-  (mekân kimliğiyle eşleşir; sahnede `ortam`, `ortamOran`, `efekt` alanları), efektler sandik, ani_savas, delil, yangin; 3. bölüm döngüleri ortam_cemil_ev/pera/kulup/servis; 4. bölüm ortam_hastane/meyhane/depo, efekt silah; 5. bölüm ortam_guverte/salon/kamara/firtina, efekt vapur_duduk; 6. bölüm ortam_yanik_sehir/otel/ev; 7. bölüm ortam_kosk_bahce/kosk_ic, efektler kopek, kilise_cani; 8. bölüm ortam_tren/manastir/cezaevi/revir, efektler tren_duduk, demir_kapi; 9. bölüm ortam_viyana/kahve/mutfak, efekt tramvay; 10. bölüm ortam_kule/kayik, efekt dokum; 11. bölüm ortam_kordon/kemeralti; 12. bölüm ortam_arsiv/yali; 13. bölüm ortam_yagmur; 14. bölüm ortam_zurih/banka; 15. bölüm ortam_genelkurul, efekt tokmak; 16. bölüm ortam_baskin; 17. bölüm ortam_inebolu/kagni; 18. bölüm ortam_sahra, efekt top; 19. bölüm ortam_telgraf; 20. bölüm ortam_matbaa/istasyon; 21. bölüm ortam_yangin21; 22. bölüm ortam_lozan_otel/gol; 23. bölüm ortam_sofra; 24. bölüm ortam_kurtulus, efekt baston; 25. bölüm ortam_mezat; 2. bölüm morgu ortam_cezaevi;
-  sessiz.wav oturumu açık tutar. tik/secim/dip için dosya yok, titreşim. Menülerde rıhtım sesi 0,45.
-  Üretim: ElevenLabs flow H13uSGbaUNJZNoPkxW7V (eleven_text_to_sound_v2; döngüler 30 sn loop true, generations_count 1).
-  Bu ortam elevenlabsusercontent.com'a erişemez: adresleri araclar/indirilecek-sesler.json'a yaz, push et →
-  .github/workflows/sesleri-indir.yml ham-sesler dalına indirir (adresler ~2 saatte geçersizleşir, hemen push et).
-  Dönüştürme: döngüler `ffmpeg -i x.mp3 -af loudnorm=I=-24:TP=-3:LRA=11 -ar 22050 -ac 2 -c:a pcm_s16le`,
-  efektler I=-18:TP=-2. Ayarlarda ortam sesi düzeyi (varsayılan 0,6).
-- Seslendirme KARARI (17 Kasım, Murat A'yı seçti): karakter sesleri (ElevenLabs) hikâye metni oturunca; şimdilik telefonun sesi.
-- Prototip KARARI (17 Kasım, Murat A'yı seçti): önce ses, sonra görüntü. Oynanış önce sesle (rehber, ileride
-  3B konumlu ortam sesleri) kurulur; three.js görüntüsü oynanış oturunca aynı mantığı okuyarak eklenir.
-  Taslaktaki joystick + 3B kamera hedefi duruyor; şimdiki mekân/menü gezintisi sesli prototip içindir.
-- Murat hikâyenin derin ve sürükleyici olmasını istiyor (17 Kasım).
-- Birinci bölüm "Sudaki Adam" (src/hikaye/bolum1.js): Aralık 1918 Karaköy. Ateşçi Sabri öldürülüp Leventis'in
-  yanına atılır; Süleyman Kaptan'ın sakladığı denkte şifreli belge (Fransızca şehirler, siyakat, kanatlı anahtar).
-  Mekânlar: rıhtım, kayıkhane, liman kayıt bürosu (Gülce; Süleyman'ın aracılığıyla, taslaktaki gibi), Kalafatçı Hanı
-  (Ohannes Usta) ve Sabri'nin odası. Ferrante ve Ortakları (kurgu) yedek parça diye 40 sandık tüfek indiriyor.
-  Zorunlu çıkarımlar: olduruldu, silah, orgut → karar (İngiliz askerî polisi / eski bir polis / sakla) → kapanış notu.
-  Tohumların çözümü belgeler/hikaye-plani.md'de (fotoğraf = kız kardeş Neslihan, "Madam N."; Gülce'nin babası;
-  "eski bir polis" = Rıza Bey). Bayraklar: travma, karar1, gulceyeAnlatti, gulceYalan, suleymanBag.
-  Anlatım ikinci tekil şahıs, şimdiki zaman. Tarihsel: İtilaf donanması Kasım 1918'de geldi; Ankara hareketi henüz yok.
-- Ekip: Cemil Bey 2. bölümde (Murat seçti), Nermin 3. bölümde, Rıza Bey 4. bölümde (hikâye planı).
-- İkinci bölüm "Ölüler Konuşur" (src/hikaye/bolum2.js): ertesi sabah; Komiser Halim (kurgu, rüşvetçi) Sabri'yi öğlen
-  kimsesiz diye gömdürecek. Vakıf Gureba Hastanesi (gerçek) avlusu ve morgu (kurgu); hademe Rüstem; Cemil Bey
-  (Paris, Viyana, Selanik; esprili, titiz; Balkan Harbi'nde emirle "kaza" yazdığı cesetlerin vicdan yükü).
-  Morgda 5 inceleme (koltuk, akciger, mide, sirt, ceket) + kayıt defteri; 3 incelemeden sonra baskın sahnesi:
-  Komiser Halim ve lavantalı adam; soğuk odada ani2 (24 Mayıs 1915 Arıburnu ateşkesi), bak/dinle → "Lö dizset atan".
-  Midede jeton: kanatlı anahtar, Mercure, Pera, 17 (Mercure Kulübü kurgu; gerçek Cercle d'Orient kullanılmadı).
-  Zorunlu çıkarımlar bicakla, ortbas, kulup → cenaze (mezar sözü) → Cemil katılır (cemilEkipte). İsteğe bağlı: motorda, bekleyen.
-  Tohum: gorulmusOlabilir (lavantalı adam Arif'i görmüş olabilir), mezarSozu. Üçüncü bölüm: Pera, Mercure Kulübü.
-- Üçüncü bölüm "On Yedi Numara" (src/hikaye/bolum3.js): Cemil'in Cihangir'deki evi, Pera Grand Rue, Mercure Kulübü
-  salonu, servis koridoru. Nermin katılır (nerminBag; Sarıkamış'ta donan ağabeyi). Kılık (uşak kıyafeti, kilik) ve
-  şüphe (suphe; SUPHE_SINIRI 3 → yakalandin sahnesi, disariAtildi; Nermin eksik delilleri getirir, bölüm sürer).
-  Barmen Yorgo (Süleyman'ın eski aşçı yamağı), Yüzbaşı Hargreaves (Nermin aracılığıyla, izin_belgesi), baş garson.
-  17 numaralı oda (yemek asansöründen): Delorme, Ferrante, Nazım Bey (Maliye); Santa Lucia, Odesa, rüşvet defteri,
-  "Madam N. fotoğrafını istiyor" (madamN). Zorunlu: delorme, sevkiyat, rusvet → gece_yarisi → karar3
-  (gazete/depo/ihbar) → yangın (kayıkhane yakılır, Süleyman yaralı kurtulur; karar1 sakla ise belgeyi kurtarmış) →
-  kapanış.
-- Dördüncü bölüm "Kül" (src/hikaye/bolum4.js): Gureba koğuşu (Süleyman yaralı), Rıza Bey gelir (karar1 polis ise
-  Cihangir'deki adam; Halim'i o yetiştirdi; "döverek değil delille"). Gülce sırrını açar (babası Kâmil Efendi, 1913,
-  "İmzala ve yaşa"); gümrük kâğıtları + damgayı geciktirme seçimi (gulceGecikme). Yüksekkaldırım meyhanesinde sorgu:
-  baski (BASKI_SINIRI 3; defin +1, rakı +1, K 7/rusvet +2, delorme +1; tehdit rizaBag -1) → itiraf → halimKarar
-  tutukla/birak (her iki durumda Halim ölür: hücrede asılı / depoda bıçaklı). Çıkarımlar katil_delorme, saat_on →
-  depo: yol deniz/dam, hamallar (Topal Hasan), Mauser, Delorme yüzleşmesi: saldir (yaraKol, travma+1) / oyala
-  ("ateşi canlı tutmak") / fotograf (fotografVerildi; "Ne kadar benziyorsunuz", Selanik). Sandıklar: karar3 ihbar →
-  Teğmen Ashford, Hargreaves tutuklandı; gulceGecikme → jandarma; yoksa mavna yakılır (sevkiyatSonuc tam/yarim).
-  Telgraf: SALONIQUE, N. 23 Aralık. Kül sahnesi; rizaEkipte.
-- Beşinci bölüm "Kalliope" (src/hikaye/bolum5.js): vapur kamarası, yemek salonu, kamaralar koridoru, güverte.
-  Ekip seçimi (ekip_cemil/nermin/riza; ikisi gelir). Brenner (kurye, kaçmak istiyor), Garnier (kol düğmesi =
-  kanatlı anahtar; Brenner'i siyanürle öldürür), Yüzbaşı Morin (Fransız istihbaratı; çevirmen gerekir: Nermin ya da
-  Saltiel), Saltiel (Selanikli Yahudi tütün tüccarı, dost), kamarot Lefteris. Garnier delili: kol_dugmesi + (zehir:
-  Cemil | brenner_notu: Nermin | kamarot_ifadesi: Rıza | bos_sise: herkes, garnier_kaptan sonrası kamara9).
-  Brenner'in astarında mühürlü mektup (muhurSaglam: buharla / kır) → talimat (+ telgraf). Fırtına: atıl (yaraKol →
-  denize düşer, değilse kapsülle ölür) / konuş ("O kadın senin..." yarimCumle) / Morin (morinGuven → tutuklu,
-  fransizBag). Varış: Beyaz Kule, 1917 yangını; Hotel Olympos yarın akşam.
-- Altıncı bölüm "Hotel Olympos" (src/hikaye/bolum6.js): Kalamarya'da Rebeka Hanım'ın evi (Saltiel'in kuzeni), yanık
-  şehir, otel lobisi. Saltiel ya da Morin (fransizBag) → riviere_bilgi. Hafız Efendi (barakalar incelenince):
-  aile: baba Kalaycı İsmail Usta (Manastır yoluna döndü, kayıp), anne Zehra Hanım (göç yolunda tifo), Neslihan 17
-  yaşında Rivière'in adamlarınca alındı → ani3 (Manastır Kasım 1912; Arif esir düşüp döndüğünde ev yanmıştı).
-  Kâtip yalnızca ekip üyesiyle konuşur (cemilOtel/nerminOtel/rizaOtel) → otel_kaydi (Delorme 24 Aralık geliyor).
-  Çıkarımlar kardes, randevu, riviere → olympos: kurye (muhurSaglam) / hamal (çay: iç +1 / değiştir) / abi (+1);
-  yuzyuze: talimat (+2) / ayva (+1) / Sabri (+1). neslihanBag >= 2 → çalışma odası anahtarı, kasa Montaigne'in
-  arkasında (anahtarAlindi), "Git, abi"; değilse "bir daha karşıma çıkma".
-- Yedinci bölüm "Montaigne" (src/hikaye/bolum7.js): 23→24 Aralık gecesi, Rivière'in köşkü. Mekânlar ev (Rebeka Hanım),
-  kosk_bahce, kosk_ic, calisma (ortam ortam_kosk_ic). Sızma: alarm sayacı (ALARM_SINIRI 3 → yakalandi sahnesi, yakalandi7;
-  Rivière defteri kendisi verir). Köpek: Cemil ilaçlı et, yoksa havlama sahnesi +1; bekçi: Rıza tur sayar / Nermin oyalar,
-  yoksa +1; kapı: anahtarAlindi ya da Rıza tel, yoksa zorla +1; pencere (Neslihan'ı görürsün) ve merdiven birer kez +1.
-  Kasa: kitaplık (Montaigne) → kasaBulundu; çerçeve "N., 12 Aralık 1912" → tarihBilindi → defter_yarisi → riviere sahnesi
-  (Babamı sor / talimat) → riviere_mektubu → delorme_gelir: koru / atil (travma+1) / kac (travma+1). Rivière her yolda ölür,
-  Delorme uçuruma atlar (cesedi yok; döner). neslihanSecim geldi/gitti/kaldi. kacis → ev; Hafız Efendi siyakat_okundu.
-  Çıkarımlar baba_yasiyor (riviere_mektubu + hafiz_tanik), isimler (siyakat_okundu + defter_yarisi; N. R.) → safak
-  (kilise_cani; Noel arifesi) → son.
-- Sekizinci bölüm "Kalay" (src/hikaye/bolum8.js): 26-27 Aralık 1918, Manastır (Sırp-Hırvat-Sloven Krallığı; cephe
-  yıkıntısı). Açılış trende (ortam_tren, tren_duduk). Mekânlar carsi (Yusuf Usta, eski çırak → kalay_takimi, kanat
-  kalıbı), baba_evi (ilkSahne işlev: Neslihan yanında değilse avlu_neslihan → neslihanGeldi8, sonra ani4: 1902,
-  "kalay bakırı zehirden korur", ritim tak, tak-tak, tak → ritimBilindi), cezaevi (gardiyan Stojan → cezaevi_kaydi,
-  hucreIzni), revir (Dr. Ferdinand Hasler, İsviçreli, Clavis; dosyalar → hasler_raporu; dolap → afyon: Nermin
-  haslerOyalandi ya da Rıza tel), hucre (baba İsmail Usta; goz: Cemil → afyon; babaTanima: takım +1, ritim +1,
-  Neslihan varsa +1; >= 2 → babaTanidi). Çıkarımlar yargisiz (cezaevi_kaydi + riviere_mektubu), ilacli
-  (hasler_raporu + afyon) → yuzbasi (Yüzbaşı Lazar Ristić, dürüst) → haslerSonu tutuklu / kacti; ikisinde de
-  viyana_ipucu (Delorme yaşıyor, 15 Ocak Viyana, Hotel Imperial) ve kalipSirri (babası 1908'de anahtar kalıbını
-  döktü) → tahliye (demir_kapi) → han → son.
-  motor.mekanaGir: ilkSahne işlev olabilir (deger). mekanaGir olayları tetiklemez; mekâna girişte sahne için ilkSahne kullan.
-- Dokuzuncu bölüm "Imperial" (src/hikaye/bolum9.js): 12-18 Ocak 1919, Viyana (aç, soğuk; Paris konferansı 18 Ocak).
-  Neslihan her zaman yanında (Almanca bilir; cevirmen(d): Nermin > Cemil > Neslihan). Takas malı: tutun (açılışta 2,
-  Saltiel'in tütünü). Mekânlar pansiyon (Frau Gruber: tütün verilebilir; masa9 → sahteFikri → Neslihan sahte_defter
-  sahnesi), ring (asker kişisi: tütün verilebilir), kahve (Café Central, Franz Kessler: Nermin ücretsiz / tütün / tütün
-  bitmişse defterden bir isim → isimVerildi; rainer_bilgi, toplanti_yeri), lobi (resepsiyon: Neslihan Madame Rivière
-  olarak → delorme_odasi), mutfak (asansör → asansorBulundu; Josef: Cemil kız kardeşine bakar / tütün → garson).
-  Çıkarımlar buyuk_usta (rainer_bilgi + siyakat_okundu), tuzak (delorme_odasi + viyana_ipucu) + toplanti_yeri → plan:
-  yol9 neslihan / garson / asansor → toplanti (Viktor Rainer, Bankhaus Rainer, örgütün başı; "Paris'te Yunanlılara İzmir")
-  → teklif: sahte (sahte_defter; Rainer Delorme'u kovar, delormeKovuldu) / red (Delorme bıçaklar, yaraBogur, travma+1)
-  → defter_karari: defterKarar fransiz / gazete (isimlerBasildi) / sakla → telgraf9 (Manastır'dan) → son.
-- Onuncu bölüm "Kurşun Mühür" (src/hikaye/bolum10.js; ikinci kitabın açılışı): 10-15 Mayıs 1919 İstanbul. Bütün ekip
-  burada (açılış ekip_* bayraklarını true yapar, kalay_takimi'ni garantiler). Mekânlar rihtim (Süleyman), buro (Gülce →
-  gumruk_listesi: Santa Lucia, Trieste → İzmir, 60 sandık), han (baba → baba_itirafi: 1908 kalıp, 1912 tüfek sandıkları,
-  kalıbı Rivière'den çaldı; Ohannes'in ocağı), antrepo (sahteMuhur sonrası; Topal Hasan → hasanHazir; sandiklar →
-  sevkiyat_karari). Çıkarımlar ikinci_sevkiyat (gumruk_listesi + viyana_ipucu), kalip (baba_itirafi + kalay_takimi)
-  → dokum (efekt dokum; 60 sahte kurşun mühür; sandıkların içi taşla değişir). sevkiyatKarar ingiliz / anadolu
-  (hasanHazir; İnebolu) / batir → olay kacirma: baba kaçırılır, delorme_notu → kayik → kule (Kız Kulesi): kuleSecim
-  kalip (baba Delorme'u iter; delormeSonu denizde, kalipKayip) / atil (Rıza vurur; vuruldu) / konus (teslim olur;
-  tutuklu, ferranteIpucu: asıl sevkiyat Haziran'da) → safak10 (15 Mayıs 1919 İzmir çıkarması haberi) → son.
-- On birinci bölüm "Kordon" (src/hikaye/bolum11.js): 5-11 Haziran 1919 İzmir, işgalin ilk haftaları. Bütün ekip ve
-  Neslihan. Mekânlar kordon (otel_levant → whitlock_kaydi; nöbet yeri), klinik (Dr. Eleni Mavrou, İzmirli Rum hekim,
-  Cemil'in Paris'ten sınıf arkadaşı → gecisIzni: Kızılhaç bantları; yaralı hamal Kadir → aurora_adi), yazihane
-  (Ferrante'nin Punta'daki yazıhanesi; taş sandık babanın çentikli mührüyle; kagitlar → ferranteYeri), kemeralti
-  (gecisIzni; han_kapisi → ferranteBulundu; Ferrante: Anlaştık → ferranteGuven / Hayır → teslim; ikisinde
-  ferrante_defteri). Neslihan defteri okur → iki_yana (Aurora: 40 makineli tüfek; yarısı Rum, yarısı Türk çetelerine).
-  Çıkarımlar aurora (aurora_adi + iki_yana), yeni_adam (whitlock_kaydi + rainer_bilgi) → gece_plani: auroraSonu
-  ihbar / batti (Stavros'un kayığı, ambarı su bastırma) → whitlock (Elias Whitlock, Amerikalı, Rainer'in yeni adamı;
-  ferranteSonu kacti / tutuklu) → son_sayfa (Ferrante'nin defterinde: K. E., 1913, tasfiye, onay N. B. = Nazım Bey
-  Gülce'nin babasını öldürttü; nazimBulundu) → son.
-  Hassasiyet: hiçbir topluluk kötü gösterilmez; klinikte herkes; örgüt iki tarafa da silah satar.
-- On ikinci bölüm "İmza" (src/hikaye/bolum12.js): 24-28 Haziran 1919 İstanbul. Açılış tasfiye_satiri verir.
-  Mekânlar rihtim, buro (ilkSahne gulce_ogrenir → gulceBildi; Gülce → agir_sandik: Columbia, 30 sandık × 400 kg
-  "tütün"), gulce_ev (Kumkapı; baba_sandigi → baba_mektubu: evrak 1329/417), maliye (arsiv_kapisi → arsiv sahnesi:
-  Rumi yıl bulmacası; doğru raf "1329, Gümrük Kalemi" → kamil_raporu; yanlış raf dikkat +1, DIKKAT_SINIRI 3 →
-  arsiv_yakalandi: yaşlı kâtip dosyayı verir, nazimUyarildi), pera (pera_palas: Rıza izler, Neslihan siyakatı okur →
-  whitlock_nazim). Çıkarımlar katil_nazim (tasfiye_satiri + kamil_raporu), altin (agir_sandik + whitlock_nazim) →
-  yali_yol → yali (Kandilli, Nazım Bey): yaliSecim tut → imza / birak → namlu (travma+1) → imza (Gülce: "İmzala ve
-  yaşa"; nazim_itirafi) → columbia: altinKarar ingiliz / gazete (nerminGazeteKapandi) → son_sabah (Rainer'in telgrafı:
-  "Artık kendim geliyorum"; rainerGeliyor) → son. gulceYakin(d): gulceGuven >= 2 ya da gulceyeAnlatti.
-- On üçüncü bölüm "Satranç" (src/hikaye/bolum13.js; ikinci kitabın sonu): 8-10 Ekim 1919 İstanbul. Açılış davetiye verir
-  (ortam_yagmur). Mekânlar han (Neslihan → imza_ani: Ekim 1918 Viyana noteri; baba), telgrafhane (telgraf13 →
-  telgraf_bekle sahnesi → vasiyet: Rivière'in %34 Bankhaus Rainer hissesi Neslihan'a), palas (Pera Palas barı,
-  Whitlock → whitlock_korku). Çıkarımlar miras (vasiyet + imza_ani), sallanan_koltuk (whitlock_korku + rainer_bilgi)
-  → satranc1-3: söz satrancı, avantaj (hamle1: nazim_itirafi ya da sahteMuhur +1; hamle2: defterKarar'a göre ya da
-  ezber +1; hamle3: koltuk +2), TERK_SINIRI 4 → satrancSonu terk / berabere → hisse_karari: hisseKarar sat / genelkurul
-  (neslihanBag +1) / bagis → whitlock13: terk ise Whitlock kaçar ve zurih delilini verir (Zürih, kasa 1908, Rainer'in
-  kendi defteri), berabere ise Whitlock ölü bulunur → son_sabah13 → son.
-- On dördüncü bölüm "Que sais-je?" (src/hikaye/bolum14.js; üçüncü kitabın açılışı): 18-20 Kasım 1919 Zürih. Ekip Cemil +
-  Nermin + Neslihan (ekip_riza false; Rıza İstanbul'da). Mekânlar otel (riviere_sandigi → kucuk_anahtar + ajanda;
-  denemeler → exlibris "Que sais-je?"), sehir (Bahnhofstrasse; banka geçişi kasa_yeri çıkarımıyla), banka (Banque Vollmer;
-  Klara Rainer: Rainer'in torunu, bankanın avukatı → klaraTanisti, klara_uyarisi; gise → parola çıkarımı varsa
-  parola_sahne). Çıkarımlar kasa_yeri (ajanda + davetiye), parola (exlibris + kucuk_anahtar). Parola bulmacası: doğru
-  "Que sais-je?"; yanlış yanlisParola +1, YANLIS_SINIRI 2 → mudur (Klara tanışıldıysa yardım eder, değilse Neslihan
-  hatırlar ama gecikme14: Gubler polisle gelir) → kasa (kurulus_defteri: Selanik 1908, beş kurucu, "usta bilmesin",
-  kırmızı rüşvet sayfaları) → mektup (Rivière: babayı ben ihbar ettim; "Que sais-je?") → gol (Dr. Gubler):
-  defter14 klara (klaraTanisti) / kopya (Nermin'in Kodak'ı; negatifler Kessler'e, Rıza'ya) / viyana → son_sahne14 → son.
-- On beşinci bölüm "Genel Kurul" (src/hikaye/bolum15.js): 15-24 Aralık 1919 Viyana. Ekip Cemil + Nermin + Neslihan.
-  Paylar: Rainer %40, Rivière payı %34 (hisseKarar sat ise Rainer'de, oy 0), Vollmer %8, Szalay %10, Pendle %8 (PAYLAR).
-  oyToplami(d) dışa açık; > 50 → devrildi, değilse ikna edilen kurucu >= 2 → iflas, yoksa kazandi (kurulSonu).
-  Mekânlar pansiyon (Frau Gruber; oy_cizelgesi; Neslihan → budapeste_satiri, kanıt gerekir), ring (bankhaus geçişi
-  kanitVar: defter14 kopya değilse ya da fotograflar), kahve (Kessler; karanlik_oda yalnız kopya yolunda → fotograflar),
-  imperial (kurucular: Vollmer → kanıt; Szalay → budapeste_satiri; Pendle → agir_sandik ya da aurora_adi; oy_* bayrakları),
-  bankhaus (ilkSahne genel_kurul, efekt tokmak) → ring15: rainerSonu tutuklu / yalniz (Salzburg) / serbest (kazandi;
-  Klara istifa eder, Cenevre) → son15 (Noel arifesi; Ankara haberi) → son.
-- On altıncı bölüm "16 Mart" (src/hikaye/bolum16.js): 13-17 Mart 1920 İstanbul. Bütün ekip (ekip_* true). Gubler
-  Rainer'in adamlarından derlediği kara listeyi İngilizlere satacak. Mekânlar han (Neslihan → mektup_baba sahnesi:
-  Rivière'in mektubunu babaya okur, babaAffetti), rihtim (Süleyman → kayikHazir), buro (Gülce → izin_kagitlari),
-  pera (Tokatlıyan; Gubler: satın al [hisseKarar sat] / tehdit [kurulus_defteri ya da fotograflar] → kara_liste;
-  yoksa gubler_odasi: Rıza + Cemil çalar; listeYolu para/tehdit/hirsiz). Olay gece16 (kara_liste + izin_kagitlari +
-  kayikHazir) → listeKarar uyar / yak (travma+1) → baba_karar: babaKarar anadolu / sakla (Ohannes'in mahzeni) →
-  baskin (16 Mart 1920 şafak, ortam_baskin; Nermin Anadolu'ya gider, nerminSonu anadolu; uyar ise rizaYarali) →
-  son16 (Nermin'in notu: Ankara, Taşhan) → son.
-- On yedinci bölüm "Kağnı" (src/hikaye/bolum17.js; üçüncü kitabın sonu): 8-23 Nisan 1920, İnebolu → Ankara. Ekip Cemil
-  + Rıza + Neslihan (ekip_nermin false; Nermin Ankara'da); babaKarar sakla ise baba yanında (baba17), anadolu ise Ankara'da.
-  Açılış erzak 2. Mekânlar iskele (hasan17 yalnız sevkiyatKarar anadolu), carsi17 (postane → zihni_baglantisi; depo17;
-  mahzen geçişi mahzenYeri ile), mahzen (sandiklar17 → mahzen_sandiklari; anadolu ise babanın çentikli mühürleri),
-  kafile (Zeynep Ana → mahzenYeri). Neslihan da zihni_baglantisi verir (kanıt varsa). Çıkarım istifci → zihni sahnesi:
-  zihniSonu teslim / kafile → kafile_baslangic → etap_kure (orman: zihniSonu kafile ise eşkıya geçirir, değilse
-  erzak -2 yorgunluk +1; vadi: erzak -1) → etap_ilgaz (gece: yorgunluk +1; han: erzak +1) → etap_cankiri (kafileSonu
-  perisan: erzak <= 0 ya da yorgunluk >= 2, değilse saglam) → ankara (23 Nisan 1920, meclisin açılışı arka plan) →
-  harf (baba kanatlı kalıbı eritip Nermin'in matbaasına Ç, Ğ, Ş döker; kalipKayip ise eliyle; kalipEridi) → son.
-- On sekizinci bölüm "Kinin" (src/hikaye/bolum18.js; dördüncü kitabın açılışı): 3-14 Ocak 1921, Eskişehir yakınında
-  Cemil'in sahra hastanesi. Ekip Cemil + Rıza + Neslihan. Açılış yuk_telgrafi verir; travma >= 2 ise nobet sahnesi
-  (Çanakkale anısı, efekt top): Cemil'in sesine tutun (travma -1, nobetAtlatildi) / kaç (nobetKacti). Önemli motor notu:
-  sahne seçeneğinde etki.mekan varsa `sonra` yok sayılır; sahneye geçmek için etki.sahne kullan.
-  Mekânlar cadir (teslim → teslim_fisleri; hesap_kagitlari nesnesi teslim_fisleri + depoGoruldu varken → hesap sahnesi:
-  doğru "Depo ile hastane" → depo_defteri; yanlış → hesap_yanlis, yeniden), esir (Yannis, Yunan esir hekim; Neslihan
-  Rumca çevirir → esir_tanikligi), depo18 (depo_kaydi → depoGoruldu). Çıkarımlar kayip_ilac (depo_defteri +
-  teslim_fisleri), iki_cephe (esir_tanikligi + yuk_telgrafi) → sabit (müteahhit Sabit Bey iki cepheye satıyor):
-  sabitSonu teslim / konustu (ag_bilgisi: İstanbul Gümrük'te M. T.) → esir_degisimi (Kızılhaç; Eleni öbür taraftan
-  Cemil'e mektup ve kinin gönderir) → son (sonrakiBolum bolum19).
-- On dokuzuncu bölüm "Yeşil Mürekkep" (src/hikaye/bolum19.js): 2-9 Nisan 1921 İstanbul. Ekip Arif + Rıza + Neslihan (ekip_cemil
-  false). Açılış sabitSonu konustu ise ag_bilgisine değinir. Mekânlar rihtim (Süleyman → kurye_notu), buro (mudur_masasi →
-  yesil_murekkep; kayit_defteri19 [kurye_notu varken] → el_yazisi; nobet19 → nobet_cizelgesi; kişiler gulce, tevfik, muhsin),
-  kontrol (İngiliz kontrol bürosu, ortam_telgraf; Turner → turner_ifadesi, isteğe bağlı). Çıkarımlar kalem (kurye_notu +
-  el_yazisi), gece_nobeti (nobet_cizelgesi + yesil_murekkep) → olay suclama: Muhsin / Turner yanlış (yanlis_*; gulceGuven -1,
-  seçenek düşer, Turner kişisi kaybolur) / Tevfik (haindogru) → tevfik: tevfikKarar teslim / cift → gece19 → son.
-- Yirminci bölüm "Tarife" (src/hikaye/bolum20.js): 18-24 Ağustos 1921 Ankara/Polatlı. Ekip herkes (ekip_* true). Mekânlar
-  tashan (Nermin'in matbaası, ortam_matbaa; Nermin → mavi_kagit; tevfik20 yalnız tevfikKarar teslim), han20 (ortam_han;
-  katip20 → nuri_izi; nuri_odasi [nuri_izi varken] → pendle_ceki), istasyon (ortam_istasyon; sef_defteri → sevk_listesi),
-  polatli (ortam_sahra; Cemil). Çıkarımlar sahte_vesika (mavi_kagit + nuri_izi), tarife (sevk_listesi + pendle_ceki) → olay
-  plan20 → atama_han → atama_istasyon (atamaHan/atamaIstasyon; dogruAtama(d): han riza, istasyon nermin) → gece20 (nuriSonu
-  yakalandi/kacti, trenSonu tam/hasarli, cemilYalniz) → nuri20 (Arethusa, İzmir) → polatli_son (efekt top) → son.
-  Ek: nermin düğümleri cevdet (nerminCevdet) ve yemin (nerminYemin).
-- Yirmi birinci bölüm "Arethusa" (src/hikaye/bolum21.js; bölüm yazma kurallarıyla yazılan ilk bölüm): 11-16 Eylül 1922 İzmir.
-  Yangının faili tartışılmaz; rıhtımda her topluluk. Ekip herkes + Süleyman. Mekânlar kordon21 (durbun → kopru sahnesi →
-  suvari, suleymanUmut soz [aramaSozu]/bak/sessiz; acente → ajan_defteri; cocuk21 → cocuk: cocukKarar aile/yanina,
-  "Ayva"), klinik21 (ortam_hastane; Eleni → eleni_tanikligi; Cemil). Tek çıkarım fiyat (ajan_defteri + eleni_tanikligi)
-  + suvari → olay yangin (ortam_yangin21, efekt yangin; travma >= 2 ise yanginAni neslihan [kardesGecesi durust/sonra_durust]
-  / cemil [cemilBag >= 1] / yalniz, travma ±1) → sorgu21 (Fenwick; rizaSorgu sen / kalabalik (travma+1) / bekle → delil
-  [rizaHikaye] ya da sopa) → kemal (pusula; kemalSecim aradi [aramaSozu] / gorev / sus) → kemal_son (kemalSonu yolcu,
-  sus ise suleymanBag >= 2 gerekir, yoksa tereddut) → pendle21 (atkı [nerminCevdet]; nerminYemin'e uyan seçenek nerminBag +1;
-  pendleSonu gazete/mahkeme ya da kacti_*) → kalkis (efekt vapur_duduk; Eleni ve cemilRapor; Ayva) → son.
-- Yirmi ikinci bölüm "Üç Akşam" (src/hikaye/bolum22.js): 22 Kasım 1922 - 4 Şubat 1923 Lozan (konferans arka plan; gerçek
-  kişiler ve heyetler konuşturulmaz; "kayıp mallar alt komisyonu" kurgu). Pendle'in dilekçesi (dilekce): Kızılhaç'ın kırk
-  sandığı için tazminat; avukat Klara Rainer; masrafları Banque Vollmer. Tek mekân otel22 (ortam_lozan_otel); AKSAM_SAYISI 3,
-  sayaç aksam: her akşam bir nesne → sahne → Devam (aksam +1). kutuphane → klara22 (klaraTanisti ya da ikinci ziyaret →
-  sahte_manifest, klaraYardim), iskele → kemal22 (ortam_gol; kemalSonu yolcu ya da ikinci ziyaret → kemal_ifadesi; cocukKarar
-  aile ise Rina'nın çizimi), kizilhac → eleni22 (kizilhac_fisi; cemilRapor'a göre Cemil'in mektubu), basin → basin22
-  (basinYardim yalnız pendleSonu gazete/kacti_gazete). kanitSayisi(d) dışa açık. Olaylar: aksam>=1 riza22 (rizaSorgu sopa →
-  kal/emekli, kalabalik → baris/kirgin, diğer → devir/tasi; rizaSon22), aksam>=2 neslihan22 (pasaport; neslihanAd baba/iki/
-  kendi; cocukKarar yanina ise Ayva'nın adı Zehra), aksam>=3 komisyon (efekt tokmak; tazminatSonu red (>=2) / askida (1) /
-  inceleme) → koridor (Klara: masraflar Banque Vollmer, vollmerIpucu) → son_lozan → son.
-- Yirmi üçüncü bölüm "Sofra" (src/hikaye/bolum23.js): 23-24 Nisan 1923 İstanbul, Süleyman'ın kayıkhanesi. Delil/çıkarım yok.
-  Açılış feragatname delili (Vollmer: Neslihan Rivière mirasından vazgeçsin; yoksa kırmızı sayfadaki "usta İ." gazeteye).
-  Mekân sofra23 (ortam_sofra); SOFRA_HAKKI 3, sayaç sofraKonusma (konus(kim, ek) yardımcı; konustu_<kim>). Kişiler baba23
-  (babaItiraf / ilk kalay anısı travma -1), gulce23 (gulceDamga yalnız gulceYakin / gulceGuven +1; Tevfik haberi),
-  kemal23 (kemalBurada: kemalSonu yolcu ya da kemal_ifadesi; kemalYardim / kemalKalir), riza23 (rizaSon22 kirgin değilse;
-  rizaYardim emekli değilse / rizaBag +1), neslihan23, nermin23. Olay sabah23 → gece23 → vollmer23: vollmerSonu itiraf
-  [babaItiraf] / damga [gulceDamga] / kurye [kemalYardim + rizaYardim] / imza (her zaman; travma +1) → vollmer23_son → son23.
-- Yirmi dördüncü bölüm "Baston" (src/hikaye/bolum24.js): 6-29 Ekim 1923 İstanbul (İtilaf çekilişi, bayram, cumhuriyet ilanı
-  arka plan). Gubler (14., 16. bölüm) Ohannes'in hanından Rivière'in mektubunu çalar. Yeni oynanış: kulakla takip; sahnelerde
-  efekt 'baston' (demir uçlu baston). takip1 (yokuş aşağı doğru; cocukKarar yanina ise Zehra ipucu verir) → takip2 (köpek
-  havlayan Bankalar Caddesi doğru) → takip3 (bando davulu; travma >= 2 ise ilkNefes 'say' (1. bölüm) "Nefesini say" kayıpsız,
-  "Dişlerini sık" kayip +1) → takip3_yon (Kamondo merdivenleri doğru; saat çeyreği çalar) → takip4: takipSonu yakalandi
-  (kayip < KAYIP_SINIRI 2) / kemal (kemalKalir; kayığıyla vapuru durdurur) / riza (rizaSon22 emekli/kirgin değilse) / kacti
-  → rihtim24 → gubler24 (gublerSonu teslim/haberci; Vollmer 29 Ekim'de defterin aslını satacak) → mektup24 (mektupKarar
-  baba/sakla/deniz; neslihanAd metni) → son24 (babaItiraf ise babaYaninda seçimi → son24_baba) → kapanis24 → son.
-  Yanlış yön seçenekleri yon(etiket, dogruMu, sonra) yardımcısı. Ekran: sahne efekt'i dize ya da dizi olabilir
-  (Oyun.js [].concat; önceden dize çökme yapardı). testler/sesler.test.js bütün ortam/efekt adlarını efektler.js'te arar.
-- Yirmi beşinci bölüm "Kırmızı Sayfalar" (src/hikaye/bolum25.js; dördüncü kitabın sonu): 30 Kasım - 1 Aralık 1923 Zürih.
-  Vollmer kuruluş defterini kapalı mezatta satıyor (alıcılar adsız temsilciler). acilis → onizleme (Cemil kırmızı sayfada
-  Kasım 1912, Binbaşı F. E. = Fikri Efendi'ye ödeme: "kaza" emri satın alınmış; cemilDefter teselli/durust/sessiz) →
-  onizleme_son (47. sayfa kesilmiş; sayfa47) → mekân mezat25 (ortam_mezat): KARTLAR (mektup [mektupKarar sakla/baba], gubler
-  [gublerSonu teslim], kurye [vollmerSonu kurye], damga [vollmerSonu damga, 2], klara [klaraYardim, 2], negatif [defter14
-  kopya], hisse [hisseKarar genelkurul]) nesne olarak; her biri itiraz +değer, tur +1 → kart_sahne (efekt tokmak; sonKart);
-  "Bu turda bekle" tur +1. TUR_SAYISI 3; olay tokmak (tur >= 3) → tokmak25: mezatSonu durdu (itiraz >= ITIRAZ_ESIGI 3) /
-  satildi → mahkeme25: defterSonu arsiv (Federal Arşiv, 50 yıl) / gazete / yak / satildi → son25 (göl; cocukKarar, cemilDefter)
-  → son ("Beşinci kitap: kırk yedinci sayfa").
-  Beşinci kitap yok: açık iplikler cemil_defter, defter_sonu, sayfa47 (kural 4: 47. sayfayı kesen birinci bölümden beri ekili
-  biri olmalı), cocuk, neslihan_ad, riza_son, kemal_kalir, travma, arif_neden, kardes_gecesi, cemil_rapor, gulce_tevfik.
-- Yirmi altıncı bölüm "Zarf" (src/hikaye/bolum26.js; beşinci kitabın açılışı): 13-14 Şubat 1924 Selanik, nüfus mübadelesi
-  arka plan (iki yöne giden kalabalıklar eşit anlatılır). Ekip Cemil + Neslihan (ekip_nermin/riza false). Açılış
-  saltiel_telgrafi; arifGece, rizaSon22, hafizZarf satırları. Mekânlar rebeka26 (ortam_ev; saltiel26 → david_defteri),
-  mahalle26 (ortam_yanik_sehir; Niğdeli Despina → hafiz_notu + kenan_mektubu), rihtim26 (ortam_mubadele; eski_daire →
-  cemil26: cemilSelanik gir/bak/soz; emine [zarf_yeri çıkarımıyla]: ad bulmacası, yanlış ad emineSuphe +1, SUPHE_SINIRI26 2;
-  doğru: "Kalaycı İsmail Usta'nın kızı" ya da Neslihan kendisi (neslihanAd'a göre; neslihanAdSoyledi) → zarf_teslim:
-  zarfAcan neslihan/arif → zarf_icerik (47. sayfanın üst yarısı: 17 ad + şehir, F. E.; Rivière: alt yarıyı 1918 yazında
-  sahibine geri verdim; davidNotu sakla ise davidItiraf) → zarf_son. Çıkarımlar zarf_yeri (telgraf + hafiz_notu),
-  fikri_yasiyor (david_defteri + kenan_mektubu). Olay kenan (zarf + fikri_yasiyor + zarfAcan) → kenan26: kenanSonu
-  goster/uyar/sakla → vapur26 (efekt vapur_duduk) → son. Fikri: Moda'da köşk, 62 yaşında, gözleri görmüyor.
-- Yirmi yedinci bölüm "Moda" (src/hikaye/bolum27.js): 8-9 Mart 1924 İstanbul. Kalıbı kırar: kör binbaşının sorgusu.
-  Mekânlar kayikhane27 (suleyman27 → kayikHazir27; neslihan27 → neslihan_yol: neslihanYol yalniz/birlikte/bekle; kemal27
-  [kemalKalir], riza27 [rizaSon22 kirgin değilse], cemil27; kayik_bin → kayik27 → moda27: kenanSonu'na göre giriş
-  (goster kenanIceride; uyar giris27 riza/kemal/cemil; sakla yabanciGeldi); kirgin ise Rıza bahçede döner, rizaDondu),
-  kosk27 (ortam_kosk_ic; masa27 → napoli_zarfi; fikri: okundu_liste +1, okundu_david +1, okundu_kenan +1, Cemil →
-  cemil_soru27 sahnesi (cemilDefter'e göre; cemilSelanik soz/gir +2, değilse +1); fikriCatlak, CATLAK_ESIGI 3 → itiraf
-  tam/kismi → fikri_itirafi). Çıkarım satan (fikri_itirafi + napoli_zarfi: alt yarıyı imzalayan Ferrante, Napoli, Via
-  Marina 14; tam ise Dante cildi, Cehennem 33) → olay karar → fikri_karar: fikriKarar savci / kenan [kenanIceride] / birak
-  (travma+1) → fikri_son → son.
-- Yirmi sekizinci bölüm "Cehennem, Otuz Üç" (src/hikaye/bolum28.js): 22-24 Nisan 1924 Napoli (seçim dönemi arka plan).
-  Ekip Rıza + Neslihan (neslihanYol yalniz değilse) + Kemal (kemalKalir). Mekânlar liman28 (ortam_napoli; gennaro →
-  gennaro_ifadesi; riza28 → riza_korku: rizaKorku fark [rizaHikaye]/yanında/sus; neslihan28, kemal28), via_marina
-  (ferrante_kapisi → pazarlik28 → ferrante_teklifi; arka_merdiven [makbuz çıkarımı] → gece28: fikriItiraf tam ise yalnız
-  Dante, kismi ise Petrarca/Boccaccio da (alarm28 +1, ALARM_SINIRI28 2) → gece28_bulundu: alt_yari + makbuz_defteri).
-  Çıkarım makbuz (gennaro_ifadesi + ferrante_teklifi). Olay bruno (iki delil) → bruno28: brunoSonu riza / kemal
-  [kemalKalir] / kavga (travma+1) → ferrante28 (şafak, Santa Lucia): ferranteKarar cenevre (klaraYardim ya da rainerSonu
-  serbest ise Klara) / polis / birak → ferrante28_son → son. Yeni ses ortam_napoli.
-- Yirmi dokuzuncu bölüm "Melek" (src/hikaye/bolum29.js): 3-4 Mayıs 1924 Marsilya. Neslihan'ın bölümü; kalıbı kırar: tek bir
-  konuşma. Ekip Rıza (kahvede) + Neslihan. Mekânlar liman29 (ortam_napoli; telgrafhane29 → gulce_telgrafi; neslihan29 →
-  neslihan_hazir: neslihanTavsiye anlat/dinle/ben; riza29 [rizaKorku]; okula geçiş neslihanTavsiye ile), okul29
-  (ortam_kosk_bahce; melek: melekGuven, GUVEN_ESIGI 2; hikâye +1 (anlat ise +2) → neslihan_hikaye düğümü [arifGece kardes,
-  neslihanAd]; Florina +1 (dinle ise +2); liste -1; "Bugünlük" +1; güvenliyse Ferrante → melek_tanikligi, melekKonustu).
-  Çıkarım anne_yasiyor (makbuz_defteri + gulce_telgrafi: Fikri'nin "tifo" yalanı; anne Tekirdağ'da). Olay karar
-  (konuşma sırasında da tetiklenir) → karar29: melekKarar anne / zarf / sus → melek_son (ferranteKarar cenevre + güven +
-  tanıklık ise melekTanik; davidItiraf false ise Arif Saltiel'in kâğıdını verir → 'sonra') → son.
-- Otuzuncu bölüm "Tanıklar" (src/hikaye/bolum30.js): 16-19 Haziran 1924 Cenevre, Milletler Cemiyeti'nin kadın ticareti
-  komitesi (oturum ve üyeler kurgu). Kalıbı kırar: bekleme ve ikna. Tek mekân otel30 (ortam_lozan_otel); ikna sayacı,
-  IKNA_ESIGI 5; açılışta sayfa (+1), makbuz (+1), fikriKarar savci (+1, fikri_ifadesi). Kişiler neslihan30 → neslihan_tanik
-  (neslihanTanik evet +2 / hayir / "ben söyleyemem": neslihanBag >= 3 ise evet), cemil30 → cemil_tanik (cemilTanik +1;
-  cemilDefter durust ise reddedemezsin), melek30 [melekTanik] (melekGeldi +2), kenan30 [fikriKarar kenan] (kenanTanik +2),
-  nermin30 (nerminYazdi +1 / false), klara30 [klaraYardim ya da rainerSonu serbest], riza30. Olay bruno30 (Ferrante serbest +
-  melekGeldi): riza / tasindi [Klara] / konustu (brunoBilgi: Buenos Aires). oturuma_git (neslihanTanik varsa) → olay oturum →
-  oturum30 (efekt tokmak) → kurulSonu30 ad (ikna >= 5) / genel → oturum30_son → son.
-- Otuz birinci bölüm "Ninni" (src/hikaye/bolum31.js): Temmuz 1924 İskenderiye. Ekip Cemil + Neslihan. Mekânlar liman31
-  (ortam_iskenderiye), attarin31 (Attarin; tütüncü → komsu_ifadesi), hastane31 (ortam_hastane; merdiven31 → eleni31:
-  cemilEleni birlikte/mektup/veda, eleniGoruldu). Çıkarım rahel_yeri (makbuz_defteri + komsu_ifadesi) + eleniGoruldu →
-  olay rahel → rahel31 (Rahel, 1912 ambarındaki kızlardan; kendini kurtarmış, altı adı bulmuş; rahelCevap neslihan/arif)
-  → rahel31_ninni (Dandini dastana: ambarda Neslihan öğretmişti, annesi Zehra Hanım'ın ninnisi; rahelKarar rahel/birlikte/
-  ayri, rahel_listesi) → rahel31_son → son. Karşılıklar: kurulSonu30, neslihanTanik, melekKarar, cemilTanik,
-  neslihanTavsiye, cocukKarar. Yeni iplikler rahel_karar, cemil_eleni.
-- Otuz ikinci bölüm "Pusula" (src/hikaye/bolum32.js; beşinci kitabın sonu): 12-14 Eylül 1924 İstanbul. Delil/çıkarım yok;
-  Süleyman Kaptan'ın son gecesi. Mekânlar kayikhane32 (suleyman32 → suleymanHazir; cemil32 [cemilEleni], kemal32 [kemalKalir
-  ya da kemalSonu yolcu], neslihan32), han32 (oda32 → baba32: tanıklık babaya ulaşır, babaBildi neslihan/arif/el;
-  neslihanTanik, neslihanAd, mektupKarar, babaItiraf satırları). Olay gece32 (babaBildi + suleymanHazir, kayıkhanede) →
-  kayik32 (Karaköy; arifNeden'e dönüş, arifCevap onlar/kaptan/kendim; arif_neden kapandı) → kayik32_kule (kuleSecim satırı;
-  pusulaKime kemal/arif/deniz) → kayik32_safak (ortam_safak32; suleymanSon ninni/anlat/sus) → kayik32_son (Süleyman ölür) →
-  vasiyet32 (Karacaahmet; "Kayıkhane, aramayı bırakmayanındır"; kayikhaneVaris kemal/gulce/hepimiz; gulceTevfik satırı) →
-  zarf32 (gulceZarf acti/sakla: Selim'in Bursa'dan mektubu; 1913'te Kâmil Efendi'nin dosyasını çıkaran Tevfik'ti; Selim 1905 doğumlu) → kapanis32 → son ("Altıncı kitap yazılıyor").
-  Seçenek etiketi durumdan bağımsız dize olmalı: iki farklı etiket gerekiyorsa iki seçenek + kosul.
-- Otuz üçüncü bölüm "Koza" (src/hikaye/bolum33.js; altıncı kitabın açılışı): 2-6 Nisan 1925, İstanbul → Bursa. Gülce'nin
-  bölümü; kayıkhanenin ilk davası. Ekip Arif + Gülce + Rıza (ekip_riza true) + Selim (Tevfik'in kardeşi). Mekânlar
-  kayikhane33 (selim33 → selim_ifadesi; gulce33 → gulceArama birlikte/yalniz, zarf kapalıysa "Zarfı aç" → gulceZarf acti33;
-  riza33 rizaSon22'ye göre; Bursa geçişi selim_ifadesi + gulceArama), bursa33 (Koza Han, ortam_kozahan; Hacı Rasim →
-  koza_defteri: N. B., Banque Vollmer çekleri), oda33 (Setbaşı; masa33 → mudanya_kaydi). Çıkarımlar nuri_dondu
-  (koza_defteri + selim_ifadesi), kapan (mudanya_kaydi + selim_ifadesi) → olay kayhan → kayhan33 (Nuri Bey, 20. bölümden;
-  nuriSonu'na göre; nuriSon33 teslim [rizaBag +1] / imza [gulceArama birlikte; vollmer_ceki] / kavga [travma +1]) →
-  kayhan33_son → tevfik33 (Koza Han, şafak; gulceTevfik satırı; gulceSon33 bildi [zarf açık] / acti / el / sus) →
-  tevfik33_son (vollmerCek ifade/soru) → kapanis33 → son. 32. bölümdeki Selim tutarsızlığı düzeltildi (dosyayı Tevfik
-  çıkarmıştı; Selim 1905 doğumlu).
-- Otuz dördüncü bölüm "Tebeşir" (src/hikaye/bolum34.js): 8-12 Haziran 1925 Ankara. Cemil'in bölümü. Ekip Arif + Cemil +
-  Nermin (ekip_riza false). Mekânlar hastane34 (ortam_hastane; dolap34 → deney34 bulmacası: Tart / Tadına bak (deneme34 +1,
-  ipucu) / Suda erit → sahte_kinin; cemil34 [cemilDefter, cemilEleni], eleni34 [cemilEleni birlikte]), matbaa34 (Taşhan;
-  nermin34 → ihale_kaydi; sonra nerminImza'ya göre jandarma, nerminKorku istanbul/kal), istasyon34 (sevk34 → sevk_belgesi:
-  Trieste, Zürih çeki, A. V.). Çıkarımlar tebesir (sahte_kinin + ihale_kaydi), zurih_parasi (ihale_kaydi + sevk_belgesi)
-  → olay sabit → sabit34 (Sabit Bey, 18. bölümden; sabitSonu'na göre; sabitSon34 mahkeme / itiraf [vollmer_ajani: Bay
-  Albrecht] / cemil [cemilBag +1]) → sabit34_son → rapor34 (cemilRapor34 adli / adsiz / gazete) → son34 (vollmerAjan
-  izmir/bilinmiyor) → son. Yeni ses yok (var olanlar).
-- Otuz beşinci bölüm "İncir" (src/hikaye/bolum35.js): 14-18 Eylül 1925 İzmir. Kalıbı kırar: gözetleme. Ekip Arif + Rıza +
-  Neslihan. Tek mekân kordon35 (ortam_kordon); GECE_SAYISI 3, sayaç gece35; nesneler otel_iz / han_iz / gemi_iz / kahve_iz
-  (izle(yer, sahne): izlendi_<yer>, gece35 +1) → otel35 (albrecht_defteri), han35 (Kadir, 11. bölümün hamalı →
-  rehin_senetleri), gemi35 (arethusa_gozlem; pendleSonu satırı), kahve35 (albrecht_takvimi; rizaKorku satırı). Dört yerden
-  üçü görülür. Çıkarım imtiyaz (albrecht_defteri + rehin_senetleri). neslihan35: neslihanMiras borc [rehin_senetleri] /
-  kendi / dokunma (hisseKarar satırı). Olay arethusa (gece35 >= 3) → arethusa35 (Pendle + Albrecht; pendleSon35 tanik
-  [imtiyaz ya da arethusa_gozlem] / teslim / birak) → arethusa35_son (albrechtSonu yakalandi [albrecht_takvimi] / kacti)
-  → son35 → son.
-- Otuz altıncı bölüm "İhale" (src/hikaye/bolum36.js): 21 Ekim 1925 Ankara. Vollmer ilk kez kendisi. Kalıbı kırar: tek gün,
-  saat saat. Tek mekân ankara36 (ortam_telgraf); zaman36 (her ziyaret +2, ZAMAN_SINIRI 8: beş yerden dördü), kanit36;
-  kanitSayisi36(d) = kanit36 + vollmer_ceki + imtiyaz + vollmer_ajani (dışa açık), KANIT_ESIGI 4. Nesneler telgraf_git
-  (pendleSon35 tanik +2), cezaevi_git (albrechtSonu yakalandi +1, sabitSon34 mahkeme/cemil +1), matbaa_git (nerminKorku
-  istanbul değilse +1), hastane_git (cemilRapor34 adli +2 / adsiz, gazete +1), otel_git → vollmer36 (kırmızı sayfa "usta İ.";
-  vollmerSonu itiraf ise kart çoktan oynanmış: babaSayfa coktan +1; değilse yayimla [+1; babaItiraf yoksa travma +1] /
-  korundu [-1]). Olay ihale (zaman bitti) → ihale36 (efekt tokmak; otele gidilmediyse Vollmer kartı salonda oynar →
-  babaSayfa ifsa) → vollmerIhale red/kabul → ihale36_son → son36 (Neslihan babasına telgraf) → son.
-- Otuz yedinci bölüm "Taş" (src/hikaye/bolum37.js): 14-15 Kasım 1925 İstanbul. Kişisel bölüm, karşıt yok. Mekânlar
-  kayikhane37 (riza37k, gulce37; geçişler han37, arsiv37), han37 (oda37 → baba37: babaSayfa'ya göre; Manastırlı Hüseyin
-  Efendi, oğlu 1912'de kanatlı mühürlü sandıktan bir tüfekle ölmüş; babaYuz yaninda/savun/yalniz → baba37_son → kayıkhaneye),
-  arsiv37 (defter37 → yakup_kaydi; Gureba geçişi delille), gureba37 (mezar37 → riza37: rizaKorku, rizaBaba satırları;
-  rizaMezar dua/tas/sus → riza37_son, mezarSozu satırı → kayıkhaneye). Olay aksam (babaYuz + rizaMezar, kayıkhanede) →
-  aksam37 (Klara'nın telgrafı: 15 Ocak 1926 Zürih genel kurulu, vollmerIhale'ye göre; klaraTelgraf) → son.
-  Sahneden mekâna dönüşte olaylar tetiklenir, mekanaGir'de tetiklenmez: son sahne seçeneği doğrudan olayın mekânına götürsün.
-- Otuz sekizinci bölüm "Kar" (src/hikaye/bolum38.js; altıncı kitabın sonu): 14-15 Ocak 1926 Zürih, Banque Vollmer olağanüstü
-  genel kurulu. Ekip Arif + Rıza + Neslihan. Delil/çıkarım yok; terazi: agirlik38(d) (dışa açık) = vollmerIhale red + nuriSon33 imza
-  + pendleSon35 tanik + albrechtSonu yakalandi + cemilRapor34 adli + neslihanMiras borc + konusma38; AGIRLIK_ESIGI 4. Açılış
-  klaraTelgraf, rizaMezar, babaYuz satırları. Mekân zurih38: kişiler klara38 (konusmaci38 klara/neslihan/riza; Klara klaraYakin
-  ise +1), neslihan38, riza38; nesne banka38 (konusmaci38 varken) → genel38 (vollmerSon38 dusuruldu/kaldi) → genel38_son
-  (defterSonu) → kasa38 (yangın: kurtar [vollmer_defteri, travma +1] / sayfa [makbuz_sayfasi, neslihanBag +1] / birak [klaraYakin])
-  → kasa38_son (buenosAires) → son38 (kurulSonu30, brunoBilgi) → son ("Yedinci kitap yazılıyor"). Yeni iplikler konusmaci38,
-  vollmerSon38, kasa38, buenosAires (F. ve B., Buenos Aires). rizaMezar, babaYuz, klaraTelgraf kapandı.
-- Otuz dokuzuncu bölüm "Ekvator" (src/hikaye/bolum39.js; yedinci kitabın açılışı): 3-22 Mart 1926, Stella del Plata vapuru
-  (kurgu), Cenova → Buenos Aires. Kalıbı kırar: yolculuk. Ekip Arif + Neslihan + (rizaKar yol ise Rıza, değilse Cemil).
-  Tek mekân vapur39 (ortam_guverte); GUN_SAYISI 3, sayaç gun39; nesneler ucuncu → nazli39 (sozlesme), katip → liste39
-  (yolcu_listesi), salon → testa39 (testa_defteri), telsiz → telsiz39 (telsiz_kaydi; telsizci Turi); dört yerden üçü.
-  Olaylar: gun39 >= 1 ekvator39 (Neptün töreni; Rıza: rizaEkvator birlikte/gorev/montevideo; Cemil: cemilEkvator
-  gonder/yuz/kendi, cemilEleni satırı), gun39 >= 2 neslihan39 (Nazlı, 17, Kavalalı mübadil; neslihanNazli anlat/arif/bekle)
-  → neslihan39_son (zehraSoru satırı; zehraTelgraf telgraf/soz/sonra). Günler bitince nesne laplata (panoda bağlamak için
-  olay değil) → laplata39: testaKarar indir [on_bir_kiz] / izle [bruno_bekliyor: Calle Junín] / ihbar → laplata39_son → son.
-  Çıkarımlar on_bir_kiz (sozlesme + yolcu_listesi), bruno_bekliyor (testa_defteri + telsiz_kaydi). Asıl karşıt Bruno
-  (28, 30, 38); Testa onun kuryesi; Società Atlantica di Collocamento kurgu. Yeni ses yok.
-- Kırkıncı bölüm "Calle Junín" (src/hikaye/bolum40.js): 23-26 Mart 1926 Buenos Aires. Kalıbı kırar: ekip bölünür. Ekip Arif +
-  Neslihan + (ekip_riza ise Rıza, değilse Cemil); Nazlı yanında (nazliYaninda: testaKarar indir değil, neslihanNazli anlat/arif).
-  Açılış davetiye40 (Tomás Ferrante: amcası ölüyor, Neslihan'ı istiyor; testaKarar, rizaEkvator satırları). Mekân boca40
-  (ortam_han; olay yok): nesneler junin → gozlem40 (junin_gozlem), telgrafhane40 → telgraf40 (despina_telgrafi: Zehra taburcu
-  Şubat 1913; zehraTelgraf, cemilEkvator satırları), persembe [junin_gozlem] → gece40: geceBolunme bolun / junin / ferrante.
-  Kişi nazli40: nazliIceri evet (kizlar_yeri) / hayir. junin40: brunoSon40 kacti / yakalandi (Rıza ya da kizlar_yeri; değilse
-  yarali; travma +1) / konustu → junin40_son → (bolun) ferrante40_anlat (bolunmeCevap ozur/onun) ya da ferrante40_haber
-  (ferranteSon40 olu). ferrante40: Ferrante'nin açılımı (1913 baharı, Selanik iskelesi, Zehra Hanım kızını sordu, Bruno
-  "tifo" dedi); ferranteSon40 imza / neslihan [neslihanBag >= 3 ise imza] / reddet (ferrante_itirafi) → ferrante40_son →
-  (ferrante) junin40_haber (brunoSon40 gitti) → son40 (zehraIz taburcu_iskele/iskele) → son. Yeni ses yok.
-- Kırk birinci bölüm "İskele Taşı" (src/hikaye/bolum41.js): 3-6 Mayıs 1926 Selanik. Kalıbı kırar: tanık zinciri (doğru soru;
-  yanlış soru zaman41 +1, VAPUR_SINIRI 2 → yolculuk41 vapur/kara). Açılış: zehraIz satırı; nazliKayip (geceBolunme ferrante +
-  nazliIceri evet) ise Rıza/Cemil Rosario'da kalır (rosario41). Tek mekân selanik41 (nesne yok), kişiler despina41 (goc_defteri:
-  Florinalı Ayşe Zehra'ya bakmış), rebeka41 (ninni → rebeka_tanik: 1913 Talmud Tora çorba kuyruğu, "Florina'ya dönüyorum"),
-  katip41 (Karma Mübadele Komisyonu; "Ayşe" [goc_defteri] → mubadele_kaydi: hane 214, Zehra "kız kardeşi", Tekirdağ), saltiel41
-  (saltielBruno dava/sakla [ferrante_itirafi] / ad). Çıkarım tekirdag → olay iskele → iskele41 (bolunmeCevap satırı; iskeleSecim
-  otur/anlat [travma -1]/bruno [brunoSon40 kacti]) → iskele41_son → son41 (melekKarar: anne ise Melek'in mektubu, Zehra teyze)
-  → son. Hikâye kararı: Zehra Hanım yaşıyor; Ayşe Hanım (Melek'in annesi) ile Tekirdağ'da. Düzeltme: Despina Selanik'te
-  (29, 38, 40'taki "Niğde" adresleri).
-- DERİNLEŞTİRME KARARI (17 Kasım, Murat: "Derinleştir"): yeni bölüm yazmaya ara; önce var olan bölümler derinleşir.
-  Plan ve yapılanlar belgeler/hikaye-plani.md "Derinleştirme" bölümünde. 1. adım: arifNeden (1. bölüm gece_konusma →
-  6. bölüm arifNedenSatiri, 8. bölüm tahliye), haticeSozu (1. bölüm mektup → 2. cenaze → 17. hatice17), Pendle tohumu
-  (1. bölüm manifest → 20. tarife), Süleyman'ın oğlu Kemal (1897, Nevres; sıradaki: Arethusa'nın kaptanı).
-  2. adım: 9. bölüm kardes_gecesi (Neslihan: "Sen beni aradın mı abi?"; kardesGecesi durust/yalan/sessiz → 16. bölüm
-  mektup_baba), Pendle'in gemileri Santa Lucia (3), Aurora (11), Columbia (12), 15. bölümde Pendle'le yüzleşmede hatırlanır.
-  3. adım: 18. bölüm rapor18 (cemilRapor dogru/sitma/kendi, cemilYuk → esir_degisimi, 20. polatli_son), 17. bölüm
-  ilgaz_ates → ilgaz_itiraf (kardesGecesi yalan/sessiz ise sonra_durust).
-  4. adım: 19. bölüm Rıza'nın Yakup hikâyesi (riza yakup düğümü, rizaHikaye → suclama/yanlis_* satırları), 20. bölüm
-  Nermin'in ağabeyi Cevdet (nerminCevdet) ve Pendle yemini (nerminYemin gazete/mahkeme/birlikte; 21. bölümde kullanılacak).
-  5. adım: 19. bölüm gulce19 (Gülce, Tevfik'in defteri, Süleyman 1913'ten beri onu korur; gulceTevfik yaz/affetme/sessiz →
-  20. bölüm açılışı; aramaSozu ise Kemal Reis söylentisi, kemalSoylenti).
-  6. adım (18 Kasım): 7. bölüm Hafız Efendi'nin zarfı (hafizZarf; Rivière'in mührü, üstünde "kırk yedi", gerçek adıyla
-  isteyene) → 25. bölüm son25; 3. bölüm Nermin'in madalya sorusu (madalya anlat/sakla, nerminBag) → 23. bölüm nermin23;
-  8. bölüm Yusuf Usta'nın sözü (yusufSoz soz/yok) → 24. bölüm açılış (babaItiraf yolunda mektubu Arif açar).
-  7. adım: 5. bölüm Saltiel'in kardeşi David (saltielDavid anlat/sus; Kasım 1912 on yedi kızın yolcu listesi, mühür
-  basmadı, öldürüldü) → 9. bölüm açılış (anlat ise tütünün arasında liste kopyası; davidNotu verdi/sakla) → 25. son25;
-  10. bölüm Ohannes'in oğlu Aram (ohannesOgul ara/bekle; Boston 1909) → 24. bölüm açılış.
-  8. adım: 2. bölüm morgda Cemil'in emri veren Binbaşı Fikri'yi anması (cemilFikri teselli/sert/sus, kural 4 için erken tohum;
-  Cemil 1912'de rıhtımdan gelen kâtibin, David Saltiel'in, defterini adsız paketle ailesine yollamış) → 25. bölüm onizleme;
-  5. bölüm Cemil yanındaysa Saltiel'e söyler (cemilSaltiel) → 9. bölüm açılış notu.
-  9. adım: 4. bölümün açık kalan sözleri döner: Rıza'nın imam babasının sorusu (rizaBaba bekle/sor) → 19. yakup;
-  kayikhaneSozu → 23. açılış (levha "Arif'in sözü"); gulceSoru → 12. namlu/imza. Tutarsızlık düzeltildi: 4. bölümde
-  Nermin'in ağabeyinin adı Selim yazıyordu, Cevdet oldu (Selim Tevfik'in kardeşi); 20. cevdet nerminAgabey'e göre.
-  10. adım: hiç okunmayan bayraklar tarandı (başka bölümde '<bayrak>' geçmeyenler); karşılık verilenler: mezarSozu →
-  10. safak10 (Gureba Mezarlığı, delormeSonu'na göre), yarimCumle → 6. hafiz anlat, halimKarar → 19. yakup_son,
-  babaAffetti → 23. baba23.
-  11. adım: gulceYalan → 23. gulce23 (hakkı harcamayan yan seçenek, gulceYalanAnildi); listeKarar → 17. riza ilk ve
-  20. nermin ilk (uyar: çırak Hilmi / yak: Necati Bey'in boş sandalyesi, Malta); rizaYarali → 17. riza ilk.
-  12. adım: yaliSecim → 19. gulce19 (Gülce yalıdaki geceyi anar; morinGuven fransizBag ile zaten okunuyor);
-  25. bölüme gece25 → gece25_son eklendi (son25 → gece25; travma, madalya, ilkNefes 'say' seçeneği; arifGece
-  nefes/kardes/yalniz, travma -1; bolumBitti artık gece25 seçeneklerinde). Yeni açık iplik arif_gece.
-  13. adım (18 Kasım, bütün bölümler tarandı): okunmayan seçimler karşılık buldu. 14. bölüm Bahnhofstrasse'de Dr. Hasler
-  (haslerSonu'na göre; hasler14: haslerKarar yaz → hasler_mektubu / polis / birak; gol satırı) → 16. bölüm Gubler'e karşı
-  yeni seçenek (listeYolu hasler) → 24. gubler24 listeYolu satırı (para/tehdit/hirsiz/hasler); 10. bölüm Topal Hasan
-  (sevkiyatSonuc, hamalBag), kule (delormeKovuldu); 11. açılış ferranteIpucu; 18. açılış kafileSonu; 24. mektup24
-  neslihanOfke; 30. nermin30: nerminBag >= 3 ise "Yaz" imza düğümüne gider (nerminImza ad/takma; madalya satırı; 1924'te
-  soyadı yok: "Cevdet'in kız kardeşi") → 32. vasiyet32 Nermin'in telgrafı; 32. vasiyet32 haticeSonu (17), kayik32_son
-  cemilSuleyman (2. bölüm: İzmir inciri borcu).
-  14. adım: 18. nobet'e "nefesini say" seçeneği (ikinciNefes say, 2. bölüm; nobetSayi, travma -1); 15. açılış isimVerildi
-  (Kessler'in gazetesi kapandı); 10. kule sonSecim (7. bölüm koru/atil/kac); 14. mektup babaSoruldu/talimatSoruldu;
-  21. cocuk ayvaAnlatildi (6); 30. imza düğümü nerminSivri / nermineAnlatti (3); 32. vasiyet32 kayıkçı Hüsnü (husnuGuven,
-  husnuKustu; 1. bölüm).
-  15. adım: defterSonu (25) → 27. fikri yeni sorular (gazete/yak; okundu_gazete, çatlak +1) ve 30. açılış satırı
-  (arsiv/gazete/yak/satildi; gazete ikna +1); madalya (3, 23, 25) → 32. madalya32 sahnesi (kayik32_son'dan madalya
-  varsa; madalyaSonu mezar [travma -1] / tak / nermin [nerminBag +1]) → vasiyet32 satırı. madalya ipliği kapandı.
-  16. adım (18 Kasım): madalyaSonu → 34. nermin34 madalya düğümü (nerminMadalya anlat [travma -1, nerminBag +1] / adsiz / birak);
-  yanginAni → 35. neslihan35 kordon (izmirAni anlat / sor / gec); gulceSon33 → 37. gulce37 tevfik (gulceTevfik37 sofra / mektup /
-  kendi); 38. bölümde tazminatSonu → klara38 lozan (klaraLozan affet / hatirlat / sor), brunoSonu + rahelCevap → neslihan38 yarin
-  (neslihanRahel ad [rahel_listesi] / kendi / sus; genel38'de Neslihan konuşursa satırı), suleymanSon + arifCevap → riza38 kaptan
-  (rizaKar kal / dinlen / yol). agirlik38'e iki ek: Neslihan konuşur + neslihanRahel ad; Klara konuşur + klaraLozan affet.
-  17. adım (18 Kasım, baştan sona tarama: hiç okunmayan seçimler): suleymanNeden (1) → 32 kayik32; kemalSecim (21) → 32 kemal32;
-  neslihaneBaba (7) → 32 baba32_son; neslihanTeselli/8/9 → 30 neslihan_tanik (tesellier(d) dışa açık; "Ben söyleyemem" eşiği
-  neslihanBag + teselli >= 3); cemilNeden (2), nerminNeden (3) → 34; rizaHalim (5), babaBildi (32), gulceArama (33) → 37;
-  garnierSonuc (5) → 38 kasa38_son (kurtar; tutuklu ise Garnier yaşıyor); yaklasim (6) → 29 neslihan_hazir; takimVerildi (8) → 17
-  harf; nermineFotograf (5) → 23 nermin23. Yeni tohum: 29. bölüm tifo29 (melek_son → tifo29 → son; zehraSoru yaz/birak/suphe:
-  Hafız Efendi Zehra Hanım'ın ölümünü görmedi) → 38 son38 (Despina'nın mektubu: Florina'da hastane arabası). Yedinci kitap ipliği.
-  testler/derinlik.test.js iplikleri denetler.
-- İPLİK KAYDI: src/hikaye/iplikler.js (IPLIKLER: bayrak, ekildi, karsiliklar, gelecek, durum). testler/iplikler.test.js
-  bayrağın ekildiği bölümde yazıldığını, karşılık bölümlerinde '<bayrak>' olarak okunduğunu denetler. Yeni iplik ekleyince,
-  bir ipliğe karşılık yazınca ya da kapatınca kaydı güncelle.
-- BÖLÜM YAZMA KURALLARI (17 Kasım, Murat: "İlerki bölümlerde derinleştirme yapılacak, ona göre kurgula her şeyi"):
-  1. Yazmadan önce IPLIKLER'deki açık ipliklere bak; her bölüm en az iki açık ipliğe sahneyle karşılık verir (yalnız bir
-     cümle değil: seçimli bir an).
-  2. Her bölüm en az bir yeni uzun iplik eker (bayrak + IPLIKLER kaydı + gelecek planı).
-  3. Her bölümde ekipten biriyle kişisel bir sahne (geçmiş, korku, ilişki); konuşmalarda ikinci, üçüncü düğümler.
-  4. Kötü sonradan çıkarılmaz: bölümün asıl karşıtı en az iki bölüm önce ekilmiş olmalı.
-  5. Duygusal anlar seçimle oynanır (söyle / sakla / sus / ver); sonuç bir sonraki bölümlerde geri döner.
-  6. Kalıbı kır: her bölüm 3-4 delil + 2 çıkarım + karar olmak zorunda değil; yolculuk, sorgu, bekleme, konuşma bölümleri de olur.
-  7. Metin paragraflarında koşullu boş dize kullanılırsa diziyi .filter(Boolean) ile bitir.
-  8. Testler: bölüm testi + derinlik.test.js'e geri dönen satırların testi + iplikler.test.js kaydı.
-- Hassasiyet: örgüt üyeleri çeşitli uyruklardan; hiçbir din/etnik grupla özdeşleşmez (hikaye-plani.md).
-- Mekânda `ortam` alanı mekânın ortam sesini değiştirir (yoksa 'ortam_' + mekân kimliği).
-- Bölümler src/hikaye/index.js BOLUMLER; durum.bolum. Bölüm sonu sahnesinde { sonrakiBolum } seçeneği →
-  motor.bolumeGec: deliller, çıkarımlar ve bayraklar taşınır; bolumBitti, olay_*, gorüldü_*, incelendi_* sıfırlanır,
-  bitti_<bölüm> eklenir. Sonraki bölüm önceki bölümün deliller/cikarimlar tanımlarını yayar (...BOLUM1.deliller).
-- Konuşmada yan sorular `sonra` ile aynı düğüme döner; `sonra` yoksa konuşma biter.
-- Motor src/oyun/motor.js (saf): görünüm sahne/mekan/konusma; etki {delil, bayrak, artir, sahne, mekan};
-  olaylar (ceset_gitti, karar) bir sahne sürerken tetiklenmez. Kayıt src/oyun/kayit.js (AsyncStorage, otomatik,
-  yedekli). Ekran src/ekran/Oyun.js: sahnede önce seçenekler sonra paragraflar; mekânda Çevrene bak, nesneler,
-  kişiler, geçişler, Soruşturma panosu (iki delil seç = bağla), Defter, Ana menü.
-- Ayarlar (src/ekran/Ayarlar.js): konuşma hızı 0,6-2,0 (varsayılan 1,2; Murat yavaş buldu), Türkçe ses seçimi.
+## Yapılanlar
+- SÜRÜM 0.1 (20 Kasım): Faz 1 + yüzeyde birinci görev "Sinyal Arayışı". Telefonda denenmedi.
+  - Durum: src/oyun/durum.js yeniOyun(tohum) (koloni, gemi null, murettebat, kaptan, itibar, kodeks, harita.poiler,
+    gorev {id}, bayrak {}, envanter, stok, kesif). KAYIT_SURUMU 1, gecerliMi.
+  - Kayıt: src/oyun/kayit.js otoOku/otoYaz (10 sn'de bir, her eylemde, AppState arka plan, çıkış; yedekli),
+    yuvalariOku/yuvayaYaz (3 yuva; yalnız kapsüldeki merkez terminalinden), ayarlar (eski demir1919.ayarlar taşınır).
+  - Veri: src/oyun/veri/tesisler.js (HAMMADDELER, TESISLER 5 tesis + maliyet/kosul, KOLONI_KADEMELERI),
+    gemiler.js (5 sınıf, 9 modül katmanı; tersane Faz 3), murettebat.js (tohumlu uretec, uyeUret, oncuUret: mühendis,
+    telsizci [ses_hassas], hekim).
+  - Yüzey: src/oyun/yuzey/harita.js (MEKANLAR vadi [-55..55, -45..60] ve kapsul [x 300-306]; KAPILAR kapsul_kilit;
+    NOKTALAR terminal, dolap, kapsul_dis (engel), enkaz (-24,20), jenerator (16,12), tepe (4,50), kaynak yatakları
+    bazalt×3 (stok 3), kristal×2 (stok 2, çınlar), titanyum×2 (stok 2), kilitli çıkışlar guney_yol/bati_yol/kuzey_yol;
+    KISILER muhendis/telsizci/hekim, rol = murettebat sırası). dunya.js: ilerle (YURUME_HIZI 2,6, dönüş tıkı 30°,
+    sınır ve engel çarpması, yaklaşınca bir kez haber), cevreMetni, radar (RADAR_MENZILI 70; pingler gecikme
+    250 + 22×m ms; bulduklarını kesif'e ekler), etkiles, gec, yerlerListesi/otoBaslat (düz yürüyüş, engelde yana kayar,
+    kapıdan kendisi geçer), durumMetni. gorev1.js: SAHNELER acilis → acilis2 → (oyun) → telemetri → kule;
+    noktaEylemleri/eylemUygula; konusma(kisi); frekans ayarı ayarBaslat/ayarDegis/ayarIlerle/ayarYakinlik
+    (kanal 0-120, hedef 50-90 tohumdan, ±1,2 içinde 2,5 sn → kilitlendi; 4'ten yakın ilk kez → 'yakin');
+    insaListesi/insaEt (sinyal_kulesi: 6 bazalt, 3 titanyum, 2 kristal; telemetri bayrağı gerekir → sahne kule,
+    itibar +10, harita sektor15, bitenGorevler sinyal, gorev jeotermal [bu sürümde yok]).
+    Bayraklar: kesiciAlindi, antenAlindi, hucreAlindi, jenerator, antenKuruldu, telemetri, kule.
+  - Ekran: src/ekran/Yuzey.js (Karakoy.js'ten uyarlandı). Konumlu sesler: kopan modülün feneri (bip, 2 sn), çalışan
+    jeneratör (dongu), kristaller ('kristal' sentez). Kapsülün içindeyken dinleyici kapsülün vadideki yerinde, boğuk.
+    Uzun bas = radar (sonar + nesnelerden bip yankıları + en yakın üç). Frekans ayarı ayrı katman: tek parmak
+    yukarı-aşağı sürükleme (0,06 kanal/px), iki parmakla çevirme (7 kanal/rad), sağa-sola kaydırma ±0,2.
+  - Ses motoru src/ses/konumsal.js (Demir 1919'dan; WebView + Web Audio HRTF, Expo Go'da doğrulanmıştı) eklemeleri:
+    'kristal' kaynağı, dongu/duzey (döngülü konumlu dosya), telsizKur/telsizAyar(yakinlik, kayma)/telsizSil
+    (kulaklıkta parazit + kesik sinyal tonu; kayma tonun perdesini kaydırır). Headless Chrome'da hatasız.
+  - Hareketler src/arayuz/jestler.js: onDondur(radyan) iki parmakla çevirme eklendi.
+  - Testler testler/yuzey.test.js (görevi baştan sona oynar).
+- Sıradaki (yol haritası): Faz 2 Jeotermal Sondaj (Manyetik Sırtlar, güney yolu), dökümhane, nüfus ve iş gücü,
+  mürettebat telsiz bildirimleri; Faz 3 tersane ve Kıvılcım; Faz 4 uzay haritası ve görevler; Faz 5 savaş.
+
+## Sesler
+- Drive'daki Efektler/Ambians dosyaları 14 MB; Drive bağlayıcısı 10 MB'tan büyük dosyayı indiremiyor. Bu yüzden
+  ortam döngüleri şimdilik Efektler klasörlerindeki bilim kurgu ortamlarından (hepsi Bahtiyar'ın Drive'ı):
+  ortam_yuzey ← "Ortam Bilim Kurgu Rüzgar.wav" (Efektler 4), ortam_kapsul ← "Bilim Kurgu Yıldız Gemisi Alt Frekans
+  Uğultu Ortamı.wav" (Efektler 6), ortam_harabe ← "Ambiyans Bilim Kurgu Uzaylı.wav" (Efektler 4, henüz kullanılmıyor),
+  ortam_menu ← "Ortam Enerji Drone.wav" (Efektler 4). Efektler: bip ← "UI HUD Kısa Terminal Bip ... C.wav" (1),
+  dugme ← "Eski Radyo Düğmesi.wav" (5), jenerator_calis ← "Enerji El Jeneratörleri 6.wav" (6), kapi ← "Bilim Kurgu
+  Kapısı Açılışı 04.wav" (6), reddedildi ← "Arayüz Bip Sesleri Erişim Reddedildi.wav" (6), sinyal ← "Sinyal Kalibre
+  Edilmiş Com.wav" (2), sonar ← "Geçiş Uzaylı Sonarı.wav" (1), tislama ← "Basınçlı Hava Tıslama ve Püskürme 06.wav" (6).
+  Konumsal (tek kanal 24 kHz): jenerator_ugultu (Ortam Enerji Drone'dan 12 sn), parazit ("Bluezone Radyo Parazit
+  Sinyali 025.wav"), sonar, bip; adim_tas_1..8 Demir 1919'dan (ElevenLabs).
+  Dönüştürme: döngüler çapraz geçişle (python numpy, 2-2,5 sn) → loudnorm I=-24 TP=-3, 22050 Hz iki kanal;
+  efektler sessizlik kırpma + loudnorm I=-18 TP=-2; konumsal I=-20, 24 kHz tek kanal.
+- Ambians'ı kullanmak için: Bahtiyar ya da Murat dosyaları 10 MB'tan küçük parçalar hâlinde (ör. 3-4 dakikalık
+  MP3) Drive'a koyarsa ya da sohbete eklerse indirilebilir.
+- ElevenLabs (kısa efekt, telsiz sesleri) henüz kullanılmadı. Bu ortam elevenlabsusercontent.com'a erişemez:
+  adresleri araclar/indirilecek-sesler.json'a yaz, push et → .github/workflows/sesleri-indir.yml ham-sesler dalına indirir.
 
 ## Teknik
-- Expo SDK 58; sürümler kayip-okyanus deposuyla aynı (bundledNativeModules.json). Bu ortamda npm erişimi yok.
-- Sözdizimi denetimi: `bun build index.js --outdir /tmp/bb -e expo -e expo-speech -e expo-haptics -e expo-status-bar -e react -e react-native -e 'react-native/*' -e '@react-native-async-storage/async-storage' -e expo-audio -e '*.wav' -e react-native-webview`
-- Expo proje kimliği c16f7fc6-b024-4e29-b55c-b0a304381807 (app.json'da; @murat5561/demir-1919).
+- Expo SDK 58; react-native-webview 14.0.1. Bu ortamda npm erişimi yok.
+- Sözdizimi denetimi: `bun build index.js --outdir /tmp/bb -e expo -e expo-speech -e expo-haptics -e expo-status-bar -e react -e react-native -e 'react-native/*' -e '@react-native-async-storage/async-storage' -e expo-audio -e '*.wav' -e react-native-webview -e expo-asset -e expo-file-system`
+- Motor betiği: konumsal.js'teki <script> içeriği `new Function` ile ve headless Chrome'da (google-chrome --headless=new
+  --dump-dom) denenebilir.
+- Testler: `bun test testler/`.
+- Expo proje kimliği c16f7fc6-b024-4e29-b55c-b0a304381807 (app.json; @murat5561/demir-1919). Ekran dikey (orientation portrait).
 - Yayın: main'e push → GitHub Actions (.github/workflows/expo-guncelleme.yml) → eas update (branch main).
-  Gizli anahtar depoda EXPO_TEKEN adıyla kayıtlı (yazım hatası; iş akışı EXPO_TOKEN, EXPO_TEKEN, DEMIR1919'u dener).
+  Gizli anahtar depoda EXPO_TEKEN adıyla kayıtlı (iş akışı EXPO_TOKEN, EXPO_TEKEN, DEMIR1919'u dener).
   Kayıt `yayin-kaydi` dalında: `git fetch -q origin yayin-kaydi && git show FETCH_HEAD:yayin-kaydi.txt`
-  Yedek yol (GitHub çalışmazsa): push → mcp__Expo__workflow_run (appFullName @murat5561/demir-1919,
-  fileName yayin.yml, gitRef = commit) → workflow_info SUCCESS → workflow_logs (CUSTOM bölümü) içindeki
-  EXPO_GO_BAGLANTISI satırı. Expo'nun iş akışı süresini kullanır.
-  GitHub Actions anahtar yoksa sessizce atlar.
-- Testler: `bun test testler/` (bolum1-25.test.js bölümleri farklı kararlarla baştan sona oynar; 3'te şüphe yolu da).
-- Akış: uygula → testler → bun build → CLAUDE.md/README → commit → git pull --rebase → push → yayın (yukarıda) → SUCCESS'i bekle
+  Yedek yol: mcp__Expo__workflow_run (appFullName @murat5561/demir-1919, fileName yayin.yml, gitRef = commit).
+  EAS iOS derlemesi (kredi harcar) Murat'a sormadan başlatılmaz.
+- Akış: uygula → testler → bun build → CLAUDE.md/README → commit → git pull --rebase → push → yayın → SUCCESS'i bekle
   → Türkçe rapor (Expo Go bağlantısı, yenilikler, denenmemiş olanlar dürüstçe).

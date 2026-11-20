@@ -1,0 +1,311 @@
+// Gezegen yüzeyinin benzetimi (saf JavaScript; ekrandan ve sesten bağımsız, testlerle sınanır).
+// Yürüme, dönme, çarpma, yaklaşınca haber verme, çevre tarifi, radar, etkileşim,
+// kapılardan geçiş ve kendiliğinden yürüme ("Yerler" menüsü).
+import { KAPILAR, KISILER, MEKANLAR, NOKTALAR } from './harita';
+import { aciDuzelt, goreliAci, saatYonu, uzaklik } from '../konum';
+import { ESYALAR } from './gorev1';
+
+export const YURUME_HIZI = 2.6; // m/sn (tam güçte)
+export const DONUS_HIZI = 2.2; // rad/sn
+export const ADIM_BOYU = 1.1; // metre
+export const ETKILESIM_MENZILI = 3.2;
+export const RADAR_MENZILI = 70;
+const HABER_YARICAPI = 4.5; // bu kadar yaklaşınca bir kez söylenir
+const HABER_SIFIRLA = 8;
+const DILIM = Math.PI / 6; // dönüş tıkırtısı: 30 derecede bir
+const OTO_HIZ = 2.6;
+
+// --- Kişilerin yeri (görev ilerledikçe değişir) ---
+export function kisiYeri(d, id) {
+  const k = KISILER[id];
+  if (!k) return null;
+  const g = d.bayrak;
+  if (id === 'muhendis' && g.jenerator && !g.telemetri) return { ...k, x: 6.5, y: 47.5, eylem: 'anten direğinin dibinde, kablo makarasıyla' };
+  return k;
+}
+
+export function kisiAdi(d, id) {
+  const k = KISILER[id];
+  const m = k && d.murettebat[k.rol];
+  return m ? m.ad : id;
+}
+
+export function kisiTarifi(d, id) {
+  const k = KISILER[id];
+  const m = k && d.murettebat[k.rol];
+  return m ? m.rol + ' ' + m.ad : id;
+}
+
+// Bulunulan mekândaki nesneler: noktalar, kapı uçları ve kişiler
+export function yakindakiler(d) {
+  const sonuc = [];
+  for (const id of Object.keys(NOKTALAR)) {
+    const n = NOKTALAR[id];
+    if (n.mekan !== d.mekan) continue;
+    if (n.kaynak && (d.stok[id] || 0) <= 0) continue;
+    sonuc.push({ tur: 'nokta', id, ad: n.ad, x: n.x, y: n.y, yaricap: n.yaricap || 2 });
+  }
+  for (const id of Object.keys(KAPILAR)) {
+    KAPILAR[id].uclar.forEach((u, i) => {
+      if (u.mekan === d.mekan) sonuc.push({ tur: 'kapi', id, uc: i, ad: u.ad, x: u.x, y: u.y, yaricap: 1.8 });
+    });
+  }
+  for (const id of Object.keys(KISILER)) {
+    const k = kisiYeri(d, id);
+    if (k.mekan === d.mekan) sonuc.push({ tur: 'kisi', id, ad: kisiTarifi(d, id), x: k.x, y: k.y, yaricap: 1.8, eylem: k.eylem });
+  }
+  return sonuc;
+}
+
+function siraliYakin(d) {
+  return yakindakiler(d)
+    .map((n) => ({ ...n, m: uzaklik(d.oyuncu, n) }))
+    .sort((a, b) => a.m - b.m);
+}
+
+function konumMetni(d, n) {
+  const m = Math.round(n.m != null ? n.m : uzaklik(d.oyuncu, n));
+  if (m < 2) return n.ad + ' tam yanında';
+  return n.ad + ', saat ' + saatYonu(goreliAci(d.oyuncu, n)) + ' yönünde, ' + m + ' metre';
+}
+
+const YONLER = ['kuzey', 'kuzeydoğu', 'doğu', 'güneydoğu', 'güney', 'güneybatı', 'batı', 'kuzeybatı'];
+export function yonAdi(yon) {
+  return YONLER[Math.round(aciDuzelt(yon) / (Math.PI / 4)) % 8];
+}
+
+// Dokununca: çevrende ne var (yakından uzağa, en çok 4 şey)
+export function cevreMetni(d) {
+  const liste = siraliYakin(d).filter((n) => n.m < (MEKANLAR[d.mekan].dis ? 30 : 12));
+  const parcalar = liste.slice(0, 4).map((n) => konumMetni(d, n));
+  if (MEKANLAR[d.mekan].dis) {
+    const kapsul = NOKTALAR.kapsul_dis;
+    if (!liste.slice(0, 4).some((n) => n.id === 'kapsul_dis')) parcalar.push(konumMetni(d, { ad: 'Kapsül', x: kapsul.x, y: kapsul.y }));
+  }
+  if (!parcalar.length) return 'Yakında bir şey yok. Uzun bas, radar gönder.';
+  return parcalar.join('. ') + '.';
+}
+
+// Uzun bas: durum + radar. Radar her şeyi keşfedilmiş sayar ve yankıların geleceği yerleri döndürür.
+export function radar(d) {
+  const liste = siraliYakin(d).filter((n) => n.m <= RADAR_MENZILI && n.tur !== 'kapi');
+  const pingler = liste.slice(0, 6).map((n) => ({ id: n.id, x: n.x, y: n.y, gecikme: Math.round(250 + n.m * 22) }));
+  for (const n of liste) if (n.tur === 'nokta' && !d.kesif.includes(n.id)) d.kesif.push(n.id);
+  const sozler = liste
+    .filter((n) => n.tur !== 'kisi')
+    .slice(0, 3)
+    .map((n) => konumMetni(d, n));
+  return { pingler, metin: sozler.length ? 'Yankılar: ' + sozler.join('. ') + '.' : 'Radar yankısı yok.' };
+}
+
+export function durumMetni(d) {
+  const mk = MEKANLAR[d.mekan];
+  const parca = [mk.ad + '.', 'Yüzün ' + yonAdi(d.oyuncu.yon) + 'e dönük.'];
+  if (mk.dis) parca.push(konumMetni(d, { ad: 'Kapsül', x: NOKTALAR.kapsul_dis.x, y: NOKTALAR.kapsul_dis.y }) + '.');
+  if (d.envanter.length) parca.push('Taşıdığın: ' + d.envanter.map((e) => ESYALAR[e].ad).join(', ') + '.');
+  return parca.join(' ');
+}
+
+export function durumKisa(d) {
+  const mk = MEKANLAR[d.mekan];
+  return mk.ad + '. ' + (d.bitenGorevler.length ? d.bitenGorevler.length + ' görev tamamlandı.' : 'Birinci görev: Sinyal Arayışı.');
+}
+
+// Çift dokununca: menzildeki en yakın kapı, nokta ya da kişi
+export function etkiles(d) {
+  const liste = siraliYakin(d).filter((n) => n.m <= Math.max(ETKILESIM_MENZILI, n.yaricap + 1));
+  if (!liste.length) return { tur: 'yok', metin: 'Yanında kullanabileceğin bir şey yok. ' + cevreMetni(d) };
+  const n = liste[0];
+  if (n.tur === 'kapi') return { tur: 'kapi', ...gec(d, n.id, n.uc) };
+  if (n.tur === 'kisi') return { tur: 'kisi', id: n.id, ad: n.ad };
+  return { tur: 'nokta', id: n.id, ad: n.ad };
+}
+
+// Kapıdan geçer: öteki uca ışınlanır
+export function gec(d, kapiId, uc) {
+  const k = KAPILAR[kapiId];
+  const ote = k.uclar[1 - uc];
+  d.mekan = ote.mekan;
+  d.oyuncu = { x: ote.x, y: ote.y, yon: ote.yon };
+  d.haber = {};
+  return { metin: MEKANLAR[d.mekan].dis ? 'Hava kilidi tıslayarak açılıyor. Dışarıdasın: ' + MEKANLAR[d.mekan].ad + '.' : 'Hava kilidi arkandan kapanıyor. ' + MEKANLAR[d.mekan].ad + '.', gecti: true };
+}
+
+// Çarpma: mekân sınırı ve engeller (noktaların engel yarıçapı)
+function engelVar(d, x, y) {
+  for (const id of Object.keys(NOKTALAR)) {
+    const n = NOKTALAR[id];
+    if (n.mekan !== d.mekan || !n.engel) continue;
+    if (Math.hypot(x - n.x, y - n.y) < n.engel) return n;
+  }
+  return null;
+}
+
+function sinirDisi(d, x, y) {
+  const a = MEKANLAR[d.mekan].alan;
+  if (x < a.bati) return 'bati';
+  if (x > a.dogu) return 'dogu';
+  if (y < a.guney) return 'guney';
+  if (y > a.kuzey) return 'kuzey';
+  return null;
+}
+
+const SINIR_METNI = {
+  vadi: 'Kanyon duvarı. Kaya burada dimdik yükseliyor.',
+  kapsul: 'Kapsülün duvarı.',
+};
+
+// Bir adım ilerletir. girdi: { ileri: -1..1, donus: -1..1 }. Olay listesi döndürür.
+export function ilerle(d, girdi, dt) {
+  const olaylar = [];
+  d.sure = (d.sure || 0) + dt;
+  if (!d.haber) d.haber = {};
+  if (d.adimBirikim == null) d.adimBirikim = 0;
+  let ileri = girdi.ileri || 0;
+  let donus = girdi.donus || 0;
+
+  // Kendiliğinden yürüme
+  if (d.oto && !ileri && !donus) {
+    const o = otoAdim(d, dt, olaylar);
+    if (o) return olaylar;
+  } else if (d.oto && (ileri || donus)) {
+    d.oto = null;
+    olaylar.push({ tur: 'otoIptal' });
+  }
+
+  if (donus) {
+    const once = d.oyuncu.yon;
+    d.oyuncu.yon = aciDuzelt(d.oyuncu.yon + donus * DONUS_HIZI * dt);
+    const dilim = Math.floor((d.oyuncu.yon + DILIM / 2) / DILIM) % 12;
+    const onceDilim = Math.floor((aciDuzelt(once) + DILIM / 2) / DILIM) % 12;
+    if (dilim !== onceDilim) olaylar.push({ tur: 'tik', guc: dilim % 3 === 0 ? 0.65 : 0.3 });
+  }
+  if (ileri) {
+    const m = ileri * YURUME_HIZI * dt;
+    adimAt(d, m, olaylar);
+  }
+  yaklasmaHaberi(d, olaylar);
+  return olaylar;
+}
+
+function adimAt(d, m, olaylar) {
+  const nx = d.oyuncu.x + Math.sin(d.oyuncu.yon) * m;
+  const ny = d.oyuncu.y + Math.cos(d.oyuncu.yon) * m;
+  const sinir = sinirDisi(d, nx, ny);
+  const engel = engelVar(d, nx, ny);
+  if (sinir || engel) {
+    if (!d.carpmaSusturma || d.sure - d.carpmaSusturma > 1.5) {
+      d.carpmaSusturma = d.sure;
+      olaylar.push({ tur: 'carpti', metin: engel ? engel.ad + '. Etrafından dolaş.' : SINIR_METNI[d.mekan] || 'Geçit yok.' });
+    }
+    return false;
+  }
+  d.oyuncu.x = nx;
+  d.oyuncu.y = ny;
+  d.adimBirikim += Math.abs(m);
+  if (d.adimBirikim >= ADIM_BOYU) {
+    d.adimBirikim -= ADIM_BOYU;
+    olaylar.push({ tur: 'adim', zemin: MEKANLAR[d.mekan].zemin });
+  }
+  return true;
+}
+
+function yaklasmaHaberi(d, olaylar) {
+  for (const n of yakindakiler(d)) {
+    const anahtar = n.tur + ':' + n.id + (n.uc != null ? ':' + n.uc : '');
+    const m = uzaklik(d.oyuncu, n);
+    if (m <= Math.max(HABER_YARICAPI, n.yaricap + 1.5)) {
+      if (!d.haber[anahtar]) {
+        d.haber[anahtar] = true;
+        if (n.tur === 'nokta' && !d.kesif.includes(n.id)) d.kesif.push(n.id);
+        if (!d.oto) olaylar.push({ tur: 'yakin', nesne: n.tur, id: n.id, metin: konumMetni(d, { ...n, m }) + '.' + (n.tur === 'kisi' ? ' ' + n.eylem + '.' : '') + ' Çift dokun.' });
+      }
+    } else if (m > HABER_SIFIRLA && d.haber[anahtar]) delete d.haber[anahtar];
+  }
+}
+
+// --- Kendiliğinden yürüme ---
+// Gidilebilecek yerler: keşfedilen noktalar, kişiler ve kapsül. Başka mekândakiler kapıdan geçilerek.
+export function yerlerListesi(d) {
+  const liste = [];
+  const ekle = (tur, id, adi, mekan, x, y) => {
+    const m = mekan === d.mekan ? Math.round(uzaklik(d.oyuncu, { x, y })) : null;
+    liste.push({ tur, id, ad: adi, mekan, x, y, uzaklik: m });
+  };
+  for (const id of Object.keys(NOKTALAR)) {
+    const n = NOKTALAR[id];
+    if (n.kaynak && (d.stok[id] || 0) <= 0) continue;
+    const bilinen = d.kesif.includes(id) || n.mekan === 'kapsul' || id === 'kapsul_dis' || id === 'jenerator' || (id === 'tepe' && d.bayrak.jenerator) || (id === 'enkaz' && d.bayrak.kesiciAlindi);
+    if (bilinen) ekle('nokta', id, n.ad, n.mekan, n.x, n.y);
+  }
+  for (const id of Object.keys(KISILER)) {
+    const k = kisiYeri(d, id);
+    ekle('kisi', id, kisiTarifi(d, id), k.mekan, k.x, k.y);
+  }
+  return liste.sort((a, b) => (a.mekan === d.mekan ? 0 : 1) - (b.mekan === d.mekan ? 0 : 1) || (a.uzaklik || 0) - (b.uzaklik || 0));
+}
+
+export function otoBaslat(d, hedef) {
+  d.oto = { id: hedef.id, ad: hedef.ad, mekan: hedef.mekan, x: hedef.x, y: hedef.y, yan: 0 };
+  const m = hedef.mekan === d.mekan ? Math.round(uzaklik(d.oyuncu, hedef)) : null;
+  return { metin: 'Yürüyorsun: ' + hedef.ad + (m != null ? ', ' + m + ' metre' : ', hava kilidinden geçerek') + '. Durmak için ekrana dokun.' };
+}
+
+function kapiUcu(d) {
+  // Bu mekândan hedef mekâna giden kapının buradaki ucu
+  for (const id of Object.keys(KAPILAR)) {
+    const u = KAPILAR[id].uclar;
+    for (let i = 0; i < 2; i++) if (u[i].mekan === d.mekan && u[1 - i].mekan === d.oto.mekan) return { id, uc: i, ...u[i] };
+  }
+  return null;
+}
+
+function otoAdim(d, dt, olaylar) {
+  const o = d.oto;
+  let hedef = o;
+  let kapi = null;
+  if (o.mekan !== d.mekan) {
+    kapi = kapiUcu(d);
+    if (!kapi) {
+      d.oto = null;
+      olaylar.push({ tur: 'otoTakildi' });
+      return true;
+    }
+    hedef = kapi;
+  }
+  const m = uzaklik(d.oyuncu, hedef);
+  const varis = kapi ? 1.2 : Math.max(1.5, (NOKTALAR[o.id] && NOKTALAR[o.id].yaricap) || 1.5);
+  if (m <= varis) {
+    if (kapi) {
+      const r = gec(d, kapi.id, kapi.uc);
+      olaylar.push({ tur: 'otoKapi', metin: r.metin });
+      return true;
+    }
+    d.oto = null;
+    // Hedefe dön
+    d.oyuncu.yon = aciDuzelt(Math.atan2(hedef.x - d.oyuncu.x, hedef.y - d.oyuncu.y));
+    olaylar.push({ tur: 'otoVardi', ad: o.ad });
+    d.haber = {};
+    yaklasmaHaberi(d, []);
+    return true;
+  }
+  let yon = Math.atan2(hedef.x - d.oyuncu.x, hedef.y - d.oyuncu.y);
+  if (o.yan > 0) {
+    yon += Math.PI / 2;
+    o.yan -= dt;
+  }
+  d.oyuncu.yon = aciDuzelt(yon);
+  const adim = Math.min(m, OTO_HIZ * dt);
+  const once = olaylar.length;
+  if (!adimAt(d, adim, olaylar)) {
+    // Engel: bir süre yana kayarak etrafından dolaş (çarpma sözü söylenmez)
+    olaylar.length = once;
+    o.yan = 0.8;
+    o.takilma = (o.takilma || 0) + 1;
+    if (o.takilma > 40) {
+      d.oto = null;
+      olaylar.push({ tur: 'otoTakildi' });
+    }
+  }
+  return true;
+}
