@@ -269,6 +269,8 @@ export function modulListesi(d) {
   const p = d.koloni.parcalar || {};
   return Object.keys(PARCALAR)
     .filter((k) => PARCALAR[k].katman)
+    // Ek donanımlar yalnız üretildiyse ya da takılıysa listelenir (liste kısa kalsın)
+    .filter((k) => !PARCALAR[k].ek || g.moduller[PARCALAR[k].katman] || (p[k] || 0) >= 1)
     .map((k) => {
       const katman = PARCALAR[k].katman;
       // Katman modülleri sınıfın katmanlarına; ek donanımlar en az belli kademedeki gemiye takılır

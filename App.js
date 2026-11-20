@@ -22,7 +22,7 @@ import { ayarlarOku, ayarlarYaz, otoOku, otoSil, tarihMetni, VARSAYILAN_AYARLAR,
 import { yeniOyun } from './src/oyun/durum';
 import { durumKisa } from './src/oyun/yuzey/dunya';
 
-const SURUM = '1.0';
+const SURUM = '1.1';
 const OYUN_ADI = 'Aethelis';
 
 const HAKKINDA_METNI = [
@@ -44,6 +44,7 @@ const HAREKETLER = [
   'Ayak dengelemede: kulaklıkta iki ton. Ayak yüksekse tonu ince: aşağı sürükle; alçaksa yukarı. Tonlar birleşip titreşim durunca kıpırdama. Dokun: durumu söyler. İki parmakla çift dokun: çekil.',
   'Uğultulu Plato\'da rüzgâr ıslığı yükselince dur: yürürken hamle yakalarsa savrulursun.',
   'Doğudaki kristal bataklıklarında bir sütun çıtırdayarak yüklenirse ondan uzaklaş. Lav koridorlarında ayağının altında gümbürtü duyarsan tam tersine hemen yer değiştir. Cıva şelalelerinde ve metan mağaralarında maruziyetini dinle; mağaralarda termal giysi korur.',
+  'Uzay operasyonunda (donanımı tam bir noktaya kenetlenince başlar): her adımın ne istediği söylenir. Hedefin sesi iki kulakta eşitlenene dek sağa-sola kaydır, yukarı kaydırıp yaklaş; sessiz yaklaşmada yalnız dokun. İki parmakla çevir: frekans. Alarmda çift dokun: basınç. Basılı tut: sonar, kiriş, tonları dinle. Tehlike bir yandan gelince ters yana kaydır. İki parmağını ayır: dron. İki ya da üç parmakla kaydır: kademeli işler. Dokun: durum. İki parmakla çift dokun: duraklat; kokpitte çift dokununca sürer.',
   'Vinçte: parça kulaklığında bir yana kaymış sallanır. Sağa ya da sola sürükle; ses iki kulakta eşitlenip düzenli tık duyulunca parça ortada. Aşağı kaydır: bir basamak indir. Oturunca çift dokun: kenetle. Dokun: durum. İki parmakla çift dokun: çekil.',
   'Yüzey araçları: vadideki araç hangarından binilir. Çöl Tilkisi hızlı kayar ve zehirden az etkilenir; Mammoth derin damarları kazar; Atmosphere-X uçar; Demir Kervan ve Akrep koloniye kendiliğinden malzeme getirir. İnmek için menüde aracın adı.',
   'Gemide: iki parmakla sağa ya da sola kaydır, odalar arasında geç. Dokun: odanın terminali; reaktör odasında güç dağıtımı, revirde tıbbi tarama. Basılı tut: odadaki görevliyle konuş.',

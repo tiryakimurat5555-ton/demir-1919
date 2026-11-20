@@ -466,6 +466,7 @@ export function zehirIlerle(d, dt, ek, olaylar) {
       if ((n.baca || n.menfez) && n.mekan === d.mekan && uzaklik(d.oyuncu, n) < 7) hiz = mk.soguk ? 1.3 : 0.8;
     }
     if (mk.soguk && d.envanter.includes('termal_giysi')) hiz *= 0.25;
+    if (d.bayrak.g_panzehir) hiz *= 0.7; // Viridion botanikçilerinin panzehirleri (G-20)
     d.zehir = Math.min(100, once + (hiz + (ek || 0)) * aracCarpani(d, 'zehir') * dt);
   } else if (once > 0) d.zehir = Math.max(0, once - 3 * dt);
   for (const e of ZEHIR_UYARILARI) if (once < e && d.zehir >= e) olaylar.push({ tur: 'zehir', duzey: e });

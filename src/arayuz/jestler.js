@@ -10,6 +10,7 @@
 //                                bilgi: { x, y (parmağın şu anki yeri), sure (ms) }
 //   onSurukleBitti(mod)          sürükleme bitince
 //   onDondur(radyan)             iki parmakla çevirme: son hareketten bu yana açı farkı (saat yönü artı)
+//   onKistirAc()                 iki parmağı birbirinden ayırma (pinch open)
 //
 // dokunmaBekle: true ise tek dokunuş, çift dokunuş olmadığı anlaşılana kadar bekletilir.
 // Böylece çift dokunuşun ilk dokunuşu yanlışlıkla başka bir şey yapmaz.
@@ -140,6 +141,14 @@ export function useJestler(geriCagirmalar, secenekler = {}) {
       }
       s.aci = a;
       s.aciSayi = dokunuslar.length;
+      // İki parmak arası uzaklık (kıstırıp açma)
+      const u = Math.hypot(dokunuslar[1].pageY - dokunuslar[0].pageY, dokunuslar[1].pageX - dokunuslar[0].pageX);
+      if (s.ilkAra == null) s.ilkAra = u;
+      s.sonAra = u;
+      if (!s.mod && !s.tuketildi && Math.abs(u - s.ilkAra) > 40) {
+        uzunIptal(s);
+        s.mod = 'iki';
+      }
     }
     s.dx = m.x - s.bazX;
     s.dy = m.y - s.bazY;
@@ -164,6 +173,11 @@ export function useJestler(geriCagirmalar, secenekler = {}) {
     const sure = Date.now() - s.t0;
     if (s.mod) {
       bekleyeniBosalt();
+      if (cb.current.onKistirAc && s.ilkAra != null && s.sonAra - s.ilkAra > 90 && Math.abs(s.donme || 0) < 0.5) {
+        cb.current.onKistirAc();
+        if (cb.current.onSurukleBitti) cb.current.onSurukleBitti(s.mod);
+        return;
+      }
       const uz = Math.hypot(s.dx, s.dy);
       if (sure < 450 && uz > 40 && cb.current.onKaydir) {
         const yon = Math.abs(s.dx) > Math.abs(s.dy) ? (s.dx > 0 ? 'sag' : 'sol') : s.dy > 0 ? 'asagi' : 'yukari';

@@ -15,6 +15,7 @@ import * as K from './kesifler';
 import * as A from './arindirma';
 import * as T from '../terraform';
 import * as M from './mini';
+import * as O from '../uzay/operasyon';
 import { HAMMADDELER } from '../veri/tesisler';
 import { koloniIlerle } from '../koloni';
 import * as S from '../uzay/seyir';
@@ -26,7 +27,7 @@ export const { NOTALAR, kapiDizisi, rezonansBaslat, rezonansSecimDegis, rezonans
 
 export const { AYAKLAR, ayakSayisi, ayakFrek, teraziBaslat, teraziPompa, teraziIlerle, teraziMetni, DENGE_ESIGI } = G4;
 
-export const SAHNELER = { ...G1.SAHNELER, ...G2.SAHNELER, ...G3.SAHNELER, ...G4.SAHNELER, ...G5.SAHNELER, ...G6.SAHNELER, ...B.SAHNELER, ...K.SAHNELER, ...A.SAHNELER, ...M.SAHNELER };
+export const SAHNELER = { ...G1.SAHNELER, ...G2.SAHNELER, ...G3.SAHNELER, ...G4.SAHNELER, ...G5.SAHNELER, ...G6.SAHNELER, ...B.SAHNELER, ...K.SAHNELER, ...A.SAHNELER, ...M.SAHNELER, ...O.SAHNELER };
 
 // Telsiz bildirimleri (belgeler/savas-yetenek-ve-murettebat-mekanikleri.md 4.3): koşulu sağlanınca bir kez kuyruğa
 // girer. gorev alanı varsa yalnız o görev sürerken.
@@ -223,5 +224,8 @@ export function uzayAdim(d, dt) {
 export function kenetlen(d) {
   const r = S.kenetlen(d);
   if (r.inis) G5.inisSonrasi(d);
+  // Donanım tamsa ve operasyon yapılmadıysa doğrudan operasyon sahasına girilir
+  if (r.id && !r.kilitli && O.opVarMi(r.id) && !O.opTamamMi(d, r.id)) r.op = O.opBaslat(d, r.id);
   return r;
 }
+export const { opGirdi, opIlerle, opSes, opDurum, opBaslat, opTamamMi } = O;

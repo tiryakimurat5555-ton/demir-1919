@@ -36,6 +36,10 @@ export const DONANIMLAR = {
   kadim_anahtar: { ad: 'kadim rezonans anahtarı', tarif: 'Mabetteki yazıtın deşifresinden çıkan antik kseno-şifre modülü; mancınığın kilidini açar (Kızıl Yutucu).', kendi: true },
 };
 
+// Derin uzay görevlerinin (G-01 … G-24) donanımları
+import { G_DONANIMLARI } from './uzayGorevleri';
+Object.assign(DONANIMLAR, G_DONANIMLARI);
+
 // Entegrasyon matrisi (bölüm 6): yüzey işi → tesis → üretilen birim → açılan uzay noktası
 export const MATRIS = [
   { is: 'Enkaz anteni onarımı', tesis: 'sinyal_kulesi', birim: 'burun', nokta: 'sektor15' },

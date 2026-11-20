@@ -19,10 +19,10 @@ bütün bölümlerini sırayla sayar. Her sürümde güncellenir; bir bölüm bu
       Plan: telsiz zili ve kısa foley için ElevenLabs (indirme yolu CLAUDE.md'de).
 - [x] 4 Belge okuma sırası (CLAUDE.md'de).
 - [~] 5 Veri modelleri: ColonyWorld [x], Starship [x] (sınıf, odalar, gövde, kalkan, silahlar, kargo, motor sesi),
-      CrewMember [~] (atanan oda var; verimlilik/stres alanları var ama işlemiyor), SpaceMission [ ], CombatSession [ ],
+      CrewMember [~] (atanan oda var; verimlilik/stres alanları var ama işlemiyor), SpaceMission [x] (1.1, d.op), CombatSession [ ],
       ExoPlanet [ ], CodexEntry [~] (kodeks kaydı var; ses kaydı ve kütüphane durumu yok).
 - [x] 6 Master prompt ilkeleri (görselsiz, Türkçe, ses ve hareket).
-- [~] 7 Yol haritası: Faz 1 [x], Faz 2 [~], Faz 3 [~], Faz 4 [ ], Faz 5 [ ]. Ayrıntı aşağıda.
+- [~] 7 Yol haritası: Faz 1 [x], Faz 2 [x], Faz 3 [~], Faz 4 [~], Faz 5 [ ]. Ayrıntı aşağıda.
 
 ## 2. uzay-oyunu-tasarim-ve-senaryo.md
 - [~] 1 Gezegenin dört sektörü: Vadi-i Sukût [x], Manyetik Sırtlar [x], Kadim Krater ve harabeler [x],
@@ -36,15 +36,18 @@ bütün bölümlerini sırayla sayar. Her sürümde güncellenir; bir bölüm bu
       bölme A, bölme B (optik kripto-bellek), makine (graviton reaktörü), tahrik (kuantum sürücü), dış A (çekici kiriş),
       dış B (hisar topları ve torpido); sınıfa göre katman sınırı.
 - [x] 4 Uzay haritası, otomatik ziyaret noktaları, ön tarama ve donanım gereksinim listesi, eksikse kilit (0.5).
-- [~] 4 Operasyon sahası (donanım sırayla devreye girer): [ ] Faz 4.
-- [~] 5 Dokuz büyük uzay görevi: dokuzunun da ziyaret noktası, tehlike analizi, operasyon hedefi, belgedeki üç zorunlu
-      donanımı ve gemi kademesi tanımlı; her donanım bir tesiste üretilir (0.7). Görevlerin icrası (operasyon sahası)
-      ve ödül gemileri [ ] Faz 4.
+- [x] 4 Operasyon sahası (1.1, uzay/operasyon.js): donanımı tam gemi kenetlenince doğrudan sahaya girer; şans ve seçim
+      penceresi yok, adımlar kulakla ve parmakla sırayla icra edilir (15 adım türü). Hata gövdeye hasar; gövde biterse
+      koloniye çekilir, sonra yeniden denenir. Eve kenetlenince tersane gövdeyi onarır.
+- [x] 5 Dokuz büyük uzay görevi (1.1): her birinin 3-4 adımlı operasyonu ve sonucu; ödül gemileri (Prometheus Ağır
+      Kruvazörü, iki eskort, Kuantum Korveti, Malken Prototipi, Akademi Bilim Gemisi, Hisar Muhafız Kruvazörü, iki
+      Konfederasyon kruvazörü, Kadim Koruyucu) sınıflarının bütün katmanları takılı filoya katılır; Vaka bayrakları
+      (terraform ve ırk yapıları için), Kadim Genom → kadim mezar gezegeni noktası, Aethel-9 mültecileri (nüfus +20).
 - [x] 6 Entegrasyon matrisi (0.7): dokuz satırın hepsi: yüzey işi → tesis → birim → ziyaret noktası. Altı yeni yüzey işi:
       rezonatör kalibrasyonu (kalibrasyon sütunu, 5 nota), izotop sıkıştırma (valf), gaz bacası ısı izolasyonu (polimer
       levha), zemin alaşım kaplaması (vinç), ağ şebekesi entegrasyonu (ikinci frekans ayarı), kadim şifre deşifresi
       (6 nota, kadim rezonans anahtarı). Altı tesis: Kuantum Laboratuvarı, İtki Hangarı, Kriyo-Atölye, Askeri Tersane,
-      Komuta Merkezi, Yüksek Enerji Reaktörü. Tesis kurulunca nokta haritada belirir. Son sütun (ödül gemileri) Faz 4.
+      Komuta Merkezi, Yüksek Enerji Reaktörü. Tesis kurulunca nokta haritada belirir. Son sütun (ödül gemileri) 1.1.
 
 ## 3. gezegen-gelisimi-ve-yerel-gorevler-v2.md
 - [x] 1 Üç katman: üst (platolar, kuleler), orta (vadi, sırtlar, krater, doğu, cıva, lav, obsidyen), alt (mantar
@@ -106,14 +109,15 @@ bütün bölümlerini sırayla sayar. Her sürümde güncellenir; bir bölüm bu
       1 füzyon reaktörü) ve Kademe 3 Aethel Muhafızı (6 oda, manyetik uğultu; 700 zırhlı plaka, 250 kseno-alaşım,
       40 L graviton, 120 helyum tüpü, 1 kalkan projektörü) üretilip kızakta toplanır (0.6).
 - [~] 2 Kademe 4 Gökdelen (8 oda) ve Kademe 5 Hisar-ı Kadim (12 oda): odalar, sesler, montaj aşamaları ve belgedeki
-      malzemeler tanımlı; malzemeleri (nötron çekirdeği, kadim diskler, kuantum çekirdekleri, hiper bobin) uzay
-      görevlerinden gelir, Faz 4'te açılacak.
+      malzemeler tanımlı; Kademe 4-5 malzemelerinin tarifleri uzay görevlerinin şemalarıyla açılır (1.1): kompozit blok
+      (Prometheus, Pyros-7), nötron cevheri → nötron matris (G-07, G-17), süper alaşım (Aethel-9), kadim disk (G-10,
+      kadim mezar), kuantum çekirdeği (Kuantum Korveti).
 - [x] 3 Yüzey araçları (0.6): Çöl Tilkisi (hız ×2,6, zehir ×0,4, sonar radarı ×1,4, manyetik vızıltı), Mammoth (derin
       graviton kuyusunu kazar, zehir ×0,2, palet gümbürtüsü), Demir Kervan (ocaklardan koloniye 3 dakikada bir bazalt ve
       titanyum), Atmosphere-X (hız ×4, jet sesi), Akrep (2 dakikada bir yataklardan bir birim); belgedeki üretim girdileri.
       Atmosphere-X kulelere iner (0.8). Eksik: Çöl Tilkisi'nin sinyal feneri fırlatıcısı.
 - [~] 4 Malzeme matrisi: plaka, şasi çeliği, saf kristal, plazma yakıtı, graviton yakıtı (derin kuyudan, Mammoth'la),
-      helyum-3, kseno-kristal (salonda yenilenen damar), polimer [x]; nötron-yoğun çekirdek [ ] (G-07).
+      helyum-3, kseno-kristal (salonda yenilenen damar), polimer [x]; nötron-yoğun çekirdek [x] (G-07, 1.1).
 - [x] 5 Dokunsal iç gezinti: iki parmakla sağa-sola oda, kapı tıslaması ve kilit sesi, her odanın ortam sesi
       (köprü, reaktör, revir, kargo), dokunma terminal (reaktörde güç dağıtımı, revirde tıbbi tarama), basılı tutma
       mürettebatla konuşma. Bütün sınıfların odaları tanımlı.
@@ -127,26 +131,34 @@ bütün bölümlerini sırayla sayar. Her sürümde güncellenir; bir bölüm bu
       başçarkçı, topçu, başhekim büyük gemilerde [ ].
 - [~] 4.3 Telsiz bildirimleri: üç tonlu zil, çift dokun dinle, ertele, kayıtlar [x]; seferde rastgele olaylar ve
       karar isteyen krizler [ ].
-- [~] 5.1 Nüfus ve iş gücü: barınma, doğal artış, yaşam bloğu, üç sektöre atama ve etkileri [x] (0.5);
-      mülteci göçü [ ] (uzay görevleriyle).
+- [x] 5.1 Nüfus ve iş gücü: barınma, doğal artış, yaşam bloğu, üç sektöre atama ve etkileri (0.5); mülteci ve
+      kazazede göçü uzay görevleriyle (1.1: Aethel-9, Orion-Omega, Ayna Koridoru, Viridion, hastane gemisi).
 - [~] 5.2 Moral nabzı: inişte koloninin uğultusu (canlı ya da huzursuz) ve üretime etkisi [x]; moralin düşme
       nedenleri ve yerel krizlerle onarım [ ].
 - [~] 6 Dokunsal ve sesli arayüz matrisi: yüzey, menüler, mini oyunlar, gemi, seyir [x]; savaş [ ].
 - [ ] 7 Sistem entegrasyonu ve oyun çevrimi (savaş ve yeteneklerle).
 
 ## 6. derin-uzay-gorevleri.md (Cilt I)
-- [~] 1 Seyrüsefer hareketleri: yukarı itki, aşağı fren, sağa-sola pruva ve stereo kilit, basılı tut radar, çift
-      dokun kenetlenme [x]; iki parmakla çevirme telsiz taraması [~] (yer tutucu); kıstırıp açma dron [ ].
+- [x] 1 Seyrüsefer hareketleri: yukarı itki, aşağı fren, sağa-sola pruva ve stereo kilit, basılı tut radar, çift
+      dokun kenetlenme; operasyonda iki parmakla çevirme frekans, kıstırıp açma dron (1.1, jestler.js onKistirAc).
 - [ ] 1 Otomasyon: otomatik kenetlenme bilgisayarı, akustik filtre, toplama dronları.
-- [ ] 2-4 Görevler G-01 … G-12.
-- [ ] 5 Görev ve donanım matrisi · [ ] 6 Görevlerin kule menziliyle ortaya çıkması.
+- [x] 2-4 Görevler G-01 … G-12 (1.1): belgedeki dört adım operasyon adımı olarak; koloniye katkılar (rota haritaları:
+      fener ×1,2; hidrojen; astrogatörler; plazma yakıtı; kalkan projektörü; ticaret rotası; nötron cevheri; gizlenme
+      modülü; kseno-yaşam; kadim disk şeması; füzyon teorisi üretim ×1,15; kripto kodları).
+- [x] 5 Görev ve donanım matrisi (1.1): her görevin iki donanımı ayrı üretilir (veri/uzayGorevleri.js G_DONANIMLARI).
+- [x] 6 Görevlerin kule menziliyle ortaya çıkması (1.1): sinyal kulesi ve gemiyle ilk dalga; tamamlanan operasyon
+      sayısı arttıkça yeni dalgalar telsizden haber verilerek haritaya düşer.
 
 ## 7. derin-uzay-gorevleri-cilt-2.md
-- [ ] 1 Genişletilmiş dokunsal kontrol.
-- [ ] 2 Kategori D: yeni ırklar G-13 … G-16.
-- [ ] 3 Kategori E: yabancı gezegen inişleri G-17 … G-20.
-- [ ] 4 Kategori F: kurtarma operasyonları G-21 … G-24.
-- [ ] 5 Gereksinim matrisi · [ ] 6 Ekosistem bütünleşmesi.
+- [~] 1 Genişletilmiş dokunsal kontrol (1.1): süzülme dengesi (iki ton), linguistik çevirici (iki parmakla çevirme),
+      kademeli tahliye (iki ya da üç parmakla kaydırma; üç parmak ayrımı yok, iki yeter).
+- [x] 2 Kategori D G-13 … G-16 (1.1): Kithron, Vaelin (sporlar ve enzimler), Nyxar (elçilik, karanlık madde zırhı),
+      Oron (bilgin, üretim ×1,2); ırk teması bayrağı (kseno-habitat).
+- [x] 3 Kategori E G-17 … G-20 (1.1): Pyros-7, Glies-9b (tohumlar, nüfus ×1,2), halka dünyası (terraform girdileri),
+      Viridion-IV (botanikçiler, panzehir: maruziyet ×0,7). İniş operasyon adımları olarak (ayrı yüzey yok).
+- [x] 4 Kategori F G-21 … G-24 (1.1): Orion-Omega (nüfus ve barınma +30, tersane +2), Korsan Kafesi (mikroçip,
+      ticaret), hastane gemisi (Bölge Hastanesi tesisi), kara delik gelgiti (tarafsızlık: ticaret iki katı, itibar).
+- [x] 5 Gereksinim matrisi (1.1) · [~] 6 Ekosistem bütünleşmesi (sonuçlar koloniye işler; savaş Faz 5).
 
 ## 8. kesfedilebilir-gezegenler-rehberi.md
 - [ ] 1 Yörüngesel ve yüzey araştırma kontrolleri.
@@ -163,5 +175,6 @@ bütün bölümlerini sırayla sayar. Her sürümde güncellenir; bir bölüm bu
 - [ ] 6 Keşif, gereç ve itibar matrisi.
 
 ## Sıradaki adımlar (sırayla)
-1. Faz 4: görev motoru (SpaceMission), 9 büyük görev, G-01 … G-24, 20 gezegen, gözlem gereçleri ve fenomenler, kütüphane.
+1. Faz 4 kalanı: 20 keşfedilebilir gezegen (kesfedilebilir-gezegenler-rehberi), gözlem gereçleri ve 16 fenomen,
+   Evren Kütüphanesi ve prestij; derin-uzay-gorevleri bölüm 1 otomasyon (otomatik kenetlenme, akustik filtre, dronlar).
 2. Faz 5: savaş modu, yetenek ağaçları, ElevenLabs sesleri, cila.

@@ -1317,3 +1317,122 @@ describe('Yerel mini görevler', () => {
     expect(d.miniSon.sonuc).toBe('dogru');
   });
 });
+
+describe('Uzay operasyonları', () => {
+  async function yukle() {
+    const O = await import('../src/oyun/uzay/operasyon');
+    const V = await import('../src/oyun/veri/uzayGorevleri');
+    const G = await import('../src/oyun/gemi/gemi');
+    return { O, V, G };
+  }
+  // Bir operasyonu baştan sona, kulağın söylediğini yaparak oynar
+  function oyna(O, V, d) {
+    let guvenlik = 0;
+    while (d.op && guvenlik++ < 20000) {
+      const a = V.OPERASYONLAR[d.op.id].adimlar[d.op.adim];
+      const s = d.op.s;
+      const adim = d.op.adim;
+      const ilerle = (sn) => {
+        for (let t = 0; t < sn && d.op && d.op.adim === adim; t += 0.1) O.opIlerle(d, 0.1);
+      };
+      if (a.tur === 'yaklas') {
+        if (Math.abs(s.aci) > O.KILIT_ACI) O.opGirdi(d, { tur: 'kaydir', yon: s.aci > 0 ? 'sol' : 'sag', parmak: 1 });
+        else if (a.sessiz) O.opGirdi(d, { tur: 'dokun' });
+        else if (s.hiz === 0) O.opGirdi(d, { tur: 'kaydir', yon: 'yukari', parmak: 1 });
+        O.opIlerle(d, 0.1);
+      } else if (a.tur === 'kenetle') O.opGirdi(d, { tur: 'cift' });
+      else if (a.tur === 'sonar') O.opGirdi(d, { tur: 'uzun' });
+      else if (a.tur === 'tut') {
+        O.opGirdi(d, { tur: 'uzun' });
+        ilerle(4);
+      } else if (a.tur === 'dron') {
+        O.opGirdi(d, { tur: 'ac' });
+        ilerle(4);
+      } else if (a.tur === 'frekans') {
+        O.opGirdi(d, { tur: 'dondur', f: (s.hedef - s.deger) / 7 });
+        ilerle(3);
+      } else if (a.tur === 'basinc') {
+        while (d.op && d.op.adim === adim && !d.op.s.alarm) O.opIlerle(d, 0.1);
+        if (d.op && d.op.adim === adim) O.opGirdi(d, { tur: a.girdi || 'cift' });
+      } else if (a.tur === 'ritim') {
+        for (let i = 0; i < (a.n || 3) && d.op && d.op.adim === adim; i++) {
+          O.opGirdi(d, { tur: 'dokun' });
+          O.opIlerle(d, 0.2);
+        }
+      } else if (a.tur === 'kacin') {
+        while (d.op && d.op.adim === adim && !d.op.s.tehdit) O.opIlerle(d, 0.1);
+        if (d.op && d.op.adim === adim) O.opGirdi(d, { tur: 'kaydir', yon: a.yon === 'asagi' ? 'asagi' : d.op.s.tehdit.yon === 'sag' ? 'sol' : 'sag', parmak: 1 });
+      } else if (a.tur === 'nisan') {
+        const h = O.opSes(d).hedef;
+        if (Math.abs(h.x) < 2) O.opGirdi(d, { tur: 'cift' });
+        else O.opIlerle(d, 0.1);
+      } else if (a.tur === 'kademeli') O.opGirdi(d, { tur: 'kaydir', yon: a.yon || 'asagi', parmak: 2 });
+      else if (a.tur === 'denge') {
+        if (a.eksen === 'dikey') O.opGirdi(d, { tur: 'surukle', dx: 0, dy: -s.sapma / 0.004 });
+        else O.opGirdi(d, { tur: 'surukle', dx: s.sapma / 0.004, dy: 0 });
+        O.opIlerle(d, 0.1);
+      } else if (a.tur === 'direnc') {
+        if (s.konum < 0.8) O.opGirdi(d, { tur: 'surukle', dx: 0, dy: 30 });
+        O.opIlerle(d, 0.1);
+      } else if (a.tur === 'ton') {
+        O.opGirdi(d, { tur: 'uzun' });
+        for (const t of [...d.op.s.dizi]) O.opGirdi(d, t === 'kalin' ? { tur: 'kaydir', yon: 'asagi', parmak: 1 } : t === 'tiz' ? { tur: 'kaydir', yon: 'yukari', parmak: 1 } : { tur: 'cift' });
+      } else if (a.tur === 'bosluk') {
+        const once = s.vurus;
+        const o = O.opIlerle(d, 0.05);
+        if (d.op && d.op.adim === adim && d.op.s.vurus !== once && !o.some((x) => x.nota)) O.opGirdi(d, { tur: 'dokun' });
+      }
+    }
+    return guvenlik;
+  }
+  test('bütün operasyonlar baştan sona oynanır ve ödüller gelir', async () => {
+    const { O, V, G } = await yukle();
+    for (const id of Object.keys(V.OPERASYONLAR)) {
+      const d = yeniOyun(id.length * 97 + 3);
+      G.gemiOlustur(d, 3);
+      d.koloni.parcalar = d.koloni.parcalar || {};
+      O.opBaslat(d, id);
+      oyna(O, V, d);
+      expect(d.op).toBe(null);
+      expect(d.tamamlananOp).toContain(id);
+      expect(d.sahne).toBe('op_tamam');
+    }
+  });
+  test('ödüller: hediye gemiler, bayraklar, terraform girdileri, açılan noktalar', async () => {
+    const { O, V, G } = await yukle();
+    const { poiGuncelle, onTarama } = await import('../src/oyun/uzay/seyir');
+    const d = yeniOyun(8);
+    G.gemiOlustur(d, 3);
+    d.koloni.binalar.push('sinyal_kulesi');
+    expect(poiGuncelle(d)).toContain('g01');
+    O.opBaslat(d, 'sektor15');
+    oyna(O, V, d);
+    expect(d.filo.some((g) => g.ad === 'Prometheus Ağır Kruvazörü' && g.moduller.makine)).toBe(true);
+    expect(d.bayrak.vaka1_reaktor).toBe(true);
+    O.opBaslat(d, 'moloz_kusagi');
+    oyna(O, V, d);
+    expect(poiGuncelle(d)).toContain('kadim_mezar');
+    expect(onTarama(d, 'moloz_kusagi')).toContain('tamamlandı');
+    // Hasar: geç kalınan basınç gövdeyi tüketir, gemi koloniye döner
+    d.gemi.yer = 'uzay';
+    d.gemi.govde = 10;
+    O.opBaslat(d, 'g04');
+    while (d.op && d.op.adim < 3) {
+      d.op.adim = 3;
+      d.op.s = { b: 0.15, alarm: false, n: 0 };
+    }
+    for (let i = 0; i < 2000 && d.op; i++) O.opIlerle(d, 0.1);
+    expect(d.sahne).toBe('op_basarisiz');
+    expect(d.gemi.yer).toBe('kizak');
+  });
+  test('G görevlerinin donanımları üretilebilir ve tarifler şemayla açılır', async () => {
+    const { V } = await yukle();
+    const { uretimListesi } = await import('../src/oyun/koloni');
+    for (const k of Object.keys(V.G_DONANIMLARI)) expect(TARIFLER[V.G_DONANIMLARI[k].tesis].some((t) => t.cikti['mod_' + k])).toBe(true);
+    const d = yeniOyun(3);
+    d.koloni.binalar.push('kuantum_lab');
+    expect(uretimListesi(d).some((t) => t.id === 'kadim_disk')).toBe(false);
+    d.bayrak.sema_kadim = true;
+    expect(uretimListesi(d).some((t) => t.id === 'kadim_disk')).toBe(true);
+  });
+});

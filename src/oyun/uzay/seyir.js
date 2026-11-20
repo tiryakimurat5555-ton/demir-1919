@@ -132,12 +132,16 @@ export const UZAY_NOKTALARI = {
   },
 };
 
+// Derin uzay görevlerinin noktaları (veri/uzayGorevleri.js)
+import { G_NOKTALARI } from '../veri/uzayGorevleri';
+Object.assign(UZAY_NOKTALARI, G_NOKTALARI);
+
 // Tesisler kuruldukça haritada yeni ziyaret noktaları belirir (bölüm 4 ve 6). Yeni çıkanların listesi döner.
 export function poiGuncelle(d) {
   const yeni = [];
   for (const id of Object.keys(UZAY_NOKTALARI)) {
     const n = UZAY_NOKTALARI[id];
-    if (n.acan && d.koloni.binalar.includes(n.acan) && !d.harita.poiler.includes(n.poi)) {
+    if (((n.acan && d.koloni.binalar.includes(n.acan)) || (n.acKosul && n.acKosul(d))) && !d.harita.poiler.includes(n.poi)) {
       d.harita.poiler.push(n.poi);
       yeni.push(id);
     }
@@ -154,7 +158,7 @@ function uzak(a, b) {
 }
 
 export function fenerMenzili(d) {
-  return FENER_MENZILI * telsizSubayiCarpani(d) * (d.gemi && d.gemi.moduller.optik_prizma ? 1.3 : 1);
+  return FENER_MENZILI * telsizSubayiCarpani(d) * (d.gemi && d.gemi.moduller.optik_prizma ? 1.3 : 1) * (d.bayrak.g_haritalar ? 1.2 : 1);
 }
 export const KALKIS_YAKITI = 2;
 
@@ -289,13 +293,14 @@ export function eksikDonanim(d, id) {
 export function onTarama(d, id) {
   const n = UZAY_NOKTALARI[id];
   if (n.ev) return n.ad + '. ' + n.tarif;
+  if ((d.tamamlananOp || []).includes(id)) return n.ad + '. ' + n.gorev + ': operasyon tamamlandı.';
   const { eksik, sinifYetmez } = eksikDonanim(d, id);
   const satir = [
     'Hedef sektör: ' + n.ad + '.',
     'Görev: ' + n.gorev + '.',
     'Çevre analizi: ' + n.tehlike,
     'Operasyon hedefi: ' + n.hedef,
-    'Zorunlu donanım: ' + n.gerekli.map((x) => x.ad + (d.gemi && d.gemi.moduller[x.katman] ? ', takılı' : ', eksik')).join('; ') + '.',
+    n.gerekli.length ? 'Zorunlu donanım: ' + n.gerekli.map((x) => x.ad + (d.gemi && d.gemi.moduller[x.katman] ? ', takılı' : ', eksik')).join('; ') + '.' : 'Özel donanım gerekmez.',
   ];
   if (n.sinif) satir.push('Gemi sınıfı: en az kademe ' + n.sinif + ', ' + GEMI_SINIFLARI[n.sinif].ad + '.' + (sinifYetmez ? ' ' + (d.gemi ? d.gemi.ad : 'Gemin') + ' yetmez.' : ''));
   if (eksik.length || sinifYetmez) satir.push('Gemi bilgisayarı görevi kilitledi. Eksikleri koloni tersanesinde üret.');
@@ -311,6 +316,7 @@ export function kenetlen(d) {
   if (!e || e.m > KENET_MESAFE) return { metin: 'Kenetlenecek bir şey yok. ' + (e ? e.n.ad + ' ' + Math.round(e.m) + ' birim uzakta.' : ''), ses: 'red' };
   if (u.hiz > 1) return { metin: 'Çok hızlısın; kenetlenmek için hızı bire ya da sıfıra düşür.', ses: 'red' };
   if (e.n.ev) {
+    d.gemi.govde = d.gemi.maxGovde; // tersane gövdeyi onarır
     d.gemi.yer = 'kizak';
     d.uzay = null;
     d.sahne = 'inis';

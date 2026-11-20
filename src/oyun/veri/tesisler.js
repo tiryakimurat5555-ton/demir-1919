@@ -20,11 +20,12 @@ export const HAMMADDELER = {
   antigrav_tozu: { ad: 'antigravitasyon tozu ve çekirdek jeot', tarif: 'Asılı kulelerden; gravitasyon kalkanı ve iniş yakıtı tasarrufu.' },
   kseno_kabuk: { ad: 'fosil kseno-kabuk', tarif: 'Solucan tünellerinden; maden kazıcılarına ve araçlara rakipsiz sertlikte zırh ve delici uç.' },
   manyetik_tohum: { ad: 'manyetik tohum materyali', tarif: 'Monolitin yüzeyinden kazınır; graviton dengeleyicisine dönüşür.' },
+  notron_cevher: { ad: 'nötron-yoğun cevher', tarif: 'Parçalanmış gezegen çekirdeklerinden; avuç kadarı bir kaya kadar ağır.' },
   tohum: { ad: 'kseno-tahıl tohumu', tarif: 'Saklı vahadan; açıkta yetişebilen ilk yerel tarım tohumu.' },
   graviton: { ad: 'graviton minerali', tarif: 'Manyetik sırtların derin kuyularından; yalnız sondaj tankıyla çıkar. Graviton yakıtının hammaddesi.' },
 };
 
-export const HAMMADDE_SIRASI = ['bazalt', 'titanyum', 'kristal', 'izotop', 'kseno', 'polimer', 'graviton', 'sivi_metal', 'civa_tortusu', 'foton_recinesi', 'kseno_spor', 'kriyolit', 'metan', 'plazma_cami', 'obsidyen', 'antigrav_tozu', 'kseno_kabuk', 'manyetik_tohum', 'tohum'];
+export const HAMMADDE_SIRASI = ['bazalt', 'titanyum', 'kristal', 'izotop', 'kseno', 'polimer', 'graviton', 'sivi_metal', 'civa_tortusu', 'foton_recinesi', 'kseno_spor', 'kriyolit', 'metan', 'plazma_cami', 'obsidyen', 'antigrav_tozu', 'kseno_kabuk', 'manyetik_tohum', 'tohum', 'notron_cevher'];
 
 // Tesisler. maliyet: hammadde kimliği → miktar. kosul(d): inşa edilebilmesi için hikâye koşulu.
 export const TESISLER = {
@@ -183,7 +184,19 @@ for (const id of Object.keys(IRK_YAPILARI)) {
   };
 }
 
-export const TESIS_SIRASI = ['sinyal_kulesi', 'dokumhane', 'yasam_blogu', 'arac_hangari', 'reaktor_lab', 'biyo_kubbe', 'tersane', 'tersane_2', 'tersane_3', 'kuantum_lab', 'itki_hangari', 'kriyo_atolye', 'askeri_tersane', 'komuta_merkezi', 'yuksek_reaktor', 'jeotermal_santral', 'koloni_kalkani', 'sera', 'akademi', 'kseno_habitat', 'multeci_kampusu', 'tina_cekirdegi'];
+// Hastane gemisinden kurtarılan hekimlerle (derin-uzay-gorevleri-cilt-2 G-23)
+TESISLER.hastane = {
+  ad: 'Merkezi Sağlık ve Kseno-Biyoloji Araştırma Hastanesi',
+  kisa: 'Bölge Hastanesi',
+  islev: 'Kseno-hekimlerin yönettiği bölge hastanesi; salgınlara ve maruziyete karşı koloninin kalkanı.',
+  katki: 'Moral yükselir, nüfus daha hızlı büyür, sakinleştirici üretimi iki katı.',
+  acar: 'Kseno-tıp.',
+  maliyet: { bazalt: 20, titanyum: 10, polimer: 4, kristal: 4 },
+  kosul: (d) => !!d.bayrak.g_hekimler,
+  kosulMetni: 'Kseno-hekimler bir uzay görevinden gelir (G-23 hastane gemisi).',
+};
+
+export const TESIS_SIRASI = ['sinyal_kulesi', 'dokumhane', 'yasam_blogu', 'arac_hangari', 'reaktor_lab', 'biyo_kubbe', 'tersane', 'tersane_2', 'tersane_3', 'kuantum_lab', 'itki_hangari', 'kriyo_atolye', 'askeri_tersane', 'komuta_merkezi', 'yuksek_reaktor', 'jeotermal_santral', 'koloni_kalkani', 'sera', 'akademi', 'kseno_habitat', 'multeci_kampusu', 'tina_cekirdegi', 'hastane'];
 
 // Koloni kademeleri (gezegen-gelisimi-ve-yerel-gorevler-v2.md bölüm 9)
 export const KOLONI_KADEMELERI = [

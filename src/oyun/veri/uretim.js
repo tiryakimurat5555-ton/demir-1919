@@ -108,6 +108,20 @@ export const TARIFLER = {
   ],
 };
 
+// Uzay görevlerinden açılan Kademe 4-5 malzeme tarifleri (bayrak: görevin şeması gelmeden listede yok)
+TARIFLER.askeri_tersane = TARIFLER.askeri_tersane || [];
+TARIFLER.askeri_tersane.push(
+  { id: 'kompozit_blok', ad: '300 ağır titanyum-kompozit zırh bloğu (Prometheus şeması)', girdi: { kompozit: 100, sasi_celigi: 50 }, cikti: { kompozit_blok: 300 }, sure: 120, bayrak: 'sema_kompozit' },
+  { id: 'super_alasim', ad: '500 nötron takviyeli süper alaşım plakası (Hisar şeması)', girdi: { notron_matris: 50, zirhli_plaka: 100 }, cikti: { super_alasim: 500 }, sure: 150, bayrak: 'sema_super' },
+);
+TARIFLER.dokumhane.push({ id: 'notron_matris', ad: '90 birim nötron-yoğun çelik ve kristal matris', girdi: { notron_cevher: 1, saf_kristal: 20 }, cikti: { notron_matris: 90 }, sure: 120 });
+TARIFLER.kuantum_lab = TARIFLER.kuantum_lab || [];
+TARIFLER.kuantum_lab.push(
+  { id: 'kadim_disk', ad: '200 kadim kseno-kristal ve optik şifreleme diski (tapınak şeması)', girdi: { kseno: 2, saf_kristal: 20 }, cikti: { kadim_disk: 200 }, sure: 150, bayrak: 'sema_kadim' },
+  { id: 'kuantum_cekirdek', ad: 'Kuantum rezonans çekirdeği (korvet şeması)', girdi: { kseno_alasim: 50, graviton_yakiti: 20 }, cikti: { kuantum_cekirdek: 1 }, sure: 180, bayrak: 'sema_kuantum' },
+);
+TARIFLER.hastane = [{ id: 'yatistirici', ad: '20 doz sakinleştirici ilaç (hastane)', girdi: { kseno_spor: 1 }, cikti: { yatistirici: 20 }, sure: 40 }];
+
 // Donanımlar (veri/donanim.js): her biri 'mod_<id>' parçası ve kendi tesisinde bir tarif olur
 import { DONANIMLAR } from './donanim';
 for (const id of Object.keys(DONANIMLAR)) {

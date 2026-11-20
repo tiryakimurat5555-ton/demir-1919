@@ -38,6 +38,10 @@ import { cevreMetni, durumMetni, esyaMetni, etkiles, firtinaIlerle, maruziyetAdi
 import {
   terraformListesi,
   terraformTeslim,
+  opGirdi,
+  opIlerle,
+  opSes,
+  opDurum,
   olgunMu,
   miniGorunur,
   bolgeListesi,
@@ -193,6 +197,8 @@ export default function Yuzey({ onGeri, baslangic, yeniOyunUret }) {
   const [teraziAcik, setTeraziAcik] = useState(false);
   const [vincAcik, setVincAcik] = useState(false);
   const [gemiAcik, setGemiAcik] = useState(false);
+  const [opAcik, setOpAcik] = useState(false);
+  const opRef = useRef({ acik: false, ses: {}, hedef: null, sonDx: 0, sonDy: 0 });
   const sonDx = useRef(0);
   const pompaZamani = useRef(0);
   const melodiNo = useRef(0);
@@ -444,6 +450,10 @@ export default function Yuzey({ onGeri, baslangic, yeniOyunUret }) {
       }
       if (d.vinc) {
         vincAdimi();
+        return;
+      }
+      if (d.op && opRef.current.acik) {
+        opAdimi();
         return;
       }
       if (durakli.current) return;
@@ -1667,6 +1677,10 @@ export default function Yuzey({ onGeri, baslangic, yeniOyunUret }) {
           soyle('Gemi kızakta. Kalkmak ya da inmek için kokpit terminali: dokun.', 'istek', true);
           return;
         }
+        if (d.op) {
+          opAc([{ soz: 'Operasyona dönüyorsun. ' + opDurum(d) }]);
+          return;
+        }
         const r = kenetlen(d);
         kaydet();
         if (r.inis) {
@@ -1676,6 +1690,10 @@ export default function Yuzey({ onGeri, baslangic, yeniOyunUret }) {
         }
         if (r.ses) cal('red', 0.6);
         else cal('kilit', 0.8);
+        if (r.op) {
+          opAc([{ soz: r.metin + ' Operasyon sahası. Dokun: durum. İki parmakla çift dokun: operasyonu duraklat.' }, ...r.op]);
+          return;
+        }
         soyle(r.metin, 'istek', true);
       },
       onDondur: () => {
@@ -1686,6 +1704,144 @@ export default function Yuzey({ onGeri, baslangic, yeniOyunUret }) {
         soyle('Telsiz taraması: bu bölgede yalnız fenerler ve kozmik parazit var.', 'istek', true);
         setTimeout(() => (dunya.current.telsizTarandi = false), 4000);
       },
+    },
+    { dokunmaBekle: true },
+  );
+
+  // --- Uzay operasyonu (uzay/operasyon.js): kulakla ve parmakla icra edilen adımlar ---
+  const OP_SESI = { hamle: 'tislama', tik: 'tik' };
+  const opAc = (olaylar) => {
+    const d = dunya.current;
+    const s = m();
+    for (const id of Object.keys(calanlar.current)) if (id.indexOf('fener_') === 0) kaynakKapat(id);
+    if (s) {
+      s.dinleyici({ x: 0, y: 0, yon: 0 });
+      s.boguk(false);
+    }
+    opRef.current = { acik: true, ses: {}, hedef: null, sonDx: 0, sonDy: 0 };
+    setOpAcik(true);
+    opOlaylari(olaylar);
+    kaydet();
+    if (!d.op) opKapat();
+  };
+  const opSesleriSil = () => {
+    const s = m();
+    const o = opRef.current;
+    if (!s) return;
+    if (o.hedef) s.sil(o.hedef);
+    if (o.ses.telsiz) s.telsizSil();
+    if (o.ses.basinc) s.basincSil();
+    if (o.ses.terazi) s.teraziSil();
+    o.hedef = null;
+    o.ses = {};
+  };
+  const opKapat = (soz) => {
+    opSesleriSil();
+    opRef.current.acik = false;
+    setOpAcik(false);
+    const d = dunya.current;
+    sesleriEsitle(true);
+    if (d.sahne) sahneGoster(d.sahne);
+    else if (soz) soyle(soz, 'istek', true);
+  };
+  const opOlaylari = (olaylar) => {
+    const d = dunya.current;
+    const s = m();
+    const sozler = [];
+    let bitti = false;
+    for (const o of olaylar) {
+      if (o.soz) sozler.push(o.soz);
+      if (o.ses) cal(OP_SESI[o.ses] || o.ses, o.ses === 'tik' ? 0.4 : 0.85);
+      if (o.nota && s) s.nota(o.nota.frek, null, 0.7, o.nota.sure);
+      if (o.ton && s) o.ton.forEach((f, i) => setTimeout(() => m() && m().nota(f, null, 0.8, 0.6), 400 + i * 750));
+      if (o.tehlike && s && yuklu.current.hamle) s.tek('hamle', { x: o.tehlike === 'sag' ? 8 : o.tehlike === 'sol' ? -8 : 0, y: o.tehlike === 'on' ? 10 : 2 }, 1);
+      if (o.tehlike) Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Medium).catch(() => {});
+      if (o.hasar) Haptics.notificationAsync(Haptics.NotificationFeedbackType.Error).catch(() => {});
+      if (o.adim) Haptics.notificationAsync(Haptics.NotificationFeedbackType.Success).catch(() => {});
+      if (o.bitti || o.basarisiz) bitti = true;
+    }
+    if (sozler.length) soyle(sozler.join(' '), 'istek', true);
+    if (bitti || !d.op) {
+      kaydet();
+      opKapat();
+    }
+  };
+  const opSesEsitle = () => {
+    const d = dunya.current;
+    const s = m();
+    if (!s || !d.op) return;
+    const x = opSes(d);
+    const o = opRef.current;
+    const anahtar = x.hedef ? 'op_hedef_' + d.op.adim : null;
+    if (o.hedef && o.hedef !== anahtar) {
+      s.sil(o.hedef);
+      o.hedef = null;
+    }
+    if (anahtar) {
+      if (!o.hedef) {
+        o.hedef = anahtar;
+        s.kaynak(anahtar, 'fener', { x: x.hedef.x, y: x.hedef.y }, null, x.hedef.frek);
+      } else s.kaynak(anahtar, 'fener', { x: x.hedef.x, y: x.hedef.y });
+    }
+    if (x.telsiz) {
+      if (!o.ses.telsiz) s.telsizKur();
+      s.telsizAyar(x.telsiz.yakinlik, x.telsiz.kayma);
+    } else if (o.ses.telsiz) s.telsizSil();
+    if (x.basinc) {
+      if (!o.ses.basinc) s.basincKur();
+      s.basincAyar(x.basinc.b, x.basinc.alarm);
+    } else if (o.ses.basinc) s.basincSil();
+    if (x.terazi != null) {
+      if (!o.ses.terazi) s.teraziKur(330);
+      s.teraziAyar(ayakFrek(x.terazi), false);
+    } else if (o.ses.terazi) s.teraziSil();
+    if (x.motor != null && d.gemi) s.motorAyar(x.motor);
+    o.ses = { telsiz: !!x.telsiz, basinc: !!x.basinc, terazi: x.terazi != null };
+  };
+  const opAdimi = () => {
+    const d = dunya.current;
+    opOlaylari(opIlerle(d, ADIM_MS / 1000));
+    if (d.op) opSesEsitle();
+  };
+  const opVer = (g) => {
+    const d = dunya.current;
+    if (!d.op) return [];
+    const r = opGirdi(d, g);
+    opOlaylari(r);
+    return r;
+  };
+  const opJest = useJestler(
+    {
+      onDokun: (parmak) => {
+        const d = dunya.current;
+        if (parmak >= 2 || !opVer({ tur: 'dokun' }).length) if (d.op) soyle(opDurum(d), 'istek', true);
+      },
+      onCiftDokun: (parmak) => {
+        const d = dunya.current;
+        if (parmak >= 2) {
+          if (opVer({ tur: 'cift2' }).length) return;
+          kaydet();
+          opKapat('Operasyon duraklatıldı. Kokpitte çift dokununca kaldığın yerden sürer.');
+          return;
+        }
+        if (d.bildirimler && d.bildirimler.length && bildirimDinle()) return;
+        opVer({ tur: 'cift' });
+      },
+      onUzunBas: () => opVer({ tur: 'uzun' }),
+      onKaydir: (yon, parmak) => opVer({ tur: 'kaydir', yon, parmak }),
+      onKistirAc: () => opVer({ tur: 'ac' }),
+      onSurukle: (mod, dx, dy) => {
+        if (mod !== 'tek') return;
+        const o = opRef.current;
+        opVer({ tur: 'surukle', dx: dx - o.sonDx, dy: dy - o.sonDy });
+        o.sonDx = dx;
+        o.sonDy = dy;
+      },
+      onSurukleBitti: () => {
+        opRef.current.sonDx = 0;
+        opRef.current.sonDy = 0;
+      },
+      onDondur: (f) => opVer({ tur: 'dondur', f }),
     },
     { dokunmaBekle: true },
   );
@@ -1901,7 +2057,7 @@ export default function Yuzey({ onGeri, baslangic, yeniOyunUret }) {
 
   return (
     <View style={stiller.dis}>
-      <View style={stiller.kap} {...(katman || ayarAcik || valfAcik || rezAcik || teraziAcik || vincAcik || gemiAcik ? {} : jest)}>
+      <View style={stiller.kap} {...(katman || ayarAcik || valfAcik || rezAcik || teraziAcik || vincAcik || gemiAcik || opAcik ? {} : jest)}>
         <KonumsalSes
           ref={motor}
           onMesaj={(x) => {
@@ -1944,6 +2100,12 @@ export default function Yuzey({ onGeri, baslangic, yeniOyunUret }) {
         <View style={[StyleSheet.absoluteFill, stiller.ayar]} {...vincJest}>
           <Text style={stiller.baslik}>Vinç</Text>
           <Text style={stiller.yazi}>Sağa-sola sürükle, aşağı kaydır, çift dokun</Text>
+        </View>
+      ) : null}
+      {opAcik ? (
+        <View style={[StyleSheet.absoluteFill, stiller.ayar]} {...opJest}>
+          <Text style={stiller.baslik}>Operasyon</Text>
+          <Text style={stiller.yazi}>Dokun: durum. İki parmakla çift dokun: duraklat.</Text>
         </View>
       ) : null}
       {teraziAcik ? (

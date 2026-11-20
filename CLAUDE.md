@@ -223,6 +223,25 @@ Demir 1919 oyunu silindi; geçmişi git kaydında (son sürüm 1.06, commit 556f
     yerel operasyon, zamanIlerle olaylar (acil: hemen söylenir; tasindi; miniBasladi: zil).
   - Yuzey: mini konumlu sesler (olgun kristal 'kristal', kaçak 'baca' döngüsü, korna 'fener' 311 Hz, korsan 'parazit'
     2,6 sn, kompresör/kazık/bent 'bip' 3 sn, sürü 'yercekimi' (540,-62)); kompresör valf sözleri.
+- SÜRÜM 1.1 (21 Kasım): Faz 4 görev motoru, 9 büyük görev + G-01 … G-24. Telefonda denenmedi.
+  - veri/uzayGorevleri.js: G_DONANIMLARI (48 ek donanım; donanim.js'e eklenir → mod_<id> tarifleri), G_NOKTALARI (24 nokta
+    + kadim_mezar; acKosul: gemi + sinyal kulesi + tamamlanan operasyon sayısı eşiği 0..11; seyir.js poiGuncelle acKosul
+    destekler), OPERASYONLAR (34; adimlar [{tur, ad, giris, bitis, ...}], sonuc, odul {gemi, bayrak, kaynak, parca, nufus,
+    barinma, bilim, tersane, moral, itibar, kodeks}).
+  - uzay/operasyon.js: opBaslat/opGirdi/opIlerle/opSes/opDurum; adım türleri yaklas (aci, mesafe; sağa kaydır aci +0,26;
+    kilit 0,14 rad; hız 0-3 × 4 m/sn; sessiz: dokun -4 m, yukarı kaydır hasar), kenetle, sonar, frekans (±1,2 / 2,5 sn),
+    basinc (girdi cift|cift2), tut/dron (3 sn), ritim, kacin (tehdit 1,8 sn; ters yana; yon asagi), nisan (hedef
+    sin(t·0,35)·0,8 − burun), kademeli (parmak ≥ 2), denge (sapma ±0,05/sn kayma; 0,08 içinde 2,5 sn), direnc (konum
+    −(0,08+0,05 sin)/sn; aşağı sürükle +0,003/px), ton (kalın/orta/tiz), bosluk (0,7 sn vuruş, eksik vuruşa dokun).
+    hasar → gövde; 0 → op_basarisiz, gemi kızakta. bitir → d.tamamlananOp, odulVer (hediye gemiler bütün katmanlarıyla
+    d.filo'ya), sahne op_tamam. gorevler.js kenetlen: donanım tamsa r.op = opBaslat. seyir.js: eve kenetlenince gövde
+    onarılır; onTarama tamamlananı söyler; fener ×1,2 (g_haritalar).
+  - Etkiler: uretim tarifleri bayrak alanı (sema_kompozit/super/kadim/kuantum), notron_cevher hammaddesi, tesis hastane
+    (g_hekimler); koloni.js g_ticaret (TICARET_SN 180; g_tarafsiz ×2), üretim × g_fuzyon 1,15 × g_oron 1,2, nüfus ×
+    g_tarim 1,2 × hastane 1,2; dunya.js g_panzehir maruziyet ×0,7. gemi.js modulListesi ek donanımı yalnız üretildiyse
+    ya da takılıysa listeler.
+  - Yuzey: operasyon katmanı (opJest; dinleyici (0,0); hedef 'fener' kaynağı op_hedef_<adim>, telsiz/basinc/terazi
+    motorları, tehlike konumsal 'hamle', ton dizisi nota). jestler.js onKistirAc (iki parmak arası > 90 px açılınca).
 - Sıradaki: KAPSAM.md "Sıradaki adımlar".
 
 ## Sesler

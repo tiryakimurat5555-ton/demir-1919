@@ -21,6 +21,7 @@ export const BORU_TAVAN = 20;
 export const NUFUS_SN = 300; // doğal artış: bir kişi
 export const KERVAN_SN = 180; // Demir Kervan: bir bazalt + bir titanyum
 export const AKREP_SN = 120; // Akrep: yataklardan bir birim
+export const TICARET_SN = 180;
 export const KARAKOL_SN = 180; // güvenli bölgenin ikmal karakolu: bölgenin yataklarından bir birim
 export const SEKTORLER = {
   sanayi: { ad: 'Sanayi ve maden', tarif: 'Maden ocaklarında ve dökümhanede çalışır; üretimi ve yatakların yenilenmesini hızlandırır.' },
@@ -58,7 +59,7 @@ export function moralCarpani(d) {
 
 export function uretimHizi(d) {
   // Jeotermal santral (lav koridorlarının enerjisi) ve Vanguard-01'in fırın jeneratörü üretimi hızlandırır
-  const enerji = (d.koloni.binalar.includes('jeotermal_santral') ? 1.2 : 1) * (d.bayrak.firin ? 1.25 : 1);
+  const enerji = (d.koloni.binalar.includes('jeotermal_santral') ? 1.2 : 1) * (d.bayrak.firin ? 1.25 : 1) * (d.bayrak.g_fuzyon ? 1.15 : 1) * (d.bayrak.g_oron ? 1.2 : 1); // G-11 füzyon teorisi, G-16 Oron bilgini
   return (1 + 0.25 * nufus(d).sanayi) * moralCarpani(d) * enerji;
 }
 // İlaç dağıtımı: 10 doz yatıştırıcı → moral +5
@@ -148,6 +149,7 @@ export function uretimListesi(d) {
     if (!d.koloni.binalar.includes(tesis)) continue;
     const is = (d.koloni.uretimler || []).find((u) => u.tesis === tesis);
     for (const t of TARIFLER[tesis]) {
+      if (t.bayrak && !d.bayrak[t.bayrak]) continue;
       let durum;
       if (is && is.tarif === t.id) durum = 'Üretiliyor, yaklaşık ' + Math.ceil(is.kalan) + ' saniye kaldı.';
       else if (is) durum = 'Tesis meşgul.';
@@ -162,6 +164,7 @@ export function uretimListesi(d) {
 export function uretimBaslat(d, tesis, tarifId) {
   const t = (TARIFLER[tesis] || []).find((x) => x.id === tarifId);
   if (!t || !d.koloni.binalar.includes(tesis)) return { metin: 'Bu tesis kurulu değil.', ses: 'red' };
+  if (t.bayrak && !d.bayrak[t.bayrak]) return { metin: 'Bu üretimin şeması henüz yok; bir uzay görevinden gelir.', ses: 'red' };
   if (!d.koloni.uretimler) d.koloni.uretimler = [];
   if (d.koloni.uretimler.some((u) => u.tesis === tesis)) return { metin: 'Bu tesis şu an başka bir iş yapıyor.', ses: 'red' };
   if (!yeterMi(d, t.girdi)) return { metin: 'Girdi yetmiyor: ' + girdiMetni(t.girdi) + '.', ses: 'red' };
@@ -236,6 +239,16 @@ export function koloniIlerle(d, dt) {
       }
     }
   }
+  // Güvenli ticaret rotası (G-06, G-22, G-24): üç dakikada bir tüccarlar kristal ve titanyum getirir
+  if (d.bayrak.g_ticaret) {
+    k.ticaret = (k.ticaret || 0) + dt;
+    if (k.ticaret >= TICARET_SN) {
+      k.ticaret -= TICARET_SN;
+      const kat = d.bayrak.g_tarafsiz ? 2 : 1;
+      k.kaynaklar.kristal = (k.kaynaklar.kristal || 0) + kat;
+      k.kaynaklar.titanyum = (k.kaynaklar.titanyum || 0) + kat;
+    }
+  }
   // Terraforming katmanları tamamlanınca etkileri bir kez başlar (terraform.js)
   if (!k.terraformEtki) k.terraformEtki = {};
   for (const id of Object.keys(KATMANLAR)) {
@@ -268,7 +281,7 @@ export function koloniIlerle(d, dt) {
   olaylar.push(...montajIlerle(d, dt, 1 + 0.5 * n.tersane));
   // Nüfus ve moral
   if (n.toplam < n.barinma) {
-    const carpan = (d.koloni.binalar.includes('biyo_kubbe') ? 1.5 : 1) * (d.koloni.binalar.includes('sera') ? 1.5 : 1) * (katmanTamamMi(d, 'biyosfer') ? 1.5 : 1) * (k.moral >= 50 ? 1 : 0.3);
+    const carpan = (d.koloni.binalar.includes('biyo_kubbe') ? 1.5 : 1) * (d.koloni.binalar.includes('sera') ? 1.5 : 1) * (katmanTamamMi(d, 'biyosfer') ? 1.5 : 1) * (d.bayrak.g_tarim ? 1.2 : 1) * (d.koloni.binalar.includes('hastane') ? 1.2 : 1) * (k.moral >= 50 ? 1 : 0.3);
     k.buyume = (k.buyume || 0) + dt * carpan;
     if (k.buyume >= NUFUS_SN) {
       k.buyume -= NUFUS_SN;
