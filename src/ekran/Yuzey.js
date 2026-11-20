@@ -36,7 +36,7 @@ import { ALANLAR, KAPILAR, MEKANLAR, NOKTALAR } from '../oyun/yuzey/harita';
 import { monolitEtkisi } from '../oyun/yuzey/kesifler';
 import { FENOMENLER, ITIBAR_KADEMELERI } from '../oyun/veri/gozlem';
 import { harcanabilir, yetenekAc, yetenekListesi } from '../oyun/veri/yetenek';
-import { cevreMetni, durumMetni, esyaMetni, etkiles, firtinaIlerle, maruziyetAdi, ilerle, kisiAdi, otoBaslat, radar, yerlerListesi, zehirIlerle } from '../oyun/yuzey/dunya';
+import { fenerBirak, cevreMetni, durumMetni, esyaMetni, etkiles, firtinaIlerle, maruziyetAdi, ilerle, kisiAdi, otoBaslat, radar, yerlerListesi, zehirIlerle } from '../oyun/yuzey/dunya';
 import {
   terraformListesi,
   terraformTeslim,
@@ -169,6 +169,7 @@ const BACALAR = ['baca_1', 'baca_2', 'baca_3'];
 const CANLAR = ['can_1', 'can_2', 'can_3', 'can_4', 'can_5'];
 // Rüzgârda kendiliğinden çınlayan kristaller (ses: 'kristal'): vadi, krater ve doğu sektörünün kuvars sütunları
 const KRISTALLER = Object.keys(NOKTALAR).filter((id) => NOKTALAR[id].ses === 'kristal');
+const FAUNA = Object.keys(NOKTALAR).filter((id) => NOKTALAR[id].fauna);
 const NOTA_ARASI = 750; // kapının dizisindeki notalar arası (ms)
 
 function guc(piksel) {
@@ -272,6 +273,30 @@ export default function Yuzey({ onGeri, baslangic, yeniOyunUret }) {
         s.dongu('vaha', 'vaha', KAPILAR.vaha_yolu.uclar[0], 0.7);
       }
     } else kaynakKapat('vaha');
+    // Yerel fauna (gezegen-gelisimi-v2: elektromanyetik sülükler, iplik böcekleri, tünel sürüngenleri)
+    for (const id of FAUNA) {
+      const n = NOKTALAR[id];
+      const k = 'fauna_' + id;
+      if (n.mekan === d.mekan) {
+        if (!calanlar.current[k]) {
+          if (n.fauna === 'suluk' && yuklu.current.parazit) s.dosyaKaynak(k, 'parazit', n, 3300);
+          else if (n.fauna === 'iplik') s.kaynak(k, 'kristal', n);
+          else if (n.fauna === 'surungen') s.kaynak(k, 'ayak', n);
+          else continue;
+          calanlar.current[k] = true;
+        }
+      } else kaynakKapat(k);
+    }
+    // Çöl Tilkisi'nin sinyal fenerleri
+    (d.fenerler || []).forEach((f, i) => {
+      const k = 'isaret_' + i + '_' + f.x;
+      if (f.mekan === d.mekan && yuklu.current.bip) {
+        if (!calanlar.current[k]) {
+          calanlar.current[k] = true;
+          s.dosyaKaynak(k, 'bip', f, 2500);
+        }
+      } else kaynakKapat(k);
+    });
     // Yerel mini görevlerin konumlu sesleri (mini.js)
     const istenen = {};
     const mi = d.mini && d.mini.aktif;
@@ -830,6 +855,23 @@ export default function Yuzey({ onGeri, baslangic, yeniOyunUret }) {
         { id: 'koloni', etiket: 'Koloni', sec: () => (soyle(koloniMetni(dunya.current), 'istek', true), 'sessiz') },
         { id: 'murettebat', etiket: 'Mürettebat', sec: () => (murettebatGoster(), 'sessiz') },
         { id: 'harita', etiket: 'Uzay haritası', sec: () => (soyle(haritaMetni(), 'istek', true), 'sessiz') },
+        ...(dunya.current.arac === 'col_tilkisi'
+          ? [
+              {
+                id: 'fener',
+                etiket: 'Sinyal feneri bırak',
+                ipucu: 'Bulunduğun yere ötüp duran bir fener saplanır; Yerler menüsünden ona dönebilirsin.',
+                sec: () => {
+                  const r = fenerBirak(dunya.current);
+                  kaydet();
+                  cal(r.ses === 'red' ? 'red' : 'bip', 0.8);
+                  sesleriEsitle(false);
+                  katmanKapat(r.metin);
+                  return 'sessiz';
+                },
+              },
+            ]
+          : []),
         ...(dunya.current.arac
           ? [
               {

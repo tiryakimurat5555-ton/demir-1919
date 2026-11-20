@@ -396,6 +396,12 @@ export const NOKTALAR = {
   kabuk_2: { mekan: 'tuneller', x: 2680, y: 10, ad: 'Fosil kseno-kabuk', yaricap: 2.2, kaynak: 'kseno_kabuk', stok: 2 },
   tohum_1: { mekan: 'vaha', x: 2815, y: 25, ad: 'Vahşi kseno-tahıl', yaricap: 2.2, kaynak: 'tohum', stok: 3, tarif: 'Buharla beslenen, başakları ince ince hışırdayan yerel bir bitki. Tohumları açıkta yetişebilir.' },
   vaha_kaynagi: { mekan: 'vaha', x: 2838, y: 34, ad: 'Vahanın su kaynağı', yaricap: 2.4, engel: 1, tarif: 'Kalsit kayadan şırıldayarak çıkan berrak bir su. Vahayı bu su besliyor.' },
+  // Yerel fauna (gezegen-gelisimi-v2 2.2, 3.5, 4.3): yalnız sesleri ve tarifleri var
+  suluk_1: { mekan: 'dogu', x: 1330, y: 10, ad: 'Elektromanyetik sülük kümesi', yaricap: 1.8, fauna: 'suluk', tarif: 'Çatlaklara yapışmış, statik enerjiyle beslenen yassı canlılar. Yaklaştıkça kulaklıkta cızırdıyorlar.' },
+  suluk_2: { mekan: 'dogu', x: 1356, y: 28, ad: 'Elektromanyetik sülük kümesi', yaricap: 1.8, fauna: 'suluk', tarif: 'Kuvars sütunun dibinde vızıldayan sülükler; elini yaklaştırınca tüylerin diken diken oluyor.' },
+  iplik_1: { mekan: 'kuleler', x: 2335, y: 55, ad: 'İplik böceği ağı', yaricap: 2, fauna: 'iplik', tarif: 'İki süzülen kaya arasına gerilmiş ipeksi bir ağ; rüzgârda ince ince çınlıyor. Böcekler havada yaşıyor.' },
+  iplik_2: { mekan: 'kuleler', x: 2356, y: 25, ad: 'İplik böceği ağı', yaricap: 2, fauna: 'iplik', tarif: 'Kayadan kayaya uzanan ışıltılı iplikler.' },
+  surungen_1: { mekan: 'tuneller', x: 2655, y: 25, ad: 'Tünel sürüngenleri', yaricap: 2, fauna: 'surungen', tarif: 'Karanlıkta yönünü şaşırtan hızlı ayak sesleri; tünelin duvarlarında yankılanıp nereden geldiği anlaşılmıyor.' },
   // Yerel mini görevlerin noktaları (gezegen-gelisimi-v2 bölüm 8; mini.js). Yalnız görev sürerken vardır.
   foton_olgun_1: { mekan: 'mantar', x: 1712, y: 48, ad: 'Fotonik kristal kümesi', yaricap: 2, mini: 'mantar_hasadi', tarif: 'Bir mantar sapının dibinde yeşilimsi parlayan kristaller.' },
   foton_olgun_2: { mekan: 'mantar', x: 1748, y: 12, ad: 'Fotonik kristal kümesi', yaricap: 2, mini: 'mantar_hasadi', tarif: 'Tavandan sarkan bir zarın kıyısında kristal salkımı.' },

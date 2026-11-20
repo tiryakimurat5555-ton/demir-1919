@@ -56,6 +56,7 @@ export function seferIlerle(d, dt) {
   const kl = d.murettebat.find((x) => x.nitelik === 'klostrofobik' && Object.values(d.gemi.atamalar || {}).includes(x.id));
   if (kl && d.seferSure > 240 && !d.klostrofobiDendi) {
     d.klostrofobiDendi = true;
+    kl.stres = Math.min(100, (kl.stres || 0) + 40);
     d.olay = { id: 'klostrofobi', uye: kl.ad };
     d.sahne = 'sefer_olay';
     o.push({ tur: 'olay' });

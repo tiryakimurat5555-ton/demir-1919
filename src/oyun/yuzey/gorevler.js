@@ -241,7 +241,13 @@ export function kenetlen(d) {
     return { metin: FENOMENLER[id].ad + '. Gözlem başlıyor.', op: O.opBaslat(d, id), id };
   }
   const r = S.kenetlen(d);
-  if (r.inis) G5.inisSonrasi(d);
+  if (r.inis) {
+    G5.inisSonrasi(d);
+    // Kolonide dinlenme: mürettebatın stresi silinir, sefer sayaçları sıfırlanır
+    for (const u of d.murettebat) u.stres = 0;
+    d.seferSure = 0;
+    d.klostrofobiDendi = false;
+  }
   // Donanım tamsa ve operasyon yapılmadıysa doğrudan operasyon sahasına girilir
   if (r.id && !r.kilitli && O.opVarMi(r.id) && !O.opTamamMi(d, r.id)) r.op = O.opBaslat(d, r.id);
   return r;

@@ -267,6 +267,12 @@ Demir 1919 oyunu silindi; geçmişi git kaydında (son sürüm 1.06, commit 556f
     (nüfus > 20 ve sera yok: −2). gorev1 topla: klipsomanyak (nitelik toplayici) her 4. toplamada +1.
   - Yuzey: savaş katmanı (savasJest, dokunmaBekle false; düşman 'fener' kaynağı savas_dusman; uyarı sesleri nota/hidrolik/
     hamle; kilit tonu 1760 Hz), kokpit ve koloni yönetiminde Kaptan yetenekleri, koloni yönetiminde Subay istihdam et.
+- SÜRÜM 1.4 (21 Kasım): belge boşlukları. Telefonda denenmedi.
+  - dunya.js fenerBirak (yalnız Çöl Tilkisi'nde; d.fenerler en çok 8; yakindakiler'de tur 'isaret', etkileşime girmez;
+    yerlerListesi'nde). harita.js fauna noktaları suluk_1/2 (dogu), iplik_1/2 (kuleler), surungen_1 (tuneller); Yuzey
+    FAUNA sesleri (parazit 3,3 sn / 'kristal' / 'ayak'), fener sesleri bip 2,5 sn. yerlerListesi mini noktaları süzer.
+  - savas.js: üreteç yerine kayda girebilen tohum + sayaç (zar); stres (darbe +8, soğukkanlı hariç), verimlilik
+    (1 − stres/200, en az 0,5) nişancı etkisini çarpar; eve kenetlenince stres, seferSure, klostrofobi sıfırlanır.
 - Sıradaki: KAPSAM.md "Sıradaki adımlar".
 
 ## Sesler

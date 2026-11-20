@@ -25,10 +25,20 @@ export const DUSMANLAR = {
   yabanci_firkateyn: { ad: 'tanımsız yabancı firkateyn', govde: 110, kalkan: 0.6, silahlar: ['iyon', 'torpido', 'plazma'], frek: 90, ganimet: { kseno_alasim: 20, saf_kristal: 10 } },
 };
 
+// Kayıtlanabilir tohumlu zar
+function zar(s) {
+  s.sayac = (s.sayac || 0) + 1;
+  const x = Math.sin(s.tohum * 0.0001 + s.sayac * 12.9898) * 43758.5453;
+  return x - Math.floor(x);
+}
 const yet = (d, id) => !!(d.kaptan.yetenekler && d.kaptan.yetenekler[id]);
 const mod = (d, id) => !!(d.gemi && d.gemi.moduller[id]);
 
 // Bir görev yerine (Başçarkçı, Telsiz Subayı, Taktik Nişancı, Başhekim, İkmal Subayı) atanmış mürettebat
+// Stres verimliliği düşürür (koloniye inince dinlenir)
+export function verimlilik(u) {
+  return Math.max(0.5, 1 - (u.stres || 0) / 200);
+}
 export function gorevli(d, gorevYeri) {
   const g = d.gemi;
   if (!g) return null;
@@ -43,6 +53,7 @@ export function gorevli(d, gorevYeri) {
 export function savasBaslat(d, tur) {
   const t = DUSMANLAR[tur];
   const r = uretec((d.tohum || 1) * 31 + (d.savasNo = (d.savasNo || 0) + 1));
+  const tohum = Math.floor(r() * 1e9);
   d.savas = {
     tur,
     dusman: { ad: t.ad, govde: t.govde, max: t.govde, kalkan: t.kalkan, kalkanFrek: Math.round(30 + r() * 60), aci: (r() < 0.5 ? -1 : 1) * (0.6 + r() * 1.4), mesafe: 40 },
@@ -55,7 +66,8 @@ export function savasBaslat(d, tur) {
     sistem: { itici: 0, kalkan: 0, reaktor: 0 }, // 0: sağlam; >0: kaç tur daha arızalı
     isi: 0,
     raunt: 0,
-    rastgele: r,
+    tohum, // kayda girebilsin diye üreteç değil tohum ve sayaç saklanır
+    sayac: 0,
     kilitDendi: false,
   };
   return [{ soz: 'Savaş duruşu! ' + t.ad + ' saldırıyor. Motor sesini iki kulakta eşitle: sağa sola kaydır. Kilit tonunda dokun: ateş; yukarı kaydır: torpido; iki parmakla çevir: silah frekansını kalkanına eşle. Uyarı sesinde: iki parmakla dokun kalkan, ters yana kaydır kaçınma, torpidoya çift dokun karşı ateş. Basılı tut: durum ve düşman kalkanının tonu.', ses: 'alarm' }, { nota: { frek: tonFrek(d.savas.dusman.kalkanFrek), sure: 1.2 } }];
@@ -82,7 +94,8 @@ function dusmanaHasar(d, x, olaylar, tur) {
       olaylar.push({ soz: 'Kritik! Zayıf noktadan vurdun.' });
     }
   }
-  if (gorevli(d, 'Taktik Nişancı')) h *= 1.3;
+  const nis = gorevli(d, 'Taktik Nişancı');
+  if (nis) h *= 1 + 0.3 * verimlilik(nis);
   dm.govde = Math.max(0, dm.govde - Math.round(h));
   olaylar.push({ ses: 'patlama', hasar: true });
   // B-2 bastırma ateşi: uyarı sürerken isabet, saldırıyı keser
@@ -217,8 +230,8 @@ function sira(d) {
 function uyariBaslat(d) {
   const s = d.savas;
   const t = DUSMANLAR[s.tur];
-  const silah = t.silahlar[Math.floor(s.rastgele() * t.silahlar.length)];
-  const sure = SILAHLAR[silah].uyari * (s.rastgele() * 0.5 + 0.75) + (yet(d, 'A3') ? 1 : 0) + (mod(d, 'k2_soguk_nozul') ? 0.6 : 0);
+  const silah = t.silahlar[Math.floor(zar(s) * t.silahlar.length)];
+  const sure = SILAHLAR[silah].uyari * (zar(s) * 0.5 + 0.75) + (yet(d, 'A3') ? 1 : 0) + (mod(d, 'k2_soguk_nozul') ? 0.6 : 0);
   s.uyari = { silah, kalan: sure, yon: s.dusman.aci > 0 ? 'sol' : 'sag', savunma: null };
   s.evre = 'uyari';
   const o = [{ uyari: silah, yon: s.uyari.yon }];
@@ -237,7 +250,7 @@ function darbe(d) {
   s.evre = 'oyuncu';
   s.raunt += 1;
   if (s.torpidoBekle > 0) s.torpidoBekle -= 1;
-  s.sonraki = s.t + 3 + s.rastgele() * 2;
+  s.sonraki = s.t + 3 + zar(s) * 2;
   // Arızalar tur geçtikçe onarılır (başçarkçı hızlandırır; soğukkanlı panik yapmaz)
   const carkci = gorevli(d, 'Başçarkçı');
   for (const k of Object.keys(s.sistem)) if (s.sistem[k] > 0) s.sistem[k] = Math.max(0, s.sistem[k] - (carkci ? (carkci.nitelik === 'sogukkanli' ? 2 : 1.5) : 1));
@@ -262,11 +275,16 @@ function darbe(d) {
   const g = d.gemi;
   g.govde = Math.max(0, g.govde - Math.round(h));
   if (u.savunma !== 'kalkan') {
+    // Darbe mürettebatı strese sokar (soğukkanlı etkilenmez)
+    for (const id of Object.values(g.atamalar || {})) {
+      const m0 = d.murettebat.find((x) => x.id === id);
+      if (m0 && m0.nitelik !== 'sogukkanli') m0.stres = Math.min(100, (m0.stres || 0) + 8);
+    }
     o.push({ ses: 'patlama', hasar: true, soz: sil.ad + ' isabet etti! Gövde yüzde ' + Math.round((100 * g.govde) / g.maxGovde) + '.' });
     // Savunmasız darbe bir sistemi bozar
     const sistemler = ['itici', 'kalkan', 'reaktor'];
     const k = sistemler[s.raunt % 3];
-    if (s.rastgele() < 0.5) {
+    if (zar(s) < 0.5) {
       s.sistem[k] = 2;
       if (k === 'reaktor' && mod(d, 'k4_tahliye_valfi')) s.sistem[k] = 1;
       o.push({ soz: k === 'itici' ? 'Yön iticileri hasarlı!' : k === 'kalkan' ? 'Kalkan kondansatörü hasarlı!' : 'Reaktör basıncı kritik!' });

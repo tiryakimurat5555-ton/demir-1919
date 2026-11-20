@@ -88,6 +88,10 @@ export function yakindakiler(d) {
       if (u.mekan === d.mekan) sonuc.push({ tur: 'kapi', id, uc: i, ad: u.ad, x: u.x, y: u.y, yaricap: 1.8 });
     });
   }
+  // Çöl Tilkisi'nin bıraktığı sinyal fenerleri
+  (d.fenerler || []).forEach((f, i) => {
+    if (f.mekan === d.mekan) sonuc.push({ tur: 'isaret', id: 'isaret_' + i, ad: 'Sinyal feneri ' + (i + 1), x: f.x, y: f.y, yaricap: 1.5 });
+  });
   for (const id of Object.keys(KISILER)) {
     const k = kisiYeri(d, id);
     if (k.mekan === d.mekan) sonuc.push({ tur: 'kisi', id, ad: kisiTarifi(d, id), x: k.x, y: k.y, yaricap: 1.8, eylem: k.eylem });
@@ -178,7 +182,7 @@ export function durumKisa(d) {
 
 // Çift dokununca: menzildeki en yakın kapı, nokta ya da kişi
 export function etkiles(d) {
-  const liste = siraliYakin(d).filter((n) => n.m <= Math.max(ETKILESIM_MENZILI, n.yaricap + 1));
+  const liste = siraliYakin(d).filter((n) => n.tur !== 'isaret' && n.m <= Math.max(ETKILESIM_MENZILI, n.yaricap + 1));
   if (!liste.length) return { tur: 'yok', metin: 'Yanında kullanabileceğin bir şey yok. ' + cevreMetni(d) };
   const n = liste[0];
   if (n.tur === 'kapi') return { tur: 'kapi', ...gec(d, n.id, n.uc) };
@@ -531,6 +535,7 @@ export function yerlerListesi(d) {
   for (const id of Object.keys(NOKTALAR)) {
     const n = NOKTALAR[id];
     if (n.kaynak && (d.stok[id] || 0) <= 0) continue;
+    if (n.mini && !miniGorunur(d, id)) continue;
     const bilinen = d.kesif.includes(id) || n.mekan === 'kapsul' || id === 'kapsul_dis' || id === 'jenerator' || (id === 'tepe' && d.bayrak.jenerator) || (id === 'enkaz' && d.bayrak.kesiciAlindi) || (n.baca && d.bayrak.sondaAlindi) || ((n.ayak || id === 'dagitim_kutusu') && d.bayrak.zeminHazir) || (id === 'kizak' && d.bayrak.zemin) || (id === 'hangar' && d.koloni.binalar.includes('arac_hangari'));
     if (bilinen) ekle('nokta', id, n.ad, n.mekan, n.x, n.y);
   }
@@ -538,6 +543,7 @@ export function yerlerListesi(d) {
     const k = kisiYeri(d, id);
     ekle('kisi', id, kisiTarifi(d, id), k.mekan, k.x, k.y);
   }
+  (d.fenerler || []).forEach((f, i) => ekle('isaret', 'isaret_' + i, 'Sinyal feneri ' + (i + 1), f.mekan, f.x, f.y));
   // Bilinen geçitler (vadi tarafındaki uçları)
   if (d.bayrak.sondaAlindi || d.bayrak.maske) {
     const u = KAPILAR.guney_gecit.uclar[0];
@@ -681,4 +687,15 @@ function otoAdim(d, dt, olaylar) {
     }
   }
   return true;
+}
+
+// Çöl Tilkisi'nin otomatik sinyal feneri fırlatıcısı (araclar-ve-gemi-filosu.md Araç 1): bulunduğun yere fener bırakır
+export const FENER_EN_COK = 8;
+export function fenerBirak(d) {
+  if (d.arac !== 'col_tilkisi') return { metin: 'Sinyal feneri fırlatıcısı Çöl Tilkisi\'nde.', ses: 'red' };
+  if (MEKANLAR[d.mekan] && !MEKANLAR[d.mekan].dis && d.mekan !== 'vadi' && !MEKANLAR[d.mekan].alan) return { metin: 'Burada fener bırakılamaz.', ses: 'red' };
+  if (!d.fenerler) d.fenerler = [];
+  if (d.fenerler.length >= FENER_EN_COK) d.fenerler.shift();
+  d.fenerler.push({ mekan: d.mekan, x: Math.round(d.oyuncu.x * 10) / 10, y: Math.round(d.oyuncu.y * 10) / 10 });
+  return { metin: 'Sinyal feneri fırlatıldı; yere saplanıp bip bip ötüyor. Fener ' + d.fenerler.length + '. Yerler menüsünde.', ses: 'bip' };
 }
