@@ -72,10 +72,19 @@ function secilenSes() {
 
 // kes: önceki konuşmayı kesip hemen başla (false ise arkasına eklenir)
 // zorla: rehber kapalı olsa bile söyle (örneğin "rehber kapatıldı" bilgisi)
-export function soyle(metin, oncelik = 'istek', kes = true, zorla = false) {
-  if (!metin) return;
-  if (!ayar.rehberAcik && !zorla) return;
-  if ((GEREKEN_DUZEY[oncelik] ?? 1) > ayar.ayrinti) return;
+// bitince: konuşma bitince (ya da hiç başlamazsa) bir kez çağrılır
+export function soyle(metin, oncelik = 'istek', kes = true, zorla = false, bitince = null) {
+  let cagrildi = false;
+  const son = () => {
+    if (cagrildi || !bitince) return;
+    cagrildi = true;
+    try {
+      bitince();
+    } catch (e) {}
+  };
+  if (!metin) return son();
+  if (!ayar.rehberAcik && !zorla) return son();
+  if ((GEREKEN_DUZEY[oncelik] ?? 1) > ayar.ayrinti) return son();
   const kritik = oncelik === 'kritik';
   // Kritik bir uyarı okunurken sıradan bildirimler onu kesmez, arkasına eklenir
   let kesilsin = kes;
@@ -87,7 +96,7 @@ export function soyle(metin, oncelik = 'istek', kes = true, zorla = false) {
       kalan = mesgulSorgu();
     } catch (e) {}
     if (kalan > 0) {
-      setTimeout(() => soyle(metin, oncelik, kes, zorla), kalan * 1000 + 250);
+      setTimeout(() => soyle(metin, oncelik, kes, zorla, bitince), kalan * 1000 + 250);
       return;
     }
   }
@@ -106,6 +115,7 @@ export function soyle(metin, oncelik = 'istek', kes = true, zorla = false) {
   const bitti = () => {
     if (no === sira) suruyor = false;
     if (no === kritikNo) kritikNo = 0;
+    son();
   };
   try {
     Speech.speak(metin, {
@@ -129,4 +139,9 @@ export function sustur() {
   try {
     Speech.stop();
   } catch (e) {}
+}
+
+// Söyler ve konuşma bitince çözülen bir söz döndürür (seslendirilmiş sahnelerde anlatıcı için)
+export function soyleBekle(metin) {
+  return new Promise((coz) => soyle(metin, 'istek', true, false, coz));
 }

@@ -13,12 +13,13 @@ import { StyleSheet, Text, View } from 'react-native';
 import * as Haptics from 'expo-haptics';
 import { useJestler } from '../arayuz/jestler';
 import SesliListe from '../arayuz/SesliListe';
-import { soyle, sustur } from '../ses/rehber';
+import { soyle, soyleBekle, sustur } from '../ses/rehber';
 import { cal, ortamCal } from '../ses/efektler';
 import { RENK, UST_BOSLUK } from '../arayuz/tema';
 import KonumsalSes from '../ses/konumsal';
 import { MEKANLAR, SESLER } from '../oyun/karakoy/harita';
 import { karakoyYaz } from '../oyun/karakoy/kayit';
+import { SESLI_SAHNELER } from '../oyun/karakoy/seslendirme';
 import { SAHNELER, sahneParagraflari, sahneSec, sahneSecenekleri } from '../oyun/karakoy/sahneler';
 import { GIZLI_MEKANLAR, ZEMIN, bekle, cevreMetni, durumKisa, durumMetni, etkiles, eylemUygula, ilerle, sesliKisiler, otoBaslat, saatMetni, tramvayYeri, yeniDunya, yerlerListesi } from '../oyun/karakoy/dunya';
 import {
@@ -62,7 +63,23 @@ const DOSYALAR = {
   adim_ahsap_6: require('../../assets/ses/konumsal/adim_ahsap_6.wav'),
   adim_ahsap_7: require('../../assets/ses/konumsal/adim_ahsap_7.wav'),
   adim_ahsap_8: require('../../assets/ses/konumsal/adim_ahsap_8.wav'),
+  // Seslendirme denemesi (cagri ve cagri_kaptan sahneleri)
+  kosu_tas: require('../../assets/ses/konumsal/kosu_tas.wav'),
+  ali_seslenis1: require('../../assets/ses/konumsal/ali_seslenis1.wav'),
+  ali_seslenis2: require('../../assets/ses/konumsal/ali_seslenis2.wav'),
+  ali_cagri: require('../../assets/ses/konumsal/ali_cagri.wav'),
+  suleyman_cagri1: require('../../assets/ses/konumsal/suleyman_cagri1.wav'),
+  suleyman_cagri2: require('../../assets/ses/konumsal/suleyman_cagri2.wav'),
 };
+
+const bekleMs = (ms) => new Promise((coz) => setTimeout(coz, ms));
+// İki açı arasındaki en kısa fark (-π..π)
+function aciFarki(a, b) {
+  let f = (b - a) % (2 * Math.PI);
+  if (f > Math.PI) f -= 2 * Math.PI;
+  if (f < -Math.PI) f += 2 * Math.PI;
+  return f;
+}
 
 export const HAREKET_YARDIMI =
   'Menüdeki Yerler\'den bir yer seçersen Arif oraya kendisi yürür. Parmağını ekrana koyup yukarı kaydır ve tut: ileri yürürsün. Aşağı: geri. Sağa ya da sola: dönersin. Parmak ne kadar uzaksa o kadar hızlı; birinin yakınında yavaş yürü. Dokun: çevrende ne var. Çift dokun: kapıdan geç, eşyayı incele ya da yanındakiyle konuş. Uzun bas: saat ve yerin. İki parmakla dokun: sustur. İki parmakla çift dokun: menü; görev, soruşturma panosu, defter ve bekleme orada.';
@@ -91,6 +108,9 @@ export default function Karakoy({ onGeri, baslangic = null, onDurum }) {
   const dunya = useRef(baslangic || yeniDunya());
   const surukle = useRef({ aktif: false, dx: 0, dy: 0 });
   const yuklu = useRef({});
+  const sureler = useRef({}); // yüklenen seslerin süresi (sn)
+  const dinlenen = useRef({}); // bu oturumda seslendirmesi çalınmış sahneler
+  const oynatma = useRef(null); // süren seslendirme: { iptal, kisiler, sahne }
   const calanlar = useRef({});
   const hazir = useRef(false);
   const durakli = useRef(false);
@@ -252,6 +272,7 @@ export default function Karakoy({ onGeri, baslangic = null, onDurum }) {
     else if (baslangic) soyle('Kaldığın yerden. ' + durumKisa(dunya.current) + ' Menü için iki parmakla çift dokun.', 'istek', true);
     else soyle(ACILIS + HAREKET_YARDIMI, 'istek', true);
     return () => {
+      if (oynatma.current) oynatma.current.iptal = true;
       karakoyYaz(dunya.current);
       if (onDurum) onDurum(dunya.current);
       if (m()) m().durdur();
@@ -292,9 +313,16 @@ export default function Karakoy({ onGeri, baslangic = null, onDurum }) {
     d.sahne = id;
     if (sahne.ortam) ortamCal(sahne.ortam, sahne.ortamOran ?? 0.8);
     if (sahne.efekt) sahne.efekt.forEach((e, i) => setTimeout(() => cal(e, 1), i * 400));
+    // Seslendirilmiş sahne: sesleri yüklüyse önce dinlenir, anlatım ardından gelir
+    const sesli = SESLI_SAHNELER[id];
+    if (sesli && !dinlenen.current[id] && hazir.current && m() && sesli.sesler.every((a) => yuklu.current[a])) {
+      dinlenen.current[id] = true;
+      sesliOynat(id, sesli.plan, onEk);
+      return;
+    }
     katmanAc({
       baslik: sahne.baslik,
-      giris: [onEk, ...sahneParagraflari(d, id)].filter(Boolean).join(' '),
+      giris: [onEk, ...sahneParagraflari(d, id, !!dinlenen.current[id])].filter(Boolean).join(' '),
       onGeri: null,
       ogeler: sahneSecenekleri(d, id).map((x) => ({
         id: 's' + x.i,
@@ -308,6 +336,80 @@ export default function Karakoy({ onGeri, baslangic = null, onDurum }) {
         },
       })),
     });
+  };
+
+  // Seslendirilmiş sahneyi konumsal ses motorunda oynatır (seslendirme.js planı). Zaman durur;
+  // ekranda yalnız "Dinlemeyi geç" vardır ve açılışta okunmaz. Bitince ya da geçilince sahnenin anlatımı okunur.
+  const sesliBitir = (tok) => {
+    if (!tok || tok.bitti) return;
+    tok.bitti = true;
+    tok.iptal = true;
+    if (m()) for (const k of tok.kisiler) m().kisiSil(k);
+    if (oynatma.current === tok) oynatma.current = null;
+    sahneGoster(tok.sahne);
+  };
+  const sesliOynat = async (id, plan, onEk) => {
+    const s = m();
+    const tok = { iptal: false, bitti: false, kisiler: [], sahne: id };
+    oynatma.current = tok;
+    katmanAc({
+      baslik: SAHNELER[id].baslik,
+      giris: null,
+      onGeri: null,
+      sessizAc: true,
+      ogeler: [
+        {
+          id: 'gec',
+          etiket: 'Dinlemeyi geç',
+          sec: () => {
+            sustur();
+            sesliBitir(tok);
+            return 'sessiz';
+          },
+        },
+      ],
+    });
+    let dinleyici = { ...dunya.current.oyuncu };
+    const kulak = () => s.dinleyici(dinleyici);
+    if (onEk) await soyleBekle(onEk);
+    for (const a of plan) {
+      if (tok.iptal) return;
+      if (a.t === 'dinleyici') {
+        dinleyici = { x: a.x, y: a.y, yon: a.yon };
+        kulak();
+      } else if (a.t === 'boguk') s.boguk(a.acik);
+      else if (a.t === 'kisi') {
+        s.kisiKur(a.id, { x: a.x, y: a.y }, !!a.ic);
+        if (!tok.kisiler.includes(a.id)) tok.kisiler.push(a.id);
+      } else if (a.t === 'git') s.kisiGit(a.id, { x: a.x, y: a.y }, a.sure);
+      else if (a.t === 'cal') {
+        s.kisiCal(a.id, a.ses, a.duzey ?? 1, !!a.dongu, a.oran || 1);
+        if (a.bekle) await bekleMs((sureler.current[a.ses] || 3) * 1000 + 80);
+      } else if (a.t === 'oran') s.kisiOran(a.id, a.oran, a.sure);
+      else if (a.t === 'dur') s.kisiDur(a.id);
+      else if (a.t === 'don') {
+        const bas = dinleyici.yon;
+        const fark = aciFarki(bas, a.yon);
+        const adim = Math.max(1, Math.round((a.sure || 500) / 40));
+        for (let i = 1; i <= adim && !tok.iptal; i++) {
+          const o = i / adim;
+          dinleyici = { ...dinleyici, yon: bas + fark * (1 - (1 - o) * (1 - o)) };
+          kulak();
+          await bekleMs(40);
+        }
+      } else if (a.t === 'yuru') {
+        const bas = { ...dinleyici };
+        for (let i = 1; i <= a.adim && !tok.iptal; i++) {
+          s.adim(a.zemin || 'tas', 0.55);
+          const o = i / a.adim;
+          dinleyici = { ...dinleyici, x: bas.x + (a.x - bas.x) * o, y: bas.y + (a.y - bas.y) * o };
+          kulak();
+          await bekleMs(a.ms || 520);
+        }
+      } else if (a.t === 'anlat') await Promise.race([soyleBekle(a.metin), bekleMs(a.metin.length * 130 + 4000)]);
+      else if (a.t === 'bekle') await bekleMs(a.ms);
+    }
+    sesliBitir(tok);
   };
 
   const beklet = (dakika) => {
@@ -583,7 +685,10 @@ export default function Karakoy({ onGeri, baslangic = null, onDurum }) {
           ref={motor}
           onMesaj={(x) => {
             if (x.tur === 'yuklendi') sahneKur();
-            else if (x.tur === 'dosyaHazir') yuklu.current[x.ad] = true;
+            else if (x.tur === 'dosyaHazir') {
+              yuklu.current[x.ad] = true;
+              sureler.current[x.ad] = x.sure;
+            }
             else if (x.tur === 'hazir' && x.durum !== 'running') soyle('Ses motoru başlayamadı. Durum: ' + x.durum, 'istek', false);
             else if (x.tur === 'hata') soyle('Ses motorunda hata: ' + x.metin, 'istek', false);
           }}
@@ -593,7 +698,7 @@ export default function Karakoy({ onGeri, baslangic = null, onDurum }) {
       </View>
       {katman ? (
         <View style={StyleSheet.absoluteFill}>
-          <SesliListe key={'k' + katman.no} baslik={katman.baslik} giris={katman.giris} rehberAcik onGeri={katman.onGeri} ogeler={katman.ogeler} />
+          <SesliListe key={'k' + katman.no} baslik={katman.baslik} giris={katman.giris} rehberAcik onGeri={katman.onGeri} ogeler={katman.ogeler} sessizAc={!!katman.sessizAc} />
         </View>
       ) : null}
     </View>

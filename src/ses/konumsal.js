@@ -6,7 +6,7 @@
 //   baslat()                         ses bağlamını açar
 //   kaynak(id, tur, nokta)           ses kaynağı ekler ya da yerini değiştirir. tur: 'zil', 'deniz', 'cekic'
 //   dinleyici(d)                     { x, y, yon } dinleyicinin yeri ve yönü
-//   adim()                           ayak sesi (dinleyicinin kendi yerinde)
+//   adim()                           ayak sesi (dinleyicinin kendi yerinde; içeride boğulmaz)
 //   model(ad)                        'HRTF' ya da 'equalpower'
 //   yukle(ad, modul)                 bir ses dosyasını (require ile) motora yükler; tek kanala indirir
 //   dosyaKaynak(id, ad, nokta, aralik) yüklenmiş sesi bir noktadan, aralik ms'de bir çalar
@@ -14,6 +14,11 @@
 //   tek(ad, nokta, duzey)            yüklenmiş sesi bir noktadan bir kez çalar
 //   boguk(acik)                      içerideyken dışarıdaki sesleri boğar (duvar arkası)
 //   durdur()
+//   kisiKur(id, nokta, ic)           konuşan bir kişi kurar (ic: aynı odada; dışarıyı boğan süzgeçten geçmez)
+//   kisiGit(id, nokta, sure)         kişiyi sure ms'de oraya götürür (koşma, yürüme)
+//   kisiCal(id, ad, duzey, dongu, oran) kişinin ağzından/ayağından ses çalar; döngü değilse bitince 'kisiBitti'
+//   kisiOran(id, oran, sure), kisiDur(id), kisiSil(id)
+// Kişi sesleri uzaklıkla boğuklaşır (hava yutumu) ve mekânın yankısını alır ('dis' rıhtım, 'ic' ahşap oda).
 // kaynak türleri: 'zil', 'cekic', 'deniz', 'ayak' (yürüyen birinin ayak sesleri)
 // Motor hazır olunca ve hata olursa onMesaj({ tur, ... }) çağrılır.
 import React, { forwardRef, useImperativeHandle, useRef } from 'react';
@@ -26,7 +31,7 @@ import { sesKoordinati, sesYonu } from '../oyun/konum';
 // WebView içinde çalışan motor. Basit sesler (zil, çekiç, deniz, ayak) kodla üretilir; ötekiler yüklenen dosyalardan çalınır.
 const MOTOR_HTML = `<!DOCTYPE html><html><head><meta charset="utf-8"></head><body><script>
 (function(){
-  var ctx = null, model = 'HRTF', kaynaklar = {}, ana = null, suzgec = null;
+  var ctx = null, model = 'HRTF', kaynaklar = {}, ana = null, suzgec = null, yakin = null, yankilar = {}, kisiler = {}, dinN = { x: 0, y: 0, z: 0 };
   function bildir(o){ try { window.ReactNativeWebView.postMessage(JSON.stringify(o)); } catch(e){} }
   function baglam(){
     if (ctx) return ctx;
@@ -36,6 +41,8 @@ const MOTOR_HTML = `<!DOCTYPE html><html><head><meta charset="utf-8"></head><bod
     ana = ctx.createGain(); ana.gain.value = 0.9;
     suzgec = ctx.createBiquadFilter(); suzgec.type = 'lowpass'; suzgec.frequency.value = 20000;
     ana.connect(suzgec); suzgec.connect(ctx.destination);
+    // Aynı odadaki konuşan kişiler için ayrı yol: içerideyken dışarıyı boğan süzgeçten geçmez
+    yakin = ctx.createGain(); yakin.gain.value = 0.9; yakin.connect(ctx.destination);
     var l = ctx.listener;
     if (l.forwardX) { l.forwardX.value = 0; l.forwardY.value = 0; l.forwardZ.value = -1; l.upX.value = 0; l.upY.value = 1; l.upZ.value = 0; }
     return ctx;
@@ -92,7 +99,7 @@ const MOTOR_HTML = `<!DOCTYPE html><html><head><meta charset="utf-8"></head><bod
     var s = ctx.createBufferSource(), g = ctx.createGain();
     s.buffer = tamponlar[ad]; s.playbackRate.value = 0.93 + Math.random() * 0.14;
     g.gain.value = (duzey || 0.5) * (0.8 + Math.random() * 0.2);
-    s.connect(g); g.connect(hedef || ana); s.start();
+    s.connect(g); g.connect(hedef || yakin); s.start();
     return true;
   }
   function adimCal(hedef, duzey, zemin){
@@ -100,7 +107,7 @@ const MOTOR_HTML = `<!DOCTYPE html><html><head><meta charset="utf-8"></head><bod
     var t = ctx.currentTime, s = ctx.createBufferSource(), f = ctx.createBiquadFilter(), g = ctx.createGain();
     s.buffer = gurultu(0.09); f.type = 'lowpass'; f.frequency.value = 900;
     g.gain.setValueAtTime(duzey || 0.5, t); g.gain.exponentialRampToValueAtTime(0.0001, t + 0.08);
-    s.connect(f); f.connect(g); g.connect(hedef || ana); s.start(t);
+    s.connect(f); f.connect(g); g.connect(hedef || yakin); s.start(t);
   }
   function tekCal(ad, n, duzey){
     var t = tamponlar[ad]; if (!t) return;
@@ -172,17 +179,110 @@ const MOTOR_HTML = `<!DOCTYPE html><html><head><meta charset="utf-8"></head><bod
   function dinleyici(n, y){
     baglam();
     var l = ctx.listener;
+    dinN = n;
+    for (var kid in kisiler) kisiAyarla(kisiler[kid]);
     if (l.positionX) { l.positionX.value = n.x; l.positionY.value = n.y; l.positionZ.value = n.z; l.forwardX.value = y.x; l.forwardY.value = y.y; l.forwardZ.value = y.z; }
     else { l.setPosition(n.x, n.y, n.z); l.setOrientation(y.x, y.y, y.z, 0, 1, 0); }
   }
   function modelSec(m){
     model = m;
     for (var id in kaynaklar) kaynaklar[id].p.panningModel = m;
+    for (var kid in kisiler) kisiler[kid].p.panningModel = m;
   }
   function durdur(){
+    for (var kid in kisiler) kisiSil(kid);
     for (var id in kaynaklar){ var k = kaynaklar[id]; if (k.zaman) clearInterval(k.zaman); if (k.durdur) k.durdur(); try { k.p.disconnect(); } catch(e){} }
     kaynaklar = {};
     if (ctx) { try { ctx.close(); } catch(e){} ctx = null; }
+  }
+  // --- Yankı: mekânın duvarlarından dönen ses (yapay dürtü yanıtı) ---
+  // 'dis': rıhtım; binaların cephelerinden gecikmeli birkaç yansıma ve uzun, seyrek bir kuyruk.
+  // 'ic': ahşap kayıkhane; çok erken, sık yansımalar ve kısa kuyruk.
+  function yankiTamponu(sure, egri, erken){
+    var n = Math.floor(ctx.sampleRate * sure), b = ctx.createBuffer(2, n, ctx.sampleRate);
+    for (var c = 0; c < 2; c++){
+      var v = b.getChannelData(c);
+      for (var i = 0; i < n; i++) v[i] = (Math.random() * 2 - 1) * Math.pow(1 - i / n, egri) * 0.35;
+      for (var k = 0; k < erken.length; k++){
+        var j = Math.floor((erken[k][0] + (c ? 0.0023 * k : 0)) * ctx.sampleRate);
+        if (j < n) v[j] += erken[k][1] * (k % 2 ? -1 : 1);
+      }
+    }
+    return b;
+  }
+  function yanki(tur){
+    if (yankilar[tur]) return yankilar[tur];
+    var c = ctx.createConvolver(), f = ctx.createBiquadFilter(), g = ctx.createGain();
+    f.type = 'lowpass';
+    if (tur === 'ic'){ c.buffer = yankiTamponu(0.55, 3, [[0.006, 0.55], [0.011, 0.45], [0.017, 0.35], [0.024, 0.3], [0.031, 0.2]]); f.frequency.value = 4500; g.gain.value = 0.55; }
+    else { c.buffer = yankiTamponu(1.8, 4, [[0.038, 0.4], [0.071, 0.3], [0.118, 0.22], [0.19, 0.12]]); f.frequency.value = 3000; g.gain.value = 0.4; }
+    c.connect(f); f.connect(g); g.connect(tur === 'ic' ? yakin : ana);
+    yankilar[tur] = c;
+    return c;
+  }
+  // --- Konuşan kişiler: hareket eden, sesi uzaklıkla süzülen, yankısı olan kaynaklar ---
+  function uzaklik3(a, b){ var x = a.x - b.x, y = a.y - b.y, z = a.z - b.z; return Math.sqrt(x * x + y * y + z * z); }
+  function kisiAyarla(k){
+    var t = ctx.currentTime;
+    if (k.p.positionX){
+      k.p.positionX.setTargetAtTime(k.n.x, t, 0.02); k.p.positionY.setTargetAtTime(k.n.y, t, 0.02); k.p.positionZ.setTargetAtTime(k.n.z, t, 0.02);
+    } else k.p.setPosition(k.n.x, k.n.y, k.n.z);
+    var d = Math.max(0.5, uzaklik3(k.n, dinN));
+    // Hava yüksek sesleri yutar: uzaktaki ses daha boğuk gelir
+    k.hava.frequency.setTargetAtTime(Math.max(1800, Math.min(18000, 18000 * Math.pow(3 / d, 0.85))), t, 0.05);
+    // Yankı uzaklıkla doğrudan sesten yavaş azalır; uzaktaki ses daha "odalı" duyulur
+    k.gonder.gain.setTargetAtTime((k.ic ? 0.5 : 0.32) * Math.min(1.4, Math.pow(2 / d, 0.45)), t, 0.05);
+  }
+  function kisiSil(id){
+    var k = kisiler[id]; if (!k) return;
+    if (k.zaman) clearInterval(k.zaman);
+    try { if (k.dongu) k.dongu.stop(); } catch(e){}
+    try { k.g.disconnect(); k.p.disconnect(); } catch(e){}
+    delete kisiler[id];
+  }
+  function kisiKur(id, n, ic){
+    baglam(); kisiSil(id);
+    var g = ctx.createGain(), hava = ctx.createBiquadFilter(), p = ctx.createPanner(), gonder = ctx.createGain();
+    p.panningModel = model; p.distanceModel = 'inverse'; p.refDistance = 1.5; p.maxDistance = 100; p.rolloffFactor = 0.9;
+    hava.type = 'lowpass'; hava.frequency.value = 18000;
+    g.connect(hava); hava.connect(p); p.connect(ic ? yakin : ana);
+    g.connect(gonder); gonder.connect(yanki(ic ? 'ic' : 'dis'));
+    var k = { g: g, hava: hava, p: p, gonder: gonder, n: n, ic: !!ic };
+    kisiler[id] = k; kisiAyarla(k);
+  }
+  // n noktasına sure ms'de yürür/koşar (sona doğru yavaşlayarak)
+  function kisiGit(id, n, sure){
+    var k = kisiler[id]; if (!k) return;
+    if (k.zaman) clearInterval(k.zaman);
+    var bas = { x: k.n.x, y: k.n.y, z: k.n.z }, t0 = Date.now();
+    k.zaman = setInterval(function(){
+      var o = Math.min(1, (Date.now() - t0) / Math.max(1, sure));
+      var e = o < 0.85 ? o / 0.85 * 0.9 : 0.9 + (1 - Math.pow(1 - (o - 0.85) / 0.15, 2)) * 0.1;
+      k.n = { x: bas.x + (n.x - bas.x) * e, y: bas.y + (n.y - bas.y) * e, z: bas.z + (n.z - bas.z) * e };
+      kisiAyarla(k);
+      if (o >= 1){ clearInterval(k.zaman); k.zaman = null; }
+    }, 30);
+  }
+  function kisiCal(id, ad, duzey, dongu, oran){
+    var k = kisiler[id], t = tamponlar[ad]; if (!k || !t) return;
+    var s = ctx.createBufferSource(), g = ctx.createGain();
+    s.buffer = t; g.gain.value = duzey == null ? 1 : duzey;
+    if (oran) s.playbackRate.value = oran;
+    s.connect(g); g.connect(k.g);
+    if (dongu){ s.loop = true; try { if (k.dongu) k.dongu.stop(); } catch(e){} k.dongu = s; k.donguKazanc = g; }
+    else s.onended = function(){ bildir({ tur: 'kisiBitti', id: id, ad: ad }); };
+    s.start();
+  }
+  function kisiOran(id, oran, sure){
+    var k = kisiler[id]; if (!k || !k.dongu) return;
+    k.dongu.playbackRate.setTargetAtTime(oran, ctx.currentTime, (sure || 300) / 3000);
+  }
+  function kisiDur(id){
+    var k = kisiler[id]; if (!k || !k.dongu) return;
+    var s = k.dongu, t = ctx.currentTime;
+    k.donguKazanc.gain.setTargetAtTime(0.0001, t, 0.05);
+    try { s.stop(t + 0.3); } catch(e){}
+    k.dongu = null;
   }
   window.motor = {
     komut: function(c){
@@ -198,6 +298,12 @@ const MOTOR_HTML = `<!DOCTYPE html><html><head><meta charset="utf-8"></head><bod
         else if (c.ad === 'tek') { baglam(); tekCal(c.dosya, c.n, c.duzey); }
         else if (c.ad === 'boguk') boguk(c.acik);
         else if (c.ad === 'durdur') durdur();
+        else if (c.ad === 'kisiKur') kisiKur(c.id, c.n, c.ic);
+        else if (c.ad === 'kisiGit') kisiGit(c.id, c.n, c.sure);
+        else if (c.ad === 'kisiCal') { baglam(); kisiCal(c.id, c.dosya, c.duzey, c.dongu, c.oran); }
+        else if (c.ad === 'kisiOran') kisiOran(c.id, c.oran, c.sure);
+        else if (c.ad === 'kisiDur') kisiDur(c.id);
+        else if (c.ad === 'kisiSil') kisiSil(c.id);
       } catch(e){ bildir({ tur: 'hata', metin: String(e) }); }
     }
   };
@@ -237,6 +343,13 @@ function KonumsalSes({ onMesaj }, ref) {
         if (onMesaj) onMesaj({ tur: 'hata', metin: 'Dosya okunamadı: ' + ad + ' ' + String(e && e.message ? e.message : e) });
       }
     },
+    // Konuşan kişiler (seslendirilmiş sahneler)
+    kisiKur: (id, nokta, ic = false) => gonder({ ad: 'kisiKur', id, n: sesKoordinati(nokta), ic }),
+    kisiGit: (id, nokta, sure) => gonder({ ad: 'kisiGit', id, n: sesKoordinati(nokta), sure }),
+    kisiCal: (id, ad, duzey = 1, dongu = false, oran = 1) => gonder({ ad: 'kisiCal', id, dosya: ad, duzey, dongu, oran }),
+    kisiOran: (id, oran, sure) => gonder({ ad: 'kisiOran', id, oran, sure }),
+    kisiDur: (id) => gonder({ ad: 'kisiDur', id }),
+    kisiSil: (id) => gonder({ ad: 'kisiSil', id }),
     dosyaKaynak: (id, ad, nokta, aralik) => gonder({ ad: 'dosyaKaynak', id, dosya: ad, n: sesKoordinati(nokta), aralik }),
   }));
   return (

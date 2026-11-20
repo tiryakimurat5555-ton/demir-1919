@@ -66,16 +66,32 @@ export const SAHNELER = {
     ],
     secenekler: [{ etiket: 'Devam', sonra: 'cagri' }],
   },
+  // cagri ve cagri_kaptan seslendirilmiştir (seslendirme.js). Sesler yüklenemezse paragraflar okunur;
+  // seslendirme çalındıysa sesliParagraflar (konuşmalar çıkarılmış anlatım) okunur.
   cagri: {
+    ortam: 'ortam_rihtim',
+    ortamOran: 0.5,
+    baslik: 'Ali',
+    paragraflar: [
+      'Sisin içinden çıplak ayak sesleri. Süleyman Kaptan\'ın tayfa çocuğu Ali, soluk soluğa önünde duruyor. Arif abi, Kaptan seni çağırıyor. Kayıkhanede. Hemen gel dedi.',
+      'Süleyman Kaptan\'ı on yıldır tanırsın. Kırk yıl gemilerde dolaşmış, şimdi rıhtımın batı ucundaki eski kayıkhanede kahve pişirip denizcilere akıl veren, sesini hiç yükseltmeyen bir adam. Seni bu limana o soktu.',
+    ],
+    sesliParagraflar: [
+      'Süleyman Kaptan\'ın tayfa çocuğu Ali. Önünde iki büklüm duruyor, ellerini dizlerine dayamış; soluğu sisin içinde buhar buhar.',
+      'Süleyman Kaptan\'ı on yıldır tanırsın. Kırk yıl gemilerde dolaşmış, şimdi rıhtımın batı ucundaki eski kayıkhanede kahve pişirip denizcilere akıl veren, sesini hiç yükseltmeyen bir adam. Seni bu limana o soktu. Ali seni hiç böyle çağırmaya gelmemişti.',
+    ],
+    secenekler: [{ etiket: 'Kayıkhaneye git', sonra: 'cagri_kaptan' }],
+  },
+  cagri_kaptan: {
     ortam: 'ortam_kayikhane',
+    ortamOran: 0.55,
     baslik: 'Süleyman Kaptan',
     paragraflar: [
-      'Sisin içinden çıplak ayak sesleri. Süleyman Kaptan\'ın tayfa çocuğu Ali, soluk soluğa önünde duruyor. Arif Ağabey, Kaptan seni çağırıyor. Kayıkhanede. Hemen gel dedi.',
-      'Süleyman Kaptan\'ı on yıldır tanırsın. Kırk yıl gemilerde dolaşmış, şimdi rıhtımın batı ucundaki eski kayıkhanede kahve pişirip denizcilere akıl veren, sesini hiç yükseltmeyen bir adam. Seni bu limana o soktu.',
       'Kayıkhanenin kapısını açtığında mangalın ışığında yüzünü görüyorsun. Gözleri kızarmış.',
       'Sabri\'yi sudan çıkardılar, diyor. Leventis\'in yanından. Polis sarhoştu, düştü diyor. Sabri ağzına içki koymazdı Arif. On iki yaşından beri benim yanımda büyüdü, bilirim.',
       'Sen savaşta çok ölü gördün. Git bir bak ona. Araba gelip götürmeden. Bana doğruyu söyle.',
     ],
+    sesliParagraflar: ['Süleyman Kaptan susuyor. Mangalın közüne bakıyor; ellerini birbirine kenetlemiş.'],
     secenekler: [{ etiket: 'Rıhtıma git', sonra: 'baslangic_yardim' }],
   },
   baslangic_yardim: {
@@ -254,8 +270,10 @@ export const SAHNELER = {
   ...G6_SAHNELER,
 };
 
-export function sahneParagraflari(d, id) {
+// sesli: sahne seslendirildi; konuşmaları çıkarılmış anlatım okunur
+export function sahneParagraflari(d, id, sesli = false) {
   const s = SAHNELER[id];
+  if (sesli && s.sesliParagraflar) return s.sesliParagraflar;
   return typeof s.paragraflar === 'function' ? s.paragraflar(d) : s.paragraflar;
 }
 

@@ -389,6 +389,9 @@ describe('Açılış sahneleri', () => {
     sahneSec(d, d.sahne, 0);
     expect(d.sahne).toBe('cagri');
     sahneSec(d, 'cagri', 0);
+    expect(d.sahne).toBe('cagri_kaptan');
+    sahneSec(d, 'cagri_kaptan', 0);
+    expect(d.sahne).toBe('baslangic_yardim');
     sahneSec(d, d.sahne, 0);
     expect(d.sahne).toBeNull();
     const e = etkiles(d);

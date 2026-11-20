@@ -149,6 +149,18 @@
   Sürüm 1.03 (20 Kasım, Murat: "limandayken Sabri'nin odası gözüküyor yerler menüsünde"): yerlerListesi'nde ekle(..., yalnizBurada)
   (oda yalnız han/oda'dan; cihangir, kulup, servis, salon yalnız PERA bölgesinden); SOKAKLAR (dis, pera_cadde) aynı sokaktaki yerleri de listeler.
   Yeni iç içe yer eklerken yalnizBurada ver.
+  Sürüm 1.04 (20 Kasım, Murat: "diyalogların seslendirmesi için deneme; Ali koşarak gelsin, Süleyman Kaptan'ı seslendir, 3B olsun"):
+  src/oyun/karakoy/seslendirme.js (saf) SESLI_SAHNELER {sesler, plan}: adımlar dinleyici/boguk/kisi/git/cal/oran/dur/don/yuru/anlat/bekle.
+  Sahneler cagri (Ali, rıhtım; Arif (-6,3) denize bakar, Ali (-34,6.5)'ten koşar, iki seslenme, Arif başını çevirir) ve yeni
+  cagri_kaptan (Arif kapıdan girer, ahşapta yürür, Süleyman (-45,5.3) mangalda). Sahnede sesliParagraflar (konuşmalar çıkarılmış;
+  sahneParagraflari(d, id, sesli)). Karakoy.js sesliOynat: sesler yüklüyse bir kez çalar (dinlenen), katman "Dinlemeyi geç"
+  (SesliListe sessizAc: açılışta okumaz), bitince sahne anlatımı. konumsal.js kisiKur/kisiGit/kisiCal/kisiOran/kisiDur/kisiSil:
+  HRTF + uzaklığa göre alçak geçiren (hava yutumu) + yapay yankı (ConvolverNode; 'dis' rıhtım 1,8 sn, 'ic' ahşap oda 0,55 sn);
+  ic kişiler ve oyuncunun kendi adımları 'yakin' yolundan (boguk süzgecinden geçmez). rehber.soyle(..., bitince), soyleBekle.
+  Sesler ElevenLabs (flow H13uSGbaUNJZNoPkxW7V): eleven_v4 etiketli ([shouting] [breathless] [panting] [trembling voice]);
+  Ali = "Enes - Energetic and Lively" W3uaElFBxHYNIC54Z4ty (çocuk sesi tasarımı ElevenLabs güvenlik süzgecine takıldı; genç ses),
+  Süleyman = "Ergun Kalbak" 0DihkedLJYKoWg7H1u4d (60 yaşında, derin). kosu_tas sfx (6 sn döngü). Dönüştürme: sessizlik kırpma,
+  sabit kazanç (seslenişler -15, Ali -18, Süleyman -19 LUFS; koşu tepe -3 dB), 24 kHz tek kanal WAV. Testler seslendirme.test.js. Telefonda denenmedi.
   Sürüm 1.01 (19 Kasım, Murat: "kendi etrafında dönerken Vahşi Yaşam ve Kayıp Okyanus'taki gibi tık tık"): dunya.js donusTikirtisi
   (DILIM 30°, yarım dilim payı, d.sonDilim; oto yürüyüşte sıfırlanır) → olay 'tik' {guc 0,65 ana yönde / 0,3}; Karakoy.js cal('tik').
   assets/ses/tik.wav kayip-okyanus'tan kopyalandı; efektler.js KAYNAKLAR'da (SesliListe'nin menü tıkı da artık bu sesi çalar).

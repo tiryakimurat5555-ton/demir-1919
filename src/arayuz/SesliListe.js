@@ -25,7 +25,7 @@ function metinAl(deger) {
 
 // disaridanJest: true ise liste kendi dokunma katmanını kurmaz; dokunmaları dışarıdaki
 // bileşen ref üzerinden iletir (dalış ekranı gibi tek dokunma katmanı olan yerler için).
-function SesliListe({ baslik, giris, ogeler, onGeri, rehberAcik, ilkOdak = 0, gezinmeSesi = true, onOdak, disaridanJest = false, ust = null }, ref) {
+function SesliListe({ baslik, giris, ogeler, onGeri, rehberAcik, ilkOdak = 0, gezinmeSesi = true, onOdak, disaridanJest = false, ust = null, sessizAc = false }, ref) {
   const [odak, setOdak] = useState(Math.max(0, Math.min(ilkOdak, ogeler.length - 1)));
   const odakRef = useRef(odak);
   odakRef.current = Math.max(0, Math.min(odakRef.current, ogeler.length - 1));
@@ -73,6 +73,8 @@ function SesliListe({ baslik, giris, ogeler, onGeri, rehberAcik, ilkOdak = 0, ge
   useEffect(() => {
     // Başlık değişince (yeni ekran) baştan okunur. Ekran açılırken yapılan ses
     // değişiklikleri konuşmayı kesmesin diye okuma bir an sonra başlar.
+    // sessizAc: ekran açılırken hiçbir şey okunmaz (seslendirilmiş sahne çalarken)
+    if (sessizAc) return undefined;
     const z = setTimeout(() => oku(odakRef.current, [baslik, giris].filter(Boolean).join('. ')), 150);
     return () => clearTimeout(z);
     // eslint-disable-next-line react-hooks/exhaustive-deps
