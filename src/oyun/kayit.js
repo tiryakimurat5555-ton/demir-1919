@@ -4,7 +4,7 @@
 //  - Elle kayıt: 3 yuva; yalnızca kapsülün içinde (merkez üs), güvenli yerde.
 // Ayarlar ayrı tutulur. Aynı Expo projesindeki eski oyundan (Demir 1919) kalan konuşma hızı ayarı ilk açılışta taşınır.
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import { gecerliMi } from './durum';
+import { gecerliMi, kaydiTamamla } from './durum';
 
 const OTO = 'aethelis.oto';
 const OTO_YEDEK = 'aethelis.oto.yedek';
@@ -20,7 +20,7 @@ async function oku(anahtar) {
     const m = await AsyncStorage.getItem(anahtar);
     if (!m) return null;
     const d = JSON.parse(m);
-    return gecerliMi(d) ? d : null;
+    return gecerliMi(d) ? kaydiTamamla(d) : null;
   } catch (e) {
     return null;
   }
@@ -55,7 +55,7 @@ export async function yuvalariOku() {
     try {
       const m = await AsyncStorage.getItem(YUVA(n));
       const k = m ? JSON.parse(m) : null;
-      sonuc.push(k && gecerliMi(k.d) ? { no: n, tarih: k.tarih, d: k.d } : { no: n, d: null });
+      sonuc.push(k && gecerliMi(k.d) ? { no: n, tarih: k.tarih, d: kaydiTamamla(k.d) } : { no: n, d: null });
     } catch (e) {
       sonuc.push({ no: n, d: null });
     }

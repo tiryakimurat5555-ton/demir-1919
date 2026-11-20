@@ -6,7 +6,7 @@ tesis kurar, ileride gemini parça parça inşa edip uzaya açılırsın.
 
 Tasarım: Bahtiyar Cankurt (belgeler/). Yapım: Murat ve Bahtiyar. Expo Go ile iPhone ve Android'de çalışır.
 
-## Bu sürümde (0.3)
+## Bu sürümde (0.4)
 - Vadi-i Sukût'ta sesle serbest dolaşma; iniş kapsülünün içi ve dışı.
 - Radar: uzun basınca yankılar nesnelerin yönünden döner.
 - Birinci görev "Sinyal Arayışı": alet dolabı, kopan arka modül, yedek jeneratör, Gözcü Tepesi'nde anten
@@ -17,6 +17,9 @@ Tasarım: Bahtiyar Cankurt (belgeler/). Yapım: Murat ve Bahtiyar. Expo Go ile i
 - Üçüncü görev "Antik Kseno-Laboratuvar Kazısı": batı geçidinden Kadim Krater'e; beş notalı kadim çanlar,
   mühendisin yaptığı frekans rezonatörüyle kapıların nota dizisini çalma, salondaki görünmez yerçekimi
   alanları (alçak uğultudan duyulur), üç veri kristali, kadim yıldız haritası, Kodeks ve Biyo-Kubbe.
+- Dördüncü görev "Tersane Zemin Güçlendirmesi": Uğultulu Plato'da fırtına ve rüzgâr hamleleri (ıslığı duyunca
+  dur), kükürt çatlaklarından polimer, kızağın dört hidrolik ayağını polimerle sertleştirip kulakla dengeleme
+  (iki ton birleşince), dağıtım kutusuna enerji, Merkezi Montaj Tersanesi; koloni üçüncü kademeye çıkar.
 - Mürettebattan telsiz çağrıları (çift dokun dinle, iki parmakla aşağı kaydır ertele).
 - Otomatik kayıt (uygulamadan çıkınca ya da telefon kilitlenince) ve kapsüldeki terminalden üç yuvaya elle kayıt.
 
@@ -26,6 +29,7 @@ Tasarım: Bahtiyar Cankurt (belgeler/). Yapım: Murat ve Bahtiyar. Expo Go ile i
 - İki parmakla dokun: sustur. İki parmakla çift dokun: menü.
 - Frekans ayarında: yukarı-aşağı sürükle ya da iki parmakla çevir.
 - Rezonansta: yukarı-aşağı kaydır nota seç, çift dokun çal, dokun diziyi yeniden dinle.
+- Ayak dengelemede: yukarı-aşağı sürükle; iki ton birleşince dur.
 
 Oyun VoiceOver ve TalkBack kapalıyken, kendi Türkçe sesli rehberiyle oynanır. Kulaklıkla oynayın.
 

@@ -49,6 +49,17 @@ export const MEKANLAR = {
     dis: false,
     disariKonum: { x: 740, y: 35 },
   },
+  plato: {
+    ad: 'Uğultulu Plato',
+    tarif: 'Gökyüzüne açık, geniş bir bazalt düzlüğü. Fırtına hiç dinmiyor; kanyon boşluklarından geçen rüzgâr ıslık çalıyor. Tersanenin kurulacağı yer.',
+    alan: { bati: 1100, dogu: 1180, guney: 0, kuzey: 70 },
+    ortam: 'ortam_plato',
+    ortamOran: 0.85,
+    zemin: 'tas',
+    dis: true,
+    firtinali: true, // ara sıra rüzgâr hamlesi: yürürken yakalarsa savurur (dunya.js firtinaIlerle)
+    radarMenzili: 45, // fırtına radarı biraz kısaltır
+  },
   mabet: {
     ad: 'İç mabet',
     tarif: 'Küçük, yuvarlak bir oda. Ortada bir kaide; duvarlar parmaklarının altında hafifçe titriyor.',
@@ -79,6 +90,19 @@ export const KAPILAR = {
     kosul: (d) => !!d.bayrak.maske,
     kilitMetni: 'Kanyon ağzından kükürt kokusu yoğun geliyor; birkaç adımda gözlerin yanmaya başlıyor. Filtre maskesi olmadan geçemezsin. Hekime sor.',
     gecisMetni: ['Maskeyi takıyorsun. Kükürt kokusu filtreden süzülüp metalik bir tada dönüşüyor. Güneye, Manyetik Sırtlar\'a iniyorsun.', 'Kanyon ağzından vadiye dönüyorsun. Maskeyi çıkarıyorsun; hava temiz.'],
+  },
+  kuzey_gecit: {
+    ad: 'Plato yokuşu',
+    uclar: [
+      { mekan: 'vadi', x: 4, y: 58.5, yon: 0, ad: 'Plato yokuşu' },
+      { mekan: 'plato', x: 1140, y: 1.5, yon: 0, ad: 'Vadiye inen yokuş' },
+    ],
+    kosul: (d) => !!d.bayrak.biyo_kubbe,
+    kilitMetni: 'Tepeden yukarı, fırtınalı Uğultulu Plato\'ya çıkan dik bir yol. Yukarıdan uluyan rüzgâr seni geri itiyor. Şimdilik orada yapacak bir işin yok.',
+    gecisMetni: [
+      'Dik yokuşu tırmanıyorsun. Kanyonun kenarını aşınca rüzgâr bütün gücüyle yüzüne çarpıyor: Uğultulu Plato. Hamlelerin ıslığını dinle; geldiğini duyunca dur.',
+      'Yokuştan vadiye iniyorsun. Rüzgâr kanyon duvarlarının ardında kalıyor.',
+    ],
   },
   bati_gecit: {
     ad: 'Batı geçidi',
@@ -133,7 +157,6 @@ export const NOKTALAR = {
   titanyum_1: { mekan: 'vadi', x: -19, y: 24, ad: 'Titanyum hurdası', yaricap: 2.2, kaynak: 'titanyum', stok: 2 },
   titanyum_2: { mekan: 'vadi', x: -29, y: 15, ad: 'Titanyum hurdası', yaricap: 2.2, kaynak: 'titanyum', stok: 2 },
   // Vadiden çıkışlar (sonraki görevlerde açılacak)
-  kuzey_yol: { mekan: 'vadi', x: 4, y: 58, ad: 'Plato yokuşu', yaricap: 3, tarif: 'Tepeden yukarı, fırtınalı Uğultulu Plato\'ya çıkan dik yol.' },
   // --- Manyetik Sırtlar ---
   baca_1: { mekan: 'sirtlar', x: 522, y: -18, ad: 'Batı gaz bacası', yaricap: 2.8, engel: 1.1, baca: true, tarif: 'Kayadaki bir yarıktan kesik kesik süper ısınmış gaz fışkırıyor.' },
   baca_2: { mekan: 'sirtlar', x: 558, y: -28, ad: 'Doğu gaz bacası', yaricap: 2.8, engel: 1.1, baca: true, tarif: 'Geniş ağızlı, gürültülü bir baca; zemin ayağının altında titriyor.' },
@@ -141,6 +164,8 @@ export const NOKTALAR = {
   bazalt_4: { mekan: 'sirtlar', x: 548, y: -10, ad: 'Bazalt yığını', yaricap: 2.2, kaynak: 'bazalt', stok: 4 },
   bazalt_5: { mekan: 'sirtlar', x: 524, y: -38, ad: 'Bazalt yığını', yaricap: 2.2, kaynak: 'bazalt', stok: 4 },
   agir_1: { mekan: 'sirtlar', x: 566, y: -46, ad: 'Ağır metal damarı', yaricap: 2.2, kaynak: 'titanyum', stok: 3 },
+  catlak_1: { mekan: 'sirtlar', x: 572, y: -8, ad: 'Kükürt çatlağı', yaricap: 2.2, kaynak: 'polimer', stok: 4, tarif: 'Kayadaki bir çatlaktan sakız kıvamında, keskin kokulu bir reçine sızıyor.' },
+  catlak_2: { mekan: 'sirtlar', x: 508, y: -52, ad: 'Kükürt çatlağı', yaricap: 2.2, kaynak: 'polimer', stok: 4, tarif: 'Sıcak bir çatlak; kenarlarında katılaşmış reçine kabuğu.' },
   agir_2: { mekan: 'sirtlar', x: 510, y: -30, ad: 'Ağır metal damarı', yaricap: 2.2, kaynak: 'titanyum', stok: 3 },
   // --- Kadim Krater: beş rezonans çanı (pesten tize), kristaller ---
   can_1: { mekan: 'krater', x: 712, y: 20, ad: 'Birinci çan', yaricap: 2.4, engel: 0.9, can: 0, tarif: 'Topraktan yükselen, insan boyunda kararmış bir çan. En pes olanı.' },
@@ -152,6 +177,15 @@ export const NOKTALAR = {
   kristal_4: { mekan: 'krater', x: 775, y: 62, ad: 'Silikat kristal kümesi', yaricap: 2.2, kaynak: 'kristal', stok: 2, ses: 'kristal' },
   titanyum_3: { mekan: 'krater', x: 726, y: 8, ad: 'Kadim metal yığını', yaricap: 2.2, kaynak: 'titanyum', stok: 4, tarif: 'Çöküntünün kıyısında, işlenmiş metal parçalarından bir yığın.' },
   // --- Gömülü yapı: veri kristali kaideleri ve iç mabet ---
+  // Uğultulu Plato: tersane kızağının dört hidrolik ayağı, dağıtım kutusu, kaynaklar
+  ayak_1: { mekan: 'plato', x: 1125, y: 30, ad: 'Güneybatı ayağı', yaricap: 2.4, ayak: true, tarif: 'Kızağın güneybatı köşesindeki hidrolik ayak. Altındaki bazalt gevşek; topuk taşın içine gömülmüş.' },
+  ayak_2: { mekan: 'plato', x: 1155, y: 30, ad: 'Güneydoğu ayağı', yaricap: 2.4, ayak: true, tarif: 'Kızağın güneydoğu köşesindeki hidrolik ayak. Rüzgâr çelik gövdesinde uğulduyor.' },
+  ayak_3: { mekan: 'plato', x: 1125, y: 55, ad: 'Kuzeybatı ayağı', yaricap: 2.4, ayak: true, tarif: 'Kızağın kuzeybatı köşesindeki hidrolik ayak; pistonu yarıya kadar dışarıda.' },
+  ayak_4: { mekan: 'plato', x: 1155, y: 55, ad: 'Kuzeydoğu ayağı', yaricap: 2.4, ayak: true, tarif: 'Kızağın kuzeydoğu köşesindeki hidrolik ayak. Gövdesine dolu taneleri çarpıyor.' },
+  dagitim_kutusu: { mekan: 'plato', x: 1140, y: 42, ad: 'Dağıtım kutusu', yaricap: 2.2, engel: 0.8, tarif: 'Kızağın ortasında, rüzgâra karşı perçinlenmiş bir enerji dağıtım kutusu. Kapağı açık, yuvaları boş.' },
+  bazalt_6: { mekan: 'plato', x: 1110, y: 15, ad: 'Bazalt yığını', yaricap: 2.2, kaynak: 'bazalt', stok: 6 },
+  bazalt_7: { mekan: 'plato', x: 1170, y: 64, ad: 'Bazalt yığını', yaricap: 2.2, kaynak: 'bazalt', stok: 6 },
+  titanyum_4: { mekan: 'plato', x: 1172, y: 12, ad: 'Devrik anten direği', yaricap: 2.2, kaynak: 'titanyum', stok: 4, tarif: 'Eski bir keşif sondasının rüzgârla devrilmiş titanyum direği.' },
   kaide_1: { mekan: 'kseno_lab', x: 903, y: 10, ad: 'Batı kaidesi', yaricap: 1.8, kaide: true, tarif: 'Göğüs hizasında bir taş kaide; üstünde soluk ışıklı bir veri kristali.' },
   kaide_2: { mekan: 'kseno_lab', x: 921, y: 9, ad: 'Doğu kaidesi', yaricap: 1.8, kaide: true, tarif: 'Duvara yaslı bir kaide; kristali hafifçe vızıldıyor.' },
   kaide_3: { mekan: 'kseno_lab', x: 904, y: 20, ad: 'Kuzey kaidesi', yaricap: 1.8, kaide: true, tarif: 'Salonun dibinde, iç kapının yanında bir kaide.' },

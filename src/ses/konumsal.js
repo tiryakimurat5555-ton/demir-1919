@@ -438,6 +438,35 @@ const MOTOR_HTML = `<!DOCTYPE html><html><head><meta charset="utf-8"></head><bod
     basinc.g.gain.setTargetAtTime(0.06 + p * 0.6, t, 0.08);
     basinc.ag.gain.setTargetAtTime(alarm ? 0.09 : 0.0001, t, 0.02);
   }
+  // --- Hidrolik ayak dengeleme (kulakta): sabit referans tonu + ayağın tonu; ikisi yaklaştıkça vuru yavaşlar ---
+  var terazi = null;
+  function teraziSil(){
+    if (!terazi) return;
+    try { terazi.r.stop(); terazi.a.stop(); terazi.g.stop(); } catch(e){}
+    try { terazi.cikis.disconnect(); } catch(e){}
+    terazi = null;
+  }
+  function teraziKur(ref){
+    baglam(); teraziSil();
+    var cikis = ctx.createGain(); cikis.gain.value = 0.0001; cikis.connect(yakin);
+    var r = ctx.createOscillator(), rg = ctx.createGain(), a = ctx.createOscillator(), ag = ctx.createGain();
+    r.type = 'sine'; r.frequency.value = ref || 330; rg.gain.value = 0.16;
+    a.type = 'sine'; a.frequency.value = ref || 330; ag.gain.value = 0.16;
+    r.connect(rg); rg.connect(cikis); a.connect(ag); ag.connect(cikis);
+    // Hidroliğin alçak, boğuk uğultusu (pompalandıkça yükselir)
+    var g = ctx.createBufferSource(), gf = ctx.createBiquadFilter(), gg = ctx.createGain();
+    g.buffer = gurultu(2); g.loop = true; gf.type = 'lowpass'; gf.frequency.value = 160; gg.gain.value = 0.05;
+    g.connect(gf); gf.connect(gg); gg.connect(cikis);
+    r.start(); a.start(); g.start();
+    cikis.gain.setTargetAtTime(1, ctx.currentTime, 0.2);
+    terazi = { r: r, a: a, g: g, gg: gg, cikis: cikis, son: 0 };
+  }
+  function teraziAyar(frek, pompa){
+    if (!terazi) return;
+    var t = ctx.currentTime;
+    terazi.a.frequency.setTargetAtTime(frek, t, 0.05);
+    terazi.gg.gain.setTargetAtTime(pompa ? 0.22 : 0.05, t, 0.08);
+  }
   window.motor = {
     komut: function(c){
       try {
@@ -479,6 +508,9 @@ const MOTOR_HTML = `<!DOCTYPE html><html><head><meta charset="utf-8"></head><bod
         else if (c.ad === 'basincKur') basincKur();
         else if (c.ad === 'basincAyar') basincAyar(c.basinc, c.alarm);
         else if (c.ad === 'basincSil') basincSil();
+        else if (c.ad === 'teraziKur') teraziKur(c.ref);
+        else if (c.ad === 'teraziAyar') teraziAyar(c.frek, c.pompa);
+        else if (c.ad === 'teraziSil') teraziSil();
       } catch(e){ bildir({ tur: 'hata', metin: String(e) }); }
     }
   };
@@ -538,6 +570,9 @@ function KonumsalSes({ onMesaj }, ref) {
     basincKur: () => gonder({ ad: 'basincKur' }),
     basincAyar: (basinc, alarm) => gonder({ ad: 'basincAyar', basinc, alarm: !!alarm }),
     basincSil: () => gonder({ ad: 'basincSil' }),
+    teraziKur: (ref) => gonder({ ad: 'teraziKur', ref }),
+    teraziAyar: (frek, pompa) => gonder({ ad: 'teraziAyar', frek, pompa: !!pompa }),
+    teraziSil: () => gonder({ ad: 'teraziSil' }),
   }));
   return (
     <View style={stiller.gizli} pointerEvents="none" importantForAccessibility="no-hide-descendants" accessibilityElementsHidden>

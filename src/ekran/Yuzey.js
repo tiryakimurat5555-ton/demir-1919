@@ -1,7 +1,8 @@
 // Aethelis-IV yüzeyi: sesle serbest dolaşma, radar, kaynak toplama, kapsülün içi, kişilerle konuşma,
 // birinci görev "Sinyal Arayışı" (Gözcü Tepesi'nde frekans ayarı), ikinci görev "Jeotermal Sondaj"
 // (Manyetik Sırtlar, kükürt maruziyeti, gaz bacalarında valf dengeleme), üçüncü görev "Antik Kseno-Laboratuvar
-// Kazısı" (Kadim Krater'in çanları, rezonatörle kapı dizisi, görünmez yerçekimi alanları) ve telsiz bildirimleri.
+// Kazısı" (Kadim Krater'in çanları, rezonatörle kapı dizisi, görünmez yerçekimi alanları), dördüncü görev "Tersane
+// Zemin Güçlendirmesi" (Uğultulu Plato'da rüzgâr hamleleri, kulakla hidrolik ayak dengeleme) ve telsiz bildirimleri.
 //
 // Hareketler (yüzeyde):
 //   tek parmakla sürükleyip tut: yukarı ileri, aşağı geri; sağa-sola döner (parmak ne kadar uzaksa o kadar hızlı)
@@ -12,6 +13,8 @@
 // Valf dengelemede: alarm çalınca çift dokun; dokun basıncı söyler; iki parmakla çift dokun çekil.
 // Rezonansta: yukarı-aşağı kaydır nota seç (seçilen nota çalar); çift dokun notayı kapıya çal;
 //   dokun: kapının dizisini yeniden dinle; iki parmakla çift dokun: kapıdan çekil.
+// Ayak dengelemede: yukarı-aşağı sürükle pompala (yukarı ayağı kaldırır); dokun: durumu söyler;
+//   iki parmakla çift dokun: ayaktan çekil. Platoda rüzgâr ıslığı yükselince dur.
 // Frekans ayarında: yukarı-aşağı sürükle ya da iki parmakla çevir: kanal; sağa-sola hızlı kaydır: ince ayar;
 //   dokun: kanalı söyler; iki parmakla çift dokun: ayardan çık.
 // Menülerde (SesliListe): sağa-sola kaydır gez, çift dokun seç, iki parmakla çift dokun geri.
@@ -25,7 +28,7 @@ import { cal, ortamCal } from '../ses/efektler';
 import { RENK, UST_BOSLUK } from '../arayuz/tema';
 import KonumsalSes from '../ses/konumsal';
 import { ALANLAR, KAPILAR, MEKANLAR, NOKTALAR } from '../oyun/yuzey/harita';
-import { cevreMetni, durumMetni, esyaMetni, etkiles, ilerle, kisiAdi, otoBaslat, radar, yerlerListesi, zehirIlerle } from '../oyun/yuzey/dunya';
+import { cevreMetni, durumMetni, esyaMetni, etkiles, firtinaIlerle, ilerle, kisiAdi, otoBaslat, radar, yerlerListesi, zehirIlerle } from '../oyun/yuzey/dunya';
 import {
   ESYALAR,
   HAREKET_KISA,
@@ -55,6 +58,11 @@ import {
   rezonansBaslat,
   rezonansCal,
   rezonansSecimDegis,
+  ayakFrek,
+  teraziBaslat,
+  teraziIlerle,
+  teraziMetni,
+  teraziPompa,
 } from '../oyun/yuzey/gorevler';
 import { HAMMADDELER, HAMMADDE_SIRASI } from '../oyun/veri/tesisler';
 import { NITELIKLER } from '../oyun/veri/murettebat';
@@ -79,10 +87,11 @@ const DOSYALAR = {
   parazit: require('../../assets/ses/konumsal/parazit.wav'),
   sonar: require('../../assets/ses/konumsal/sonar.wav'),
   baca: require('../../assets/ses/konumsal/baca.wav'),
+  hamle: require('../../assets/ses/konumsal/hamle.wav'),
 };
 
 // Eylem sesleri: gorev1.js'teki ses adlarını çalınacak efekte çevirir
-const EYLEM_SESI = { bip: 'bip', red: 'red', tislama: 'tislama', jenerator: 'jenerator', kes: 'tislama', kur: 'kapi', topla: 'dugme', kristal: 'dugme', sonda: 'sonda' };
+const EYLEM_SESI = { bip: 'bip', red: 'red', tislama: 'tislama', jenerator: 'jenerator', kes: 'tislama', kur: 'kapi', topla: 'dugme', kristal: 'dugme', sonda: 'sonda', polimer: 'polimer', hidrolik: 'hidrolik' };
 const BACALAR = ['baca_1', 'baca_2', 'baca_3'];
 const CANLAR = ['can_1', 'can_2', 'can_3', 'can_4', 'can_5'];
 const KRISTALLER = ['kristal_1', 'kristal_2', 'kristal_3', 'kristal_4'];
@@ -115,6 +124,8 @@ export default function Yuzey({ onGeri, baslangic, yeniOyunUret }) {
   const [ayarAcik, setAyarAcik] = useState(false);
   const [valfAcik, setValfAcik] = useState(false);
   const [rezAcik, setRezAcik] = useState(false);
+  const [teraziAcik, setTeraziAcik] = useState(false);
+  const pompaZamani = useRef(0);
   const melodiNo = useRef(0);
   const [yazi, setYazi] = useState('Yükleniyor');
 
@@ -226,6 +237,15 @@ export default function Yuzey({ onGeri, baslangic, yeniOyunUret }) {
         cal('tislama', 0.8);
         sesleriEsitle(true);
         sozler.push(o.metin);
+      } else if (o.tur === 'hamleGeliyor') {
+        // Rüzgâr hamlesi: geldiği yönden, uzaktan yükselen ıslık
+        if (m() && yuklu.current.hamle) m().tek('hamle', o.kaynak, 0.55);
+        Haptics.notificationAsync(Haptics.NotificationFeedbackType.Warning).catch(() => {});
+        sozler.push(o.metin);
+      } else if (o.tur === 'hamle') {
+        if (m() && yuklu.current.hamle) m().tek('hamle', o.kaynak, 1);
+        Haptics.impactAsync(o.savruldu || o.sarsti ? Haptics.ImpactFeedbackStyle.Heavy : Haptics.ImpactFeedbackStyle.Light).catch(() => {});
+        sozler.push(o.metin);
       } else if (o.tur === 'otoTakildi') sozler.push('Yol kapandı; durdun.');
       else if (o.tur === 'otoIptal') sozler.push('Durdun.');
     }
@@ -248,6 +268,10 @@ export default function Yuzey({ onGeri, baslangic, yeniOyunUret }) {
         return;
       }
       if (d.rezonans) return;
+      if (d.terazi) {
+        teraziAdimi();
+        return;
+      }
       if (durakli.current) return;
       if (sayac % 10 === 0) bildirimKontrol();
       const s = surukle.current;
@@ -277,6 +301,7 @@ export default function Yuzey({ onGeri, baslangic, yeniOyunUret }) {
     if (d.ayar) d.ayar = null;
     if (d.valf) d.valf = null;
     if (d.rezonans) d.rezonans = null;
+    if (d.terazi) d.terazi = null;
     if (d.sahne) sahneGoster(d.sahne);
     else if (baslangic) soyle('Sistemler devrede. Kaldığın yerden: ' + durumMetni(d) + ' Menü için iki parmakla çift dokun.', 'istek', true);
     const abone = AppState.addEventListener('change', (durum) => {
@@ -366,6 +391,16 @@ export default function Yuzey({ onGeri, baslangic, yeniOyunUret }) {
             if (r.valf) {
               katmanKapatSessiz();
               valfAc(id);
+              return 'sessiz';
+            }
+            if (r.terazi) {
+              katmanKapatSessiz();
+              teraziAc(id);
+              return 'sessiz';
+            }
+            if (d.sahne) {
+              katmanKapatSessiz();
+              sahneGoster(d.sahne, r.metin || null);
               return 'sessiz';
             }
             if (r.insa) return insaGoster(), 'sessiz';
@@ -801,6 +836,82 @@ export default function Yuzey({ onGeri, baslangic, yeniOyunUret }) {
     { dokunmaBekle: true },
   );
 
+  // --- Hidrolik ayak dengeleme (kulakla) ---
+  const teraziAc = (id) => {
+    const d = dunya.current;
+    durakli.current = true;
+    teraziBaslat(d, id);
+    if (m()) {
+      m().teraziKur(330);
+      m().teraziAyar(ayakFrek(d.terazi.sapma), false);
+    }
+    ortamCal(MEKANLAR.plato.ortam, 0.35);
+    setTeraziAcik(true);
+    cal('hidrolik', 0.7);
+    soyle(
+      'Pompayı ayağa taktın. Kulaklığında iki ton: sabit olan referans, öteki ayağın tonu. Ayak yüksekse tonu ince; parmağını aşağı sürükle. Alçaksa kalın; yukarı sürükle. Tonlar birleşince aradaki titreşim yavaşlayıp durur; o an kıpırdama, iki saniyede kilitlenir. Dokun: durumu söylerim. İki parmakla çift dokun: ayaktan çekil.',
+      'istek',
+      true,
+    );
+  };
+  const teraziKapat = (soz) => {
+    if (m()) m().teraziSil();
+    dunya.current.terazi = null;
+    setTeraziAcik(false);
+    durakli.current = false;
+    sesleriEsitle(true);
+    if (soz) soyle(soz, 'istek', true);
+  };
+  const teraziAdimi = () => {
+    const d = dunya.current;
+    if (!d.terazi) return;
+    d.sure = (d.sure || 0) + ADIM_MS / 1000;
+    // Fırtına sürer: hamle gelirse ayak sarsılır
+    const f = [];
+    firtinaIlerle(d, ADIM_MS / 1000, false, f);
+    if (f.length) olaylariIsle(f);
+    const olaylar = teraziIlerle(d, ADIM_MS / 1000);
+    if (olaylar.includes('kilitlendi')) {
+      cal('kilit', 1);
+      cal('hidrolik', 0.8);
+      Haptics.notificationAsync(Haptics.NotificationFeedbackType.Success).catch(() => {});
+      if (m()) m().teraziSil();
+      setTeraziAcik(false);
+      durakli.current = false;
+      kaydet();
+      sesleriEsitle(true);
+      const hepsi = olaylar.includes('hepsi');
+      soyle('Ayak kilitlendi; topuk sertleşmiş zemine oturdu. ' + (hepsi ? 'Dört ayak da kilitli. Şimdi kızağın ortasındaki dağıtım kutusuna kabloyu bağla.' : 'Sıradaki ayağa geç.'), 'istek', true);
+      return;
+    }
+    if (!d.terazi) return;
+    if (m()) m().teraziAyar(ayakFrek(d.terazi.sapma), Date.now() - pompaZamani.current < 250);
+    if (olaylar.includes('dengede')) Haptics.selectionAsync().catch(() => {});
+    if (olaylar.includes('yakin')) soyle('Tonlar yaklaşıyor; titreşimi dinle.', 'istek', false);
+  };
+  const teraziJest = useJestler(
+    {
+      onSurukle: (mod, dx, dy) => {
+        if (mod !== 'tek') return;
+        const s = surukle.current;
+        teraziPompa(dunya.current, -(dy - s.sonDy) * 0.004);
+        s.sonDy = dy;
+        pompaZamani.current = Date.now();
+      },
+      onSurukleBitti: () => {
+        surukle.current = { aktif: false, dx: 0, dy: 0, sonDy: 0 };
+      },
+      onDokun: (parmak) => {
+        if (parmak >= 2) sustur();
+        else soyle(teraziMetni(dunya.current), 'istek', true);
+      },
+      onCiftDokun: (parmak) => {
+        if (parmak >= 2) teraziKapat('Ayaktan çekildin.');
+      },
+    },
+    { dokunmaBekle: true },
+  );
+
   // --- Frekans ayarı ---
   const frekansAc = () => {
     const d = dunya.current;
@@ -936,7 +1047,7 @@ export default function Yuzey({ onGeri, baslangic, yeniOyunUret }) {
 
   return (
     <View style={stiller.dis}>
-      <View style={stiller.kap} {...(katman || ayarAcik || valfAcik || rezAcik ? {} : jest)}>
+      <View style={stiller.kap} {...(katman || ayarAcik || valfAcik || rezAcik || teraziAcik ? {} : jest)}>
         <KonumsalSes
           ref={motor}
           onMesaj={(x) => {
@@ -967,6 +1078,12 @@ export default function Yuzey({ onGeri, baslangic, yeniOyunUret }) {
         <View style={[StyleSheet.absoluteFill, stiller.ayar]} {...rezJest}>
           <Text style={stiller.baslik}>Rezonans</Text>
           <Text style={stiller.yazi}>Yukarı-aşağı kaydır nota seç, çift dokun çal</Text>
+        </View>
+      ) : null}
+      {teraziAcik ? (
+        <View style={[StyleSheet.absoluteFill, stiller.ayar]} {...teraziJest}>
+          <Text style={stiller.baslik}>Ayak dengeleme</Text>
+          <Text style={stiller.yazi}>Yukarı-aşağı sürükle; iki ton birleşince dur</Text>
         </View>
       ) : null}
       {katman ? (

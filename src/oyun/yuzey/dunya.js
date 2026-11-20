@@ -189,6 +189,7 @@ const SINIR_METNI = {
   kseno_lab: 'Pürüzsüz taş duvar; parmaklarının altında hafif bir titreşim.',
   mabet: 'Odanın titreşen duvarı.',
   sirtlar: 'Sırtın yamacı burada çok dik; kayalar ayağının altından kayıyor.',
+  plato: 'Platonun kenarı. Aşağısı derin bir uçurum; rüzgâr seni kenardan geri itiyor.',
 };
 
 // Bir adım ilerletir. girdi: { ileri: -1..1, donus: -1..1 }. Olay listesi döndürür.
@@ -205,6 +206,7 @@ export function ilerle(d, girdi, dt) {
     const o = otoAdim(d, dt, olaylar);
     if (o) {
       if (d.oto) zehirIlerle(d, dt, 0, olaylar);
+      firtinaIlerle(d, dt, !!d.oto, olaylar);
       return olaylar;
     }
   } else if (d.oto && (ileri || donus)) {
@@ -225,7 +227,67 @@ export function ilerle(d, girdi, dt) {
   }
   yaklasmaHaberi(d, olaylar);
   zehirIlerle(d, dt, 0, olaylar);
+  firtinaIlerle(d, dt, !!ileri, olaylar);
   return olaylar;
+}
+
+// --- Fırtına hamleleri (Uğultulu Plato) ---
+// Ara sıra bir yönden rüzgâr hamlesi gelir: önce 2,5 sn yükselen bir ıslık (hamleGeliyor), sonra 1,5 sn hamle.
+// Hamle anında yürüyorsan rüzgâr seni 4 metre savurur; durursan çömelirsin, üstünden geçer. Hidrolik ayak
+// dengelenirken (d.terazi) hamle ayağı sarsar. Zamanlama ve yön oyunun tohumundan: şansa değil kulağa dayanır.
+export const HAMLE_UYARI = 2.5;
+export const HAMLE_SURE = 1.5;
+export const HAMLE_ITME = 4;
+function karisim(tohum, n) {
+  let x = (tohum ^ (n * 2654435761)) >>> 0;
+  x = Math.imul(x ^ (x >>> 15), 2246822507) >>> 0;
+  x = Math.imul(x ^ (x >>> 13), 3266489909) >>> 0;
+  return ((x ^ (x >>> 16)) >>> 0) / 4294967296;
+}
+export function firtinaIlerle(d, dt, hareketli, olaylar) {
+  const mk = MEKANLAR[d.mekan];
+  if (!mk.firtinali) {
+    d.firtina = null;
+    return;
+  }
+  if (!d.firtina) d.firtina = { sayac: 0, sonraki: (d.sure || 0) + 8, evre: null };
+  const f = d.firtina;
+  const t = d.sure || 0;
+  if (!f.evre && t >= f.sonraki) {
+    f.evre = 'uyari';
+    f.bitis = t + HAMLE_UYARI;
+    f.yon = karisim(d.tohum || 1, f.sayac + 1) * Math.PI * 2; // hamlenin geldiği mutlak yön
+    const kaynak = { x: d.oyuncu.x + Math.sin(f.yon) * 20, y: d.oyuncu.y + Math.cos(f.yon) * 20 };
+    olaylar.push({ tur: 'hamleGeliyor', kaynak, metin: 'Saat ' + saatYonu(goreliAci(d.oyuncu, kaynak)) + ' yönünden ıslık yükseliyor: hamle geliyor. Dur!' });
+  } else if (f.evre === 'uyari' && t >= f.bitis) {
+    f.evre = 'hamle';
+    f.bitis = t + HAMLE_SURE;
+    const kaynak = { x: d.oyuncu.x + Math.sin(f.yon) * 3, y: d.oyuncu.y + Math.cos(f.yon) * 3 };
+    if (d.terazi) {
+      // Hamle kızağı sarsar: ayak dengeden kayar (yön tohumdan)
+      d.terazi.sapma = Math.max(-1, Math.min(1, d.terazi.sapma + (karisim(d.tohum || 1, f.sayac + 50) < 0.5 ? -0.3 : 0.3)));
+      d.terazi.kilit = 0;
+      olaylar.push({ tur: 'hamle', kaynak, savruldu: false, sarsti: true, metin: 'Hamle kızağı sarstı; ayak dengeden kaydı.' });
+    } else if (hareketli) {
+      // Rüzgârın estiği yöne (geldiği yönün tersine) savrulur; engelde ya da sınırda durur
+      const a = f.yon + Math.PI;
+      let m = 0;
+      for (let i = 0; i < HAMLE_ITME * 4; i++) {
+        const nx = d.oyuncu.x + Math.sin(a) * 0.25;
+        const ny = d.oyuncu.y + Math.cos(a) * 0.25;
+        if (sinirDisi(d, nx, ny) || engelVar(d, nx, ny)) break;
+        d.oyuncu.x = nx;
+        d.oyuncu.y = ny;
+        m += 0.25;
+      }
+      d.haber = {};
+      olaylar.push({ tur: 'hamle', kaynak, savruldu: true, metin: 'Hamle seni yürürken yakaladı; ' + Math.round(m) + ' metre savruldun. Islığı duyunca dur.' });
+    } else olaylar.push({ tur: 'hamle', kaynak, savruldu: false, metin: 'Yere çömeldin; hamle üstünden geçti.' });
+  } else if (f.evre === 'hamle' && t >= f.bitis) {
+    f.evre = null;
+    f.sayac += 1;
+    f.sonraki = t + 13 + karisim(d.tohum || 1, f.sayac + 100) * 9;
+  }
 }
 
 // --- Kükürt maruziyeti (Manyetik Sırtlar) ---
@@ -304,7 +366,7 @@ export function yerlerListesi(d) {
   for (const id of Object.keys(NOKTALAR)) {
     const n = NOKTALAR[id];
     if (n.kaynak && (d.stok[id] || 0) <= 0) continue;
-    const bilinen = d.kesif.includes(id) || n.mekan === 'kapsul' || id === 'kapsul_dis' || id === 'jenerator' || (id === 'tepe' && d.bayrak.jenerator) || (id === 'enkaz' && d.bayrak.kesiciAlindi) || (n.baca && d.bayrak.sondaAlindi);
+    const bilinen = d.kesif.includes(id) || n.mekan === 'kapsul' || id === 'kapsul_dis' || id === 'jenerator' || (id === 'tepe' && d.bayrak.jenerator) || (id === 'enkaz' && d.bayrak.kesiciAlindi) || (n.baca && d.bayrak.sondaAlindi) || ((n.ayak || id === 'dagitim_kutusu') && d.bayrak.zeminHazir);
     if (bilinen) ekle('nokta', id, n.ad, n.mekan, n.x, n.y);
   }
   for (const id of Object.keys(KISILER)) {
@@ -327,6 +389,10 @@ export function yerlerListesi(d) {
   if (d.bayrak.kapi_dis) {
     const u = KAPILAR.ic_kapi.uclar[0];
     ekle('kapi', 'ic_kapi', u.ad, u.mekan, u.x, u.y);
+  }
+  if (d.bayrak.biyo_kubbe) {
+    const u = KAPILAR.kuzey_gecit.uclar[0];
+    ekle('kapi', 'kuzey_gecit', u.ad, u.mekan, u.x, u.y);
   }
   return liste.sort((a, b) => (a.mekan === d.mekan ? 0 : 1) - (b.mekan === d.mekan ? 0 : 1) || (a.uzaklik || 0) - (b.uzaklik || 0));
 }

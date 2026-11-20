@@ -91,8 +91,28 @@ Demir 1919 oyunu silindi; geçmişi git kaydında (son sürüm 1.06, commit 556f
     çınlama) ve 'yercekimi' (45/90 Hz nabız). Headless Chrome'da hatasız.
   - Yuzey.js: rezonans katmanı (rezJest), çan/alan kaynakları, dinleyici yalnız kapsülde dışarıda (salon ve mabette
     oyuncunun kendisi; boğukluk yalnız kapsülde), menüde Kodeks, uzay haritasında Moloz Kuşağı.
-- Sıradaki (yol haritası): Faz 2'nin kalanı nüfus ve iş gücü; Faz 3 tersane (zemin güçlendirme) ve Kıvılcım;
-  Faz 4 uzay haritası ve görevler; Faz 5 savaş.
+- SÜRÜM 0.4 (20 Kasım, Murat: "Devam"): dördüncü görev "Tersane Zemin Güçlendirmesi". Telefonda denenmedi.
+  - gorev4.js saf: mühendis "Platoya hazırlan" → pompa + kablo (zeminHazir); ayak_1..4'te "Zemine polimer dök"
+    (1 polimer → sertlesti_<ayak>; sertleşmeden dengeleme reddedilir) ve "Ayağı dengele" → terazi: sapma tohumdan
+    ±0,45-0,85, yavaş kayma 0,03/sn, teraziPompa (ekranda 0,004/px, yukarı kaldırır), |sapma| < 0,05'te 2 sn →
+    kilitli_<ayak>. Ses: kulakta 330 Hz referans + ayak tonu 330 × 2^(sapma/4) (vuru yavaşlar) + hidrolik uğultusu.
+    Dört ayak → dagitim_kutusu "Kabloyu bağla" → zemin, gorev tersane, sahne zemin_tamam → tersane (12 bazalt,
+    6 titanyum, 2 polimer; kosul zemin) → tersaneKuruldu: seviye 3, nufus.tersane 2, bitenGorevler zemin, gorev
+    kivilcim (Faz 3 gemi montajı; bu sürümde yok). Bildirimler plato_ilk, ilk_ayak.
+  - harita.js: MEKANLAR.plato (x 1100-1180, y 0-70, firtinali, radarMenzili 45, ortam_plato); KAPILAR.kuzey_gecit
+    (vadi (4,58.5) ↔ plato (1140,1.5), kosul biyo_kubbe; eski kuzey_yol noktası kalktı); NOKTALAR ayak_1..4,
+    dagitim_kutusu, bazalt_6/7 (stok 6), titanyum_4 (stok 4), sırtlarda catlak_1/2 (polimer, stok 4).
+  - dunya.js firtinaIlerle(d, dt, hareketli, olaylar): platoda 8 sn sonra, sonra 13-22 sn arayla (tohumdan) hamle:
+    hamleGeliyor (2,5 sn, yönü tohumdan, 20 m öteden ıslık) → hamle (1,5 sn): yürüyorsa 4 m savrulur, duruyorsa
+    çömelir; terazi açıksa sapma ±0,3. ilerle hem elle hem kendiliğinden yürümede çağırır.
+  - durum.js kaydiTamamla: eski kayıtlara sonradan eklenen yatakların stokunu ekler (kayit.js okurken; 0.3'teki
+    titanyum_3 eksikliği de böylece düzeldi).
+  - Yuzey.js: terazi katmanı (teraziJest), hamle sesleri (konumsal 'hamle'), nokta eylemi sahne açarsa hemen gösterir.
+  - Sesler: ortam_plato ← "Wind Int Howl Güçlü Ton Vokal Rüzgarı.wav", konumsal/hamle ← "Hızlı Geçiş Rüzgarı 049.wav",
+    hidrolik ← "Whoosh Hidrolik Bomba.wav", kilit ← "Çelik Kilit Kolu Kapanma Bırakma Gıcırtı Çınlama.wav",
+    polimer ← "Bilim Kurgu Metal Kaynayan Metal Sızıntısı.wav" (ilk 4 sn). Hepsi Bahtiyar'ın Drive'ı, Efektler.
+- Sıradaki (yol haritası): Faz 3 Kıvılcım'ın parça parça montajı (tersane, 2 bölme) ve kalkış; Faz 2'nin kalanı
+  nüfus ve iş gücü; Faz 4 uzay haritası ve görevler; Faz 5 savaş.
 
 ## Sesler
 - Drive'daki Efektler/Ambians dosyaları 14 MB; Drive bağlayıcısı 10 MB'tan büyük dosyayı indiremiyor. Bu yüzden

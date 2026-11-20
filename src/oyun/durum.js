@@ -49,6 +49,16 @@ export function yeniOyun(tohum = Date.now() % 2147483647) {
   };
 }
 
+// Eski sürümlerin kayıtlarını tamamlar: sonradan eklenen kaynak yataklarının stoku (ör. 0.3 titanyum_3,
+// 0.4 plato ve kükürt çatlakları). Kayıt okunurken çağrılır; aynı nesneyi döndürür.
+export function kaydiTamamla(d) {
+  if (!d) return d;
+  if (!d.stok) d.stok = {};
+  for (const id of Object.keys(NOKTALAR)) if (NOKTALAR[id].kaynak && d.stok[id] == null) d.stok[id] = NOKTALAR[id].stok;
+  for (const k of HAMMADDE_SIRASI) if (d.koloni && d.koloni.kaynaklar[k] == null) d.koloni.kaynaklar[k] = 0;
+  return d;
+}
+
 export function gecerliMi(d) {
   return !!(d && d.surum === KAYIT_SURUMU && d.oyuncu && d.koloni && d.gorev && d.bayrak && Array.isArray(d.envanter));
 }

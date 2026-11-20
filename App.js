@@ -22,13 +22,13 @@ import { ayarlarOku, ayarlarYaz, otoOku, otoSil, tarihMetni, VARSAYILAN_AYARLAR,
 import { yeniOyun } from './src/oyun/durum';
 import { durumKisa } from './src/oyun/yuzey/dunya';
 
-const SURUM = '0.3';
+const SURUM = '0.4';
 const OYUN_ADI = 'Aethelis';
 
 const HAKKINDA_METNI = [
   OYUN_ADI + '. İnsanlığın derin uzaydaki sığınağı Aethelis-IV\'te bir koloni kurup gemi inşa ettiğin, sesle oynanan bir uzay keşif oyunu.',
   'Tasarım: Bahtiyar Cankurt. Yapım: Murat ve Bahtiyar.',
-  'Sürüm ' + SURUM + '. Görevler: Sinyal Arayışı, Jeotermal Sondaj ve Antik Kseno-Laboratuvar Kazısı. Vadi-i Sukût, iniş kapsülü, Gözcü Tepesi, Manyetik Sırtlar ve Kadim Krater.',
+  'Sürüm ' + SURUM + '. Görevler: Sinyal Arayışı, Jeotermal Sondaj, Antik Kseno-Laboratuvar Kazısı ve Tersane Zemin Güçlendirmesi. Vadi-i Sukût, iniş kapsülü, Gözcü Tepesi, Manyetik Sırtlar, Kadim Krater ve Uğultulu Plato.',
   'Ortam sesleri ve efektler Bahtiyar\'ın ses arşivinden.',
 ];
 
@@ -41,6 +41,8 @@ const HAREKETLER = [
   'İki parmakla çift dokun: oyun menüsü. Görev, Yerler, koloni, mürettebat, uzay haritası ve ana menü orada. Yerler\'den bir yer seçersen oraya kendin yürürsün; yolda ekrana dokunursan durursun.',
   'Telsiz çağrısı gelince üç tonlu bir zil çalar: çift dokun, dinle. İki parmakla aşağı kaydırırsan ertelenir; menüdeki telsiz kayıtlarından sonra dinlersin.',
   'Valf dengelemede: basınç yükseldikçe gazın tıslaması tizleşir. Kesik alarm başlayınca çift dokun. Dokun: basıncı söyler. İki parmakla çift dokun: valften çekil.',
+  'Ayak dengelemede: kulaklıkta iki ton. Ayak yüksekse tonu ince: aşağı sürükle; alçaksa yukarı. Tonlar birleşip titreşim durunca kıpırdama. Dokun: durumu söyler. İki parmakla çift dokun: çekil.',
+  'Uğultulu Plato\'da rüzgâr ıslığı yükselince dur: yürürken hamle yakalarsa savrulursun.',
   'Rezonansta (kilitli kadim kapılarda): kapı nota dizisini çalar. Yukarı ya da aşağı kaydır: nota seçilir ve çalar; yukarı inceltir. Çift dokun: notayı kapıya çal. Dokun: diziyi yeniden dinle. İki parmakla çift dokun: kapıdan çekil.',
   'Frekans ayarında: yukarı ya da aşağı sürükle, ya da iki parmakla çevir; kanal değişir. Sağa ya da sola hızlı kaydır: ince ayar. Dokun: kanalı söyler. İki parmakla çift dokun: ayardan çık.',
   'Menülerde: sağa ya da sola kaydır, sonraki ya da önceki öğe. Çift dokun, seç. Uzun bas, açıklama. İki parmakla çift dokun, geri.',

@@ -70,7 +70,7 @@ export const SAHNELER = {
       ilkAd(d, 0) + ': "Kristaller, izotop, harita... Kaptan, artık eksik olan tek şey bir gemi. Platoyu tersane için hazırlamamız gerek."',
     ],
     secenekler: () => [{ etiket: 'Devam', sonra: null }],
-    bitisSozu: 'Sıradaki görev Tersane Zemin Güçlendirmesi; Gözcü Tepesi\'nin ardındaki Uğultulu Plato. Bu sürümde henüz yok.',
+    bitisSozu: 'Yeni görev: Tersane Zemin Güçlendirmesi. Gözcü Tepesi\'nin ardındaki plato yokuşu açıldı; önce jeneratörün başındaki mühendisle konuş.',
   },
 };
 
@@ -105,7 +105,6 @@ export function gorevIpucu(d) {
       '. Kraterde silikat kristali var.'
     );
   }
-  if (d.gorev.id === 'zemin') return 'Üç görev tamamlandı. Sıradaki görev, Tersane Zemin Güçlendirmesi, bu sürümde henüz yok. Kaynak toplayabilir, bölgeleri dolaşabilirsin.';
   return '';
 }
 
@@ -222,7 +221,7 @@ export function rezonansCal(d) {
 // --- Konuşmalar ---
 export function konusma(d, kisiId) {
   const g = b(d);
-  if (d.gorev.id !== 'kazi' && d.gorev.id !== 'biyo' && d.gorev.id !== 'zemin') return null;
+  if (d.gorev.id !== 'kazi' && d.gorev.id !== 'biyo') return null;
   if (kisiId === 'muhendis') {
     const secenekler = [];
     let metin;

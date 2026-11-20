@@ -61,8 +61,8 @@ export const TESISLER = {
     islev: 'Üretilen modülleri, motorları ve zırhı birleştiren açık hava kızağı.',
     katki: 'Geminin parça parça birleştirildiği ve fırlatıldığı tesis.',
     acar: 'Gemiyi tamamlamak, sefere çıkmak ve dönüşte onarım.',
-    maliyet: { bazalt: 20, titanyum: 12, polimer: 4 },
-    kosul: () => false,
+    maliyet: { bazalt: 12, titanyum: 6, polimer: 2 },
+    kosul: (d) => !!d.bayrak.zemin,
     kosulMetni: 'Uğultulu Plato\'nun zemini güçlendirilince kurulacak.',
   },
 };

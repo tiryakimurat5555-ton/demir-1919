@@ -1,9 +1,9 @@
 // Birinci görev baştan sona: kapsülden çık, kesiciyi al, anteni ve hücreyi bul, jeneratörü çalıştır,
 // anteni kur, frekansı ayarla, kaynak topla, Sinyal Kulesi'ni kur.
 import { describe, expect, test } from 'bun:test';
-import { yeniOyun, gecerliMi } from '../src/oyun/durum';
+import { yeniOyun, gecerliMi, kaydiTamamla } from '../src/oyun/durum';
 import { NOKTALAR } from '../src/oyun/yuzey/harita';
-import { cevreMetni, durumMetni, etkiles, gec, ilerle, otoBaslat, radar, yerlerListesi } from '../src/oyun/yuzey/dunya';
+import { cevreMetni, durumMetni, etkiles, firtinaIlerle, gec, ilerle, otoBaslat, radar, yerlerListesi } from '../src/oyun/yuzey/dunya';
 import { KAPILAR } from '../src/oyun/yuzey/harita';
 import {
   SAHNELER,
@@ -27,6 +27,11 @@ import {
   rezonansBaslat,
   rezonansCal,
   rezonansSecimDegis,
+  teraziBaslat,
+  teraziIlerle,
+  teraziMetni,
+  teraziPompa,
+  AYAKLAR,
 } from '../src/oyun/yuzey/gorevler';
 import { TESISLER } from '../src/oyun/veri/tesisler';
 
@@ -384,7 +389,101 @@ function ucuncuGorev(d) {
   expect(d.harita.poiler).toContain('moloz_kusagi');
   expect(gorevIpucu(d).length).toBeGreaterThan(10);
   expect(gecerliMi(JSON.parse(JSON.stringify(d)))).toBe(true);
+  dorduncuGorev(d);
 }
+
+// Tersane Zemin Güçlendirmesi: pompa ve kablo, polimer, plato, rüzgâr hamleleri, dört ayak, dağıtım kutusu, tersane
+function dorduncuGorev(d) {
+  expect(gorevIpucu(d)).toContain('mühendis');
+  yuru(d, 'muhendis');
+  expect(konus(d, 'muhendis', 'Platoya hazırlan')).toContain('pompa');
+  expect(d.envanter).toContain('pompa');
+  expect(d.envanter).toContain('kablo');
+  // Polimer: sırtlardaki kükürt çatlakları
+  topla(d, { polimer: 4 });
+  // Plato yokuşu
+  yuru(d, 'kuzey_gecit');
+  expect(etkiles(d).gecti).toBe(true);
+  expect(d.mekan).toBe('plato');
+  expect(bildirimIlerle(d).some((x) => x.id === 'plato_ilk')).toBe(true);
+  // Dururken hamle üstünden geçer
+  const o = [];
+  for (let i = 0; i < 300; i++) o.push(...ilerle(d, {}, 0.1));
+  expect(o.some((x) => x.tur === 'hamleGeliyor')).toBe(true);
+  const h = o.find((x) => x.tur === 'hamle');
+  expect(h.savruldu).toBe(false);
+  // Yürürken yakalarsa savurur
+  d.oyuncu = { x: 1140, y: 20, yon: 0 };
+  d.firtina = { sayac: 5, sonraki: 0, evre: 'uyari', bitis: d.sure + 0.05, yon: Math.PI / 2 };
+  const o2 = [];
+  for (let i = 0; i < 3; i++) o2.push(...ilerle(d, { ileri: 1 }, 0.1));
+  const h2 = o2.find((x) => x.tur === 'hamle');
+  expect(h2.savruldu).toBe(true);
+  expect(d.oyuncu.x).toBeLessThan(1138); // doğudan gelen hamle batıya savurur
+  // Dört ayak
+  for (const id of AYAKLAR) {
+    yuru(d, id);
+    expect(d.mekan).toBe('plato');
+    expect(Math.hypot(d.oyuncu.x - NOKTALAR[id].x, d.oyuncu.y - NOKTALAR[id].y)).toBeLessThan(3);
+    // Sertleşmemiş zeminde dengelenemez
+    expect(eylemUygula(d, id, 'dengele').terazi).toBeUndefined();
+    expect(eylemUygula(d, id, 'polimer').ses).toBe('polimer');
+    expect(eylemUygula(d, id, 'dengele').terazi).toBe(true);
+    teraziBaslat(d, id);
+    expect(Math.abs(d.terazi.sapma)).toBeGreaterThan(0.4);
+    expect(teraziMetni(d).length).toBeGreaterThan(5);
+    // Oyuncu gibi: sapmaya karşı pompalar; ekran gibi fırtına da sürer
+    let kilit = false;
+    for (let i = 0; i < 900 && !kilit; i++) {
+      d.sure += 0.1;
+      const f = [];
+      firtinaIlerle(d, 0.1, false, f);
+      if (d.terazi) teraziPompa(d, -Math.sign(d.terazi.sapma) * Math.min(Math.abs(d.terazi.sapma), 0.03));
+      kilit = teraziIlerle(d, 0.1).includes('kilitlendi');
+    }
+    expect(kilit).toBe(true);
+    expect(d.terazi).toBe(null);
+  }
+  expect(d.bayrak.zemin).toBeUndefined();
+  yuru(d, 'dagitim_kutusu');
+  eylemUygula(d, 'dagitim_kutusu', 'bagla');
+  expect(d.bayrak.zemin).toBe(true);
+  expect(d.sahne).toBe('zemin_tamam');
+  expect(d.envanter).not.toContain('kablo');
+  sahneleriGec(d);
+  expect(d.gorev.id).toBe('tersane');
+  // Tersane
+  topla(d, TESISLER.tersane.maliyet);
+  yuru(d, 'terminal');
+  expect(d.mekan).toBe('kapsul');
+  insaEt(d, 'tersane');
+  expect(d.koloni.binalar).toContain('tersane');
+  expect(d.sahne).toBe('tersane');
+  sahneleriGec(d);
+  expect(d.koloni.seviye).toBe(3);
+  expect(d.bitenGorevler).toEqual(['sinyal', 'jeotermal', 'kazi', 'zemin']);
+  expect(d.gorev.id).toBe('kivilcim');
+  expect(gorevIpucu(d)).toContain('Kıvılcım');
+  expect(gecerliMi(JSON.parse(JSON.stringify(d)))).toBe(true);
+}
+
+describe('kayıt', () => {
+  test('eski kayda sonradan eklenen yatakların stoku eklenir', () => {
+    const d = yeniOyun(3);
+    delete d.stok.catlak_1;
+    delete d.stok.titanyum_3;
+    d.stok.bazalt_1 = 0;
+    kaydiTamamla(d);
+    expect(d.stok.catlak_1).toBe(4);
+    expect(d.stok.titanyum_3).toBe(4);
+    expect(d.stok.bazalt_1).toBe(0);
+  });
+  test('plato yokuşu biyo-kubbeden önce kilitli', () => {
+    const d = yeniOyun(3);
+    d.mekan = 'vadi';
+    expect(gec(d, 'kuzey_gecit', 0).kilitli).toBe(true);
+  });
+});
 
 describe('kükürt', () => {
   test('yüzde yüzde bayılınca kapsüle taşınır', () => {
