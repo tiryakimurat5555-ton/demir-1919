@@ -65,13 +65,28 @@ bütün bölümlerini sırayla sayar. Her sürümde güncellenir; bir bölüm bu
       ×0,85), manyetik cıva tortusu (koloni kalkan jeneratörü, bariyer iki kat).
 - [x] 3.5 Asılı bazalt kuleleri (0.8): yalnız Atmosphere-X ile; taş gıcırtıları ve flüt armonileri; antigravitasyon tozu
       (gravitasyon kalkanı: kalkış yakıtı yarıya). Eksik: iplik böcekleri.
-- [ ] 4.1 Vanguard-01 enkazı · [x] 4.2 Kseno-rezonans çanları ve tapınak (0.3) · [ ] 4.3 Fosil solucan tünelleri
-      · [ ] 4.4 Manyetik tersinme monoliti · [ ] 4.5 Saklı jeotermal kseno-vaha.
-- [ ] 5 Güvensiz bölgeleri arındırma protokolü (keşif, tehdit izolasyonu, stabilizasyon, karakol).
-- [ ] 6 Terraforming katmanları (atmosfer, hidroloji, biyosfer, manyetosfer).
-- [ ] 7 Uzaydan gelen ırklar ve yapılar (akademi, kseno-habitat kubbeleri, mülteci kampüsü, Tina çekirdeği).
+- [x] 4.1 Vanguard-01 enkazı (0.9): Gözcü Tepesi'nde eski mors sinyali (frekans ayarı) → doğunun kuzeyinde sarp kanyon;
+      mors feneri konumlu duyulur; ses günlükleri (kodeks) ve topoğrafik harita (bütün noktalar bilinir); fırın
+      jeneratörü Demir Kervan'la dökümhaneye (üretim ×1,25).
+- [x] 4.2 Kseno-rezonans çanları ve tapınak (0.3).
+- [x] 4.3 Fosil solucan tünelleri (0.9): mantar ormanının doğusu, Mammoth açar; fosil kseno-kabuk → araç zırhı (araçta
+      maruziyet ×0,7) ve delici uç (derin damarda çift verim). Eksik: tünellerde yönü şaşıran sürüngen yankıları.
+- [x] 4.4 Manyetik tersinme monoliti (0.9): doğu sektöründe; 30 m içinde yön bildirimleri karışır, 6 m içinde radar
+      ve ortam susar; manyetik tohum → graviton dengeleyicisi (kuantum lab, ek donanım).
+- [x] 4.5 Saklı jeotermal kseno-vaha (0.9): sırtlarda kalsit aralığı (kuş ve su sesleri konumlu sızar); maskesiz ilk
+      alan, moral 100; tohum → Sera Hubu (nüfus artışı ×1,5).
+- [x] 5 Güvensiz bölgeleri arındırma protokolü (0.9): altı bölgede (sırtlar, doğu, lav, plato, cıva, mantar) karakol
+      yerinde dört adım: akustik profil (bölgenin bütün noktaları bulunmuş olmalı), tehdit izolasyonu (dondurucu köpük,
+      topraklama çubuğu, sonik kovucu), stabilizasyon (sismik dengeleyici, nötralizasyon kulesi), ikmal karakolu.
+      Güvenli bölgede tehlike kalkar; karakol 180 sn'de bir bölgenin yataklarından koloniye taşır.
+- [~] 6 Terraforming katmanları (0.9): dört katman, yerel girdi teslimi [x] (koloni yönetimi menüsü); etkiler [x]
+      (atmosfer: maskesiz, hidroloji: barınma +20, biyosfer: nüfus ×1,5, manyetosfer: kalkan 3); uzay girdileri
+      (Vaka 1, 2, 5, 7) [ ] Faz 4 görevlerine bağlı.
+- [~] 7 Uzaydan gelen ırklar ve yapılar (0.9): dört yapı tesis listesinde [x], kilitleri uzay görevlerinin bayraklarına
+      bağlı [ ] Faz 4.
 - [ ] 8 Yerel mini görevler: 8.1 dört biyom görevi, 8.2 iki sosyal kriz, 8.3 iki güvenlik görevi.
-- [~] 9 Koloni kademeleri: 1-3 [x] (Düşmüş İskelet → Sağlamlaşmış Vaha → Endüstriyel Koloni); 4 Galaktik Başkent [ ].
+- [x] 9 Koloni kademeleri: 1-3 (Düşmüş İskelet → Sağlamlaşmış Vaha → Endüstriyel Koloni); 4 Galaktik Başkent (0.9):
+      dört terraforming katmanı + altı bölge güvenli + dört ırk yapısı; eksikler koloni yönetiminde söylenir.
 
 ## 4. araclar-ve-gemi-filosu.md
 - [x] 1.1 Yüzey Araçları Montaj Hangarı (0.6): dökümhane ve elektrik şebekesi ister; şasi çeliği atölyesi; vadide hangar.
@@ -142,7 +157,6 @@ bütün bölümlerini sırayla sayar. Her sürümde güncellenir; bir bölüm bu
 - [ ] 6 Keşif, gereç ve itibar matrisi.
 
 ## Sıradaki adımlar (sırayla)
-1. Faz 2'nin kalanı: doğu sektörü, beş mikro-biyom, kalan dört POI, arındırma protokolü, terraforming, yerel mini
-   görevler, ırk yapıları, Kademe 4.
+1. Faz 2'nin kalanı: bölüm 8 yerel mini görevler (8.1 dört biyom görevi, 8.2 iki sosyal kriz, 8.3 iki güvenlik görevi).
 2. Faz 4: görev motoru (SpaceMission), 9 büyük görev, G-01 … G-24, 20 gezegen, gözlem gereçleri ve fenomenler, kütüphane.
 3. Faz 5: savaş modu, yetenek ağaçları, ElevenLabs sesleri, cila.

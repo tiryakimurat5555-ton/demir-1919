@@ -11,6 +11,10 @@ import * as G5 from './gorev5';
 import * as H from './hangar';
 import * as G6 from './gorev6';
 import * as B from './bolgeler';
+import * as K from './kesifler';
+import * as A from './arindirma';
+import * as T from '../terraform';
+import { HAMMADDELER } from '../veri/tesisler';
 import { koloniIlerle } from '../koloni';
 import * as S from '../uzay/seyir';
 import { TESISLER } from '../veri/tesisler';
@@ -21,7 +25,7 @@ export const { NOTALAR, kapiDizisi, rezonansBaslat, rezonansSecimDegis, rezonans
 
 export const { AYAKLAR, ayakSayisi, ayakFrek, teraziBaslat, teraziPompa, teraziIlerle, teraziMetni, DENGE_ESIGI } = G4;
 
-export const SAHNELER = { ...G1.SAHNELER, ...G2.SAHNELER, ...G3.SAHNELER, ...G4.SAHNELER, ...G5.SAHNELER, ...G6.SAHNELER, ...B.SAHNELER };
+export const SAHNELER = { ...G1.SAHNELER, ...G2.SAHNELER, ...G3.SAHNELER, ...G4.SAHNELER, ...G5.SAHNELER, ...G6.SAHNELER, ...B.SAHNELER, ...K.SAHNELER, ...A.SAHNELER };
 
 // Telsiz bildirimleri (belgeler/savas-yetenek-ve-murettebat-mekanikleri.md 4.3): koşulu sağlanınca bir kez kuyruğa
 // girer. gorev alanı varsa yalnız o görev sürerken.
@@ -66,7 +70,7 @@ export function gorevIpucu(d) {
 }
 
 export function noktaEylemleri(d, id) {
-  const ek = G6.ekEylemler(d, id);
+  const ek = [...G6.ekEylemler(d, id), ...K.ekEylemler(d, id)];
   if (G6.noktaMi(id)) return [...ek, { id: 'incele', etiket: 'Sütunu incele' }];
   const temel = temelEylemler(d, id);
   if (!ek.length) return temel;
@@ -75,6 +79,8 @@ export function noktaEylemleri(d, id) {
   return i < 0 ? [...temel, ...ek] : [...temel.slice(0, i), ...ek, ...temel.slice(i)];
 }
 function temelEylemler(d, id) {
+  if (K.noktaMi(id)) return K.noktaEylemleri(d, id);
+  if (A.noktaMi(id)) return A.noktaEylemleri(d, id);
   if (G2.bacaMi(id)) return G2.noktaEylemleri(d, id);
   if (G3.noktaMi(id)) return G3.noktaEylemleri(d, id);
   if (G4.noktaMi(id)) return G4.noktaEylemleri(d, id);
@@ -85,6 +91,8 @@ function temelEylemler(d, id) {
 
 export function eylemUygula(d, id, eylemId) {
   if (G6.ekEylemMi(eylemId) || G6.noktaMi(id)) return G6.eylemUygula(d, id, eylemId);
+  if (K.ekEylemMi(eylemId) || K.noktaMi(id)) return K.eylemUygula(d, id, eylemId);
+  if (A.noktaMi(id)) return A.eylemUygula(d, id, eylemId);
   if (G2.bacaMi(id)) return G2.eylemUygula(d, id, eylemId);
   if (G3.noktaMi(id)) return G3.eylemUygula(d, id, eylemId);
   if (G4.noktaMi(id)) return G4.eylemUygula(d, id, eylemId);
@@ -108,6 +116,15 @@ export function insaEt(d, id) {
     if (!kurulu && d.koloni.binalar.includes(id)) {
       if (id === 'koloni_kalkani') d.koloni.kalkan = 2;
       return { metin: TESISLER[id].ad + ' kuruldu. ' + TESISLER[id].katki, ses: 'kur' };
+    }
+    return r;
+  }
+  if (id === 'sera') {
+    const kurulu = d.koloni.binalar.includes(id);
+    const r = G1.insaEt(d, id);
+    if (!kurulu && d.koloni.binalar.includes(id)) {
+      d.koloni.moral = Math.min(100, d.koloni.moral + 10);
+      return { metin: 'Sera Hubu kuruldu. Kseno-tahıllar filizleniyor; koloni kendi ekmeğini yetiştirecek. Nüfus artışı hızlandı.', ses: 'kur' };
     }
     return r;
   }
@@ -153,12 +170,33 @@ export function insaEt(d, id) {
 
 export { TESISLER };
 
+// --- Terraforming ve arındırma (terraform.js, arindirma.js) ---
+export function terraformListesi(d) {
+  return T.terraformListesi(d);
+}
+export function terraformTeslim(d, id) {
+  return T.yerelTeslim(d, id, (x) => (HAMMADDELER[x] ? HAMMADDELER[x].ad : x));
+}
+export function bolgeListesi(d) {
+  return Object.keys(A.ARINDIRMA).map((m) => ({ id: m, ad: A.ARINDIRMA[m].ad, durum: A.durumMetni(d, m) }));
+}
+export function kademeMetni(d) {
+  if (d.koloni.seviye >= 4) return 'Koloni Galaktik Başkent.';
+  if (d.koloni.seviye < 3) return '';
+  const e = T.seviye4Eksikleri(d, A.guvenliMi);
+  return 'Galaktik Başkent için eksik: ' + e.join('; ') + '.';
+}
+
 // --- Zaman: koloni, üretim, tersane (her karede çağrılır) ---
 export const { aracaBin, aractanIn, aracListesi } = H;
 export const { projeMetni, projeListesi } = G6;
 
 export function zamanIlerle(d, dt) {
   const olaylar = koloniIlerle(d, dt);
+  if (d.vahaGirisi) {
+    d.vahaGirisi = false;
+    K.vahaBulundu(d);
+  }
   for (const o of olaylar) if (o.tur === 'gemiHazir') G5.gemiHazir(d, o.sinif);
   for (const id of S.poiGuncelle(d)) olaylar.push({ tur: 'poi', id, metin: 'Sinyal kulesi yeni bir nokta yakaladı: ' + S.UZAY_NOKTALARI[id].ad + '. Uzay haritasında.' });
   return olaylar;

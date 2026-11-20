@@ -18,10 +18,13 @@ export const HAMMADDELER = {
   plazma_cami: { ad: 'kusursuz plazma camı', tarif: 'Obsidyen ovasından; kokpit camları, teleskop mercekleri ve sensör prizmaları.' },
   obsidyen: { ad: 'obsidyen kompozit tabaka', tarif: 'Lazer ve enerji silahlarına karşı yansıtıcı zırh kaplaması.' },
   antigrav_tozu: { ad: 'antigravitasyon tozu ve çekirdek jeot', tarif: 'Asılı kulelerden; gravitasyon kalkanı ve iniş yakıtı tasarrufu.' },
+  kseno_kabuk: { ad: 'fosil kseno-kabuk', tarif: 'Solucan tünellerinden; maden kazıcılarına ve araçlara rakipsiz sertlikte zırh ve delici uç.' },
+  manyetik_tohum: { ad: 'manyetik tohum materyali', tarif: 'Monolitin yüzeyinden kazınır; graviton dengeleyicisine dönüşür.' },
+  tohum: { ad: 'kseno-tahıl tohumu', tarif: 'Saklı vahadan; açıkta yetişebilen ilk yerel tarım tohumu.' },
   graviton: { ad: 'graviton minerali', tarif: 'Manyetik sırtların derin kuyularından; yalnız sondaj tankıyla çıkar. Graviton yakıtının hammaddesi.' },
 };
 
-export const HAMMADDE_SIRASI = ['bazalt', 'titanyum', 'kristal', 'izotop', 'kseno', 'polimer', 'graviton', 'sivi_metal', 'civa_tortusu', 'foton_recinesi', 'kseno_spor', 'kriyolit', 'metan', 'plazma_cami', 'obsidyen', 'antigrav_tozu'];
+export const HAMMADDE_SIRASI = ['bazalt', 'titanyum', 'kristal', 'izotop', 'kseno', 'polimer', 'graviton', 'sivi_metal', 'civa_tortusu', 'foton_recinesi', 'kseno_spor', 'kriyolit', 'metan', 'plazma_cami', 'obsidyen', 'antigrav_tozu', 'kseno_kabuk', 'manyetik_tohum', 'tohum'];
 
 // Tesisler. maliyet: hammadde kimliği → miktar. kosul(d): inşa edilebilmesi için hikâye koşulu.
 export const TESISLER = {
@@ -152,7 +155,35 @@ TESISLER.koloni_kalkani = {
   kosulMetni: 'Önce cıva şelalelerini keşfet; tortusu gerekir.',
 };
 
-export const TESIS_SIRASI = ['sinyal_kulesi', 'dokumhane', 'yasam_blogu', 'arac_hangari', 'reaktor_lab', 'biyo_kubbe', 'tersane', 'tersane_2', 'tersane_3', 'kuantum_lab', 'itki_hangari', 'kriyo_atolye', 'askeri_tersane', 'komuta_merkezi', 'yuksek_reaktor', 'jeotermal_santral', 'koloni_kalkani'];
+// Saklı vahanın tohumlarıyla (gezegen-gelisimi-v2 4.5)
+TESISLER.sera = {
+  ad: 'Sera Hubu',
+  kisa: 'Sera',
+  islev: 'Vahanın kseno-tahıllarını koloninin içinde yetiştirir; koloni kendi ekmeğini üretir.',
+  katki: 'Nüfus artışı yüzde elli hızlanır, moral yükselir.',
+  acar: 'Biyosfer terraformingine hazırlık.',
+  maliyet: { tohum: 3, polimer: 2, kristal: 2 },
+  kosul: (d) => !!d.bayrak.vahaBulundu,
+  kosulMetni: 'Önce sırtlarda saklı vahayı bul; tohumları gerekir.',
+};
+
+// Uzaydan gelen ırkların yapıları (gezegen-gelisimi-v2 bölüm 7; terraform.js IRK_YAPILARI). Uzay görevlerine bağlı.
+import { IRK_YAPILARI } from '../terraform';
+for (const id of Object.keys(IRK_YAPILARI)) {
+  const y = IRK_YAPILARI[id];
+  TESISLER[id] = {
+    ad: y.ad,
+    kisa: y.ad,
+    islev: y.islev,
+    katki: 'Kademe 4 (Galaktik Başkent) için gerekir.',
+    acar: 'Koloni nüfusuna yeni bir tür.',
+    maliyet: y.maliyet,
+    kosul: (d) => y.bayraklar.every((b) => d.bayrak[b]),
+    kosulMetni: 'Bu yapı bir derin uzay görevinin sonucunu bekliyor (görevler sonraki sürümde).',
+  };
+}
+
+export const TESIS_SIRASI = ['sinyal_kulesi', 'dokumhane', 'yasam_blogu', 'arac_hangari', 'reaktor_lab', 'biyo_kubbe', 'tersane', 'tersane_2', 'tersane_3', 'kuantum_lab', 'itki_hangari', 'kriyo_atolye', 'askeri_tersane', 'komuta_merkezi', 'yuksek_reaktor', 'jeotermal_santral', 'koloni_kalkani', 'sera', 'akademi', 'kseno_habitat', 'multeci_kampusu', 'tina_cekirdegi'];
 
 // Koloni kademeleri (gezegen-gelisimi-ve-yerel-gorevler-v2.md bölüm 9)
 export const KOLONI_KADEMELERI = [

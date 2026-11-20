@@ -12,6 +12,8 @@ import { NOKTALAR } from './yuzey/harita';
 import { HAMMADDELER } from './veri/tesisler';
 import { PARCALAR, TARIFLER } from './veri/uretim';
 import { montajIlerle } from './gemi/gemi';
+import { ARINDIRMA, guvenliMi } from './yuzey/arindirma';
+import { KATMANLAR, katmanTamamMi, seviye4Eksikleri } from './terraform';
 
 export const YENILENME_SN = 120; // bir yatağa bir birim dönmesi (sanayi 0'da)
 export const BORU_SN = 150; // dengelenmiş bacalardan bir izotop
@@ -19,6 +21,7 @@ export const BORU_TAVAN = 20;
 export const NUFUS_SN = 300; // doğal artış: bir kişi
 export const KERVAN_SN = 180; // Demir Kervan: bir bazalt + bir titanyum
 export const AKREP_SN = 120; // Akrep: yataklardan bir birim
+export const KARAKOL_SN = 180; // güvenli bölgenin ikmal karakolu: bölgenin yataklarından bir birim
 export const SEKTORLER = {
   sanayi: { ad: 'Sanayi ve maden', tarif: 'Maden ocaklarında ve dökümhanede çalışır; üretimi ve yatakların yenilenmesini hızlandırır.' },
   tersane: { ad: 'Tersane mühendisleri', tarif: 'Kızakta çalışır; gemi montajındaki kaynak süresini kısaltır.' },
@@ -94,6 +97,10 @@ export function miktar(d, ad) {
 function ekle(d, ad, n) {
   if (ad === 'moral') {
     d.koloni.moral = Math.min(100, d.koloni.moral + n);
+    return;
+  }
+  if (ad.indexOf('bayrak_') === 0) {
+    d.bayrak[ad.slice(7)] = true;
     return;
   }
   if (ad.indexOf('esya_') === 0) {
@@ -215,6 +222,37 @@ export function koloniIlerle(d, dt) {
       }
     }
   }
+  // İkmal karakolları (arındırılmış bölgeler)
+  const guvenli = Object.keys(ARINDIRMA).filter((m) => guvenliMi(d, m));
+  if (guvenli.length) {
+    k.karakol = (k.karakol || 0) + dt;
+    if (k.karakol >= KARAKOL_SN) {
+      k.karakol -= KARAKOL_SN;
+      for (const m of guvenli) {
+        const id = Object.keys(NOKTALAR).find((x) => NOKTALAR[x].mekan === m && NOKTALAR[x].kaynak && (d.stok[x] || 0) > 0);
+        if (!id) continue;
+        d.stok[id] -= 1;
+        k.kaynaklar[NOKTALAR[id].kaynak] = (k.kaynaklar[NOKTALAR[id].kaynak] || 0) + 1;
+      }
+    }
+  }
+  // Terraforming katmanları tamamlanınca etkileri bir kez başlar (terraform.js)
+  if (!k.terraformEtki) k.terraformEtki = {};
+  for (const id of Object.keys(KATMANLAR)) {
+    if (k.terraformEtki[id] || !katmanTamamMi(d, id)) continue;
+    k.terraformEtki[id] = true;
+    k.moral = Math.min(100, k.moral + 10);
+    d.itibar += 15;
+    if (id === 'hidroloji') k.nufus.barinma += 20;
+    if (id === 'manyetosfer') k.kalkan = Math.max(k.kalkan || 1, 3);
+    olaylar.push({ tur: 'terraform', id, metin: 'Terraforming: ' + KATMANLAR[id].ad + ' tamamlandı. ' + KATMANLAR[id].sonuc });
+  }
+  // Kademe 4: Galaktik Başkent
+  if (k.seviye === 3 && !seviye4Eksikleri(d, guvenliMi).length) {
+    k.seviye = 4;
+    d.itibar += 50;
+    olaylar.push({ tur: 'kademe', metin: 'Koloni Galaktik Başkent oldu: bütün gezegen ve yörünge istasyonları açık.' });
+  }
   // Üretim kuyruğu
   if (k.uretimler && k.uretimler.length) {
     for (const u of k.uretimler) u.kalan -= dt; // hız iş başlarken süreye işlendi
@@ -230,7 +268,7 @@ export function koloniIlerle(d, dt) {
   olaylar.push(...montajIlerle(d, dt, 1 + 0.5 * n.tersane));
   // Nüfus ve moral
   if (n.toplam < n.barinma) {
-    const carpan = (d.koloni.binalar.includes('biyo_kubbe') ? 1.5 : 1) * (k.moral >= 50 ? 1 : 0.3);
+    const carpan = (d.koloni.binalar.includes('biyo_kubbe') ? 1.5 : 1) * (d.koloni.binalar.includes('sera') ? 1.5 : 1) * (katmanTamamMi(d, 'biyosfer') ? 1.5 : 1) * (k.moral >= 50 ? 1 : 0.3);
     k.buyume = (k.buyume || 0) + dt * carpan;
     if (k.buyume >= NUFUS_SN) {
       k.buyume -= NUFUS_SN;

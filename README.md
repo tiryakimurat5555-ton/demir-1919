@@ -6,7 +6,7 @@ tesis kurar, ileride gemini parça parça inşa edip uzaya açılırsın.
 
 Tasarım: Bahtiyar Cankurt (belgeler/). Yapım: Murat ve Bahtiyar. Expo Go ile iPhone ve Android'de çalışır.
 
-## Bu sürümde (0.8)
+## Bu sürümde (0.9)
 - Vadi-i Sukût'ta sesle serbest dolaşma; iniş kapsülünün içi ve dışı.
 - Radar: uzun basınca yankılar nesnelerin yönünden döner.
 - Birinci görev "Sinyal Arayışı": alet dolabı, kopan arka modül, yedek jeneratör, Gözcü Tepesi'nde anten
@@ -33,6 +33,11 @@ Tasarım: Bahtiyar Cankurt (belgeler/). Yapım: Murat ve Bahtiyar. Expo Go ile i
 - Yedi yeni bölge: doğu kristal bataklıkları (statik boşalma), cıva şelaleleri, lav koridorları (magma), mantar
   ormanı (kör yarasalar), metan mağaraları (donma, termal giysi), obsidyen ovası (cam adımlar), asılı bazalt kuleleri
   (yalnız Atmosphere-X); dokuz yeni malzeme ve onlardan gemi donanımları, jeotermal santral, koloni kalkanı.
+- Gezegenin gizemleri: Vanguard-01 enkazı (eski mors sinyali, sarp kanyon, ses günlükleri, topoğrafik harita, fırın
+  jeneratörü), fosil solucan tünelleri (Mammoth; kabuk zırh ve delici uç), manyetik tersinme monoliti (yönler karışır,
+  her şey susar; graviton dengeleyicisi), saklı kseno-vaha (maskesiz ilk alan, Sera Hubu).
+- Bölge arındırma: altı tehlikeli bölgede karakol yerinde dört adım; güvenli bölgede tehlike kalkar, ikmal karakolu
+  madenleri koloniye taşır. Terraforming'in dört katmanı, uzaydan gelecek ırkların dört yapısı, Galaktik Başkent kademesi.
 - Belgelerin hangi bölümünün yapıldığı: KAPSAM.md.
 - Mürettebattan telsiz çağrıları (çift dokun dinle, iki parmakla aşağı kaydır ertele).
 - Otomatik kayıt (uygulamadan çıkınca ya da telefon kilitlenince) ve kapsüldeki terminalden üç yuvaya elle kayıt.

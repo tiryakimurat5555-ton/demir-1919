@@ -195,6 +195,23 @@ Demir 1919 oyunu silindi; geçmişi git kaydında (son sürüm 1.06, commit 556f
     "Enerji Elektrik Sigortası 08.wav"; buz_catlak ← "Gölde Çatlayan İnce Buz Tabakası 16.wav"; magma ← "Orta Patlama
     Uzun Kuyruklu Yankı 01.wav" (×0,7); konumsal/adim_cam_1..4 ← "Küçük Cam Çatlaması Orta Şiddette Darbe.wav".
   - Düzeltme: yürürken maruziyet uyarıları (50/75/90) artık söyleniyor (önceden yalnız valfte).
+- SÜRÜM 0.9 (21 Kasım): gezegen-gelisimi bölüm 4, 5, 6, 7, 9. Telefonda denenmedi.
+  - kesifler.js: tepe k_mors → ayarBaslat 'mors' (hedef 95-115) → morsBulundu → harita sarp_kanyon (dogu 1340,69 ↔
+    vanguard 2500-2560); vanguard_enkaz k_gunluk (kodeks, bütün NOKTALAR kesif), k_firin (demir_kervan → bayrak.firin,
+    koloni üretim ×1,25); monolit (dogu 1362,62; dunya.js cevreMetni/radar monolitSuz: <30 m saat yönleri karışır,
+    <6 m sessiz; Yuzey ortam 0,35/0,02) k_kazi → manyetik_tohum → graviton_dengeleyici; tunel_agzi (mantar 1758,30;
+    tunelAcik ya da mammoth) → tuneller (ortam_tunel) kabuk_1/2 → arac_hangari kabuk_zirh/delici_uc (bayrak_); vaha_yolu
+    (sırtlar 503,-3) gecince d.vahaGirisi → zamanIlerle K.vahaBulundu (moral 100, sahne) → tohum_1 → tesis sera
+    (nüfus ×1,5). Konumlu: mors bip 700 ms (doğuda kanyon ağzında, vanguardda enkazda), vaha döngüsü (sırtlarda aralıkta).
+  - arindirma.js: ARINDIRMA 6 bölge, karakol_<mekan> noktaları, koloni.bolgeDurumu[mekan] 0-4 (a_kesif/a_izole/a_stabil/
+    a_karakol); parçalar dondurucu_kopuk, topraklama_cubugu, sismik_dengeleyici (dökümhane), notralizasyon_kulesi
+    (reaktör lab), sonik_kovucu (sinyal kulesi), ikmal_karakolu (araç hangarı). dunya.js tehlikeMekani: güvenli bölgede
+    zehirli/soguk/statik/magma/yarasa/firtinali kalkar; koloni.js KARAKOL_SN 180.
+  - terraform.js: KATMANLAR (yerel girdi hammaddeden, uzay girdisi bayrak vaka2_biyokapsul/vaka7_aritici/vaka5_besin/
+    vaka1_reaktor — Faz 4 görevleri koyacak), etkiler koloni.js'te bir kez (atmosfer: zehirli kalkar); IRK_YAPILARI
+    (akademi, kseno_habitat, multeci_kampusu, tina_cekirdegi; tesisler.js'e eklenir, bayraklar Faz 4); seviye4Eksikleri →
+    koloni.seviye 4. Yuzey: koloni yönetiminde "Terraforming katmanları" ve "Bölge arındırma durumu".
+  - Sesler: konumsal/vaha ← ortam_vaha (tek kanal 24 kHz), ortam_tunel 0.9 ile eklendi.
 - Sıradaki: KAPSAM.md "Sıradaki adımlar".
 
 ## Sesler

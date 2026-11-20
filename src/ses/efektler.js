@@ -49,6 +49,7 @@ const KAYNAKLAR = {
   ortam_obsidyen: require('../../assets/ses/ortam_obsidyen.wav'),
   ortam_kuleler: require('../../assets/ses/ortam_kuleler.wav'),
   ortam_vaha: require('../../assets/ses/ortam_vaha.wav'),
+  ortam_tunel: require('../../assets/ses/ortam_tunel.wav'),
   statik: require('../../assets/ses/statik.wav'),
   buz_catlak: require('../../assets/ses/buz_catlak.wav'),
   magma: require('../../assets/ses/magma.wav'),
@@ -75,6 +76,7 @@ const DONGULER = {
   ortam_obsidyen: 0.5,
   ortam_kuleler: 0.55,
   ortam_vaha: 0.55,
+  ortam_tunel: 0.6,
 };
 
 const oynaticilar = {};

@@ -5,6 +5,41 @@ import { ALANLAR, KAPILAR, KISILER, MEKANLAR, NOKTALAR } from './harita';
 import { aciDuzelt, goreliAci, saatYonu, uzaklik } from '../konum';
 import { ESYALAR } from './gorev1';
 import { ARACLAR } from '../veri/gemiler';
+import { monolitEtkisi } from './kesifler';
+import { guvenliMi } from './arindirma';
+import { katmanTamamMi } from '../terraform';
+
+// Arındırılmış (güvenli) bölgede tehlikeler kalkar (arindirma.js)
+const TEHLIKELER = ['zehirli', 'soguk', 'statik', 'magma', 'yarasa', 'firtinali'];
+export function tehlikeMekani(d) {
+  const mk = MEKANLAR[d.mekan];
+  if (!mk) return mk;
+  const guvenli = guvenliMi(d, d.mekan);
+  const nefes = mk.zehirli && katmanTamamMi(d, 'atmosfer'); // atmosfer terraformingi: maskesiz solunur
+  if (!guvenli && !nefes) return mk;
+  const g = { ...mk };
+  if (guvenli) for (const t of TEHLIKELER) delete g[t];
+  if (nefes) delete g.zehirli;
+  return g;
+}
+
+// Manyetik tersinme monoliti (kesifler.js 4.4): 30 metre içinde yön bildirimleri karışır, 6 metre içinde her şey susar
+function monolitSuz(d, metin) {
+  const e = monolitEtkisi(d);
+  if (!e) return metin;
+  if (e === 'sessiz') return 'Mutlak bir sessizlik. Monolitin dibindesin; hiçbir yön, hiçbir yankı yok.';
+  let n = Math.floor((d.sure || 0) * 7);
+  return 'Pusulan çıldırmış; yönler birbirine karışıyor. ' + metin.replace(/saat \d+ yönünde/g, () => 'saat ' + (((n = (n * 5 + 3) % 12) || 12)) + ' yönünde');
+}
+export function cevreMetni(d) {
+  return monolitSuz(d, cevreMetniHam(d));
+}
+export function radar(d) {
+  const r = radarHam(d);
+  const e = monolitEtkisi(d);
+  if (!e) return r;
+  return { pingler: e === 'sessiz' ? [] : r.pingler, metin: monolitSuz(d, r.metin) };
+}
 
 export const YURUME_HIZI = 2.6; // m/sn (tam güçte)
 export const DONUS_HIZI = 2.2; // rad/sn
@@ -76,7 +111,7 @@ export function yonAdi(yon) {
 }
 
 // Dokununca: çevrende ne var (yakından uzağa, en çok 4 şey)
-export function cevreMetni(d) {
+function cevreMetniHam(d) {
   const liste = siraliYakin(d).filter((n) => n.m < (MEKANLAR[d.mekan].dis ? 30 : 12));
   const parcalar = liste.slice(0, 4).map((n) => konumMetni(d, n));
   const donus = donusYolu(d);
@@ -91,7 +126,7 @@ export function cevreMetni(d) {
 }
 
 // Uzun bas: durum + radar. Radar her şeyi keşfedilmiş sayar ve yankıların geleceği yerleri döndürür.
-export function radar(d) {
+function radarHam(d) {
   const menzil = (MEKANLAR[d.mekan].radarMenzili || RADAR_MENZILI) * aracCarpani(d, 'radar');
   const liste = siraliYakin(d).filter((n) => n.m <= menzil && n.tur !== 'kapi');
   const pingler = liste.slice(0, 6).map((n) => ({ id: n.id, x: n.x, y: n.y, gecikme: Math.round(250 + n.m * 22) }));
@@ -105,7 +140,7 @@ export function radar(d) {
 }
 
 export function durumMetni(d) {
-  const mk = MEKANLAR[d.mekan];
+  const mk = tehlikeMekani(d);
   const parca = [mk.ad + '.', 'Yüzün ' + yonAdi(d.oyuncu.yon) + 'e dönük.'];
   if (d.mekan === 'vadi') parca.push(konumMetni(d, { ad: 'Kapsül', x: NOKTALAR.kapsul_dis.x, y: NOKTALAR.kapsul_dis.y }) + '.');
   const donus = donusYolu(d);
@@ -154,6 +189,7 @@ export function gec(d, kapiId, uc) {
   const k = KAPILAR[kapiId];
   if (k.kosul && !k.kosul(d)) return { metin: k.kilitMetni, kilitli: true, kapi: kapiId, rezonans: k.rezonans };
   const ote = k.uclar[1 - uc];
+  if (k.gecince && !(d.arac && !MEKANLAR[ote.mekan].dis)) k.gecince(d);
   if (!d.gorulenMekanlar) d.gorulenMekanlar = [];
   if (!d.gorulenMekanlar.includes(ote.mekan) && !(d.arac && !MEKANLAR[ote.mekan].dis)) d.gorulenMekanlar.push(ote.mekan);
   if (d.arac && !MEKANLAR[ote.mekan].dis) return { metin: 'Araçla içeri giremezsin. Önce araçtan in: menüde Araç.', kilitli: true, kapi: kapiId };
@@ -200,7 +236,9 @@ const SINIR_METNI = {
 export function aracCarpani(d, ne) {
   const a = d.arac && ARACLAR[d.arac];
   if (!a) return 1;
-  return a[ne] != null ? a[ne] : 1;
+  const v = a[ne] != null ? a[ne] : 1;
+  // Fosil kabuk zırhı araçta maruziyeti azaltır (kesifler.js 4.3)
+  return ne === 'zehir' && d.bayrak.kabukZirh ? v * 0.7 : v;
 }
 
 // Bir adım ilerletir. girdi: { ileri: -1..1, donus: -1..1 }. Olay listesi döndürür.
@@ -255,7 +293,7 @@ function tehlikeIlerle(d, dt, olaylar) {
 export const STATIK_YUKLEME = 2;
 export const STATIK_MESAFE = 6;
 export function statikIlerle(d, dt, olaylar) {
-  const mk = MEKANLAR[d.mekan];
+  const mk = tehlikeMekani(d);
   if (!mk.statik) {
     d.statik = null;
     return;
@@ -299,7 +337,7 @@ export function statikIlerle(d, dt, olaylar) {
 export const MAGMA_SURE = 3;
 export const MAGMA_MESAFE = 4;
 export function magmaIlerle(d, dt, olaylar) {
-  const mk = MEKANLAR[d.mekan];
+  const mk = tehlikeMekani(d);
   if (!mk.magma) {
     d.magma = null;
     return;
@@ -327,7 +365,7 @@ export function magmaIlerle(d, dt, olaylar) {
 
 // --- Kör yarasa sürüleri (mantar ormanı): ara sıra bir sürü bir yandan öbür yana uçar ---
 export function yarasaIlerle(d, dt, olaylar) {
-  const mk = MEKANLAR[d.mekan];
+  const mk = tehlikeMekani(d);
   if (!mk.yarasa) {
     d.yarasa = null;
     return;
@@ -358,7 +396,7 @@ function karisim(tohum, n) {
   return ((x ^ (x >>> 16)) >>> 0) / 4294967296;
 }
 export function firtinaIlerle(d, dt, hareketli, olaylar) {
-  const mk = MEKANLAR[d.mekan];
+  const mk = tehlikeMekani(d);
   if (!mk.firtinali) {
     d.firtina = null;
     return;
@@ -417,7 +455,7 @@ export function maruziyetAdi(d) {
   return mk.maruziyet || 'Kükürt maruziyeti';
 }
 export function zehirIlerle(d, dt, ek, olaylar) {
-  const mk = MEKANLAR[d.mekan];
+  const mk = tehlikeMekani(d);
   const once = d.zehir || 0;
   if (mk.zehirli || mk.soguk) {
     let hiz = mk.soguk ? 0.6 : 0.35;
@@ -519,7 +557,7 @@ export function yerlerListesi(d) {
     ekle('kapi', 'kuzey_gecit', u.ad, u.mekan, u.x, u.y);
   }
   // Faz 2 bölgelerinin geçitleri: koşulu sağlananlar ya da görülmüş bölgeye açılanlar
-  for (const id of ['dogu_gecit', 'civa_gecit', 'lav_gecit', 'mantar_gecit', 'kriyo_gecit', 'obsidyen_gecit', 'kule_inisi']) {
+  for (const id of ['dogu_gecit', 'civa_gecit', 'lav_gecit', 'mantar_gecit', 'kriyo_gecit', 'obsidyen_gecit', 'kule_inisi', 'sarp_kanyon', 'tunel_agzi', 'vaha_yolu']) {
     const k = KAPILAR[id];
     if ((k.kosul && !k.kosul(d)) && !(d.gorulenMekanlar || []).includes(k.uclar[1].mekan)) continue;
     if (!k.kosul && !(d.gorulenMekanlar || []).includes(k.uclar[0].mekan)) continue;

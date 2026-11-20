@@ -39,6 +39,13 @@ export const PARCALAR = {
   hafif_alasim: { ad: 'hafif titanyum alaşımı', tarif: 'Uçucular ve dronlar için.' },
   mikrocip: { ad: 'mikro-çip devresi', tarif: 'Dronların optik izleme beyni.' },
   sondaj_cekirdegi: { ad: 'hidrolik sondaj çekirdeği', tarif: 'Mammoth\'un titreşimli rezonans matkabının kalbi.' },
+  // Bölge arındırma donanımı (gezegen-gelisimi-v2 bölüm 5)
+  dondurucu_kopuk: { ad: 'tüp dondurucu köpük', tarif: 'Gaz ve plazma sızıntılarını saniyeler içinde donduran helyumlu köpük; püskürtülünce çıtırdar.' },
+  topraklama_cubugu: { ad: 'topraklama çubuğu', tarif: 'Toprağa çakılınca statik yükü emen titanyum çubuk; uçta hafif bir vızıltı.' },
+  sismik_dengeleyici: { ad: 'sismik dengeleyici', tarif: 'Fay hatlarına çakılan, titreşimi sönümleyen ağır kazık.' },
+  notralizasyon_kulesi: { ad: 'nötralizasyon kulesi', tarif: 'Zehirli gazı ve fırtınanın iyonlarını emip arıtan dikey kule.' },
+  sonik_kovucu: { ad: 'sonik kovucu', tarif: 'Fauna için rahatsız edici, insan kulağına zar zor duyulan bir uğultu yayar.' },
+  ikmal_karakolu: { ad: 'otomatik ikmal karakolu', tarif: 'Otonom taşıyıcılar için radar koridoru açan, bölgenin madenlerini koloniye taşıyan küçük üs.' },
 };
 
 export const PARCA_SIRASI = Object.keys(PARCALAR);
@@ -56,11 +63,15 @@ export const TARIFLER = {
     { id: 'kompozit', ad: '100 titanyum-çelik kompoziti', girdi: { plaka: 50, sasi_celigi: 30 }, cikti: { kompozit: 100 }, sure: 60 },
     { id: 'hafif', ad: '60 hafif titanyum alaşımı', girdi: { titanyum: 2, kristal: 1 }, cikti: { hafif_alasim: 60 }, sure: 45 },
     { id: 'sondaj', ad: 'Hidrolik sondaj çekirdeği', girdi: { titanyum: 3, kristal: 1 }, cikti: { sondaj_cekirdegi: 1 }, sure: 90 },
+    { id: 'kopuk', ad: '2 tüp dondurucu köpük', girdi: { polimer_levha: 10, helyum: 10 }, cikti: { dondurucu_kopuk: 2 }, sure: 40 },
+    { id: 'cubuk', ad: '3 topraklama çubuğu', girdi: { titanyum: 1, kablo: 10 }, cikti: { topraklama_cubugu: 3 }, sure: 40 },
+    { id: 'sismik', ad: 'Sismik dengeleyici', girdi: { plaka: 50, kristal: 1 }, cikti: { sismik_dengeleyici: 1 }, sure: 60 },
   ],
   reaktor_lab: [
     { id: 'yakit', ad: '10 litre standart itki yakıtı', girdi: { izotop: 1 }, cikti: { itki_yakiti: 10 }, sure: 30 },
     { id: 'iyon', ad: 'Minyatür iyon reaktörü', girdi: { izotop: 2, kristal: 1, titanyum: 1 }, cikti: { iyon_reaktoru: 1 }, sure: 90 },
     { id: 'saf', ad: '20 birim piezo-elektrik saf kristal arıt', girdi: { kristal: 2 }, cikti: { saf_kristal: 20 }, sure: 40 },
+    { id: 'notralizasyon', ad: 'Nötralizasyon kulesi', girdi: { polimer_levha: 20, saf_kristal: 10, izotop: 1 }, cikti: { notralizasyon_kulesi: 1 }, sure: 90 },
     { id: 'plazma', ad: '15 litre plazma yakıtı', girdi: { izotop: 2 }, cikti: { plazma_yakiti: 15 }, sure: 40 },
     { id: 'fuzyon', ad: 'Standart plazma füzyon reaktörü', girdi: { izotop: 4, kristal: 2, titanyum: 3 }, cikti: { plazma_reaktoru: 1 }, sure: 150 },
     { id: 'graviton', ad: '10 litre graviton yakıtı', girdi: { graviton: 1 }, cikti: { graviton_yakiti: 10 }, sure: 60 },
@@ -71,6 +82,7 @@ export const TARIFLER = {
   sinyal_kulesi: [
     { id: 'anten', ad: 'Kripto frekans anteni', girdi: { kristal: 2, kablo: 10 }, cikti: { mod_burun: 1 }, sure: 60 },
     { id: 'cip', ad: '15 mikro-çip devresi', girdi: { kristal: 1, kablo: 5 }, cikti: { mikrocip: 15 }, sure: 40 },
+    { id: 'kovucu', ad: '2 sonik kovucu', girdi: { kristal: 1, mikrocip: 5 }, cikti: { sonik_kovucu: 2 }, sure: 40 },
   ],
   biyo_kubbe: [
     { id: 'karantina', ad: 'Biyo-karantina bölmesi', girdi: { kseno: 1, polimer: 1, kristal: 1 }, cikti: { mod_bolme_a: 1 }, sure: 60 },
@@ -85,6 +97,9 @@ export const TARIFLER = {
   // Yüzey araçları montaj hangarı: şasi çeliği atölyesi ve beş araç (araclar-ve-gemi-filosu.md bölüm 3)
   arac_hangari: [
     { id: 'sasi', ad: '30 parça şasi çeliği', girdi: { bazalt: 2, titanyum: 1 }, cikti: { sasi_celigi: 30 }, sure: 40 },
+    { id: 'karakol', ad: 'Otomatik ikmal karakolu', girdi: { sasi_celigi: 40, plaka: 30, mikrocip: 10 }, cikti: { ikmal_karakolu: 1 }, sure: 90 },
+    { id: 'kabuk_zirh', ad: 'Fosil kabuk araç zırhı (bütün araçlar)', girdi: { kseno_kabuk: 2, sasi_celigi: 20 }, cikti: { bayrak_kabukZirh: 1 }, sure: 90 },
+    { id: 'delici_uc', ad: 'Fosil kabuk delici uç (Mammoth)', girdi: { kseno_kabuk: 2, titanyum: 2 }, cikti: { bayrak_deliciUc: 1 }, sure: 90 },
     { id: 'col_tilkisi', ad: 'Çöl Tilkisi keşif skimmer\'ı', girdi: { plaka: 80, saf_kristal: 20, itki_yakiti: 15 }, cikti: { arac_col_tilkisi: 1 }, sure: 120 },
     { id: 'mammoth', ad: 'Mammoth sondaj tankı', girdi: { sasi_celigi: 250, plaka: 60, plazma_yakiti: 30, sondaj_cekirdegi: 1 }, cikti: { arac_mammoth: 1 }, sure: 180 },
     { id: 'demir_kervan', ad: 'Demir Kervan asit taşıyıcısı', girdi: { kompozit: 400, polimer_levha: 90, itki_yakiti: 45 }, cikti: { arac_demir_kervan: 1 }, sure: 180 },

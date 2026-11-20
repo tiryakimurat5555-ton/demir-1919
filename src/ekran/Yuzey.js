@@ -33,8 +33,13 @@ import { cal, ortamCal } from '../ses/efektler';
 import { RENK, UST_BOSLUK } from '../arayuz/tema';
 import KonumsalSes from '../ses/konumsal';
 import { ALANLAR, KAPILAR, MEKANLAR, NOKTALAR } from '../oyun/yuzey/harita';
+import { monolitEtkisi } from '../oyun/yuzey/kesifler';
 import { cevreMetni, durumMetni, esyaMetni, etkiles, firtinaIlerle, maruziyetAdi, ilerle, kisiAdi, otoBaslat, radar, yerlerListesi, zehirIlerle } from '../oyun/yuzey/dunya';
 import {
+  terraformListesi,
+  terraformTeslim,
+  bolgeListesi,
+  kademeMetni,
   ESYALAR,
   HAREKET_KISA,
   SAHNELER,
@@ -141,6 +146,7 @@ const DOSYALAR = {
   adim_cam_2: require('../../assets/ses/konumsal/adim_cam_2.wav'),
   adim_cam_3: require('../../assets/ses/konumsal/adim_cam_3.wav'),
   adim_cam_4: require('../../assets/ses/konumsal/adim_cam_4.wav'),
+  vaha: require('../../assets/ses/konumsal/vaha.wav'),
 };
 
 // Eylem sesleri: gorev1.js'teki ses adlarını çalınacak efekte çevirir
@@ -159,6 +165,10 @@ function guc(piksel) {
 
 function ortamOrani(d) {
   const mk = MEKANLAR[d.mekan];
+  // Monolitin dibinde her şey susar (kesifler.js 4.4)
+  const mo = monolitEtkisi(d);
+  if (mo === 'sessiz') return 0.02;
+  if (mo === 'kaos') return 0.35;
   if (mk.ortamOran != null) return mk.ortamOran;
   if (d.mekan === 'sirtlar') return 0.8;
   if (d.mekan !== 'vadi') return 0.75;
@@ -229,6 +239,21 @@ export default function Yuzey({ onGeri, baslangic, yeniOyunUret }) {
       calanlar.current.fener = true;
       s.dosyaKaynak('fener', 'bip', NOKTALAR.enkaz, 2000);
     }
+    // Vanguard-01'in mors feneri: doğudayken kanyonun ağzından, enkazdayken enkazın kendisinden
+    const morsYeri = d.mekan === 'dogu' ? KAPILAR.sarp_kanyon.uclar[0] : d.mekan === 'vanguard' ? NOKTALAR.vanguard_enkaz : null;
+    const morsId = morsYeri ? 'mors_' + d.mekan : null;
+    for (const id of ['mors_dogu', 'mors_vanguard']) if (id !== morsId) kaynakKapat(id);
+    if (morsId && g.morsBulundu && yuklu.current.bip && !calanlar.current[morsId]) {
+      calanlar.current[morsId] = true;
+      s.dosyaKaynak(morsId, 'bip', morsYeri, 700);
+    }
+    // Saklı vaha: sırtlarda kalsit aralığından kuş ve su sesleri sızar
+    if (d.mekan === 'sirtlar' && yuklu.current.vaha) {
+      if (!calanlar.current.vaha) {
+        calanlar.current.vaha = true;
+        s.dongu('vaha', 'vaha', KAPILAR.vaha_yolu.uclar[0], 0.7);
+      }
+    } else kaynakKapat('vaha');
     // Jeneratör uğultusu
     if (g.jenerator && yuklu.current.jenerator) {
       calanlar.current.jenerator = true;
@@ -425,7 +450,7 @@ export default function Yuzey({ onGeri, baslangic, yeniOyunUret }) {
       if (sayac % 3 === 0 && d.arac && m()) m().motorAyar(s.aktif || d.oto ? 3 : 0.4);
       // Kriyo mağaralarında ara sıra buz çatlar
       if (d.mekan === 'kriyo' && sayac % 10 === 0 && Math.random() < 0.08) cal('buz_catlak', 0.4 + Math.random() * 0.4);
-      if (sayac % 10 === 0 && d.mekan === 'vadi') ortamCal(MEKANLAR.vadi.ortam, ortamOrani(d));
+      if (sayac % 10 === 0 && (d.mekan === 'vadi' || d.mekan === 'dogu')) ortamCal(MEKANLAR[d.mekan].ortam, ortamOrani(d));
       if (sayac % KAYIT_ARALIGI === 0) kaydet();
       if (sayac % 10 === 0) setYazi(MEKANLAR[d.mekan].ad + ' · ' + d.koloni.binalar.length + ' tesis');
     }, ADIM_MS);
@@ -1111,10 +1136,12 @@ export default function Yuzey({ onGeri, baslangic, yeniOyunUret }) {
     }
     katmanAc({
       baslik: 'Koloni yönetimi',
-      giris: (onEk ? onEk + ' ' : '') + 'Nüfus ' + n.toplam + ', barınma ' + n.barinma + ', boşta ' + bosta(d) + '. Moral yüzde ' + d.koloni.moral + '. ' + moralMetni(d),
+      giris: (onEk ? onEk + ' ' : '') + 'Nüfus ' + n.toplam + ', barınma ' + n.barinma + ', boşta ' + bosta(d) + '. Moral yüzde ' + d.koloni.moral + '. ' + moralMetni(d) + ' ' + kademeMetni(d),
       onGeri: () => noktaGoster('terminal'),
       ogeler: [
         ...ogeler,
+        { id: 'terraform', etiket: 'Terraforming katmanları', sec: () => (terraformGoster(), 'sessiz') },
+        { id: 'bolgeler', etiket: 'Bölge arındırma durumu', sec: () => (bolgeGoster(), 'sessiz') },
         {
           id: 'ilac',
           etiket: 'Koloniye ilaç dağıt',
@@ -1128,6 +1155,46 @@ export default function Yuzey({ onGeri, baslangic, yeniOyunUret }) {
           },
         },
         { id: 'geri', etiket: 'Terminale dön', sec: () => (noktaGoster('terminal'), 'sessiz') },
+      ],
+    });
+  };
+
+  // Terraforming (terraform.js): her katmana yerel girdi teslim edilir; uzay girdisi görevden gelir
+  const terraformGoster = (onEk) => {
+    const d = dunya.current;
+    katmanAc({
+      baslik: 'Terraforming',
+      giris: (onEk ? onEk + ' ' : '') + 'Dört yaşanabilirlik katmanı. Her biri yerel bir biyomdan malzeme ve bir uzay görevinden girdi ister.',
+      onGeri: () => isGucuGoster(),
+      ogeler: [
+        ...terraformListesi(d).map((k) => ({
+          id: k.id,
+          etiket: k.ad + '. ' + k.durum,
+          sec: () => {
+            if (!k.teslim) {
+              soyle(k.ad + '. ' + k.durum, 'istek', true);
+              return 'sessiz';
+            }
+            const r = terraformTeslim(d, k.id);
+            kaydet();
+            if (r.ses) cal(EYLEM_SESI[r.ses] || r.ses, 0.8);
+            terraformGoster(r.metin);
+            return 'sessiz';
+          },
+        })),
+        { id: 'geri', etiket: 'Koloni yönetimine dön', sec: () => (isGucuGoster(), 'sessiz') },
+      ],
+    });
+  };
+  const bolgeGoster = () => {
+    const d = dunya.current;
+    katmanAc({
+      baslik: 'Bölge arındırma',
+      giris: 'Her tehlikeli bölgenin karakol yerinde dört adım: keşif, izolasyon, stabilizasyon, ikmal karakolu.',
+      onGeri: () => isGucuGoster(),
+      ogeler: [
+        ...bolgeListesi(d).map((b) => ({ id: b.id, etiket: b.durum, sec: () => (soyle(b.durum, 'istek', true), 'sessiz') })),
+        { id: 'geri', etiket: 'Koloni yönetimine dön', sec: () => (isGucuGoster(), 'sessiz') },
       ],
     });
   };

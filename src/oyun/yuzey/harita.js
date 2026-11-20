@@ -128,6 +128,32 @@ export const MEKANLAR = {
     zemin: 'tas',
     dis: true,
   },
+  vanguard: {
+    ad: 'Sarp kanyon',
+    tarif: 'Doğu sektörünün kuzeyinde, iki duvarı da dimdik bir kanyon. Dibinde dev bir çelik iskelet sıkışmış; eski bir acil durum feneri hâlâ mors çalıyor.',
+    alan: { bati: 2500, dogu: 2560, guney: 0, kuzey: 60 },
+    ortam: 'ortam_yuzey',
+    ortamOran: 0.45,
+    zemin: 'tas',
+    dis: true,
+  },
+  tuneller: {
+    ad: 'Fosil solucan tünelleri',
+    tarif: 'Yüzeyin yüzlerce metre altında, tarih öncesi kaya yiyici solucanların açtığı kilometrelerce uzun tüneller. Derin bir oyuk rüzgârı uğulduyor; zemin ara sıra titriyor.',
+    alan: { bati: 2600, dogu: 2700, guney: 0, kuzey: 40 },
+    ortam: 'ortam_tunel',
+    zemin: 'tas',
+    dis: true,
+    radarMenzili: 50,
+  },
+  vaha: {
+    ad: 'Saklı Jeotermal Kseno-Vaha',
+    tarif: 'Kükürt fırtınasının tam kalbinde, doğal kalsit duvarlarla çevrili küçük bir vadi. Yer altı buharı havayı süzüyor: taze toprak ve çiçek kokusu, su şırıltıları, kuş cıvıltıları. Maskeni çıkarabilirsin.',
+    alan: { bati: 2800, dogu: 2850, guney: 0, kuzey: 40 },
+    ortam: 'ortam_vaha',
+    zemin: 'tas',
+    dis: true,
+  },
   mabet: {
     ad: 'İç mabet',
     tarif: 'Küçük, yuvarlak bir oda. Ortada bir kaide; duvarlar parmaklarının altında hafifçe titriyor.',
@@ -240,6 +266,38 @@ export const KAPILAR = {
     kilitMetni: 'Platonun kenarından, uzakta havada süzülen kayaların inlemesi geliyor. Oraya ancak dikey iniş yapabilen bir mekikle gidilir: Atmosphere-X.',
     gecisMetni: ['Jetler kükrüyor; mekik uçurumun üstünde süzülüp bir bazalt bloğun sırtına iniyor. Havada Asılı Bazalt Kuleleri.', 'Mekik kalkıyor; platoya dönüyorsun.'],
   },
+  sarp_kanyon: {
+    ad: 'Sarp kanyonun ağzı',
+    uclar: [
+      { mekan: 'dogu', x: 1340, y: 69, yon: 0, ad: 'Sarp kanyonun ağzı' },
+      { mekan: 'vanguard', x: 2530, y: 1.5, yon: 0, ad: 'Bataklıklara dönen yol' },
+    ],
+    kosul: (d) => !!d.bayrak.morsBulundu,
+    kilitMetni: 'Sisin içinde bir yarık; nereye çıktığı belli değil. Önce bir iz, bir sinyal bulmalısın.',
+    gecisMetni: ['Mors sesinin geldiği yöne, dar yarıktan iniyorsun. Duvarlar daralıp yükseliyor. Kanyonun dibinde dev bir çelik iskelet: Vanguard-01.', 'Kanyondan sise dönüyorsun.'],
+  },
+  tunel_agzi: {
+    ad: 'Derin oyuk',
+    uclar: [
+      { mekan: 'mantar', x: 1758, y: 30, yon: Math.PI / 2, ad: 'Derin oyuk' },
+      { mekan: 'tuneller', x: 2601.5, y: 20, yon: Math.PI / 2, ad: 'Mağaraya çıkan oyuk' },
+    ],
+    kosul: (d) => !!d.bayrak.tunelAcik || d.arac === 'mammoth',
+    gecince: (d) => (d.bayrak.tunelAcik = true),
+    kilitMetni: 'Mağaranın doğu duvarında derin bir oyuk; içinden uğuldayan bir rüzgâr ve zemin titreşimleri geliyor. Ağzı kayayla tıkalı; ancak bir sondaj tankının matkabı açar: Mammoth.',
+    gecisMetni: ['Oyuktan aşağı, uçsuz bucaksız bir tünele iniyorsun. Duvarlar düzgün ve yivli: bir şey bunları yiyerek açmış. Fosil solucan tünelleri.', 'Tünelden mağaraya çıkıyorsun.'],
+  },
+  vaha_yolu: {
+    ad: 'Kalsit duvardaki aralık',
+    uclar: [
+      { mekan: 'sirtlar', x: 503, y: -3, yon: -Math.PI / 2, ad: 'Kalsit duvardaki aralık; kükürt kokusu burada taze toprağa dönüyor' },
+      { mekan: 'vaha', x: 2825, y: 1.5, yon: 0, ad: 'Sırtlara dönen aralık' },
+    ],
+    gecince: (d) => {
+      if (!d.bayrak.vahaBulundu) d.vahaGirisi = true; // kesifler.js vahaBulundu (görev kancası zamanIlerle'de)
+    },
+    gecisMetni: ['Kalsit duvarların arasından geçiyorsun. Kükürt kokusu birden taze toprak ve çiçek kokusuna dönüşüyor; su şırıltıları, kuş cıvıltıları. Saklı bir vaha. Maskeni çıkarıyorsun: hava temiz.', 'Aralıktan sırtlara dönüyorsun; maskeni takıyorsun.'],
+  },
   bati_gecit: {
     ad: 'Batı geçidi',
     uclar: [
@@ -331,6 +389,20 @@ export const NOKTALAR = {
   obsidyen_1: { mekan: 'obsidyen', x: 2178, y: 62, ad: 'Obsidyen tabakası', yaricap: 2.4, kaynak: 'obsidyen', stok: 4, tarif: 'Ayna gibi siyah, keskin kenarlı katmanlar.' },
   antigrav_1: { mekan: 'kuleler', x: 2320, y: 40, ad: 'Antigravitasyon tozu', yaricap: 2.4, kaynak: 'antigrav_tozu', stok: 3, tarif: 'Süzülen bir bloğun altından dökülen, avucunda yukarı doğru çeken ince bir toz; içinde çekirdek jeotlar.' },
   antigrav_2: { mekan: 'kuleler', x: 2362, y: 66, ad: 'Antigravitasyon tozu', yaricap: 2.4, kaynak: 'antigrav_tozu', stok: 3 },
+  // Gezegenin gizemli noktaları (gezegen-gelisimi-v2 bölüm 4)
+  vanguard_enkaz: { mekan: 'vanguard', x: 2530, y: 40, ad: 'Vanguard-01 enkazı', yaricap: 4, engel: 3, mors: true, tarif: 'İlk insan keşif gemisinin, manyetik fırtınaya kapılıp düşmüş dev çelik iskeleti. Acil durum feneri hâlâ ritmik dıt-dıt sesleri çalıyor.' },
+  monolit: { mekan: 'dogu', x: 1362, y: 62, ad: 'Manyetik tersinme monoliti', yaricap: 3, engel: 1.5, monolit: true, tarif: 'Simsiyah, pürüzsüz, hiçbir sensörün işleyemediği dev bir dikilitaş. Çevresinde pusulan sürekli dönüyor; yanında her şey susuyor.' },
+  kabuk_1: { mekan: 'tuneller', x: 2630, y: 30, ad: 'Fosil kseno-kabuk', yaricap: 2.2, kaynak: 'kseno_kabuk', stok: 2, tarif: 'Duvara gömülü, taştan sert, spiral bir kabuk.' },
+  kabuk_2: { mekan: 'tuneller', x: 2680, y: 10, ad: 'Fosil kseno-kabuk', yaricap: 2.2, kaynak: 'kseno_kabuk', stok: 2 },
+  tohum_1: { mekan: 'vaha', x: 2815, y: 25, ad: 'Vahşi kseno-tahıl', yaricap: 2.2, kaynak: 'tohum', stok: 3, tarif: 'Buharla beslenen, başakları ince ince hışırdayan yerel bir bitki. Tohumları açıkta yetişebilir.' },
+  vaha_kaynagi: { mekan: 'vaha', x: 2838, y: 34, ad: 'Vahanın su kaynağı', yaricap: 2.4, engel: 1, tarif: 'Kalsit kayadan şırıldayarak çıkan berrak bir su. Vahayı bu su besliyor.' },
+  // Arındırma karakol yerleri (gezegen-gelisimi-v2 bölüm 5)
+  karakol_sirtlar: { mekan: 'sirtlar', x: 530, y: -30, ad: 'Sırtların karakol yeri', yaricap: 2.4, karakol: 'sirtlar' },
+  karakol_dogu: { mekan: 'dogu', x: 1340, y: 35, ad: 'Bataklığın karakol yeri', yaricap: 2.4, karakol: 'dogu' },
+  karakol_lav: { mekan: 'lav', x: 545, y: -100, ad: 'Lav koridorunun karakol yeri', yaricap: 2.4, karakol: 'lav' },
+  karakol_plato: { mekan: 'plato', x: 1160, y: 20, ad: 'Platonun karakol yeri', yaricap: 2.4, karakol: 'plato' },
+  karakol_civa: { mekan: 'civa', x: 1530, y: 30, ad: 'Cıva vadisinin karakol yeri', yaricap: 2.4, karakol: 'civa' },
+  karakol_mantar: { mekan: 'mantar', x: 1730, y: 40, ad: 'Mağaranın karakol yeri', yaricap: 2.4, karakol: 'mantar' },
   // Uğultulu Plato: tersane kızağının dört hidrolik ayağı, dağıtım kutusu, kaynaklar
   ayak_1: { mekan: 'plato', x: 1125, y: 30, ad: 'Güneybatı ayağı', yaricap: 2.4, ayak: true, tarif: 'Kızağın güneybatı köşesindeki hidrolik ayak. Altındaki bazalt gevşek; topuk taşın içine gömülmüş.' },
   ayak_2: { mekan: 'plato', x: 1155, y: 30, ad: 'Güneydoğu ayağı', yaricap: 2.4, ayak: true, tarif: 'Kızağın güneydoğu köşesindeki hidrolik ayak. Rüzgâr çelik gövdesinde uğulduyor.' },

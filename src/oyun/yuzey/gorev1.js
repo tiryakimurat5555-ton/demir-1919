@@ -186,7 +186,8 @@ export function eylemUygula(d, id, eylemId) {
     const tur = n.kaynak;
     const sira = n.stok - d.stok[id];
     d.stok[id] -= 1;
-    d.koloni.kaynaklar[tur] = (d.koloni.kaynaklar[tur] || 0) + 1;
+    // Fosil kabuk delici uç: derin damarda çift verim
+    d.koloni.kaynaklar[tur] = (d.koloni.kaynaklar[tur] || 0) + (n.gerekArac && b(d).deliciUc ? 2 : 1);
     const metin = (KAYNAK_METNI[tur] || [])[sira] || 'Bir parça daha.';
     return { metin: metin + (n.gerekArac ? ' Matkap derinden gümbürdüyor.' : '') + ' ' + HAMMADDELER[tur].ad[0].toUpperCase() + HAMMADDELER[tur].ad.slice(1) + ': ' + d.koloni.kaynaklar[tur] + '.', ses: tur === 'kristal' ? 'kristal' : 'topla' };
   }
@@ -317,8 +318,9 @@ const DUYMA_ARALIGI = 25;
 
 // amac: 'telemetri' (birinci görev) ya da 'ag' (gorev6.js ağ şebekesi entegrasyonu: hedef 10-40 arası)
 export function ayarBaslat(d, amac = 'telemetri') {
-  const hedef = amac === 'ag' ? 25 + (((d.tohum * 7) % 300) / 10 - 15) : 70 + ((d.tohum % 400) / 10 - 20); // 50-90 arası
-  d.ayar = { frekans: amac === 'ag' ? 90 : 30, hedef: Math.round(hedef * 10) / 10, kilit: 0, yakinDendi: false, amac };
+  // 'mors' (kesifler.js Vanguard-01): hedef 95-115
+  const hedef = amac === 'ag' ? 25 + (((d.tohum * 7) % 300) / 10 - 15) : amac === 'mors' ? 105 + (((d.tohum * 13) % 200) / 10 - 10) : 70 + ((d.tohum % 400) / 10 - 20); // 50-90 arası
+  d.ayar = { frekans: amac === 'ag' ? 90 : amac === 'mors' ? 60 : 30, hedef: Math.round(hedef * 10) / 10, kilit: 0, yakinDendi: false, amac };
   return d.ayar;
 }
 
@@ -352,6 +354,9 @@ export function ayarIlerle(d, dt) {
     if (a.amac === 'ag') {
       b(d).ag = true;
       d.sahne = 'ag_tamam';
+    } else if (a.amac === 'mors') {
+      b(d).morsBulundu = true;
+      d.sahne = 'mors_bulundu';
     } else {
       b(d).telemetri = true;
       d.sahne = 'telemetri';

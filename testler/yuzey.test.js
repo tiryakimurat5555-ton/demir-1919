@@ -1053,3 +1053,137 @@ describe('Faz 2 bölgeleri', () => {
     expect(d.envanter).toContain('termal_giysi');
   });
 });
+
+describe('Gezegenin gizemleri, arındırma ve terraforming', () => {
+  function hazir() {
+    const d = yeniOyun(91);
+    sahneleriGec(d);
+    Object.assign(d.bayrak, { dokumhane: true, maske: true, sondaj: true, zemin: true, biyo_kubbe: true, jenerator: true, telemetri: true });
+    d.koloni.binalar.push('sinyal_kulesi', 'dokumhane');
+    d.mekan = 'vadi';
+    d.oyuncu = { x: 0, y: 20, yon: 0 };
+    return d;
+  }
+  function git(d, kapi) {
+    const k = KAPILAR[kapi];
+    const u = k.uclar[0];
+    d.mekan = u.mekan;
+    d.oyuncu = { x: u.x, y: u.y, yon: 0 };
+    const r = gec(d, kapi, 0);
+    expect(r.gecti).toBe(true);
+    zamanIlerle(d, 0.1);
+  }
+  test('Vanguard-01: mors sinyali kanyonu açar, günlükler haritayı verir', () => {
+    const d = hazir();
+    const e = noktaEylemleri(d, 'tepe');
+    expect(e.some((x) => x.id === 'k_mors')).toBe(true);
+    expect(eylemUygula(d, 'tepe', 'k_mors')).toEqual({ ayar: true, amac: 'mors' });
+    ayarBaslat1(d, 'mors');
+    expect(d.ayar.hedef).toBeGreaterThanOrEqual(95);
+    expect(d.ayar.hedef).toBeLessThanOrEqual(115);
+    d.ayar.frekans = d.ayar.hedef;
+    for (let i = 0; i < 40 && d.ayar; i++) ayarIlerle1(d, 0.1);
+    expect(d.bayrak.morsBulundu).toBe(true);
+    expect(d.sahne).toBe('mors_bulundu');
+    d.sahne = null;
+    git(d, 'dogu_gecit');
+    git(d, 'sarp_kanyon');
+    expect(d.mekan).toBe('vanguard');
+    const r = eylemUygula(d, 'vanguard_enkaz', 'k_gunluk');
+    expect(r.metin).toContain('Vanguard');
+    expect(d.kesif.length).toBe(Object.keys(NOKTALAR).length);
+    expect(eylemUygula(d, 'vanguard_enkaz', 'k_firin').ses).toBe('red');
+    d.araclar = ['demir_kervan'];
+    eylemUygula(d, 'vanguard_enkaz', 'k_firin');
+    expect(d.bayrak.firin).toBe(true);
+  });
+  test('monolit yönleri karıştırır ve susturur; tohum kazılır', () => {
+    const d = hazir();
+    d.mekan = 'dogu';
+    const m = NOKTALAR.monolit;
+    d.oyuncu = { x: m.x + 20, y: m.y, yon: 0 };
+    expect(cevreMetni(d)).toContain('Pusulan');
+    d.oyuncu = { x: m.x + 3, y: m.y, yon: 0 };
+    expect(cevreMetni(d)).toContain('sessizlik');
+    expect(radar(d).pingler.length).toBe(0);
+    eylemUygula(d, 'monolit', 'k_kazi');
+    expect(d.koloni.kaynaklar.manyetik_tohum).toBe(1);
+    expect(TARIFLER.kuantum_lab.some((t) => t.cikti.mod_graviton_dengeleyici)).toBe(true);
+  });
+  test('fosil tüneller Mammoth ister; vaha moral verir, sera kurulur', () => {
+    const d = hazir();
+    d.mekan = 'mantar';
+    d.oyuncu = { x: KAPILAR.tunel_agzi.uclar[0].x, y: KAPILAR.tunel_agzi.uclar[0].y, yon: 0 };
+    expect(gec(d, 'tunel_agzi', 0).kilitli).toBe(true);
+    d.araclar = ['mammoth'];
+    d.arac = 'mammoth';
+    expect(gec(d, 'tunel_agzi', 0).gecti).toBe(true);
+    expect(d.bayrak.tunelAcik).toBe(true);
+    d.arac = null;
+    // Vaha
+    d.koloni.moral = 40;
+    d.mekan = 'sirtlar';
+    git(d, 'vaha_yolu');
+    expect(d.bayrak.vahaBulundu).toBe(true);
+    expect(d.koloni.moral).toBe(100);
+    expect(d.sahne).toBe('vaha_bulundu');
+    d.sahne = null;
+    d.zehir = 50;
+    for (let i = 0; i < 30; i++) ilerle(d, {}, 0.1);
+    expect(d.zehir).toBeLessThan(50);
+    d.oyuncu = { x: NOKTALAR.tohum_1.x + 1, y: NOKTALAR.tohum_1.y, yon: 0 };
+    for (let i = 0; i < 3; i++) eylemUygula(d, 'tohum_1', 'topla');
+    expect(d.koloni.kaynaklar.tohum).toBe(3);
+    Object.assign(d.koloni.kaynaklar, { polimer: 2, kristal: 2 });
+    insaEt(d, 'sera');
+    expect(d.koloni.binalar).toContain('sera');
+  });
+  test('bölge arındırma: dört adım, tehlike kalkar, karakol taşır', () => {
+    const d = hazir();
+    d.mekan = 'sirtlar';
+    d.oyuncu = { x: NOKTALAR.karakol_sirtlar.x + 1, y: NOKTALAR.karakol_sirtlar.y, yon: 0 };
+    expect(noktaEylemleri(d, 'karakol_sirtlar').some((e) => e.id === 'a_kesif')).toBe(true);
+    expect(eylemUygula(d, 'karakol_sirtlar', 'a_kesif').ses).toBe('red');
+    for (const id of Object.keys(NOKTALAR)) if (NOKTALAR[id].mekan === 'sirtlar' && !d.kesif.includes(id)) d.kesif.push(id);
+    eylemUygula(d, 'karakol_sirtlar', 'a_kesif');
+    expect(eylemUygula(d, 'karakol_sirtlar', 'a_izole').ses).toBe('red');
+    Object.assign(d.koloni.parcalar, { dondurucu_kopuk: 2, notralizasyon_kulesi: 1, ikmal_karakolu: 1 });
+    eylemUygula(d, 'karakol_sirtlar', 'a_izole');
+    eylemUygula(d, 'karakol_sirtlar', 'a_stabil');
+    eylemUygula(d, 'karakol_sirtlar', 'a_karakol');
+    expect(d.koloni.bolgeDurumu.sirtlar).toBe(4);
+    expect(d.sahne).toBe('bolge_guvenli');
+    d.sahne = null;
+    d.zehir = 0;
+    for (let i = 0; i < 50; i++) ilerle(d, {}, 0.1);
+    expect(d.zehir || 0).toBe(0);
+    const once = Object.values(d.koloni.kaynaklar).reduce((a, b) => a + b, 0);
+    bekle(d, 200);
+    expect(Object.values(d.koloni.kaynaklar).reduce((a, b) => a + b, 0)).toBeGreaterThan(once);
+    // Tarifler mevcut
+    expect(TARIFLER.dokumhane.some((t) => t.cikti.dondurucu_kopuk)).toBe(true);
+    expect(TARIFLER.arac_hangari.some((t) => t.cikti.ikmal_karakolu)).toBe(true);
+  });
+  test('terraforming: yerel girdi + uzay girdisi; ırk yapıları kilitli', async () => {
+    const { terraformListesi, terraformTeslim, kademeMetni } = await import('../src/oyun/yuzey/gorevler');
+    const d = hazir();
+    expect(terraformListesi(d).length).toBe(4);
+    expect(terraformTeslim(d, 'atmosfer').ses).toBe('red');
+    Object.assign(d.koloni.kaynaklar, { kseno_spor: 6, foton_recinesi: 3 });
+    expect(terraformTeslim(d, 'atmosfer').ses).toBe('kur');
+    zamanIlerle(d, 1);
+    expect(d.koloni.terraformEtki.atmosfer).toBeUndefined();
+    d.bayrak.vaka2_biyokapsul = true;
+    const o = zamanIlerle(d, 1);
+    expect(o.some((x) => x.tur === 'terraform')).toBe(true);
+    // Atmosfer: sırtlarda maske gerekmez
+    d.mekan = 'sirtlar';
+    d.oyuncu = { x: 540, y: -30, yon: 0 };
+    d.zehir = 0;
+    for (let i = 0; i < 30; i++) ilerle(d, {}, 0.1);
+    expect(d.zehir || 0).toBe(0);
+    expect(TESISLER.akademi.kosul(d)).toBe(false);
+    d.koloni.seviye = 3;
+    expect(kademeMetni(d)).toContain('eksik');
+  });
+});

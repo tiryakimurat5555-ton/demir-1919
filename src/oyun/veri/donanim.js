@@ -32,6 +32,7 @@ export const DONANIMLAR = {
   optik_prizma: { ad: 'plazma camı sensör prizması', tesis: 'sinyal_kulesi', girdi: { plazma_cami: 2, saf_kristal: 10 }, sure: 90, tarif: 'Kusursuz camdan hedefleme ve teleskop prizması: fenerler yüzde otuz daha uzaktan duyulur.', minSinif: 1 },
   obsidyen_zirh: { ad: 'obsidyen yansıtıcı zırh kaplaması', tesis: 'askeri_tersane', girdi: { obsidyen: 3, zirhli_plaka: 50 }, sure: 120, tarif: 'Lazer ve enerji silahlarını yansıtan kaplama (çatışmalar için).', minSinif: 2 },
   grav_kalkani: { ad: 'gravitasyon kalkanı', tesis: 'reaktor_lab', girdi: { antigrav_tozu: 2, saf_kristal: 10 }, sure: 120, tarif: 'İniş takımlarında dikey kalkış-iniş desteği: kalkış yakıtının yarısını kurtarır.', minSinif: 1 },
+  graviton_dengeleyici: { ad: 'graviton dengeleyicisi', tesis: 'kuantum_lab', girdi: { manyetik_tohum: 1, graviton_yakiti: 10 }, sure: 150, tarif: 'Monolitin tohum materyalinden: uzaydaki anomali ve kara delik çekimlerine karşı direnç.', minSinif: 1 },
   kadim_anahtar: { ad: 'kadim rezonans anahtarı', tarif: 'Mabetteki yazıtın deşifresinden çıkan antik kseno-şifre modülü; mancınığın kilidini açar (Kızıl Yutucu).', kendi: true },
 };
 
