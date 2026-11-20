@@ -1436,3 +1436,52 @@ describe('Uzay operasyonları', () => {
     expect(uretimListesi(d).some((t) => t.id === 'kadim_disk')).toBe(true);
   });
 });
+
+describe('Fenomenler, gezegenler ve Evren Kütüphanesi', () => {
+  test('seyirde fenomen belirir; gereç yoksa kilit, varsa gözlem başlar; kütüphane ve itibar kademesi', async () => {
+    const G = await import('../src/oyun/gemi/gemi');
+    const F = await import('../src/oyun/uzay/fenomen');
+    const { kalkis } = await import('../src/oyun/uzay/seyir');
+    const d = yeniOyun(21);
+    G.gemiOlustur(d, 1);
+    d.gemi.yakit = 999;
+    d.gemi.maxYakit = 999;
+    d.gemide = true;
+    kalkis(d);
+    d.uzay.hiz = 2;
+    let o = [];
+    for (let i = 0; i < 6000 && !d.fenomen; i++) o.push(...uzayAdim(d, 0.1));
+    expect(d.fenomen).toBeTruthy();
+    expect(o.some((x) => x.tur === 'fenomen')).toBe(true);
+    // Fenomenin yanına git
+    d.uzay.x = d.fenomen.x + 5;
+    d.uzay.y = d.fenomen.y;
+    d.uzay.hiz = 0;
+    const id = d.fenomen.id;
+    expect(kenetlen(d).ses).toBe('red');
+    for (const k of (await import('../src/oyun/veri/gozlem')).FENOMENLER[id].gerec) d.gemi.moduller[k] = true;
+    const r = kenetlen(d);
+    expect(r.op).toBeTruthy();
+    expect(d.op.id).toBe(id);
+    // Kütüphane salonları ve itibar kademesi
+    d.op = null;
+    d.kodeks.push({ id: 'x', ad: 'Deneme', tarif: '', salon: 'anomali' });
+    expect(F.salonListesi(d).find((s) => s.id === 'anomali').kayitlar.length).toBe(1);
+    d.itibar = 1200;
+    const n = d.koloni.nufus.toplam;
+    expect(zamanIlerle(d, 0.1).some((x) => x.tur === 'itibar')).toBe(true);
+    expect(d.koloni.nufus.toplam).toBe(n + 1);
+    expect(F.itibarKademesi(d)).toBe(1);
+  });
+  test('gezegenler haritaya düşer ve iniş aracı ister', async () => {
+    const G = await import('../src/oyun/gemi/gemi');
+    const { poiGuncelle, eksikDonanim } = await import('../src/oyun/uzay/seyir');
+    const d = yeniOyun(4);
+    G.gemiOlustur(d, 2);
+    d.koloni.binalar.push('sinyal_kulesi');
+    d.gemi.moduller.kamera = true;
+    expect(poiGuncelle(d)).toContain('p01');
+    expect(eksikDonanim(d, 'p01').eksik.map((x) => x.katman)).toEqual(['spektrometre', 'termal_rover']);
+    expect(TARIFLER.arac_hangari.some((t) => t.cikti.mod_termal_rover)).toBe(true);
+  });
+});

@@ -463,3 +463,59 @@ export const OPERASYONLAR = {
     odul: { bayrak: ['g_tarafsiz', 'g_ticaret'], moral: 10, itibar: 60 },
   },
 };
+
+// --- Fenomen gözlemleri ve gezegen keşifleri (veri/gozlem.js) operasyon olarak ---
+import { FENOMENLER, GEZEGENLER, GOZLEM_DONANIMLARI, INIS_ARACLARI } from './gozlem';
+const GEZEGEN_SALONU = { p03: 'biyoloji', p04: 'biyoloji', p12: 'biyoloji', p13: 'biyoloji', p19: 'biyoloji', p09: 'tarih', p17: 'tarih', p14: 'anomali', p18: 'anomali' };
+const OZEL_ADIM = {
+  lidar: A('tut', 'Lidar taraması', 'Basılı tut: kseno-lidar nesnenin dış hatlarını tarar.', 'Morfoloji kaydı tamam.'),
+  ritim: A('ritim', 'Ritim eşleme', 'Sütunun tıkırtısıyla aynı ritimde üç kez dokun.', 'Ritim eşlendi.', { n: 3 }),
+  denge: A('denge', 'Gravite dengesi', 'Sağa sola sürükleyerek iki tonu birleştir ve tut.', 'Gravite dengede.', { eksen: 'yatay' }),
+  fiske: A('kademeli', 'Hızlı fiske', 'Yarıklar bir belirip kayboluyor. Yukarı hızlıca kaydır: anlık pozlama.', 'Yarık yakalandı.', { n: 1, yon: 'yukari', parmak: 1 }),
+};
+for (const id of Object.keys(FENOMENLER)) {
+  const f = FENOMENLER[id];
+  OPERASYONLAR[id] = {
+    fenomen: true,
+    adimlar: [
+      A('sonar', 'Akustik vizör', 'Basılı tut: vizör açılır, motorlar kısılır, hedefin saf sesi kulaklarına dolar.', f.imza),
+      A('frekans', 'Odak ve netleme', 'İki parmakla çevir: bulanık ses kristal bir akora dönüşene dek.', 'Odak kilitlendi.'),
+      f.ozel ? OZEL_ADIM[f.ozel] : A('tut', 'Pozlama ve spektrografi', 'Basılı tut: spektrometrenin lazer taraması üç saniye sürer.', 'Spektrogram tamam.'),
+      A('kenetle', 'Deklanşör', 'Ses doruğa vardı: çift dokun.', 'Kozmik izdüşüm kaydedildi.'),
+      A('kademeli', 'Veri paketini ışınla', 'Yukarı hızlıca kaydır: gözlem paketi hiper-dalgayla Gözlemevi\'ne.', 'Paket Aethelis-IV\'e ulaştı.', { n: 1, yon: 'yukari', parmak: 1 }),
+    ],
+    sonuc: [f.ad + ' Evren Kütüphanesi\'nde.', 'Kütüphane kaydı: ' + f.kayit, 'Gözlemcilerin tepkisi: ' + f.tepki, 'Evren itibarı +' + f.itibar + '.'],
+    odul: { ...f.etki, itibar: f.itibar, kodeks: { id, ad: f.ad, tarif: f.kayit + ' ' + f.imza, salon: f.salon, frek: f.frek } },
+  };
+}
+const gezNo = (id) => Number(id.slice(1));
+for (const id of Object.keys(GEZEGENLER)) {
+  const p = GEZEGENLER[id];
+  const adimlar = [
+    A('frekans', 'Yörünge spektrometresi', 'Yörüngedesin. ' + p.akustik + ' İki parmakla çevir: atmosferin vızıltısı en saf tona gelsin.', 'Atmosfer bileşimi kaydedildi.'),
+    A('tut', 'Rezonans fotoğrafı', p.gozlem + ' Basılı tut: deklanşör.', 'Flaş darbesi ve kristal kayıt sesi: fotoğraf alındı.'),
+    A('kenetle', 'İniş', 'Çift dokun: iniş mekiği atmosfere dalar.', 'Alev kükremesi, hava frenlerinin tıslaması.'),
+  ];
+  if (p.denge) adimlar.push(A('denge', 'Atmosferde denge', 'Kabin kavruluyor; sağa sola sürükleyip iki tonu birleştir.', 'Yüzeye indin.', { eksen: 'yatay' }));
+  adimlar.push(
+    A('yaklas', p.poi1, INIS_ARACLARI[p.arac].ad + ' yüzeyde. ' + p.poi1 + ' yönündeki sesi iki kulakta eşitle, yukarı kaydırıp sür.', p.poi1 + ' önündesin.', { frek: p.frek, mesafe: 40 }),
+    A('yaklas', p.poi2, p.poi2 + ' yönündeki sesi eşitle, sür.', p.poi2 + ' önündesin.', { frek: Math.round(p.frek * 1.5), mesafe: 40 }),
+    A('dron', 'Numune kolu', 'İki parmakla çift dokun: robotik kol ya da emme ağzı uzanır.', 'Kol yerinde.'),
+    A('kademeli', 'Sondajı sapla', 'Aşağı hızlıca kaydır: lazer matkap kayaya saplanır.', 'Matkap saplandı.', { n: 1, yon: 'asagi', parmak: 1 }),
+    A('tut', 'Numuneyi al', p.numune + ' Basılı tut.', 'Numune depoya istiflendi: ' + p.numuneAd + '.'),
+  );
+  OPERASYONLAR[id] = {
+    gezegen: true,
+    adimlar,
+    sonuc: [p.ad + ' keşfedildi; numune: ' + p.numuneAd + '.', 'Kodeks ve koloni kazanımı: ' + p.kazanim, 'Evren itibarı +' + p.itibar + '.'],
+    odul: { ...p.etki, itibar: p.itibar, kodeks: { id, ad: p.ad + ', ' + p.sinifi, tarif: p.akustik + ' ' + p.kazanim, salon: GEZEGEN_SALONU[id] || 'astrofizik', frek: p.frek } },
+  };
+  G_NOKTALARI[id] = {
+    ad: p.ad + ' (' + p.sinifi.toLowerCase() + ')', x: p.x, y: p.y, frek: p.frek, sinif: 2, poi: id,
+    gorev: 'Gezegen keşfi: ' + p.ad,
+    tehlike: p.akustik,
+    hedef: 'Yörüngeden spektrum ve fotoğraf; ' + p.poi1 + ' ve ' + p.poi2 + '; numune: ' + p.numuneAd + '.',
+    gerekli: ['spektrometre', 'kamera', p.arac].map((k) => ({ katman: k, ad: (GOZLEM_DONANIMLARI[k] || INIS_ARACLARI[k]).ad })),
+    acKosul: (d) => !!d.gemi && d.koloni.binalar.includes('sinyal_kulesi') && !!(d.gemi.moduller.spektrometre || d.gemi.moduller.kamera || (d.filo || []).length) && (d.tamamlananOp || []).length >= Math.floor((gezNo(id) - 1) * 0.6),
+  };
+}

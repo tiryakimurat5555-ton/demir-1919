@@ -14,6 +14,7 @@ import { GEMI_SINIFLARI, SINIF_KATMANLARI } from '../veri/gemiler';
 
 export const KILIT_ACI = 0.14; // rad (~8°)
 export const KILIT_PAYI = 1.2;
+const payi = (d) => KILIT_PAYI * (d.gemi && d.gemi.moduller.akustik_filtre ? 1.6 : 1); // akustik filtre
 export const KILIT_SURESI = 2.5;
 export const ALARM = 0.78;
 const TONLAR = { kalin: 196, orta: 330, tiz: 523 };
@@ -106,6 +107,10 @@ function bitir(d) {
   if (!d.tamamlananOp) d.tamamlananOp = [];
   if (!d.tamamlananOp.includes(id)) d.tamamlananOp.push(id);
   odulVer(d, o.odul || {});
+  if (d.gemi && d.gemi.moduller.toplama_dronu && !o.fenomen) {
+    d.koloni.kaynaklar.titanyum = (d.koloni.kaynaklar.titanyum || 0) + 2;
+    d.koloni.kaynaklar.bazalt = (d.koloni.kaynaklar.bazalt || 0) + 2;
+  }
   d.opSon = id;
   d.op = null;
   d.sahne = 'op_tamam';
@@ -123,6 +128,7 @@ export function odulVer(d, od) {
   if (od.tersane) k.nufus.tersane = (k.nufus.tersane || 0) + od.tersane;
   if (od.moral) k.moral = Math.min(100, k.moral + od.moral);
   if (od.itibar) d.itibar += od.itibar;
+  if (od.kalkan) k.kalkan = (k.kalkan || 1) + od.kalkan;
   d.kaptan.tecrube += 60;
   if (od.kodeks && !d.kodeks.some((x) => x.id === od.kodeks.id)) d.kodeks.push({ ...od.kodeks, itibar: od.itibar || 0 });
   // Hediye gemiler: sınıfının bütün katmanları takılı gelir
@@ -216,7 +222,7 @@ export function opGirdi(d, g) {
       return [{ soz: 'İsabet! ' + s.vurus + ' / ' + a.n + '. Sıradaki hedef.', ses: 'patlama' }];
     }
   }
-  if (t === 'kademeli' && g.tur === 'kaydir' && g.yon === (a.yon || 'asagi') && g.parmak >= 2) {
+  if (t === 'kademeli' && g.tur === 'kaydir' && g.yon === (a.yon || 'asagi') && g.parmak >= (a.parmak || 2)) {
     s.n += 1;
     if (s.n >= (a.n || 1)) return adimBitti(d, 'hidrolik');
     return [{ soz: s.n + ' / ' + a.n + '.', ses: 'kilit' }];
@@ -305,7 +311,7 @@ export function opIlerle(d, dt) {
   }
   if (t === 'frekans') {
     const fark = Math.abs(s.deger - s.hedef);
-    if (fark <= KILIT_PAYI) s.kilit += dt;
+    if (fark <= payi(d)) s.kilit += dt;
     else s.kilit = Math.max(0, s.kilit - dt * 2);
     const o = [];
     if (!s.yakin && fark < 4) {

@@ -59,7 +59,7 @@ export function moralCarpani(d) {
 
 export function uretimHizi(d) {
   // Jeotermal santral (lav koridorlarının enerjisi) ve Vanguard-01'in fırın jeneratörü üretimi hızlandırır
-  const enerji = (d.koloni.binalar.includes('jeotermal_santral') ? 1.2 : 1) * (d.bayrak.firin ? 1.25 : 1) * (d.bayrak.g_fuzyon ? 1.15 : 1) * (d.bayrak.g_oron ? 1.2 : 1); // G-11 füzyon teorisi, G-16 Oron bilgini
+  const enerji = (d.koloni.binalar.includes('jeotermal_santral') ? 1.2 : 1) * (d.bayrak.firin ? 1.25 : 1) * (d.bayrak.g_fuzyon ? 1.15 : 1) * (d.bayrak.g_oron ? 1.2 : 1) * (d.bayrak.f_fuzyon ? 1.1 : 1) * (d.bayrak.f_fotosentez ? 1.1 : 1); // G-11 füzyon teorisi, G-16 Oron bilgini
   return (1 + 0.25 * nufus(d).sanayi) * moralCarpani(d) * enerji;
 }
 // İlaç dağıtımı: 10 doz yatıştırıcı → moral +5
@@ -281,7 +281,7 @@ export function koloniIlerle(d, dt) {
   olaylar.push(...montajIlerle(d, dt, 1 + 0.5 * n.tersane));
   // Nüfus ve moral
   if (n.toplam < n.barinma) {
-    const carpan = (d.koloni.binalar.includes('biyo_kubbe') ? 1.5 : 1) * (d.koloni.binalar.includes('sera') ? 1.5 : 1) * (katmanTamamMi(d, 'biyosfer') ? 1.5 : 1) * (d.bayrak.g_tarim ? 1.2 : 1) * (d.koloni.binalar.includes('hastane') ? 1.2 : 1) * (k.moral >= 50 ? 1 : 0.3);
+    const carpan = (d.koloni.binalar.includes('biyo_kubbe') ? 1.5 : 1) * (d.koloni.binalar.includes('sera') ? 1.5 : 1) * (katmanTamamMi(d, 'biyosfer') ? 1.5 : 1) * (d.bayrak.g_tarim ? 1.2 : 1) * (d.bayrak.p_tarim ? 1.3 : 1) * (d.koloni.binalar.includes('hastane') ? 1.2 : 1) * (k.moral >= 50 ? 1 : 0.3);
     k.buyume = (k.buyume || 0) + dt * carpan;
     if (k.buyume >= NUFUS_SN) {
       k.buyume -= NUFUS_SN;

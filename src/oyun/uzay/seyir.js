@@ -173,7 +173,7 @@ export function kalkisOlur(d) {
 export function kalkis(d) {
   const engel = kalkisOlur(d);
   if (engel) return { metin: engel, ses: 'red' };
-  d.gemi.yakit = Math.max(0, d.gemi.yakit - KALKIS_YAKITI * (d.gemi.moduller.grav_kalkani ? 0.5 : 1));
+  d.gemi.yakit = Math.max(0, d.gemi.yakit - KALKIS_YAKITI * (d.gemi.moduller.grav_kalkani ? 0.5 : 1) * (d.bayrak.p_takyon ? 0 : 1));
   d.gemi.yer = 'uzay';
   d.uzay = { x: 0, y: 45, yon: 0, hiz: 0, yaklasilan: {}, kilitli: null, yakitUyari: false };
   d.sahne = 'kalkis';
@@ -215,7 +215,8 @@ export function uzayIlerle(d, dt) {
   if (!u) return olaylar;
   const g = d.gemi;
   if (u.hiz > 0) {
-    const yakit = u.hiz * YAKIT_TUKETIM * dt * (g.moduller.sivi_iletken ? 0.85 : 1);
+    const b = d.bayrak;
+    const yakit = u.hiz * YAKIT_TUKETIM * dt * (g.moduller.sivi_iletken ? 0.85 : 1) * (b.f_yakit ? 0.9 : 1) * (b.f_saat ? 0.9 : 1) * (b.p_yakit ? 0.9 : 1) * (b.p_tasarruf ? 0.9 : 1);
     g.yakit = Math.max(0, g.yakit - yakit);
     const birim = HIZ_BIRIMI * gucDagitimi(d).hiz;
     u.x += Math.sin(u.yon) * u.hiz * birim * dt;
@@ -313,8 +314,9 @@ export function kenetlen(d) {
   const u = d.uzay;
   if (!u) return { metin: '' };
   const e = enYakin(d);
-  if (!e || e.m > KENET_MESAFE) return { metin: 'Kenetlenecek bir şey yok. ' + (e ? e.n.ad + ' ' + Math.round(e.m) + ' birim uzakta.' : ''), ses: 'red' };
-  if (u.hiz > 1) return { metin: 'Çok hızlısın; kenetlenmek için hızı bire ya da sıfıra düşür.', ses: 'red' };
+  const oto = d.gemi.moduller.oto_kenet; // otomatik kenetlenme bilgisayarı: daha uzaktan, daha hızlıyken
+  if (!e || e.m > KENET_MESAFE * (oto ? 2 : 1)) return { metin: 'Kenetlenecek bir şey yok. ' + (e ? e.n.ad + ' ' + Math.round(e.m) + ' birim uzakta.' : ''), ses: 'red' };
+  if (u.hiz > (oto ? 3 : 1)) return { metin: 'Çok hızlısın; kenetlenmek için hızı bire ya da sıfıra düşür.', ses: 'red' };
   if (e.n.ev) {
     d.gemi.govde = d.gemi.maxGovde; // tersane gövdeyi onarır
     d.gemi.yer = 'kizak';

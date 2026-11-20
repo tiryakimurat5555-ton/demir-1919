@@ -39,6 +39,9 @@ export const DONANIMLAR = {
 // Derin uzay görevlerinin (G-01 … G-24) donanımları
 import { G_DONANIMLARI } from './uzayGorevleri';
 Object.assign(DONANIMLAR, G_DONANIMLARI);
+// Gözlem gereçleri, otomasyon ve gezegen iniş araçları (veri/gozlem.js)
+import { GOZLEM_DONANIMLARI, INIS_ARACLARI } from './gozlem';
+Object.assign(DONANIMLAR, GOZLEM_DONANIMLARI, INIS_ARACLARI);
 
 // Entegrasyon matrisi (bölüm 6): yüzey işi → tesis → üretilen birim → açılan uzay noktası
 export const MATRIS = [

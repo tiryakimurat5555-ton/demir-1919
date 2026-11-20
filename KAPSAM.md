@@ -20,9 +20,9 @@ bütün bölümlerini sırayla sayar. Her sürümde güncellenir; bir bölüm bu
 - [x] 4 Belge okuma sırası (CLAUDE.md'de).
 - [~] 5 Veri modelleri: ColonyWorld [x], Starship [x] (sınıf, odalar, gövde, kalkan, silahlar, kargo, motor sesi),
       CrewMember [~] (atanan oda var; verimlilik/stres alanları var ama işlemiyor), SpaceMission [x] (1.1, d.op), CombatSession [ ],
-      ExoPlanet [ ], CodexEntry [~] (kodeks kaydı var; ses kaydı ve kütüphane durumu yok).
+      ExoPlanet [x] (1.2, gezegen operasyonları), CodexEntry [x] (salon, ses imzası tonu).
 - [x] 6 Master prompt ilkeleri (görselsiz, Türkçe, ses ve hareket).
-- [~] 7 Yol haritası: Faz 1 [x], Faz 2 [x], Faz 3 [~], Faz 4 [~], Faz 5 [ ]. Ayrıntı aşağıda.
+- [~] 7 Yol haritası: Faz 1 [x], Faz 2 [x], Faz 3 [~], Faz 4 [x], Faz 5 [ ]. Ayrıntı aşağıda.
 
 ## 2. uzay-oyunu-tasarim-ve-senaryo.md
 - [~] 1 Gezegenin dört sektörü: Vadi-i Sukût [x], Manyetik Sırtlar [x], Kadim Krater ve harabeler [x],
@@ -141,7 +141,8 @@ bütün bölümlerini sırayla sayar. Her sürümde güncellenir; bir bölüm bu
 ## 6. derin-uzay-gorevleri.md (Cilt I)
 - [x] 1 Seyrüsefer hareketleri: yukarı itki, aşağı fren, sağa-sola pruva ve stereo kilit, basılı tut radar, çift
       dokun kenetlenme; operasyonda iki parmakla çevirme frekans, kıstırıp açma dron (1.1, jestler.js onKistirAc).
-- [ ] 1 Otomasyon: otomatik kenetlenme bilgisayarı, akustik filtre, toplama dronları.
+- [x] 1 Otomasyon (1.2): otomatik kenetlenme bilgisayarı (iki kat mesafe, hız 3'e kadar), akustik filtre (frekans
+      kilit payı ×1,6), toplama dronları (operasyon sonrası enkazdan titanyum ve bazalt).
 - [x] 2-4 Görevler G-01 … G-12 (1.1): belgedeki dört adım operasyon adımı olarak; koloniye katkılar (rota haritaları:
       fener ×1,2; hidrojen; astrogatörler; plazma yakıtı; kalkan projektörü; ticaret rotası; nötron cevheri; gizlenme
       modülü; kseno-yaşam; kadim disk şeması; füzyon teorisi üretim ×1,15; kripto kodları).
@@ -161,20 +162,29 @@ bütün bölümlerini sırayla sayar. Her sürümde güncellenir; bir bölüm bu
 - [x] 5 Gereksinim matrisi (1.1) · [~] 6 Ekosistem bütünleşmesi (sonuçlar koloniye işler; savaş Faz 5).
 
 ## 8. kesfedilebilir-gezegenler-rehberi.md
-- [ ] 1 Yörüngesel ve yüzey araştırma kontrolleri.
-- [ ] 2 Yirmi gezegen (Pyros-Prime … Corona-Lux).
-- [ ] 3 Keşif ve etkileşim matrisi · [ ] 4 Oyun döngüsüne entegrasyon.
+- [x] 1 Yörüngesel ve yüzey araştırma kontrolleri (1.2): iki parmakla çevirme spektrometre, basılı tut deklanşör,
+      çift dokun iniş, kaydırarak yüzey aracı sürme (iki keşif noktası), iki parmakla çift dokun numune kolu, aşağı
+      hızlı kaydırma ve basılı tutma lazer sondaj.
+- [x] 2 Yirmi gezegen (1.2, veri/gozlem.js GEZEGENLER): her birinin akustik kimliği, iki yüzey noktası, gözlemi,
+      numunesi, kazanımı ve itibarı (+500 … +1000); atmosferi sert olanlarda iniş dengesi. Kazanımlar koloniye işler
+      (malzemeler, yakıt tasarrufu, tarım ×1,3, kadim şema, takyon: kalkış yakıtsız, vb.).
+- [x] 3 Keşif matrisi (1.2): her gezegenin iniş aracı ayrı üretilir (araç hangarı, 20 araç) + spektrometre + kamera.
+- [x] 4 Oyun döngüsüne entegrasyon (1.2): kule ve gözlem gereciyle, tamamlanan operasyonlar arttıkça haritaya düşer;
+      numuneler sanayiye, gözlemler Evren Kütüphanesi'ne.
 
 ## 9. derin-uzay-kesifleri-ve-evren-kutuphanesi.md
-- [ ] 1 Serbest seyrüsefer keşif mantığı (yol üstü fenomenler).
-- [ ] 2 Gözlem gereçleri: rezonans alan kamerası, radyo-spektrometre, mikro-gravimetre, kseno-lidar, kripto-arşivleyici.
-- [ ] 3 Dokunsal ve akustik fotoğraflama arayüzü.
-- [ ] 4 On altı kozmik fenomen (Keşif 01 … 16).
-- [~] 5 Veri iletimi, Evren Kütüphanesi ve itibar: Kodeks menüsü ve itibar puanı [x]; kütüphane durumu ve
-      prestij kademeleri [ ].
-- [ ] 6 Keşif, gereç ve itibar matrisi.
+- [x] 1 Serbest seyrüsefer keşif mantığı (1.2, uzay/fenomen.js): zorunluluk yok; gözlem yok etmek değil kaydetmek.
+- [x] 2 Gözlem gereçleri (1.2): rezonans alan kamerası, radyo-spektrometre, mikro-gravimetre, kseno-lidar, kripto-arşivleyici
+      (radyasyon yalıtımlı kamera = kamera + radyasyon zırhı; biyo-rezonans kamera = kamera + harmonik rezonatör).
+- [x] 3 Dokunsal ve akustik fotoğraflama (1.2): basılı tut vizör → iki parmakla çevir odak → pozlama (basılı tut; iki
+      parmak basılı tutma yerine tek parmak) → çift dokun deklanşör → yukarı hızlı kaydır ışınlama.
+- [x] 4 On altı kozmik fenomen (1.2): her birinin akustik imzası (kendi tonunda konumlu fener), gereçleri, kütüphane
+      kaydı, gözlemcilerin tepkisi (koloniye etkisi) ve itibarı; özel kayıt hareketleri (lidar, ritim, gravite dengesi, fiske).
+- [x] 5 Veri iletimi, Evren Kütüphanesi ve itibar (1.2): menüde "Evren Kütüphanesi": dört salon (Astrofizik,
+      Kseno-Biyoloji, Tarih ve Sanat, Anomali); her pano kaydın ses imzasını çalar ve makalesini okur. Dört itibar
+      kademesi (0 / 1000 / 5000 / 12000): araştırmacılar gelir, elçiler ticaret açar, moral.
+- [x] 6 Keşif, gereç ve itibar matrisi (1.2) · [x] 7 Kodlama notu: her sektör atlamasında (30 sn seyir) yüzde 35,
+      keşif zili; zaman sınırı yok; keşfedildi mührü, yeniden rastlanınca dinlenir.
 
 ## Sıradaki adımlar (sırayla)
-1. Faz 4 kalanı: 20 keşfedilebilir gezegen (kesfedilebilir-gezegenler-rehberi), gözlem gereçleri ve 16 fenomen,
-   Evren Kütüphanesi ve prestij; derin-uzay-gorevleri bölüm 1 otomasyon (otomatik kenetlenme, akustik filtre, dronlar).
-2. Faz 5: savaş modu, yetenek ağaçları, ElevenLabs sesleri, cila.
+1. Faz 5: savaş modu, yetenek ağaçları, ElevenLabs sesleri, cila.

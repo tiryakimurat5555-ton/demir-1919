@@ -16,7 +16,10 @@ import * as A from './arindirma';
 import * as T from '../terraform';
 import * as M from './mini';
 import * as O from '../uzay/operasyon';
+import * as F from '../uzay/fenomen';
 import { HAMMADDELER } from '../veri/tesisler';
+import { FENOMENLER } from '../veri/gozlem';
+import { PARCALAR } from '../veri/uretim';
 import { koloniIlerle } from '../koloni';
 import * as S from '../uzay/seyir';
 import { TESISLER } from '../veri/tesisler';
@@ -200,6 +203,7 @@ export const { miniBaslat, MINI, olgunMu, miniGorunur } = M;
 export function zamanIlerle(d, dt) {
   const olaylar = koloniIlerle(d, dt);
   olaylar.push(...M.miniIlerle(d, dt));
+  olaylar.push(...F.itibarIlerle(d));
   if (d.vahaGirisi) {
     d.vahaGirisi = false;
     K.vahaBulundu(d);
@@ -213,6 +217,7 @@ export function zamanIlerle(d, dt) {
 export const { UZAY_NOKTALARI, gorunurNoktalar, itki, burunDondur, uzayRadar, uzayDurumu, onTarama, kalkis, kalkisOlur, sesYeri, enYakin, fenerMenzili, HIZ_EN_COK } = S;
 export function uzayAdim(d, dt) {
   const olaylar = S.uzayIlerle(d, dt);
+  olaylar.push(...F.fenomenIlerle(d, dt));
   if (olaylar.some((o) => o.tur === 'yakitBitti')) {
     // Yakıt bitti: koloni bir yakıt kapsülü yollar, gemi kızağa döner
     d.gemi.yer = 'kizak';
@@ -222,10 +227,20 @@ export function uzayAdim(d, dt) {
   return olaylar;
 }
 export function kenetlen(d) {
+  // Yol üstü fenomen: gereçler tamsa gözlem operasyonu
+  if (F.fenomenYakinMi(d) && d.uzay.hiz <= 1) {
+    const id = d.fenomen.id;
+    const eksik = F.fenomenEksik(d, id);
+    if (O.opTamamMi(d, id)) return { metin: FENOMENLER[id].ad + ': keşfedildi mührü var. ' + FENOMENLER[id].imza + ' Dilediğin kadar dinle.' };
+    if (eksik.length) return { metin: FENOMENLER[id].ad + '. Gözlem için gereken gereç eksik: ' + eksik.map((k) => (PARCALAR['mod_' + k] ? PARCALAR['mod_' + k].ad : k)).join(', ') + '.', ses: 'red' };
+    d.uzay.hiz = 0;
+    return { metin: FENOMENLER[id].ad + '. Gözlem başlıyor.', op: O.opBaslat(d, id), id };
+  }
   const r = S.kenetlen(d);
   if (r.inis) G5.inisSonrasi(d);
   // Donanım tamsa ve operasyon yapılmadıysa doğrudan operasyon sahasına girilir
   if (r.id && !r.kilitli && O.opVarMi(r.id) && !O.opTamamMi(d, r.id)) r.op = O.opBaslat(d, r.id);
   return r;
 }
+export const { salonListesi, itibarKademesi } = F;
 export const { opGirdi, opIlerle, opSes, opDurum, opBaslat, opTamamMi } = O;

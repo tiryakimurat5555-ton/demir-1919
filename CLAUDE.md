@@ -242,6 +242,19 @@ Demir 1919 oyunu silindi; geçmişi git kaydında (son sürüm 1.06, commit 556f
     ya da takılıysa listeler.
   - Yuzey: operasyon katmanı (opJest; dinleyici (0,0); hedef 'fener' kaynağı op_hedef_<adim>, telsiz/basinc/terazi
     motorları, tehlike konumsal 'hamle', ton dizisi nota). jestler.js onKistirAc (iki parmak arası > 90 px açılınca).
+- SÜRÜM 1.2 (21 Kasım): Faz 4 kalanı (gezegenler, fenomenler, kütüphane). Telefonda denenmedi.
+  - veri/gozlem.js: GOZLEM_DONANIMLARI (kamera, spektrometre, gravimetre, lidar, arsivleyici, oto_kenet, akustik_filtre,
+    toplama_dronu), INIS_ARACLARI (20, araç hangarı), FENOMENLER f01-f16 (salon, imza, gerec, kayit, tepki, itibar, frek,
+    etki, ozel adım), GEZEGENLER p01-p20 (poi1/2, numune, kazanım, itibar, arac, frek, x/y, etki, denge), SALONLAR,
+    ITIBAR_KADEMELERI (0/1000/5000/12000). uzayGorevleri.js sonunda fenomen ve gezegen OPERASYONLAR'ı ile gezegen
+    G_NOKTALARI üretilir (acKosul: gemi + kule + gözlem gereci ya da filo + tamamlanan ≥ ⌊(n−1)·0,6⌋).
+  - uzay/fenomen.js: fenomenIlerle (SEKTOR_SN 30, ihtimal 0,35, pruvanın 150 birim önüne; 450'den uzaklaşınca kaybolur),
+    fenomenYakinMi (60), fenomenEksik, salonListesi, itibarKademesi/itibarIlerle (kademe 2 bilim +1, 3 ticaret, 4 moral).
+    gorevler.js kenetlen önce fenomene bakar; uzayAdim fenomenIlerle; zamanIlerle itibarIlerle. operasyon.js: kademeli
+    parmak alanı, akustik filtre payı ×1,6, toplama dronu, odul.kalkan. seyir.js: oto_kenet (mesafe ×2, hız ≤ 3), yakıt ×
+    f_yakit/f_saat/p_yakit/p_tasarruf 0,9, p_takyon kalkış yakıtı 0. koloni.js: f_fuzyon/f_fotosentez üretim ×1,1, p_tarim nüfus ×1,3.
+  - Yuzey: fenomen konumlu feneri (fener_fenomen_<id>), keşif zili; menüde "Evren Kütüphanesi" (salonlar, panoda ses imzası:
+    kaydın frek'inden altı notalı arpej).
 - Sıradaki: KAPSAM.md "Sıradaki adımlar".
 
 ## Sesler

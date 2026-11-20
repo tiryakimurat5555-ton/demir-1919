@@ -34,10 +34,13 @@ import { RENK, UST_BOSLUK } from '../arayuz/tema';
 import KonumsalSes from '../ses/konumsal';
 import { ALANLAR, KAPILAR, MEKANLAR, NOKTALAR } from '../oyun/yuzey/harita';
 import { monolitEtkisi } from '../oyun/yuzey/kesifler';
+import { FENOMENLER, ITIBAR_KADEMELERI } from '../oyun/veri/gozlem';
 import { cevreMetni, durumMetni, esyaMetni, etkiles, firtinaIlerle, maruziyetAdi, ilerle, kisiAdi, otoBaslat, radar, yerlerListesi, zehirIlerle } from '../oyun/yuzey/dunya';
 import {
   terraformListesi,
   terraformTeslim,
+  salonListesi,
+  itibarKademesi,
   opGirdi,
   opIlerle,
   opSes,
@@ -349,6 +352,13 @@ export default function Yuzey({ onGeri, baslangic, yeniOyunUret }) {
           s.kaynak(kid, 'fener', sesYeri(n), null, n.frek);
         }
       } else kaynakKapat(kid);
+    }
+    // Yol üstü fenomen: kendine has tonuyla, uzaydaki yerinden
+    const fid = d.fenomen ? 'fener_fenomen_' + d.fenomen.id : null;
+    for (const id of Object.keys(calanlar.current)) if (id.indexOf('fener_fenomen_') === 0 && id !== fid) kaynakKapat(id);
+    if (fid && !calanlar.current[fid]) {
+      calanlar.current[fid] = true;
+      s.kaynak(fid, 'fener', sesYeri(d.fenomen), null, FENOMENLER[d.fenomen.id].frek);
     }
     if (ortamDa) {
       s.boguk(false);
@@ -825,7 +835,7 @@ export default function Yuzey({ onGeri, baslangic, yeniOyunUret }) {
               },
             ]
           : []),
-        { id: 'kodeks', etiket: 'Kodeks', ipucu: 'Kaydettiğin buluntular.', sec: () => (kodeksGoster(), 'sessiz') },
+        { id: 'kodeks', etiket: 'Evren Kütüphanesi', ipucu: 'Kodeks: buluntular, gözlemler, itibar kademesi.', sec: () => (kodeksGoster(), 'sessiz') },
         { id: 'telsiz', etiket: 'Telsiz kayıtları', ipucu: 'Dinlediğin ve ertelediğin telsiz çağrıları.', sec: () => (telsizGoster(), 'sessiz') },
         { id: 'hareket', etiket: 'Hareketler', sec: () => (soyle(HAREKET_KISA, 'istek', true), 'sessiz') },
         {
@@ -838,15 +848,45 @@ export default function Yuzey({ onGeri, baslangic, yeniOyunUret }) {
     });
   };
 
+  // Evren Kütüphanesi (Kodeks): dört salon, her kayıt bir ses imzasıyla (derin-uzay-kesifleri bölüm 5)
+  const sesImzasi = (x) => {
+    const s = m();
+    if (!s) return;
+    const f = x.frek || 262;
+    [1, 1.25, 1.5, 2, 1.5, 1.25].forEach((k, i) => setTimeout(() => m() && m().nota(f * k, null, 0.6, 1.4), 300 + i * 600));
+  };
   const kodeksGoster = () => {
     const d = dunya.current;
+    const k = itibarKademesi(d);
+    const kad = ITIBAR_KADEMELERI[k];
     katmanAc({
-      baslik: 'Kodeks',
-      giris: d.kodeks.length ? d.kodeks.length + ' kayıt.' : 'Kodeks boş. Kadim buluntular buraya yazılır.',
+      baslik: 'Evren Kütüphanesi',
+      giris: d.kodeks.length + ' kayıt. Evren itibarı ' + d.itibar + ', kademe ' + (k + 1) + ': ' + kad.ad + '. ' + (ITIBAR_KADEMELERI[k + 1] ? 'Sıradaki kademe ' + ITIBAR_KADEMELERI[k + 1].esik + ' itibarda.' : ''),
       onGeri: () => menuyuAc(),
       ogeler: [
-        ...d.kodeks.map((x) => ({ id: x.id, etiket: x.ad, sec: () => (soyle(x.ad + '. ' + x.tarif, 'istek', true), 'sessiz') })),
+        ...salonListesi(d).map((sl) => ({ id: sl.id, etiket: sl.ad + ': ' + sl.kayitlar.length + ' kayıt', sec: () => (salonGoster(sl.id), 'sessiz') })),
         { id: 'geri', etiket: 'Menüye dön', sec: () => (menuyuAc(), 'sessiz') },
+      ],
+    });
+  };
+  const salonGoster = (salonId) => {
+    const d = dunya.current;
+    const sl = salonListesi(d).find((x) => x.id === salonId);
+    katmanAc({
+      baslik: sl.ad,
+      giris: sl.kayitlar.length ? 'Bir panoyu seç: kaydın ses imzası çalar, makalesi okunur.' : 'Bu salon henüz boş.',
+      onGeri: () => kodeksGoster(),
+      ogeler: [
+        ...sl.kayitlar.map((x) => ({
+          id: x.id,
+          etiket: x.ad,
+          sec: () => {
+            sesImzasi(x);
+            soyle(x.ad + '. ' + x.tarif, 'istek', true);
+            return 'sessiz';
+          },
+        })),
+        { id: 'geri', etiket: 'Kütüphaneye dön', sec: () => (kodeksGoster(), 'sessiz') },
       ],
     });
   };
@@ -1485,6 +1525,12 @@ export default function Yuzey({ onGeri, baslangic, yeniOyunUret }) {
         sozler.push(o.metin);
       } else if (o.tur === 'yaklasti') {
         Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light).catch(() => {});
+        sozler.push(o.metin);
+      } else if (o.tur === 'fenomen') {
+        cal('sinyal', 0.8);
+        Haptics.notificationAsync(Haptics.NotificationFeedbackType.Success).catch(() => {});
+        sozler.push(o.metin);
+      } else if (o.tur === 'fenomenGitti') {
         sozler.push(o.metin);
       } else if (o.tur === 'yakitAz' || o.tur === 'sinir') {
         Haptics.notificationAsync(Haptics.NotificationFeedbackType.Warning).catch(() => {});

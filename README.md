@@ -6,7 +6,7 @@ tesis kurar, ileride gemini parça parça inşa edip uzaya açılırsın.
 
 Tasarım: Bahtiyar Cankurt (belgeler/). Yapım: Murat ve Bahtiyar. Expo Go ile iPhone ve Android'de çalışır.
 
-## Bu sürümde (1.1)
+## Bu sürümde (1.2)
 - Vadi-i Sukût'ta sesle serbest dolaşma; iniş kapsülünün içi ve dışı.
 - Radar: uzun basınca yankılar nesnelerin yönünden döner.
 - Birinci görev "Sinyal Arayışı": alet dolabı, kopan arka modül, yedek jeneratör, Gözcü Tepesi'nde anten
@@ -43,6 +43,9 @@ Tasarım: Bahtiyar Cankurt (belgeler/). Yapım: Murat ve Bahtiyar. Expo Go ile i
 - Uzay operasyonları: dokuz büyük senaryo ve yirmi dört derin uzay görevi (G-01 … G-24) kulakla ve parmakla icra
   edilir (yaklaşma, frekans eşleme, basınç, tehlikeden kaçınma, nişan, dron, ton şifreleri, çekime direnme...).
   Ödül gemileri filoya katılır; mülteciler, ırklarla ittifaklar, yeni malzeme şemaları, ticaret rotası.
+- Yirmi keşfedilebilir gezegen (yörüngeden spektrum ve fotoğraf, iniş, iki yüzey noktası, numune) ve seyirde yol
+  üstünde beliren on altı kozmik fenomen (vizör, odak, pozlama, deklanşör, ışınlama). Gözlem gereçleri, iniş araçları,
+  otomatik kenetlenme, akustik filtre, toplama dronları. Evren Kütüphanesi'nin dört salonu ve itibar kademeleri.
 - Belgelerin hangi bölümünün yapıldığı: KAPSAM.md.
 - Mürettebattan telsiz çağrıları (çift dokun dinle, iki parmakla aşağı kaydır ertele).
 - Otomatik kayıt (uygulamadan çıkınca ya da telefon kilitlenince) ve kapsüldeki terminalden üç yuvaya elle kayıt.
