@@ -6,7 +6,7 @@ tesis kurar, ileride gemini parça parça inşa edip uzaya açılırsın.
 
 Tasarım: Bahtiyar Cankurt (belgeler/). Yapım: Murat ve Bahtiyar. Expo Go ile iPhone ve Android'de çalışır.
 
-## Bu sürümde (0.2)
+## Bu sürümde (0.3)
 - Vadi-i Sukût'ta sesle serbest dolaşma; iniş kapsülünün içi ve dışı.
 - Radar: uzun basınca yankılar nesnelerin yönünden döner.
 - Birinci görev "Sinyal Arayışı": alet dolabı, kopan arka modül, yedek jeneratör, Gözcü Tepesi'nde anten
@@ -14,6 +14,9 @@ Tasarım: Bahtiyar Cankurt (belgeler/). Yapım: Murat ve Bahtiyar. Expo Go ile i
 - Kaynak toplama (bazalt, titanyum hurdası, silikat kristali) ve Sinyal Kulesi inşası.
 - İkinci görev "Jeotermal Sondaj": filtre maskesiyle Manyetik Sırtlar'a iniş, kükürt maruziyeti, gaz bacalarına
   termal sonda ve kulakla valf dengeleme, ağır izotop, Ağır Alaşım Dökümhanesi; koloni ikinci kademeye çıkar.
+- Üçüncü görev "Antik Kseno-Laboratuvar Kazısı": batı geçidinden Kadim Krater'e; beş notalı kadim çanlar,
+  mühendisin yaptığı frekans rezonatörüyle kapıların nota dizisini çalma, salondaki görünmez yerçekimi
+  alanları (alçak uğultudan duyulur), üç veri kristali, kadim yıldız haritası, Kodeks ve Biyo-Kubbe.
 - Mürettebattan telsiz çağrıları (çift dokun dinle, iki parmakla aşağı kaydır ertele).
 - Otomatik kayıt (uygulamadan çıkınca ya da telefon kilitlenince) ve kapsüldeki terminalden üç yuvaya elle kayıt.
 
@@ -22,6 +25,7 @@ Tasarım: Bahtiyar Cankurt (belgeler/). Yapım: Murat ve Bahtiyar. Expo Go ile i
 - Dokun: çevrende ne var. Uzun bas: radar. Çift dokun: kullan, geç ya da konuş.
 - İki parmakla dokun: sustur. İki parmakla çift dokun: menü.
 - Frekans ayarında: yukarı-aşağı sürükle ya da iki parmakla çevir.
+- Rezonansta: yukarı-aşağı kaydır nota seç, çift dokun çal, dokun diziyi yeniden dinle.
 
 Oyun VoiceOver ve TalkBack kapalıyken, kendi Türkçe sesli rehberiyle oynanır. Kulaklıkla oynayın.
 

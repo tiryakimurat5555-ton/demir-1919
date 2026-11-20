@@ -23,6 +23,10 @@ import {
   valfBirak,
   valfIlerle,
   bildirimIlerle,
+  kapiDizisi,
+  rezonansBaslat,
+  rezonansCal,
+  rezonansSecimDegis,
 } from '../src/oyun/yuzey/gorevler';
 import { TESISLER } from '../src/oyun/veri/tesisler';
 
@@ -266,6 +270,120 @@ function ikinciGorev(d) {
   sahneleriGec(d);
   expect(d.bitenGorevler).toEqual(['sinyal', 'jeotermal']);
   expect(d.gorev.id).toBe('kazi');
+  ucuncuGorev(d);
+}
+
+// Hammadde ihtiyacını haritadaki yataklardan toplar
+function topla(d, ihtiyac) {
+  for (const id of Object.keys(NOKTALAR).filter((x) => NOKTALAR[x].kaynak)) {
+    const tur = NOKTALAR[id].kaynak;
+    if (!ihtiyac[tur] || (d.koloni.kaynaklar[tur] || 0) >= ihtiyac[tur] || (d.stok[id] || 0) <= 0) continue;
+    if (!d.kesif.includes(id)) d.kesif.push(id);
+    yuru(d, id);
+    d.zehir = 0;
+    expect(Math.hypot(d.oyuncu.x - NOKTALAR[id].x, d.oyuncu.y - NOKTALAR[id].y)).toBeLessThan(4);
+    while ((d.stok[id] || 0) > 0 && (d.koloni.kaynaklar[tur] || 0) < ihtiyac[tur]) eylemUygula(d, id, 'topla');
+  }
+  for (const k of Object.keys(ihtiyac)) expect(d.koloni.kaynaklar[k] || 0).toBeGreaterThanOrEqual(ihtiyac[k]);
+}
+
+// Kapıyı rezonatörle açar: önce bir yanlış nota (dizi sıfırlanır), sonra doğru dizi
+function kapiyiAc(d, kapiId) {
+  const e = etkiles(d);
+  expect(e.tur).toBe('kapi');
+  expect(e.kilitli).toBe(true);
+  expect(e.kapi).toBe(kapiId);
+  const tur = e.rezonans;
+  const { dizi } = rezonansBaslat(d, tur);
+  expect(dizi.length).toBe(tur === 'dis' ? 3 : 4);
+  for (let i = 1; i < dizi.length; i++) expect(dizi[i]).not.toBe(dizi[i - 1]);
+  // Yanlış nota
+  d.rezonans.secili = (dizi[0] + 1) % 5;
+  expect(rezonansCal(d).sonuc).toBe('yanlis');
+  expect(d.rezonans.sira).toBe(0);
+  let son;
+  for (const nota of dizi) {
+    while (d.rezonans.secili !== nota) rezonansSecimDegis(d, nota > d.rezonans.secili ? 1 : -1);
+    son = rezonansCal(d);
+  }
+  expect(son.sonuc).toBe('acildi');
+  expect(d.rezonans).toBe(null);
+  const g = etkiles(d);
+  expect(g.gecti).toBe(true);
+}
+
+// Antik Kseno-Laboratuvar Kazısı: rezonatör, batı geçidi, kapılar, kristaller, yıldız haritası, biyo-kubbe
+function ucuncuGorev(d) {
+  expect(gorevIpucu(d)).toContain('mühendis');
+  // Rezonatör: malzeme
+  topla(d, { kristal: 2, titanyum: 1 });
+  yuru(d, 'muhendis');
+  expect(konus(d, 'muhendis', 'Rezonatörü yap')).toContain('çatala');
+  expect(d.envanter).toContain('rezonator');
+  // Batı geçidi açık; krater
+  expect(yerlerListesi(d).some((y) => y.id === 'bati_gecit')).toBe(true);
+  yuru(d, 'bati_gecit');
+  const r = etkiles(d);
+  expect(r.gecti).toBe(true);
+  expect(d.mekan).toBe('krater');
+  expect(bildirimIlerle(d).some((x) => x.id === 'krater_ilk')).toBe(true);
+  // Çanlar notasını verir
+  for (const id of ['can_1', 'can_2', 'can_3', 'can_4', 'can_5']) {
+    if (!d.kesif.includes(id)) d.kesif.push(id);
+    yuru(d, id);
+    expect(noktaEylemleri(d, id).some((e) => e.id === 'vur')).toBe(true);
+    expect(eylemUygula(d, id, 'vur').nota).toBe(NOKTALAR[id].can);
+  }
+  // Dış kapı: dizi tohumdan; aynı tohum aynı dizi
+  expect(kapiDizisi(d, 'dis')).toEqual(kapiDizisi(JSON.parse(JSON.stringify(d)), 'dis'));
+  yuru(d, 'kseno_kapi');
+  kapiyiAc(d, 'kseno_kapi');
+  expect(d.mekan).toBe('kseno_lab');
+  // Salon: görünmez yerçekimi alanlarına çarpınca durur ve söyler
+  const once = { ...d.oyuncu };
+  const o = [];
+  for (let i = 0; i < 100; i++) o.push(...ilerle(d, { ileri: 1 }, 0.1));
+  expect(o.some((x) => x.tur === 'carpti')).toBe(true);
+  d.oyuncu = once;
+  // Üç kaide (kendiliğinden yürüme alanların etrafından dolaşır)
+  for (const id of ['kaide_1', 'kaide_2', 'kaide_3']) {
+    if (!d.kesif.includes(id)) d.kesif.push(id);
+    yuru(d, id);
+    expect(d.mekan).toBe('kseno_lab');
+    expect(Math.hypot(d.oyuncu.x - NOKTALAR[id].x, d.oyuncu.y - NOKTALAR[id].y)).toBeLessThan(3.5);
+    eylemUygula(d, id, 'al');
+  }
+  expect(d.envanter.filter((x) => x === 'veri_kristali').length).toBe(3);
+  // İç kapı (dört nota) → mabet
+  yuru(d, 'ic_kapi');
+  kapiyiAc(d, 'ic_kapi');
+  expect(d.mekan).toBe('mabet');
+  if (!d.kesif.includes('yazit')) d.kesif.push('yazit');
+  yuru(d, 'yazit');
+  expect(eylemUygula(d, 'yazit', 'oku').metin.length).toBeGreaterThan(20);
+  if (!d.kesif.includes('harita_kaidesi')) d.kesif.push('harita_kaidesi');
+  yuru(d, 'harita_kaidesi');
+  eylemUygula(d, 'harita_kaidesi', 'al');
+  expect(d.bayrak.kazi).toBe(true);
+  expect(d.sahne).toBe('kazi_tamam');
+  sahneleriGec(d);
+  expect(d.gorev.id).toBe('biyo');
+  expect(d.kodeks.some((k) => k.id === 'kadim_harita')).toBe(true);
+  expect(d.koloni.kaynaklar.kseno).toBeGreaterThanOrEqual(3);
+  // Biyo-kubbe
+  topla(d, TESISLER.biyo_kubbe.maliyet);
+  yuru(d, 'terminal');
+  expect(d.mekan).toBe('kapsul');
+  expect(insaListesi(d).find((t) => t.id === 'biyo_kubbe').acik).toBe(true);
+  insaEt(d, 'biyo_kubbe');
+  expect(d.koloni.binalar).toContain('biyo_kubbe');
+  expect(d.sahne).toBe('biyo_kubbe');
+  sahneleriGec(d);
+  expect(d.bitenGorevler).toEqual(['sinyal', 'jeotermal', 'kazi']);
+  expect(d.gorev.id).toBe('zemin');
+  expect(d.harita.poiler).toContain('moloz_kusagi');
+  expect(gorevIpucu(d).length).toBeGreaterThan(10);
+  expect(gecerliMi(JSON.parse(JSON.stringify(d)))).toBe(true);
 }
 
 describe('kükürt', () => {

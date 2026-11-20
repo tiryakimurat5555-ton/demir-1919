@@ -1,13 +1,36 @@
 // Yüzey görevlerinin tek giriş kapısı: ekran ve testler bu dosyadan alır.
-// Birinci görev gorev1.js (Sinyal Arayışı), ikinci görev gorev2.js (Jeotermal Sondaj).
+// Birinci görev gorev1.js (Sinyal Arayışı), ikinci görev gorev2.js (Jeotermal Sondaj),
+// üçüncü görev gorev3.js (Antik Kseno-Laboratuvar Kazısı).
 import * as G1 from './gorev1';
 import * as G2 from './gorev2';
+import * as G3 from './gorev3';
 import { TESISLER } from '../veri/tesisler';
 
 export const { ESYALAR, HAREKET_KISA, ayarBaslat, ayarDegis, ayarIlerle, ayarMetni, ayarYakinlik, koloniMetni, insaListesi } = G1;
-export const { valfBaslat, valfIlerle, valfBirak, valfMetni, ALARM_ESIGI, bacaSayisi, bildirimIlerle } = G2;
+export const { valfBaslat, valfIlerle, valfBirak, valfMetni, ALARM_ESIGI, bacaSayisi } = G2;
+export const { NOTALAR, kapiDizisi, rezonansBaslat, rezonansSecimDegis, rezonansCal, kristalSayisi } = G3;
 
-export const SAHNELER = { ...G1.SAHNELER, ...G2.SAHNELER };
+export const SAHNELER = { ...G1.SAHNELER, ...G2.SAHNELER, ...G3.SAHNELER };
+
+// Telsiz bildirimleri (belgeler/savas-yetenek-ve-murettebat-mekanikleri.md 4.3): koşulu sağlanınca bir kez kuyruğa
+// girer. gorev alanı varsa yalnız o görev sürerken.
+const BILDIRIMLER = [...G2.BILDIRIMLER, ...G3.BILDIRIMLER];
+export function bildirimIlerle(d) {
+  if (!d.bildirimler) d.bildirimler = [];
+  if (!d.duyulanBildirimler) d.duyulanBildirimler = [];
+  const yeni = [];
+  for (const bl of BILDIRIMLER) {
+    if (d.duyulanBildirimler.includes(bl.id) || d.bildirimler.some((x) => x.id === bl.id)) continue;
+    if (bl.gorev && d.gorev.id !== bl.gorev) continue;
+    if (bl.kosul(d)) {
+      const u = d.murettebat[bl.rol];
+      const x = { id: bl.id, kim: u.rol + ' ' + u.ad, metin: bl.metin(d) };
+      d.bildirimler.push(x);
+      yeni.push(x);
+    }
+  }
+  return yeni;
+}
 
 export function sahneMetni(d, id) {
   const s = SAHNELER[id];
@@ -28,28 +51,39 @@ export function sahneSec(d, id, i) {
 }
 
 export function gorevIpucu(d) {
-  return G1.gorevIpucu(d) || G2.gorevIpucu(d) || 'Şu an bir görev yok.';
+  return G1.gorevIpucu(d) || G2.gorevIpucu(d) || G3.gorevIpucu(d) || 'Şu an bir görev yok.';
 }
 
 export function noktaEylemleri(d, id) {
   if (G2.bacaMi(id)) return G2.noktaEylemleri(d, id);
+  if (G3.noktaMi(id)) return G3.noktaEylemleri(d, id);
   return G1.noktaEylemleri(d, id);
 }
 
 export function eylemUygula(d, id, eylemId) {
   if (G2.bacaMi(id)) return G2.eylemUygula(d, id, eylemId);
+  if (G3.noktaMi(id)) return G3.eylemUygula(d, id, eylemId);
   return G1.eylemUygula(d, id, eylemId);
 }
 
 export function konusma(d, kisiId) {
   if (d.gorev.id !== 'sinyal') {
-    const k = G2.konusma(d, kisiId);
+    const k = G3.konusma(d, kisiId) || G2.konusma(d, kisiId);
     if (k) return k;
   }
   return G1.konusma(d, kisiId);
 }
 
 export function insaEt(d, id) {
+  if (id === 'biyo_kubbe') {
+    const kurulu = d.koloni.binalar.includes(id);
+    const r = G1.insaEt(d, id);
+    if (!kurulu && d.koloni.binalar.includes(id)) {
+      G3.biyoKubbeKuruldu(d);
+      return { metin: '', sahne: d.sahne };
+    }
+    return r;
+  }
   if (id === 'dokumhane') {
     const kurulu = d.koloni.binalar.includes(id);
     const r = G1.insaEt(d, id);

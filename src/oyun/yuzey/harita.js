@@ -31,6 +31,33 @@ export const MEKANLAR = {
     zehirli: true, // kükürt gazı: maruziyet artar (dunya.js zehir)
     radarMenzili: 22, // manyetik parazit radarı kısaltır
   },
+  krater: {
+    ad: 'Kadim Krater',
+    tarif: 'Devasa bir çarpışma havzası. Rüzgâr hiç yok; mutlak bir sessizlik. Yerden yer yer kadim çanların başları yükseliyor.',
+    alan: { bati: 700, dogu: 780, guney: 0, kuzey: 70 },
+    ortam: 'ortam_yuzey',
+    ortamOran: 0.18, // neredeyse sessiz
+    zemin: 'tas',
+    dis: true,
+  },
+  kseno_lab: {
+    ad: 'Gömülü yapının salonu',
+    tarif: 'Pürüzsüz, serin taş duvarlar. Hava kımıldamıyor; yerin altından ağır, nabız gibi bir çekim uğultusu geliyor.',
+    alan: { bati: 900, dogu: 924, guney: 0, kuzey: 24 },
+    ortam: 'ortam_harabe',
+    zemin: 'tas',
+    dis: false,
+    disariKonum: { x: 740, y: 35 },
+  },
+  mabet: {
+    ad: 'İç mabet',
+    tarif: 'Küçük, yuvarlak bir oda. Ortada bir kaide; duvarlar parmaklarının altında hafifçe titriyor.',
+    alan: { bati: 950, dogu: 966, guney: 0, kuzey: 16 },
+    ortam: 'ortam_harabe',
+    zemin: 'tas',
+    dis: false,
+    disariKonum: { x: 740, y: 35 },
+  },
 };
 
 // Kapılar: iki yönlü geçitler. Çift dokununca öteki uca geçilir.
@@ -53,6 +80,38 @@ export const KAPILAR = {
     kilitMetni: 'Kanyon ağzından kükürt kokusu yoğun geliyor; birkaç adımda gözlerin yanmaya başlıyor. Filtre maskesi olmadan geçemezsin. Hekime sor.',
     gecisMetni: ['Maskeyi takıyorsun. Kükürt kokusu filtreden süzülüp metalik bir tada dönüşüyor. Güneye, Manyetik Sırtlar\'a iniyorsun.', 'Kanyon ağzından vadiye dönüyorsun. Maskeyi çıkarıyorsun; hava temiz.'],
   },
+  bati_gecit: {
+    ad: 'Batı geçidi',
+    uclar: [
+      { mekan: 'vadi', x: -52.5, y: 20, yon: -Math.PI / 2, ad: 'Batı geçidi' },
+      { mekan: 'krater', x: 740, y: 1.5, yon: 0, ad: 'Vadiye dönen yarık' },
+    ],
+    kosul: (d) => !!d.bayrak.dokumhane,
+    kilitMetni: 'Rüzgârın hiç girmediği dar bir yarık. Ağzını bir kaya göçüğü kapatmış; ancak çelik kirişlerle açılır. Önce bir dökümhane gerek.',
+    gecisMetni: ['Göçüğün açılan ağzından, kirişlerin altından geçiyorsun. Yarık daralıyor, sonra birden genişliyor: rüzgâr kesiliyor. Kadim Krater.', 'Yarıktan vadiye dönüyorsun. Rüzgâr yeniden kulaklarında.'],
+  },
+  kseno_kapi: {
+    ad: 'Gömülü yapının kapısı',
+    uclar: [
+      { mekan: 'krater', x: 740, y: 33.2, yon: Math.PI, ad: 'Gömülü yapının kapısı' },
+      { mekan: 'kseno_lab', x: 912, y: 1, yon: 0, ad: 'Krater kapısı' },
+    ],
+    kosul: (d) => !!d.bayrak.kapi_dis,
+    rezonans: 'dis', // frekans rezonatörüyle açılır (gorev3.js)
+    kilitMetni: 'Kraterin ortasında, yarısı toprağa gömülü pürüzsüz bir kapı. Kolu, menteşesi yok. Dokununca içinden üç notalık bir tını geliyor.',
+    gecisMetni: ['Kapı ses çıkarmadan iki yana kayıyor. Serin, kımıltısız bir havaya giriyorsun.', 'Kraterin sessizliğine çıkıyorsun.'],
+  },
+  ic_kapi: {
+    ad: 'İç mabedin kapısı',
+    uclar: [
+      { mekan: 'kseno_lab', x: 912, y: 23, yon: Math.PI, ad: 'İç mabedin kapısı' },
+      { mekan: 'mabet', x: 958, y: 1, yon: 0, ad: 'Salona dönen kapı' },
+    ],
+    kosul: (d) => !!d.bayrak.kapi_ic,
+    rezonans: 'ic',
+    kilitMetni: 'Salonun dibinde ikinci bir kapı. Bunun tınısı daha uzun: dört nota.',
+    gecisMetni: ['Kapı açılıyor. Küçük, titreşen bir odaya giriyorsun.', 'Salona dönüyorsun.'],
+  },
 };
 
 // Etkileşilen noktalar. ses: konumsal motorda çalan kaynak (kosul sağlanınca).
@@ -74,7 +133,6 @@ export const NOKTALAR = {
   titanyum_1: { mekan: 'vadi', x: -19, y: 24, ad: 'Titanyum hurdası', yaricap: 2.2, kaynak: 'titanyum', stok: 2 },
   titanyum_2: { mekan: 'vadi', x: -29, y: 15, ad: 'Titanyum hurdası', yaricap: 2.2, kaynak: 'titanyum', stok: 2 },
   // Vadiden çıkışlar (sonraki görevlerde açılacak)
-  bati_yol: { mekan: 'vadi', x: -53, y: 20, ad: 'Batı geçidi', yaricap: 3, tarif: 'Rüzgârın hiç girmediği dar bir yarık. Ötesi Kadim Krater ve harabeler.' },
   kuzey_yol: { mekan: 'vadi', x: 4, y: 58, ad: 'Plato yokuşu', yaricap: 3, tarif: 'Tepeden yukarı, fırtınalı Uğultulu Plato\'ya çıkan dik yol.' },
   // --- Manyetik Sırtlar ---
   baca_1: { mekan: 'sirtlar', x: 522, y: -18, ad: 'Batı gaz bacası', yaricap: 2.8, engel: 1.1, baca: true, tarif: 'Kayadaki bir yarıktan kesik kesik süper ısınmış gaz fışkırıyor.' },
@@ -84,7 +142,30 @@ export const NOKTALAR = {
   bazalt_5: { mekan: 'sirtlar', x: 524, y: -38, ad: 'Bazalt yığını', yaricap: 2.2, kaynak: 'bazalt', stok: 4 },
   agir_1: { mekan: 'sirtlar', x: 566, y: -46, ad: 'Ağır metal damarı', yaricap: 2.2, kaynak: 'titanyum', stok: 3 },
   agir_2: { mekan: 'sirtlar', x: 510, y: -30, ad: 'Ağır metal damarı', yaricap: 2.2, kaynak: 'titanyum', stok: 3 },
+  // --- Kadim Krater: beş rezonans çanı (pesten tize), kristaller ---
+  can_1: { mekan: 'krater', x: 712, y: 20, ad: 'Birinci çan', yaricap: 2.4, engel: 0.9, can: 0, tarif: 'Topraktan yükselen, insan boyunda kararmış bir çan. En pes olanı.' },
+  can_2: { mekan: 'krater', x: 725, y: 46, ad: 'İkinci çan', yaricap: 2.4, engel: 0.9, can: 1, tarif: 'Yan yatmış bir çan; ağzı kuzeye bakıyor.' },
+  can_3: { mekan: 'krater', x: 748, y: 58, ad: 'Üçüncü çan', yaricap: 2.4, engel: 0.9, can: 2, tarif: 'Yüzeyi oyma işaretlerle kaplı bir çan.' },
+  can_4: { mekan: 'krater', x: 770, y: 38, ad: 'Dördüncü çan', yaricap: 2.4, engel: 0.9, can: 3, tarif: 'İnce, uzun bir çan; dokununca tısır gibi titriyor.' },
+  can_5: { mekan: 'krater', x: 760, y: 14, ad: 'Beşinci çan', yaricap: 2.4, engel: 0.9, can: 4, tarif: 'En küçük ve en tiz çan; kristal gibi parlak bir sesi var.' },
+  kristal_3: { mekan: 'krater', x: 705, y: 52, ad: 'Silikat kristal kümesi', yaricap: 2.2, kaynak: 'kristal', stok: 2, ses: 'kristal' },
+  kristal_4: { mekan: 'krater', x: 775, y: 62, ad: 'Silikat kristal kümesi', yaricap: 2.2, kaynak: 'kristal', stok: 2, ses: 'kristal' },
+  titanyum_3: { mekan: 'krater', x: 726, y: 8, ad: 'Kadim metal yığını', yaricap: 2.2, kaynak: 'titanyum', stok: 4, tarif: 'Çöküntünün kıyısında, işlenmiş metal parçalarından bir yığın.' },
+  // --- Gömülü yapı: veri kristali kaideleri ve iç mabet ---
+  kaide_1: { mekan: 'kseno_lab', x: 903, y: 10, ad: 'Batı kaidesi', yaricap: 1.8, kaide: true, tarif: 'Göğüs hizasında bir taş kaide; üstünde soluk ışıklı bir veri kristali.' },
+  kaide_2: { mekan: 'kseno_lab', x: 921, y: 9, ad: 'Doğu kaidesi', yaricap: 1.8, kaide: true, tarif: 'Duvara yaslı bir kaide; kristali hafifçe vızıldıyor.' },
+  kaide_3: { mekan: 'kseno_lab', x: 904, y: 20, ad: 'Kuzey kaidesi', yaricap: 1.8, kaide: true, tarif: 'Salonun dibinde, iç kapının yanında bir kaide.' },
+  yazit: { mekan: 'mabet', x: 958, y: 7, ad: 'Duvar yazıtı', yaricap: 2, tarif: 'Parmak uçlarınla okunacak kadar derin oyulmuş çizgiler.' },
+  harita_kaidesi: { mekan: 'mabet', x: 958, y: 13, ad: 'Yıldız haritası kaidesi', yaricap: 2, tarif: 'Ortadaki kaidenin üstünde avuç büyüklüğünde, ağır bir küre.' },
 };
+
+// Görünmez yerçekimi alanları: içine girilmez, itilir. Uğultuları yerlerini belli eder.
+export const ALANLAR = [
+  { mekan: 'kseno_lab', x: 907, y: 7, r: 2 },
+  { mekan: 'kseno_lab', x: 917, y: 5.5, r: 2 },
+  { mekan: 'kseno_lab', x: 910, y: 15, r: 2.4 },
+  { mekan: 'kseno_lab', x: 918.5, y: 18, r: 2 },
+];
 
 // Kişiler: kapsülden sağ çıkan öncüler. Adları oyun başında üretilir (durum.murettebat).
 // rol: murettebat dizisindeki sıra (0 mühendis, 1 telsizci, 2 hekim)

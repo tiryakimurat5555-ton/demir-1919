@@ -1,7 +1,7 @@
 // Gezegen yüzeyinin benzetimi (saf JavaScript; ekrandan ve sesten bağımsız, testlerle sınanır).
 // Yürüme, dönme, çarpma, yaklaşınca haber verme, çevre tarifi, radar, etkileşim,
 // kapılardan geçiş ve kendiliğinden yürüme ("Yerler" menüsü).
-import { KAPILAR, KISILER, MEKANLAR, NOKTALAR } from './harita';
+import { ALANLAR, KAPILAR, KISILER, MEKANLAR, NOKTALAR } from './harita';
 import { aciDuzelt, goreliAci, saatYonu, uzaklik } from '../konum';
 import { ESYALAR } from './gorev1';
 
@@ -78,9 +78,9 @@ export function yonAdi(yon) {
 export function cevreMetni(d) {
   const liste = siraliYakin(d).filter((n) => n.m < (MEKANLAR[d.mekan].dis ? 30 : 12));
   const parcalar = liste.slice(0, 4).map((n) => konumMetni(d, n));
-  if (d.mekan === 'sirtlar') {
-    const u = KAPILAR.guney_gecit.uclar[1];
-    if (!liste.slice(0, 4).some((n) => n.tur === 'kapi')) parcalar.push(konumMetni(d, { ad: 'Vadiye dönen yol', x: u.x, y: u.y }));
+  const donus = donusYolu(d);
+  if (donus) {
+    if (!liste.slice(0, 4).some((n) => n.tur === 'kapi')) parcalar.push(konumMetni(d, donus));
   } else if (MEKANLAR[d.mekan].dis) {
     const kapsul = NOKTALAR.kapsul_dis;
     if (!liste.slice(0, 4).some((n) => n.id === 'kapsul_dis')) parcalar.push(konumMetni(d, { ad: 'Kapsül', x: kapsul.x, y: kapsul.y }));
@@ -107,10 +107,21 @@ export function durumMetni(d) {
   const mk = MEKANLAR[d.mekan];
   const parca = [mk.ad + '.', 'Yüzün ' + yonAdi(d.oyuncu.yon) + 'e dönük.'];
   if (d.mekan === 'vadi') parca.push(konumMetni(d, { ad: 'Kapsül', x: NOKTALAR.kapsul_dis.x, y: NOKTALAR.kapsul_dis.y }) + '.');
-  if (d.mekan === 'sirtlar') parca.push(konumMetni(d, { ad: 'Vadiye dönen yol', x: KAPILAR.guney_gecit.uclar[1].x, y: KAPILAR.guney_gecit.uclar[1].y }) + '.');
+  const donus = donusYolu(d);
+  if (donus) parca.push(konumMetni(d, donus) + '.');
   if (d.envanter.length) parca.push('Taşıdığın: ' + esyaMetni(d) + '.');
   if (mk.zehirli || d.zehir > 0) parca.push('Kükürt maruziyeti yüzde ' + Math.round(d.zehir || 0) + '.');
   return parca.join(' ');
+}
+
+// Vadinin dışındaki açık bölgelerde vadiye dönen geçidin ucu
+function donusYolu(d) {
+  if (d.mekan === 'vadi' || !MEKANLAR[d.mekan].dis) return null;
+  for (const id of Object.keys(KAPILAR)) {
+    const u = KAPILAR[id].uclar;
+    for (let i = 0; i < 2; i++) if (u[i].mekan === d.mekan && u[1 - i].mekan === 'vadi') return { ad: u[i].ad, x: u[i].x, y: u[i].y };
+  }
+  return null;
 }
 
 // Taşınan eşyalar; aynı eşyadan birden çoksa sayısıyla
@@ -140,7 +151,7 @@ export function etkiles(d) {
 // Kapıdan geçer: öteki uca ışınlanır
 export function gec(d, kapiId, uc) {
   const k = KAPILAR[kapiId];
-  if (k.kosul && !k.kosul(d)) return { metin: k.kilitMetni, kilitli: true };
+  if (k.kosul && !k.kosul(d)) return { metin: k.kilitMetni, kilitli: true, kapi: kapiId, rezonans: k.rezonans };
   const ote = k.uclar[1 - uc];
   d.mekan = ote.mekan;
   d.oyuncu = { x: ote.x, y: ote.y, yon: ote.yon };
@@ -153,6 +164,7 @@ export function gec(d, kapiId, uc) {
 
 // Çarpma: mekân sınırı ve engeller (noktaların engel yarıçapı)
 function engelVar(d, x, y) {
+  for (const a of ALANLAR) if (a.mekan === d.mekan && Math.hypot(x - a.x, y - a.y) < a.r) return { ad: 'Yerçekimi alanı', alan: true, x: a.x, y: a.y };
   for (const id of Object.keys(NOKTALAR)) {
     const n = NOKTALAR[id];
     if (n.mekan !== d.mekan || !n.engel) continue;
@@ -173,6 +185,9 @@ function sinirDisi(d, x, y) {
 const SINIR_METNI = {
   vadi: 'Kanyon duvarı. Kaya burada dimdik yükseliyor.',
   kapsul: 'Kapsülün duvarı.',
+  krater: 'Kraterin yamacı. Taş burada dik ve pürüzsüz.',
+  kseno_lab: 'Pürüzsüz taş duvar; parmaklarının altında hafif bir titreşim.',
+  mabet: 'Odanın titreşen duvarı.',
   sirtlar: 'Sırtın yamacı burada çok dik; kayalar ayağının altından kayıyor.',
 };
 
@@ -249,7 +264,8 @@ function adimAt(d, m, olaylar) {
   if (sinir || engel) {
     if (!d.carpmaSusturma || d.sure - d.carpmaSusturma > 1.5) {
       d.carpmaSusturma = d.sure;
-      olaylar.push({ tur: 'carpti', metin: engel ? engel.ad + '. Etrafından dolaş.' : SINIR_METNI[d.mekan] || 'Geçit yok.' });
+      if (engel && engel.alan) olaylar.push({ tur: 'carpti', alan: true, metin: 'Görünmez bir çekim seni yere bastırıyor, dizlerin bükülüyor; geri çekiliyorsun. Uğultunun geldiği yerden uzak dur.' });
+      else olaylar.push({ tur: 'carpti', metin: engel ? engel.ad + '. Etrafından dolaş.' : SINIR_METNI[d.mekan] || 'Geçit yok.' });
     }
     return false;
   }
@@ -300,6 +316,18 @@ export function yerlerListesi(d) {
     const u = KAPILAR.guney_gecit.uclar[0];
     ekle('kapi', 'guney_gecit', u.ad, u.mekan, u.x, u.y);
   }
+  if (d.bayrak.dokumhane) {
+    const u = KAPILAR.bati_gecit.uclar[0];
+    ekle('kapi', 'bati_gecit', u.ad, u.mekan, u.x, u.y);
+  }
+  if (d.kesif.includes('can_1') || d.bayrak.kapi_dis) {
+    const u = KAPILAR.kseno_kapi.uclar[0];
+    ekle('kapi', 'kseno_kapi', u.ad, u.mekan, u.x, u.y);
+  }
+  if (d.bayrak.kapi_dis) {
+    const u = KAPILAR.ic_kapi.uclar[0];
+    ekle('kapi', 'ic_kapi', u.ad, u.mekan, u.x, u.y);
+  }
   return liste.sort((a, b) => (a.mekan === d.mekan ? 0 : 1) - (b.mekan === d.mekan ? 0 : 1) || (a.uzaklik || 0) - (b.uzaklik || 0));
 }
 
@@ -318,7 +346,29 @@ function kapiUcu(d) {
     }
     return null;
   };
-  return bul(d.oto.mekan) || bul('vadi');
+  // Kapı ağında hedefe giden ilk adım (genişlik öncelikli arama)
+  const komsu = (m) => {
+    const r = [];
+    for (const id of Object.keys(KAPILAR)) {
+      const u = KAPILAR[id].uclar;
+      for (let i = 0; i < 2; i++) if (u[i].mekan === m) r.push(u[1 - i].mekan);
+    }
+    return r;
+  };
+  const once = { [d.mekan]: null };
+  const kuyruk = [d.mekan];
+  while (kuyruk.length) {
+    const m = kuyruk.shift();
+    if (m === d.oto.mekan) break;
+    for (const k of komsu(m)) if (!(k in once)) {
+      once[k] = m;
+      kuyruk.push(k);
+    }
+  }
+  if (!(d.oto.mekan in once)) return null;
+  let adim = d.oto.mekan;
+  while (once[adim] !== d.mekan && once[adim] != null) adim = once[adim];
+  return bul(adim);
 }
 
 function otoAdim(d, dt, olaylar) {
@@ -355,7 +405,7 @@ function otoAdim(d, dt, olaylar) {
   }
   let yon = Math.atan2(hedef.x - d.oyuncu.x, hedef.y - d.oyuncu.y);
   if (o.yan > 0) {
-    yon += Math.PI / 2;
+    yon += (o.yanIsaret || 1) * (Math.PI / 2);
     o.yan -= dt;
   }
   d.oyuncu.yon = aciDuzelt(yon);
@@ -364,6 +414,26 @@ function otoAdim(d, dt, olaylar) {
   if (!adimAt(d, adim, olaylar)) {
     // Engel: bir süre yana kayarak etrafından dolaş (çarpma sözü söylenmez)
     olaylar.length = once;
+    // Hangi yana kayacağını seç: açık olan yan; ikisi de açıksa engelden uzaklaşan yan. Sıkışınca yön değiştir.
+    const duz = Math.atan2(hedef.x - d.oyuncu.x, hedef.y - d.oyuncu.y);
+    const yanPuan = (isaret) => {
+      const a = duz + isaret * (Math.PI / 2);
+      const x = d.oyuncu.x + Math.sin(a) * 1.5;
+      const y = d.oyuncu.y + Math.cos(a) * 1.5;
+      if (sinirDisi(d, x, y) || engelVar(d, x, y)) return -1;
+      const ex = d.oyuncu.x + Math.sin(duz) * 1.2;
+      const ey = d.oyuncu.y + Math.cos(duz) * 1.2;
+      const e = engelVar(d, ex, ey);
+      const mx = e && e.x != null ? e.x : ex;
+      const my = e && e.y != null ? e.y : ey;
+      return Math.hypot(x - mx, y - my);
+    };
+    if (o.yan > 0) o.yanIsaret = -(o.yanIsaret || 1);
+    else {
+      const sag = yanPuan(1);
+      const sol = yanPuan(-1);
+      o.yanIsaret = sol > sag ? -1 : 1;
+    }
     o.yan = 0.8;
     o.takilma = (o.takilma || 0) + 1;
     if (o.takilma > 40) {

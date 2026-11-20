@@ -48,13 +48,14 @@ export const SAHNELER = {
     efekt: ['jenerator', 'sinyal'],
     metin: (d) => [
       'Jeneratörün yanına üç bazalt duvar, bir ağır metal pota ve kapsülün ısı kalkanından sökülmüş bir fırın ağzı. ' + ilkAd(d, 0) + ' ilk ateşi yakıyor.',
+      ilkAd(d, 0) + ', dökümhanenin ilk çelik kirişleriyle batı geçidindeki göçüğü açıyor.',
       'Gece boyunca vadide yeni bir ses var: ergimiş metalin derin fokurtusu ve soğuyan kalıpların çıtırtısı. İlk titanyum-karbon plaka sabaha karşı kalıptan çıkıyor.',
       'Kapsül bilgisayarı: Koloni kademesi yükseldi. Sağlamlaşmış Vaha.',
       'İkinci görev tamamlandı: Jeotermal Sondaj ve İzotop Hasadı.',
       ilkAd(d, 1) + ' kule başından: "Kaptan, batıdaki yarığın ardından düzenli bir uğultu geliyor. Rüzgâr değil. Bir makine sanki; ya da bir şarkı."',
     ],
     secenekler: () => [{ etiket: 'Devam', sonra: null }],
-    bitisSozu: 'Sıradaki görev Antik Kseno-Laboratuvar Kazısı; batı geçidinin ardındaki Kadim Krater. Bu sürümde henüz yok.',
+    bitisSozu: 'Yeni görev: Antik Kseno-Laboratuvar Kazısı. Batı geçidi açıldı; önce jeneratörün başındaki mühendisle konuş.',
   },
 };
 
@@ -83,7 +84,6 @@ export function gorevIpucu(d) {
       '. Sırtlarda bazalt yığınları ve ağır metal damarları var.'
     );
   }
-  if (d.gorev.id === 'kazi') return 'İki görev tamamlandı. Sıradaki görev, Antik Kseno-Laboratuvar Kazısı, bu sürümde henüz yok. Kaynak toplayabilir, vadide ve sırtlarda dolaşabilirsin.';
   return '';
 }
 
@@ -256,15 +256,17 @@ export function konusma(d, kisiId) {
 
 // --- Telsiz bildirimleri (belgeler/savas-yetenek-ve-murettebat-mekanikleri.md 4.3) ---
 // Koşulu sağlanınca bir kez kuyruğa girer: üç tonlu zil, sonra dinlemek için çift dokun.
-const BILDIRIMLER = [
+export const BILDIRIMLER = [
   {
     id: 'sirtlar_ilk',
+    gorev: 'jeotermal',
     rol: 1,
     kosul: (d) => d.mekan === 'sirtlar',
     metin: (d) => 'Kaptan, ' + ilkAd(d, 1) + ' konuşuyor. Sesin kesik geliyor; manyetik parazit. Radarın burada kısa menzilli olacak, bacaların fışkırmasını kulağınla izle. Batı, doğu ve sırtın dibinde üç baca saydım.',
   },
   {
     id: 'zehir_yarim',
+    gorev: 'jeotermal',
     rol: 2,
     kosul: (d) => (d.zehir || 0) >= 50,
     metin: (d) => 'Kaptan, hekim ' + ilkAd(d, 2) + '. Maskenin kartuşları yarıya indi. Bacalardan uzaklaşırsan nefesin düzelir; vadiye dönersen tamamen temizlenir.',
@@ -276,19 +278,3 @@ const BILDIRIMLER = [
     metin: (d) => 'Kaptan, başçarkçı ' + ilkAd(d, 0) + '! İlk sondadan ölçüm geldi, izotop saflığı beklediğimizden yüksek. İki baca daha, ve bu gezegende ilk kez kendi yakıtımızı dökeriz.',
   },
 ];
-
-export function bildirimIlerle(d) {
-  if (!d.bildirimler) d.bildirimler = [];
-  if (!d.duyulanBildirimler) d.duyulanBildirimler = [];
-  const yeni = [];
-  for (const bl of BILDIRIMLER) {
-    if (d.duyulanBildirimler.includes(bl.id) || d.bildirimler.some((x) => x.id === bl.id)) continue;
-    if (d.gorev.id !== 'jeotermal' && bl.id !== 'ilk_baca') continue;
-    if (bl.kosul(d)) {
-      const x = { id: bl.id, kim: d.murettebat[bl.rol].rol + ' ' + d.murettebat[bl.rol].ad, metin: bl.metin(d) };
-      d.bildirimler.push(x);
-      yeni.push(x);
-    }
-  }
-  return yeni;
-}

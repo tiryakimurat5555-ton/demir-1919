@@ -51,9 +51,9 @@ export const TESISLER = {
     islev: 'Antik kalıntılardan ve uzaydan gelen yabancı örnekleri izole eder.',
     katki: 'Biyo-Karantina Bölmesi ve Plazma Dekontaminasyon kabinleri.',
     acar: 'Biyolojik tehlikeli uzay görevlerine giriş.',
-    maliyet: { kseno: 3, kristal: 4, polimer: 2 },
-    kosul: () => false,
-    kosulMetni: 'Kadim krater kazısından sonra açılacak.',
+    maliyet: { kseno: 3, kristal: 3, titanyum: 2 },
+    kosul: (d) => !!d.bayrak.kazi,
+    kosulMetni: 'Önce Kadim Krater\'deki gömülü yapıdan veri kristallerini ve yıldız haritasını getirmelisin.',
   },
   tersane: {
     ad: 'Merkezi Montaj Tersanesi',

@@ -73,15 +73,32 @@ Demir 1919 oyunu silindi; geçmişi git kaydında (son sürüm 1.06, commit 556f
     (başka her şeyden önce), iki parmakla aşağı kaydır ertele; menüde "Telsiz kayıtları".
   - Ses motoru: basincKur/basincAyar(basinc, alarm)/basincSil (kulaklıkta tıslama + kesik alarm tonu). Bacalar
     'baca' döngüsüyle konumlu (yalnız sırtlarda; dengede olanlar 0,35).
-- Sıradaki (yol haritası): Faz 2 sürüyor: Antik Kseno-Laboratuvar Kazısı (batı geçidi, frekans rezonatörü), nüfus ve iş gücü;
-  Faz 2 Jeotermal Sondaj (Manyetik Sırtlar, güney yolu), dökümhane, nüfus ve iş gücü,
-  mürettebat telsiz bildirimleri; Faz 3 tersane ve Kıvılcım; Faz 4 uzay haritası ve görevler; Faz 5 savaş.
+- SÜRÜM 0.3 (20 Kasım, Murat: "Devam"): üçüncü görev "Antik Kseno-Laboratuvar Kazısı". Telefonda denenmedi.
+  - gorev3.js saf: NOTALAR (5 çan, 196/220/262/294/330 Hz, pesten tize), kapiDizisi(d, 'dis'|'ic') tohumdan (3 / 4 nota,
+    art arda aynı nota yok), rezonansBaslat/rezonansSecimDegis/rezonansCal (yanlış → sıra sıfır; son nota → kapi_dis /
+    kapi_ic), REZONATOR_MALIYET 2 kristal + 1 titanyum (mühendisten "Rezonatörü yap"), kaideler (veri_kristali ×3),
+    yazıt, harita_kaidesi (yildiz_haritasi) → bitisDenetle: kazi, kseno +3, kodeks kadim_harita, gorev biyo, sahne
+    kazi_tamam → biyo_kubbe (3 kseno, 3 kristal, 2 titanyum) → biyoKubbeKuruldu: moral +10, nufus.bilim 1, poi
+    moloz_kusagi, bitenGorevler kazi, gorev zemin (Faz 3 tersane zemini; bu sürümde yok).
+  - harita.js: MEKANLAR krater (x 700-780, y 0-70, ortamOran 0,18), kseno_lab (x 900-924, y 0-24, ortam_harabe),
+    mabet (x 950-966, y 0-16); KAPILAR bati_gecit (vadi (-52.5,20) ↔ krater (740,1.5), kosul dokumhane),
+    kseno_kapi ve ic_kapi (rezonans 'dis'/'ic'); NOKTALAR can_1..5, kristal_3/4, titanyum_3 (krater, stok 4; 1. ve
+    2. görev 10 titanyumun 8'ini harcıyor), kaide_1..3, yazit, harita_kaidesi; ALANLAR (salonda 4 görünmez çekim alanı).
+  - dunya.js: ALANLAR çarpması (özel söz, ağır titreşim), kendiliğinden yürüme kapı grafiğinde BFS, engelde engelden
+    uzak yana kayar (sıkışınca yön değiştirir), yerlerListesi'nde bati_gecit/kseno_kapi/ic_kapi.
+  - gorevler.js: bildirimIlerle artık burada (G2 + G3 BILDIRIMLER; gorev alanı o görevle sınırlar): krater_ilk, lab_ilk.
+  - Ses motoru: nota(frek, nokta|null, düzey, süre) çan tınısı, inleme (yanlış nota), kaynak 'can' (frek; seyrek kısık
+    çınlama) ve 'yercekimi' (45/90 Hz nabız). Headless Chrome'da hatasız.
+  - Yuzey.js: rezonans katmanı (rezJest), çan/alan kaynakları, dinleyici yalnız kapsülde dışarıda (salon ve mabette
+    oyuncunun kendisi; boğukluk yalnız kapsülde), menüde Kodeks, uzay haritasında Moloz Kuşağı.
+- Sıradaki (yol haritası): Faz 2'nin kalanı nüfus ve iş gücü; Faz 3 tersane (zemin güçlendirme) ve Kıvılcım;
+  Faz 4 uzay haritası ve görevler; Faz 5 savaş.
 
 ## Sesler
 - Drive'daki Efektler/Ambians dosyaları 14 MB; Drive bağlayıcısı 10 MB'tan büyük dosyayı indiremiyor. Bu yüzden
   ortam döngüleri şimdilik Efektler klasörlerindeki bilim kurgu ortamlarından (hepsi Bahtiyar'ın Drive'ı):
   ortam_yuzey ← "Ortam Bilim Kurgu Rüzgar.wav" (Efektler 4), ortam_kapsul ← "Bilim Kurgu Yıldız Gemisi Alt Frekans
-  Uğultu Ortamı.wav" (Efektler 6), ortam_harabe ← "Ambiyans Bilim Kurgu Uzaylı.wav" (Efektler 4, henüz kullanılmıyor),
+  Uğultu Ortamı.wav" (Efektler 6), ortam_harabe ← "Ambiyans Bilim Kurgu Uzaylı.wav" (Efektler 4, 0.3 ile salonda ve mabette),
   ortam_menu ← "Ortam Enerji Drone.wav" (Efektler 4). Efektler: bip ← "UI HUD Kısa Terminal Bip ... C.wav" (1),
   dugme ← "Eski Radyo Düğmesi.wav" (5), jenerator_calis ← "Enerji El Jeneratörleri 6.wav" (6), kapi ← "Bilim Kurgu
   Kapısı Açılışı 04.wav" (6), reddedildi ← "Arayüz Bip Sesleri Erişim Reddedildi.wav" (6), sinyal ← "Sinyal Kalibre

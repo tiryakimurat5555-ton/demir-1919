@@ -102,6 +102,35 @@ const MOTOR_HTML = `<!DOCTYPE html><html><head><meta charset="utf-8"></head><bod
       o.connect(g); g.connect(k.p); o.start(t); o.stop(t + 2.7);
     }
   }
+  // Çan / nota: çan tınısı (1, 2, 2,76, 5,4 kısmi tonları, uzun sönüm). hedef bir panner ya da 'yakin' düğümü.
+  function notaCal(frek, hedef, duzey, sure){
+    var t = ctx.currentTime, oranlar = [1, 2, 2.76, 5.4], sn = sure || 3.2, d = duzey == null ? 0.5 : duzey;
+    for (var i = 0; i < oranlar.length; i++){
+      var o = ctx.createOscillator(), g = ctx.createGain();
+      o.frequency.value = frek * oranlar[i]; o.type = 'sine';
+      g.gain.setValueAtTime(0.0001, t); g.gain.exponentialRampToValueAtTime(d / (i * 1.6 + 1), t + 0.006);
+      g.gain.exponentialRampToValueAtTime(0.0001, t + sn / (i * 0.6 + 1));
+      o.connect(g); g.connect(hedef); o.start(t); o.stop(t + sn + 0.1);
+    }
+  }
+  // Yanlış nota: kapının alçak, boğuk inlemesi
+  function inlemeCal(hedef){
+    var t = ctx.currentTime, o = ctx.createOscillator(), o2 = ctx.createOscillator(), f = ctx.createBiquadFilter(), g = ctx.createGain();
+    o.type = 'sawtooth'; o2.type = 'sawtooth';
+    o.frequency.setValueAtTime(70, t); o.frequency.exponentialRampToValueAtTime(48, t + 1.4);
+    o2.frequency.setValueAtTime(73, t); o2.frequency.exponentialRampToValueAtTime(46, t + 1.4);
+    f.type = 'lowpass'; f.frequency.value = 380;
+    g.gain.setValueAtTime(0.0001, t); g.gain.exponentialRampToValueAtTime(0.5, t + 0.12); g.gain.exponentialRampToValueAtTime(0.0001, t + 1.5);
+    o.connect(f); o2.connect(f); f.connect(g); g.connect(hedef); o.start(t); o2.start(t); o.stop(t + 1.6); o2.stop(t + 1.6);
+  }
+  // Yerçekimi alanı: sürekli, ağır ağır nabız atan alçak uğultu
+  function yercekimiBaslat(k){
+    var o = ctx.createOscillator(), o2 = ctx.createOscillator(), g = ctx.createGain(), lfo = ctx.createOscillator(), lg = ctx.createGain();
+    o.type = 'sine'; o.frequency.value = 45; o2.type = 'triangle'; o2.frequency.value = 90.7;
+    g.gain.value = 0.3; lfo.frequency.value = 0.8; lg.gain.value = 0.25;
+    lfo.connect(lg); lg.connect(g.gain); o.connect(g); o2.connect(g); g.connect(k.p); o.start(); o2.start(); lfo.start();
+    k.durdur = function(){ try { o.stop(); o2.stop(); lfo.stop(); } catch(e){} };
+  }
   // Deniz: sürekli, yavaşça kabarıp inen alçak gürültü
   function denizBaslat(k){
     var s = ctx.createBufferSource(), f = ctx.createBiquadFilter(), g = ctx.createGain(), lfo = ctx.createOscillator(), lg = ctx.createGain();
@@ -182,7 +211,7 @@ const MOTOR_HTML = `<!DOCTYPE html><html><head><meta charset="utf-8"></head><bod
     dosyaCal(k);
     k.zaman = setInterval(function(){ dosyaCal(k); }, aralik);
   }
-  function kaynak(id, tur, n, zemin){
+  function kaynak(id, tur, n, zemin, frek){
     baglam();
     var k = kaynaklar[id];
     if (k && zemin) k.zemin = zemin;
@@ -190,13 +219,20 @@ const MOTOR_HTML = `<!DOCTYPE html><html><head><meta charset="utf-8"></head><bod
     if (!k || k.tur !== tur){
       if (k && k.durdur) k.durdur();
       if (k && k.zaman) clearInterval(k.zaman);
-      k = { tur: tur, p: panner(), zemin: zemin };
+      k = { tur: tur, p: panner(), zemin: zemin, frek: frek };
       kaynaklar[id] = k;
       if (tur === 'zil') { zilCal(k); k.zaman = setInterval(function(){ zilCal(k); }, 1500); }
       else if (tur === 'cekic') { k.zaman = setInterval(function(){ cekicCal(k); }, 700); }
       else if (tur === 'deniz') denizBaslat(k);
       else if (tur === 'ayak') { k.zaman = setInterval(function(){ adimCal(k.p, 0.9, k.zemin || 'tas'); }, 540); }
       else if (tur === 'kristal') { kristalCal(k); k.zaman = setInterval(function(){ kristalCal(k); }, 2300); }
+      else if (tur === 'can') {
+        // Kraterin çanları kendiliğinden, kısık ve seyrek çınlar (her biri kendi aralığıyla)
+        var ara = 5200 + Math.floor(Math.random() * 2600);
+        setTimeout(function(){ if (kaynaklar[id] === k) notaCal(k.frek || 262, k.p, 0.12, 2.6); }, Math.floor(Math.random() * 3000));
+        k.zaman = setInterval(function(){ notaCal(k.frek || 262, k.p, 0.12, 2.6); }, ara);
+      }
+      else if (tur === 'yercekimi') yercekimiBaslat(k);
     }
     konumla(k.p, n);
   }
@@ -406,7 +442,19 @@ const MOTOR_HTML = `<!DOCTYPE html><html><head><meta charset="utf-8"></head><bod
     komut: function(c){
       try {
         if (c.ad === 'baslat') { baglam(); ctx.resume().then(function(){ bildir({ tur: 'hazir', durum: ctx.state }); }, function(e){ bildir({ tur: 'hata', metin: String(e) }); }); }
-        else if (c.ad === 'kaynak') kaynak(c.id, c.tur, c.n, c.zemin);
+        else if (c.ad === 'kaynak') kaynak(c.id, c.tur, c.n, c.zemin, c.frek);
+        else if (c.ad === 'nota') {
+          baglam();
+          var h = yakin;
+          if (c.n) { var p = panner(); konumla(p, c.n); h = p; setTimeout(function(){ try { p.disconnect(); } catch(e){} }, 4500); }
+          notaCal(c.frek, h, c.duzey, c.sure);
+        }
+        else if (c.ad === 'inleme') {
+          baglam();
+          var h2 = yakin;
+          if (c.n) { var p2 = panner(); konumla(p2, c.n); h2 = p2; setTimeout(function(){ try { p2.disconnect(); } catch(e){} }, 2500); }
+          inlemeCal(h2);
+        }
         else if (c.ad === 'dinleyici') dinleyici(c.n, c.y);
         else if (c.ad === 'adim') { baglam(); adimCal(null, c.duzey || 0.45, c.zemin); }
         else if (c.ad === 'yukle') yukle(c.dosya, c.veri);
@@ -454,7 +502,10 @@ function KonumsalSes({ onMesaj }, ref) {
   };
   useImperativeHandle(ref, () => ({
     baslat: () => gonder({ ad: 'baslat' }),
-    kaynak: (id, tur, nokta, zemin) => gonder({ ad: 'kaynak', id, tur, n: sesKoordinati(nokta), zemin }),
+    kaynak: (id, tur, nokta, zemin, frek) => gonder({ ad: 'kaynak', id, tur, n: sesKoordinati(nokta), zemin, frek }),
+    // Çan notası: nokta verilirse o yerde, verilmezse kulaklıkta
+    nota: (frek, nokta, duzey = 0.5, sure = 3.2) => gonder({ ad: 'nota', frek, n: nokta ? sesKoordinati(nokta) : null, duzey, sure }),
+    inleme: (nokta) => gonder({ ad: 'inleme', n: nokta ? sesKoordinati(nokta) : null }),
     dinleyici: (d) => gonder({ ad: 'dinleyici', n: sesKoordinati(d), y: sesYonu(d.yon) }),
     adim: (zemin, duzey) => gonder({ ad: 'adim', zemin, duzey }),
     model: (ad) => gonder({ ad: 'model', model: ad }),

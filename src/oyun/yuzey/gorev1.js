@@ -19,6 +19,9 @@ export const ESYALAR = {
   guc_hucresi: { ad: 'füzyon güç hücresi', tarif: 'Silindir biçiminde, avucunu ısıtan ağır bir hücre.' },
   sonda: { ad: 'termal sonda', tarif: 'Kol boyu, ucu seramik bir çubuk; gaz bacasının ağzına çakılır.' },
   maske: { ad: 'filtre maskesi', tarif: 'Kükürt gazını süzen iki kartuşlu yüz maskesi.' },
+  rezonator: { ad: 'frekans rezonatörü', tarif: 'Titanyum bir çatala oturtulmuş iki kristal; beş perde çalar.' },
+  veri_kristali: { ad: 'veri kristali', tarif: 'Soluk ışıklı, serin, steril bir kristal.' },
+  yildiz_haritasi: { ad: 'kadim yıldız haritası', tarif: 'Avuç büyüklüğünde, ince oyuklarla kaplı ağır bir küre.' },
 };
 
 export const HAREKET_KISA =
