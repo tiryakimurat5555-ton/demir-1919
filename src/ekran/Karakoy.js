@@ -19,7 +19,7 @@ import { RENK, UST_BOSLUK } from '../arayuz/tema';
 import KonumsalSes from '../ses/konumsal';
 import { MEKANLAR, SESLER } from '../oyun/karakoy/harita';
 import { karakoyYaz } from '../oyun/karakoy/kayit';
-import { SESLI_SAHNELER } from '../oyun/karakoy/seslendirme';
+import { SESLI_CEVRE, SESLI_ORTAM, SESLI_SAHNELER } from '../oyun/karakoy/seslendirme';
 import { SAHNELER, sahneParagraflari, sahneSec, sahneSecenekleri } from '../oyun/karakoy/sahneler';
 import { GIZLI_MEKANLAR, ZEMIN, bekle, cevreMetni, durumKisa, durumMetni, etkiles, eylemUygula, ilerle, sesliKisiler, otoBaslat, saatMetni, tramvayYeri, yeniDunya, yerlerListesi } from '../oyun/karakoy/dunya';
 import {
@@ -129,6 +129,12 @@ export default function Karakoy({ onGeri, baslangic = null, onDurum }) {
     for (const ad of Object.keys(DOSYALAR)) s.yukle(ad, DOSYALAR[ad]);
     hazir.current = true;
     sesleriEsitle(true);
+    // Açık bir hikâye sahnesi kulakları başka bir yere koyuyorsa (açılışta rıhtım) orası geçerli
+    const acik = SAHNELER[dunya.current.sahne];
+    if (acik && acik.kulak) {
+      s.dinleyici(acik.kulak);
+      s.boguk(!!acik.kulak.boguk);
+    }
   };
 
   const kaynakAc = (id, tur, nokta) => {
@@ -312,6 +318,10 @@ export default function Karakoy({ onGeri, baslangic = null, onDurum }) {
     }
     d.sahne = id;
     if (sahne.ortam) ortamCal(sahne.ortam, sahne.ortamOran ?? 0.8);
+    if (sahne.kulak && m() && hazir.current) {
+      m().dinleyici(sahne.kulak);
+      m().boguk(!!sahne.kulak.boguk);
+    }
     if (sahne.efekt) sahne.efekt.forEach((e, i) => setTimeout(() => cal(e, 1), i * 400));
     // Seslendirilmiş sahne: sesleri yüklüyse önce dinlenir, anlatım ardından gelir
     const sesli = SESLI_SAHNELER[id];
@@ -344,7 +354,10 @@ export default function Karakoy({ onGeri, baslangic = null, onDurum }) {
     if (!tok || tok.bitti) return;
     tok.bitti = true;
     tok.iptal = true;
-    if (m()) for (const k of tok.kisiler) m().kisiSil(k);
+    if (m()) {
+      for (const k of tok.kisiler) m().kisiSil(k);
+      m().cevreDuzey(1);
+    }
     if (oynatma.current === tok) oynatma.current = null;
     sahneGoster(tok.sahne);
   };
@@ -369,7 +382,10 @@ export default function Karakoy({ onGeri, baslangic = null, onDurum }) {
         },
       ],
     });
-    let dinleyici = { ...dunya.current.oyuncu };
+    let dinleyici = { ...(SAHNELER[id].kulak || dunya.current.oyuncu) };
+    // Konuşmalar öne çıksın: çevre ve ortam sesleri kısılır (konuşma anında motor ayrıca kısar)
+    s.cevreDuzey(SESLI_CEVRE);
+    if (SAHNELER[id].ortam) ortamCal(SAHNELER[id].ortam, SESLI_ORTAM);
     const kulak = () => s.dinleyici(dinleyici);
     if (onEk) await soyleBekle(onEk);
     for (const a of plan) {

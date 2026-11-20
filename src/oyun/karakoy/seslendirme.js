@@ -17,14 +17,20 @@
 
 const BATI = (3 * Math.PI) / 2;
 const GUNEY = Math.PI;
+// Açılış sahnelerinde (rıhtım) Arif'in kulakları burada: seslendirme başlarken ses yerinden sıçramasın
+export const RIHTIM_KULAK = { x: -6, y: 3, yon: GUNEY, boguk: false };
+// Seslendirme sürerken çevre sesleri (deniz, ortam döngüsü) bu oranda çalar
+export const SESLI_CEVRE = 0.55;
+export const SESLI_ORTAM = 0.3;
 
 export const SESLI_SAHNELER = {
-  // Ali kayıkhaneden rıhtım boyunca koşarak gelir. Arif kömürün başında, denize bakıyor;
-  // Ali sağ arkadan, sisin içinden gelir, iki kez seslenir, yanında durur.
+  // Ali kayıkhaneden rıhtım boyunca koşarak gelir. Arif kömürün başında, denize bakıyor (deniz önde);
+  // Ali sağ arkadan, sisin içinden gelir, iki kez seslenir, sağ önünde (saat 2 yönünde) durur.
+  // Arif başını çevirmez: deniz sesi yerinden oynamasın (Murat: dönüşte sahil sesi sola kayıyordu).
   cagri: {
     sesler: ['kosu_tas', 'ali_seslenis1', 'ali_seslenis2', 'ali_cagri'],
     plan: [
-      { t: 'dinleyici', x: -6, y: 3, yon: GUNEY },
+      { t: 'dinleyici', x: RIHTIM_KULAK.x, y: RIHTIM_KULAK.y, yon: RIHTIM_KULAK.yon },
       { t: 'boguk', acik: false },
       { t: 'kisi', id: 'ali', x: -34, y: 6.5 },
       { t: 'bekle', ms: 400 },
@@ -37,9 +43,8 @@ export const SESLI_SAHNELER = {
       { t: 'cal', id: 'ali', ses: 'ali_seslenis2', duzey: 1 },
       { t: 'bekle', ms: 2400 },
       { t: 'oran', id: 'ali', oran: 0.82, sure: 600 },
-      { t: 'git', id: 'ali', x: -7.2, y: 3.2, sure: 900 },
-      { t: 'don', yon: BATI, sure: 700 },
-      { t: 'bekle', ms: 750 },
+      { t: 'git', id: 'ali', x: -6.9, y: 2.3, sure: 1100 },
+      { t: 'bekle', ms: 1150 },
       { t: 'dur', id: 'ali' },
       { t: 'bekle', ms: 200 },
       { t: 'cal', id: 'ali', ses: 'ali_cagri', duzey: 1, bekle: true },

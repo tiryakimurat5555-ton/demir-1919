@@ -18,6 +18,7 @@
 //   kisiGit(id, nokta, sure)         kişiyi sure ms'de oraya götürür (koşma, yürüme)
 //   kisiCal(id, ad, duzey, dongu, oran) kişinin ağzından/ayağından ses çalar; döngü değilse bitince 'kisiBitti'
 //   kisiOran(id, oran, sure), kisiDur(id), kisiSil(id)
+//   cevreDuzey(oran)                 çevre seslerinin (deniz vb.) taban düzeyi; konuşma sürerken ayrıca kısılır
 // Kişi sesleri uzaklıkla boğuklaşır (hava yutumu) ve mekânın yankısını alır ('dis' rıhtım, 'ic' ahşap oda).
 // kaynak türleri: 'zil', 'cekic', 'deniz', 'ayak' (yürüyen birinin ayak sesleri)
 // Motor hazır olunca ve hata olursa onMesaj({ tur, ... }) çağrılır.
@@ -31,7 +32,7 @@ import { sesKoordinati, sesYonu } from '../oyun/konum';
 // WebView içinde çalışan motor. Basit sesler (zil, çekiç, deniz, ayak) kodla üretilir; ötekiler yüklenen dosyalardan çalınır.
 const MOTOR_HTML = `<!DOCTYPE html><html><head><meta charset="utf-8"></head><body><script>
 (function(){
-  var ctx = null, model = 'HRTF', kaynaklar = {}, ana = null, suzgec = null, yakin = null, yankilar = {}, kisiler = {}, dinN = { x: 0, y: 0, z: 0 };
+  var ctx = null, model = 'HRTF', kaynaklar = {}, ana = null, suzgec = null, yakin = null, cevre = null, yankilar = {}, kisiler = {}, dinN = { x: 0, y: 0, z: 0 }, konusan = 0;
   function bildir(o){ try { window.ReactNativeWebView.postMessage(JSON.stringify(o)); } catch(e){} }
   function baglam(){
     if (ctx) return ctx;
@@ -43,6 +44,8 @@ const MOTOR_HTML = `<!DOCTYPE html><html><head><meta charset="utf-8"></head><bod
     ana.connect(suzgec); suzgec.connect(ctx.destination);
     // Aynı odadaki konuşan kişiler için ayrı yol: içerideyken dışarıyı boğan süzgeçten geçmez
     yakin = ctx.createGain(); yakin.gain.value = 0.9; yakin.connect(ctx.destination);
+    // Çevre sesleri (deniz, tramvay, uzak ayaklar) kendi düğümünden geçer; biri konuşurken kısılır
+    cevre = ctx.createGain(); cevre.gain.value = 1; cevre.connect(ana);
     var l = ctx.listener;
     if (l.forwardX) { l.forwardX.value = 0; l.forwardY.value = 0; l.forwardZ.value = -1; l.upX.value = 0; l.upY.value = 1; l.upZ.value = 0; }
     return ctx;
@@ -55,7 +58,7 @@ const MOTOR_HTML = `<!DOCTYPE html><html><head><meta charset="utf-8"></head><bod
   function panner(){
     var p = ctx.createPanner();
     p.panningModel = model; p.distanceModel = 'inverse'; p.refDistance = 2; p.maxDistance = 60; p.rolloffFactor = 1.2;
-    p.connect(ana); return p;
+    p.connect(cevre); return p;
   }
   function konumla(p, n){
     if (p.positionX) { p.positionX.value = n.x; p.positionY.value = n.y; p.positionZ.value = n.z; }
@@ -242,10 +245,13 @@ const MOTOR_HTML = `<!DOCTYPE html><html><head><meta charset="utf-8"></head><bod
   }
   function kisiKur(id, n, ic){
     baglam(); kisiSil(id);
-    var g = ctx.createGain(), hava = ctx.createBiquadFilter(), p = ctx.createPanner(), gonder = ctx.createGain();
+    var g = ctx.createGain(), sik = ctx.createDynamicsCompressor(), hava = ctx.createBiquadFilter(), p = ctx.createPanner(), gonder = ctx.createGain();
     p.panningModel = model; p.distanceModel = 'inverse'; p.refDistance = 1.5; p.maxDistance = 100; p.rolloffFactor = 0.9;
     hava.type = 'lowpass'; hava.frequency.value = 18000;
-    g.connect(hava); hava.connect(p); p.connect(ic ? yakin : ana);
+    // Ses öne çıksın: hafif sıkıştırma ve kazanç (ortam sesinin altında kalmasın)
+    sik.threshold.value = -24; sik.ratio.value = 3; sik.attack.value = 0.005; sik.release.value = 0.2; sik.knee.value = 10;
+    g.gain.value = 1.9;
+    g.connect(sik); sik.connect(hava); hava.connect(p); p.connect(ic ? yakin : ana);
     g.connect(gonder); gonder.connect(yanki(ic ? 'ic' : 'dis'));
     var k = { g: g, hava: hava, p: p, gonder: gonder, n: n, ic: !!ic };
     kisiler[id] = k; kisiAyarla(k);
@@ -270,9 +276,21 @@ const MOTOR_HTML = `<!DOCTYPE html><html><head><meta charset="utf-8"></head><bod
     if (oran) s.playbackRate.value = oran;
     s.connect(g); g.connect(k.g);
     if (dongu){ s.loop = true; try { if (k.dongu) k.dongu.stop(); } catch(e){} k.dongu = s; k.donguKazanc = g; }
-    else s.onended = function(){ bildir({ tur: 'kisiBitti', id: id, ad: ad }); };
+    else {
+      // Konuşma süresince çevre sesleri kısılır (sinema karışımındaki gibi)
+      cevreKis(1);
+      s.onended = function(){ cevreKis(-1); bildir({ tur: 'kisiBitti', id: id, ad: ad }); };
+    }
     s.start();
   }
+  var cevreTaban = 1;
+  function cevreKis(fark){
+    konusan = Math.max(0, konusan + fark);
+    var t = ctx.currentTime;
+    cevre.gain.cancelScheduledValues(t);
+    cevre.gain.setTargetAtTime(cevreTaban * (konusan > 0 ? 0.35 : 1), t, konusan > 0 ? 0.08 : 0.4);
+  }
+  function cevreDuzey(oran){ baglam(); cevreTaban = oran; cevreKis(0); }
   function kisiOran(id, oran, sure){
     var k = kisiler[id]; if (!k || !k.dongu) return;
     k.dongu.playbackRate.setTargetAtTime(oran, ctx.currentTime, (sure || 300) / 3000);
@@ -304,6 +322,7 @@ const MOTOR_HTML = `<!DOCTYPE html><html><head><meta charset="utf-8"></head><bod
         else if (c.ad === 'kisiOran') kisiOran(c.id, c.oran, c.sure);
         else if (c.ad === 'kisiDur') kisiDur(c.id);
         else if (c.ad === 'kisiSil') kisiSil(c.id);
+        else if (c.ad === 'cevreDuzey') cevreDuzey(c.oran);
       } catch(e){ bildir({ tur: 'hata', metin: String(e) }); }
     }
   };
@@ -350,6 +369,7 @@ function KonumsalSes({ onMesaj }, ref) {
     kisiOran: (id, oran, sure) => gonder({ ad: 'kisiOran', id, oran, sure }),
     kisiDur: (id) => gonder({ ad: 'kisiDur', id }),
     kisiSil: (id) => gonder({ ad: 'kisiSil', id }),
+    cevreDuzey: (oran) => gonder({ ad: 'cevreDuzey', oran }),
     dosyaKaynak: (id, ad, nokta, aralik) => gonder({ ad: 'dosyaKaynak', id, dosya: ad, n: sesKoordinati(nokta), aralik }),
   }));
   return (

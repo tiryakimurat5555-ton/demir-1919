@@ -161,6 +161,11 @@
   Ali = "Enes - Energetic and Lively" W3uaElFBxHYNIC54Z4ty (çocuk sesi tasarımı ElevenLabs güvenlik süzgecine takıldı; genç ses),
   Süleyman = "Ergun Kalbak" 0DihkedLJYKoWg7H1u4d (60 yaşında, derin). kosu_tas sfx (6 sn döngü). Dönüştürme: sessizlik kırpma,
   sabit kazanç (seslenişler -15, Ali -18, Süleyman -19 LUFS; koşu tepe -3 dB), 24 kHz tek kanal WAV. Testler seslendirme.test.js. Telefonda denenmedi.
+  Sürüm 1.05 (20 Kasım, Murat: "kişi sesleri ortam sesinin üzerine binmiyor; Ali gelirken sahil sesi sola kayıyor"): konumsal.js
+  'cevre' düğümü (panner() kaynakları buradan; cevreDuzey(oran) taban), kisiCal konuşurken cevre ×0,35 (konusan sayacı, cevreKis);
+  kişi zinciri g 1,9 → DynamicsCompressor (-24 dB, 3:1) → hava → panner. Seslendirmede SESLI_CEVRE 0,55, ortam döngüsü SESLI_ORTAM 0,3.
+  Sahne alanı kulak ({x,y,yon,boguk}; RIHTIM_KULAK acilis/ani1/ani1_nefes/ani1_bastir/cagri): sahneGoster ve sahneKur dinleyiciyi oraya
+  koyar (önceden açılış sahneleri kayıkhanede dinleniyordu, cagri'da kulak rıhtıma sıçrıyordu). cagri planında 'don' yok; Ali (-6.9,2.3).
   Sürüm 1.01 (19 Kasım, Murat: "kendi etrafında dönerken Vahşi Yaşam ve Kayıp Okyanus'taki gibi tık tık"): dunya.js donusTikirtisi
   (DILIM 30°, yarım dilim payı, d.sonDilim; oto yürüyüşte sıfırlanır) → olay 'tik' {guc 0,65 ana yönde / 0,3}; Karakoy.js cal('tik').
   assets/ses/tik.wav kayip-okyanus'tan kopyalandı; efektler.js KAYNAKLAR'da (SesliListe'nin menü tıkı da artık bu sesi çalar).

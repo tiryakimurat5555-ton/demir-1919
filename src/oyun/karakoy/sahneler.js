@@ -1,5 +1,5 @@
 // Hikâye sahneleri (Karaköy, birinci görev). Saf veri.
-// Sahne: { baslik, ortam?, ortamOran?, efekt?: [ad], paragraflar: [metin] | (d) => [metin],
+// Sahne: { baslik, kulak? ({x, y, yon, boguk}: Arif'in kulaklarının yeri), ortam?, ortamOran?, efekt?: [ad], paragraflar: [metin] | (d) => [metin],
 //          secenekler: [{ etiket, kosul?(d), yap?(d), sonra: sahneId | null }] }
 // sonra null ise sahne kapanır, serbest dolaşma sürer. Seçeneği olmayan sahnede tek "Devam" vardır.
 // d.sahne o an açık olan sahnedir (kayıtta saklanır; oyun yeniden açılınca sahne kaldığı yerden okunur).
@@ -9,12 +9,14 @@ import { G3_SAHNELER } from './gorev3';
 import { G4_SAHNELER } from './gorev4';
 import { G5_SAHNELER } from './gorev5';
 import { G6_SAHNELER } from './gorev6';
+import { RIHTIM_KULAK } from './seslendirme';
 
 const bayrak = (d, k) => d.bayrak[k];
 const delilVar = (d, id) => d.deliller.includes(id);
 
 export const SAHNELER = {
   acilis: {
+    kulak: RIHTIM_KULAK,
     ortam: 'ortam_rihtim',
     baslik: 'Karaköy, Aralık 1918',
     paragraflar: [
@@ -27,6 +29,7 @@ export const SAHNELER = {
     secenekler: [{ etiket: 'Devam', sonra: 'ani1' }],
   },
   ani1: {
+    kulak: RIHTIM_KULAK,
     ortam: 'ortam_rihtim',
     ortamOran: 0.15,
     efekt: ['sandik', 'ani_savas'],
@@ -49,6 +52,7 @@ export const SAHNELER = {
     ],
   },
   ani1_nefes: {
+    kulak: RIHTIM_KULAK,
     ortam: 'ortam_rihtim',
     baslik: 'Rıhtım',
     paragraflar: [
@@ -58,6 +62,7 @@ export const SAHNELER = {
     secenekler: [{ etiket: 'Devam', sonra: 'cagri' }],
   },
   ani1_bastir: {
+    kulak: RIHTIM_KULAK,
     ortam: 'ortam_rihtim',
     baslik: 'Rıhtım',
     paragraflar: [
@@ -69,6 +74,7 @@ export const SAHNELER = {
   // cagri ve cagri_kaptan seslendirilmiştir (seslendirme.js). Sesler yüklenemezse paragraflar okunur;
   // seslendirme çalındıysa sesliParagraflar (konuşmalar çıkarılmış anlatım) okunur.
   cagri: {
+    kulak: RIHTIM_KULAK,
     ortam: 'ortam_rihtim',
     ortamOran: 0.5,
     baslik: 'Ali',
