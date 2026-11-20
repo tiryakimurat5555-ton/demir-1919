@@ -22,7 +22,7 @@ import { ayarlarOku, ayarlarYaz, otoOku, otoSil, tarihMetni, VARSAYILAN_AYARLAR,
 import { yeniOyun } from './src/oyun/durum';
 import { durumKisa } from './src/oyun/yuzey/dunya';
 
-const SURUM = '0.5';
+const SURUM = '0.6';
 const OYUN_ADI = 'Aethelis';
 
 const HAKKINDA_METNI = [
@@ -44,7 +44,8 @@ const HAREKETLER = [
   'Ayak dengelemede: kulaklıkta iki ton. Ayak yüksekse tonu ince: aşağı sürükle; alçaksa yukarı. Tonlar birleşip titreşim durunca kıpırdama. Dokun: durumu söyler. İki parmakla çift dokun: çekil.',
   'Uğultulu Plato\'da rüzgâr ıslığı yükselince dur: yürürken hamle yakalarsa savrulursun.',
   'Vinçte: parça kulaklığında bir yana kaymış sallanır. Sağa ya da sola sürükle; ses iki kulakta eşitlenip düzenli tık duyulunca parça ortada. Aşağı kaydır: bir basamak indir. Oturunca çift dokun: kenetle. Dokun: durum. İki parmakla çift dokun: çekil.',
-  'Gemide: iki parmakla sağa ya da sola kaydır, odalar arasında geç. Dokun: odanın terminali. Basılı tut: odadaki görevliyle konuş.',
+  'Yüzey araçları: vadideki araç hangarından binilir. Çöl Tilkisi hızlı kayar ve zehirden az etkilenir; Mammoth derin damarları kazar; Atmosphere-X uçar; Demir Kervan ve Akrep koloniye kendiliğinden malzeme getirir. İnmek için menüde aracın adı.',
+  'Gemide: iki parmakla sağa ya da sola kaydır, odalar arasında geç. Dokun: odanın terminali; reaktör odasında güç dağıtımı, revirde tıbbi tarama. Basılı tut: odadaki görevliyle konuş.',
   'Uzayda, kokpitteyken: yukarı kaydır itki, aşağı ters itici; sağa ya da sola kaydır, burnu çevir. Her noktanın feneri kendi perdesinde çalar; ses iki kulakta eşitlenince pruva kilitlenir. Basılı tut: radar. Çift dokun: yakındaki noktaya kenetlen. Aethelis-IV\'e kenetlenince inersin.',
   'Rezonansta (kilitli kadim kapılarda): kapı nota dizisini çalar. Yukarı ya da aşağı kaydır: nota seçilir ve çalar; yukarı inceltir. Çift dokun: notayı kapıya çal. Dokun: diziyi yeniden dinle. İki parmakla çift dokun: kapıdan çekil.',
   'Frekans ayarında: yukarı ya da aşağı sürükle, ya da iki parmakla çevir; kanal değişir. Sağa ya da sola hızlı kaydır: ince ayar. Dokun: kanalı söyler. İki parmakla çift dokun: ayardan çık.',

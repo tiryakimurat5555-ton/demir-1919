@@ -9,46 +9,62 @@
 // tersane iş gücü kısaltır). Platodaki rüzgâr parçayı sürükler, hamle sarsar (dunya.js firtinaIlerle).
 // Gemi içi: odalar arasında iki parmakla sağa-sola kaydırma, odada dokunma terminal, basılı tutma mürettebatla
 // konuşma (bölüm 5). Mürettebat odalara atanır (savas-yetenek-ve-murettebat 4.2).
-import { GEMI_SINIFLARI } from '../veri/gemiler';
+import { GEMI_SINIFLARI, SINIF_KATMANLARI } from '../veri/gemiler';
 import { PARCALAR } from '../veri/uretim';
 
-const b = (d) => d.bayrak;
+export { SINIF_KATMANLARI };
+export const KIVILCIM_MONTAJ = GEMI_SINIFLARI[1].montaj;
+export const ODALAR = Object.fromEntries(Object.keys(GEMI_SINIFLARI).map((k) => [k, GEMI_SINIFLARI[k].odalar]));
 
-export const KIVILCIM_MONTAJ = [
-  { id: 'govde', ad: 'Omurga ve gövde iskeleti', gerek: { plaka: 150 }, vinc: true, kaynak: 90, parca: 'iskelet kirişleri' },
-  { id: 'kokpit', ad: 'Kokpit ve kablo demeti', gerek: { kablo: 40 }, vinc: true, kaynak: 60, parca: 'basınçlı kokpit kabuğu' },
-  { id: 'reaktor', ad: 'Minyatür iyon reaktörü', gerek: { iyon_reaktoru: 1 }, vinc: true, kaynak: 60, parca: 'reaktör çekirdeği' },
-  { id: 'itki', ad: 'İtki hattı ve yakıt dolumu', gerek: { itki_yakiti: 25 }, vinc: false, kaynak: 30, parca: 'yakıt hattı' },
-];
-
-// Gemi sınıflarının odaları (bölüm 2 ve 5): ortam sesi ve odadaki görev yeri
-export const ODALAR = {
-  1: [
-    { id: 'kokpit', ad: 'Kokpit ve seyrüsefer istasyonu', ortam: 'ortam_kokpit', gorevYeri: 'Telsiz Subayı', tarif: 'Pilot koltuğu, radyo dalgası alıcıları, dokunsal itki kolları ve dış ses hidrofonları. Telsiz cızırdıyor, göstergeler bipliyor.' },
-    { id: 'kargo', ad: 'Kompakt kargo ve acil durum ranzası', ortam: 'ortam_kargo', gorevYeri: 'İkmal Subayı', tarif: 'İki kişilik acil yaşam alanı, ilk yardım dolabı ve küçük bir numune kasası. Sesin metal duvarlardan yankılanıyor.' },
-  ],
-};
-
-// Sınıfa göre takılabilen modül katmanları (Kıvılcım küçük: yalnız burun, gövde zırhı)
-export const SINIF_KATMANLARI = {
-  1: ['burun', 'govde'],
-  2: ['burun', 'komuta', 'govde', 'makine', 'dis_a'],
-  3: ['burun', 'komuta', 'govde', 'bolme_a', 'makine', 'tahrik', 'dis_b'],
-  4: ['burun', 'komuta', 'govde', 'bolme_a', 'bolme_b', 'makine', 'tahrik', 'dis_a'],
-  5: ['burun', 'komuta', 'govde', 'bolme_a', 'bolme_b', 'makine', 'tahrik', 'dis_a', 'dis_b'],
-};
-
-// --- Montaj ---
+// --- Montaj (kızaktaki gemi; sınıfa göre aşamalar) ---
 function tersane(d) {
   if (!d.tersane) d.tersane = { sinif: 1, asamalar: {}, kaynak: null };
   return d.tersane;
 }
+export function montajAsamalari(d) {
+  return GEMI_SINIFLARI[tersane(d).sinif].montaj;
+}
+// Kızağın kademesi: tersane 1, Manyetik Beşik 2, Hisar Tersanesi 3
+export function kizakKademesi(d) {
+  const b = d.koloni.binalar;
+  return b.includes('tersane_3') ? 3 : b.includes('tersane_2') ? 2 : b.includes('tersane') ? 1 : 0;
+}
+// Bütün gemiler (aktif + filodakiler)
+export function filo(d) {
+  return [d.gemi, ...(d.filo || [])].filter(Boolean);
+}
+// Kızağa yeni bir gemi sınıfı koy (kızaktaki iş bitmişse)
+export function yeniGemiSiniflari(d) {
+  const t = tersane(d);
+  const sahip = filo(d).map((g) => g.sinif);
+  return Object.keys(GEMI_SINIFLARI).map((k) => {
+    const s = GEMI_SINIFLARI[k];
+    const sinif = Number(k);
+    let durum;
+    if (sahip.includes(sinif)) durum = 'Filoda var.';
+    else if (t.sinif === sinif && Object.keys(t.asamalar).length) durum = 'Kızakta, montaj sürüyor.';
+    else if (kizakKademesi(d) < s.kizak) durum = 'Kademe ' + s.kizak + ' kızak gerekir.';
+    else durum = 'Kızağa konabilir.';
+    return { sinif, ad: s.ad + ', ' + s.sinif, durum, olur: durum === 'Kızağa konabilir.' && !(t.kaynak || (Object.keys(t.asamalar).length && !gemiBittiMi(d))) };
+  });
+}
+function gemiBittiMi(d) {
+  const t = tersane(d);
+  return GEMI_SINIFLARI[t.sinif].montaj.every((a) => t.asamalar[a.id] === 'bitti');
+}
+export function kizagaKoy(d, sinif) {
+  const x = yeniGemiSiniflari(d).find((y) => y.sinif === sinif);
+  if (!x || !x.olur) return { metin: x ? x.ad + ': ' + x.durum : '', ses: 'red' };
+  d.tersane = { sinif, asamalar: {}, kaynak: null };
+  return { metin: GEMI_SINIFLARI[sinif].ad + ' kızağa kondu. Montaj aşamaları: ' + GEMI_SINIFLARI[sinif].montaj.map((a) => a.ad).join(', ') + '.', ses: 'zincir' };
+}
 
 export function montajListesi(d) {
   const t = tersane(d);
-  return KIVILCIM_MONTAJ.map((a, i) => {
+  const asamalar = montajAsamalari(d);
+  return asamalar.map((a, i) => {
     const durum = t.asamalar[a.id];
-    const onceki = i === 0 || t.asamalar[KIVILCIM_MONTAJ[i - 1].id] === 'bitti';
+    const onceki = i === 0 || t.asamalar[asamalar[i - 1].id] === 'bitti';
     let metin;
     if (durum === 'bitti') metin = 'Tamam.';
     else if (t.kaynak && t.kaynak.asama === a.id) metin = (a.vinc ? 'Kaynak sürüyor' : 'Dolum sürüyor') + ', yaklaşık ' + Math.ceil(t.kaynak.kalan) + ' saniye.';
@@ -60,16 +76,23 @@ export function montajListesi(d) {
 
 export function montajBaslat(d, asamaId) {
   const t = tersane(d);
-  const i = KIVILCIM_MONTAJ.findIndex((a) => a.id === asamaId);
-  const a = KIVILCIM_MONTAJ[i];
+  const asamalar = montajAsamalari(d);
+  const i = asamalar.findIndex((a) => a.id === asamaId);
+  const a = asamalar[i];
   if (!a) return { metin: '' };
   if (t.asamalar[a.id] === 'bitti') return { metin: a.ad + ' zaten tamam.' };
+  if (kizakKademesi(d) < GEMI_SINIFLARI[t.sinif].kizak) return { metin: 'Bu gemi için kademe ' + GEMI_SINIFLARI[t.sinif].kizak + ' kızak gerekir.', ses: 'red' };
   if (t.kaynak) return { metin: 'Mühendisler önceki aşamanın kaynağında; bitmesini bekle.', ses: 'red' };
-  if (i > 0 && t.asamalar[KIVILCIM_MONTAJ[i - 1].id] !== 'bitti') return { metin: 'Önce ' + KIVILCIM_MONTAJ[i - 1].ad + '.', ses: 'red' };
+  if (i > 0 && t.asamalar[asamalar[i - 1].id] !== 'bitti') return { metin: 'Önce ' + asamalar[i - 1].ad + '.', ses: 'red' };
   const p = d.koloni.parcalar || {};
   const eksik = Object.keys(a.gerek).filter((k) => (p[k] || 0) < a.gerek[k]);
   if (eksik.length)
-    return { metin: 'Parça yetmiyor. Gerekli: ' + Object.keys(a.gerek).map((k) => a.gerek[k] + ' ' + PARCALAR[k].ad + ' (elinde ' + (p[k] || 0) + ')').join(', ') + '. Terminalden üretim yap.', ses: 'red' };
+    return {
+      metin:
+        'Parça yetmiyor. Gerekli: ' + Object.keys(a.gerek).map((k) => a.gerek[k] + ' ' + PARCALAR[k].ad + ' (elinde ' + (p[k] || 0) + ')').join(', ') + '. ' +
+        (eksik.some((k) => PARCALAR[k].uzaydan) ? 'Bu malzeme uzay görevlerinden gelir.' : 'Terminalden üretim yap.'),
+      ses: 'red',
+    };
   for (const k of Object.keys(a.gerek)) p[k] -= a.gerek[k];
   if (a.vinc) {
     vincBaslat(d, a.id);
@@ -85,13 +108,14 @@ export function montajIlerle(d, dt, carpan) {
   if (!t || !t.kaynak) return [];
   t.kaynak.kalan -= dt * carpan;
   if (t.kaynak.kalan > 0) return [];
-  const a = KIVILCIM_MONTAJ.find((x) => x.id === t.kaynak.asama);
+  const asamalar = GEMI_SINIFLARI[t.sinif].montaj;
+  const a = asamalar.find((x) => x.id === t.kaynak.asama);
   t.asamalar[a.id] = 'bitti';
   t.kaynak = null;
   const olaylar = [{ tur: 'montaj', metin: 'Tersane: ' + a.ad + ' tamam.' }];
-  if (KIVILCIM_MONTAJ.every((x) => t.asamalar[x.id] === 'bitti') && !d.gemi) {
-    gemiOlustur(d, 1);
-    olaylar.push({ tur: 'gemiHazir' });
+  if (asamalar.every((x) => t.asamalar[x.id] === 'bitti') && !filo(d).some((g) => g.sinif === t.sinif)) {
+    gemiOlustur(d, t.sinif);
+    olaylar.push({ tur: 'gemiHazir', sinif: t.sinif, metin: GEMI_SINIFLARI[t.sinif].ad + ' hazır; kızakta.' });
   }
   return olaylar;
 }
@@ -104,7 +128,7 @@ function tohumSayi(d, n) {
   return x / 2147483647;
 }
 export function vincBaslat(d, asama) {
-  const i = KIVILCIM_MONTAJ.findIndex((a) => a.id === asama);
+  const i = montajAsamalari(d).findIndex((a) => a.id === asama) + tersane(d).sinif * 5;
   const r = tohumSayi(d, i + 7);
   d.vinc = { asama, x: (r < 0.5 ? -1 : 1) * (0.5 + r * 0.4), yukseklik: 3, sure: 0, oturdu: false };
   return d.vinc;
@@ -143,7 +167,7 @@ export function vincIndir(d) {
 export function vincIptal(d) {
   const v = d.vinc;
   if (!v) return;
-  const a = KIVILCIM_MONTAJ.find((x) => x.id === v.asama);
+  const a = montajAsamalari(d).find((x) => x.id === v.asama);
   if (!d.koloni.parcalar) d.koloni.parcalar = {};
   for (const k of Object.keys(a.gerek)) d.koloni.parcalar[k] = (d.koloni.parcalar[k] || 0) + a.gerek[k];
   d.vinc = null;
@@ -151,7 +175,7 @@ export function vincIptal(d) {
 export function vincKenetle(d) {
   const v = d.vinc;
   if (!v || !v.oturdu) return { sonuc: 'yok', metin: 'Parça daha oturmadı.' };
-  const a = KIVILCIM_MONTAJ.find((x) => x.id === v.asama);
+  const a = montajAsamalari(d).find((x) => x.id === v.asama);
   tersane(d).kaynak = { asama: a.id, kalan: a.kaynak };
   d.vinc = null;
   return { sonuc: 'kenetlendi', metin: a.ad + ' kenetlendi. Mühendisler kaynağa başladı; bitince haber verirler.' };
@@ -169,27 +193,44 @@ export function vincMetni(d) {
 // --- Gemi ---
 export function gemiOlustur(d, sinif) {
   const s = GEMI_SINIFLARI[sinif];
-  d.gemi = {
+  const yeni = {
     sinif,
     ad: s.ad,
-    odalar: ODALAR[sinif].map((o) => o.id),
-    govde: 100,
-    maxGovde: 100,
-    kalkan: 0,
+    odalar: s.odalar.map((o) => o.id),
+    govde: s.govde,
+    maxGovde: s.govde,
+    kalkan: s.kalkan,
     silahlar: [],
     kargo: [],
     moduller: {},
-    yakit: 25,
-    maxYakit: 25,
-    motorSesi: 'turbin',
+    yakit: s.yakit.tank,
+    maxYakit: s.yakit.tank,
+    yakitTuru: s.yakit.parca,
+    motorSesi: s.motor,
     yer: 'kizak',
     atamalar: {},
   };
-  return d.gemi;
+  // İlk gemi aktif olur; sonrakiler filoya katılır (kızaktan "Aktif gemiyi seç")
+  if (!d.gemi) d.gemi = yeni;
+  else {
+    if (!d.filo) d.filo = [];
+    d.filo.push(yeni);
+  }
+  return yeni;
+}
+// Filodan aktif gemi seç (kızaktayken)
+export function aktifGemiSec(d, sinif) {
+  if (d.gemide) return { metin: 'Önce gemiden in.', ses: 'red' };
+  const i = (d.filo || []).findIndex((g) => g.sinif === sinif);
+  if (i < 0) return { metin: d.gemi && d.gemi.sinif === sinif ? d.gemi.ad + ' zaten kızakta.' : '' };
+  const g = d.filo.splice(i, 1)[0];
+  if (d.gemi) d.filo.push(d.gemi);
+  d.gemi = g;
+  return { metin: g.ad + ' kızağa alındı; artık onunla uçarsın.', ses: 'zincir' };
 }
 
 export function gemiOdalari(d) {
-  return d.gemi ? ODALAR[d.gemi.sinif] : [];
+  return d.gemi ? GEMI_SINIFLARI[d.gemi.sinif].odalar : [];
 }
 
 export function gemiDurumu(d) {
@@ -236,11 +277,28 @@ export function yakitDoldur(d) {
   const p = d.koloni.parcalar || {};
   const bos = g.maxYakit - g.yakit;
   if (bos < 0.5) return { metin: 'Tank dolu.' };
-  const al = Math.min(bos, p.itki_yakiti || 0);
-  if (al <= 0) return { metin: 'Yakıt yok. Reaktör laboratuvarında itki yakıtı üret.', ses: 'red' };
-  p.itki_yakiti -= al;
+  const tur = g.yakitTuru || 'itki_yakiti';
+  const al = Math.min(bos, p[tur] || 0);
+  if (al <= 0) return { metin: 'Yakıt yok: ' + g.ad + ' ' + PARCALAR[tur].ad + ' yakar. Reaktör laboratuvarında üret.', ses: 'red' };
+  p[tur] -= al;
   g.yakit += al;
   return { metin: Math.round(al) + ' litre yakıt aldın; tank ' + Math.round(g.yakit) + ' litre.', ses: 'tislama' };
+}
+
+// --- Güç dağıtımı (reaktör odası terminali, araclar-ve-gemi-filosu.md bölüm 5) ---
+export const GUC_DAGITIMLARI = {
+  dengeli: { ad: 'Dengeli', tarif: 'Güç itkiye, sensörlere ve kalkana eşit.', hiz: 1, fener: 1, kalkan: 1 },
+  itki: { ad: 'İtkiye öncelik', tarif: 'Hız yüzde yirmi artar; sensörler biraz körleşir.', hiz: 1.2, fener: 0.85, kalkan: 0.8 },
+  sensor: { ad: 'Sensörlere öncelik', tarif: 'Fenerler yüzde otuz daha uzaktan duyulur; hız biraz düşer.', hiz: 0.9, fener: 1.3, kalkan: 0.8 },
+  kalkan: { ad: 'Kalkana öncelik', tarif: 'Kalkan güçlenir (çatışmalar için); hız ve sensörler düşer.', hiz: 0.85, fener: 0.9, kalkan: 1.5 },
+};
+export function gucDagitimi(d) {
+  return GUC_DAGITIMLARI[(d.gemi && d.gemi.guc) || 'dengeli'];
+}
+export function gucDagitimiSec(d, id) {
+  if (!d.gemi || !GUC_DAGITIMLARI[id]) return { metin: '' };
+  d.gemi.guc = id;
+  return { metin: 'Güç dağıtımı: ' + GUC_DAGITIMLARI[id].ad + '. ' + GUC_DAGITIMLARI[id].tarif, ses: 'dugme' };
 }
 
 // --- Gemi içi ---
@@ -287,9 +345,9 @@ export function atamaYap(d, odaId, uyeId) {
 export function telsizSubayiCarpani(d) {
   const g = d.gemi;
   if (!g) return 1;
-  const u = d.murettebat.find((x) => x.id === g.atamalar.kokpit);
-  if (!u) return 1;
-  return u.nitelik === 'ses_hassas' ? 1.6 : 1.25;
+  const u = d.murettebat.find((x) => x.id === g.atamalar[g.odalar[0]]);
+  if (!u) return gucDagitimi(d).fener;
+  return (u.nitelik === 'ses_hassas' ? 1.6 : 1.25) * gucDagitimi(d).fener;
 }
 // Odada basılı tutma: görevli mürettebatla konuşma
 export function odaKonusmasi(d) {
@@ -298,7 +356,7 @@ export function odaKonusmasi(d) {
   const u = d.murettebat.find((x) => x.id === d.gemi.atamalar[o.id]);
   if (!u) return 'Bu odada kimse yok. Kokpit terminalinden mürettebat atayabilirsin.';
   const ilk = u.ad.split(' ')[0];
-  if (o.id === 'kokpit')
+  if (o.id === d.gemi.odalar[0])
     return ilk + ': "Telsiz açık, Kaptan. ' + (d.gemi.yer === 'uzay' ? 'Fenerleri dinliyorum; hangisine gideceğimizi söyle, rotayı sesten tutarız."' : 'Kalkışa hazırız; komut sende."');
   return ilk + ': "Kasa bağlı, ranza hazır, Kaptan. Numune alırsak buraya istiflerim."';
 }

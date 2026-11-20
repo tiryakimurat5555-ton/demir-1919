@@ -180,12 +180,14 @@ export function eylemUygula(d, id, eylemId) {
   const n = NOKTALAR[id];
   if (n && n.kaynak) {
     if (eylemId !== 'topla' || (d.stok[id] || 0) <= 0) return { metin: 'Burada toplanacak bir şey kalmadı.' };
+    if (n.gerekArac && d.arac !== n.gerekArac)
+      return { metin: 'Bu damar elle kazılamayacak kadar derinde. Titreşimli rezonans matkabı olan bir sondaj tankı gerekir: Mammoth.', ses: 'red' };
     const tur = n.kaynak;
     const sira = n.stok - d.stok[id];
     d.stok[id] -= 1;
     d.koloni.kaynaklar[tur] = (d.koloni.kaynaklar[tur] || 0) + 1;
     const metin = (KAYNAK_METNI[tur] || [])[sira] || 'Bir parça daha.';
-    return { metin: metin + ' ' + HAMMADDELER[tur].ad[0].toUpperCase() + HAMMADDELER[tur].ad.slice(1) + ': ' + d.koloni.kaynaklar[tur] + '.', ses: tur === 'kristal' ? 'kristal' : 'topla' };
+    return { metin: metin + (n.gerekArac ? ' Matkap derinden gümbürdüyor.' : '') + ' ' + HAMMADDELER[tur].ad[0].toUpperCase() + HAMMADDELER[tur].ad.slice(1) + ': ' + d.koloni.kaynaklar[tur] + '.', ses: tur === 'kristal' ? 'kristal' : 'topla' };
   }
   switch (id + '.' + eylemId) {
     case 'dolap.kesici':

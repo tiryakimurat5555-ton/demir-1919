@@ -520,30 +520,60 @@ const MOTOR_HTML = `<!DOCTYPE html><html><head><meta charset="utf-8"></head><bod
   var motorS = null;
   function motorSil(){
     if (!motorS) return;
-    try { motorS.a.stop(); motorS.i.stop(); } catch(e){}
+    try { motorS.a.stop(); motorS.i.stop(); if (motorS.n) motorS.n.stop(); if (motorS.lfo) motorS.lfo.stop(); } catch(e){}
     try { motorS.cikis.disconnect(); } catch(e){}
     motorS = null;
   }
-  function motorKur(){
+  // Motor profilleri: gemi sınıfları ve yüzey araçları (araclar-ve-gemi-filosu.md akustik karakterler)
+  // a: ana ton (tip, Hz), s: süzgeç (Hz), i: ıslık (Hz), n: gürültü süzgeci (Hz, 0 = yok), r: ritim (Hz, genlik dalgası)
+  var MOTORLAR = {
+    turbin:   { a: ['sawtooth', 180], s: 900,  i: 1400, n: 0,    r: 0 },
+    piston:   { a: ['square', 62],    s: 400,  i: 0,    n: 300,  r: 4 },
+    manyetik: { a: ['sine', 110],     s: 1200, i: 220,  n: 0,    r: 0 },
+    bas:      { a: ['triangle', 41],  s: 250,  i: 0,    n: 180,  r: 0.7 },
+    kutle:    { a: ['sine', 31],      s: 200,  i: 62,   n: 120,  r: 0.4 },
+    hover:    { a: ['sine', 2300],    s: 5000, i: 4600, n: 0,    r: 7 },
+    palet:    { a: ['sawtooth', 55],  s: 300,  i: 0,    n: 600,  r: 6 },
+    kervan:   { a: ['triangle', 92],  s: 700,  i: 0,    n: 900,  r: 2 },
+    vtol:     { a: ['sawtooth', 120], s: 1500, i: 0,    n: 1800, r: 0 }
+  };
+  function motorKur(profil){
     baglam(); motorSil();
+    var P = MOTORLAR[profil] || MOTORLAR.turbin;
     var cikis = ctx.createGain(); cikis.gain.value = 0.0001; cikis.connect(yakin);
+    var ritim = ctx.createGain(); ritim.gain.value = 1; ritim.connect(cikis);
     var a = ctx.createOscillator(), af = ctx.createBiquadFilter(), ag = ctx.createGain();
-    a.type = 'sawtooth'; a.frequency.value = 180; af.type = 'bandpass'; af.frequency.value = 900; af.Q.value = 2; ag.gain.value = 0.12;
-    a.connect(af); af.connect(ag); ag.connect(cikis);
+    a.type = P.a[0]; a.frequency.value = P.a[1]; af.type = 'bandpass'; af.frequency.value = P.s; af.Q.value = 2; ag.gain.value = 0.12;
+    a.connect(af); af.connect(ag); ag.connect(ritim);
     var i = ctx.createOscillator(), ig = ctx.createGain();
-    i.type = 'sine'; i.frequency.value = 1400; ig.gain.value = 0.0001; i.connect(ig); ig.connect(cikis);
+    i.type = 'sine'; i.frequency.value = P.i || 1; ig.gain.value = 0.0001; i.connect(ig); ig.connect(ritim);
+    var n = null, ng = null, nf = null;
+    if (P.n) {
+      n = ctx.createBufferSource(); nf = ctx.createBiquadFilter(); ng = ctx.createGain();
+      n.buffer = gurultu(2); n.loop = true; nf.type = 'lowpass'; nf.frequency.value = P.n; ng.gain.value = 0.15;
+      n.connect(nf); nf.connect(ng); ng.connect(ritim); n.start();
+    }
+    var lfo = null;
+    if (P.r) {
+      lfo = ctx.createOscillator(); var lg = ctx.createGain();
+      lfo.frequency.value = P.r; lg.gain.value = 0.35; lfo.connect(lg); lg.connect(ritim.gain); lfo.start();
+    }
     a.start(); i.start();
     cikis.gain.setTargetAtTime(1, ctx.currentTime, 0.3);
-    motorS = { a: a, af: af, ag: ag, i: i, ig: ig, cikis: cikis };
+    motorS = { P: P, a: a, af: af, ag: ag, i: i, ig: ig, n: n, nf: nf, lfo: lfo, cikis: cikis };
   }
   function motorAyar(hiz){
     if (!motorS) return;
-    var t = ctx.currentTime, h = Math.max(0, Math.min(5, hiz));
-    motorS.a.frequency.setTargetAtTime(180 + h * 70, t, 0.4);
-    motorS.af.frequency.setTargetAtTime(900 + h * 350, t, 0.4);
+    var t = ctx.currentTime, h = Math.max(0, Math.min(5, hiz)), P = motorS.P;
+    motorS.a.frequency.setTargetAtTime(P.a[1] * (1 + h * 0.35), t, 0.4);
+    motorS.af.frequency.setTargetAtTime(P.s * (1 + h * 0.35), t, 0.4);
     motorS.ag.gain.setTargetAtTime(0.06 + h * 0.03, t, 0.4);
-    motorS.i.frequency.setTargetAtTime(1400 + h * 450, t, 0.4);
-    motorS.ig.gain.setTargetAtTime(h ? 0.01 + h * 0.012 : 0.0001, t, 0.4);
+    if (P.i) {
+      motorS.i.frequency.setTargetAtTime(P.i * (1 + h * 0.3), t, 0.4);
+      motorS.ig.gain.setTargetAtTime(h ? 0.01 + h * 0.012 : 0.004, t, 0.4);
+    }
+    if (motorS.nf) motorS.nf.frequency.setTargetAtTime(P.n * (1 + h * 0.4), t, 0.4);
+    if (motorS.lfo) motorS.lfo.frequency.setTargetAtTime(P.r * (1 + h * 0.3), t, 0.4);
   }
   window.motor = {
     komut: function(c){
@@ -592,7 +622,7 @@ const MOTOR_HTML = `<!DOCTYPE html><html><head><meta charset="utf-8"></head><bod
         else if (c.ad === 'vincKur') vincKur();
         else if (c.ad === 'vincAyar') vincAyar(c.x, c.yukseklik, c.ortada);
         else if (c.ad === 'vincSil') vincSil();
-        else if (c.ad === 'motorKur') motorKur();
+        else if (c.ad === 'motorKur') motorKur(c.profil);
         else if (c.ad === 'motorAyar') motorAyar(c.hiz);
         else if (c.ad === 'motorSil') motorSil();
       } catch(e){ bildir({ tur: 'hata', metin: String(e) }); }
@@ -660,7 +690,7 @@ function KonumsalSes({ onMesaj }, ref) {
     vincKur: () => gonder({ ad: 'vincKur' }),
     vincAyar: (x, yukseklik, ortada) => gonder({ ad: 'vincAyar', x, yukseklik, ortada: !!ortada }),
     vincSil: () => gonder({ ad: 'vincSil' }),
-    motorKur: () => gonder({ ad: 'motorKur' }),
+    motorKur: (profil = 'turbin') => gonder({ ad: 'motorKur', profil }),
     motorAyar: (hiz) => gonder({ ad: 'motorAyar', hiz }),
     motorSil: () => gonder({ ad: 'motorSil' }),
   }));

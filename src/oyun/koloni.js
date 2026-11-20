@@ -17,6 +17,8 @@ export const YENILENME_SN = 120; // bir yatağa bir birim dönmesi (sanayi 0'da)
 export const BORU_SN = 150; // dengelenmiş bacalardan bir izotop
 export const BORU_TAVAN = 20;
 export const NUFUS_SN = 300; // doğal artış: bir kişi
+export const KERVAN_SN = 180; // Demir Kervan: bir bazalt + bir titanyum
+export const AKREP_SN = 120; // Akrep: yataklardan bir birim
 export const SEKTORLER = {
   sanayi: { ad: 'Sanayi ve maden', tarif: 'Maden ocaklarında ve dökümhanede çalışır; üretimi ve yatakların yenilenmesini hızlandırır.' },
   tersane: { ad: 'Tersane mühendisleri', tarif: 'Kızakta çalışır; gemi montajındaki kaynak süresini kısaltır.' },
@@ -80,6 +82,13 @@ export function miktar(d, ad) {
   return (d.koloni.parcalar || {})[ad] || 0;
 }
 function ekle(d, ad, n) {
+  if (ad.indexOf('arac_') === 0) {
+    // Araç: hangara girer
+    if (!d.araclar) d.araclar = [];
+    const id = ad.slice(5);
+    if (!d.araclar.includes(id)) d.araclar.push(id);
+    return;
+  }
   if (HAMMADDELER[ad]) d.koloni.kaynaklar[ad] = (d.koloni.kaynaklar[ad] || 0) + n;
   else {
     if (!d.koloni.parcalar) d.koloni.parcalar = {};
@@ -163,6 +172,28 @@ export function koloniIlerle(d, dt) {
     if (k.boru >= BORU_SN) {
       k.boru -= BORU_SN;
       k.kaynaklar.izotop = (k.kaynaklar.izotop || 0) + 1;
+    }
+  }
+  // Demir Kervan: ocaklardan dökümhaneye düzenli cevher (sanayide en az bir kişi gerekir)
+  if ((d.araclar || []).includes('demir_kervan') && n.sanayi > 0) {
+    k.kervan = (k.kervan || 0) + dt;
+    if (k.kervan >= KERVAN_SN) {
+      k.kervan -= KERVAN_SN;
+      k.kaynaklar.bazalt = (k.kaynaklar.bazalt || 0) + 1;
+      k.kaynaklar.titanyum = (k.kaynaklar.titanyum || 0) + 1;
+    }
+  }
+  // Akrep: yataklardan sırayla bir birim toplar (derin damarlar hariç)
+  if ((d.araclar || []).includes('akrep')) {
+    k.akrep = (k.akrep || 0) + dt;
+    if (k.akrep >= AKREP_SN) {
+      k.akrep -= AKREP_SN;
+      const ids = Object.keys(NOKTALAR).filter((id) => NOKTALAR[id].kaynak && !NOKTALAR[id].gerekArac && (d.stok[id] || 0) > 0);
+      if (ids.length) {
+        const id = ids[(k.akrepSira = ((k.akrepSira || 0) + 1) % ids.length)];
+        d.stok[id] -= 1;
+        k.kaynaklar[NOKTALAR[id].kaynak] = (k.kaynaklar[NOKTALAR[id].kaynak] || 0) + 1;
+      }
     }
   }
   // Üretim kuyruğu

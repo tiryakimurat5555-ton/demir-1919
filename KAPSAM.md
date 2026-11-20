@@ -60,17 +60,27 @@ bütün bölümlerini sırayla sayar. Her sürümde güncellenir; bir bölüm bu
 - [~] 9 Koloni kademeleri: 1-3 [x] (Düşmüş İskelet → Sağlamlaşmış Vaha → Endüstriyel Koloni); 4 Galaktik Başkent [ ].
 
 ## 4. araclar-ve-gemi-filosu.md
-- [ ] 1.1 Yüzey Araçları Montaj Hangarı.
-- [~] 1.2 Kuru tersane ve kızak: Kademe I kızak [x]; Kademe II Manyetik Beşik, Kademe III Hisar Tersanesi [ ].
-- [~] 1.3 Kuantum itki ve reaktör kalibrasyon laboratuvarı: Graviton ve Reaktör Laboratuvarı kuruldu (yakıt, iyon
-      reaktörü); kalibrasyon işlemleri [ ].
+- [x] 1.1 Yüzey Araçları Montaj Hangarı (0.6): dökümhane ve elektrik şebekesi ister; şasi çeliği atölyesi; vadide hangar.
+- [x] 1.2 Kuru tersane ve kızak: Kademe I kızak (0.5), Kademe II Manyetik Beşik ve Kademe III Hisar Tersanesi (0.6);
+      gemi sınıfları kızak kademesine bağlı.
+- [~] 1.3 Kuantum itki ve reaktör kalibrasyon laboratuvarı: Graviton ve Reaktör Laboratuvarı yakıt, reaktör, kalkan
+      projektörü üretir; kuantum kalibrasyonu [ ] (0.7: Kuantum Laboratuvarı).
 - [x] 2 Kademe 1 Kıvılcım: 2 oda, türbin sesi, belgedeki malzemeler (150 plaka, 40 kablo, 25 litre yakıt, 1 iyon reaktörü).
-- [ ] 2 Kademe 2 Rüzgarkıran, Kademe 3 Aethel Muhafızı, Kademe 4 Gökdelen, Kademe 5 Hisar-ı Kadim (veri var, inşa yok).
-- [ ] 3 Yüzey araçları: Çöl Tilkisi, Mammoth, Demir Kervan, Atmosphere-X, Akrep.
-- [~] 4 Malzeme matrisi: titanyum-karbon plaka, kristal, asit-direnç polimeri, kadim kseno-kristal, plazma yakıtı [x]
-      (itki yakıtı); şasi çeliği, graviton yakıtı, helyum-3, nötron çekirdeği [ ].
-- [x] 5 Dokunsal iç gezinti: iki parmakla sağa-sola oda, kapı tıslaması ve kilit sesi, her odanın ortam sesi,
-      dokunma terminal, basılı tutma mürettebatla konuşma (0.5; Kıvılcım'ın iki odası).
+- [x] 2 Kademe 2 Rüzgarkıran (4 oda, çift pistonlu homurtu; 350 alaşım, 120 şasi çeliği, 80 saf kristal, 60 L plazma,
+      1 füzyon reaktörü) ve Kademe 3 Aethel Muhafızı (6 oda, manyetik uğultu; 700 zırhlı plaka, 250 kseno-alaşım,
+      40 L graviton, 120 helyum tüpü, 1 kalkan projektörü) üretilip kızakta toplanır (0.6).
+- [~] 2 Kademe 4 Gökdelen (8 oda) ve Kademe 5 Hisar-ı Kadim (12 oda): odalar, sesler, montaj aşamaları ve belgedeki
+      malzemeler tanımlı; malzemeleri (nötron çekirdeği, kadim diskler, kuantum çekirdekleri, hiper bobin) uzay
+      görevlerinden gelir, Faz 4'te açılacak.
+- [x] 3 Yüzey araçları (0.6): Çöl Tilkisi (hız ×2,6, zehir ×0,4, sonar radarı ×1,4, manyetik vızıltı), Mammoth (derin
+      graviton kuyusunu kazar, zehir ×0,2, palet gümbürtüsü), Demir Kervan (ocaklardan koloniye 3 dakikada bir bazalt ve
+      titanyum), Atmosphere-X (hız ×4, jet sesi), Akrep (2 dakikada bir yataklardan bir birim); belgedeki üretim girdileri.
+      Eksik: Çöl Tilkisi'nin sinyal feneri fırlatıcısı, Atmosphere-X'in kulelere inişi (3.5 biyomuyla gelecek).
+- [~] 4 Malzeme matrisi: plaka, şasi çeliği, saf kristal, plazma yakıtı, graviton yakıtı (derin kuyudan, Mammoth'la),
+      helyum-3, kseno-kristal (salonda yenilenen damar), polimer [x]; nötron-yoğun çekirdek [ ] (G-07).
+- [x] 5 Dokunsal iç gezinti: iki parmakla sağa-sola oda, kapı tıslaması ve kilit sesi, her odanın ortam sesi
+      (köprü, reaktör, revir, kargo), dokunma terminal (reaktörde güç dağıtımı, revirde tıbbi tarama), basılı tutma
+      mürettebatla konuşma. Bütün sınıfların odaları tanımlı.
 
 ## 5. savas-yetenek-ve-murettebat-mekanikleri.md
 - [ ] 1 Reaktif akustik savaş modu (1.1 konumlandırma, 1.2 tur yapısı) — Faz 5.
@@ -117,8 +127,8 @@ bütün bölümlerini sırayla sayar. Her sürümde güncellenir; bir bölüm bu
 - [ ] 6 Keşif, gereç ve itibar matrisi.
 
 ## Sıradaki adımlar (sırayla)
-1. Faz 3'ün kalanı: Kademe 2-3 gemiler ve kızak kademeleri, kalan modüllerin üretimi (graviton reaktörü, çekici kiriş,
-   hisar topları, kuantum sürücü ...), yüzey araçları hangarı ve beş araç.
+1. Faz 3'ün kalanı: entegrasyon matrisindeki altı yüzey işi ve altı tesis (Kuantum Laboratuvarı, İtki Hangarı,
+   Kriyo-Atölye, Askeri Tersane, Komuta Merkezi, Yüksek Enerji Reaktörü) ve kalan modül katmanları.
 2. Faz 2'nin kalanı: doğu sektörü, beş mikro-biyom, kalan dört POI, arındırma protokolü, terraforming, yerel mini
    görevler, ırk yapıları, Kademe 4.
 3. Faz 4: görev motoru (SpaceMission), 9 büyük görev, G-01 … G-24, 20 gezegen, gözlem gereçleri ve fenomenler, kütüphane.

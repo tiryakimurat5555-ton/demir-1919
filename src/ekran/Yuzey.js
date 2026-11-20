@@ -81,6 +81,7 @@ import {
   gorunurNoktalar,
   sesYeri,
   fenerMenzili,
+  aractanIn,
 } from '../oyun/yuzey/gorevler';
 import { SEKTORLER, bosta, isGucuDegis, moralMetni, moralSesi, parcaMetni, uretimBaslat, uretimListesi } from '../oyun/koloni';
 import {
@@ -103,7 +104,13 @@ import {
   vincKaydir,
   vincKenetle,
   vincMetni,
+  GUC_DAGITIMLARI,
+  gucDagitimiSec,
+  yeniGemiSiniflari,
+  kizagaKoy,
+  aktifGemiSec,
 } from '../oyun/gemi/gemi';
+import { ARACLAR } from '../oyun/veri/gemiler';
 import { SES_OLCEK } from '../oyun/uzay/seyir';
 import { HAMMADDELER, HAMMADDE_SIRASI } from '../oyun/veri/tesisler';
 import { NITELIKLER } from '../oyun/veri/murettebat';
@@ -184,6 +191,11 @@ export default function Yuzey({ onGeri, baslangic, yeniOyunUret }) {
     for (const ad of Object.keys(DOSYALAR)) s.yukle(ad, DOSYALAR[ad]);
     hazir.current = true;
     sesleriEsitle(true);
+    const d = dunya.current;
+    if (d.gemide && d.uzay) {
+      s.motorKur(d.gemi.motorSesi);
+      s.motorAyar(d.uzay.hiz);
+    } else if (!d.gemide) aracSesiEsitle();
   };
 
   const kaynakKapat = (id) => {
@@ -380,6 +392,7 @@ export default function Yuzey({ onGeri, baslangic, yeniOyunUret }) {
         m().dinleyici(kulakYeri(d));
       }
       if (sayac % 5 === 0) sesleriEsitle(false);
+      if (sayac % 3 === 0 && d.arac && m()) m().motorAyar(s.aktif || d.oto ? 3 : 0.4);
       if (sayac % 10 === 0 && d.mekan === 'vadi') ortamCal(MEKANLAR.vadi.ortam, ortamOrani(d));
       if (sayac % KAYIT_ARALIGI === 0) kaydet();
       if (sayac % 10 === 0) setYazi(MEKANLAR[d.mekan].ad + ' · ' + d.koloni.binalar.length + ' tesis');
@@ -449,7 +462,7 @@ export default function Yuzey({ onGeri, baslangic, yeniOyunUret }) {
       if (m()) m().motorSil();
     }
     if (id === 'kalkis' && m()) {
-      m().motorKur();
+      m().motorKur(d.gemi ? d.gemi.motorSesi : 'turbin');
       m().motorAyar(4);
       setTimeout(() => m() && m().motorAyar(0), 9000);
     }
@@ -516,6 +529,9 @@ export default function Yuzey({ onGeri, baslangic, yeniOyunUret }) {
             if (r.isgucu) return isGucuGoster(), 'sessiz';
             if (r.montaj) return montajGoster(), 'sessiz';
             if (r.modul) return modulGoster(), 'sessiz';
+            if (r.yeniGemi) return yeniGemiGoster(), 'sessiz';
+            if (r.filo) return filoGoster(), 'sessiz';
+            if (id === 'hangar' && (e.id === 'in' || e.id.indexOf('bin_') === 0)) aracSesiEsitle();
             if (r.gemi) {
               katmanKapatSessiz();
               durakli.current = false;
@@ -685,6 +701,22 @@ export default function Yuzey({ onGeri, baslangic, yeniOyunUret }) {
         { id: 'koloni', etiket: 'Koloni', sec: () => (soyle(koloniMetni(dunya.current), 'istek', true), 'sessiz') },
         { id: 'murettebat', etiket: 'Mürettebat', sec: () => (murettebatGoster(), 'sessiz') },
         { id: 'harita', etiket: 'Uzay haritası', sec: () => (soyle(haritaMetni(), 'istek', true), 'sessiz') },
+        ...(dunya.current.arac
+          ? [
+              {
+                id: 'arac',
+                etiket: ARACLAR[dunya.current.arac].ad + '\'dan in',
+                sec: () => {
+                  const r = aractanIn(dunya.current);
+                  kaydet();
+                  cal('tislama', 0.6);
+                  aracSesiEsitle();
+                  katmanKapat(r.metin);
+                  return 'sessiz';
+                },
+              },
+            ]
+          : []),
         { id: 'kodeks', etiket: 'Kodeks', ipucu: 'Kaydettiğin buluntular.', sec: () => (kodeksGoster(), 'sessiz') },
         { id: 'telsiz', etiket: 'Telsiz kayıtları', ipucu: 'Dinlediğin ve ertelediğin telsiz çağrıları.', sec: () => (telsizGoster(), 'sessiz') },
         { id: 'hareket', etiket: 'Hareketler', sec: () => (soyle(HAREKET_KISA, 'istek', true), 'sessiz') },
@@ -1082,6 +1114,62 @@ export default function Yuzey({ onGeri, baslangic, yeniOyunUret }) {
     });
   };
 
+  const yeniGemiGoster = (onEk) => {
+    const d = dunya.current;
+    katmanAc({
+      baslik: 'Kızağa yeni gemi',
+      giris: (onEk ? onEk + ' ' : '') + 'Gemi sınıfları. Kızak kademesi yetenler kızağa konur.',
+      onGeri: () => noktaGoster('kizak'),
+      ogeler: [
+        ...yeniGemiSiniflari(d).map((x) => ({
+          id: 's' + x.sinif,
+          etiket: x.ad + '. ' + x.durum,
+          sec: () => {
+            const r = kizagaKoy(d, x.sinif);
+            kaydet();
+            if (r.ses) cal(r.ses === 'red' ? 'red' : r.ses, 0.8);
+            if (r.ses === 'red') yeniGemiGoster(r.metin);
+            else montajGoster(r.metin);
+            return 'sessiz';
+          },
+        })),
+        { id: 'geri', etiket: 'Kızağa dön', sec: () => (noktaGoster('kizak'), 'sessiz') },
+      ],
+    });
+  };
+  const filoGoster = (onEk) => {
+    const d = dunya.current;
+    katmanAc({
+      baslik: 'Filo',
+      giris: (onEk ? onEk + ' ' : '') + 'Kızaktaki gemi: ' + (d.gemi ? d.gemi.ad : 'yok') + '. Filodakiler aşağıda.',
+      onGeri: () => noktaGoster('kizak'),
+      ogeler: [
+        ...(d.filo || []).map((g) => ({
+          id: 'g' + g.sinif,
+          etiket: g.ad,
+          sec: () => {
+            const r = aktifGemiSec(d, g.sinif);
+            kaydet();
+            if (r.ses) cal(r.ses === 'red' ? 'red' : r.ses, 0.8);
+            filoGoster(r.metin);
+            return 'sessiz';
+          },
+        })),
+        { id: 'geri', etiket: 'Kızağa dön', sec: () => (noktaGoster('kizak'), 'sessiz') },
+      ],
+    });
+  };
+
+  // Yüzey aracı: binince motor sesi (profil araca göre), inince susar
+  const aracSesiEsitle = () => {
+    const d = dunya.current;
+    if (!m()) return;
+    if (d.arac && ARACLAR[d.arac] && ARACLAR[d.arac].motor) {
+      m().motorKur(ARACLAR[d.arac].motor);
+      m().motorAyar(1);
+    } else m().motorSil();
+  };
+
   // --- Vinç: parçayı sesle ortalayıp indirme ---
   const vincAc = () => {
     const d = dunya.current;
@@ -1177,7 +1265,7 @@ export default function Yuzey({ onGeri, baslangic, yeniOyunUret }) {
     const d = dunya.current;
     setGemiAcik(true);
     if (d.uzay && m()) {
-      m().motorKur();
+      m().motorKur(d.gemi.motorSesi);
       m().motorAyar(d.uzay.hiz);
     }
     sesleriEsitle(true);
@@ -1189,6 +1277,7 @@ export default function Yuzey({ onGeri, baslangic, yeniOyunUret }) {
   const gemiModuKapat = (soz) => {
     setGemiAcik(false);
     if (m()) m().motorSil();
+    aracSesiEsitle();
     durakli.current = false;
     sesleriEsitle(true);
     if (soz) soyle(soz, 'istek', true);
@@ -1224,7 +1313,7 @@ export default function Yuzey({ onGeri, baslangic, yeniOyunUret }) {
   const ucustaKokpitte = () => {
     const d = dunya.current;
     const o = odaSu(d);
-    return !!(d.uzay && o && o.id === 'kokpit');
+    return !!(d.uzay && o && o.id === d.gemi.odalar[0]);
   };
 
   const gemiTerminali = (onEk) => {
@@ -1232,7 +1321,7 @@ export default function Yuzey({ onGeri, baslangic, yeniOyunUret }) {
     const o = odaSu(d);
     if (!o) return;
     const ogeler = [];
-    if (o.id === 'kokpit') {
+    if (o.id === d.gemi.odalar[0]) {
       ogeler.push({ id: 'durum', etiket: 'Gemi durumu', sec: () => (soyle(gemiDurumu(d), 'istek', true), 'sessiz') });
       if (d.uzay) ogeler.push({ id: 'seyir', etiket: 'Seyir durumu', sec: () => (soyle(uzayDurumu(d), 'istek', true), 'sessiz') });
       ogeler.push({ id: 'harita', etiket: 'Uzay haritası ve ön tarama', ipucu: 'Bir noktayı seç: tehlike analizi ve gerekli donanım.', sec: () => (haritaGoster(), 'sessiz') });
@@ -1267,6 +1356,31 @@ export default function Yuzey({ onGeri, baslangic, yeniOyunUret }) {
             return 'sessiz';
           },
         });
+    } else if (o.ortam === 'ortam_reaktor') {
+      // Reaktör odası: güç dağıtımı menüsü (belge bölüm 5)
+      for (const k of Object.keys(GUC_DAGITIMLARI)) {
+        const g = GUC_DAGITIMLARI[k];
+        ogeler.push({
+          id: 'guc_' + k,
+          etiket: 'Güç: ' + g.ad + ((d.gemi.guc || 'dengeli') === k ? ', seçili' : ''),
+          ipucu: g.tarif,
+          sec: () => {
+            const r = gucDagitimiSec(d, k);
+            kaydet();
+            cal('dugme', 0.6);
+            gemiTerminali(r.metin);
+            return 'sessiz';
+          },
+        });
+      }
+      ogeler.push({ id: 'reaktor', etiket: 'Reaktörü dinle', sec: () => (soyle('Reaktör sakin çalışıyor. Gövde yüzde ' + Math.round((d.gemi.govde / d.gemi.maxGovde) * 100) + ', kalkan ' + d.gemi.kalkan + '.', 'istek', true), 'sessiz') });
+    } else if (o.ortam === 'ortam_revir') {
+      ogeler.push({
+        id: 'tarama',
+        etiket: 'Tıbbi tarama',
+        sec: () => (soyle('Mürettebat: ' + d.murettebat.map((u) => u.rol + ' ' + u.ad + ', stres ' + Math.round(u.stres || 0)).join('; ') + '. Herkes sağlıklı.', 'istek', true), 'sessiz'),
+      });
+      ogeler.push({ id: 'ranza', etiket: 'Ranzada dinlen', sec: () => (soyle('Bir süre uzanıyorsun. Monitörlerin düzenli bipleri seni uyuşturuyor.', 'istek', true), 'sessiz') });
     } else {
       ogeler.push({ id: 'kasa', etiket: 'Numune kasası', sec: () => (soyle(d.gemi.kargo.length ? 'Kasada: ' + d.gemi.kargo.join(', ') + '.' : 'Numune kasası boş.', 'istek', true), 'sessiz') });
       ogeler.push({ id: 'dolap', etiket: 'İlk yardım dolabı', sec: () => (soyle('Dolap dolu: sargılar, yanık jeli, iki doz radyasyon ilacı.', 'istek', true), 'sessiz') });

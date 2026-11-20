@@ -32,6 +32,8 @@ const KAYNAKLAR = {
   ortam_uzay: require('../../assets/ses/ortam_uzay.wav'),
   ortam_kokpit: require('../../assets/ses/ortam_kokpit.wav'),
   ortam_kargo: require('../../assets/ses/ortam_kargo.wav'),
+  ortam_reaktor: require('../../assets/ses/ortam_reaktor.wav'),
+  ortam_revir: require('../../assets/ses/ortam_revir.wav'),
   kapi_gemi: require('../../assets/ses/kapi_gemi.wav'),
   kalkis: require('../../assets/ses/kalkis.wav'),
   kaynak: require('../../assets/ses/kaynak.wav'),
@@ -52,6 +54,8 @@ const DONGULER = {
   ortam_uzay: 0.55,
   ortam_kokpit: 0.5,
   ortam_kargo: 0.5,
+  ortam_reaktor: 0.5,
+  ortam_revir: 0.45,
 };
 
 const oynaticilar = {};

@@ -7,7 +7,8 @@
 // Uzayda fenerler dinlenir; en az bir ziyaret noktasına gidilip ön tarama yapılır ve Aethelis-IV'e kenetlenilir.
 // İnişte koloninin moral nabzı duyulur. Sonra gorev 'filo' (Faz 4: uzay görevleri, daha büyük gemiler).
 import { TESISLER, maliyetMetni } from '../veri/tesisler';
-import { KIVILCIM_MONTAJ, gemiyeBin, yakitDoldur } from '../gemi/gemi';
+import { KIVILCIM_MONTAJ, gemiyeBin, yakitDoldur, filo, yeniGemiSiniflari } from '../gemi/gemi';
+import { GEMI_SINIFLARI } from '../veri/gemiler';
 import { PARCALAR } from '../veri/uretim';
 import { moralMetni } from '../koloni';
 
@@ -49,6 +50,20 @@ export const SAHNELER = {
       ...(b(d).ilkUcusYeni ? ['Beşinci görev tamamlandı: Kıvılcım ve ilk uçuş.', ilkAd(d, 0) + ': "Gemi tek parça döndü, Kaptan. Şimdi sıra daha büyük gemilerde ve o noktaların istediği donanımlarda."'] : []),
     ],
     secenekler: () => [{ etiket: 'Devam', sonra: null, yap: (d) => (b(d).ilkUcusYeni = false) }],
+  },
+  yeni_gemi: {
+    baslik: 'Yeni gemi',
+    ortam: 'ortam_plato',
+    efekt: ['kaynak', 'hidrolik', 'sinyal'],
+    metin: (d) => {
+      const s = GEMI_SINIFLARI[d.yeniGemiSinif || 2];
+      return [
+        'Son kaynak da soğuyor. Kızakta yeni bir gövde: ' + s.ad + ', ' + s.sinif + '. ' + s.ses,
+        'Rolü: ' + s.rol + ' ' + s.odalar.length + ' bölme: ' + s.odalar.map((o) => o.ad).join(', ') + '.',
+        'Filoya katıldı. Kızaktan "Aktif gemiyi seç" ile onunla uçabilirsin.',
+      ];
+    },
+    secenekler: () => [{ etiket: 'Devam', sonra: null }],
   },
   kurtarma: {
     baslik: 'Yakıt bitti',
@@ -104,9 +119,15 @@ export function noktaEylemleri(d, id) {
   const e = [];
   if (!d.gemi) e.push({ id: 'montaj', etiket: 'Montaj', ipucu: 'Kıvılcım\'ın aşamaları.' });
   if (d.gemi) {
-    if (d.gemi.yer === 'kizak') e.push({ id: 'bin', etiket: 'Gemiye bin' });
+    if (d.gemi.yer === 'kizak') e.push({ id: 'bin', etiket: d.gemi.ad + '\'ya bin' });
     e.push({ id: 'modul', etiket: 'Modül tak' });
     e.push({ id: 'yakit', etiket: 'Yakıt doldur' });
+    const t = d.tersane;
+    const surer = t && Object.keys(t.asamalar).length && !filo(d).some((g) => g.sinif === t.sinif);
+    if (surer) e.push({ id: 'montaj', etiket: 'Montaj: ' + GEMI_SINIFLARI[t.sinif].ad });
+    else if (yeniGemiSiniflari(d).some((x) => x.olur)) e.push({ id: 'yeni', etiket: 'Kızağa yeni gemi koy' });
+    else if (t && !Object.keys(t.asamalar).length && t.sinif > 1) e.push({ id: 'montaj', etiket: 'Montaj: ' + GEMI_SINIFLARI[t.sinif].ad });
+    if ((d.filo || []).length) e.push({ id: 'filo', etiket: 'Aktif gemiyi seç' });
   }
   e.push({ id: 'incele', etiket: 'Kızağı incele' });
   return e;
@@ -114,6 +135,8 @@ export function noktaEylemleri(d, id) {
 export function eylemUygula(d, id, eylemId) {
   if (eylemId === 'montaj') return { montaj: true };
   if (eylemId === 'modul') return { modul: true };
+  if (eylemId === 'yeni') return { yeniGemi: true };
+  if (eylemId === 'filo') return { filo: true };
   if (eylemId === 'yakit') return yakitDoldur(d);
   if (eylemId === 'bin') {
     const r = gemiyeBin(d);
@@ -123,11 +146,16 @@ export function eylemUygula(d, id, eylemId) {
   return { metin: d.gemi ? 'Kızakta Kıvılcım duruyor; gövdesi rüzgârda ince ince vızıldıyor.' : 'Kızağın iki yanında iskeleler ve vinçler. Montajı buradan başlatırsın.' };
 }
 
-export function gemiHazir(d) {
-  if (d.gorev.id === 'kivilcim') d.gorev = { id: 'ilk_ucus' };
-  d.kaptan.tecrube += 40;
-  d.itibar += 10;
-  d.sahne = 'kivilcim_hazir';
+export function gemiHazir(d, sinif = 1) {
+  d.kaptan.tecrube += 40 * sinif;
+  d.itibar += 10 * sinif;
+  if (sinif === 1) {
+    if (d.gorev.id === 'kivilcim') d.gorev = { id: 'ilk_ucus' };
+    d.sahne = 'kivilcim_hazir';
+  } else {
+    d.yeniGemiSinif = sinif;
+    d.sahne = 'yeni_gemi';
+  }
 }
 
 // İniş sonrası: ilk uçuş tamamlandı mı?

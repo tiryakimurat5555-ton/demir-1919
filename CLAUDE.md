@@ -145,6 +145,21 @@ Demir 1919 oyunu silindi; geçmişi git kaydında (son sürüm 1.06, commit 556f
   - Yuzey.js: Üretim ve Koloni yönetimi menüleri (terminal), montaj/modül menüleri (kızak), vinç katmanı, gemi katmanı
     (odalar, oda terminali, harita ve ön tarama, mürettebat atama, kalkış, uzayda itki/burun/radar/kenetlenme),
     koloni olayları telsiz çağrısı olarak ("Koloni bilgisayarı"). durum.js kaydiTamamla parcalar/uretimler ekler.
+- SÜRÜM 0.6 (21 Kasım, Murat: "5 saat mühlet, belgede bir yer atlamadan sırayla yap"): Faz 3 kalanı. Telefonda denenmedi.
+  - veri/gemiler.js artık bütün sınıfların verisi: odalar (belgedeki bütün bölmeler; ortam_kokpit/reaktor/revir/kargo),
+    montaj aşamaları (belgedeki malzeme miktarları), motor profili, kızak kademesi, gövde/kalkan, yakıt türü ve tankı;
+    SINIF_KATMANLARI; ARACLAR (5 araç: hiz/zehir/radar çarpanları, matkap, lojistik, otonom, ucar).
+  - uretim.js: Kademe 2-3 malzemeleri ve tarifleri, Kademe 4-5 malzemeleri (uzaydan: true), araç parçaları,
+    arac_hangari tarifleri (şasi çeliği + 5 araç; cikti arac_<id> → d.araclar). Hammadde graviton (derin kuyu).
+  - tesisler.js: arac_hangari, tersane_2 (Manyetik Beşik), tersane_3 (Hisar). harita: hangar (vadi -8,6),
+    graviton_kuyusu (sırtlar, gerekArac mammoth), kseno_damari (salon, yenilenir).
+  - gemi.js: montajAsamalari/kizakKademesi/filo/yeniGemiSiniflari/kizagaKoy/aktifGemiSec; ilk gemi aktif, sonrakiler
+    d.filo'ya; GUC_DAGITIMLARI (dengeli/itki/sensor/kalkan → seyirde hız ve fener çarpanı).
+  - hangar.js: araca bin/in; dunya.js aracCarpani (hız, zehir, radar), araçla iç mekâna girilmez. koloni.js Demir
+    Kervan (180 sn) ve Akrep (120 sn). Ses motoru motorKur(profil): turbin, piston, manyetik, bas, kutle, hover,
+    palet, kervan, vtol. ortam_reaktor ve ortam_revir ffmpeg ile üretildi (kahverengi gürültü + 55 Hz + tremolo;
+    süzülmüş pembe gürültü + 1 kHz monitör bipi).
+  - gorev5.js: kızakta yeni gemi / filo seçimi, sahne yeni_gemi.
 - Sıradaki: KAPSAM.md "Sıradaki adımlar".
 
 ## Sesler

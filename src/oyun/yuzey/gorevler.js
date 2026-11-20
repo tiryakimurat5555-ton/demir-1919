@@ -8,6 +8,7 @@ import * as G2 from './gorev2';
 import * as G3 from './gorev3';
 import * as G4 from './gorev4';
 import * as G5 from './gorev5';
+import * as H from './hangar';
 import { koloniIlerle } from '../koloni';
 import * as S from '../uzay/seyir';
 import { TESISLER } from '../veri/tesisler';
@@ -67,6 +68,7 @@ export function noktaEylemleri(d, id) {
   if (G3.noktaMi(id)) return G3.noktaEylemleri(d, id);
   if (G4.noktaMi(id)) return G4.noktaEylemleri(d, id);
   if (G5.noktaMi(id)) return G5.noktaEylemleri(d, id);
+  if (H.noktaMi(id)) return H.noktaEylemleri(d, id);
   return G1.noktaEylemleri(d, id);
 }
 
@@ -75,6 +77,7 @@ export function eylemUygula(d, id, eylemId) {
   if (G3.noktaMi(id)) return G3.eylemUygula(d, id, eylemId);
   if (G4.noktaMi(id)) return G4.eylemUygula(d, id, eylemId);
   if (G5.noktaMi(id)) return G5.eylemUygula(d, id, eylemId);
+  if (H.noktaMi(id)) return H.eylemUygula(d, id, eylemId);
   return G1.eylemUygula(d, id, eylemId);
 }
 
@@ -130,9 +133,11 @@ export function insaEt(d, id) {
 export { TESISLER };
 
 // --- Zaman: koloni, üretim, tersane (her karede çağrılır) ---
+export const { aracaBin, aractanIn, aracListesi } = H;
+
 export function zamanIlerle(d, dt) {
   const olaylar = koloniIlerle(d, dt);
-  if (olaylar.some((o) => o.tur === 'gemiHazir')) G5.gemiHazir(d);
+  for (const o of olaylar) if (o.tur === 'gemiHazir') G5.gemiHazir(d, o.sinif);
   return olaylar;
 }
 

@@ -4,6 +4,7 @@
 import { ALANLAR, KAPILAR, KISILER, MEKANLAR, NOKTALAR } from './harita';
 import { aciDuzelt, goreliAci, saatYonu, uzaklik } from '../konum';
 import { ESYALAR } from './gorev1';
+import { ARACLAR } from '../veri/gemiler';
 
 export const YURUME_HIZI = 2.6; // m/sn (tam güçte)
 export const DONUS_HIZI = 2.2; // rad/sn
@@ -91,7 +92,7 @@ export function cevreMetni(d) {
 
 // Uzun bas: durum + radar. Radar her şeyi keşfedilmiş sayar ve yankıların geleceği yerleri döndürür.
 export function radar(d) {
-  const menzil = MEKANLAR[d.mekan].radarMenzili || RADAR_MENZILI;
+  const menzil = (MEKANLAR[d.mekan].radarMenzili || RADAR_MENZILI) * aracCarpani(d, 'radar');
   const liste = siraliYakin(d).filter((n) => n.m <= menzil && n.tur !== 'kapi');
   const pingler = liste.slice(0, 6).map((n) => ({ id: n.id, x: n.x, y: n.y, gecikme: Math.round(250 + n.m * 22) }));
   for (const n of liste) if (n.tur === 'nokta' && !d.kesif.includes(n.id)) d.kesif.push(n.id);
@@ -153,6 +154,7 @@ export function gec(d, kapiId, uc) {
   const k = KAPILAR[kapiId];
   if (k.kosul && !k.kosul(d)) return { metin: k.kilitMetni, kilitli: true, kapi: kapiId, rezonans: k.rezonans };
   const ote = k.uclar[1 - uc];
+  if (d.arac && !MEKANLAR[ote.mekan].dis) return { metin: 'Araçla içeri giremezsin. Önce araçtan in: menüde Araç.', kilitli: true, kapi: kapiId };
   d.mekan = ote.mekan;
   d.oyuncu = { x: ote.x, y: ote.y, yon: ote.yon };
   d.haber = {};
@@ -192,6 +194,13 @@ const SINIR_METNI = {
   plato: 'Platonun kenarı. Aşağısı derin bir uçurum; rüzgâr seni kenardan geri itiyor.',
 };
 
+// Binilen yüzey aracının çarpanı (veri/gemiler.js ARACLAR): hiz, zehir, radar
+export function aracCarpani(d, ne) {
+  const a = d.arac && ARACLAR[d.arac];
+  if (!a) return 1;
+  return a[ne] != null ? a[ne] : 1;
+}
+
 // Bir adım ilerletir. girdi: { ileri: -1..1, donus: -1..1 }. Olay listesi döndürür.
 export function ilerle(d, girdi, dt) {
   const olaylar = [];
@@ -222,7 +231,7 @@ export function ilerle(d, girdi, dt) {
     if (dilim !== onceDilim) olaylar.push({ tur: 'tik', guc: dilim % 3 === 0 ? 0.65 : 0.3 });
   }
   if (ileri) {
-    const m = ileri * YURUME_HIZI * dt;
+    const m = ileri * YURUME_HIZI * aracCarpani(d, 'hiz') * dt;
     adimAt(d, m, olaylar);
   }
   yaklasmaHaberi(d, olaylar);
@@ -307,7 +316,7 @@ export function zehirIlerle(d, dt, ek, olaylar) {
       const n = NOKTALAR[id];
       if (n.baca && n.mekan === d.mekan && uzaklik(d.oyuncu, n) < 7) hiz = 0.8;
     }
-    d.zehir = Math.min(100, once + (hiz + (ek || 0)) * dt);
+    d.zehir = Math.min(100, once + (hiz + (ek || 0)) * aracCarpani(d, 'zehir') * dt);
   } else if (once > 0) d.zehir = Math.max(0, once - 3 * dt);
   for (const e of ZEHIR_UYARILARI) if (once < e && d.zehir >= e) olaylar.push({ tur: 'zehir', duzey: e });
   if (d.zehir >= 100) {
@@ -370,7 +379,7 @@ export function yerlerListesi(d) {
   for (const id of Object.keys(NOKTALAR)) {
     const n = NOKTALAR[id];
     if (n.kaynak && (d.stok[id] || 0) <= 0) continue;
-    const bilinen = d.kesif.includes(id) || n.mekan === 'kapsul' || id === 'kapsul_dis' || id === 'jenerator' || (id === 'tepe' && d.bayrak.jenerator) || (id === 'enkaz' && d.bayrak.kesiciAlindi) || (n.baca && d.bayrak.sondaAlindi) || ((n.ayak || id === 'dagitim_kutusu') && d.bayrak.zeminHazir) || (id === 'kizak' && d.bayrak.zemin);
+    const bilinen = d.kesif.includes(id) || n.mekan === 'kapsul' || id === 'kapsul_dis' || id === 'jenerator' || (id === 'tepe' && d.bayrak.jenerator) || (id === 'enkaz' && d.bayrak.kesiciAlindi) || (n.baca && d.bayrak.sondaAlindi) || ((n.ayak || id === 'dagitim_kutusu') && d.bayrak.zeminHazir) || (id === 'kizak' && d.bayrak.zemin) || (id === 'hangar' && d.koloni.binalar.includes('arac_hangari'));
     if (bilinen) ekle('nokta', id, n.ad, n.mekan, n.x, n.y);
   }
   for (const id of Object.keys(KISILER)) {
@@ -479,7 +488,7 @@ function otoAdim(d, dt, olaylar) {
     o.yan -= dt;
   }
   d.oyuncu.yon = aciDuzelt(yon);
-  const adim = Math.min(m, OTO_HIZ * dt);
+  const adim = Math.min(m, OTO_HIZ * aracCarpani(d, 'hiz') * dt);
   const once = olaylar.length;
   if (!adimAt(d, adim, olaylar)) {
     // Engel: bir süre yana kayarak etrafından dolaş (çarpma sözü söylenmez)

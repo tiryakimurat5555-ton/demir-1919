@@ -8,7 +8,7 @@
 // Bir noktaya kenetlenince ön tarama raporu: çevre analizi ve zorunlu donanım. Eksik varsa görev kilitli.
 import { GEMI_SINIFLARI, MODUL_KATMANLARI } from '../veri/gemiler';
 import { aciDuzelt, goreliAci, saatYonu } from '../konum';
-import { telsizSubayiCarpani } from '../gemi/gemi';
+import { telsizSubayiCarpani, gucDagitimi } from '../gemi/gemi';
 
 export const HIZ_BIRIMI = 8; // birim/sn, her kademe
 export const HIZ_EN_COK = 5;
@@ -121,8 +121,9 @@ export function uzayIlerle(d, dt) {
   if (u.hiz > 0) {
     const yakit = u.hiz * YAKIT_TUKETIM * dt;
     g.yakit = Math.max(0, g.yakit - yakit);
-    u.x += Math.sin(u.yon) * u.hiz * HIZ_BIRIMI * dt;
-    u.y += Math.cos(u.yon) * u.hiz * HIZ_BIRIMI * dt;
+    const birim = HIZ_BIRIMI * gucDagitimi(d).hiz;
+    u.x += Math.sin(u.yon) * u.hiz * birim * dt;
+    u.y += Math.cos(u.yon) * u.hiz * birim * dt;
     if (g.yakit <= 0) {
       u.hiz = 0;
       olaylar.push({ tur: 'yakitBitti' });

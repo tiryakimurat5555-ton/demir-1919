@@ -9,9 +9,10 @@ export const HAMMADDELER = {
   izotop: { ad: 'ağır izotop', tarif: 'Manyetik sırtların gaz bacalarından. Reaktör yakıtı.' },
   kseno: { ad: 'kadim kseno-kristal', tarif: 'Harabelerden; melodik tonlar yayan antik teknoloji.' },
   polimer: { ad: 'asit-direnç polimeri', tarif: 'Kükürt çatlaklarından; kimyasala dayanıklı yalıtım.' },
+  graviton: { ad: 'graviton minerali', tarif: 'Manyetik sırtların derin kuyularından; yalnız sondaj tankıyla çıkar. Graviton yakıtının hammaddesi.' },
 };
 
-export const HAMMADDE_SIRASI = ['bazalt', 'titanyum', 'kristal', 'izotop', 'kseno', 'polimer'];
+export const HAMMADDE_SIRASI = ['bazalt', 'titanyum', 'kristal', 'izotop', 'kseno', 'polimer', 'graviton'];
 
 // Tesisler. maliyet: hammadde kimliği → miktar. kosul(d): inşa edilebilmesi için hikâye koşulu.
 export const TESISLER = {
@@ -65,6 +66,16 @@ export const TESISLER = {
     kosul: (d) => !!d.bayrak.kazi,
     kosulMetni: 'Önce Kadim Krater\'deki gömülü yapıdan veri kristallerini ve yıldız haritasını getirmelisin.',
   },
+  arac_hangari: {
+    ad: 'Yüzey Araçları Montaj Hangarı',
+    kisa: 'Araç Hangarı',
+    islev: 'Yüzey araçlarının şasi montajı, zırh kaplaması ve motor entegrasyonu; şasi çeliği atölyesi.',
+    katki: 'Şasi çeliği üretir.',
+    acar: 'Çöl Tilkisi, Mammoth, Demir Kervan, Atmosphere-X ve Akrep.',
+    maliyet: { bazalt: 10, titanyum: 6, kristal: 2 },
+    kosul: (d) => !!d.bayrak.dokumhane && d.bayrak.jenerator,
+    kosulMetni: 'Dökümhane ve temel elektrik şebekesi gerekir.',
+  },
   tersane: {
     ad: 'Merkezi Montaj Tersanesi',
     kisa: 'Tersane',
@@ -77,7 +88,29 @@ export const TESISLER = {
   },
 };
 
-export const TESIS_SIRASI = ['sinyal_kulesi', 'dokumhane', 'yasam_blogu', 'reaktor_lab', 'biyo_kubbe', 'tersane'];
+// Kızak kademeleri (araclar-ve-gemi-filosu.md 1.2) tersanenin yükseltmeleridir
+TESISLER.tersane_2 = {
+  ad: 'Kademe II Manyetik Beşik',
+  kisa: 'Manyetik Beşik',
+  islev: 'Kızağı manyetik bir beşikle genişletir.',
+  katki: 'Taktik fırkateyn (Aethel Muhafızı) ve ağır lojistik kruvazörü (Gökdelen) inşası.',
+  acar: 'Kademe 3 ve 4 gemiler.',
+  maliyet: { bazalt: 20, titanyum: 12, kristal: 6, polimer: 4 },
+  kosul: (d) => !!d.bayrak.tersane && !!d.gemi,
+  kosulMetni: 'Önce tersane kurulmalı ve ilk gemi bitmeli.',
+};
+TESISLER.tersane_3 = {
+  ad: 'Kademe III Yörüngesel Hisar Tersanesi',
+  kisa: 'Hisar Tersanesi',
+  islev: 'Yerçekimsiz montaj halkalarıyla göğe uzanan dev kızak.',
+  katki: 'Süper ağır sancak zırhlısı (Hisar-ı Kadim) inşası.',
+  acar: 'Kademe 5 gemi.',
+  maliyet: { bazalt: 40, titanyum: 25, kseno: 6, graviton: 4 },
+  kosul: (d) => d.koloni.binalar.includes('tersane_2'),
+  kosulMetni: 'Önce Kademe II Manyetik Beşik kurulmalı.',
+};
+
+export const TESIS_SIRASI = ['sinyal_kulesi', 'dokumhane', 'yasam_blogu', 'arac_hangari', 'reaktor_lab', 'biyo_kubbe', 'tersane', 'tersane_2', 'tersane_3'];
 
 // Koloni kademeleri (gezegen-gelisimi-ve-yerel-gorevler-v2.md bölüm 9)
 export const KOLONI_KADEMELERI = [
