@@ -24,7 +24,7 @@
 //   dokun: kanalı söyler; iki parmakla çift dokun: ayardan çık.
 // Menülerde (SesliListe): sağa-sola kaydır gez, çift dokun seç, iki parmakla çift dokun geri.
 import React, { useEffect, useRef, useState } from 'react';
-import { AppState, StyleSheet, Text, View } from 'react-native';
+import { AppState, Dimensions, StyleSheet, Text, View } from 'react-native';
 import * as Haptics from 'expo-haptics';
 import { useJestler } from '../arayuz/jestler';
 import SesliListe from '../arayuz/SesliListe';
@@ -104,8 +104,39 @@ import {
   sesYeri,
   fenerMenzili,
   aractanIn,
+  tarlaAc,
+  tarlaYatak,
+  tarlaGez,
+  tohumSec,
+  tarlaCapa,
+  tarlaEk,
+  tarlaVana,
+  tarlaIsi,
+  tarlaHasat,
+  yatakMetni,
+  yatakSesi,
+  yatakListesi,
+  yatakAdi,
+  islemeListesi,
+  isle,
+  isciDegistir,
+  kademeBilgi,
+  kademeYukselt,
+  melezListesi,
+  melezBaslat,
+  melezFrek,
+  melezDondur,
+  melezSurukle,
+  melezIlerle,
+  melezMetni,
+  ansiklopedi,
+  tarimDurumu,
+  girdiMetniT,
+  zamanNotu,
+  zamanMetni,
 } from '../oyun/yuzey/gorevler';
-import { UZMANLIKLAR, subayIstihdam, SEKTORLER, bosta, ilacDagit, isGucuDegis, moralMetni, moralSesi, parcaMetni, uretimBaslat, uretimListesi } from '../oyun/koloni';
+import { BITKILER, ISLEME_TESISI } from '../oyun/tarim/bitkiler';
+import { UZMANLIKLAR, subayIstihdam, SEKTORLER, bosta, girdiMetni, harca, yeterMi, ilacDagit, isGucuDegis, moralMetni, moralSesi, parcaMetni, uretimBaslat, uretimListesi } from '../oyun/koloni';
 import {
   VINC_ESIGI,
   atamaYap,
@@ -167,7 +198,7 @@ const DOSYALAR = {
 };
 
 // Eylem sesleri: gorev1.js'teki ses adlarını çalınacak efekte çevirir
-const EYLEM_SESI = { bip: 'bip', red: 'red', tislama: 'tislama', jenerator: 'jenerator', kes: 'tislama', kur: 'kapi', topla: 'dugme', kristal: 'dugme', sonda: 'sonda', polimer: 'polimer', hidrolik: 'hidrolik', kaynak: 'kaynak', kapi_gemi: 'kapi_gemi', dugme: 'dugme' };
+const EYLEM_SESI = { capa: 'tarim_capa', ekme: 'tarim_ekme', hasat: 'tarim_hasat', bip: 'bip', red: 'red', tislama: 'tislama', jenerator: 'jenerator', kes: 'tislama', kur: 'kapi', topla: 'dugme', kristal: 'dugme', sonda: 'sonda', polimer: 'polimer', hidrolik: 'hidrolik', kaynak: 'kaynak', kapi_gemi: 'kapi_gemi', dugme: 'dugme' };
 const BACALAR = ['baca_1', 'baca_2', 'baca_3'];
 const CANLAR = ['can_1', 'can_2', 'can_3', 'can_4', 'can_5'];
 // Rüzgârda kendiliğinden çınlayan kristaller (ses: 'kristal'): vadi, krater ve doğu sektörünün kuvars sütunları
@@ -207,6 +238,9 @@ export default function Yuzey({ onGeri, baslangic, yeniOyunUret }) {
   const [valfAcik, setValfAcik] = useState(false);
   const [rezAcik, setRezAcik] = useState(false);
   const [teraziAcik, setTeraziAcik] = useState(false);
+  const [tarlaAcik, setTarlaAcik] = useState(false);
+  const [melezAcik, setMelezAcik] = useState(false);
+  const vanaZamani = useRef(0);
   const [vincAcik, setVincAcik] = useState(false);
   const [gemiAcik, setGemiAcik] = useState(false);
   const [opAcik, setOpAcik] = useState(false);
@@ -493,6 +527,11 @@ export default function Yuzey({ onGeri, baslangic, yeniOyunUret }) {
         teraziAdimi();
         return;
       }
+      if (d.melez) {
+        melezAdimi();
+        return;
+      }
+      if (d.tarla) return;
       if (d.vinc) {
         vincAdimi();
         return;
@@ -548,6 +587,8 @@ export default function Yuzey({ onGeri, baslangic, yeniOyunUret }) {
     if (d.valf) d.valf = null;
     if (d.rezonans) d.rezonans = null;
     if (d.terazi) d.terazi = null;
+    if (d.tarla) d.tarla = null;
+    if (d.melez) d.melez = null;
     if (d.vinc) vincIptal(d);
     if (d.gemide) gemiModuAc(true);
     if (d.sahne) sahneGoster(d.sahne);
@@ -697,6 +738,12 @@ export default function Yuzey({ onGeri, baslangic, yeniOyunUret }) {
               teraziAc(id);
               return 'sessiz';
             }
+            if (r.tarla) {
+              katmanKapatSessiz();
+              tarlaGir(r.tarla);
+              return 'sessiz';
+            }
+            if (r.tarimMenu) return tarimMenuGoster(r.tarimMenu, id), 'sessiz';
             if (d.sahne) {
               katmanKapatSessiz();
               sahneGoster(d.sahne, r.metin || null);
@@ -913,6 +960,7 @@ export default function Yuzey({ onGeri, baslangic, yeniOyunUret }) {
               },
             ]
           : []),
+        { id: 'zaman', etiket: 'Yıldız Zamanı', ipucu: 'Gün ve nöbet. Yürürken ekranın sağ üst köşesine çift dokun.', sec: () => (soyle(zamanMetni(dunya.current, zamanNotu(dunya.current)), 'istek', true), 'sessiz') },
         { id: 'kodeks', etiket: 'Evren Kütüphanesi', ipucu: 'Kodeks: buluntular, gözlemler, itibar kademesi.', sec: () => (kodeksGoster(), 'sessiz') },
         { id: 'telsiz', etiket: 'Telsiz kayıtları', ipucu: 'Dinlediğin ve ertelediğin telsiz çağrıları.', sec: () => (telsizGoster(), 'sessiz') },
         { id: 'hareket', etiket: 'Hareketler', sec: () => (soyle(HAREKET_KISA, 'istek', true), 'sessiz') },
@@ -1233,6 +1281,14 @@ export default function Yuzey({ onGeri, baslangic, yeniOyunUret }) {
   // --- Koloni olayları: üretim, montaj, nüfus (telsiz çağrısı olarak) ---
   const koloniOlaylari = (olaylar) => {
     const d = dunya.current;
+    // Yıldız Zamanı: nöbet değişiminde o nöbetin yıldızının rezonans çanı (yönerge 4.B)
+    const nb = olaylar.find((x) => x.tur === 'nobet');
+    if (nb) {
+      if (m()) nb.akor.forEach((f, i) => setTimeout(() => m() && m().nota(f, null, 0.5, 5), i * 180));
+      if (!durakli.current) setTimeout(() => soyle(nb.nobetMetni, 'istek', false), 900);
+    }
+    if (olaylar.some((x) => x.hazir)) cal('tarim_hazir', 0.8);
+    if (olaylar.some((x) => x.melez)) cal('tarim_melez', 0.8);
     // Yerel operasyonlar: acil uyarılar hemen söylenir, yeni operasyon telsiz çağrısıdır
     for (const o of olaylar.filter((x) => x.acil)) {
       soyle(o.metin, 'istek', true);
@@ -2217,6 +2273,282 @@ export default function Yuzey({ onGeri, baslangic, yeniOyunUret }) {
     { dokunmaBekle: true },
   );
 
+
+  // --- Tarım: ekim yatakları (tarim-ve-kseno-botanik bölüm 4) ---
+  const tarlaOrtami = (y) => (y.ortam === 'vaha' ? 'ortam_vaha' : y.ortam === 'kubbe' ? 'ortam_kubbe' : 'ortam_tarim');
+  const yatakDinlet = (y) => {
+    const ses = yatakSesi(y);
+    if (ses === 'olgun') {
+      if (m()) m().nota(BITKILER[y.bitki].frek, null, 0.7, 3);
+      cal('tarim_hazir', 0.6);
+    } else if (ses === 'kuru') cal('tarim_kuru', 0.7);
+    else if (ses === 'curuk') cal('tarim_curuk', 0.7);
+    else if (ses === 'saglikli') cal('tarim_saglikli', 0.6);
+    else cal('tik', 0.4);
+  };
+  const tarlaGir = (alan) => {
+    const d = dunya.current;
+    durakli.current = true;
+    tarlaAc(d, alan);
+    const y = tarlaYatak(d);
+    ortamCal(tarlaOrtami(y), 0.8);
+    setTarlaAcik(true);
+    yatakDinlet(y);
+    soyle(
+      (alan === 'vaha' ? 'Vahanın parsellerindesin, ' : 'Ekim yataklarındasın, ') +
+        yatakListesi(d, alan).length +
+        ' yatak. Aşağı kaydır: sonraki yatak; iki parmakla sola kaydır: önceki. Dokun: yatağın durumu. İki parmakla üç kez yukarı ya da aşağı sürt: çapala. Basılı tut: tohum seç. Çift dokun: ek. İki parmakla saat yönünde çevir: suyu aç, tersine: kıs. Sağa ya da sola kaydır: sıcaklık. Yukarı kaydır: hasat. İki parmakla çift dokun: çık. ' +
+        yatakMetni(d, y, d.tarla.i),
+      'istek',
+      true,
+    );
+  };
+  const tarlaCik = () => {
+    dunya.current.tarla = null;
+    setTarlaAcik(false);
+    durakli.current = false;
+    kaydet();
+    sesleriEsitle(true);
+    soyle('Yataklardan çekildin.', 'istek', true);
+  };
+  const tarlaSonuc = (r) => {
+    if (r.ses) cal(EYLEM_SESI[r.ses] || r.ses, 0.8);
+    if (r.ses === 'hasat') Haptics.notificationAsync(Haptics.NotificationFeedbackType.Success).catch(() => {});
+    else if (r.ses === 'capa') Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Heavy).catch(() => {});
+    else if (r.ses === 'ekme') Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Medium).catch(() => {});
+    if (r.metin) soyle(r.metin, 'istek', true);
+    kaydet();
+  };
+  const tarlaGezSes = (fark) => {
+    const d = dunya.current;
+    const once = tarlaYatak(d);
+    const metin = tarlaGez(d, fark);
+    const y = tarlaYatak(d);
+    if (y.ortam !== once.ortam) ortamCal(tarlaOrtami(y), 0.8);
+    yatakDinlet(y);
+    soyle(metin, 'istek', true);
+  };
+  const tarlaJest = useJestler(
+    {
+      onDokun: (parmak) => {
+        if (parmak >= 2) sustur();
+        else soyle(yatakMetni(dunya.current, tarlaYatak(dunya.current), dunya.current.tarla.i), 'istek', true);
+      },
+      onCiftDokun: (parmak) => {
+        if (parmak >= 2) tarlaCik();
+        else tarlaSonuc(tarlaEk(dunya.current));
+      },
+      onUzunBas: () => tarlaSonuc(tohumSec(dunya.current)),
+      onKaydir: (yon, parmak) => {
+        const d = dunya.current;
+        if (parmak >= 2) {
+          if (yon === 'yukari' || yon === 'asagi') tarlaSonuc(tarlaCapa(d));
+          else tarlaGezSes(yon === 'sol' ? -1 : 1);
+          return;
+        }
+        if (yon === 'asagi') tarlaGezSes(1);
+        else if (yon === 'yukari') tarlaSonuc(tarlaHasat(d));
+        else {
+          const r = tarlaIsi(d, yon === 'sag' ? 1 : -1);
+          cal(r.ses === 'isitici' ? 'dugme' : 'tislama', 0.4);
+          Haptics.selectionAsync().catch(() => {});
+          soyle(r.metin, 'istek', true);
+        }
+      },
+      onDondur: (radyan) => {
+        const su = tarlaVana(dunya.current, radyan);
+        if (su == null) return;
+        const simdi = Date.now();
+        if (simdi - vanaZamani.current > 700) {
+          vanaZamani.current = simdi;
+          cal('tarim_vana', 0.6);
+          Haptics.selectionAsync().catch(() => {});
+        }
+        if (su % 10 === 0) soyle('Su yüzde ' + su + '.', 'istek', true);
+      },
+    },
+    { dokunmaBekle: true },
+  );
+
+  // --- Tarım: melezleme (bölüm 7: iki tohumun biyo-titreşimini tek harmonide birleştir) ---
+  const melezAc = () => {
+    const d = dunya.current;
+    durakli.current = true;
+    if (m()) {
+      m().teraziKur(d.melez.ref);
+      m().teraziAyar(melezFrek(d), false);
+    }
+    setMelezAcik(true);
+    soyle('Rezonans yuvası. Kulaklığında iki biyo-titreşim: sabit olan birinci tohumun, öteki ikincinin. İki parmakla saat yönünde çevir: ikinci tonu incelt; tersine: kalınlaştır. Tek parmakla yukarı-aşağı sürükle: ince ayar. Tonlar birleşince titreşim durur; iki saniye kıpırdama. Dokun: durum. İki parmakla çift dokun: vazgeç.', 'istek', true);
+  };
+  const melezKapat = (soz) => {
+    if (m()) m().teraziSil();
+    dunya.current.melez = null;
+    setMelezAcik(false);
+    durakli.current = false;
+    sesleriEsitle(true);
+    if (soz) soyle(soz, 'istek', true);
+  };
+  const melezAdimi = () => {
+    const d = dunya.current;
+    const o = melezIlerle(d, ADIM_MS / 1000);
+    if (o.includes('tamam')) {
+      if (m()) m().teraziSil();
+      cal('tarim_melez', 0.9);
+      Haptics.notificationAsync(Haptics.NotificationFeedbackType.Success).catch(() => {});
+      setMelezAcik(false);
+      durakli.current = false;
+      kaydet();
+      sesleriEsitle(true);
+      soyle('İki titreşim tek harmonide kaynaştı. Melez tohum kuluçka tüpünde; iki döngü sonra hazır.', 'istek', true);
+      return;
+    }
+    if (!d.melez) return;
+    if (m()) m().teraziAyar(melezFrek(d), false);
+    if (o.includes('dengede')) Haptics.selectionAsync().catch(() => {});
+    if (o.includes('yakin')) soyle('Tonlar yaklaşıyor.', 'istek', false);
+  };
+  const melezJest = useJestler(
+    {
+      onDondur: (radyan) => melezDondur(dunya.current, radyan),
+      onSurukle: (mod, dx, dy) => {
+        if (mod !== 'tek') return;
+        const s = surukle.current;
+        melezSurukle(dunya.current, -(dy - s.sonDy));
+        s.sonDy = dy;
+      },
+      onSurukleBitti: () => {
+        surukle.current = { aktif: false, dx: 0, dy: 0, sonDy: 0 };
+      },
+      onDokun: (parmak) => {
+        if (parmak >= 2) sustur();
+        else soyle(melezMetni(dunya.current), 'istek', true);
+      },
+      onCiftDokun: (parmak) => {
+        if (parmak >= 2) melezKapat('Melezlemeden vazgeçtin; tohumlar ambarda.');
+      },
+    },
+    { dokunmaBekle: true },
+  );
+
+  // --- Tarım: konsol menüleri ---
+  const tarimMenuGoster = (tur, noktaId, onEk) => {
+    const d = dunya.current;
+    const yenile = (metin) => tarimMenuGoster(tur, noktaId, metin);
+    const geri = { id: 'geri', etiket: 'Konsola dön', sec: () => (noktaGoster(noktaId), 'sessiz') };
+    if (tur === 'isle') {
+      katmanAc({
+        baslik: 'Hasat işleme',
+        giris: (onEk ? onEk + ' ' : '') + 'Mutfak, eczane ve biyo-dökümhane tarifleri. Hazır sefer erzaklarından biri her kalkışta gemiye yüklenir.',
+        onGeri: () => noktaGoster(noktaId),
+        ogeler: [
+          ...islemeListesi(d).map((x) => ({
+            id: x.id,
+            etiket: x.ad + (x.hazir ? ', hazır ' + x.hazir : '') + (x.yeter && x.tesisVar ? '' : x.tesisVar ? ', hasat yetmiyor' : ', ' + ISLEME_TESISI[x.tesis] + ' yok'),
+            ipucu: girdiMetniT(x.girdi) + '. ' + x.tarif,
+            sec: () => {
+              const r = isle(d, x.id);
+              kaydet();
+              if (r.ses) cal(EYLEM_SESI[r.ses] || r.ses, 0.8);
+              yenile(r.metin);
+              return 'sessiz';
+            },
+          })),
+          geri,
+        ],
+      });
+      return;
+    }
+    if (tur === 'isci') {
+      const ogeler = [];
+      for (const alan of ['sera', 'vaha']) {
+        if (alan === 'vaha' && !d.bayrak.vahaBulundu) continue;
+        yatakListesi(d, alan).forEach((y, i) => {
+          ogeler.push({
+            id: alan + i,
+            etiket: (alan === 'vaha' ? 'Vaha, ' : '') + yatakAdi(y, i) + ': ' + (y.bitki ? BITKILER[y.bitki].ad.split(' (')[0] : 'boş') + ', ' + (y.isci ? 'kolonist var' : 'kolonist yok'),
+            sec: () => {
+              const r = isciDegistir(d, alan, i, bosta(d));
+              kaydet();
+              if (r.ses) cal('red', 0.6);
+              yenile(r.metin);
+              return 'sessiz';
+            },
+          });
+        });
+      }
+      katmanAc({
+        baslik: 'Kolonist ata',
+        giris: (onEk ? onEk + ' ' : '') + 'Boşta kolonist: ' + bosta(d) + '. Bir yatağı seçtikçe sıradaki uzman atanır, sonunda geri çekilir. Atanan kolonist sular, ısıyı ayarlar, olgun ürünü toplar ve aynı tohumdan yeniden eker.',
+        onGeri: () => noktaGoster(noktaId),
+        ogeler: [...ogeler, geri],
+      });
+      return;
+    }
+    if (tur === 'kademe') {
+      const k = kademeBilgi(d);
+      katmanAc({
+        baslik: 'Serayı genişlet',
+        giris: (onEk ? onEk + ' ' : '') + tarimDurumu(d) + ' ' + k.metin + (k.s ? ' Maliyet: ' + (Object.keys(k.s.maliyet).length ? girdiMetni(k.s.maliyet) : 'yok') + '.' : ''),
+        onGeri: () => noktaGoster(noktaId),
+        ogeler: [
+          ...(k.son
+            ? []
+            : [
+                {
+                  id: 'genislet',
+                  etiket: 'Genişlet: ' + k.s.ad,
+                  sec: () => {
+                    const r = kademeYukselt(d, harca, yeterMi, girdiMetni);
+                    kaydet();
+                    if (r.ses) cal(EYLEM_SESI[r.ses] || r.ses, 0.8);
+                    yenile(r.metin);
+                    return 'sessiz';
+                  },
+                },
+              ]),
+          geri,
+        ],
+      });
+      return;
+    }
+    if (tur === 'melez') {
+      katmanAc({
+        baslik: 'Melezleme',
+        giris: (onEk ? onEk + ' ' : '') + (d.tarim && d.tarim.kulucka ? 'Kuluçkada: ' + BITKILER[d.tarim.kulucka.id].ad + '. ' : '') + 'İki uyumlu tohumu rezonans yuvasına koy, biyo-titreşimlerini tek harmonide birleştir; melez iki döngü kuluçkada bekler.',
+        onGeri: () => noktaGoster(noktaId),
+        ogeler: [
+          ...melezListesi(d).map((h) => ({
+            id: h.id,
+            etiket: h.ad + (h.olur ? '' : ', tohum eksik'),
+            ipucu: h.girdi + '. ' + BITKILER[h.id].kaynak,
+            sec: () => {
+              const r = melezBaslat(d, h.id);
+              if (r.melez) {
+                katmanKapatSessiz();
+                melezAc();
+                return 'sessiz';
+              }
+              cal('red', 0.6);
+              yenile(r.metin);
+              return 'sessiz';
+            },
+          })),
+          geri,
+        ],
+      });
+      return;
+    }
+    if (tur === 'ansiklopedi') {
+      katmanAc({
+        baslik: 'Bitki ansiklopedisi',
+        giris: 'Yirmi bir tür: koloni ürünleri, yabani flora, kseno-bitkiler ve melezler. Her birinin ipucunda ortamı, süresi, istediği su ve sıcaklık, olgunluk sesi ve tohumunun nereden geldiği.',
+        onGeri: () => noktaGoster(noktaId),
+        ogeler: [...ansiklopedi().map((x) => ({ ...x, sec: () => (soyle(x.etiket + '. ' + x.ipucu, 'istek', true), 'sessiz') })), geri],
+      });
+    }
+  };
+
   // --- Frekans ayarı ---
   const frekansAc = (amac) => {
     const d = dunya.current;
@@ -2308,12 +2640,18 @@ export default function Yuzey({ onGeri, baslangic, yeniOyunUret }) {
         }
         soyle(cevreMetni(d), 'istek', true);
       },
-      onCiftDokun: (parmak) => {
+      onCiftDokun: (parmak, konum) => {
         if (parmak >= 2) {
           menuyuAc();
           return;
         }
         const d = dunya.current;
+        // Sağ üst köşe: Yıldız Zamanı sorgusu (geliştirici yönergesi 4.B)
+        if (konum && konum.y < 120 && konum.x > Dimensions.get('window').width - 140) {
+          cal('bip', 0.5);
+          soyle(zamanMetni(d, zamanNotu(d)), 'istek', true);
+          return;
+        }
         if (d.bildirimler && d.bildirimler.length && bildirimDinle()) return;
         const e = etkiles(d);
         if (e.tur === 'kapi' && e.kilitli && e.rezonans && d.envanter.includes('rezonator')) {
@@ -2357,7 +2695,7 @@ export default function Yuzey({ onGeri, baslangic, yeniOyunUret }) {
 
   return (
     <View style={stiller.dis}>
-      <View style={stiller.kap} {...(katman || ayarAcik || valfAcik || rezAcik || teraziAcik || vincAcik || gemiAcik || opAcik || savasAcik ? {} : jest)}>
+      <View style={stiller.kap} {...(katman || ayarAcik || valfAcik || rezAcik || teraziAcik || tarlaAcik || melezAcik || vincAcik || gemiAcik || opAcik || savasAcik ? {} : jest)}>
         <KonumsalSes
           ref={motor}
           onMesaj={(x) => {
@@ -2418,6 +2756,18 @@ export default function Yuzey({ onGeri, baslangic, yeniOyunUret }) {
         <View style={[StyleSheet.absoluteFill, stiller.ayar]} {...teraziJest}>
           <Text style={stiller.baslik}>Ayak dengeleme</Text>
           <Text style={stiller.yazi}>Yukarı-aşağı sürükle; iki ton birleşince dur</Text>
+        </View>
+      ) : null}
+      {tarlaAcik ? (
+        <View style={[StyleSheet.absoluteFill, stiller.ayar]} {...tarlaJest}>
+          <Text style={stiller.baslik}>Ekim yatakları</Text>
+          <Text style={stiller.yazi}>Aşağı kaydır: sonraki yatak. Dokun: durum.</Text>
+        </View>
+      ) : null}
+      {melezAcik ? (
+        <View style={[StyleSheet.absoluteFill, stiller.ayar]} {...melezJest}>
+          <Text style={stiller.baslik}>Melezleme</Text>
+          <Text style={stiller.yazi}>İki parmakla çevir; tonlar birleşince dur</Text>
         </View>
       ) : null}
       {katman ? (

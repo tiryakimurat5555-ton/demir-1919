@@ -1,7 +1,7 @@
-# Belge kapsamı: Bahtiyar'ın 9 belgesinin her bölümü ve durumu
+# Belge kapsamı: Bahtiyar'ın 17 belgesinin her bölümü ve durumu
 
 Murat'ın isteği (20 Kasım 2026): "Belgedeki hiçbir şeyi atlama." Bu liste belgeler/ klasöründeki dokuz belgenin
-bütün bölümlerini sırayla sayar. Her sürümde güncellenir; bir bölüm burada "yapıldı" olmadan atlanmış sayılmaz.
+bütün bölümlerini sırayla sayar (21 Kasım: v3 paketiyle sekiz belge daha geldi, bölüm 10-17). Her sürümde güncellenir; bir bölüm burada "yapıldı" olmadan atlanmış sayılmaz.
 
 İşaretler: [x] yapıldı · [~] kısmen (ne eksik yazılı) · [ ] yapılmadı (planlanan sıra yazılı).
 "Telefonda denenmedi" uyarısı bütün maddeler için geçerlidir; ancak Murat Expo Go'da denediğinde doğrulanır.
@@ -200,6 +200,75 @@ bütün bölümlerini sırayla sayar. Her sürümde güncellenir; bir bölüm bu
 - [x] 6 Keşif, gereç ve itibar matrisi (1.2) · [x] 7 Kodlama notu: her sektör atlamasında (30 sn seyir) yüzde 35,
       keşif zili; zaman sınırı yok; keşfedildi mührü, yeniden rastlanınca dinlenir.
 
+## 10. tonoflenya-ve-yeni-sistemler-gelistirici-yonergesi.md (v3 paketinin yönergesi)
+- [x] 1-2 Yeni belgeler ve okuma sırası (CLAUDE.md): tarım → Malken → kadim tarihçe → atlas → eşya-zanaat → final → yan görevler.
+- [x] 3.A Modüler ekim parselleri (2.0): kademe 1 dört yatak (elle sulama, gece soğuması), kademe 2 sekiz yatak (buhar
+      kanalı ısıyı tutar), kademe 3 on altı (dört kseno-bölme; Kseno-Biyoloji Kubbesi gerekir), kademe 4 otuz iki
+      (sekiz bölme; hasat yüzde kırk kısa; reaktör laboratuvarı gerekir).
+- [x] 3.B Kolonist atama (2.0): boştaki kolonist yatağa atanır; sular, ısıyı tutar, olgun ürünü toplar, aynı tohumdan
+      yeniden eker. İnsan: koloni ürünlerinde büyüme +%20. Kaelith botanikçisi (kadim mezar görevinden sonra): spor ve
+      kristal bitkilerinde çift tohum, +%30 geri kazanım, çürüme yok. Malken çırağı: işlenen erzaklar bir sefer fazla
+      sürer; Malken'ler Tonoflenya'dan gelir, o bölüm yapılınca açılır.
+- [x] 4.A Altı nöbetli Yıldız Zamanı (2.0, zaman.js): nöbet 20 dakika, gün 2 saat. Yeşil Öğle'de tarlalar +%25 hızlı,
+      Altın Gece ve Mavi Akşam'da ısıtılmayan teras soğur.
+- [x] 4.B Nöbet değişiminde o yıldızın üç notalı çan akoru; sağ üst köşeye çift dokun (ve menüde "Yıldız Zamanı"):
+      gün, nöbet, kalan dakika, tarla notu. Klavye "T" tuşu yok (telefonda klavye yok). Seyahatte zaman gerçek
+      zamanlı akar; hiper-sıçrama yok, ileri sarma işlevi (ileriSar) Tonoflenya yolculuğu için hazır.
+- [ ] 5.A Yıldız Ekolü Kıdemi (altı ekol, dört kademe, kabiliyetler): Tonoflenya bölümleriyle (sıra: eşya-zanaat'tan sonra).
+- [~] 5.B Rastgele karşılaşma motoru: korsan pususu 1.3'ten var (sefer.js). Sürüklenen sandıklar (sesli kilit), astral
+      fırtına (frekans tutturma), kaçak mülteci sinyali yok; sıra: 5.A ile.
+- [x] 6.A zaman modeli · [x] 6.B ekim yatağı ve işçi modeli · [ ] 6.C prosedürel istasyon modeli (eşya-zanaat 1 ile).
+
+## 11. tarim-ve-kseno-botanik-rehberi.md
+- [x] 1 Çekirdek döngü (2.0): toplama → sera → hasat → mutfak/eczane/dökümhane. Erzaksız uzun seferden sonra (5 dk+)
+      sentetik küp yorgunluğu: moral −3. Tarım alanı ayrı iç mekân (1.15), kendi ortam sesi.
+- [x] 2.1 Jeotermal hidroponik teraslar · [~] 2.2 Kseno-habitat bölmeleri: kademe 3'ten; atmosfer (metan, kükürt,
+      vakum, radyasyon) bölmenin geniş sıcaklık aralığıyla (−200 … 400 °C) temsil ediliyor, ayrı gaz ayarı yok;
+      kendi ortam sesi (ElevenLabs) · [x] 2.3 Saklı vahanın dört açık toprak parseli.
+- [x] 3 On yedi tür (A beş, B beş, C yedi), her birinin ortamı, süresi, su ve sıcaklık ihtiyacı, olgunluk sesi ve
+      çıktısı. Tohumlar: kapsülün kesesi (ilk giriş), Vanguard-01 kasaları, yabani bitkiler (mantar ormanı, tüneller,
+      vaha; 10 dakikada bir), derin uzay görevleri (G-13, G-14, G-17, G-18, kadim mezar, moloz kuşağı, zaman havzası).
+- [x] 4 Jestler: iki parmakla sürtme çapa (üç vuruş, sert titreşim), çift dokun ekme, iki parmakla çevirme vana, sağa
+      sola sıcaklık, yukarı hasat (çift titreşim). Durum sesleri: kuru çatırtı, çürük şapırtı, sağlıklı damla.
+      [~] Olgunluk: ortak olgunluk zili + bitkinin kendi tonu; her bitkinin kendine özel kaydı yok, metinde anlatılıyor.
+- [~] 5.1 Mutfak tarifleri: beşi de var. Ziyafetin "+2 eylem puanı" oyunda eylem puanı olmadığından ilk iki savaş
+      uyarısına +1 sn. [x] 5.2 Eczane (merhem, şok iğnesi, detoks) · [x] 5.3 Biyo-dökümhane (katalizör, gövde macunu,
+      fotonik pasta) ve bölüm 3'teki her bitkinin ve melezin kendi çıktısı (33 tarif). Erzak kalkışta gemiye yüklenir.
+- [~] 6 Beslenme matrisi: beş topluluk beş dakikada bir uygun hasattan yer (bilgisayar yasak gıdayı vermez; yanlış
+      besleme seçeneği yok). Tokken: Vaelin metan yakıtı ×1,5, Kithron lens ve pasta çift, Aethel-9 ocaklar ×1,25,
+      insan sera hubu cezası yok; aç: moral −2. Kaelith'in terraforming hızlandırması yok.
+- [x] 7 Melezleme: Kseno-Biyoloji Kubbesi; iki tohumun biyo-titreşimi iki parmakla çevrilerek tek harmoniye getirilir,
+      iki döngü kuluçka. Dört melez (güneş-buz, demir-kök, altın nöro-hurma, zaman-kristal) ve ürünleri.
+- [x] 8 Sesler (ElevenLabs): çapa, ekme, vana, hasat, olgunluk zili, melezleme, kuru, çürük, sağlıklı; kseno-bölme
+      ortamı. Sera ortamı Murat'ın kaydı (ortam_tarim), vaha ortamı 0.9'dan.
+
+## 12. tonoflenya-ve-malken-medeniyeti.md
+- [ ] 1 Hekzat sistemi · 2 Malken ırkı · 3 Malkenia ve altı halka (3.1-3.3) · 4 Güney havzası (4.1-4.5) · 5 YGK Akademi
+      (yüzey ve yeraltı katları) · 6 Malazar Dağı · 7 Çevre krallıklar · 8 Hikâye köprüsü. Sıra: tarımdan sonra ilk.
+
+## 13. tonoflenya-kadim-tarihcesi-ve-kronikler.md
+- [ ] 1-12 Kozmik şafak, Üçler miti, koruyucular, Cahelon, Malken I. Çağ, Tyzrakhel, Kahergonat, Beyaz Kıyamet, Valen'in
+      portalı, Bagrius hanedanı, III. Çağ, çağlar matrisi (kodeks kayıtları ve sahne metinleri olarak).
+
+## 14. tonoflenya-buyuk-cografi-atlasi.md
+- [ ] 1 Beş kuşak · 2 Merkez kuşak (2.1-2.4) · 3 Batı (3.1-3.3) · 4 Doğu (4.1-4.3) · 5 Kuzey (5.1-5.4) · 6 Güney
+      (6.1-6.4) · 7 Lojistik, hammadde ve seyrüsefer matrisi (7.1-7.3).
+
+## 15. tonoflenya-esya-zanaat-ve-murettebat-rehberi.md
+- [ ] 1 YGK çekirdek subayları · 2 Hammaddeler (2.1-2.3) · 3 Zanaat (silahlar, zırhlar, gemi modülleri, iksirler) ·
+      4 Yadigârlar ve görev eşyaları · 5 Envanter, kargo ağırlığı, para birimleri ve ticaret masası.
+
+## 16. tonoflenya-buyuk-final-gorevleri.md
+- [ ] 1 Tetiklenme ve çift dokunuşlu harita geçişi · 2 Yirmi ana görev (Kısım I-VII: YGK ve Malkenia 1-3, Malazar 4-6,
+      Fenrir 7-9, Doğu çölleri 10-12, Kara Göl 13-15, Kahergonat 16-18, Cahelon finali 19-20) · 3 Ses motoru şartları.
+
+## 17. tonoflenya-yan-gorevler-ve-yerel-vakalar.md
+- [ ] Bölüm 1-5: otuz yan görev (Magentor 1-6, Batı 7-12, Doğu 13-18, Kuzey 19-24, Güney 25-30) · 6 Ödül ve itibar
+      matrisi · 7 Entegrasyon direktifi.
+
 ## Sıradaki adımlar (sırayla)
+0. Tonoflenya genişlemesi, yönergedeki sırayla: Malken medeniyeti ve hekzat sistemi (bölüm 12) → kadim tarihçe (13,
+   kodeks) → coğrafi atlas (14, beş kuşak haritası ve gemiyle Tonoflenya yolculuğu) → eşya, zanaat ve prosedürel
+   mürettebat (15; Ekol Kıdemi ve rastgele karşılaşmalar, yönerge 5) → yirmi final görevi (16) → otuz yan görev (17).
 1. Telefonda deneme: seslendirilmiş telsizlerin düzeyi ve anlaşılırlığı (Murat ve Bahtiyar), ses dengeleme ve
    erişilebilirlik testleri. İstenirse koloni bilgisayarı için ayrı bir ses.

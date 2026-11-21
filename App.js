@@ -22,7 +22,7 @@ import { ayarlarOku, ayarlarYaz, otoOku, otoSil, tarihMetni, VARSAYILAN_AYARLAR,
 import { yeniOyun } from './src/oyun/durum';
 import { durumKisa } from './src/oyun/yuzey/dunya';
 
-const SURUM = '1.19';
+const SURUM = '2.0';
 const OYUN_ADI = 'Aethelis';
 
 const HAKKINDA_METNI = [
@@ -39,6 +39,8 @@ const HAREKETLER = [
   'Çift dokun: yanındaki şeyi kullan, hava kilidinden geç ya da yanındakiyle konuş.',
   'İki parmakla dokun: konuşmayı sustur.',
   'İki parmakla çift dokun: oyun menüsü. Görev, Yerler, koloni, mürettebat, uzay haritası ve ana menü orada. Yerler\'den bir yer seçersen oraya kendin yürürsün; yolda ekrana dokunursan durursun. Yürürken iki parmakla yukarı kaydırırsan Yerler doğrudan açılır.',
+  'Yıldız Zamanı: yürürken ekranın sağ üst köşesine çift dokun; gün, nöbet ve sıradaki nöbete kalan süre okunur. Menüde de var. Her nöbet değişiminde o nöbetin yıldızının çanı çalar.',
+  'Ekim yatakları (tarım alanında ve saklı vahada): aşağı kaydır sonraki yatak, iki parmakla sola kaydır önceki. Dokun: yatağın durumu; her yatak kendi sesini çalar: kuru çatırtı, çürük şapırtı, sağlıklı damla, olgun bitkinin zili. İki parmakla üç kez yukarı ya da aşağı sürt: çapala. Basılı tut: tohum seç. Çift dokun: ek. İki parmakla çevir: su vanası. Sağa ya da sola kaydır: sıcaklık. Yukarı kaydır: hasat. İki parmakla çift dokun: çık.',
   'Telsiz çağrısı gelince üç tonlu bir zil çalar: çift dokun, dinle. İki parmakla aşağı kaydırırsan ertelenir; menüdeki telsiz kayıtlarından sonra dinlersin. Telsiz konuşurken rehber araya girmez, söyleyeceğini telsiz bitince söyler; yalnız menüde gezinirken öğeler telsiz kısılarak hemen okunur. Telsizi susturmak için iki parmakla dokun.',
   'Valf dengelemede: basınç yükseldikçe gazın tıslaması tizleşir. Kesik alarm başlayınca çift dokun. Dokun: basıncı söyler. İki parmakla çift dokun: valften çekil.',
   'Ayak dengelemede: kulaklıkta iki ton. Ayak yüksekse tonu ince: aşağı sürükle; alçaksa yukarı. Tonlar birleşip titreşim durunca kıpırdama. Dokun: durumu söyler. İki parmakla çift dokun: çekil.',

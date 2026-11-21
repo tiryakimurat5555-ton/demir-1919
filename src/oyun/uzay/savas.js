@@ -8,6 +8,7 @@
 // penceresi: iki parmakla dokun kalkan, sesin ters yönüne kaydır kaçınma, torpidoya çift dokun karşı ateş.
 // Hasarlı sistem savunmayı kısıtlar: iticiler giderse kaçınma yok, kalkan ısınırsa kalkan yok, reaktör kritikse
 // tepkisiz kilitlenme. (4) değerlendirme.
+import * as E from '../tarim/etki';
 import { kayitBul } from '../veri/seslendirme';
 import { uretec } from '../veri/murettebat';
 import { GEMI_SINIFLARI } from '../veri/gemiler';
@@ -97,6 +98,7 @@ function dusmanaHasar(d, x, olaylar, tur) {
   }
   const nis = gorevli(d, 'Taktik Nişancı');
   if (nis) h *= 1 + 0.3 * verimlilik(nis);
+  h *= E.verilenHasarCarpani(d); // prizmatik odaklama lensi
   dm.govde = Math.max(0, dm.govde - Math.round(h));
   olaylar.push({ ses: 'patlama', hasar: true });
   // B-2 bastırma ateşi: uyarı sürerken isabet, saldırıyı keser
@@ -125,9 +127,15 @@ function bitir(d, sonuc, olaylar) {
     d.gemi.govde = 1;
     d.gemi.yer = 'kizak';
     d.uzay = null;
-    d.koloni.moral = Math.max(0, d.koloni.moral - 5); // seferde alınan yenilgi kolonide yas
+    // Kriyojenik şok iğnesi: ağır yaralılar stasiste koloniye ulaşır, yas tutulmaz (bir kez)
+    if (E.etkiVar(d, 'kriyo')) {
+      d.seferEtki.kriyo = 0;
+      d.savasSon.kriyo = true;
+    } else d.koloni.moral = Math.max(0, d.koloni.moral - 5); // seferde alınan yenilgi kolonide yas
     d.sahne = 'savas_son';
   }
+  // Doku rejenerasyon merhemi: revirde yaralılar iyileşir, stres yarıya
+  if (E.etkiVar(d, 'merhem')) for (const u of d.murettebat) u.stres = Math.round((u.stres || 0) / 2);
   d.savas = null;
   olaylar.push({ bitti: true });
 }
@@ -232,7 +240,7 @@ function uyariBaslat(d) {
   const s = d.savas;
   const t = DUSMANLAR[s.tur];
   const silah = t.silahlar[Math.floor(zar(s) * t.silahlar.length)];
-  const sure = SILAHLAR[silah].uyari * (zar(s) * 0.5 + 0.75) + (yet(d, 'A3') ? 1 : 0) + (mod(d, 'k2_soguk_nozul') ? 0.6 : 0);
+  const sure = SILAHLAR[silah].uyari * (zar(s) * 0.5 + 0.75) + (yet(d, 'A3') ? 1 : 0) + (mod(d, 'k2_soguk_nozul') ? 0.6 : 0) + E.uyariEki(d, s);
   s.uyari = { silah, kalan: sure, yon: s.dusman.aci > 0 ? 'sol' : 'sag', savunma: null };
   s.evre = 'uyari';
   const o = [{ uyari: silah, yon: s.uyari.yon }];
@@ -277,15 +285,22 @@ function darbe(d) {
   if (u.silah === 'torpido' && mod(d, 'k1_sonumleme')) h *= 0.6;
   if (yet(d, 'C1')) h *= 0.9;
   if (mod(d, 'hisar_kalkani')) h *= 0.8;
+  h *= E.alinanHasarCarpani(d); // Kaelith kalkan kristali, zaman-kristal koruyucu tabakası
   const g = d.gemi;
   g.govde = Math.max(0, g.govde - Math.round(h));
   if (u.savunma !== 'kalkan') {
     // Darbe mürettebatı strese sokar (soğukkanlı etkilenmez)
     for (const id of Object.values(g.atamalar || {})) {
       const m0 = d.murettebat.find((x) => x.id === id);
-      if (m0 && m0.nitelik !== 'sogukkanli') m0.stres = Math.min(100, (m0.stres || 0) + 8);
+      if (m0 && m0.nitelik !== 'sogukkanli' && !E.etkiVar(d, 'guvec')) m0.stres = Math.min(100, (m0.stres || 0) + 8);
     }
     o.push({ ses: 'patlama', hasar: true, soz: sil.ad + ' isabet etti! Gövde yüzde ' + Math.round((100 * g.govde) / g.maxGovde) + '.' });
+    // Esnek gövde macunu: gövde yarının altına inince delikleri kendiliğinden kapatır (seferde bir kez)
+    if (E.etkiVar(d, 'macun') && !d.macunKullanildi && g.govde > 0 && g.govde < g.maxGovde / 2) {
+      d.macunKullanildi = true;
+      g.govde = Math.min(g.maxGovde, g.govde + Math.round(g.maxGovde * 0.3));
+      o.push({ soz: 'Canlı gövde macunu delikleri kapattı. Gövde yüzde ' + Math.round((100 * g.govde) / g.maxGovde) + '.' });
+    }
     // Savunmasız darbe bir sistemi bozar
     const sistemler = ['itici', 'kalkan', 'reaktor'];
     const k = sistemler[s.raunt % 3];
@@ -339,7 +354,7 @@ export const SAHNELER = {
       const x = d.savasSon || {};
       if (x.sonuc === 'zafer') return [x.ad + ' etkisiz. Enkazdan parçalar ambara alındı.', x.yama ? 'Hurda yamayla iticiler çalışır hâlde.' : ''];
       if (x.sonuc === 'ateskes') return [x.ad + ' teslim oldu; ganimetin yarısı ve diplomatik itibar.'];
-      return ['Gövde dayanamadı. Acil iticilerle koloniye çekildin; tersane gemiyi onarıyor. Kolonide yas havası: moral düştü.'];
+      return [x.kriyo ? 'Gövde dayanamadı. Acil iticilerle koloniye çekildin. Ağır yaralılar kriyojenik şok iğneleriyle stasiste; hepsi canlı ulaştı, yas tutulmuyor.' : 'Gövde dayanamadı. Acil iticilerle koloniye çekildin; tersane gemiyi onarıyor. Kolonide yas havası: moral düştü.'];
     },
     secenekler: () => [{ etiket: 'Devam', sonra: null }],
   },

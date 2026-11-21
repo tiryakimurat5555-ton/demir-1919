@@ -34,15 +34,15 @@ export const SEKTORLER = {
 
 function nufus(d) {
   const n = d.koloni.nufus;
-  for (const k of ['sanayi', 'tersane', 'bilim']) if (n[k] == null) n[k] = 0;
-  const atanan = n.sanayi + n.tersane + n.bilim;
+  for (const k of ['sanayi', 'tersane', 'bilim', 'tarim']) if (n[k] == null) n[k] = 0;
+  const atanan = n.sanayi + n.tersane + n.bilim + n.tarim; // tarim: seralara atanan kolonistler (tarim/tarim.js)
   if (n.toplam < atanan) n.toplam = atanan; // eski kayıtlar: tesislerle gelen işçiler nüfusa eklenir
   return n;
 }
 
 export function bosta(d) {
   const n = nufus(d);
-  return n.toplam - n.sanayi - n.tersane - n.bilim;
+  return n.toplam - n.sanayi - n.tersane - n.bilim - n.tarim;
 }
 
 export function isGucuDegis(d, sektor, fark) {
@@ -172,7 +172,8 @@ export function uretimBaslat(d, tesis, tarifId) {
   if (d.koloni.uretimler.some((u) => u.tesis === tesis)) return { metin: 'Bu tesis şu an başka bir iş yapıyor.', ses: 'red' };
   if (!yeterMi(d, t.girdi)) return { metin: 'Girdi yetmiyor: ' + girdiMetni(t.girdi) + '.', ses: 'red' };
   harca(d, t.girdi);
-  const kalan = t.sure / uretimHizi(d);
+  // Vaelin topluluğu tokken metandan gaz yakıtı yüzde elli hızlı (tarim-ve-kseno-botanik bölüm 6)
+  const kalan = t.sure / uretimHizi(d) / (t.girdi.metan && d.tarim && d.tarim.besli.vaelin ? 1.5 : 1);
   d.koloni.uretimler.push({ tesis, tarif: t.id, kalan });
   return { metin: t.ad + ': iş başladı. Yaklaşık ' + Math.ceil(kalan) + ' saniye.', ses: 'dugme' };
 }
@@ -184,7 +185,8 @@ export function koloniIlerle(d, dt) {
   const n = nufus(d);
   // Yatakların yenilenmesi
   if (!d.yenilenme) d.yenilenme = {};
-  const yenilenmeSuresi = YENILENME_SN / (1 + 0.15 * n.sanayi);
+  // Aethel-9 madenci aileleri tokken grev olmaz, ocaklar daha hızlı (tarim-ve-kseno-botanik bölüm 6)
+  const yenilenmeSuresi = YENILENME_SN / (1 + 0.15 * n.sanayi) / (d.tarim && d.tarim.besli.aethel9 ? 1.25 : 1);
   for (const id of Object.keys(NOKTALAR)) {
     const nk = NOKTALAR[id];
     if (!nk.kaynak) continue;
@@ -272,7 +274,7 @@ export function koloniIlerle(d, dt) {
       olaylar.push({ tur: 'moral', metin: 'Radyasyon fırtınası koloniyi dövdü; insanlar sığınaklarda. Moral düştü. Bir kalkan jeneratörü bunu önler.' });
     }
   }
-  if (n.toplam > 20 && !k.binalar.includes('sera')) {
+  if (n.toplam > 20 && !k.binalar.includes('sera') && !(d.tarim && d.tarim.besli.insan)) {
     k.besin = (k.besin || 0) + dt;
     if (k.besin >= BESIN_SN) {
       k.besin = 0;

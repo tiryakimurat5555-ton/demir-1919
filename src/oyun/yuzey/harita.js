@@ -472,6 +472,15 @@ export const NOKTALAR = {
   kaide_3: { mekan: 'kseno_lab', x: 904, y: 20, ad: 'Kuzey kaidesi', yaricap: 1.8, kaide: true, tarif: 'Salonun dibinde, iç kapının yanında bir kaide.' },
   yazit: { mekan: 'mabet', x: 958, y: 7, ad: 'Duvar yazıtı', yaricap: 2, tarif: 'Parmak uçlarınla okunacak kadar derin oyulmuş çizgiler.' },
   harita_kaidesi: { mekan: 'mabet', x: 958, y: 13, ad: 'Yıldız haritası kaidesi', yaricap: 2, tarif: 'Ortadaki kaidenin üstünde avuç büyüklüğünde, ağır bir küre.' },
+  // Jeotermal tarım alanı ve kseno-botanik (tarim-ve-kseno-botanik-rehberi; tarim/tarim.js)
+  sera_konsolu: { mekan: 'tarim', x: 3004, y: 6, ad: 'Sera konsolu', yaricap: 2, engel: 0.8, tarim: 'konsol', tarif: 'Nemli bir panel; tuşları ılık. Seraların, tohum ambarının ve hasat deposunun kayıtları burada.' },
+  ekim_teraslari: { mekan: 'tarim', x: 3012, y: 12, ad: 'Ekim terasları', yaricap: 3, engel: 1.5, tarim: 'sera', tarif: 'Kayaya oyulmuş basamak basamak hidroponik yataklar; borulardan ılık su şırıldıyor, fıskiyeler aralıkla tıslıyor.' },
+  vaha_parselleri: { mekan: 'vaha', x: 2812, y: 12, ad: 'Vahanın açık toprak parselleri', yaricap: 3, tarim: 'vaha', tarif: 'Volkanik kül ve çürümüş likenlerle kararmış, yumuşak, sıcak bir toprak. Zehirli fırtına buraya ulaşmıyor.' },
+  yabani_mantar: { mekan: 'mantar', x: 1735, y: 30, ad: 'Kadife obsidyen mantarları', yaricap: 2, tarim: 'yabani', tarif: 'Dokununca titreşimi emen, simsiyah, kadife şapkalı mantarlar; kenarlarından spor dökülüyor.' },
+  yabani_liken: { mekan: 'tuneller', x: 2665, y: 35, ad: 'Fosforlu damar likeni', yaricap: 2, tarim: 'yabani', tarif: 'Islak duvarda ağ gibi yayılmış, ılık, kaygan bir doku; yüzeyinden su damlıyor.' },
+  yabani_sarmasik: { mekan: 'vaha', x: 2846, y: 10, ad: 'Kükürt sarmaşığı', yaricap: 2, tarim: 'yabani', tarif: 'Kalsit kayaya sımsıkı sarılmış sert, lifli bir sarmaşık; gövdesinde hafif bir köpürme fışıltısı.' },
+  yabani_hurma: { mekan: 'vaha', x: 2806, y: 34, ad: 'Gece açan vaha hurması', yaricap: 2.4, engel: 1, tarim: 'yabani', tarif: 'Mor salkımlı, ağır meyveli bir ağaç; kılıflarından tatlı bir koku sızıyor.' },
+  yabani_bazalt: { mekan: 'vaha', x: 2830, y: 6, ad: 'Bazalt kökü çalısı', yaricap: 2, tarim: 'yabani', tarif: 'Kökleri kayayı delmiş iğneli bir çalı; dibinden derin, sismik bir inilti geliyor.' },
 };
 
 // Görünmez yerçekimi alanları: içine girilmez, itilir. Uğultuları yerlerini belli eder.

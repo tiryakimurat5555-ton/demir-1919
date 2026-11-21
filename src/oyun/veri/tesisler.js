@@ -196,7 +196,31 @@ TESISLER.hastane = {
   kosulMetni: 'Kseno-hekimler bir uzay görevinden gelir (G-23 hastane gemisi).',
 };
 
-export const TESIS_SIRASI = ['sinyal_kulesi', 'dokumhane', 'yasam_blogu', 'arac_hangari', 'reaktor_lab', 'biyo_kubbe', 'tersane', 'tersane_2', 'tersane_3', 'kuantum_lab', 'itki_hangari', 'kriyo_atolye', 'askeri_tersane', 'komuta_merkezi', 'yuksek_reaktor', 'jeotermal_santral', 'koloni_kalkani', 'sera', 'akademi', 'kseno_habitat', 'multeci_kampusu', 'tina_cekirdegi', 'hastane'];
+
+// Hasat işleme tesisleri (tarim-ve-kseno-botanik bölüm 5): mutfak sefer erzaklarını, eczane kseno-ilaçları hazırlar.
+// Biyo-dökümhane hattı dökümhanenin içindedir.
+TESISLER.koloni_mutfagi = {
+  ad: 'Koloni Mutfağı',
+  kisa: 'Mutfak',
+  islev: 'Tarlaların hasadını sefer rasyonlarına, moral menülerine ve kseno-ırkların öğünlerine çevirir.',
+  katki: 'Peksimet, güveç, nöro-kafein, ziyafet ve iksirler; tüccarlara satış.',
+  acar: 'Sefer erzakları.',
+  maliyet: { bazalt: 6, titanyum: 2, kristal: 1 },
+  kosul: (d) => !!d.bayrak.sondaj,
+  kosulMetni: 'Önce jeotermal tarım alanı açılmalı (sondaj).',
+};
+TESISLER.kseno_eczane = {
+  ad: 'Revir ve Kseno-Eczane',
+  kisa: 'Eczane',
+  islev: 'Bitki özütlerinden merhem, şok iğnesi, detoks ve filtre kartuşu hazırlar.',
+  katki: 'Savaşta yaralanan mürettebat iyileşir, yenilgide kayıp olmaz, maruziyet temizlenir.',
+  acar: 'Kseno-tıp.',
+  maliyet: { bazalt: 8, titanyum: 3, polimer: 2, kseno: 1 },
+  kosul: (d) => d.koloni.binalar.includes('biyo_kubbe'),
+  kosulMetni: 'Önce Kseno-Biyoloji Kubbesi kurulmalı.',
+};
+
+export const TESIS_SIRASI = ['sinyal_kulesi', 'dokumhane', 'yasam_blogu', 'arac_hangari', 'reaktor_lab', 'biyo_kubbe', 'tersane', 'tersane_2', 'tersane_3', 'kuantum_lab', 'itki_hangari', 'kriyo_atolye', 'askeri_tersane', 'komuta_merkezi', 'yuksek_reaktor', 'jeotermal_santral', 'koloni_kalkani', 'sera', 'koloni_mutfagi', 'kseno_eczane', 'akademi', 'kseno_habitat', 'multeci_kampusu', 'tina_cekirdegi', 'hastane'];
 
 // Koloni kademeleri (gezegen-gelisimi-ve-yerel-gorevler-v2.md bölüm 9)
 export const KOLONI_KADEMELERI = [

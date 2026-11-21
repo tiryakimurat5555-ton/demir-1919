@@ -38,6 +38,7 @@ export const SAHNELER = {
       'Türbin uluyarak tizleşiyor; kızağın kenetleri birer birer açılıyor. Kıvılcım fırtınanın içinden dikine yükseliyor; dolu taneleri gövdeyi dövüyor, sonra birden her şey susuyor.',
       'Yörüngedesin. Kulaklığında fenerler: Aethelis-IV\'ün pes, sıcak tonu ve haritadaki ziyaret noktalarının daha ince sesleri. Bir fenerin sesi iki kulağında eşitlenince pruvan ona dönüktür.',
       'Yukarı kaydır: itki. Aşağı: ters itici. Sağa ya da sola kaydır: burnu döndür. Basılı tut: radar. Çift dokun: kenetlen. Dokun: gemi terminali.',
+      d.erzakNotu || null,
     ],
     secenekler: () => [{ etiket: 'Devam', sonra: null }],
   },
@@ -48,6 +49,7 @@ export const SAHNELER = {
     metin: (d) => [
       'Aethelis-IV\'ün çekim kılavuzuna kilitleniyorsun. Atmosfer gövdeyi sarsıyor, fırtına yeniden çevreni sarıyor; kızağın kenetleri tok bir sesle kapanıyor.',
       'Dinleme kulesinden koloninin uğultusu geliyor. ' + moralMetni(d),
+      d.erzakNotu || null,
       ...(b(d).ilkUcusYeni ? ['Beşinci görev tamamlandı: Kıvılcım ve ilk uçuş.', ilkAd(d, 0) + ': "Gemi tek parça döndü, Kaptan. Şimdi sıra daha büyük gemilerde ve o noktaların istediği donanımlarda."'] : []),
     ],
     secenekler: () => [{ etiket: 'Devam', sonra: null, yap: (d) => (b(d).ilkUcusYeni = false) }],

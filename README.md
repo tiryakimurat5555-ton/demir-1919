@@ -6,7 +6,15 @@ tesis kurar, ileride gemini parça parça inşa edip uzaya açılırsın.
 
 Tasarım: Bahtiyar Cankurt (belgeler/). Yapım: Murat ve Bahtiyar. Expo Go ile iPhone ve Android'de çalışır.
 
-## Bu sürümde (1.19)
+## Bu sürümde (2.0)
+- Tarım: jeotermal tarım alanında ekim terasları ve sera konsolu, saklı vahada dört açık toprak parseli. Toprağı çapala,
+  tohum ek, vanayla sula, sıcaklığı ayarla, olgunluk sesini duyunca hasat et. 21 bitki türü (koloni ürünleri, yabani
+  flora, uzay görevlerinden kseno-bitkiler, melezler); seralar dört kademe genişler; yataklara kolonist atanabilir.
+- Hasat mutfakta sefer erzakına, eczanede ilaca, dökümhanede gemi katkısına dönüşür; erzak kalkışta gemiye yüklenir.
+- Melezleme: iki tohumun sesini tek harmonide birleştir. Beslenme: kolonideki topluluklar kendi gıdalarını yer.
+- Yıldız Zamanı: altı nöbetli gün; nöbet değişiminde çan; sağ üst köşeye çift dokununca gün ve nöbet okunur.
+
+## 1.19
 - Yürürken iki parmakla yukarı kaydırınca Yerler listesi doğrudan açılır.
 
 ## 1.18

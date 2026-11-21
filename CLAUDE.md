@@ -17,7 +17,8 @@ Demir 1919 oyunu silindi; geçmişi git kaydında (son sürüm 1.06, commit 556f
   her sürümde güncellenir. Bir bölüm orada yapıldı işaretlenmeden atlanmış sayılmaz.
 
 ## Tasarım kaynağı
-- belgeler/ içindeki 9 belge (Bahtiyar'ın). Okuma sırası ve yol haritası:
+- belgeler/ içindeki 17 belge (Bahtiyar'ın; 21 Kasım v3 paketiyle sekiz belge eklendi: tarım ve yedi Tonoflenya belgesi,
+  sırası tonoflenya-ve-yeni-sistemler-gelistirici-yonergesi.md bölüm 2'de). Okuma sırası ve yol haritası:
   belgeler/gelistirici-entegrasyon-rehberi-ve-yol-haritasi.md (Faz 1-5). Sıra: tasarim-ve-senaryo → gezegen-gelisimi-v2
   → araclar-ve-gemi-filosu → savas-yetenek-ve-murettebat → derin-uzay-gorevleri (1, 2) → kesfedilebilir-gezegenler
   → derin-uzay-kesifleri-ve-evren-kutuphanesi.
@@ -345,7 +346,29 @@ Demir 1919 oyunu silindi; geçmişi git kaydında (son sürüm 1.06, commit 556f
 - SÜRÜM 1.19 (21 Kasım, Murat): yüzeyde (yürüme katmanı) iki parmakla yukarı kaydırma boştaydı → Yerler'i doğrudan açar
   (yerlerGoster(true): geri ve "Oyuna dön" katmanı kapatır, menüye gitmez). Gemi, operasyon, savaş ve öteki katmanlar
   kendi hareketlerini korur. Telefonda denenmedi.
-- Sıradaki: KAPSAM.md "Sıradaki adımlar".
+- SÜRÜM 2.0 (21 Kasım, Murat v3 belge paketini gönderdi, metin yok): yönergenin 1. adımı, tarım ve Yıldız Zamanı.
+  Telefonda denenmedi.
+  - zaman.js: NOBETLER (6; ad, yıldız, ışık, etki, akor), NOBET_SN 1200, zamanAkit (gorevler zamanIlerle; 'nobet' olayı →
+    Yuzey çan akoru m().nota ×3 + söz), zamanMetni, ileriSar. d.zaman.sn. Yürürken sağ üst köşe çift dokun ve menü.
+  - tarim/bitkiler.js: BITKILER 21 (A5, B5, C7 görev op'lu, H4 melez; ortam teras|kubbe|vaha, dongu, su, isi, frek,
+    olgun, urun), HIBRITLER, ISLEME 33 tarif (tesis mutfak|revir|dokum; etki sefer|koloni|kalici|kaynak|itibar|besin),
+    TOPLULUKLAR (beslenme matrisi), KADEMELER 1-4, VAHA_PARSEL 4, ISCI_TURLERI (insan, kaelith, malken).
+  - tarim/tarim.js: d.tarim (kademe, yataklar, vaha, tohumlar, urun, erzak, besin, besli, kulucka, verilen, kese, kasa,
+    toplandi); DONGU_SN 300; tarimIlerle (su −15/döngü, kademe 1 teras gece soğur, denge payı su ±15 / ısı teras ±5,
+    kubbe ±30; dışında sağlık −0,25/döngü, 0 → ölür; Yeşil Öğle ×1,25, kademe 4 ×1/0,6; işçi bakar, toplar, yeniden
+    eker; kuluçka; BESLEME_SN 300 besle; görev tohumları); tarla katmanı (tarlaAc/Gez/Capa [3 vuruş]/Ek/Vana/Isi/Hasat,
+    tohumSec, yatakSesi); isle, erzakYukle (kalkışta; gorevler kalkis sarmalayıcısı), seferBitti (inişte; sentetik küp
+    moral −3 peksimetsiz 300 sn+), kademeYukselt, isciDegistir (nufus.tarim; koloni.js bosta düşer), melez (terazi
+    motoruyla iki ton; oktav, MELEZ_ESIK 0,012, 2 sn), yabaniTopla (TOPLAMA_SN 600), kasaAc (vanguard_enkaz t_kasa).
+  - tarim/etki.js: d.seferEtki anahtarları; seyir (fener, yakıt, hız), savaş (uyarı eki, guvec stres yok, kalkan/lens
+    hasar, macun onarımı, merhem stres yarı, kriyo yenilgide yas yok) okur. tarim/eylemler.js nokta eylemleri.
+  - harita.js: sera_konsolu, ekim_teraslari (tarım), vaha_parselleri, yabani_mantar (mantar), yabani_liken (tüneller),
+    yabani_sarmasik/hurma/bazalt (vaha). tesisler.js koloni_mutfagi (sondaj), kseno_eczane (biyo_kubbe).
+  - Yuzey.js: tarla katmanı (tarlaJest), melez katmanı (melezJest), tarimMenuGoster (isle, isci, kademe, melez,
+    ansiklopedi). Sesler ElevenLabs (flow BPWC2OLWbdljIKExgHDq, 10 × 17 kredi): tarim_capa/ekme/vana/hasat/hazir/melez/
+    kuru/curuk/saglikli (I=-18, tek kanal 22 kHz wav), ortam_kubbe (20 sn, 2,5 sn çapraz geçiş, I=-24).
+  - testler/tarim.test.js.
+- Sıradaki: KAPSAM.md "Sıradaki adımlar" (0: Tonoflenya genişlemesi).
 
 ## Sesler
 - Drive'daki Efektler/Ambians dosyaları 14 MB; Drive bağlayıcısı 10 MB'tan büyük dosyayı indiremiyor. Bu yüzden

@@ -6,6 +6,7 @@
 // çalar; fenerin sesi iki kulakta eşitlenince pruva hedefe dönüktür. Yukarı kaydır: itki (hız kademesi artar),
 // aşağı: ters itici; sağa-sola: burun 15 derece döner. Basılı tut: radar. Çift dokun: kenetlen (yakın ve yavaşken).
 // Bir noktaya kenetlenince ön tarama raporu: çevre analizi ve zorunlu donanım. Eksik varsa görev kilitli.
+import * as E from '../tarim/etki';
 import { GEMI_SINIFLARI, MODUL_KATMANLARI } from '../veri/gemiler';
 import { aciDuzelt, goreliAci, saatYonu } from '../konum';
 import { telsizSubayiCarpani, gucDagitimi } from '../gemi/gemi';
@@ -158,7 +159,7 @@ function uzak(a, b) {
 }
 
 export function fenerMenzili(d) {
-  return FENER_MENZILI * telsizSubayiCarpani(d) * (d.gemi && d.gemi.moduller.optik_prizma ? 1.3 : 1) * (d.bayrak.g_haritalar ? 1.2 : 1);
+  return FENER_MENZILI * telsizSubayiCarpani(d) * (d.gemi && d.gemi.moduller.optik_prizma ? 1.3 : 1) * (d.bayrak.g_haritalar ? 1.2 : 1) * E.fenerCarpani(d);
 }
 export const KALKIS_YAKITI = 2;
 
@@ -216,9 +217,9 @@ export function uzayIlerle(d, dt) {
   const g = d.gemi;
   if (u.hiz > 0) {
     const b = d.bayrak;
-    const yakit = u.hiz * YAKIT_TUKETIM * dt * (g.moduller.sivi_iletken ? 0.85 : 1) * (b.f_yakit ? 0.9 : 1) * (b.f_saat ? 0.9 : 1) * (b.p_yakit ? 0.9 : 1) * (b.p_tasarruf ? 0.9 : 1);
+    const yakit = u.hiz * YAKIT_TUKETIM * dt * (g.moduller.sivi_iletken ? 0.85 : 1) * (b.f_yakit ? 0.9 : 1) * (b.f_saat ? 0.9 : 1) * (b.p_yakit ? 0.9 : 1) * (b.p_tasarruf ? 0.9 : 1) * E.yakitCarpani(d);
     g.yakit = Math.max(0, g.yakit - yakit);
-    const birim = HIZ_BIRIMI * gucDagitimi(d).hiz;
+    const birim = HIZ_BIRIMI * gucDagitimi(d).hiz * E.hizCarpani(d);
     u.x += Math.sin(u.yon) * u.hiz * birim * dt;
     u.y += Math.cos(u.yon) * u.hiz * birim * dt;
     if (g.yakit <= 0) {

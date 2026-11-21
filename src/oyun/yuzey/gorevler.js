@@ -24,6 +24,9 @@ import { FENOMENLER } from '../veri/gozlem';
 import { PARCALAR } from '../veri/uretim';
 import { koloniIlerle } from '../koloni';
 import * as S from '../uzay/seyir';
+import * as TA from '../tarim/eylemler';
+import * as TR from '../tarim/tarim';
+import * as Z from '../zaman';
 import { TESISLER } from '../veri/tesisler';
 
 export const { ESYALAR, HAREKET_KISA, ayarBaslat, ayarDegis, ayarIlerle, ayarMetni, ayarYakinlik, koloniMetni, insaListesi } = G1;
@@ -78,7 +81,7 @@ export function gorevIpucu(d) {
 }
 
 export function noktaEylemleri(d, id) {
-  const ek = [...G6.ekEylemler(d, id), ...K.ekEylemler(d, id), ...M.ekEylemler(d, id)];
+  const ek = [...G6.ekEylemler(d, id), ...K.ekEylemler(d, id), ...M.ekEylemler(d, id), ...TA.ekEylemler(d, id)];
   if (G6.noktaMi(id)) return [...ek, { id: 'incele', etiket: 'Sütunu incele' }];
   const temel = temelEylemler(d, id);
   if (!ek.length) return temel;
@@ -87,6 +90,7 @@ export function noktaEylemleri(d, id) {
   return i < 0 ? [...temel, ...ek] : [...temel.slice(0, i), ...ek, ...temel.slice(i)];
 }
 function temelEylemler(d, id) {
+  if (TA.noktaMi(id)) return TA.noktaEylemleri(d, id);
   if (M.noktaMi(id)) return M.noktaEylemleri(d, id);
   if (K.noktaMi(id)) return K.noktaEylemleri(d, id);
   if (A.noktaMi(id)) return A.noktaEylemleri(d, id);
@@ -99,6 +103,7 @@ function temelEylemler(d, id) {
 }
 
 export function eylemUygula(d, id, eylemId) {
+  if (TA.ekEylemMi(eylemId) || TA.noktaMi(id)) return TA.eylemUygula(d, id, eylemId);
   if (G6.ekEylemMi(eylemId) || G6.noktaMi(id)) return G6.eylemUygula(d, id, eylemId);
   if (M.ekEylemMi(eylemId) || M.noktaMi(id)) return M.eylemUygula(d, id, eylemId);
   if (K.ekEylemMi(eylemId) || K.noktaMi(id)) return K.eylemUygula(d, id, eylemId);
@@ -204,6 +209,8 @@ export const { miniBaslat, MINI, olgunMu, miniGorunur } = M;
 
 export function zamanIlerle(d, dt) {
   const olaylar = koloniIlerle(d, dt);
+  olaylar.push(...Z.zamanAkit(d, dt));
+  olaylar.push(...TR.tarimIlerle(d, dt));
   olaylar.push(...M.miniIlerle(d, dt));
   olaylar.push(...F.itibarIlerle(d));
   if (d.vahaGirisi) {
@@ -216,7 +223,13 @@ export function zamanIlerle(d, dt) {
 }
 
 // --- Uzay: kalkış, ilerleme, kenetlenme (görev kancalarıyla) ---
-export const { UZAY_NOKTALARI, gorunurNoktalar, itki, burunDondur, uzayRadar, uzayDurumu, onTarama, kalkis, kalkisOlur, sesYeri, enYakin, fenerMenzili, HIZ_EN_COK } = S;
+// Kalkış: hazır sefer erzakları gemiye yüklenir (tarim/tarim.js erzakYukle)
+export function kalkis(d) {
+  const r = S.kalkis(d);
+  if (d.gemi && d.gemi.yer === 'uzay') TR.erzakYukle(d);
+  return r;
+}
+export const { UZAY_NOKTALARI, gorunurNoktalar, itki, burunDondur, uzayRadar, uzayDurumu, onTarama, kalkisOlur, sesYeri, enYakin, fenerMenzili, HIZ_EN_COK } = S;
 export function uzayAdim(d, dt) {
   if (d.savas) return [];
   const olaylar = S.uzayIlerle(d, dt);
@@ -243,6 +256,7 @@ export function kenetlen(d) {
   const r = S.kenetlen(d);
   if (r.inis) {
     G5.inisSonrasi(d);
+    TR.seferBitti(d); // sentetik küp yorgunluğu, erzak etkilerinin sayaçları
     // Kolonide dinlenme: mürettebatın stresi silinir, sefer sayaçları sıfırlanır
     for (const u of d.murettebat) u.stres = 0;
     d.seferSure = 0;
@@ -256,3 +270,11 @@ export const { salonListesi, itibarKademesi } = F;
 export const { savasBaslat, savasGirdi, savasIlerle, savasSes } = SV;
 export const savasDurumu = SV.durumMetni;
 export const { opGirdi, opIlerle, opSes, opDurum, opBaslat, opTamamMi } = O;
+
+// --- Tarım ve Yıldız Zamanı (tarim/tarim.js, zaman.js) ---
+export const {
+  tarlaAc, tarlaYatak, tarlaGez, tohumSec, tarlaCapa, tarlaEk, tarlaVana, tarlaIsi, tarlaHasat, yatakMetni, yatakSesi, yatakListesi, yatakAdi,
+  islemeListesi, isle, isciDegistir, isciTurleri, kademeBilgi, kademeYukselt, melezListesi, melezBaslat, melezFrek, melezDondur, melezSurukle,
+  melezIlerle, melezMetni, ansiklopedi, durumMetni: tarimDurumu, girdiMetniT, zamanNotu, CAPA_VURUS,
+} = TR;
+export const { zamanMetni, nobet, NOBETLER } = Z;
