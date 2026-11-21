@@ -29,7 +29,7 @@ import * as Haptics from 'expo-haptics';
 import { useJestler } from '../arayuz/jestler';
 import SesliListe from '../arayuz/SesliListe';
 import { soyle, sustur } from '../ses/rehber';
-import { cal, ortamCal } from '../ses/efektler';
+import { cal, calanOrtamAdi, ortamCal } from '../ses/efektler';
 import { kayitCal, kayitVarMi } from '../ses/telsiz';
 import { kayitBul } from '../oyun/veri/seslendirme';
 import { olayKaydi } from '../oyun/uzay/sefer';
@@ -40,6 +40,7 @@ import KonumsalSes from '../ses/konumsal';
 import { ALANLAR, KAPILAR, MEKANLAR, NOKTALAR } from '../oyun/yuzey/harita';
 import { monolitEtkisi } from '../oyun/yuzey/kesifler';
 import { FENOMENLER, ITIBAR_KADEMELERI } from '../oyun/veri/gozlem';
+import { OPERASYONLAR } from '../oyun/veri/uzayGorevleri';
 import { harcanabilir, yetenekAc, yetenekListesi } from '../oyun/veri/yetenek';
 import { fenerBirak, cevreMetni, durumMetni, esyaMetni, etkiles, firtinaIlerle, maruziyetAdi, ilerle, kisiAdi, otoBaslat, radar, yerlerListesi, zehirIlerle } from '../oyun/yuzey/dunya';
 import {
@@ -2205,6 +2206,10 @@ export default function Yuzey({ onGeri, baslangic, yeniOyunUret }) {
     const d = dunya.current;
     const s = m();
     if (!s || !d.op) return;
+    // Gezegen yüzeyi: inişten sonra o gezegenin ortam sesi (opKapat sesleriEsitle ile oda sesine döner)
+    const tanim = OPERASYONLAR[d.op.id];
+    const yuzeyOrtami = tanim && tanim.ortam && d.op.adim >= tanim.ortamAdim ? tanim.ortam : null;
+    if (yuzeyOrtami && calanOrtamAdi() !== yuzeyOrtami) ortamCal(yuzeyOrtami, 0.8);
     const x = opSes(d);
     const o = opRef.current;
     const anahtar = x.hedef ? 'op_hedef_' + d.op.adim : null;

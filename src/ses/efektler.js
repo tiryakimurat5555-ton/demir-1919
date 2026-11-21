@@ -147,6 +147,27 @@ const KAYNAKLAR = {
   statik: require('../../assets/ses/statik.wav'),
   buz_catlak: require('../../assets/ses/buz_catlak.wav'),
   magma: require('../../assets/ses/magma.wav'),
+  // İnilebilir gezegenlerin yüzey ortamları (Bahtiyar, 21 Kasım)
+  ortam_gez_p01: require('../../assets/ses/gezegen/ortam_gez_p01.mp3'),
+  ortam_gez_p02: require('../../assets/ses/gezegen/ortam_gez_p02.mp3'),
+  ortam_gez_p03: require('../../assets/ses/gezegen/ortam_gez_p03.mp3'),
+  ortam_gez_p04: require('../../assets/ses/gezegen/ortam_gez_p04.mp3'),
+  ortam_gez_p05: require('../../assets/ses/gezegen/ortam_gez_p05.mp3'),
+  ortam_gez_p06: require('../../assets/ses/gezegen/ortam_gez_p06.mp3'),
+  ortam_gez_p07: require('../../assets/ses/gezegen/ortam_gez_p07.mp3'),
+  ortam_gez_p08: require('../../assets/ses/gezegen/ortam_gez_p08.mp3'),
+  ortam_gez_p09: require('../../assets/ses/gezegen/ortam_gez_p09.mp3'),
+  ortam_gez_p10: require('../../assets/ses/gezegen/ortam_gez_p10.mp3'),
+  ortam_gez_p11: require('../../assets/ses/gezegen/ortam_gez_p11.mp3'),
+  ortam_gez_p12: require('../../assets/ses/gezegen/ortam_gez_p12.mp3'),
+  ortam_gez_p13: require('../../assets/ses/gezegen/ortam_gez_p13.mp3'),
+  ortam_gez_p14: require('../../assets/ses/gezegen/ortam_gez_p14.mp3'),
+  ortam_gez_p15: require('../../assets/ses/gezegen/ortam_gez_p15.mp3'),
+  ortam_gez_p16: require('../../assets/ses/gezegen/ortam_gez_p16.mp3'),
+  ortam_gez_p17: require('../../assets/ses/gezegen/ortam_gez_p17.mp3'),
+  ortam_gez_p18: require('../../assets/ses/gezegen/ortam_gez_p18.mp3'),
+  ortam_gez_p19: require('../../assets/ses/gezegen/ortam_gez_p19.mp3'),
+  ortam_gez_p20: require('../../assets/ses/gezegen/ortam_gez_p20.mp3'),
 };
 
 // Ortam döngülerinin kendi düzeyleri (konuşmanın altında kalsınlar diye düşük)
@@ -218,6 +239,26 @@ const DONGULER = {
   ortam_kuleler: 0.55,
   ortam_vaha: 0.55,
   ortam_tunel: 0.6,
+  ortam_gez_p01: 0.6,
+  ortam_gez_p02: 0.6,
+  ortam_gez_p03: 0.6,
+  ortam_gez_p04: 0.6,
+  ortam_gez_p05: 0.6,
+  ortam_gez_p06: 0.6,
+  ortam_gez_p07: 0.6,
+  ortam_gez_p08: 0.6,
+  ortam_gez_p09: 0.6,
+  ortam_gez_p10: 0.6,
+  ortam_gez_p11: 0.6,
+  ortam_gez_p12: 0.6,
+  ortam_gez_p13: 0.6,
+  ortam_gez_p14: 0.6,
+  ortam_gez_p15: 0.6,
+  ortam_gez_p16: 0.6,
+  ortam_gez_p17: 0.6,
+  ortam_gez_p18: 0.6,
+  ortam_gez_p19: 0.6,
+  ortam_gez_p20: 0.6,
 };
 
 const oynaticilar = {};
@@ -342,6 +383,11 @@ export function ortamCal(ad, oran = 1) {
   if (calanOrtam && calanOrtam !== ad) sol(calanOrtam, 0);
   calanOrtam = ad;
   if (ad) sol(ad, hedefDuzey(ad));
+}
+
+// Şu an çalan ortam döngüsünün adı (yoksa null)
+export function calanOrtamAdi() {
+  return calanOrtam;
 }
 
 export function ortamSesiAyarla(duzey) {

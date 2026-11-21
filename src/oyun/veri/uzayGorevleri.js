@@ -506,6 +506,9 @@ for (const id of Object.keys(GEZEGENLER)) {
   );
   OPERASYONLAR[id] = {
     gezegen: true,
+    // İnişten (kenetle adımının ardından) görev bitene kadar yüzeyin ortam sesi çalar
+    ortam: 'ortam_gez_' + id,
+    ortamAdim: adimlar.findIndex((x) => x.tur === 'kenetle') + 1,
     adimlar,
     sonuc: [p.ad + ' keşfedildi; numune: ' + p.numuneAd + '.', 'Kodeks ve koloni kazanımı: ' + p.kazanim, 'Evren itibarı +' + p.itibar + '.'],
     odul: { ...p.etki, itibar: p.itibar, kodeks: { id, ad: p.ad + ', ' + p.sinifi, tarif: p.akustik + ' ' + p.kazanim, salon: GEZEGEN_SALONU[id] || 'astrofizik', frek: p.frek } },

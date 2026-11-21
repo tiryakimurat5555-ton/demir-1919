@@ -477,6 +477,12 @@ Demir 1919 oyunu silindi; geçmişi git kaydında (son sürüm 1.06, commit 556f
 - SÜRÜM 2.12 (21 Kasım, Murat ses dosyası ekledi: "gemi ortam kargo adlı dosya bununla değiştirilsin"): assets/ses/
   ortam_kargo.mp3 (eski yankılı kapsül .wav'ı silindi; ilk 302 sn, 3 sn çapraz geçiş, I=-24, 96k; düzey 0,5 → 0,6). Gemilerin
   kargo/hangar bölmeleri çalar. Telefonda denenmedi.
+- SÜRÜM 2.13 (21 Kasım, Bahtiyar 20 gezegen ortamını zip olarak gönderdi, Pyros-Prime_.zip; Murat: "hepsini uygun yerlerine
+  yerleştir"): assets/ses/gezegen/ortam_gez_p01..p20.mp3 (her biri 10 dk'lık kaydın baş sessizliği atılmış ilk 183 sn'si, 3 sn
+  çapraz geçişli 180 sn döngü, I=-24, 96k; boyut için 302 değil 180 sn; toplam 42 MB). efektler.js KAYNAKLAR + DONGULER 0,6,
+  calanOrtamAdi(). uzayGorevleri.js gezegen op'larında ortam ve ortamAdim (kenetle adımından sonraki adım); Yuzey opSesEsitle
+  inişten sonra ortamCal(ortam, 0,8), opKapat sesleriEsitle ile oda sesine döner. Zip'teki Zephyr-Major ve Lithos-Echo dosyaları
+  bayt bayt aynı (md5 99353bce…): ikisi de aynı sesi çalıyor, Bahtiyar'a soruldu. testler/gezegen.test.js. Telefonda denenmedi.
 - Sıradaki: Tonoflenya belgelerinin hepsi işlendi; KAPSAM.md'de [~] notları (Bahtiyar'a sorulacaklar) ve telefonda deneme.
 
 ## Sesler

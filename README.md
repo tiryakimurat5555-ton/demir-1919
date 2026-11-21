@@ -6,6 +6,9 @@ tesis kurar, ileride gemini parça parça inşa edip uzaya açılırsın.
 
 Yapımcı: Bahtiyar Cankurt (tasarım belgeleri belgeler/ içinde). Expo Go ile iPhone ve Android'de çalışır.
 
+## Bu sürümde (2.13)
+- 20 inilebilir gezegenin her birinin kendi yüzey ortam sesi var (Bahtiyar'ın kayıtları); inişten görev bitene kadar çalar.
+
 ## Bu sürümde (2.12)
 - Gemi kargo ortam sesi Murat'ın gönderdiği kayıtla değişti.
 
