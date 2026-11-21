@@ -321,6 +321,9 @@ Demir 1919 oyunu silindi; geçmişi git kaydında (son sürüm 1.06, commit 556f
 - SÜRÜM 1.13 (21 Kasım, Murat: "ekran okuyucusu hızını 350'ye kadar yükseltebilelim"): Ayarlar.js EN_COK 3.5 (yüzde 350);
   adım yüzde 200'e kadar 0,1, üstünde 0,25. expo-speech rate olarak geçer; iPhone'un konuşma motoru belli bir hızın üstünü
   kırpabilir (telefonda denenmedi).
+- SÜRÜM 1.14 (21 Kasım, Murat ses dosyası ekledi: merkez terminaline girilince çalacak ambiyans): assets/ses/ortam_terminal.mp3
+  (ilk 302 sn, 3 sn çapraz geçişli döngü, I=-24, 96k). Yuzey noktaGoster('terminal') → ortamCal('ortam_terminal'), terminalAcik
+  ref; terminalden açılan alt menülerde sürer; katmanKapat ya da ortamlı sahne mekân ortamına döndürür. Telefonda denenmedi.
 - Sıradaki: KAPSAM.md "Sıradaki adımlar".
 
 ## Sesler

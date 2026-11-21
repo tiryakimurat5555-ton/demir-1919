@@ -361,7 +361,7 @@ export default function Yuzey({ onGeri, baslangic, yeniOyunUret }) {
         }
       } else kaynakKapat(id);
     });
-    if (ortamDa) {
+    if (ortamDa && !(terminalAcik.current && durakli.current)) {
       s.boguk(d.mekan === 'kapsul' || !!d.gemide);
       const oda = odaSu(d);
       if (oda) ortamCal(oda.ortam, 0.8);
@@ -579,6 +579,7 @@ export default function Yuzey({ onGeri, baslangic, yeniOyunUret }) {
       return;
     }
     durakli.current = false;
+    terminalAcik.current = false;
     setKatman(null);
     sesleriEsitle(true);
     if (soz) soyle(soz, 'istek', true);
@@ -593,7 +594,10 @@ export default function Yuzey({ onGeri, baslangic, yeniOyunUret }) {
       return;
     }
     d.sahne = id;
-    if (sahne.ortam) ortamCal(sahne.ortam, 0.8);
+    if (sahne.ortam) {
+      terminalAcik.current = false;
+      ortamCal(sahne.ortam, 0.8);
+    }
     if (id === 'inis') {
       // Moral nabzı: dinleme kulesinden koloninin uğultusu
       const ms = moralSesi(d);
@@ -635,9 +639,16 @@ export default function Yuzey({ onGeri, baslangic, yeniOyunUret }) {
     });
   };
 
+  // Merkez terminali açıkken kendi ortam sesi çalar (Murat, 1.14); terminalden açılan bütün menülerde sürer,
+  // katman tamamen kapanınca mekânın ortamı geri gelir (katmanKapat → sesleriEsitle)
+  const terminalAcik = useRef(false);
   const noktaGoster = (id, onEk) => {
     const d = dunya.current;
     const n = NOKTALAR[id];
+    if (id === 'terminal' && !terminalAcik.current) {
+      terminalAcik.current = true;
+      ortamCal('ortam_terminal', 1);
+    }
     const eylemler = noktaEylemleri(d, id);
     katmanAc({
       baslik: n.ad,
