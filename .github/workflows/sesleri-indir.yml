@@ -35,6 +35,9 @@ jobs:
           open(os.path.join(hedef, 'rapor.txt'), 'w').write('\n'.join(rapor) + '\n')
           print('\n'.join(rapor))
           PY
+          # Daldaki eski ham sesler korunur (yenisi aynı adı taşıyorsa yenisi geçer)
+          mkdir -p "$RUNNER_TEMP/eski"
+          if git fetch -q origin ham-sesler; then git archive FETCH_HEAD | tar -x -C "$RUNNER_TEMP/eski"; cp -n "$RUNNER_TEMP"/eski/*.mp3 "$RUNNER_TEMP/sesler/" 2>/dev/null || true; fi
           git config user.name "github-actions"
           git config user.email "github-actions@users.noreply.github.com"
           git checkout --orphan ham-sesler-gecici
