@@ -1662,3 +1662,22 @@ describe('Yerler listesi yalnız bulunulan mekân (1.8)', () => {
     expect(yerlerListesi(d).some((y) => y.id === 'kapsul_kilit')).toBe(true);
   });
 });
+
+describe('Jeotermal Tarım Alanı (1.15)', () => {
+  test('sondajdan önce kilitli, sonra girilir; içeride dönüş kapısı listede', () => {
+    const d = yeniOyun(21);
+    d.mekan = 'vadi';
+    d.oyuncu = { x: -35, y: -24, yon: Math.PI };
+    expect(gec(d, 'tarim_kapi', 0).kilitli).toBe(true);
+    expect(yerlerListesi(d).some((y) => y.id === 'tarim_kapi')).toBe(false);
+    d.bayrak.sondaj = true;
+    expect(yerlerListesi(d).some((y) => y.id === 'tarim_kapi')).toBe(true);
+    const r = gec(d, 'tarim_kapi', 0);
+    expect(r.kilitli).toBeFalsy();
+    expect(d.mekan).toBe('tarim');
+    expect(MEKANLAR.tarim.ortam).toBe('ortam_tarim');
+    expect(yerlerListesi(d).some((y) => y.id === 'tarim_kapi' && y.mekan === 'tarim')).toBe(true);
+    gec(d, 'tarim_kapi', 1);
+    expect(d.mekan).toBe('vadi');
+  });
+});

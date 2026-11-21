@@ -13,6 +13,8 @@ const KAYNAKLAR = {
   ortam_vadi: require('../../assets/ses/ortam_vadi.mp3'),
   // Merkez terminalinin ortamı (Murat, 21 Kasım: telefondan gönderdiği kayıt; 5 dakikalık döngü)
   ortam_terminal: require('../../assets/ses/ortam_terminal.mp3'),
+  // Jeotermal tarım alanının ortamı (Murat, 21 Kasım: telefondan gönderdiği kayıt; 5 dakikalık döngü)
+  ortam_tarim: require('../../assets/ses/ortam_tarim.mp3'),
   ortam_kapsul: require('../../assets/ses/ortam_kapsul.wav'),
   ortam_harabe: require('../../assets/ses/ortam_harabe.wav'),
   ortam_menu: require('../../assets/ses/ortam_menu.wav'),
@@ -73,6 +75,7 @@ const DONGULER = {
   ortam_yuzey: 0.55,
   ortam_vadi: 0.55,
   ortam_terminal: 0.55,
+  ortam_tarim: 0.55,
   ortam_kapsul: 0.6,
   ortam_harabe: 0.55,
   ortam_menu: 0.45,

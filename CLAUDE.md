@@ -324,6 +324,11 @@ Demir 1919 oyunu silindi; geçmişi git kaydında (son sürüm 1.06, commit 556f
 - SÜRÜM 1.14 (21 Kasım, Murat ses dosyası ekledi: merkez terminaline girilince çalacak ambiyans): assets/ses/ortam_terminal.mp3
   (ilk 302 sn, 3 sn çapraz geçişli döngü, I=-24, 96k). Yuzey noktaGoster('terminal') → ortamCal('ortam_terminal'), terminalAcik
   ref; terminalden açılan alt menülerde sürer; katmanKapat ya da ortamlı sahne mekân ortamına döndürür. Telefonda denenmedi.
+- SÜRÜM 1.15 (21 Kasım, Murat ses dosyası ekledi: "jeotermal tarım alanı var ana gezegende, içeriye girince döngüsel çalsın";
+  senaryoyu kendisi/Bahtiyar uyduracak). Önceden böyle bir yer yoktu; harita.js MEKANLAR.tarim (iç mekân x 3000-3020, y 0-20,
+  ortam_tarim, şimdilik boş) ve KAPILAR.tarim_kapi (vadi (-35,-25) ↔ tarım (3010,1.5); kosul bayrak.sondaj). assets/ses/
+  ortam_tarim.mp3 (baş 0,7 sn sessizlik atıldı, ilk 302 sn, 3 sn çapraz geçiş, I=-24, 96k). dunya.js yerlerListesi geçit
+  listesine tarim_kapi. Telefonda denenmedi.
 - Sıradaki: KAPSAM.md "Sıradaki adımlar".
 
 ## Sesler

@@ -163,6 +163,16 @@ export const MEKANLAR = {
     dis: false,
     disariKonum: { x: 740, y: 35 },
   },
+  // Murat (1.15): ana gezegendeki jeotermal tarım alanı; içine girince kendi ortam sesi döner. Senaryosu Bahtiyar'da.
+  tarim: {
+    ad: 'Jeotermal Tarım Alanı',
+    tarif: 'Sırtların ısısıyla ısıtılan, kayaya oyulmuş geniş bir sera. Hava ılık ve nemli; borularda sıcak su akıyor.',
+    alan: { bati: 3000, dogu: 3020, guney: 0, kuzey: 20 },
+    ortam: 'ortam_tarim',
+    zemin: 'tas',
+    dis: false,
+    disariKonum: { x: -35, y: -25 },
+  },
 };
 
 // Kapılar: iki yönlü geçitler. Çift dokununca öteki uca geçilir.
@@ -197,6 +207,17 @@ export const KAPILAR = {
       'Dik yokuşu tırmanıyorsun. Kanyonun kenarını aşınca rüzgâr bütün gücüyle yüzüne çarpıyor: Uğultulu Plato. Hamlelerin ıslığını dinle; geldiğini duyunca dur.',
       'Yokuştan vadiye iniyorsun. Rüzgâr kanyon duvarlarının ardında kalıyor.',
     ],
+  },
+  tarim_kapi: {
+    ad: 'Jeotermal tarım alanının kapısı',
+    uclar: [
+      { mekan: 'vadi', x: -35, y: -25, yon: Math.PI, ad: 'Jeotermal tarım alanının kapısı' },
+      { mekan: 'tarim', x: 3010, y: 1.5, yon: 0, ad: 'Vadiye çıkış' },
+    ],
+    // Bacalar dengelenip jeotermal ısı vadiye ulaşınca açılır
+    kosul: (d) => !!d.bayrak.sondaj,
+    kilitMetni: 'Kayaya oyulmuş ağır bir kapı; ardı karanlık ve soğuk. Isıtma boruları boş. Önce sırtlardaki bacalar dengelenmeli, jeotermal ısı buraya ulaşmalı.',
+    gecisMetni: ['Kapı açılınca yüzüne ılık, nemli bir hava çarpıyor. Jeotermal tarım alanındasın.', 'Vadinin serin havasına çıkıyorsun.'],
   },
   dogu_gecit: {
     ad: 'Doğu geçidi',

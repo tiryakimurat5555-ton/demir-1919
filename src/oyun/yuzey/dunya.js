@@ -567,7 +567,7 @@ export function yerlerListesi(d, hepsi = false) {
     ekle('kapi', 'kuzey_gecit', u.ad, u.mekan, u.x, u.y);
   }
   // Faz 2 bölgelerinin geçitleri: koşulu sağlananlar ya da görülmüş bölgeye açılanlar
-  for (const id of ['dogu_gecit', 'civa_gecit', 'lav_gecit', 'mantar_gecit', 'kriyo_gecit', 'obsidyen_gecit', 'kule_inisi', 'sarp_kanyon', 'tunel_agzi', 'vaha_yolu']) {
+  for (const id of ['tarim_kapi', 'dogu_gecit', 'civa_gecit', 'lav_gecit', 'mantar_gecit', 'kriyo_gecit', 'obsidyen_gecit', 'kule_inisi', 'sarp_kanyon', 'tunel_agzi', 'vaha_yolu']) {
     const k = KAPILAR[id];
     if ((k.kosul && !k.kosul(d)) && !(d.gorulenMekanlar || []).includes(k.uclar[1].mekan)) continue;
     if (!k.kosul && !(d.gorulenMekanlar || []).includes(k.uclar[0].mekan)) continue;
