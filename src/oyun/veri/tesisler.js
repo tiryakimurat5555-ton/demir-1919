@@ -23,11 +23,17 @@ export const HAMMADDELER = {
   notron_cevher: { ad: 'nötron-yoğun cevher', tarif: 'Parçalanmış gezegen çekirdeklerinden; avuç kadarı bir kaya kadar ağır.' },
   aether: { ad: 'aether kristali', tarif: 'Malazar Dağı\'nın ocaklarından; parlak mor titreşen kristal. Gemilerin warp çekirdeklerine takılır.' },
   buyu_tozu: { ad: 'büyü tozu', tarif: 'Malazar\'ın tünellerinde havada uçuşan ılık toz; simyacılar odaklanma iksirlerine ve plazma mühürlerine katar.' },
+  oksit_celik: { ad: 'oksit ağır alaşımı', tarif: 'Filtra Oksit Dağları\'nın kırmızı-kahverengi damarlarından; zırh, top ve gemi şasisi.' },
+  rezonans_cami: { ad: 'rezonans camı', tarif: 'Zorah\'ın cam düzlüklerinden; büyü pusulaları ve optik sinyal prizmaları.' },
+  mavi_aether: { ad: 'mavi aether tozu', tarif: 'Mavi Hardrin\'in damarlarından sızan soğuk toz; kum kalkanları ve pusulalar.' },
+  morluk_kristali: { ad: 'Morluk kristali', tarif: 'Malazar\'ın orta yamacından; psişik rezonansı artıran yarı iletken tabaka.' },
+  buzul_aether: { ad: 'buzul aether', tarif: 'Malazar zirvesinin dondurucu fırtınasında oluşan sıvımsı kristal; soğuk füzyon ve reaktör kararlılığı.' },
+  saf_aether: { ad: 'arıtılmış saf aether', tarif: 'Tenohris\'in arıtma halkasından; idari ve askerî koordinasyonun, yüksek büyü sistemlerinin yakıtı.' },
   tohum: { ad: 'kseno-tahıl tohumu', tarif: 'Saklı vahadan; açıkta yetişebilen ilk yerel tarım tohumu.' },
   graviton: { ad: 'graviton minerali', tarif: 'Manyetik sırtların derin kuyularından; yalnız sondaj tankıyla çıkar. Graviton yakıtının hammaddesi.' },
 };
 
-export const HAMMADDE_SIRASI = ['bazalt', 'titanyum', 'kristal', 'izotop', 'kseno', 'polimer', 'graviton', 'sivi_metal', 'civa_tortusu', 'foton_recinesi', 'kseno_spor', 'kriyolit', 'metan', 'plazma_cami', 'obsidyen', 'antigrav_tozu', 'kseno_kabuk', 'manyetik_tohum', 'tohum', 'notron_cevher', 'aether', 'buyu_tozu'];
+export const HAMMADDE_SIRASI = ['bazalt', 'titanyum', 'kristal', 'izotop', 'kseno', 'polimer', 'graviton', 'sivi_metal', 'civa_tortusu', 'foton_recinesi', 'kseno_spor', 'kriyolit', 'metan', 'plazma_cami', 'obsidyen', 'antigrav_tozu', 'kseno_kabuk', 'manyetik_tohum', 'tohum', 'notron_cevher', 'aether', 'buyu_tozu', 'oksit_celik', 'rezonans_cami', 'mavi_aether', 'morluk_kristali', 'buzul_aether', 'saf_aether'];
 
 // Tesisler. maliyet: hammadde kimliği → miktar. kosul(d): inşa edilebilmesi için hikâye koşulu.
 export const TESISLER = {

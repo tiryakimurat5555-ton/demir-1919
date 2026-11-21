@@ -28,6 +28,7 @@ import * as TA from '../tarim/eylemler';
 import * as TR from '../tarim/tarim';
 import * as Z from '../zaman';
 import * as TM from '../tonoflenya/malken';
+import * as AT from '../tonoflenya/atlas';
 import { TESISLER } from '../veri/tesisler';
 
 export const { ESYALAR, HAREKET_KISA, ayarBaslat, ayarDegis, ayarIlerle, ayarMetni, ayarYakinlik, koloniMetni, insaListesi } = G1;
@@ -36,7 +37,7 @@ export const { NOTALAR, kapiDizisi, rezonansBaslat, rezonansSecimDegis, rezonans
 
 export const { AYAKLAR, ayakSayisi, ayakFrek, teraziBaslat, teraziPompa, teraziIlerle, teraziMetni, DENGE_ESIGI } = G4;
 
-export const SAHNELER = { ...G1.SAHNELER, ...G2.SAHNELER, ...G3.SAHNELER, ...G4.SAHNELER, ...G5.SAHNELER, ...G6.SAHNELER, ...B.SAHNELER, ...K.SAHNELER, ...A.SAHNELER, ...M.SAHNELER, ...O.SAHNELER, ...SV.SAHNELER, ...SF.SAHNELER, ...TM.SAHNELER };
+export const SAHNELER = { ...G1.SAHNELER, ...G2.SAHNELER, ...G3.SAHNELER, ...G4.SAHNELER, ...G5.SAHNELER, ...G6.SAHNELER, ...B.SAHNELER, ...K.SAHNELER, ...A.SAHNELER, ...M.SAHNELER, ...O.SAHNELER, ...SV.SAHNELER, ...SF.SAHNELER, ...TM.SAHNELER, ...AT.SAHNELER };
 
 // Telsiz bildirimleri (belgeler/savas-yetenek-ve-murettebat-mekanikleri.md 4.3): koşulu sağlanınca bir kez kuyruğa
 // girer. gorev alanı varsa yalnız o görev sürerken.
@@ -93,6 +94,7 @@ export function noktaEylemleri(d, id) {
 function temelEylemler(d, id) {
   if (TA.noktaMi(id)) return TA.noktaEylemleri(d, id);
   if (TM.noktaMi(id)) return TM.noktaEylemleri(d, id);
+  if (AT.noktaMi(id)) return AT.noktaEylemleri(d, id);
   if (M.noktaMi(id)) return M.noktaEylemleri(d, id);
   if (K.noktaMi(id)) return K.noktaEylemleri(d, id);
   if (A.noktaMi(id)) return A.noktaEylemleri(d, id);
@@ -111,6 +113,7 @@ export function eylemUygula(d, id, eylemId) {
     if (r.sicrama) sicramaZamani(d);
     return r;
   }
+  if (AT.noktaMi(id)) return AT.eylemUygula(d, id, eylemId);
   if (TA.ekEylemMi(eylemId) || TA.noktaMi(id)) return TA.eylemUygula(d, id, eylemId);
   if (G6.ekEylemMi(eylemId) || G6.noktaMi(id)) return G6.eylemUygula(d, id, eylemId);
   if (M.ekEylemMi(eylemId) || M.noktaMi(id)) return M.eylemUygula(d, id, eylemId);
@@ -301,3 +304,11 @@ export function sicramaZamani(d, sn = TM.SICRAMA_SN) {
 }
 export const { seferKosullari } = TM;
 export { kronikListesi, caglarListesi, kronikAc, KRONIKLER } from '../tonoflenya/kronik';
+
+// Tonoflenya haritası (atlas): uzak yolculuk, Yıldız Zamanı'nı oyun günü olarak ileri sarar
+export const { haritaListesi, bolgeSu, BOLGELER, KUSAKLAR, yolBul } = AT;
+export function seyahat(d, hedef) {
+  const r = AT.seyahatEt(d, hedef);
+  if (r.sn) for (let t = 0; t < r.sn; t += 60) zamanIlerle(d, 60);
+  return r;
+}

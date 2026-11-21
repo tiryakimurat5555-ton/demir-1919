@@ -393,7 +393,19 @@ Demir 1919 oyunu silindi; geçmişi git kaydında (son sürüm 1.06, commit 556f
     noktaEylemleri başına kr_<no>), kronikAc (d.kronik, kodeks kronik_<no>, itibar 15), kronikListesi, caglarListesi.
     Yeni noktalar kurulus_kitabesi (ygk_1), bagrius_aniti (malazar_ocaklari), tonEylem 'kitabe'.
   - Yuzey: menüde "Tonoflenya kronikleri" (tonoflenyaGoruldu ya da bir bölüm açıksa): bölümler ve çağlar alt listesi.
-- Sıradaki: KAPSAM.md "Sıradaki adımlar" (0: coğrafi atlas).
+- SÜRÜM 2.3 (21 Kasım, Murat: "Devam"): büyük coğrafi atlas. Telefonda denenmedi.
+  - tonoflenya/atlas.js: A_MEKANLAR 29 (x 10000 + 100×sıra; axira_cemberi, kristal_teraslar, tas_cember, kuzey 10, batı 5,
+    doğu 7, güney 4; malazar_hale statik+zehirli, malazar_zirve soguk), A_KAPILAR (cember_saray; hale_yolu, zirve_yolu),
+    A_NOKTALAR (atlas: istasyon|konus|arit|zeris|toz|sifahane|zaman; kaynaklar oksit_1, rezonans_cami_1, mavi_aether_1,
+    morluk_1, buzul_aether_1, kristal_fidanlik), BOLGELER 34 (giris, mekanlar/onek), ROTALAR 40 (gun, mod, tehlike),
+    TEHLIKELER, yolBul (Dijkstra; kayık rotası aetherKayigi ister), haritaListesi, seyahatEt (Kahergonat Yolu yalnız
+    Sinha nöbeti; sahne seyahat_<mod>), GUN 7200. gorevler.seyahat: sn kadar zamanIlerle(60). elyndra_saray artık
+    Axira Çemberi'ne, cember_saray Tenohris'e. aether_dock adı Tentran. Hammaddeler oksit_celik, rezonans_cami,
+    mavi_aether, morluk_kristali, buzul_aether, saf_aether.
+  - Yuzey: menüde "Tonoflenya haritası" (tonoflenyaHaritasi: kuşaklar → bölgeler → seyahat → sahne).
+  - Sesler ElevenLabs (20 × 17 kredi): ortam_t_okyanus/mormon/loran/liman/kale/sanayi/kukurt/col/cam/kanyon/hardrin/
+    kahergonat/tundra/zeris/bataklik/orman/teras/koy/ada/cember.
+- Sıradaki: KAPSAM.md "Sıradaki adımlar" (0: eşya, zanaat ve mürettebat).
 
 ## Sesler
 - Drive'daki Efektler/Ambians dosyaları 14 MB; Drive bağlayıcısı 10 MB'tan büyük dosyayı indiremiyor. Bu yüzden

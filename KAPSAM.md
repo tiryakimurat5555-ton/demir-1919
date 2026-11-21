@@ -279,8 +279,31 @@ bütün bölümlerini sırayla sayar (21 Kasım: v3 paketiyle sekiz belge daha g
 - [x] 12 Çağlar matrisi (2.2): sekiz çağ (liderler, mekânlar, dönüm noktası, kozmik sonuç); ilgili bölüm bulununca açılır.
 
 ## 14. tonoflenya-buyuk-cografi-atlasi.md
-- [ ] 1 Beş kuşak · 2 Merkez kuşak (2.1-2.4) · 3 Batı (3.1-3.3) · 4 Doğu (4.1-4.3) · 5 Kuzey (5.1-5.4) · 6 Güney
-      (6.1-6.4) · 7 Lojistik, hammadde ve seyrüsefer matrisi (7.1-7.3).
+- [x] 1 Beş kuşak (2.3, tonoflenya/atlas.js): 34 bölge; menüde "Tonoflenya haritası" (yalnız Tonoflenya'dayken):
+      kuşak → bölge → yolculuk (final-gorevleri 1.2'deki makro → bölge katmanı).
+- [x] 2 Merkez: 2.1 Axira Çemberi (Elyndra ile saray arasında yeni meydan; sarayın renk katmanları, kabartmalar) ·
+      2.2 üç eksen geçit adlarında (Yıldız Yolu, Fenrir Caddesi, Zorah Kapıları Yolu) · [~] 2.3 altı mahalle halkası:
+      iki belge halkaları farklı anlatıyor (Malken belgesi: Zhaor dış savunma … Elyndra iç konsey; atlas: Axira dış
+      çeper, Zhaor zanaat, Varek kışla, Sinha şifahane, Uma kütüphane, Elyndra zaman kuleleri). Malken belgesinin sırası
+      korundu, atlasın işlevleri halkalara nokta olarak eklendi; hangisinin doğru olduğu Bahtiyar'a sorulmalı ·
+      2.4 Kuzeyboğaz ve Güneygeçit köprüleri, üç ışınlanma istasyonu (Merkez İstasyon yetkiyle: YGK, Tentran, Loran;
+      Fenrir Kapısı: Fleeplee, Tentran; Zorah Kapıları: Gri Yel), Kristal Teraslar (kristal fidanlığı), Taş Çember Köyleri.
+- [x] 3 Batı: Zinas yolculuğu (fırtına, korsan), Loran Vadisi, Julithan, Anitor (Brastion, Korzel, Darnak), Filtra
+      (oksit alaşımı yatağı), Safran Sıradağları (kükürt maruziyeti); 3.3 matrisi rotalarda.
+- [x] 4 Doğu: Gri Yel Burcu ve batı kenar, Ajmero Kulesi, Kuzey Gölge Hattı, Güney Cam Düzlükleri (cam zemin, rezonans
+      camı), Doğu Kırık Vadi, Mavi Hardrin (radar menzili kısa, üç boğaz, mavi aether), Kahergonat (Kahergonat Yolu
+      yalnız Mavi Akşam nöbetinde açık; termal giysi yoksa bir gün daha).
+- [x] 5 Kuzey: Gümüş Tüy, Gözlem Adaları, Halyon; Malazar'ın dört katmanı (taban: Taç Seferi kampı; orta yamaç:
+      ocaklar, Morluk damarı, bağımsız madenciler; Hâle: statik ve aether akımı maruziyeti, tarikat müridi; zirve:
+      soğuk, buzul aether) ve üç sefer grubu; Zeris'in üç katı (üst katlar konsey izniyle: Kara Göl mührü + iğne
+      hizası); Valdren, Norvask, Helgar (soğuk), Drahmir.
+- [x] 6 Güney: 6.1 Fenrir'in ters itim alanı · 6.2 Fleeplee toz iskeleleri ve sahil mabedi, Tentran (Aether-Dock'un adı;
+      Malken belgesi doğu ucu, atlas batı ucu diyor: geçiş yeri değişmedi) · 6.3 Arin'in kanatlı halkı, Veradon ve Mor
+      Anzelon · 6.4 Tharal, Nerya, Oredan, Keralon (bataklık gazı).
+- [x] 7.1 Hammaddeler: saf Malazar kristali (aether), Morluk kristali, buzul aether, Fenrir ışık tozu (foton reçinesi),
+      oksit alaşımı, rezonans camı, mavi aether tozu, arıtılmış saf aether (Tenohris'te 2 aether → 1). [~] Bilgi
+      kartuşları ayrı eşya değil. · 7.2 Rota tablosu: süreler oyun günüyle (6 nöbet) Yıldız Zamanı'nı ileri sarar, her
+      ayağın tehlikesi işler · 7.3 Büyük çember: rotalar halkayı kapatır.
 
 ## 15. tonoflenya-esya-zanaat-ve-murettebat-rehberi.md
 - [ ] 1 YGK çekirdek subayları · 2 Hammaddeler (2.1-2.3) · 3 Zanaat (silahlar, zırhlar, gemi modülleri, iksirler) ·
@@ -295,7 +318,7 @@ bütün bölümlerini sırayla sayar (21 Kasım: v3 paketiyle sekiz belge daha g
       matrisi · 7 Entegrasyon direktifi.
 
 ## Sıradaki adımlar (sırayla)
-0. Tonoflenya genişlemesi, yönergedeki sırayla: [2.1: Malken medeniyeti (12); 2.2: kadim tarihçe (13)] → (13,
+0. Tonoflenya genişlemesi, yönergedeki sırayla: [2.1: Malken (12); 2.2: tarihçe (13); 2.3: atlas (14)] → (13,
    kodeks) → coğrafi atlas (14, beş kuşak haritası ve gemiyle Tonoflenya yolculuğu) → eşya, zanaat ve prosedürel
    mürettebat (15; Ekol Kıdemi ve rastgele karşılaşmalar, yönerge 5) → yirmi final görevi (16) → otuz yan görev (17).
 1. Telefonda deneme: seslendirilmiş telsizlerin düzeyi ve anlaşılırlığı (Murat ve Bahtiyar), ses dengeleme ve

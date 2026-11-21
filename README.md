@@ -6,7 +6,13 @@ tesis kurar, ileride gemini parça parça inşa edip uzaya açılırsın.
 
 Tasarım: Bahtiyar Cankurt (belgeler/). Yapım: Murat ve Bahtiyar. Expo Go ile iPhone ve Android'de çalışır.
 
-## Bu sürümde (2.2)
+## Bu sürümde (2.3)
+- Tonoflenya haritası: beş kuşak, otuz dört bölge (Zinas ve Batı Kıtası, Zorah Çölü ve Kahergonat, Mormon adaları,
+  Malazar'ın dört katmanı, Zeris Kulesi, kuzey ve güney krallıkları). Menüden bir bölge seçince yola çıkılır; yolculuk
+  günler sürer, fırtınalar, korsanlar, seraplar yolda. Kahergonat Yolu yalnız Mavi Akşam'da açık.
+- Malkenia'da Axira Çemberi, ışınlanma istasyonları, köprüler; her bölgenin kendi ortam sesi.
+
+## 2.2
 - Tonoflenya kronikleri: kadim tarihçenin on bir bölümü Tonoflenya'nın arşivlerinde, sarayında, gölünde, dağında saklı;
   bulunca dinlenir, menüden yeniden okunur. Sekiz tarihsel çağ.
 

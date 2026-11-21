@@ -95,7 +95,7 @@ describe('Tonoflenya', () => {
     expect(d.mekan).toBe('kara_gol');
     git(d, 'bati_sur');
     // Halkalar boyunca saraya
-    for (const k of ['zhaor_varek', 'varek_axira', 'axira_sinha', 'sinha_uma', 'uma_elyndra', 'elyndra_saray']) git(d, k);
+    for (const k of ['zhaor_varek', 'varek_axira', 'axira_sinha', 'sinha_uma', 'uma_elyndra', 'elyndra_saray', 'cember_saray']) git(d, k);
     expect(d.mekan).toBe('tenohris');
     // Kayık: iskele görevlisi
     d.mekan = 'flee_plee';
@@ -157,5 +157,44 @@ describe('Kadim tarihçe', () => {
     eylemUygula(d, 'arsiv_kuresi', 'kr_1');
     d.tamamlananOp.push('kizil_yutucu');
     expect(eylemUygula(d, 'arsiv_kuresi', 'kr_2').metin).toContain('mancınık, Kaptan');
+  });
+});
+
+import { seyahat, haritaListesi, bolgeSu, BOLGELER } from '../src/oyun/yuzey/gorevler';
+import { NOBET_SN as NS } from '../src/oyun/zaman';
+describe('Coğrafi atlas', () => {
+  test('her bölgenin giriş mekânı var; bütün bölgelere Magentor\'dan yol var', () => {
+    const d = hazir();
+    d.bayrak.aetherKayigi = true;
+    d.mekan = 'halka_zhaor';
+    for (const id of Object.keys(BOLGELER)) expect(MEKANLAR[BOLGELER[id].giris]).toBeDefined();
+    const l = haritaListesi(d);
+    expect(l.filter((x) => !x.burada).every((x) => x.yol)).toBe(true);
+  });
+  test('yolculuk zaman harcar ve varır; Kahergonat Yolu yalnız Mavi Akşam\'da', () => {
+    const d = hazir();
+    d.mekan = 'halka_zhaor';
+    d.zaman = { sn: 0 };
+    const r = seyahat(d, 'julithan');
+    expect(r.sn).toBeGreaterThanOrEqual(5.5 * 7200);
+    expect(d.mekan).toBe('julithan');
+    expect(d.sahne.indexOf('seyahat_')).toBe(0);
+    d.mekan = 'hardrin';
+    d.zaman.sn = Math.ceil(d.zaman.sn / (6 * NS)) * 6 * NS; // Gümüş Şafak
+    expect(seyahat(d, 'kahergonat').ses).toBe('red');
+    d.zaman.sn += 4 * NS; // Mavi Akşam
+    expect(seyahat(d, 'kahergonat').ses).toBeUndefined();
+    expect(bolgeSu(d)).toBe('kahergonat');
+  });
+  test('Merkez İstasyon yetki ister; Fenrir Kapısı herkese açık', () => {
+    const d = hazir();
+    d.mekan = 'tenohris';
+    expect(eylemUygula(d, 'merkez_istasyon', 'ist_loran').ses).toBe('red');
+    d.bayrak.karaGolIzni = true;
+    eylemUygula(d, 'merkez_istasyon', 'ist_loran');
+    expect(d.mekan).toBe('loran');
+    d.mekan = 'halka_zhaor';
+    eylemUygula(d, 'fenrir_istasyonu', 'ist_tentran');
+    expect(d.mekan).toBe('aether_dock');
   });
 });

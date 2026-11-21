@@ -138,6 +138,11 @@ import {
   kronikListesi,
   caglarListesi,
   kronikAc,
+  haritaListesi,
+  bolgeSu,
+  BOLGELER,
+  KUSAKLAR,
+  seyahat,
 } from '../oyun/yuzey/gorevler';
 import { BITKILER, ISLEME_TESISI } from '../oyun/tarim/bitkiler';
 import { UZMANLIKLAR, subayIstihdam, SEKTORLER, bosta, girdiMetni, harca, yeterMi, ilacDagit, isGucuDegis, moralMetni, moralSesi, parcaMetni, uretimBaslat, uretimListesi } from '../oyun/koloni';
@@ -936,6 +941,7 @@ export default function Yuzey({ onGeri, baslangic, yeniOyunUret }) {
         { id: 'devam', etiket: 'Devam et', sec: () => (katmanKapat('Devam.'), 'sessiz') },
         { id: 'gorev', etiket: 'Görev', ipucu: 'Şu an ne yapabileceğini söyler.', sec: () => (soyle(gorevIpucu(dunya.current), 'istek', true), 'sessiz') },
         { id: 'yerler', etiket: 'Yerler', ipucu: 'Bir yer ya da kişi seç; oraya kendin yürürsün.', sec: () => (yerlerGoster(), 'sessiz') },
+        ...(MEKANLAR[dunya.current.mekan] && MEKANLAR[dunya.current.mekan].tonoflenya ? [{ id: 'tharita', etiket: 'Tonoflenya haritası', ipucu: 'Beş kuşak; uzak bölgelere yolculuk.', sec: () => (tonoflenyaHaritasi(), 'sessiz') }] : []),
         { id: 'durum', etiket: 'Neredeyim', sec: () => (soyle(durumMetni(dunya.current), 'istek', true), 'sessiz') },
         { id: 'tasinan', etiket: 'Taşıdıkların ve hammadde', sec: () => (soyle(tasinanMetni(), 'istek', true), 'sessiz') },
         { id: 'koloni', etiket: 'Koloni', sec: () => (soyle(koloniMetni(dunya.current), 'istek', true), 'sessiz') },
@@ -985,6 +991,53 @@ export default function Yuzey({ onGeri, baslangic, yeniOyunUret }) {
           ipucu: 'Oyun kendiliğinden kaydedilir; Devam et ile kaldığın yerden sürersin.',
           sec: () => (kaydet(), onGeri(), 'sessiz'),
         },
+      ],
+    });
+  };
+
+  // Tonoflenya haritası (atlas): kuşaklar → bölgeler; seçilen bölgeye yolculuk (zaman akar, tehlikeler işler)
+  const tonoflenyaHaritasi = (kusak) => {
+    const d = dunya.current;
+    const bas = bolgeSu(d);
+    const liste = haritaListesi(d);
+    if (!kusak) {
+      katmanAc({
+        baslik: 'Tonoflenya haritası',
+        giris: 'Buradasın: ' + (bas ? BOLGELER[bas].ad : 'bilinmeyen bir yer') + '. Bir kuşak seç; bölgelerin yol süreleri ve rotaları okunur.',
+        onGeri: () => menuyuAc(),
+        ogeler: [...Object.keys(KUSAKLAR).map((k) => ({ id: k, etiket: KUSAKLAR[k] + ', ' + liste.filter((x) => x.kusak === k).length + ' bölge', sec: () => (tonoflenyaHaritasi(k), 'sessiz') })), { id: 'geri', etiket: 'Menüye dön', sec: () => (menuyuAc(), 'sessiz') }],
+      });
+      return;
+    }
+    katmanAc({
+      baslik: KUSAKLAR[kusak],
+      giris: 'Bir bölge seç; çift dokununca yola çıkarsın.',
+      onGeri: () => tonoflenyaHaritasi(),
+      ogeler: [
+        ...liste
+          .filter((x) => x.kusak === kusak)
+          .map((x) => ({
+            id: x.id,
+            etiket: x.metin,
+            sec: () => {
+              if (x.burada || !x.yol) {
+                soyle(x.metin, 'istek', true);
+                return 'sessiz';
+              }
+              const r = seyahat(d, x.id);
+              kaydet();
+              if (r.ses) {
+                cal('red', 0.6);
+                soyle(r.metin, 'istek', true);
+                return 'sessiz';
+              }
+              katmanKapatSessiz();
+              sesleriEsitle(true);
+              sahneGoster(d.sahne);
+              return 'sessiz';
+            },
+          })),
+        { id: 'geri', etiket: 'Kuşaklara dön', sec: () => (tonoflenyaHaritasi(), 'sessiz') },
       ],
     });
   };

@@ -41,7 +41,7 @@ export const T_MEKANLAR = {
   dogu_kanton: dis('Doğu çöl kantonları', 'Altın kumulların başladığı kurak platolarda soylu ve tüccar klanlarının malikâneleri: yerçekimi sönümleyicili özel vahalar, aether hamamları, yüksek kuleler.', 7900, 'ortam_t_kanton'),
   // Güney havzası
   flee_plee: dis('Flee Plee sahil şeridi', 'Malkenia ile Fenrir Denizi arasında kıvrılan beyaz kumlu sahil: kavisli organik villalar, balıkçı köyleri, aether fenerleri. Kumun üstünde ışıldayan bir toz sürükleniyor.', 6200, 'ortam_t_sahil'),
-  aether_dock: dis('Aether-Dock, deniz üstü teknokent', 'Kıyıdan fersahlarca uzakta, Fenrir\'in derin sularının üstünde yükselen metal ve kristal platform. Karadan köprü yok; Tonoflenya\'nın yıldız gemileri burada monte edilip fırlatılıyor.', 6000, 'ortam_t_dock'),
+  aether_dock: dis('Tentran platform kenti (Aether-Dock)', 'Kıyıdan fersahlarca uzakta, Fenrir\'in derin sularının üstünde yükselen metal ve kristal platform. Karadan köprü yok; Tonoflenya\'nın yıldız gemileri burada monte edilip fırlatılıyor.', 6000, 'ortam_t_dock'),
   fenrir: dis('Fenrir Işık ve Toz Denizi', 'Sıvılaşmış aether kristalleri, foton tozu ve minerallerle kaplı bir deniz. Kayığın manyetik kalkanı ışıldayan tozun üstünde süzülüyor; metal bir gemi burada batardı.', 6400, 'ortam_t_fenrir'),
   arin: ic('Uçan Arin Adası', 'Denizin onlarca metre üstünde havada asılı bir kaya ve orman kütlesi; ters-yerçekimi kristalleriyle dolu. Malken keşişlerinin inzivaya çekildiği antik tapınaklar burada.', 6600, 'ortam_t_arin', { dis: true }),
   veradon: dis('Veradon liman kasabası', 'Malken topraklarının bittiği son resmî sınır: taş rıhtımlar, gümrük kuleleri, hanlar. Ötesinde güney kıtasının bağımsız ve tekinsiz krallıkları.', 6800, 'ortam_t_veradon'),
@@ -55,20 +55,20 @@ const u = (mekan, x, y, yon, ad) => ({ mekan, x, y, yon, ad });
 const b = (d) => d.bayrak;
 
 export const T_KAPILAR = {
-  ygk_kuzeybati: kapi('Akademinin güney kapısı', u('ygk_1', katX('ygk_1') + 10, 1.5, Math.PI, 'Malkenia\'ya inen yol'), u('halka_zhaor', 7008, 58.5, 0, 'Kuzeybatı kapısı: YGK Akademi')),
+  ygk_kuzeybati: kapi('Yıldız Yolu ve Kuzeyboğaz Köprüsü', u('ygk_1', katX('ygk_1') + 10, 1.5, Math.PI, 'Malkenia\'ya inen yol'), u('halka_zhaor', 7008, 58.5, 0, 'Kuzeybatı kapısı: YGK Akademi')),
   zhaor_varek: kapi('Varek halkasının kapısı', u('halka_zhaor', 7030, 30, 0, 'İç kapı: Varek halkası'), u('halka_varek', 7130, 1.5, Math.PI, 'Dış kapı: Zhaor halkası')),
   varek_axira: kapi('Axira halkasının kapısı', u('halka_varek', 7130, 58.5, 0, 'İç kapı: Axira halkası'), u('halka_axira', 7230, 1.5, Math.PI, 'Dış kapı: Varek halkası')),
   axira_sinha: kapi('Sinha halkasının kapısı', u('halka_axira', 7230, 58.5, 0, 'İç kapı: Sinha halkası'), u('halka_sinha', 7330, 1.5, Math.PI, 'Dış kapı: Axira halkası')),
   sinha_uma: kapi('Uma halkasının kapısı', u('halka_sinha', 7330, 58.5, 0, 'İç kapı: Uma halkası'), u('halka_uma', 7430, 1.5, Math.PI, 'Dış kapı: Sinha halkası')),
   uma_elyndra: kapi('Elyndra halkasının kapısı', u('halka_uma', 7430, 58.5, 0, 'İç kapı: Elyndra halkası'), u('halka_elyndra', 7530, 1.5, Math.PI, 'Dış kapı: Uma halkası')),
-  elyndra_saray: kapi('Tenohris Sarayı\'nın kapısı', u('halka_elyndra', 7530, 58.5, 0, 'Tenohris Sarayı'), u('tenohris', 7610, 1.5, Math.PI, 'Saraydan Elyndra halkasına')),
+  elyndra_saray: kapi('Axira Çemberi\'nin kapısı', u('halka_elyndra', 7530, 58.5, 0, 'Axira Çemberi ve saray'), u('axira_cemberi', 10030, 1.5, Math.PI, 'Elyndra halkasına dönüş')),
   bati_sur: kapi('Batı suru', u('halka_zhaor', 7001.5, 30, -Math.PI / 2, 'Batı suru: Kara Göl'), u('kara_gol', 7730, 1.5, Math.PI, 'Batı suruna dönen yol'), {
     kosul: (d) => !!b(d).karaGolIzni,
     kilitMetni: 'Surun kapısında iki muhafız: "Kara Göl yasaklı bölge, Kaptan. Yalnız koruma büyüsüyle donatılmış araştırmacılar geçer. Akademinin arşivinden izin al."',
     gecisMetni: ['Muhafızlar koruma mührüne bakıp kenara çekiliyor. Surun ötesinde krater açılıyor; hava birden soğuyor, sudan fısıltılar yükseliyor.', 'Krateri arkanda bırakıp surun içine dönüyorsun.'],
   }),
-  dogu_yolu: kapi('Doğu yolu', u('halka_zhaor', 7058.5, 30, Math.PI / 2, 'Doğu yolu: çöl kantonları'), u('dogu_kanton', 7930, 1.5, Math.PI, 'Malkenia\'ya dönen yol')),
-  karavan_hatti: kapi('Güney karavan hattı', u('halka_zhaor', 7030, 1.5, Math.PI, 'Güney karavan hattı: Flee Plee'), u('flee_plee', 6230, 58.5, 0, 'Karavan hattı: Malkenia'), {
+  dogu_yolu: kapi('Zorah Kapıları Yolu', u('halka_zhaor', 7058.5, 30, Math.PI / 2, 'Doğu yolu: çöl kantonları'), u('dogu_kanton', 7930, 1.5, Math.PI, 'Malkenia\'ya dönen yol')),
+  karavan_hatti: kapi('Güneygeçit Köprüsü ve Fenrir Caddesi', u('halka_zhaor', 7030, 1.5, Math.PI, 'Güney karavan hattı: Flee Plee'), u('flee_plee', 6230, 58.5, 0, 'Karavan hattı: Malkenia'), {
     gecisMetni: ['Manyetik karavanın kapısı kapanıyor; şehir arkanda kalıyor, rüzgâr tuzlanıyor. Flee Plee sahilindesin.', 'Karavan seni Malkenia\'nın Zhaor halkasına bırakıyor.'],
   }),
   faz_kapisi: kapi('Kuantum faz kapısı', u('flee_plee', 6258.5, 30, Math.PI / 2, 'Doğu ucu: kuantum faz kapısı'), u('aether_dock', 6030, 1.5, Math.PI, 'Faz kapısı: Flee Plee'), {

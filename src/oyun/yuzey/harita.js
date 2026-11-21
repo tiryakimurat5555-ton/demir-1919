@@ -506,3 +506,8 @@ import { T_MEKANLAR, T_KAPILAR, T_NOKTALAR } from '../tonoflenya/harita';
 Object.assign(MEKANLAR, T_MEKANLAR);
 Object.assign(KAPILAR, T_KAPILAR);
 Object.assign(NOKTALAR, T_NOKTALAR);
+// Büyük coğrafi atlas (tonoflenya/atlas.js, 2.3)
+import { A_MEKANLAR, A_KAPILAR, A_NOKTALAR } from '../tonoflenya/atlas';
+Object.assign(MEKANLAR, A_MEKANLAR);
+Object.assign(KAPILAR, A_KAPILAR);
+Object.assign(NOKTALAR, A_NOKTALAR);
