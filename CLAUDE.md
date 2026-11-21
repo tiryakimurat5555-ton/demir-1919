@@ -333,5 +333,9 @@ Demir 1919 oyunu silindi; geçmişi git kaydında (son sürüm 1.06, commit 556f
   Kayıt `yayin-kaydi` dalında: `git fetch -q origin yayin-kaydi && git show FETCH_HEAD:yayin-kaydi.txt`
   Yedek yol: mcp__Expo__workflow_run (appFullName @murat5561/demir-1919, fileName yayin.yml, gitRef = commit).
   EAS iOS derlemesi (kredi harcar) Murat'a sormadan başlatılmaz.
+- Android APK (Bahtiyar için; Murat 21 Kasım istedi): eas.json "apk" profili (internal, buildType apk, channel main).
+  Kanal main → dal main: her push'taki eas update APK'ya da iner. runtimeVersion policy appVersion: app.json
+  "version" 0.1.0 DEĞİŞTİRİLMEMELİ, yoksa güncellemeler eski APK'ya gelmez. Yeni yerel modül (package.json'a yeni
+  native bağımlılık) eklenirse yeni APK gerekir. Derleme: mcp__Expo__build_run (ANDROID, apk, gitRef commit).
 - Akış: uygula → testler → bun build → CLAUDE.md/README → commit → git pull --rebase → push → yayın → SUCCESS'i bekle
   → Türkçe rapor (Expo Go bağlantısı, yenilikler, denenmemiş olanlar dürüstçe).
