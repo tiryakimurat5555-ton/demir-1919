@@ -10,6 +10,7 @@
 //   Zorah Kapıları.
 //   Bayraklar: d.bayrak.zerisIzni (Zeris'in üst katları), d.tBolge (son bölge; bilgi).
 import { nobet, kalanSn } from '../zaman';
+import * as SB from './subay';
 
 export const GUN = 7200; // bir oyun günü (altı nöbet)
 const dis = (ad, tarif, bati, ortam, ek = {}) => ({ ad, tarif, alan: { bati, dogu: bati + 60, guney: 0, kuzey: 60 }, ortam, zemin: 'tas', dis: true, tonoflenya: true, ...ek });
@@ -329,7 +330,11 @@ export function seyahatEt(d, hedef) {
   d.seyahatNotu = notlar.filter(Boolean).join(' ');
   d.seyahatHedef = g.ad;
   d.sahne = 'seyahat_' + (son === 'isinlanma' ? 'isinlanma' : son);
-  return { metin: '', sn: gun * GUN, sahne: d.sahne };
+  // Ekol kıdemi: her yolculuk Gümüş; Mormon akıntıları Mavi, çöl Sarı (yönerge 5.A)
+  SB.ekolKazan(d, 'zhaor', 5);
+  if (y.ayaklar.some((a) => a.mod === 'deniz_mormon')) SB.ekolKazan(d, 'sinha', 40);
+  if (y.ayaklar.some((a) => a.mod === 'col')) SB.ekolKazan(d, 'uma', 10);
+  return { metin: '', sn: Math.round(gun * GUN * SB.seyahatCarpani(d)), sahne: d.sahne };
 }
 
 // İstasyonlar ve öbür atlas noktaları
@@ -351,8 +356,17 @@ export function noktaEylemleri(d, id) {
   e.push({ id: 'incele', etiket: 'İncele' });
   return e;
 }
+// Zorah çölünün harabelerini araştırmak Sarı Yıldız kıdemi verir (her yerde bir kez)
+const ZORAH = ['gri_yel', 'ajmero', 'cam_duzlukleri', 'kirik_vadi'];
 export function eylemUygula(d, id, eid) {
   const p = A_NOKTALAR[id];
+  if (ZORAH.includes(p.mekan) && eid !== 'incele') {
+    if (!d.ekolNokta) d.ekolNokta = [];
+    if (!d.ekolNokta.includes(id)) {
+      d.ekolNokta.push(id);
+      SB.ekolKazan(d, 'uma', 25);
+    }
+  }
   if (eid === 'incele') return { metin: p.tarif };
   if (eid === 'konus') return { metin: p.soz };
   if (eid.indexOf('ist_') === 0) {

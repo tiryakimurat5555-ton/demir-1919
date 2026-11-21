@@ -30,6 +30,9 @@ import * as Z from '../zaman';
 import * as TM from '../tonoflenya/malken';
 import * as AT from '../tonoflenya/atlas';
 import { TESISLER } from '../veri/tesisler';
+import * as ZN from '../tonoflenya/zanaat';
+import * as SB from '../tonoflenya/subay';
+import { MEKANLAR } from './harita';
 
 export const { ESYALAR, HAREKET_KISA, ayarBaslat, ayarDegis, ayarIlerle, ayarMetni, ayarYakinlik, koloniMetni, insaListesi } = G1;
 export const { valfBaslat, valfIlerle, valfBirak, valfMetni, ALARM_ESIGI, bacaSayisi } = G2;
@@ -83,7 +86,7 @@ export function gorevIpucu(d) {
 }
 
 export function noktaEylemleri(d, id) {
-  const ek = [...G6.ekEylemler(d, id), ...K.ekEylemler(d, id), ...M.ekEylemler(d, id), ...TA.ekEylemler(d, id), ...(id === 'tepe' ? TM.tepeEylemi(d) : [])];
+  const ek = [...G6.ekEylemler(d, id), ...K.ekEylemler(d, id), ...M.ekEylemler(d, id), ...TA.ekEylemler(d, id), ...(id === 'tepe' ? TM.tepeEylemi(d) : []), ...ZN.ekEylemler(d, id)];
   if (G6.noktaMi(id)) return [...ek, { id: 'incele', etiket: 'Sütunu incele' }];
   const temel = temelEylemler(d, id);
   if (!ek.length) return temel;
@@ -92,6 +95,7 @@ export function noktaEylemleri(d, id) {
   return i < 0 ? [...temel, ...ek] : [...temel.slice(0, i), ...ek, ...temel.slice(i)];
 }
 function temelEylemler(d, id) {
+  if (ZN.noktaMi(id)) return ZN.noktaEylemleri(d, id);
   if (TA.noktaMi(id)) return TA.noktaEylemleri(d, id);
   if (TM.noktaMi(id)) return TM.noktaEylemleri(d, id);
   if (AT.noktaMi(id)) return AT.noktaEylemleri(d, id);
@@ -108,10 +112,14 @@ function temelEylemler(d, id) {
 
 export function eylemUygula(d, id, eylemId) {
   if (eylemId === 'y_ygk') return TM.ygkAra(d);
+  if (eylemId === 'z_sarj' || ZN.noktaMi(id)) return beklemeyiUygula(d, ZN.eylemUygula(d, id, eylemId));
   if (TM.noktaMi(id)) {
     const r = TM.eylemUygula(d, id, eylemId);
-    if (r.sicrama) sicramaZamani(d);
-    return r;
+    if (r.sicrama) {
+      sicramaZamani(d, ZN.sicramaSuresi(d));
+      ZN.sarjBaslat(d);
+    }
+    return beklemeyiUygula(d, r);
   }
   if (AT.noktaMi(id)) return AT.eylemUygula(d, id, eylemId);
   if (TA.ekEylemMi(eylemId) || TA.noktaMi(id)) return TA.eylemUygula(d, id, eylemId);
@@ -229,6 +237,17 @@ export function zamanIlerle(d, dt) {
     K.vahaBulundu(d);
   }
   for (const o of olaylar) if (o.tur === 'gemiHazir') G5.gemiHazir(d, o.sinif);
+  // Ekol kıdemi, ambar dengesi, subayların kriz sözleri (tonoflenya/zanaat.js, subay.js)
+  ZN.ekolDenetle(d, MEKANLAR, FENOMENLER);
+  ZN.kargoDenetle(d);
+  if ((d.zehir || 0) >= 75) {
+    const k = SB.kriz(d, 'axira');
+    if (k) SB.haber(d, k);
+  }
+  if (d.haberKuyrugu && d.haberKuyrugu.length) {
+    for (const m of d.haberKuyrugu) olaylar.push({ tur: 'haber', metin: m, acil: true });
+    d.haberKuyrugu = [];
+  }
   for (const id of S.poiGuncelle(d)) olaylar.push({ tur: 'poi', id, metin: 'Sinyal kulesi yeni bir nokta yakaladı: ' + S.UZAY_NOKTALARI[id].ad + '. Uzay haritasında.' });
   return olaylar;
 }
@@ -244,7 +263,12 @@ export const { UZAY_NOKTALARI, gorunurNoktalar, itki, burunDondur, uzayRadar, uz
 export function uzayAdim(d, dt) {
   if (d.savas) return [];
   const olaylar = S.uzayIlerle(d, dt);
-  olaylar.push(...F.fenomenIlerle(d, dt));
+  const fo = F.fenomenIlerle(d, dt);
+  if (fo.some((o) => o.tur === 'fenomen')) {
+    const k = SB.kriz(d, 'sinha');
+    if (k) fo.push({ tur: 'haber', metin: k });
+  }
+  olaylar.push(...fo);
   olaylar.push(...SF.seferIlerle(d, dt));
   if (olaylar.some((o) => o.tur === 'yakitBitti')) {
     // Yakıt bitti: koloni bir yakıt kapsülü yollar, gemi kızağa döner
@@ -272,11 +296,17 @@ export function kenetlen(d) {
     for (const u of d.murettebat) u.stres = 0;
     d.seferSure = 0;
     d.klostrofobiDendi = false;
+    d.krizDendi = {};
   }
   // YGK feneri: Tonoflenya'ya hiper-sıçrama (tonoflenya/malken.js)
   if (r.id === 'ygk_feneri' && !r.kilitli) {
+    const engel = ZN.sicramaDurumu(d);
+    if (engel) return { metin: engel, ses: 'red' };
+    ZN.sicramaYakitiHarca(d);
     TM.sicrama(d);
-    sicramaZamani(d);
+    d.krizDendi = {};
+    sicramaZamani(d, ZN.sicramaSuresi(d));
+    ZN.sarjBaslat(d);
     return { metin: '', tonoflenya: true };
   }
   // Donanım tamsa ve operasyon yapılmadıysa doğrudan operasyon sahasına girilir
@@ -300,9 +330,20 @@ export const { zamanMetni, nobet, NOBETLER } = Z;
 export function sicramaZamani(d, sn = TM.SICRAMA_SN) {
   const once = d.koloni.nufus.toplam;
   for (let t = 0; t < sn; t += 60) zamanIlerle(d, 60);
-  d.sicramaNotu = 'Yolculuk sekiz saat sürdü. ' + Z.zamanMetni(d) + (d.koloni.nufus.toplam > once ? ' Koloninin nüfusu ' + d.koloni.nufus.toplam + '.' : '');
+  d.sicramaNotu = 'Yolculuk ' + ZN.sureMetni(sn) + ' sürdü. ' + Z.zamanMetni(d) + (d.koloni.nufus.toplam > once ? ' Koloninin nüfusu ' + d.koloni.nufus.toplam + '.' : '');
 }
 export const { seferKosullari } = TM;
+// Bekleme (sıçrama şarjı): zaman ileri sarılır
+function beklemeyiUygula(d, r) {
+  if (r && r.bekle) {
+    const sn = r.bekle;
+    for (let t = 0; t < sn; t += 60) zamanIlerle(d, 60);
+    r.metin = ZN.sureMetni(sn) + ' bekledin. Sıçrama motoru şarjlı. ' + Z.zamanMetni(d);
+    r.ses = 'sinyal';
+    delete r.bekle;
+  }
+  return r;
+}
 export { kronikListesi, caglarListesi, kronikAc, KRONIKLER } from '../tonoflenya/kronik';
 
 // Tonoflenya haritası (atlas): uzak yolculuk, Yıldız Zamanı'nı oyun günü olarak ileri sarar

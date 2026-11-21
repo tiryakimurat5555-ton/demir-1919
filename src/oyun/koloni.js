@@ -10,6 +10,7 @@
 //   İş gücü: nüfus üç sektöre paylaştırılır (sanayi, tersane, bilim); kalanı boşta.
 import { NOKTALAR } from './yuzey/harita';
 import { yildizCarpani } from './zaman';
+import * as SB from './tonoflenya/subay';
 import { HAMMADDELER } from './veri/tesisler';
 import { PARCALAR, TARIFLER } from './veri/uretim';
 import { montajIlerle } from './gemi/gemi';
@@ -271,7 +272,7 @@ export function koloniIlerle(d, dt) {
   if (k.firtina >= FIRTINA_SN) {
     k.firtina = 0;
     if ((k.kalkan || 1) < 2 && n.toplam >= 8) {
-      k.moral = Math.max(0, k.moral - 5);
+      SB.moralKaybi(d, 5);
       olaylar.push({ tur: 'moral', metin: 'Radyasyon fırtınası koloniyi dövdü; insanlar sığınaklarda. Moral düştü. Bir kalkan jeneratörü bunu önler.' });
     }
   }
@@ -279,7 +280,7 @@ export function koloniIlerle(d, dt) {
     k.besin = (k.besin || 0) + dt;
     if (k.besin >= BESIN_SN) {
       k.besin = 0;
-      k.moral = Math.max(0, k.moral - 2);
+      SB.moralKaybi(d, 2);
       olaylar.push({ tur: 'moral', metin: 'Yirmiden fazla insana sentetik gıda yetmiyor; moral düşüyor. Bir sera hubu gerek.' });
     }
   }
@@ -304,7 +305,7 @@ export function koloniIlerle(d, dt) {
   olaylar.push(...montajIlerle(d, dt, 1 + 0.5 * n.tersane));
   // Nüfus ve moral
   if (n.toplam < n.barinma) {
-    const carpan = (d.koloni.binalar.includes('biyo_kubbe') ? 1.5 : 1) * (d.koloni.binalar.includes('sera') ? 1.5 : 1) * (katmanTamamMi(d, 'biyosfer') ? 1.5 : 1) * (d.bayrak.g_tarim ? 1.2 : 1) * (d.bayrak.p_tarim ? 1.3 : 1) * (d.koloni.binalar.includes('hastane') ? 1.2 : 1) * (k.moral >= 50 ? 1 : 0.3) * yildizCarpani(d, 'nufus');
+    const carpan = (d.koloni.binalar.includes('biyo_kubbe') ? 1.5 : 1) * (d.koloni.binalar.includes('sera') ? 1.5 : 1) * (katmanTamamMi(d, 'biyosfer') ? 1.5 : 1) * (d.bayrak.g_tarim ? 1.2 : 1) * (d.bayrak.p_tarim ? 1.3 : 1) * (d.koloni.binalar.includes('hastane') ? 1.2 : 1) * (k.moral >= 50 ? 1 : 0.3) * yildizCarpani(d, 'nufus') * (SB.kabiliyet(d, 'axira', 4) ? 1.2 : 1);
     k.buyume = (k.buyume || 0) + dt * carpan;
     if (k.buyume >= NUFUS_SN) {
       k.buyume -= NUFUS_SN;

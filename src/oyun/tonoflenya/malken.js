@@ -10,8 +10,11 @@
 import { T_NOKTALAR, YGK_KATLARI, T_MEKANLAR } from './harita';
 import { NOBETLER, nobet } from '../zaman';
 import * as KR from './kronik';
+import * as ZN from './zanaat';
 
-export const SICRAMA_SN = 8 * 3600; // hiper-sıçrama süresi (yönerge 4.B örneği: 08:00:00)
+// Hiper-sıçrama süresi: sekiz saat Yıldız Zamanı (yönerge 4.B örneği 08:00:00; bir oyun saati 300 sn, gün 7200 sn).
+// 2.4'e kadar yanlışlıkla 8 × 3600 sn (dört oyun günü) ileri sarıyordu.
+export const SICRAMA_SN = 8 * 300;
 export const GEREKEN_OP = 10;
 const b = (d) => d.bayrak;
 const ilk = (d, rol) => (d.murettebat[rol] ? d.murettebat[rol].ad.split(' ')[0] : '');
@@ -139,7 +142,10 @@ export function noktaEylemleri(d, id) {
     for (const k of YGK_KATLARI) if (k !== n.mekan) e.push({ id: 'kat_' + k, etiket: KATLAR_ADI(k), ipucu: T_MEKANLAR[k].ad.split(': ')[1] });
     return e;
   }
-  if (t === 'iskele') e.push({ id: 'bakim', etiket: 'Geminin bakımını yaptır' }, { id: 'donus', etiket: 'Aethelis-IV\'e sıçra', ipucu: 'Sekiz saat.' });
+  if (t === 'iskele') {
+    e.push({ id: 'bakim', etiket: 'Geminin bakımını yaptır', ipucu: 'Yakıt Akademiden; gövde onarımı ' + ZN.bakimMaliyeti(d) + ' kredi.' }, { id: 'donus', etiket: 'Aethelis-IV\'e sıçra', ipucu: ZN.sureMetni(ZN.sicramaSuresi(d)) + ', ' + ZN.sicramaYakiti(d) + ' litre yakıt.' });
+    if (ZN.sarjKalan(d) > 0) e.push({ id: 'sarj', etiket: 'Sıçrama motorunun şarjını bekle', ipucu: ZN.sureMetni(ZN.sarjKalan(d)) + ' kaldı.' });
+  }
   if (t === 'igne' && !b(d).malazarIzni) e.push({ id: 'hizala', etiket: 'Altı yıldızı hizala', ipucu: 'İğnenin frekansını ayarla.' });
   if (t === 'simulator' && !b(d).ygk_simulasyon) e.push({ id: 'simule', etiket: 'Simülasyona otur' });
   if (t === 'magitech') {
@@ -181,12 +187,16 @@ export function eylemUygula(d, id, eid) {
   }
   switch (eid) {
     case 'bakim':
-      d.gemi.govde = d.gemi.maxGovde;
-      d.gemi.yakit = d.gemi.maxYakit;
-      return { metin: 'Akademi teknisyenleri gövdeyi onarıyor, tankı dolduruyor. Gemi hazır.', ses: 'kaynak' };
-    case 'donus':
+      return ZN.bakimYap(d);
+    case 'donus': {
+      const k = ZN.sicramaDurumu(d);
+      if (k) return { metin: k, ses: 'red' };
+      ZN.sicramaYakitiHarca(d);
       donus(d);
       return { metin: '', sicrama: true };
+    }
+    case 'sarj':
+      return { metin: '', bekle: ZN.sarjKalan(d) };
     case 'hizala':
       return { ayar: true, amac: 'igne' };
     case 'simule':
@@ -245,7 +255,8 @@ export function eylemUygula(d, id, eid) {
       if (b(d).t_toz === g) return { metin: 'Kova dolu; toz bu nöbet yeniden dalgalanacak.', ses: 'red' };
       b(d).t_toz = g;
       d.koloni.kaynaklar.foton_recinesi = (d.koloni.kaynaklar.foton_recinesi || 0) + 2;
-      return { metin: 'Kova ışıldayan tozla doluyor; ellerinin arasında ılık bir parıltı. İki birim foton reçinesi.', ses: 'topla' };
+      d.koloni.kaynaklar.isik_tozu = (d.koloni.kaynaklar.isik_tozu || 0) + 100;
+      return { metin: 'Kova ışıldayan tozla doluyor; ellerinin arasında ılık bir parıltı. İki birim foton reçinesi ve yüz gram Fenrir ışık tozu: Tentran ve Arin\'de para yerine geçer, gramı elli lira.', ses: 'topla' };
     }
     case 'oku':
       kodeksEkle(d, 'cevre_krallik', 'Tonoflenya\'nın sınırları', 'Kuzeyde daimi kar fırtınalı dağlarda buz kuleli Donmuş Krallıklar (sibernetik alaşımlar, kriyojenik silahlar). Doğuda piramidal kaleli, güneş kuleli Çöl Krallıkları (altın, baharat, güneş enerjisi). Kuzeydoğu ucunda Kahergonat, Kara Şehir: volkanik bazalt, sürgün büyücüler, karaborsa, tarikatlar; mor ve yeşil dumanlar. Batıda ve güneyde okyanus ötesi özerk krallıklar.', 15);
@@ -291,7 +302,10 @@ function konus(d, kim) {
     if (!g.ygkKayit) {
       g.ygkKayit = true;
       d.itibar += 20;
-      return 'Görevli mor gözlerini kaldırıyor: "Kayıtlarımızda adın var, Kaptan; prototip keşif gemisiyle kat 5\'ten fırlatılmış, alt-uzay sıçramasında kaybolmuş. Evrensel Keşif ve Hayat Kurtarma Yemini hâlâ geçerli. Akademi senin evin: asansörle bütün katlara inebilirsin, yalnız eksi beş yasak. Arşivde Kara Göl kaydını dinlersen koruma mührü alırsın; Zirve İğnesi\'ni hizalarsan Malazar açılır. Kayık için Flee Plee iskelesine söyledim. Şehir güneyde: Zhaor halkasından içeri altı halka, merkezde Tenohris."';
+      ZN.hazirla(d);
+      d.para.ml += 300;
+      d.para.gk += 100;
+      return 'Görevli mor gözlerini kaldırıyor: "Kayıtlarımızda adın var, Kaptan; prototip keşif gemisiyle kat 5\'ten fırlatılmış, alt-uzay sıçramasında kaybolmuş. Evrensel Keşif ve Hayat Kurtarma Yemini hâlâ geçerli. Akademi senin evin: asansörle bütün katlara inebilirsin, yalnız eksi beş yasak. Arşivde Kara Göl kaydını dinlersen koruma mührü alırsın; Zirve İğnesi\'ni hizalarsan Malazar açılır. Kayık için Flee Plee iskelesine söyledim. Şehir güneyde: Zhaor halkasından içeri altı halka, merkezde Tenohris." Masaya bir kese ve bir veri kartı bırakıyor: üç yüz Malken Lirası harçlık, yüz Galaktik Keşif Kredisi. "Subay kurulu bu meydanda; gemin için kadro ister misin, onlara sor. Derin uzay verilerini ikinci kattaki veri masası satın alır."';
     }
     return 'Görevli: "Asansör iskelenin yanında, Kaptan. Malkenia güney kapıdan; Malazar kuzey sahil kapısından. Yıldızlar seninle."';
   }

@@ -1395,7 +1395,8 @@ describe('Uzay operasyonları', () => {
       O.opBaslat(d, id);
       oyna(O, V, d);
       expect(d.op).toBe(null);
-      expect(d.tamamlananOp).toContain(id);
+      if (!V.OPERASYONLAR[id].tekrar) expect(d.tamamlananOp).toContain(id);
+      else expect(d.tamamlananOp).not.toContain(id);
       expect(d.sahne).toBe('op_tamam');
     }
   });

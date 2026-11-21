@@ -25,7 +25,7 @@ function metinAl(deger) {
 
 // disaridanJest: true ise liste kendi dokunma katmanını kurmaz; dokunmaları dışarıdaki
 // bileşen ref üzerinden iletir (dalış ekranı gibi tek dokunma katmanı olan yerler için).
-function SesliListe({ baslik, giris, ogeler, onGeri, rehberAcik, ilkOdak = 0, gezinmeSesi = true, onOdak, disaridanJest = false, ust = null, sessizAc = false }, ref) {
+function SesliListe({ baslik, giris, ogeler, onGeri, rehberAcik, ilkOdak = 0, gezinmeSesi = true, onOdak, disaridanJest = false, ust = null, sessizAc = false, onIkiParmak = null }, ref) {
   const [odak, setOdak] = useState(Math.max(0, Math.min(ilkOdak, ogeler.length - 1)));
   const odakRef = useRef(odak);
   odakRef.current = Math.max(0, Math.min(odakRef.current, ogeler.length - 1));
@@ -145,7 +145,11 @@ function SesliListe({ baslik, giris, ogeler, onGeri, rehberAcik, ilkOdak = 0, ge
 
   const isleyiciler = {
       onKaydir: (yon, parmak) => {
-        if (parmak >= 2) return;
+        // İki parmakla kaydırma: listenin sahibine (ör. envanterde sonraki kategori)
+        if (parmak >= 2) {
+          if (onIkiParmak) onIkiParmak(yon);
+          return;
+        }
         const n = ogeRef.current.length;
         if (yon === 'sag') {
           if (odakRef.current >= n - 1) kenar();

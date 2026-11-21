@@ -66,8 +66,15 @@ describe('Tonoflenya', () => {
     expect(r.tonoflenya).toBe(true);
     expect(d.mekan).toBe('ygk_5');
     expect(d.sahne).toBe('tonoflenya_varis');
-    expect(d.zaman.sn - once).toBeGreaterThanOrEqual(8 * 3600);
+    expect(d.zaman.sn - once).toBeGreaterThanOrEqual(8 * 300);
     expect(d.kodeks.some((k) => k.id === 'hekzat')).toBe(true);
+    // Sıçrama motoru iki gün şarj olur; iskelede beklenir
+    const red = eylemUygula(d, 'ygk_iskelesi', 'donus');
+    expect(red.ses).toBe('red');
+    expect(d.mekan).toBe('ygk_5');
+    expect(noktaEylemleri(d, 'ygk_iskelesi').some((e) => e.id === 'sarj')).toBe(true);
+    eylemUygula(d, 'ygk_iskelesi', 'sarj');
+    eylemUygula(d, 'ygk_iskelesi', 'bakim');
     const e = eylemUygula(d, 'ygk_iskelesi', 'donus');
     expect(d.mekan).toBe('plato');
     expect(d.sahne).toBe('aethelis_donus');

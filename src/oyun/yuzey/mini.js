@@ -208,7 +208,7 @@ export function miniIlerle(d, dt) {
       for (const id of noktalari('yagmaci_tuzagi')) {
         if (!miniGorunur(d, id)) continue;
         const u = Math.hypot(d.oyuncu.x - NOKTALAR[id].x, d.oyuncu.y - NOKTALAR[id].y);
-        if (u < 14) artis += 45 * (1 - u / 14);
+        if (u < 14) artis += 45 * (1 - u / 14) * (d.kusanilan && d.kusanilan.zirh === 'isik_pelerini' ? 0.5 : 1);
       }
     }
     const once = m.dikkat || 0;

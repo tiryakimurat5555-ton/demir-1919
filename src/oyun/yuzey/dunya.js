@@ -9,6 +9,7 @@ import { monolitEtkisi } from './kesifler';
 import { guvenliMi } from './arindirma';
 import { miniGorunur } from './mini';
 import { katmanTamamMi } from '../terraform';
+import * as SB from '../tonoflenya/subay';
 
 // Arındırılmış (güvenli) bölgede tehlikeler kalkar (arindirma.js)
 const TEHLIKELER = ['zehirli', 'soguk', 'statik', 'magma', 'yarasa', 'firtinali'];
@@ -26,6 +27,8 @@ export function tehlikeMekani(d) {
 
 // Manyetik tersinme monoliti (kesifler.js 4.4): 30 metre içinde yön bildirimleri karışır, 6 metre içinde her şey susar
 function monolitSuz(d, metin) {
+  // YGK baş-büyücü cübbesi: zihinsel saldırılara bağışıklık
+  if (d.kusanilan && d.kusanilan.zirh === 'bas_buyucu_cubbesi') return metin;
   const e = monolitEtkisi(d);
   if (!e) return metin;
   if (e === 'sessiz') return 'Mutlak bir sessizlik. Monolitin dibindesin; hiçbir yön, hiçbir yankı yok.';
@@ -47,6 +50,14 @@ export const DONUS_HIZI = 2.2; // rad/sn
 export const ADIM_BOYU = 1.1; // metre
 export const ETKILESIM_MENZILI = 3.2;
 export const RADAR_MENZILI = 70;
+// Teçhizat: oksit ağır zırhı yavaşlatır ve patlamaya dayanır; vaha şurubu keşif hızını artırır
+function yurumeCarpani(d) {
+  const z = d.kusanilan && d.kusanilan.zirh === 'oksit_zirhi' ? 0.9 : 1;
+  return z * ((d.surupBitis || 0) > ((d.zaman && d.zaman.sn) || 0) ? 1.25 : 1);
+}
+function patlamaCarpani(d) {
+  return d.kusanilan && d.kusanilan.zirh === 'oksit_zirhi' ? 0.6 : 1;
+}
 const HABER_YARICAPI = 4.5; // bu kadar yaklaşınca bir kez söylenir
 const HABER_SIFIRLA = 8;
 const DILIM = Math.PI / 6; // dönüş tıkırtısı: 30 derecede bir
@@ -133,7 +144,7 @@ function cevreMetniHam(d) {
 
 // Uzun bas: durum + radar. Radar her şeyi keşfedilmiş sayar ve yankıların geleceği yerleri döndürür.
 function radarHam(d) {
-  const menzil = (MEKANLAR[d.mekan].radarMenzili || RADAR_MENZILI) * aracCarpani(d, 'radar');
+  const menzil = (MEKANLAR[d.mekan].radarMenzili || RADAR_MENZILI) * aracCarpani(d, 'radar') * (SB.kabiliyet(d, 'sinha', 3) ? 1.3 : 1);
   const liste = siraliYakin(d).filter((n) => n.m <= menzil && n.tur !== 'kapi' && !n.radarsiz);
   const pingler = liste.slice(0, 6).map((n) => ({ id: n.id, x: n.x, y: n.y, gecikme: Math.round(250 + n.m * 22) }));
   for (const n of liste) if (n.tur === 'nokta' && !d.kesif.includes(n.id)) d.kesif.push(n.id);
@@ -279,7 +290,7 @@ export function ilerle(d, girdi, dt) {
     if (dilim !== onceDilim) olaylar.push({ tur: 'tik', guc: dilim % 3 === 0 ? 0.65 : 0.3 });
   }
   if (ileri) {
-    const m = ileri * YURUME_HIZI * aracCarpani(d, 'hiz') * dt;
+    const m = ileri * YURUME_HIZI * aracCarpani(d, 'hiz') * yurumeCarpani(d) * dt;
     adimAt(d, m, olaylar);
   }
   yaklasmaHaberi(d, olaylar);
@@ -329,7 +340,7 @@ export function statikIlerle(d, dt, olaylar) {
         d.oyuncu.x = nx;
         d.oyuncu.y = ny;
       }
-      d.zehir = Math.min(99, (d.zehir || 0) + 10);
+      d.zehir = Math.min(99, (d.zehir || 0) + 10 * patlamaCarpani(d));
       olaylar.push({ tur: 'statik', kaynak: { x: n.x, y: n.y }, carpti: true, metin: 'Statik boşalma seni çarptı ve geri savurdu! Sütun yüklenirken uzaklaş.' });
     } else olaylar.push({ tur: 'statik', kaynak: { x: n.x, y: n.y }, carpti: false, metin: 'Sütun boşaldı; uzaktaydın.' });
     s.evre = null;
@@ -361,7 +372,7 @@ export function magmaIlerle(d, dt, olaylar) {
   } else if (g.evre === 'kabarma' && t >= g.bitis) {
     const m = Math.hypot(d.oyuncu.x - g.x, d.oyuncu.y - g.y);
     if (m < MAGMA_MESAFE) {
-      d.zehir = Math.min(99, (d.zehir || 0) + 20);
+      d.zehir = Math.min(99, (d.zehir || 0) + 20 * patlamaCarpani(d));
       olaylar.push({ tur: 'magma', kaynak: { x: g.x, y: g.y }, yandi: true, metin: 'Erimiş mineral yanında fışkırdı; sıcak gaz ve kıvılcımlar! Maruziyet yüzde ' + Math.round(d.zehir) + '.' });
     } else olaylar.push({ tur: 'magma', kaynak: { x: g.x, y: g.y }, yandi: false, metin: 'Arkanda magma fışkırdı; zamanında uzaklaştın.' });
     g.evre = null;
@@ -472,6 +483,7 @@ export function zehirIlerle(d, dt, ek, olaylar) {
     }
     if (mk.soguk && d.envanter.includes('termal_giysi')) hiz *= 0.25;
     if (d.bayrak.g_panzehir) hiz *= 0.7; // Viridion botanikçilerinin panzehirleri (G-20)
+    if ((d.biyoKalkanBitis || 0) > ((d.zaman && d.zaman.sn) || 0)) hiz = 0; // Axira'nın biyo-kalkanı
     d.zehir = Math.min(100, once + (hiz + (ek || 0)) * aracCarpani(d, 'zehir') * dt);
   } else if (once > 0) d.zehir = Math.max(0, once - 3 * dt);
   for (const e of ZEHIR_UYARILARI) if (once < e && d.zehir >= e) olaylar.push({ tur: 'zehir', duzey: e });

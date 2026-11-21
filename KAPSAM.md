@@ -214,10 +214,22 @@ bütün bölümlerini sırayla sayar (21 Kasım: v3 paketiyle sekiz belge daha g
 - [x] 4.B Nöbet değişiminde o yıldızın üç notalı çan akoru; sağ üst köşeye çift dokun (ve menüde "Yıldız Zamanı"):
       gün, nöbet, kalan dakika, tarla notu. Klavye "T" tuşu yok (telefonda klavye yok). Seyahatte zaman gerçek
       zamanlı akar; Tonoflenya'ya hiper-sıçrama (2.1) sekiz saat ileri sarar (koloni, tarla ve atölyeler işler).
-- [ ] 5.A Yıldız Ekolü Kıdemi (altı ekol, dört kademe, kabiliyetler): Tonoflenya bölümleriyle (sıra: eşya-zanaat'tan sonra).
-- [~] 5.B Rastgele karşılaşma motoru: korsan pususu 1.3'ten var (sefer.js). Sürüklenen sandıklar (sesli kilit), astral
-      fırtına (frekans tutturma), kaçak mülteci sinyali yok; sıra: 5.A ile.
-- [x] 6.A zaman modeli · [x] 6.B ekim yatağı ve işçi modeli · [ ] 6.C prosedürel istasyon modeli (eşya-zanaat 1 ile).
+- [x] 5.A Yıldız Ekolü Kıdemi (2.4, tonoflenya/subay.js): altı ekol, dört kademe (Çırak/Öncü 0, Seyrüsefer Uzmanı 100,
+      Yıldız Muhafızı 300, Baş-Rezonatör 700 puan); menüde "Yıldız Ekolü kıdemi". Puan: Zorah harabeleri Sarı (+25, her
+      yerde bir kez), kronik Sarı, ticaret Sarı; Mormon akıntıları Mavi (+40), savaşta doğru savunma ve fenomen Mavi;
+      melez Yeşil (+40), hasat ve imbik Yeşil; zafer Kırmızı (+30), dökümhane Kırmızı; iğne (+50), YGK frekansı ve
+      aether laboratuvarı Mor; yeni Tonoflenya bölgesi, yolculuk ve operasyon Gümüş. İstasyondaki subay da yarısını alır.
+      Kabiliyetler: belgenin üç örneği aynen (Mavi 2 pusuları yüzde yirmi beş uzaktan duyma: savaş uyarısı ×1,25;
+      Kırmızı 3 zırh delici aether mühimmatı; Mor 4 taktik teleport: uyarıda üç parmakla dokun). [~] Öteki on beşi
+      belgede yok; aynı ilkeyle (sayısal can değil yeni yetenek) ekolün alanından eklendi (Bahtiyar değiştirebilir).
+- [x] 5.B Rastgele karşılaşma motoru (2.4, sefer.js): korsan pususu (1.3), sürüklenen sandık (sesli kilit: dört ton;
+      ganimet saf aether, prizma, nadir tohum ya da ışık tozu), astral fırtına (frekans tut: kalıcı aether verimi,
+      yakıt yüzde beş az, en çok yirmi beş), kaçak mülteci filikası (kurtar: Aethelis'te üç nüfus, Tonoflenya'da
+      kantonlara yerleşir: itibar ve lira). Yetmiş beş saniyede bir yüzde yirmi beş (Sinha sonarıyla 1,5 kat); tekrar
+      eden operasyonlar sayılmaz.
+- [x] 6.A zaman modeli · [x] 6.B ekim yatağı ve işçi modeli · [x] 6.C prosedürel istasyon modeli (2.4): altı istasyon
+      (reaktör, silah, revir, dümen, sonar, hangar), her birinde subay (ad, köken, ekol, kıdem, aktif yetenek, pasif);
+      menüde "Subaylar ve istasyonlar".
 
 ## 11. tarim-ve-kseno-botanik-rehberi.md
 - [x] 1 Çekirdek döngü (2.0): toplama → sera → hasat → mutfak/eczane/dökümhane. Erzaksız uzun seferden sonra (5 dk+)
@@ -306,8 +318,50 @@ bütün bölümlerini sırayla sayar (21 Kasım: v3 paketiyle sekiz belge daha g
       ayağın tehlikesi işler · 7.3 Büyük çember: rotalar halkayı kapatır.
 
 ## 15. tonoflenya-esya-zanaat-ve-murettebat-rehberi.md
-- [ ] 1 YGK çekirdek subayları · 2 Hammaddeler (2.1-2.3) · 3 Zanaat (silahlar, zırhlar, gemi modülleri, iksirler) ·
-      4 Yadigârlar ve görev eşyaları · 5 Envanter, kargo ağırlığı, para birimleri ve ticaret masası.
+- [x] 1 YGK çekirdek kadrosu (2.4, subay.js): kaptan (komuta aurası: bekleme ×0,9; Odaklanmış Rezonans: üç tur atış ve
+      kalkan iki kat), Elyndra (kalkan ısısı ×0,85, reaktöre aether ×1,25; Mor Aşırı Yük), Varek (kritik +%12; Kızıl
+      Odak Atışı: kalkanı kırıp ×1,5), Axira (moral kaybı yarıya, tarla ×1,25; Hücresel Yenilenme: stres sıfır, gövde
+      +%10; yüzeyde biyo-kalkan: bir saat zehir süzülür, günde bir), Sinha (tespit ×1,35: fener ve fenomen; Akustik
+      Karartma: sıradaki atış ıskalar), Drahmir (tamir ×0,8, kalkış yakıtı ×0,85; Acil Kaynak: gövde +%25). YGK kat 1
+      "Akademi subay kurulu"ndan görevlendirilir. Kriz sözleri: Varek ilk darbede, Drahmir gövde yarının, Elyndra
+      beşte birin altında, Sinha yabancı firkateyn ve fenomende, Axira maruziyet yüzde yetmiş beşte (seferde birer kez).
+      Savaşta kendi sırada aşağı kaydır yetenek seç, çift dokun kullan.
+      [~] Şemadaki Zhaor (seyrüsefer) belgede profilsiz: Zhaor Vel-Amin olarak eklendi (yolculuk ve yakıt ×0,9; Gümüş
+      Rota: ganimetsiz çekilme). [~] Ses kimlikleri (voice_elyndra_alto …) veride; ekran okuyucu okur, ayrı ses kaydı
+      yok. [~] Belgenin cooldown'ı gerçek zaman değil tur; enerji yüzdesi yerine gövde yüzdesi.
+      Prosedürel subaylar: Julithan, Nerya, Veradon ve Tentran tavernalarında günde iki aday (ekol, kıdem 1-2, avans
+      150 lira × kıdem); kıdemine göre yüzde 50-80 etki.
+- [x] 2 Hammaddeler (2.4): yeniler piezo (vadide), Zhaor gümüş prizması (Zhaor halkası), kara aether (Kahergonat; ambarda
+      dörtten fazlası Sinha uyarısı ve kalkan sönümünü bozar), Kızılkaya titanyumu (Filtra), Norvask kara buzu (Norvask,
+      Helgar), Safran kükürdü, Fenrir ışık tozu (gram; Fenrir'de toz toplayınca yüz gram), Arin tüyü ve girdap reçinesi,
+      Pyros lav orkidesi (G-17 ganimeti), Glies buzu (G-18). [~] Eşlemeler: Ham Malazar = aether kristali, Saf Aether
+      Rezonans Taşı = saf aether, Filtra Oksit Demiri = oksit ağır alaşımı, Zorah cam kumu = rezonans camı, Rezonans
+      mantarı sporu = kseno-spor, Plazma şasi alaşımı = şasi çeliği, Mavi Hardrin taşı = mavi aether, Nirdol obsidyeni =
+      obsidyen, Graviton yakıtı = graviton. Önceden G-17/G-18'i bitirenlere özütler verilmez; Tentran tüccarından alınır.
+- [x] 3 Zanaat (2.4, zanaat.js; menüde "Zanaat tezgâhları", gemideki üç tezgâh): belgedeki dört silah, üç zırh, beş
+      gemi modülü, dört ilaç ve belgedeki malzemelerle; ara ürünler (plazma kartuşu, nektar) ve pazar malları (deri astar,
+      Zhaor ipeği, mor kumaş, altın tel, Sinha çipi, Tentran rölesi, biyo-filtre, ruh kapsülü, saf su, bal, mor çiçek).
+      [~] Kişisel silah ve zırhlar oyunda kara savaşı olmadığından şöyle: silah kaptanın bataryasına bağlanır (tüfek
+      ×1,8 ve kalkan sönümü ×0,85, hançer ×1,2 ve iki saldırı dondurur, mızrak ×2,4 ve karanlık düşmana iki kat, gölge
+      yayıcı kalkanı yok sayar ve düşman yüzde otuz ıskalar, yasaklı: itibar −10); oksit zırhı yüzeyde patlamaya yüzde
+      kırk direnç ve yüzde on yavaşlık; ışık pelerini her çatışmanın ilk saldırısını boşa çıkarır, yağmacılar geç fark
+      eder; cübbe yetenek beklemesini bir tur kısaltır, monolit zihni karıştırmaz. Modüller: kalkan amplifikatörü
+      (darbenin sekizde biri, ısı ×0,6), Sinha sonarı (fener ×2), Filtra plakaları (azami gövde ×1,5), Tentran
+      modülatörü (sıçrama şarjı iki günden bire), iklim kubbesi (tarla ×1,3, her dönüşte moral +3). İlaçlar: Glies
+      iğnesi (yenilgide yas yok), vaha şurubu (stres sıfır, on iki saat hız ×1,25), astral iksir (sonraki yetenek iki
+      kat), Malken rasyonu (seferde besin yorgunluğu yok, moral +2). Silahların sesleri ElevenLabs.
+- [x] 4 Yadigârlar (2.4): on iki yadigâr ve belge envanterde katalogda; görevlerde (16, 17) elde edilir, atılamaz.
+- [x] 5.1 Envanter (2.4): menüde "Envanter", beş kategori; satır okunur (ad, adet, açıklama), çift dokun eylem menüsü
+      (Kuşan/Çıkar, Gemiye tak/sök, Kullan, Reaktöre yükle, Dökümhaneye gönder, At); iki parmakla sağa kaydır sonraki,
+      sola önceki kategori (sayfa ve damla sesi, ElevenLabs).
+- [x] 5.2 Kargo (2.4): Tonoflenya hammaddeleri ve eşyalar ambar hacmine girer (metaller iki, modüller üç); kapasite
+      gemi sınıfına göre; taşınca hiper-sıçrama yakıtı (on litre) yüzde elli artar. Kara kristal fazlası: Sinha uyarır.
+- [x] 5.3 Para (2.4): Malken Lirası (kabulde 300 harçlık), Fenrir ışık tozu (gram = 50 lira; Tentran yalnız tozla),
+      Galaktik Keşif Kredisi (kabulde 100; YGK kat 2 veri masası her operasyon için 150, her kodeks kaydı için 25 öder;
+      iskelede gövde tamiri krediyle, 1 kredi = 2 lira). On ticaret masası (Uma, Zhaor, Axira, Sinha, Elyndra halkaları,
+      Tentran, Veradon, Julithan, Nerya, Kahergonat karaborsası: alış-satış, kur).
+      Düzeltme: hiper-sıçrama 2.1-2.3'te yanlışlıkla dört oyun günü ileri sarıyordu; artık sekiz oyun saati (2400 sn);
+      sonra motor iki gün şarj olur (iskelede ya da Aethelis'in terminalinde "şarjı bekle").
 
 ## 16. tonoflenya-buyuk-final-gorevleri.md
 - [ ] 1 Tetiklenme ve çift dokunuşlu harita geçişi · 2 Yirmi ana görev (Kısım I-VII: YGK ve Malkenia 1-3, Malazar 4-6,
@@ -318,8 +372,7 @@ bütün bölümlerini sırayla sayar (21 Kasım: v3 paketiyle sekiz belge daha g
       matrisi · 7 Entegrasyon direktifi.
 
 ## Sıradaki adımlar (sırayla)
-0. Tonoflenya genişlemesi, yönergedeki sırayla: [2.1: Malken (12); 2.2: tarihçe (13); 2.3: atlas (14)] → (13,
-   kodeks) → coğrafi atlas (14, beş kuşak haritası ve gemiyle Tonoflenya yolculuğu) → eşya, zanaat ve prosedürel
-   mürettebat (15; Ekol Kıdemi ve rastgele karşılaşmalar, yönerge 5) → yirmi final görevi (16) → otuz yan görev (17).
+0. Tonoflenya genişlemesi, yönergedeki sırayla: [2.1: Malken (12); 2.2: tarihçe (13); 2.3: atlas (14); 2.4: eşya,
+   zanaat, mürettebat (15), Ekol Kıdemi ve rastgele karşılaşmalar] → yirmi final görevi (16) → otuz yan görev (17).
 1. Telefonda deneme: seslendirilmiş telsizlerin düzeyi ve anlaşılırlığı (Murat ve Bahtiyar), ses dengeleme ve
    erişilebilirlik testleri. İstenirse koloni bilgisayarı için ayrı bir ses.

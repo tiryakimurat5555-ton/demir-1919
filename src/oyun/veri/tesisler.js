@@ -31,9 +31,21 @@ export const HAMMADDELER = {
   saf_aether: { ad: 'arıtılmış saf aether', tarif: 'Tenohris\'in arıtma halkasından; idari ve askerî koordinasyonun, yüksek büyü sistemlerinin yakıtı.' },
   tohum: { ad: 'kseno-tahıl tohumu', tarif: 'Saklı vahadan; açıkta yetişebilen ilk yerel tarım tohumu.' },
   graviton: { ad: 'graviton minerali', tarif: 'Manyetik sırtların derin kuyularından; yalnız sondaj tankıyla çıkar. Graviton yakıtının hammaddesi.' },
+  // Eşya, zanaat ve mürettebat rehberi bölüm 2 (2.4)
+  piezo: { ad: 'piezo kristali', tarif: 'Aethelis\'in manyetik vadisinden; üzerine basılınca kıvılcım çıkaran sarı taş. Kinetik kalkan, şok kartuşu.' },
+  zhaor_prizmasi: { ad: 'Zhaor gümüş prizması', tarif: 'Magentor\'un birinci halka kulelerinden; gümüşi yansımalı, manyetik alana duyarlı. Odaklayıcı optik ve telsiz güçlendirici.' },
+  kara_aether: { ad: 'kara aether (bozulmuş)', tarif: 'Kahergonat\'tan ve Mormon Çukuru\'ndan; ışığı yutan, yaklaşınca cızırdayan katran kristali. Karanlık büyü ve zırh delici. Ambarda çoğalırsa kalkan frekansını bozar.' },
+  kizilkaya_titanyumu: { ad: 'Kızılkaya titanyumu', tarif: 'Batı\'da Kızılkaya Filtrum\'dan; Mohs dokuz. Ağır silah namlusu ve itki nozulu; basınçlı hidrolik preslerde alaşımlanır.' },
+  norvask_buzu: { ad: 'Norvask kara buzu', tarif: 'Kuzeyde Norvask buzulundan; asla erimeyen, oda sıcaklığında duman çıkaran buz metali. Soğutma kanalları ve kriyojenik zırh.' },
+  safran_kukurt: { ad: 'Safran kükürt cevheri', tarif: 'Batı\'da Safran Sıradağları\'ndan; sarımsı, ufalanabilir sülfür. Barut, plazma fitili, asit filtresi.' },
+  isik_tozu: { ad: 'gram Fenrir ışık tozu', tarif: 'Fenrir Denizi\'nden; sıvı gibi davranan fotonik toz. Gramı elli Malken Lirası; Tentran ve Arin\'de para yerine geçer.' },
+  arin_tuyu: { ad: 'Arin kuş tüyü', tarif: 'Fenrir\'in itim akımlarında yaşayan kuşlardan; iticilere eklenince manevrayı hızlandırır.' },
+  girdap_recinesi: { ad: 'Arin girdap reçinesi', tarif: 'Arin\'in bükülmüş ağaçlarından; itici yağlayıcısı.' },
+  lav_orkidesi: { ad: 'Pyros lav orkidesi özütü', tarif: 'Pyros-7\'den; aşırı ısıya dayanıklı bitkisel yağ. Ağır lazerlerin soğutma sıvısına katılır.' },
+  glies_buzu: { ad: 'Glies buz kristali', tarif: 'Glies-9b\'nin amonyak buzulundan; kriyojenik iğnelerin çekirdeği.' },
 };
 
-export const HAMMADDE_SIRASI = ['bazalt', 'titanyum', 'kristal', 'izotop', 'kseno', 'polimer', 'graviton', 'sivi_metal', 'civa_tortusu', 'foton_recinesi', 'kseno_spor', 'kriyolit', 'metan', 'plazma_cami', 'obsidyen', 'antigrav_tozu', 'kseno_kabuk', 'manyetik_tohum', 'tohum', 'notron_cevher', 'aether', 'buyu_tozu', 'oksit_celik', 'rezonans_cami', 'mavi_aether', 'morluk_kristali', 'buzul_aether', 'saf_aether'];
+export const HAMMADDE_SIRASI = ['bazalt', 'titanyum', 'kristal', 'izotop', 'kseno', 'polimer', 'graviton', 'sivi_metal', 'civa_tortusu', 'foton_recinesi', 'kseno_spor', 'kriyolit', 'metan', 'plazma_cami', 'obsidyen', 'antigrav_tozu', 'kseno_kabuk', 'manyetik_tohum', 'tohum', 'notron_cevher', 'aether', 'buyu_tozu', 'oksit_celik', 'rezonans_cami', 'mavi_aether', 'morluk_kristali', 'buzul_aether', 'saf_aether', 'piezo', 'zhaor_prizmasi', 'kara_aether', 'kizilkaya_titanyumu', 'norvask_buzu', 'safran_kukurt', 'isik_tozu', 'arin_tuyu', 'girdap_recinesi', 'lav_orkidesi', 'glies_buzu'];
 
 // Tesisler. maliyet: hammadde kimliği → miktar. kosul(d): inşa edilebilmesi için hikâye koşulu.
 export const TESISLER = {

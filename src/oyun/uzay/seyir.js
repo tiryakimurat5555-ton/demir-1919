@@ -7,6 +7,7 @@
 // aşağı: ters itici; sağa-sola: burun 15 derece döner. Basılı tut: radar. Çift dokun: kenetlen (yakın ve yavaşken).
 // Bir noktaya kenetlenince ön tarama raporu: çevre analizi ve zorunlu donanım. Eksik varsa görev kilitli.
 import * as E from '../tarim/etki';
+import * as SB from '../tonoflenya/subay';
 import { yildizCarpani } from '../zaman';
 import { GEMI_SINIFLARI, MODUL_KATMANLARI } from '../veri/gemiler';
 import { aciDuzelt, goreliAci, saatYonu } from '../konum';
@@ -169,7 +170,7 @@ function uzak(a, b) {
 }
 
 export function fenerMenzili(d) {
-  return FENER_MENZILI * telsizSubayiCarpani(d) * (d.gemi && d.gemi.moduller.optik_prizma ? 1.3 : 1) * (d.bayrak.g_haritalar ? 1.2 : 1) * E.fenerCarpani(d) * yildizCarpani(d, 'fener');
+  return FENER_MENZILI * telsizSubayiCarpani(d) * (d.gemi && d.gemi.moduller.optik_prizma ? 1.3 : 1) * (d.bayrak.g_haritalar ? 1.2 : 1) * E.fenerCarpani(d) * yildizCarpani(d, 'fener') * SB.taramaCarpani(d) * (d.gemi && d.gemi.moduller.sinha_sonari ? 2 : 1) * (SB.kabiliyet(d, 'zhaor', 3) ? 1.2 : 1);
 }
 export const KALKIS_YAKITI = 2;
 
@@ -184,7 +185,7 @@ export function kalkisOlur(d) {
 export function kalkis(d) {
   const engel = kalkisOlur(d);
   if (engel) return { metin: engel, ses: 'red' };
-  d.gemi.yakit = Math.max(0, d.gemi.yakit - KALKIS_YAKITI * (d.gemi.moduller.grav_kalkani ? 0.5 : 1) * (d.bayrak.p_takyon ? 0 : 1));
+  d.gemi.yakit = Math.max(0, d.gemi.yakit - KALKIS_YAKITI * (d.gemi.moduller.grav_kalkani ? 0.5 : 1) * (d.bayrak.p_takyon ? 0 : 1) * SB.kalkisYakitCarpani(d));
   d.gemi.yer = 'uzay';
   d.uzay = { x: 0, y: 45, yon: 0, hiz: 0, yaklasilan: {}, kilitli: null, yakitUyari: false };
   d.sahne = 'kalkis';
@@ -227,9 +228,9 @@ export function uzayIlerle(d, dt) {
   const g = d.gemi;
   if (u.hiz > 0) {
     const b = d.bayrak;
-    const yakit = u.hiz * YAKIT_TUKETIM * dt * (g.moduller.sivi_iletken ? 0.85 : 1) * (b.f_yakit ? 0.9 : 1) * (b.f_saat ? 0.9 : 1) * (b.p_yakit ? 0.9 : 1) * (b.p_tasarruf ? 0.9 : 1) * E.yakitCarpani(d);
+    const yakit = u.hiz * YAKIT_TUKETIM * dt * (g.moduller.sivi_iletken ? 0.85 : 1) * (b.f_yakit ? 0.9 : 1) * (b.f_saat ? 0.9 : 1) * (b.p_yakit ? 0.9 : 1) * (b.p_tasarruf ? 0.9 : 1) * E.yakitCarpani(d) * SB.yakitCarpani(d) * (1 - (g.aetherVerimi || 0));
     g.yakit = Math.max(0, g.yakit - yakit);
-    const birim = HIZ_BIRIMI * gucDagitimi(d).hiz * E.hizCarpani(d) * yildizCarpani(d, 'hiz');
+    const birim = HIZ_BIRIMI * gucDagitimi(d).hiz * E.hizCarpani(d) * yildizCarpani(d, 'hiz') * ((d.surupBitis || 0) > ((d.zaman && d.zaman.sn) || 0) ? 1.25 : 1);
     u.x += Math.sin(u.yon) * u.hiz * birim * dt;
     u.y += Math.cos(u.yon) * u.hiz * birim * dt;
     if (g.yakit <= 0) {

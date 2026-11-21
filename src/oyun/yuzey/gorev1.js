@@ -7,6 +7,7 @@
 // telemetri, kule. Envanter: kesici, anten, guc_hucresi.
 import { NOKTALAR } from './harita';
 import { miniKilitlendi } from './mini';
+import * as SB from '../tonoflenya/subay';
 import { HAMMADDELER, KOLONI_KADEMELERI, TESISLER, eksikMetni, karsilanirMi, maliyetMetni } from '../veri/tesisler';
 import { bosta, moralMetni, parcaMetni } from '../koloni';
 
@@ -189,6 +190,8 @@ export function eylemUygula(d, id, eylemId) {
     d.stok[id] -= 1;
     // Fosil kabuk delici uç: derin damarda çift verim
     d.koloni.kaynaklar[tur] = (d.koloni.kaynaklar[tur] || 0) + (n.gerekArac && b(d).deliciUc ? 2 : 1);
+    // Mor Yıldız 2. kademe (aether duyusu): aether damarlarından iki kat
+    if (['aether', 'saf_aether', 'buzul_aether', 'mavi_aether', 'kara_aether'].includes(tur) && SB.kabiliyet(d, 'elyndra', 2)) d.koloni.kaynaklar[tur] += 1;
     // Klipsomanyak (toplayıcı) mürettebat: her dördüncü toplamada beklenmedik fazladan bir parça
     let ek = '';
     const toplayici = d.murettebat.find((u) => u.nitelik === 'toplayici');
@@ -367,9 +370,11 @@ export function ayarIlerle(d, dt) {
       miniKilitlendi(d, a.amac);
     } else if (a.amac === 'ygk') {
       b(d).ygkFrekansi = true;
+      SB.ekolKazan(d, 'elyndra', 30);
       d.sahne = 'ygk_frekansi';
     } else if (a.amac === 'igne') {
       b(d).malazarIzni = true;
+      SB.ekolKazan(d, 'elyndra', 50);
       d.sahne = 'igne_hizalandi';
     } else if (a.amac === 'mors') {
       b(d).morsBulundu = true;

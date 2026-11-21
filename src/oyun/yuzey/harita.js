@@ -511,3 +511,6 @@ import { A_MEKANLAR, A_KAPILAR, A_NOKTALAR } from '../tonoflenya/atlas';
 Object.assign(MEKANLAR, A_MEKANLAR);
 Object.assign(KAPILAR, A_KAPILAR);
 Object.assign(NOKTALAR, A_NOKTALAR);
+// Eşya, zanaat ve mürettebat (tonoflenya/zanaatHarita.js, 2.4)
+import { Z_NOKTALAR } from '../tonoflenya/zanaatHarita';
+Object.assign(NOKTALAR, Z_NOKTALAR);

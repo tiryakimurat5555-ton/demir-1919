@@ -3,6 +3,8 @@
 // menüde "Tonoflenya kronikleri"nden yeniden okunur. Bölüm 12 (çağlar matrisi) aynı menüde, açılan bölümlere göre dolar.
 // d.kronik = [açılan bölüm numaraları]
 
+import * as SB from './subay';
+
 export const KRONIKLER = [
   null,
   {
@@ -154,6 +156,7 @@ export function kronikAc(d, no) {
       d.kodeks.push({ id: 'kronik_' + no, ad: 'Kronik ' + no + ': ' + k.baslik, tarif: k.metin[0], itibar: 15 });
       d.itibar += 15;
     }
+    SB.ekolKazan(d, 'uma', 20);
   }
   const kopru = k.kopru ? k.kopru(d) : null;
   return { metin: [k.no + '. bölüm. ' + k.baslik + '.', ...k.metin, kopru].filter(Boolean).join(' '), ses: 'sinyal' };

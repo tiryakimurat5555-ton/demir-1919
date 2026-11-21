@@ -405,7 +405,32 @@ Demir 1919 oyunu silindi; geçmişi git kaydında (son sürüm 1.06, commit 556f
   - Yuzey: menüde "Tonoflenya haritası" (tonoflenyaHaritasi: kuşaklar → bölgeler → seyahat → sahne).
   - Sesler ElevenLabs (20 × 17 kredi): ortam_t_okyanus/mormon/loran/liman/kale/sanayi/kukurt/col/cam/kanyon/hardrin/
     kahergonat/tundra/zeris/bataklik/orman/teras/koy/ada/cember.
-- Sıradaki: KAPSAM.md "Sıradaki adımlar" (0: eşya, zanaat ve mürettebat).
+- SÜRÜM 2.4 (21 Kasım, Murat: "Kaç aşama varsa eksiksiz yap, bitirene kadar sorma"): eşya, zanaat, mürettebat;
+  yönerge 5.A, 5.B, 6.C. Telefonda denenmedi.
+  - tonoflenya/subay.js (bağımlılıksız): EKOLLER, KIDEMLER (0/100/300/700), KABILIYETLER (ekol_kademe; belge: true üç
+    örnek), ISTASYONLAR (reaktor/silah/revir/dumen/sonar/hangar → ekol), SUBAYLAR (elyndra, varek, axira, zhaor
+    [şemada var, profilsiz: eklendi], sinha, drahmir), KAPTAN; d.istasyonlar, guc/pasif çarpanları (kalkanIsi,
+    aetherGuc, kritikIhtimal, moralKaybi, tarim, tarama, seyahat, yakit, tamir, kalkisYakit), ekolKazan (d.ekol; kademe
+    atlayınca d.haberKuyrugu), kriz (d.krizDendi; eve inişte ve sıçramada sıfırlanır).
+  - tonoflenya/zanaat.js: ESYA (kat 1-5), ISTASYONLAR (dokum/aether/imbik), TARIFLER, PAZARLAR (ml | isik); d.esya,
+    d.kusanilan {silah, zirh}, d.para {ml, gk}, d.satilanVeri; miktar/ekle (hammadde, parça, eşya, urun_<bitki>, tohum);
+    zanaatEt, kusan/modulTak (gemi.moduller[eşya]), kullan, reaktoreYukle, dokumhaneyeGonder; kargo/kargoDenetle;
+    sicramaSuresi (SICRAMA_SN 8×300), SARJ_SN 2 gün (Tentran modülatörü 1), sicramaDurumu, sarjBaslat; veriSat,
+    bakimYap; satinAl/sat/kurIslem; adaylar/istihdamEt (prosedürel subay), cekirdekAl; menüler (envanterMenu,
+    zanaatMenu, pazarMenu, veriMenu, kurulMenu, subayMenu, ekolMenu) ağaç: { baslik, giris, ogeler [alt | yap], ikiParmak }.
+    ekolDenetle (gorevler.zamanIlerle): yeni Tonoflenya mekânı, operasyon, fenomen sayısından puan.
+  - tonoflenya/zanaatHarita.js Z_NOKTALAR (zanaat: kurul | veri | pazar; liman: taverna) ve yeni yataklar; yuzey/harita.js
+    birleştirir. tesisler.js 11 yeni hammadde.
+  - Kancalar: savas.js (yetenekler, yetenekSec/Kullan: aşağı kaydır / çift dokun; silah ve zırh etkileri, mühimmat,
+    teleport üç parmak, kriz sözleri, bitir 'kacis'), seyir.js, fenomen.js, koloni.js, tarim.js, dunya.js, mini.js,
+    gorev1.js (topla, iğne/ygk), atlas.js (seyahat), kronik.js, malken.js (kabulde 300 ML + 100 GK, bakım, şarj, toz).
+  - sefer.js karşılaşmalar: OPERASYONLAR.k_sandik/k_firtina/k_multeci (tekrar: true, odulFn, sonuc işlevi; operasyon.js
+    destekler), sefer_olay → d.olayOp → { tur: 'op' } → Yuzey opAc.
+  - Yuzey: agacGoster(uret, geri) ağaç menü; r.agac; menüde Envanter, Zanaat tezgâhları, Subaylar ve istasyonlar, Yıldız
+    Ekolü kıdemi. SesliListe onIkiParmak, Yuzey ilkOdak geçirir. Sesler ElevenLabs (6 × 17 kredi): el_sayfa, el_tufek,
+    el_hancer, el_mizrak, el_golge, el_pelerin.
+  - testler/zanaat.test.js.
+- Sıradaki: KAPSAM.md "Sıradaki adımlar" (0: yirmi final görevi, sonra otuz yan görev).
 
 ## Sesler
 - Drive'daki Efektler/Ambians dosyaları 14 MB; Drive bağlayıcısı 10 MB'tan büyük dosyayı indiremiyor. Bu yüzden

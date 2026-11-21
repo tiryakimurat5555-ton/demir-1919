@@ -6,7 +6,17 @@ tesis kurar, ileride gemini parça parça inşa edip uzaya açılırsın.
 
 Tasarım: Bahtiyar Cankurt (belgeler/). Yapım: Murat ve Bahtiyar. Expo Go ile iPhone ve Android'de çalışır.
 
-## Bu sürümde (2.3)
+## Bu sürümde (2.4)
+- Mürettebat: YGK'nin altı subayı (Elyndra, Varek, Axira, Zhaor, Sinha, Drahmir) akademinin subay kurulundan gemine
+  katılır; her biri bir istasyonda pasif katkı ve savaş yeteneği verir. Limanların tavernalarında yeni subaylar.
+  Savaşta kendi sıranda aşağı kaydır: yetenek seç; çift dokun: kullan.
+- Yıldız Ekolü kıdemi: altı ekolde dört kademe; keşfettikçe, savaştıkça, yetiştirdikçe yükselir, yeni kabiliyetler açar.
+- Envanter (beş kategori, iki parmakla sağa kaydır), gemideki üç zanaat tezgâhı (silahlar, zırhlar, gemi modülleri,
+  ilaçlar), yeni hammaddeler, ticaret masaları, Malken Lirası, Fenrir ışık tozu ve Galaktik Keşif Kredisi; ambar hacmi.
+- Seyirde rastgele karşılaşmalar: sürüklenen sandıklar (sesli kilit), astral fırtına, kaçak mülteciler.
+- Hiper-sıçrama artık sekiz oyun saati; sonra motor iki gün şarj olur.
+
+## 2.3
 - Tonoflenya haritası: beş kuşak, otuz dört bölge (Zinas ve Batı Kıtası, Zorah Çölü ve Kahergonat, Mormon adaları,
   Malazar'ın dört katmanı, Zeris Kulesi, kuzey ve güney krallıkları). Menüden bir bölge seçince yola çıkılır; yolculuk
   günler sürer, fırtınalar, korsanlar, seraplar yolda. Kahergonat Yolu yalnız Mavi Akşam'da açık.

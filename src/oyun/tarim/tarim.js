@@ -13,6 +13,7 @@
 // d.tarla: tarla katmanı açıkken { alan: 'sera'|'vaha', i, sec }. d.melez: rezonans eşleme açıkken.
 import { BITKILER, BITKI_SIRASI, KATEGORI_ADI, ORTAM_ADI, KADEMELER, VAHA_PARSEL, ISLEME, ISLEME_TESISI, TOPLULUKLAR, ISCI_TURLERI, SPOR_KRISTAL, HIBRITLER, yetisirMi, hibritBul } from './bitkiler';
 import { nobetNo, yildizCarpani } from '../zaman';
+import * as SB from '../tonoflenya/subay';
 
 export const DONGU_SN = 300; // bir koloni döngüsü (bitkilerin olgunlaşma birimi): nöbetin dörtte biri
 const SU_KAYIP = 15; // döngü başına buharlaşma (yüzde)
@@ -159,6 +160,8 @@ export function tarimIlerle(d, dt) {
     if (y.durum === 'denge') {
       let c = yesil * (k4 && y.ortam !== 'vaha' ? 1 / 0.6 : 1);
       if (y.isci === 'insan' && b.kat === 'A') c *= 1.2;
+      // Axira (büyüme süresi yüzde yirmi kısa), Yeşil el kabiliyeti, biyo-habitat iklim kubbesi
+      c *= SB.tarimCarpani(d) * (d.gemi && d.gemi.moduller.iklim_kubbesi ? 1.3 : 1);
       y.buyume = Math.min(1, y.buyume + (dt * c) / (b.dongu * DONGU_SN));
       y.saglik = Math.min(1, y.saglik + (0.1 * dt) / DONGU_SN);
       if (y.buyume >= 1 && !y.haber) {
@@ -321,6 +324,7 @@ export function tarlaHasat(d) {
   if (!y.bitki) return { metin: 'Yatak boş.', ses: 'red' };
   if (y.buyume < 1) return { metin: kisaAd(y.bitki) + ' henüz olgun değil: yüzde ' + Math.floor(y.buyume * 100) + '.', ses: 'red' };
   const h = hasatEt(d, y);
+  SB.ekolKazan(d, 'axira', 3);
   return { metin: 'Hasat: ' + h.n + ' ' + BITKILER[h.bitki].urun + ', ' + h.tohum + ' tohum geri kazanıldı.', ses: 'hasat' };
 }
 
@@ -486,9 +490,16 @@ export function erzakYukle(d) {
 export function seferBitti(d) {
   const e = d.seferEtki || {};
   const notlar = [];
-  if ((d.seferSure || 0) > 300 && !(e.peksimet > 0)) {
-    d.koloni.moral = Math.max(0, d.koloni.moral - 3);
+  if (e.rasyon > 0) {
+    d.koloni.moral = Math.min(100, d.koloni.moral + 2);
+    notlar.push('Malken sefer rasyonları mürettebatı tok ve neşeli tuttu.');
+  } else if ((d.seferSure || 0) > 300 && !(e.peksimet > 0)) {
+    SB.moralKaybi(d, 3);
     notlar.push('Uzun sefer boyunca sentetik besin küpleri: mürettebat yorgun, moral biraz düştü. Peksimet olsaydı olmazdı.');
+  }
+  if (d.gemi && d.gemi.moduller.iklim_kubbesi) {
+    d.koloni.moral = Math.min(100, d.koloni.moral + 3);
+    notlar.push('Geminin iklim kubbesinde yetişenler yabancı yolcuların yüzünü güldürdü.');
   }
   for (const k of Object.keys(e)) if (e[k] > 0) e[k] -= 1;
   d.erzakNotu = notlar.join(' ');
@@ -559,6 +570,7 @@ export function melezIlerle(d, dt) {
       t.tohumlar[h.b] -= 1;
       t.kulucka = { id: m.id, kalan: 2 * DONGU_SN };
       d.melez = null;
+      SB.ekolKazan(d, 'axira', 40);
       o.push('tamam');
     }
   } else m.dengede = 0;

@@ -50,7 +50,7 @@ function adimaGec(d) {
   d.op.t = 0;
   const a = o.adimlar[d.op.adim];
   if (!a) return bitir(d);
-  const r = (k) => rastgele(d, d.op.adim * 7 + k + d.op.id.length);
+  const r = (k) => rastgele(d, d.op.adim * 7 + k + d.op.id.length + (o.tekrar ? (d.karsilasmaNo || 0) * 37 : 0));
   const s = {};
   if (a.tur === 'yaklas') Object.assign(s, { aci: (r(1) < 0.5 ? -1 : 1) * (0.7 + r(2) * 1.2), mesafe: a.mesafe || 60, hiz: 0, kayma: (r(3) - 0.5) * 0.06 });
   if (a.tur === 'frekans') Object.assign(s, { deger: 20, hedef: Math.round((40 + r(1) * 60) * 10) / 10, kilit: 0, yakin: false });
@@ -105,8 +105,9 @@ function bitir(d) {
   const id = d.op.id;
   const o = OPERASYONLAR[id];
   if (!d.tamamlananOp) d.tamamlananOp = [];
-  if (!d.tamamlananOp.includes(id)) d.tamamlananOp.push(id);
-  odulVer(d, o.odul || {});
+  // Tekrarlanan seyir karşılaşmaları (sefer.js) tamamlanan operasyon sayılmaz; ödülleri o an belirlenir
+  if (!o.tekrar && !d.tamamlananOp.includes(id)) d.tamamlananOp.push(id);
+  odulVer(d, o.odulFn ? o.odulFn(d) : o.odul || {});
   if (d.gemi && d.gemi.moduller.toplama_dronu && !o.fenomen) {
     d.koloni.kaynaklar.titanyum = (d.koloni.kaynaklar.titanyum || 0) + 2;
     d.koloni.kaynaklar.bazalt = (d.koloni.kaynaklar.bazalt || 0) + 2;
@@ -420,7 +421,7 @@ export const SAHNELER = {
   op_tamam: {
     baslik: 'Operasyon tamam',
     efekt: ['sinyal'],
-    metin: (d) => (d.opSon ? OPERASYONLAR[d.opSon].sonuc : []),
+    metin: (d) => (d.opSon ? (typeof OPERASYONLAR[d.opSon].sonuc === 'function' ? OPERASYONLAR[d.opSon].sonuc(d) : OPERASYONLAR[d.opSon].sonuc) : []),
     secenekler: () => [{ etiket: 'Devam', sonra: null }],
   },
   op_basarisiz: {

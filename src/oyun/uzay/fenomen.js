@@ -5,6 +5,7 @@
 // belirir; keşif zili çalar. Zorunluluk yoktur: oyuncu yanına gidip çift dokunursa (gereçleri takılıysa) gözlem
 // operasyonu başlar (vizör, odak, pozlama, deklanşör, ışınlama). Gözlenmiş fenomene yeniden rastlanınca "keşfedildi"
 // mührü söylenir; istenirse yalnız dinlenir.
+import * as SB from '../tonoflenya/subay';
 import { FENOMENLER, FENOMEN_SIRASI, ITIBAR_KADEMELERI, SALONLAR } from '../veri/gozlem';
 
 export const SEKTOR_SN = 30;
@@ -48,7 +49,7 @@ export function fenomenIlerle(d, dt) {
 
 export function fenomenYakinMi(d) {
   const u = d.uzay;
-  return !!(u && d.fenomen && Math.hypot(d.fenomen.x - u.x, d.fenomen.y - u.y) < FENOMEN_KENET);
+  return !!(u && d.fenomen && Math.hypot(d.fenomen.x - u.x, d.fenomen.y - u.y) < FENOMEN_KENET * SB.taramaCarpani(d));
 }
 export function fenomenEksik(d, id) {
   const g = d.gemi;

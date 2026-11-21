@@ -33,6 +33,7 @@ import { cal, ortamCal } from '../ses/efektler';
 import { kayitCal, kayitVarMi } from '../ses/telsiz';
 import { kayitBul } from '../oyun/veri/seslendirme';
 import { olayKaydi } from '../oyun/uzay/sefer';
+import * as ZN from '../oyun/tonoflenya/zanaat';
 import { RENK, UST_BOSLUK } from '../arayuz/tema';
 import KonumsalSes from '../ses/konumsal';
 import { ALANLAR, KAPILAR, MEKANLAR, NOKTALAR } from '../oyun/yuzey/harita';
@@ -753,6 +754,7 @@ export default function Yuzey({ onGeri, baslangic, yeniOyunUret }) {
               return 'sessiz';
             }
             if (r.tarimMenu) return tarimMenuGoster(r.tarimMenu, id), 'sessiz';
+            if (r.agac) return agacGoster(r.agac, (soz) => noktaGoster(id, soz)), 'sessiz';
             // Aether Çekirdeği: altı yıldızın akoru
             if (r.akor && m()) NOBETLER.forEach((n, i) => setTimeout(() => m() && m().nota(n.akor[0], null, 0.45, 6), i * 260));
             // YGK asansörü: başka bir kata taşındın
@@ -795,6 +797,63 @@ export default function Yuzey({ onGeri, baslangic, yeniOyunUret }) {
 
   const katmanKapatSessiz = () => {
     setKatman(null);
+  };
+
+  // Ağaç menüler (tonoflenya/zanaat.js: envanter, zanaat, ticaret, subaylar, ekol): uret(d) → { baslik, giris,
+  // ogeler: [{ id, etiket, ipucu, alt(d) | yap(d) }], ikiParmak: { sag, sol, ses } }. Bir eylemden sonra menü
+  // aynı satırda sessizce yenilenir, sonuç okunur.
+  const agacGoster = (uret, geri, odak = 0, soz = null) => {
+    const d = dunya.current;
+    const mn = uret(d);
+    const kendi = (o2, s2) => agacGoster(uret, geri, o2, s2);
+    const ogeler = [
+      ...mn.ogeler.map((o, i) => ({
+        id: o.id,
+        etiket: o.etiket,
+        ipucu: o.ipucu,
+        sec: () => {
+          if (o.efekt) cal(o.efekt, 0.7);
+          if (o.alt) {
+            agacGoster(o.alt, () => kendi(i));
+            return 'sessiz';
+          }
+          const r = (o.yap && o.yap(dunya.current)) || {};
+          kaydet();
+          if (r.ses) cal(EYLEM_SESI[r.ses] || r.ses, 0.8);
+          if (r.efekt) setTimeout(() => cal(r.efekt, 0.8), 400);
+          if (dunya.current.sahne) {
+            katmanKapatSessiz();
+            sahneGoster(dunya.current.sahne, r.metin || null);
+            return 'sessiz';
+          }
+          if (o.geri) {
+            geri(r.metin);
+            return 'sessiz';
+          }
+          kendi(i, r.metin);
+          return 'sessiz';
+        },
+      })),
+      { id: 'geri', etiket: 'Geri', sec: () => (geri(), 'sessiz') },
+    ];
+    const ik = mn.ikiParmak;
+    katmanAc({
+      baslik: mn.baslik,
+      giris: mn.giris,
+      onGeri: () => geri(),
+      ogeler,
+      ilkOdak: Math.min(odak, ogeler.length - 1),
+      sessizAc: !!soz,
+      ikiParmak: ik
+        ? (yon) => {
+            const f = yon === 'sag' ? ik.sag : yon === 'sol' ? ik.sol : null;
+            if (!f) return;
+            if (ik.ses) cal(ik.ses, 0.7);
+            agacGoster(f, geri);
+          }
+        : null,
+    });
+    if (soz) soyle(soz, 'istek', true);
   };
 
   const konusmaGoster = (kisiId, onEk) => {
@@ -946,6 +1005,10 @@ export default function Yuzey({ onGeri, baslangic, yeniOyunUret }) {
         { id: 'tasinan', etiket: 'Taşıdıkların ve hammadde', sec: () => (soyle(tasinanMetni(), 'istek', true), 'sessiz') },
         { id: 'koloni', etiket: 'Koloni', sec: () => (soyle(koloniMetni(dunya.current), 'istek', true), 'sessiz') },
         { id: 'murettebat', etiket: 'Mürettebat', sec: () => (murettebatGoster(), 'sessiz') },
+        { id: 'envanter', etiket: 'Envanter', ipucu: 'Beş kategori; iki parmakla sağa kaydır: sonraki kategori. Çift dokun: eylem menüsü.', sec: () => (agacGoster((x) => ZN.envanterMenu(x, 0), () => menuyuAc()), 'sessiz') },
+        ...(dunya.current.gemi ? [{ id: 'zanaat', etiket: 'Zanaat tezgâhları', ipucu: 'Gemideki dökümhane masası, aether laboratuvarı ve imbik ünitesi.', sec: () => (agacGoster((x) => ZN.zanaatMenu(x), () => menuyuAc()), 'sessiz') }] : []),
+        ...(dunya.current.bayrak.tonoflenyaGoruldu ? [{ id: 'subaylar', etiket: 'Subaylar ve istasyonlar', sec: () => (agacGoster((x) => ZN.subayMenu(x), () => menuyuAc()), 'sessiz') }] : []),
+        { id: 'ekol', etiket: 'Yıldız Ekolü kıdemi', ipucu: 'Altı ekolde kıdem ve açılan kabiliyetler.', sec: () => (agacGoster((x) => ZN.ekolMenu(x), () => menuyuAc()), 'sessiz') },
         { id: 'harita', etiket: 'Uzay haritası', sec: () => (soyle(haritaMetni(), 'istek', true), 'sessiz') },
         ...(dunya.current.arac === 'col_tilkisi'
           ? [
@@ -1822,6 +1885,9 @@ export default function Yuzey({ onGeri, baslangic, yeniOyunUret }) {
         sozler.push(o.metin);
       } else if (o.tur === 'savas') {
         savasAc(o.olaylar);
+        return;
+      } else if (o.tur === 'op') {
+        opAc(o.olaylar);
         return;
       } else if (o.tur === 'haber') {
         sozler.push(o.metin);
@@ -2880,7 +2946,7 @@ export default function Yuzey({ onGeri, baslangic, yeniOyunUret }) {
       ) : null}
       {katman ? (
         <View style={StyleSheet.absoluteFill}>
-          <SesliListe key={'k' + katman.no} baslik={katman.baslik} giris={katman.giris} rehberAcik onGeri={katman.onGeri} ogeler={katman.ogeler} sessizAc={!!katman.sessizAc} />
+          <SesliListe key={'k' + katman.no} baslik={katman.baslik} giris={katman.giris} rehberAcik onGeri={katman.onGeri} ogeler={katman.ogeler} sessizAc={!!katman.sessizAc} ilkOdak={katman.ilkOdak || 0} onIkiParmak={katman.ikiParmak || null} />
         </View>
       ) : null}
     </View>
