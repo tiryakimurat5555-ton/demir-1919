@@ -329,6 +329,9 @@ Demir 1919 oyunu silindi; geçmişi git kaydında (son sürüm 1.06, commit 556f
   ortam_tarim, şimdilik boş) ve KAPILAR.tarim_kapi (vadi (-35,-25) ↔ tarım (3010,1.5); kosul bayrak.sondaj). assets/ses/
   ortam_tarim.mp3 (baş 0,7 sn sessizlik atıldı, ilk 302 sn, 3 sn çapraz geçiş, I=-24, 96k). dunya.js yerlerListesi geçit
   listesine tarim_kapi. Telefonda denenmedi.
+- SÜRÜM 1.16 (21 Kasım, Murat: "yukarıdaki müziği kadim yarık, notalarla etkileşime girdiğimiz haritaya, döngüsel"):
+  gönderdiği dosya 1.15'teki tarım sesiyle bayt bayt aynı (md5 aeff8543…). Kadim Krater ortamı ortam_krater (efektler.js'te
+  aynı ortam_tarim.mp3; ortamOran 0,18 → 0,5, çanlar duyulsun). Tarım alanı şimdilik aynı sesi çalıyor. Telefonda denenmedi.
 - Sıradaki: KAPSAM.md "Sıradaki adımlar".
 
 ## Sesler

@@ -6,7 +6,10 @@ tesis kurar, ileride gemini parça parça inşa edip uzaya açılırsın.
 
 Tasarım: Bahtiyar Cankurt (belgeler/). Yapım: Murat ve Bahtiyar. Expo Go ile iPhone ve Android'de çalışır.
 
-## Bu sürümde (1.15)
+## Bu sürümde (1.16)
+- Kadim Krater'de (çanlı harita) kendi döngüsel müziği çalar.
+
+## 1.15
 - Vadinin güneybatısında Jeotermal Tarım Alanı: sırtlardaki bacalar dengelenince kapısı açılır, içeride kendi ortam sesi döner.
 
 ## 1.14

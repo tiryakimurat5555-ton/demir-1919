@@ -35,8 +35,9 @@ export const MEKANLAR = {
     ad: 'Kadim Krater',
     tarif: 'Devasa bir çarpışma havzası. Rüzgâr hiç yok; mutlak bir sessizlik. Yerden yer yer kadim çanların başları yükseliyor.',
     alan: { bati: 700, dogu: 780, guney: 0, kuzey: 70 },
-    ortam: 'ortam_yuzey',
-    ortamOran: 0.18, // neredeyse sessiz
+    // Murat (1.16): kraterin kendi döngüsel müziği; çanlar duyulsun diye yarı düzeyde
+    ortam: 'ortam_krater',
+    ortamOran: 0.5,
     zemin: 'tas',
     dis: true,
   },
