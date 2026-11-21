@@ -310,6 +310,8 @@ Demir 1919 oyunu silindi; geçmişi git kaydında (son sürüm 1.06, commit 556f
     bekleyen okunur, bekleyenNo), kritik uyarı hemen okunur ve kayıt kısılır (kisinceCagir → telsiz.js kayitKis ×0,3).
     Yalnız sustur() (oyuncu iki parmakla dokunur) kaydı da susturur; sustur(false) yalnız rehberi (rezonans dokunuşu).
     Savaşta kayıtla aynı anda gelen sözler 450 ms sonra kuyruğa girer.
+- SÜRÜM 1.10 (21 Kasım, Murat: "Telsiz konuşurken menü seslerini de aç"): rehber.js 'menu' önceliği (SesliListe
+  bütün okumaları): telsizi beklemez, kayıt kısılarak (×0,3, kisSayac sayacı) üstüne okunur. Telefonda denenmedi.
 - Sıradaki: KAPSAM.md "Sıradaki adımlar".
 
 ## Sesler

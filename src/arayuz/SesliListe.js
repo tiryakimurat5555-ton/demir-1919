@@ -61,13 +61,13 @@ function SesliListe({ baslik, giris, ogeler, onGeri, rehberAcik, ilkOdak = 0, ge
   const oku = (i, onEk, ipucuyla) => {
     const oge = ogeRef.current[i];
     if (!oge) {
-      if (onEk) soyle(onEk, 'istek', true);
+      if (onEk) soyle(onEk, 'menu', true);
       return;
     }
     const n = ogeRef.current.length;
     const sira = n > 1 ? ', ' + (i + 1) + ' / ' + n : '';
     const ipucu = ipucuyla && oge.ipucu ? '. ' + metinAl(oge.ipucu) : '';
-    soyle((onEk ? onEk + '. ' : '') + metinAl(oge.etiket) + sira + ipucu, 'istek', true);
+    soyle((onEk ? onEk + '. ' : '') + metinAl(oge.etiket) + sira + ipucu, 'menu', true);
   };
 
   useEffect(() => {
@@ -174,7 +174,7 @@ function SesliListe({ baslik, giris, ogeler, onGeri, rehberAcik, ilkOdak = 0, ge
         }
         const i = satirBul(konum.y);
         if (i === -2) {
-          soyle([baslik, giris].filter(Boolean).join('. '), 'istek', true);
+          soyle([baslik, giris].filter(Boolean).join('. '), 'menu', true);
           return;
         }
         if (i < 0) return;
@@ -191,7 +191,7 @@ function SesliListe({ baslik, giris, ogeler, onGeri, rehberAcik, ilkOdak = 0, ge
             cal('secim', 0.5);
             onGeri();
           } else {
-            soyle('Bu ekrandan geri dönülmez.', 'istek', true);
+            soyle('Bu ekrandan geri dönülmez.', 'menu', true);
           }
           return;
         }

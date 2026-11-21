@@ -6,7 +6,10 @@ tesis kurar, ileride gemini parça parça inşa edip uzaya açılırsın.
 
 Tasarım: Bahtiyar Cankurt (belgeler/). Yapım: Murat ve Bahtiyar. Expo Go ile iPhone ve Android'de çalışır.
 
-## Bu sürümde (1.9)
+## Bu sürümde (1.10)
+- Telsiz konuşurken menüde gezinirsen öğeler hemen okunur; telsiz o sırada kısılır, kesilmez.
+
+## 1.9
 - Telsiz konuşmaları gerçek bir el telsizi gibi: dar bant, doymuş hoparlör, arkada radyo paraziti, tuşa basma ve
   bırakma cızırtısı. Gemi içi konuşmalar interkom hoparlöründen.
 - Telsiz konuşurken rehber araya girip onu kesmez; söyleyeceği telsiz bitince okunur. Yalnız tehlike uyarısı hemen

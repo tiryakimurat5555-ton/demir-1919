@@ -6,6 +6,8 @@
 //   'istek'   : oyuncunun kendisinin istediği bilgi (tarif, durum, menü); her zaman okunur
 //   'normal'  : olağan bildirimler; ayrıntı düzeyi "yalnızca kritik" ise okunmaz
 //   'ayrinti' : ek bilgiler; yalnızca "ayrıntılı" düzeyde okunur
+//   'menu'    : menüde gezinirken okunan öğeler; 'istek' gibidir ama telsiz kaydını beklemez,
+//               telsiz kısılarak üstüne okunur (Murat, 1.10)
 //
 // Ses kısılıp açılma sorunu: ses kütüphanesi kısa bir efekt bitince iPhone'un ses
 // kanalını kapatıyordu; o sırada süren konuşma kısılıp yeniden açılıyordu. efektler.js
@@ -13,7 +15,8 @@
 // Konuşma yalnızca gerçekten sürerken durdurulur.
 import * as Speech from 'expo-speech';
 
-const GEREKEN_DUZEY = { kritik: 0, istek: 0, normal: 1, ayrinti: 2 };
+const GEREKEN_DUZEY = { kritik: 0, istek: 0, menu: 0, normal: 1, ayrinti: 2 };
+let kisSayac = 0; // telsizi kısan, sürmekte olan konuşma sayısı
 
 let ayar = { rehberAcik: true, ayrinti: 1, konusmaHizi: 1.0, sesKimligi: '' };
 let turkceSesler = [];
@@ -94,10 +97,11 @@ export function soyle(metin, oncelik = 'istek', kes = true, zorla = false, bitin
   const kritik = oncelik === 'kritik';
   // Kritik bir uyarı okunurken sıradan bildirimler onu kesmez, arkasına eklenir
   let kesilsin = kes;
-  if (kritikNo && !kritik && oncelik !== 'istek') kesilsin = false;
+  if (kritikNo && !kritik && oncelik !== 'istek' && oncelik !== 'menu') kesilsin = false;
+  const kisan = kritik || oncelik === 'menu';
   // Murat (1.8): telsiz konuşurken rehber onu kesmez. Sıradan sözler telsiz bitince okunur; kesen sözlerden
   // yalnız en sonuncusu bekler (eskisi geçersizdir). Kritik tehlike uyarısı hemen okunur, telsiz o sırada kısılır.
-  if (!kritik && mesgulSorgu) {
+  if (!kisan && mesgulSorgu) {
     let kalan = 0;
     try {
       kalan = mesgulSorgu();
@@ -117,10 +121,13 @@ export function soyle(metin, oncelik = 'istek', kes = true, zorla = false, bitin
       Speech.stop();
     } catch (e) {}
   }
-  if (kritik && kisIslev) {
-    try {
-      kisIslev(true);
-    } catch (e) {}
+  if (kisan) {
+    kisSayac++;
+    if (kisIslev) {
+      try {
+        kisIslev(true);
+      } catch (e) {}
+    }
   }
   const no = ++sira;
   if (kritik) kritikNo = no;
@@ -129,10 +136,14 @@ export function soyle(metin, oncelik = 'istek', kes = true, zorla = false, bitin
   const bitti = () => {
     if (no === sira) suruyor = false;
     if (no === kritikNo) kritikNo = 0;
-    if (kritik && kisIslev) {
-      try {
-        kisIslev(false);
-      } catch (e) {}
+    if (kisan && !bitti.oldu) {
+      bitti.oldu = true;
+      kisSayac = Math.max(0, kisSayac - 1);
+      if (kisSayac === 0 && kisIslev) {
+        try {
+          kisIslev(false);
+        } catch (e) {}
+      }
     }
     son();
   };
@@ -153,6 +164,7 @@ export function soyle(metin, oncelik = 'istek', kes = true, zorla = false, bitin
 // Oyuncunun kendisi susturur (iki parmakla dokunma): telsiz de susar. telsizDe false ise yalnız rehber susar.
 export function sustur(telsizDe = true) {
   kritikNo = 0;
+  kisSayac = 0;
   bekleyenNo++;
   if (telsizDe) digerSesleriKes();
   if (!suruyor) return;
