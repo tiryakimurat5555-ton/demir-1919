@@ -3,7 +3,7 @@
 // Rehber (sesli anlatım) kes=true ile konuşmaya başlarsa çalan kayıt susar; sıradan bildirimler
 // kaydın bitmesini bekler (rehber.js mesgulSorgula).
 import { createAudioPlayer } from 'expo-audio';
-import { kesinceCagir, mesgulSorgula } from './rehber';
+import { kesinceCagir, kisinceCagir, mesgulSorgula } from './rehber';
 import { SURELER } from './telsizSureleri';
 
 const DOSYALAR = {
@@ -84,7 +84,7 @@ export function kayitCal(id, duzey = 1, bitince = null) {
     return false;
   }
   const sure = (SURELER[id] || 6) * 1000 + 300;
-  const c = { p, bitis: Date.now() + sure, zamanlayici: null };
+  const c = { p, duzey: Math.max(0, Math.min(1, duzey)), bitis: Date.now() + sure, zamanlayici: null };
   c.zamanlayici = setTimeout(() => {
     if (calan === c) kayitSus();
     if (bitince) {
@@ -97,6 +97,16 @@ export function kayitCal(id, duzey = 1, bitince = null) {
   return true;
 }
 
-// Rehberle bağlantı: rehber araya girerse kayıt susar, sıradan bildirimler kaydı bekler
+// Kritik uyarı okunurken kayıt kısılır, sonra eski düzeyine döner
+function kayitKis(kis) {
+  if (!calan) return;
+  try {
+    calan.p.volume = kis ? calan.duzey * 0.3 : calan.duzey;
+  } catch (e) {}
+}
+
+// Rehberle bağlantı: rehber telsizi kesmez, kayıt bitene kadar bekler (rehber.js soyle). Yalnız oyuncu
+// iki parmakla dokunup susturursa (sustur) kayıt da susar.
 kesinceCagir(kayitSus);
+kisinceCagir(kayitKis);
 mesgulSorgula(kayitKalan);

@@ -1176,7 +1176,7 @@ export default function Yuzey({ onGeri, baslangic, yeniOyunUret }) {
           sustur();
           return;
         }
-        sustur();
+        sustur(false);
         melodiCal(() => soyle(seciliMetni(), 'istek', true));
       },
       onCiftDokun: (parmak) => {
@@ -2077,7 +2077,11 @@ export default function Yuzey({ onGeri, baslangic, yeniOyunUret }) {
       }
       if (o.bitti) bitti = true;
     }
-    if (sozler.length) soyle(sozler.join(' '), 'istek', !kayitli);
+    if (sozler.length) {
+      // Telsiz kaydı çalacaksa öteki sözler kayıt bitince okunur (rehber kaydı beklesin diye bir an sonra)
+      if (kayitli) setTimeout(() => soyle(sozler.join(' '), 'istek', false), 450);
+      else soyle(sozler.join(' '), 'istek', true);
+    }
     if (bitti || !d.savas) savasKapat();
   };
   const savasAdimi = () => {

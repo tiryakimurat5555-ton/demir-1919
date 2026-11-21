@@ -29,6 +29,12 @@ export function kesinceCagir(f) {
 }
 // Başka bir ses kaydı (telsiz) çalarken sıradan bildirimlerin bekleyeceği süreyi söyleyen işlev
 let mesgulSorgu = null;
+let bekleyenNo = 0; // telsiz bitince okunacak son kesen sözün numarası
+// Kritik uyarı okunurken telsizi kısıp açan işlev (true: kıs, false: aç)
+let kisIslev = null;
+export function kisinceCagir(f) {
+  kisIslev = f;
+}
 export function mesgulSorgula(f) {
   mesgulSorgu = f;
 }
@@ -89,25 +95,33 @@ export function soyle(metin, oncelik = 'istek', kes = true, zorla = false, bitin
   // Kritik bir uyarı okunurken sıradan bildirimler onu kesmez, arkasına eklenir
   let kesilsin = kes;
   if (kritikNo && !kritik && oncelik !== 'istek') kesilsin = false;
-  // Telsiz konuşurken sıradan bildirimler üstüne binmez, telsiz bitince okunur
-  if (!kesilsin && !kritik && mesgulSorgu) {
+  // Murat (1.8): telsiz konuşurken rehber onu kesmez. Sıradan sözler telsiz bitince okunur; kesen sözlerden
+  // yalnız en sonuncusu bekler (eskisi geçersizdir). Kritik tehlike uyarısı hemen okunur, telsiz o sırada kısılır.
+  if (!kritik && mesgulSorgu) {
     let kalan = 0;
     try {
       kalan = mesgulSorgu();
     } catch (e) {}
     if (kalan > 0) {
-      setTimeout(() => soyle(metin, oncelik, kes, zorla, bitince), kalan * 1000 + 250);
+      if (kesilsin) {
+        const no = ++bekleyenNo;
+        setTimeout(() => {
+          if (no === bekleyenNo) soyle(metin, oncelik, kes, zorla, bitince);
+        }, kalan * 1000 + 250);
+      } else setTimeout(() => soyle(metin, oncelik, kes, zorla, bitince), kalan * 1000 + 350);
       return;
     }
   }
-  // Tehlike uyarıları telsizi de susturur
-  if (kritik && !kesilsin) digerSesleriKes();
   if (kesilsin && suruyor) {
     try {
       Speech.stop();
     } catch (e) {}
   }
-  if (kesilsin) digerSesleriKes();
+  if (kritik && kisIslev) {
+    try {
+      kisIslev(true);
+    } catch (e) {}
+  }
   const no = ++sira;
   if (kritik) kritikNo = no;
   else if (kesilsin) kritikNo = 0;
@@ -115,6 +129,11 @@ export function soyle(metin, oncelik = 'istek', kes = true, zorla = false, bitin
   const bitti = () => {
     if (no === sira) suruyor = false;
     if (no === kritikNo) kritikNo = 0;
+    if (kritik && kisIslev) {
+      try {
+        kisIslev(false);
+      } catch (e) {}
+    }
     son();
   };
   try {
@@ -131,9 +150,11 @@ export function soyle(metin, oncelik = 'istek', kes = true, zorla = false, bitin
   }
 }
 
-export function sustur() {
+// Oyuncunun kendisi susturur (iki parmakla dokunma): telsiz de susar. telsizDe false ise yalnız rehber susar.
+export function sustur(telsizDe = true) {
   kritikNo = 0;
-  digerSesleriKes();
+  bekleyenNo++;
+  if (telsizDe) digerSesleriKes();
   if (!suruyor) return;
   suruyor = false;
   try {

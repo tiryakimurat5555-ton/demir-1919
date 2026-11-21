@@ -293,14 +293,23 @@ Demir 1919 oyunu silindi; geçmişi git kaydında (son sürüm 1.06, commit 556f
     ffmpeg (/tmp betiği; özet): telsiz 300-3400 Hz + acompressor + asoftclip + pembe parazit (0,012) + baş/son cızırtı;
     savas 350-3800 Hz, ratio 5; gemi 180-6500 Hz + 1,8 kHz +3 dB + aecho 23|41 ms; hepsi loudnorm I=-16 (savaş -15),
     22050 Hz tek kanal MP3 48k → assets/ses/telsiz/<id>.mp3. Süreler src/ses/telsizSureleri.js (ffprobe).
-  - src/ses/telsiz.js: kayitCal(id, düzey, bitince) oynatıcıyı o an açar, bitince bırakır; rehber.js kesinceCagir
-    (rehber kes=true ile konuşursa kayıt susar) ve mesgulSorgula (sıradan bildirimler kaydı bekler).
+  - src/ses/telsiz.js: kayitCal(id, düzey, bitince) oynatıcıyı o an açar, bitince bırakır; rehberle bağı 1.9'da değişti.
   - Yuzey: telsizOku (bildirim dinleme ve telsiz kayıtları: "Telsizci Aras Kaya." sonra kayıt), sefer_olay sahnesi
     sefer.js olayKaydi ile (SesliListe sessizAc; başlık + konuşan, kayıt, sonra ilk seçenek), savaş uyarısında
     savas.js soz olayının kayit alanı (uyarı efektinden 350 ms sonra).
 - SÜRÜM 1.8 (21 Kasım, Murat): Yerler listesi yalnız bulunulan mekânı gösterir (dunya.js yerlerListesi(d, hepsi);
   vadi dışında dönüş geçitlerinin bu taraftaki uçları eklenir; testler hepsi=true ile uzak yürür). SesliListe:
   tek parmak yukarı kaydır listenin başı, aşağı kaydır listenin sonu. Telefonda denenmedi.
+- SÜRÜM 1.9 (21 Kasım, Murat: "telsizden gelen konuşmalar gerçekten telsizden geliyormuş gibi duyulsun ... ekran
+  okuyucusu bir şey deyince telsiz kesilmesin"). Telefonda denenmedi.
+  - Kayıtlar ham-sesler dalındaki ElevenLabs çıktılarından yeniden işlendi: araclar/telsiz-sesi-isle.sh (telsiz 450-2800 Hz
+    iki kat süzgeç, 1,6 kHz +6 dB, ratio 8, atan doyum, 8 kHz'e inip çıkma, tremolo 5,3 Hz; arkada konumsal/parazit.wav
+    0,12 (savaş 0,16, 550-2600 Hz); başta tuş + cızırtı, sonda 0,3 sn kşşş kuyruğu. Gemi: 280-4500 Hz, 2 kHz +4 dB,
+    üç yansımalı kabin yankısı, kahverengi uğultu).
+  - rehber.js: soyle artık telsizi kesmez; kayıt sürerken kritik olmayan sözler bekler (kesen sözlerden yalnız son
+    bekleyen okunur, bekleyenNo), kritik uyarı hemen okunur ve kayıt kısılır (kisinceCagir → telsiz.js kayitKis ×0,3).
+    Yalnız sustur() (oyuncu iki parmakla dokunur) kaydı da susturur; sustur(false) yalnız rehberi (rezonans dokunuşu).
+    Savaşta kayıtla aynı anda gelen sözler 450 ms sonra kuyruğa girer.
 - Sıradaki: KAPSAM.md "Sıradaki adımlar".
 
 ## Sesler
