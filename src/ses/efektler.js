@@ -12,6 +12,8 @@ const KAYNAKLAR = {
   ortam_kapsul: require('../../assets/ses/ortam_kapsul.wav'),
   ortam_harabe: require('../../assets/ses/ortam_harabe.wav'),
   ortam_menu: require('../../assets/ses/ortam_menu.wav'),
+  // Giriş melodisi (Murat, 21 Kasım: telefondan gönderdiği ses kaydı); ana menü ve ayarlarda döner
+  giris_muzik: require('../../assets/ses/giris_muzik.mp3'),
   bip: require('../../assets/ses/bip.wav'),
   dugme: require('../../assets/ses/dugme.wav'),
   jenerator: require('../../assets/ses/jenerator_calis.wav'),
@@ -68,6 +70,7 @@ const DONGULER = {
   ortam_kapsul: 0.6,
   ortam_harabe: 0.55,
   ortam_menu: 0.45,
+  giris_muzik: 0.6,
   ortam_sirtlar: 0.6,
   ortam_plato: 0.6,
   ortam_uzay: 0.55,

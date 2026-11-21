@@ -6,7 +6,10 @@ tesis kurar, ileride gemini parça parça inşa edip uzaya açılırsın.
 
 Tasarım: Bahtiyar Cankurt (belgeler/). Yapım: Murat ve Bahtiyar. Expo Go ile iPhone ve Android'de çalışır.
 
-## Bu sürümde (1.10)
+## Bu sürümde (1.11)
+- Ana menüde ve ayarlarda oyunun giriş melodisi çalar.
+
+## 1.10
 - Telsiz konuşurken menüde gezinirsen öğeler hemen okunur; telsiz o sırada kısılır, kesilmez.
 
 ## 1.9

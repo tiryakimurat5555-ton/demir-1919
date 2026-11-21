@@ -22,7 +22,7 @@ import { ayarlarOku, ayarlarYaz, otoOku, otoSil, tarihMetni, VARSAYILAN_AYARLAR,
 import { yeniOyun } from './src/oyun/durum';
 import { durumKisa } from './src/oyun/yuzey/dunya';
 
-const SURUM = '1.10';
+const SURUM = '1.11';
 const OYUN_ADI = 'Aethelis';
 
 const HAKKINDA_METNI = [
@@ -135,9 +135,9 @@ export default function App() {
 
   const menuyeDon = useCallback(() => setEkran('menu'), []);
 
-  // Menülerde uzay gemisi uğultusu; oyunda ortamı Yüzey ekranı yönetir
+  // Menülerde giriş melodisi; oyunda ortamı Yüzey ekranı yönetir
   useEffect(() => {
-    if (hazir && ekran !== 'oyun') ortamCal('ortam_menu', 0.7);
+    if (hazir && ekran !== 'oyun') ortamCal('giris_muzik', 0.7);
   }, [hazir, ekran]);
 
   let icerik = null;
