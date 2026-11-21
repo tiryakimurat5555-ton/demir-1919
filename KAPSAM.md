@@ -270,8 +270,13 @@ bütün bölümlerini sırayla sayar (21 Kasım: v3 paketiyle sekiz belge daha g
       saatlik hiper-sıçrama (koloni o sürede kendi başına yaşar) → YGK kat 5. Kabul görevlisi kaptanın kaydını tanır.
 
 ## 13. tonoflenya-kadim-tarihcesi-ve-kronikler.md
-- [ ] 1-12 Kozmik şafak, Üçler miti, koruyucular, Cahelon, Malken I. Çağ, Tyzrakhel, Kahergonat, Beyaz Kıyamet, Valen'in
-      portalı, Bagrius hanedanı, III. Çağ, çağlar matrisi (kodeks kayıtları ve sahne metinleri olarak).
+- [x] 1-11 (2.2, tonoflenya/kronik.js): on bir bölüm, belgedeki bütün olay ve adlarla, Tonoflenya'da onları saklayan
+      yerde "Kronik: …" eylemiyle dinlenir ve kodekse girer: 1-2 YGK arşiv küreleri (2. bölüm Kızıl Yutucu operasyonunu
+      yapmışsan mancınığı tanır), 3 Aether Çekirdeği, 4 Zirve İğnesi (hizalandıktan sonra), 5 Elyndra lonca ihtiyarı,
+      6 Arin keşişi (ilk dersten sonra), 7 Zhaor sınır levhası, 8-9 Kara Göl'ün batık kulesi, 10 Malazar ocaklarındaki
+      I. Bagrius anıtı, 11 YGK kat 1 kuruluş kitabesi. Menüde "Tonoflenya kronikleri": bulunanlar yeniden okunur,
+      bulunmayanların yeri söylenir.
+- [x] 12 Çağlar matrisi (2.2): sekiz çağ (liderler, mekânlar, dönüm noktası, kozmik sonuç); ilgili bölüm bulununca açılır.
 
 ## 14. tonoflenya-buyuk-cografi-atlasi.md
 - [ ] 1 Beş kuşak · 2 Merkez kuşak (2.1-2.4) · 3 Batı (3.1-3.3) · 4 Doğu (4.1-4.3) · 5 Kuzey (5.1-5.4) · 6 Güney
@@ -290,7 +295,7 @@ bütün bölümlerini sırayla sayar (21 Kasım: v3 paketiyle sekiz belge daha g
       matrisi · 7 Entegrasyon direktifi.
 
 ## Sıradaki adımlar (sırayla)
-0. Tonoflenya genişlemesi, yönergedeki sırayla: [2.1'de yapıldı: Malken medeniyeti (12)] → kadim tarihçe (13,
+0. Tonoflenya genişlemesi, yönergedeki sırayla: [2.1: Malken medeniyeti (12); 2.2: kadim tarihçe (13)] → (13,
    kodeks) → coğrafi atlas (14, beş kuşak haritası ve gemiyle Tonoflenya yolculuğu) → eşya, zanaat ve prosedürel
    mürettebat (15; Ekol Kıdemi ve rastgele karşılaşmalar, yönerge 5) → yirmi final görevi (16) → otuz yan görev (17).
 1. Telefonda deneme: seslendirilmiş telsizlerin düzeyi ve anlaşılırlığı (Murat ve Bahtiyar), ses dengeleme ve

@@ -131,3 +131,31 @@ describe('Tonoflenya', () => {
     expect(yildizCarpani(d, 'nufus')).toBe(1.2);
   });
 });
+
+import { KRONIKLER, kronikListesi, caglarListesi } from '../src/oyun/tonoflenya/kronik';
+describe('Kadim tarihçe', () => {
+  test('on bir bölüm kendi yerlerinde, sırayla açılır; çağlar dolar', () => {
+    const d = hazir();
+    // Önkoşullar
+    Object.assign(d.bayrak, { malazarIzni: true, arinDersi: true });
+    for (let i = 1; i <= 11; i++) {
+      const k = KRONIKLER[i];
+      expect(NOKTALAR[k.yer]).toBeDefined();
+      const e = noktaEylemleri(d, k.yer).find((x) => x.id === 'kr_' + i);
+      expect(e).toBeDefined();
+      const r = eylemUygula(d, k.yer, 'kr_' + i);
+      expect(r.metin.length).toBeGreaterThan(200);
+    }
+    expect(kronikListesi(d).every((k) => k.acik)).toBe(true);
+    expect(caglarListesi(d).every((c) => c.acik)).toBe(true);
+    expect(d.kodeks.filter((k) => k.id.indexOf('kronik_') === 0).length).toBe(11);
+  });
+  test('ikinci bölüm birinciden önce açılmaz; Kızıl Yutucu köprüsü', () => {
+    const d = hazir();
+    expect(noktaEylemleri(d, 'arsiv_kuresi').find((x) => x.id === 'kr_1')).toBeDefined();
+    expect(noktaEylemleri(d, 'arsiv_kuresi').find((x) => x.id === 'kr_2')).toBeUndefined();
+    eylemUygula(d, 'arsiv_kuresi', 'kr_1');
+    d.tamamlananOp.push('kizil_yutucu');
+    expect(eylemUygula(d, 'arsiv_kuresi', 'kr_2').metin).toContain('mancınık, Kaptan');
+  });
+});

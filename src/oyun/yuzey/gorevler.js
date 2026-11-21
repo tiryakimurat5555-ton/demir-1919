@@ -300,3 +300,4 @@ export function sicramaZamani(d, sn = TM.SICRAMA_SN) {
   d.sicramaNotu = 'Yolculuk sekiz saat sürdü. ' + Z.zamanMetni(d) + (d.koloni.nufus.toplam > once ? ' Koloninin nüfusu ' + d.koloni.nufus.toplam + '.' : '');
 }
 export const { seferKosullari } = TM;
+export { kronikListesi, caglarListesi, kronikAc, KRONIKLER } from '../tonoflenya/kronik';

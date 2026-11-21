@@ -387,7 +387,13 @@ Demir 1919 oyunu silindi; geçmişi git kaydında (son sürüm 1.06, commit 556f
   - tesisler.js hammaddeler aether, buyu_tozu. Sesler ElevenLabs (20 × 17 kredi): assets/ses/t/ortam_t_<ad>.mp3 (22 sn,
     2,5 sn çapraz geçiş, I=-24, 96k). Kat -3 ortam_revir, -4 ortam_reaktor.
   - testler/tonoflenya.test.js.
-- Sıradaki: KAPSAM.md "Sıradaki adımlar" (0: kadim tarihçe).
+- SÜRÜM 2.2 (21 Kasım, Murat: "Devam"): kadim tarihçe. Telefonda denenmedi.
+  - tonoflenya/kronik.js: KRONIKLER 1-11 (baslik, yer = nokta, ipucu, metin [paragraflar], 2. bölüm kopru: kizil_yutucu
+    op'u), CAGLAR 8 (bolum), ONKOSUL (2 ← 1, 4 ← malazarIzni, 6 ← arinDersi, 9 ← 8), kronikEylemi (malken.js
+    noktaEylemleri başına kr_<no>), kronikAc (d.kronik, kodeks kronik_<no>, itibar 15), kronikListesi, caglarListesi.
+    Yeni noktalar kurulus_kitabesi (ygk_1), bagrius_aniti (malazar_ocaklari), tonEylem 'kitabe'.
+  - Yuzey: menüde "Tonoflenya kronikleri" (tonoflenyaGoruldu ya da bir bölüm açıksa): bölümler ve çağlar alt listesi.
+- Sıradaki: KAPSAM.md "Sıradaki adımlar" (0: coğrafi atlas).
 
 ## Sesler
 - Drive'daki Efektler/Ambians dosyaları 14 MB; Drive bağlayıcısı 10 MB'tan büyük dosyayı indiremiyor. Bu yüzden

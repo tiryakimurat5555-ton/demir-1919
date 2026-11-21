@@ -6,7 +6,11 @@ tesis kurar, ileride gemini parça parça inşa edip uzaya açılırsın.
 
 Tasarım: Bahtiyar Cankurt (belgeler/). Yapım: Murat ve Bahtiyar. Expo Go ile iPhone ve Android'de çalışır.
 
-## Bu sürümde (2.1)
+## Bu sürümde (2.2)
+- Tonoflenya kronikleri: kadim tarihçenin on bir bölümü Tonoflenya'nın arşivlerinde, sarayında, gölünde, dağında saklı;
+  bulunca dinlenir, menüden yeniden okunur. Sekiz tarihsel çağ.
+
+## 2.1
 - Tonoflenya: koşullar sağlanınca Gözcü Tepesi'nde YGK frekansı yakalanır; uzay haritasındaki YGK fenerine kenetlenince
   sekiz saatlik hiper-sıçramayla anavatana gidilir. YGK Akademi'nin on bir katı (asansörle), Malkenia'nın altı halkası ve
   Tenohris Sarayı, Kara Göl, doğu kantonları, Flee Plee, Aether-Dock, Fenrir Denizi, Uçan Arin Adası, Veradon ve Malazar

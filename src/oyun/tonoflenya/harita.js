@@ -116,6 +116,7 @@ export const T_NOKTALAR = {
   arsiv_kuresi: { mekan: 'ygk_m1', x: katX('ygk_m1') + 12, y: 10, ad: 'Sesli arşiv küreleri', yaricap: 2, tonEylem: 'arsiv', tarif: 'Avuç büyüklüğünde, ılık küreler; dokununca içlerindeki kayıt fısıldamaya başlıyor.' },
   rezonans_hucresi: { mekan: 'ygk_m2', x: katX('ygk_m2') + 12, y: 10, ad: 'Rezonans hücresi', yaricap: 2, tonEylem: 'kripto', tarif: 'Taş bir oda; ortasında oturunca aether akımlarının uğultusu duyuluyor.' },
   tohum_kasasi_ygk: { mekan: 'ygk_m3', x: katX('ygk_m3') + 12, y: 10, ad: 'Kriyojenik tohum depoları', yaricap: 2, tonEylem: 'biyodepo', tarif: 'Buzlu çekmeceler; her birinde başka bir dünyanın tohumu.' },
+  kurulus_kitabesi: { mekan: 'ygk_1', x: katX('ygk_1') + 16, y: 16, ad: 'Kuruluş kitabesi', yaricap: 2, engel: 0.8, tonEylem: 'kitabe', tarif: 'Meydanın kuzey duvarına oyulmuş uzun bir yazıt; harfleri parmaklarının altında ılık. Bagrius hanedanının adları sırayla.' },
   enerji_cekirdegi: { mekan: 'ygk_m4', x: katX('ygk_m4') + 12, y: 10, ad: 'Reaktör çekirdeği', yaricap: 3, engel: 2, tarif: 'Lavla ve soğuk füzyonla beslenen reaktör; manyetik soğutma havuzları köpürüyor. Akademinin bütün kalkanı buradan.' },
   yarik_kuyusu: { mekan: 'ygk_m5', x: katX('ygk_m5') + 12, y: 10, ad: 'Boyut yarığı test kuyusu', yaricap: 3, engel: 2, tarif: 'Mühürlü bir kuyu; kenarından aşağıya ses gitmiyor, yukarıya ise soğuk bir çekim geliyor. Başmüfettişlerin mühürleri dokunulmamış.' },
   // Malkenia
@@ -139,6 +140,7 @@ export const T_NOKTALAR = {
   gumruk_kulesi: { mekan: 'veradon', x: 6830, y: 30, ad: 'Gümrük kulesi ve han', yaricap: 2.5, malken: 'gumruk', tarif: 'Taş bir kule; altında kalabalık bir han. Güneyden gelen kervanların kokusu.' },
   // Malazar
   simsek_kayasi: { mekan: 'malazar', x: 9040, y: 40, ad: 'Şimşek kayası', yaricap: 2.5, engel: 1.2, sutun: true, tarif: 'Zirvenin altında, üstüne durmadan mor şimşek düşen kararmış bir kaya.' },
+  bagrius_aniti: { mekan: 'malazar_ocaklari', x: 9205, y: 4, ad: 'I. Bagrius anıtı', yaricap: 2, engel: 0.8, tonEylem: 'kitabe', tarif: 'İlk kazının yapıldığı yerde, kristal damarının dibinde yüksük büyüklüğünde bir taş anıt. Üstünde bir kral adı ve bir tarih.' },
   aether_1: { mekan: 'malazar_ocaklari', x: 9205, y: 12, ad: 'Aether kristali damarı', yaricap: 2, kaynak: 'aether', stok: 4, ses: 'kristal', tarif: 'Duvarda mor titreşen bir kristal damarı.' },
   aether_2: { mekan: 'malazar_ocaklari', x: 9215, y: 16, ad: 'Aether kristali damarı', yaricap: 2, kaynak: 'aether', stok: 4, ses: 'kristal' },
   buyu_tozu_1: { mekan: 'malazar_ocaklari', x: 9212, y: 6, ad: 'Büyü tozu birikintisi', yaricap: 2, kaynak: 'buyu_tozu', stok: 3, tarif: 'Havada asılı duran, parmaklara ılık değen ince bir toz.' },

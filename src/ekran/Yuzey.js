@@ -135,6 +135,9 @@ import {
   zamanNotu,
   zamanMetni,
   NOBETLER,
+  kronikListesi,
+  caglarListesi,
+  kronikAc,
 } from '../oyun/yuzey/gorevler';
 import { BITKILER, ISLEME_TESISI } from '../oyun/tarim/bitkiler';
 import { UZMANLIKLAR, subayIstihdam, SEKTORLER, bosta, girdiMetni, harca, yeterMi, ilacDagit, isGucuDegis, moralMetni, moralSesi, parcaMetni, uretimBaslat, uretimListesi } from '../oyun/koloni';
@@ -972,6 +975,7 @@ export default function Yuzey({ onGeri, baslangic, yeniOyunUret }) {
             ]
           : []),
         { id: 'zaman', etiket: 'Yıldız Zamanı', ipucu: 'Gün ve nöbet. Yürürken ekranın sağ üst köşesine çift dokun.', sec: () => (soyle(zamanMetni(dunya.current, zamanNotu(dunya.current)), 'istek', true), 'sessiz') },
+        ...(dunya.current.bayrak.tonoflenyaGoruldu || (dunya.current.kronik || []).length ? [{ id: 'kronik', etiket: 'Tonoflenya kronikleri', ipucu: 'Kadim tarihçenin bulduğun bölümleri ve çağlar.', sec: () => (kronikGoster(), 'sessiz') }] : []),
         { id: 'kodeks', etiket: 'Evren Kütüphanesi', ipucu: 'Kodeks: buluntular, gözlemler, itibar kademesi.', sec: () => (kodeksGoster(), 'sessiz') },
         { id: 'telsiz', etiket: 'Telsiz kayıtları', ipucu: 'Dinlediğin ve ertelediğin telsiz çağrıları.', sec: () => (telsizGoster(), 'sessiz') },
         { id: 'hareket', etiket: 'Hareketler', sec: () => (soyle(HAREKET_KISA, 'istek', true), 'sessiz') },
@@ -981,6 +985,39 @@ export default function Yuzey({ onGeri, baslangic, yeniOyunUret }) {
           ipucu: 'Oyun kendiliğinden kaydedilir; Devam et ile kaldığın yerden sürersin.',
           sec: () => (kaydet(), onGeri(), 'sessiz'),
         },
+      ],
+    });
+  };
+
+  // Tonoflenya kronikleri (kadim tarihçe): bulunan bölümler okunur, bulunmayanların yeri söylenir; çağlar matrisi
+  const kronikGoster = () => {
+    const d = dunya.current;
+    const l = kronikListesi(d);
+    katmanAc({
+      baslik: 'Tonoflenya kronikleri',
+      giris: 'On bir bölümün ' + l.filter((k) => k.acik).length + ' tanesini buldun. Bölümler Tonoflenya\'da onları saklayan yerlerde dinlenir.',
+      onGeri: () => menuyuAc(),
+      ogeler: [
+        ...l.map((k) => ({
+          id: 'k' + k.no,
+          etiket: k.no + '. ' + (k.acik ? k.baslik : 'Henüz bulunmadı'),
+          ipucu: k.acik ? null : k.ipucu,
+          sec: () => (soyle(k.acik ? kronikAc(d, k.no).metin : 'Bu bölüm: ' + k.ipucu, 'istek', true), 'sessiz'),
+        })),
+        {
+          id: 'caglar',
+          etiket: 'Tarihsel çağlar ve dönüm noktaları',
+          sec: () => {
+            katmanAc({
+              baslik: 'Tarihsel çağlar',
+              giris: 'Sekiz çağ; bulduğun bölümlere göre doluyor.',
+              onGeri: () => kronikGoster(),
+              ogeler: [...caglarListesi(d).map((c, i) => ({ id: 'c' + i, etiket: c.ad + (c.acik ? '' : ', kapalı'), sec: () => (soyle(c.metin, 'istek', true), 'sessiz') })), { id: 'geri', etiket: 'Kroniklere dön', sec: () => (kronikGoster(), 'sessiz') }],
+            });
+            return 'sessiz';
+          },
+        },
+        { id: 'geri', etiket: 'Menüye dön', sec: () => (menuyuAc(), 'sessiz') },
       ],
     });
   };

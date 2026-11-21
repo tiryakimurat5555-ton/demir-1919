@@ -9,6 +9,7 @@
 //   ygk_simulasyon, ygk_kripto, ygk_biyodepo, ygk_harita, malken_muhur, t_hamam_<gün>.
 import { T_NOKTALAR, YGK_KATLARI, T_MEKANLAR } from './harita';
 import { NOBETLER, nobet } from '../zaman';
+import * as KR from './kronik';
 
 export const SICRAMA_SN = 8 * 3600; // hiper-sıçrama süresi (yönerge 4.B örneği: 08:00:00)
 export const GEREKEN_OP = 10;
@@ -131,7 +132,7 @@ const KATLAR_ADI = (id) => T_MEKANLAR[id].ad.split(':')[0];
 
 export function noktaEylemleri(d, id) {
   const n = T_NOKTALAR[id];
-  const e = [];
+  const e = [...KR.kronikEylemi(d, id)];
   if (n.malken) e.push({ id: 'konus', etiket: 'Konuş' });
   const t = n.tonEylem;
   if (t === 'asansor') {
@@ -167,6 +168,7 @@ export function eylemUygula(d, id, eid) {
   const n = T_NOKTALAR[id];
   if (eid === 'incele') return { metin: n.tarif || n.ad };
   if (eid === 'konus') return { metin: konus(d, n.malken) };
+  if (eid.indexOf('kr_') === 0) return KR.kronikAc(d, Number(eid.slice(3)));
   if (eid.indexOf('kat_') === 0) {
     const k = eid.slice(4);
     if (k === 'ygk_m5' && !b(d).basmufettis) return { metin: 'Asansör kat eksi beşte durmuyor: "Yasaklı tonozlar. Başmüfettiş mührü gerekir."', ses: 'red' };
