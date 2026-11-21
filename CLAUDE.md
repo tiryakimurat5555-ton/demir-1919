@@ -337,5 +337,6 @@ Demir 1919 oyunu silindi; geçmişi git kaydında (son sürüm 1.06, commit 556f
   Kanal main → dal main: her push'taki eas update APK'ya da iner. runtimeVersion policy appVersion: app.json
   "version" 0.1.0 DEĞİŞTİRİLMEMELİ, yoksa güncellemeler eski APK'ya gelmez. Yeni yerel modül (package.json'a yeni
   native bağımlılık) eklenirse yeni APK gerekir. Derleme: mcp__Expo__build_run (ANDROID, apk, gitRef commit).
+  İlk APK (21 Kasım, derleme 2ba770aa, runtime 0.1.0, kanal main): https://expo.dev/artifacts/eas/fpiGIh_F2fAgpXqa8WIDFGzzbCL6QfJa0xBXu4Bof6k.apk
 - Akış: uygula → testler → bun build → CLAUDE.md/README → commit → git pull --rebase → push → yayın → SUCCESS'i bekle
   → Türkçe rapor (Expo Go bağlantısı, yenilikler, denenmemiş olanlar dürüstçe).
