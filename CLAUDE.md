@@ -283,6 +283,21 @@ Demir 1919 oyunu silindi; geçmişi git kaydında (son sürüm 1.06, commit 556f
     savaş; her 200 adımda JSON kaydı/kaydiTamamla) — hata atmamalı. Bulduğu hatalar düzeltildi: mini.js görünmeyen
     nokta ve aktif olmayan görev eylemleri; vana görevinde dört bağlantının yalnız kaçıranı görünüyordu (artık dördü).
   - Tanımsız ad denetimi: tsc --checkJs (/tmp/tsconfig.json; allowJs, noEmit) çıktısında TS2304/TS2552 olmamalı.
+- SÜRÜM 1.7 (21 Kasım, Murat: "Seslendir, her ses temiz ve ortamına uygun seslendirilsin"): telsiz seslendirmesi.
+  Telefonda denenmedi.
+  - veri/seslendirme.js: KAYITLAR (33; id → rol, ortam telsiz|gemi|savas, metin — kayıtta ad yok), SESLER (0 Emir
+    DAnQthL4CQoTrAexmU0i, 1 Agit Taşdemir qLctY6uJSzrtjp23kPzO, 2 Öykü Arel BxCViLAxox0EqpBjvqwR; eleven_v4, savaş
+    satırları [shouting]), ERKEK_ADLAR/KADIN_ADLAR, cinsiyeti, kayitBul(d, id, uye): yalnız öncü ve ses cinsiyeti uyarsa.
+    murettebat.js uyeUret(r, uzmanlik, kullanilan, cinsiyet): ad cinsiyete göre; öncüler e/e/k.
+  - ElevenLabs flow ui4cHVdu6EZCZ5QIbudH; oturumlar araclar/seslendirme-oturumlari.txt (~4600 kredi). ham-sesler dalı →
+    ffmpeg (/tmp betiği; özet): telsiz 300-3400 Hz + acompressor + asoftclip + pembe parazit (0,012) + baş/son cızırtı;
+    savas 350-3800 Hz, ratio 5; gemi 180-6500 Hz + 1,8 kHz +3 dB + aecho 23|41 ms; hepsi loudnorm I=-16 (savaş -15),
+    22050 Hz tek kanal MP3 48k → assets/ses/telsiz/<id>.mp3. Süreler src/ses/telsizSureleri.js (ffprobe).
+  - src/ses/telsiz.js: kayitCal(id, düzey, bitince) oynatıcıyı o an açar, bitince bırakır; rehber.js kesinceCagir
+    (rehber kes=true ile konuşursa kayıt susar) ve mesgulSorgula (sıradan bildirimler kaydı bekler).
+  - Yuzey: telsizOku (bildirim dinleme ve telsiz kayıtları: "Telsizci Aras Kaya." sonra kayıt), sefer_olay sahnesi
+    sefer.js olayKaydi ile (SesliListe sessizAc; başlık + konuşan, kayıt, sonra ilk seçenek), savaş uyarısında
+    savas.js soz olayının kayit alanı (uyarı efektinden 350 ms sonra).
 - Sıradaki: KAPSAM.md "Sıradaki adımlar".
 
 ## Sesler

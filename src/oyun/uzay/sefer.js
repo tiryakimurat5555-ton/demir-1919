@@ -4,6 +4,7 @@
 // Seyir sürerken doksan saniyede bir yüzde otuz ihtimalle bir subay telsizden haber verir (üç tonlu zil): iyi haber,
 // mekanik arıza, moral olayı ya da dış tehdit. Haber bir karar sahnesidir. Kırk beş saniyede bir, iki operasyon
 // tamamlandıktan sonra yüzde on iki ihtimalle korsan saldırır.
+import { kayitBul } from '../veri/seslendirme';
 import { savasBaslat, gorevli } from './savas';
 
 export const HABER_SN = 90;
@@ -75,6 +76,16 @@ export function seferIlerle(d, dt) {
     }
   }
   return o;
+}
+
+// Seslendirilmiş olay konuşması: konuşan öncüyse { kayit, kim } (önce rehber kim'i söyler, sonra kayıt çalar)
+const OLAY_KONUSAN = { ikmal: ['Telsiz Subayı', 1], ariza: ['Başçarkçı', 0], ortaklik: ['Başhekim', 2], tehdit: ['Telsiz Subayı', 1] };
+export function olayKaydi(d) {
+  if (!d.olay || !OLAY_KONUSAN[d.olay.id]) return null;
+  const [yer, rol] = OLAY_KONUSAN[d.olay.id];
+  const u = gorevli(d, yer) || d.murettebat[rol];
+  const kayit = kayitBul(d, 'sefer_' + d.olay.id, u);
+  return kayit ? { kayit, kim: yer + ' ' + ilk(u) } : null;
 }
 
 const OLAYLAR = {

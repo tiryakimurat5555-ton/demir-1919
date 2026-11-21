@@ -8,6 +8,7 @@
 // penceresi: iki parmakla dokun kalkan, sesin ters yönüne kaydır kaçınma, torpidoya çift dokun karşı ateş.
 // Hasarlı sistem savunmayı kısıtlar: iticiler giderse kaçınma yok, kalkan ısınırsa kalkan yok, reaktör kritikse
 // tepkisiz kilitlenme. (4) değerlendirme.
+import { kayitBul } from '../veri/seslendirme';
 import { uretec } from '../veri/murettebat';
 import { GEMI_SINIFLARI } from '../veri/gemiler';
 
@@ -237,7 +238,11 @@ function uyariBaslat(d) {
   const o = [{ uyari: silah, yon: s.uyari.yon }];
   // Telsiz subayı (ses hassasiyeti) ya da D-2 yabancı dil sezgisi silahı önceden söyler
   const tel = gorevli(d, 'Telsiz Subayı');
-  if ((tel && tel.nitelik === 'ses_hassas') || yet(d, 'D2')) o.push({ soz: (tel ? tel.ad.split(' ')[0] + ': ' : '') + SILAHLAR[silah].ad + ', ' + (s.uyari.yon === 'sag' ? 'sağdan' : 'soldan') + '!' });
+  if ((tel && tel.nitelik === 'ses_hassas') || yet(d, 'D2')) {
+    // Telsiz subayı öncü telsizciyse kendi sesiyle bağırır (seslendirme.js); değilse rehber okur
+    const kayit = tel ? kayitBul(d, 'savas_' + silah + '_' + s.uyari.yon, tel) : null;
+    o.push({ soz: (tel ? tel.ad.split(' ')[0] + ': ' : '') + SILAHLAR[silah].ad + ', ' + (s.uyari.yon === 'sag' ? 'sağdan' : 'soldan') + '!', kayit });
+  }
   return o;
 }
 

@@ -30,6 +30,9 @@ import { useJestler } from '../arayuz/jestler';
 import SesliListe from '../arayuz/SesliListe';
 import { soyle, sustur } from '../ses/rehber';
 import { cal, ortamCal } from '../ses/efektler';
+import { kayitCal, kayitVarMi } from '../ses/telsiz';
+import { kayitBul } from '../oyun/veri/seslendirme';
+import { olayKaydi } from '../oyun/uzay/sefer';
 import { RENK, UST_BOSLUK } from '../arayuz/tema';
 import KonumsalSes from '../ses/konumsal';
 import { ALANLAR, KAPILAR, MEKANLAR, NOKTALAR } from '../oyun/yuzey/harita';
@@ -604,7 +607,17 @@ export default function Yuzey({ onGeri, baslangic, yeniOyunUret }) {
     }
     if (id === 'kurtarma' && m()) m().motorSil();
     if (sahne.efekt) sahne.efekt.forEach((e, i) => setTimeout(() => cal(e, 1), i * 400));
+    const ok = id === 'sefer_olay' ? olayKaydi(d) : null;
+    if (ok && kayitVarMi(ok.kayit)) {
+      // Seslendirilmiş sefer olayı: rehber başlığı ve konuşanı söyler, kayıt çalar, sonra ilk seçenek okunur
+      const secenekler = sahneSecenekleri(d, id);
+      const sonra = () => secenekler.length && soyle(secenekler[0].etiket + (secenekler.length > 1 ? ', 1 / ' + secenekler.length : ''), 'istek', false);
+      setTimeout(() => soyle([onEk, sahne.baslik, ok.kim + ' interkomda.'].filter(Boolean).join('. '), 'istek', true, false, () => {
+        if (!kayitCal(ok.kayit, 1, sonra)) soyle(sahneMetni(d, id).join(' '), 'istek', true, false, sonra);
+      }), 150);
+    }
     katmanAc({
+      sessizAc: !!(ok && kayitVarMi(ok.kayit)),
       baslik: sahne.baslik,
       giris: [onEk, ...sahneMetni(d, id)].filter(Boolean).join(' '),
       onGeri: null,
@@ -959,11 +972,20 @@ export default function Yuzey({ onGeri, baslangic, yeniOyunUret }) {
     if (!x) return false;
     d.duyulanBildirimler.push(x.id);
     if (!d.telsizKayitlari) d.telsizKayitlari = [];
-    d.telsizKayitlari.push({ kim: x.kim, metin: x.metin });
+    const kayit = kayitBul(d, x.id);
+    d.telsizKayitlari.push({ kim: x.kim, metin: x.metin, kayit });
     cal('tislama', 0.3);
-    soyle(x.kim + ': ' + x.metin, 'istek', true);
+    telsizOku(x.kim, x.metin, kayit);
     kaydet();
     return true;
+  };
+  // Seslendirilmiş kayıt varsa rehber yalnız konuşanı söyler, sonra kişinin kendi sesi çalar
+  const telsizOku = (kim, metin, kayit) => {
+    if (kayit && kayitVarMi(kayit)) {
+      soyle(kim + '.', 'istek', true, false, () => {
+        if (!kayitCal(kayit, 1)) soyle(metin, 'istek', true);
+      });
+    } else soyle(kim + ': ' + metin, 'istek', true);
   };
   const bildirimErtele = () => {
     const d = dunya.current;
@@ -988,7 +1010,7 @@ export default function Yuzey({ onGeri, baslangic, yeniOyunUret }) {
         ...liste.map((x, i) => ({
           id: 't' + i,
           etiket: x.kim + (x.ertelendi ? ', ertelendi' : ''),
-          sec: () => (soyle(x.kim + ': ' + x.metin, 'istek', true), 'sessiz'),
+          sec: () => (telsizOku(x.kim, x.metin, x.kayit), 'sessiz'),
         })),
         { id: 'geri', etiket: 'Menüye dön', sec: () => (menuyuAc(), 'sessiz') },
       ],
@@ -2031,8 +2053,14 @@ export default function Yuzey({ onGeri, baslangic, yeniOyunUret }) {
     const s = m();
     const sozler = [];
     let bitti = false;
+    let kayitli = false;
     for (const o of olaylar) {
-      if (o.soz) sozler.push(o.soz);
+      if (o.kayit && kayitVarMi(o.kayit)) {
+        // Telsiz subayının kendi sesi; uyarı sesinin üstüne binmesin diye bir an sonra
+        const k = o.kayit;
+        setTimeout(() => { if (!kayitCal(k, 1)) soyle(o.soz, 'istek', false); }, 350);
+        kayitli = true;
+      } else if (o.soz) sozler.push(o.soz);
       if (o.soz === 'Kalkan!') cal('el_kalkan', 0.9);
       if (o.ses === 'kilitTonu') {
         if (s) s.nota(1760, null, 0.7, 0.35);
@@ -2050,7 +2078,7 @@ export default function Yuzey({ onGeri, baslangic, yeniOyunUret }) {
       }
       if (o.bitti) bitti = true;
     }
-    if (sozler.length) soyle(sozler.join(' '), 'istek', true);
+    if (sozler.length) soyle(sozler.join(' '), 'istek', !kayitli);
     if (bitti || !d.savas) savasKapat();
   };
   const savasAdimi = () => {
@@ -2373,7 +2401,7 @@ export default function Yuzey({ onGeri, baslangic, yeniOyunUret }) {
       ) : null}
       {katman ? (
         <View style={StyleSheet.absoluteFill}>
-          <SesliListe key={'k' + katman.no} baslik={katman.baslik} giris={katman.giris} rehberAcik onGeri={katman.onGeri} ogeler={katman.ogeler} />
+          <SesliListe key={'k' + katman.no} baslik={katman.baslik} giris={katman.giris} rehberAcik onGeri={katman.onGeri} ogeler={katman.ogeler} sessizAc={!!katman.sessizAc} />
         </View>
       ) : null}
     </View>

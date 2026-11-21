@@ -15,9 +15,12 @@ bütün bölümlerini sırayla sayar. Her sürümde güncellenir; bir bölüm bu
       durumu (yarıda kalan operasyon ve çatışma kayıttan sürer; 1.4), kodeks, gezegen keşifleri.
 - [~] 3.1 Drive ortam sesleri: Efektler klasörlerinden kullanılıyor. Ambians klasöründeki dosyalar 14 MB; bağlayıcı
       10 MB'tan büyüğünü indiremiyor. Bahtiyar ya da Murat 10 MB altı parçalar koyarsa eklenecek.
-- [~] 3.2 ElevenLabs kısa efektler (1.5): savaş uyarıları (plazma şarjı, torpido, iyon ıslığı), kalkan, keşif zili,
-      deklanşör ElevenLabs'tan. Telsiz konuşmaları hâlâ Türkçe sentez sesle (seslendirme çok kredi ister; Murat'a sorulacak).
-      Plan: telsiz zili ve kısa foley için ElevenLabs (indirme yolu CLAUDE.md'de).
+- [x] 3.2 ElevenLabs (1.5, 1.7): savaş uyarıları (plazma şarjı, torpido, iyon ıslığı), kalkan, keşif zili, deklanşör;
+      1.7'de 33 telsiz ve gemi içi konuşması seslendirildi (15 görev ve bölge bildirimi, 8 yerel görev çağrısı, 4 sefer
+      olayı, 6 savaş uyarısı). Üç öncü sesi: başçarkçı Emir, telsizci Agit Taşdemir, hekim Öykü Arel (ElevenLabs v4).
+      Yüzey telsizi bant süzgeçli ve çok kısık parazitli, gemi içi interkom yankılı ve parazitsiz, savaş telsizi dar
+      bant ve sert. Adı değişen konuşmalar (koloni bilgisayarı, klostrofobi olayı, sonradan alınan subaylar) sentez
+      sesle kalır.
 - [x] 4 Belge okuma sırası (CLAUDE.md'de).
 - [x] 5 Veri modelleri: ColonyWorld [x], Starship [x] (sınıf, odalar, gövde, kalkan, silahlar, kargo, motor sesi),
       CrewMember [x] (1.4: stres darbelerle artar, kolonide sıfırlanır; verimlilik görev yeri etkisini çarpar), SpaceMission [x] (1.1, d.op), CombatSession [x] (1.3, d.savas),
@@ -198,5 +201,5 @@ bütün bölümlerini sırayla sayar. Her sürümde güncellenir; bir bölüm bu
       keşif zili; zaman sınırı yok; keşfedildi mührü, yeniden rastlanınca dinlenir.
 
 ## Sıradaki adımlar (sırayla)
-1. Faz 5 kalanı: ElevenLabs kısa efektleri ve telsiz sesleri (bu ortam indiremiyor; iş akışı hazır), sesleri
-   dengeleme ve erişilebilirlik testleri (telefonda Murat ve Bahtiyar).
+1. Telefonda deneme: seslendirilmiş telsizlerin düzeyi ve anlaşılırlığı (Murat ve Bahtiyar), ses dengeleme ve
+   erişilebilirlik testleri. İstenirse koloni bilgisayarı için ayrı bir ses.

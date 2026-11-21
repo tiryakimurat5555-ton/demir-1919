@@ -1598,3 +1598,49 @@ describe('Savaş, yetenekler, mürettebat ve sefer olayları', () => {
     expect(d.murettebat[n].rol).toBe('Taktik Nişancı');
   });
 });
+
+describe('seslendirilmiş telsiz (1.7)', () => {
+  const S = require('../src/oyun/veri/seslendirme');
+  test('öncülerin cinsiyeti kayıtların sesine uyar ve her bildirim için kayıt bulunur', () => {
+    for (const t of [1, 7, 12345, 999]) {
+      const d = yeniOyun(t);
+      expect(S.cinsiyeti(d.murettebat[0])).toBe('e');
+      expect(S.cinsiyeti(d.murettebat[1])).toBe('e');
+      expect(S.cinsiyeti(d.murettebat[2])).toBe('k');
+      expect(S.kayitBul(d, 'sirtlar_ilk')).toBe('sirtlar_ilk');
+      expect(S.kayitBul(d, 'mini_kayip_ekip')).toBe('mini_kayip_ekip');
+      expect(S.kayitBul(d, 'yok_boyle')).toBe(null);
+    }
+  });
+  test('başka biri konuşursa ya da eski kayıtta ses uymazsa kayıt çalmaz', () => {
+    const d = yeniOyun(3);
+    const yabanci = { ...d.murettebat[1], id: 'baska' };
+    expect(S.kayitBul(d, 'savas_iyon_sag', yabanci)).toBe(null);
+    const eski = yeniOyun(3);
+    delete eski.murettebat[2].cinsiyet;
+    eski.murettebat[2].ad = 'Demir Kaya';
+    expect(S.kayitBul(eski, 'zehir_yarim')).toBe(null);
+  });
+  test('kayıtları olan bütün bildirim ve mini görev kimlikleri oyunda var', () => {
+    const G = require('../src/oyun/yuzey/gorevler');
+    const M = require('../src/oyun/yuzey/mini');
+    const fs = require('fs');
+    const bild = fs.readFileSync('src/oyun/yuzey/gorev2.js', 'utf8') + fs.readFileSync('src/oyun/yuzey/gorev3.js', 'utf8') + fs.readFileSync('src/oyun/yuzey/gorev4.js', 'utf8') + fs.readFileSync('src/oyun/yuzey/gorev5.js', 'utf8') + fs.readFileSync('src/oyun/yuzey/bolgeler.js', 'utf8');
+    for (const id of Object.keys(S.KAYITLAR)) {
+      if (id.startsWith('mini_')) expect(M.MINI[id.slice(5)]).toBeTruthy();
+      else if (!id.startsWith('sefer_') && !id.startsWith('savas_')) expect(bild.includes("id: '" + id + "'")).toBe(true);
+      expect(fs.existsSync('assets/ses/telsiz/' + id + '.mp3')).toBe(true);
+    }
+    expect(G.SAHNELER.sefer_olay).toBeTruthy();
+  });
+  test('sefer olayında konuşan öncüyse kayıt ve konuşanın adı verilir', () => {
+    const { olayKaydi } = require('../src/oyun/uzay/sefer');
+    const d = yeniOyun(5);
+    d.olay = { id: 'ariza' };
+    const k = olayKaydi(d);
+    expect(k.kayit).toBe('sefer_ariza');
+    expect(k.kim).toContain('Başçarkçı');
+    d.olay = { id: 'klostrofobi', uye: 'x' };
+    expect(olayKaydi(d)).toBe(null);
+  });
+});

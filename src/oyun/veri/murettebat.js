@@ -1,7 +1,7 @@
 // Prosedürel mürettebat üretimi (belgeler/savas-yetenek-ve-murettebat-mekanikleri.md bölüm 4.1).
 // Tohumlu rastgele sayı: aynı oyun her açılışta aynı isimleri verir.
 
-const ADLAR = ['Demir', 'Lyra', 'Aras', 'Selin', 'Kaan', 'Mira', 'Tolga', 'Ece', 'Bora', 'Nil', 'Orhan', 'Defne', 'Rüzgar', 'İlke', 'Toprak', 'Asya', 'Umut', 'Ada'];
+import { ERKEK_ADLAR, KADIN_ADLAR } from './seslendirme';
 const SOYADLAR = ['Kaya', 'Thorne', 'Yıldız', 'Vale', 'Akın', 'Soykan', 'Erdem', 'Okyay', 'Varol', 'Karan', 'Ilgaz', 'Tunç'];
 
 export const UZMANLIKLAR = {
@@ -35,16 +35,19 @@ function sec(r, dizi) {
 }
 
 // Yeni bir mürettebat üyesi. kullanilan: aynı adın iki kez çıkmaması için
-export function uyeUret(r, uzmanlik, kullanilan = []) {
+// cinsiyet: 'e' | 'k' (verilmezse rastgele); öncülerin cinsiyeti seslendirilmiş kayıtların sesine uyar
+export function uyeUret(r, uzmanlik, kullanilan = [], cinsiyet = null) {
+  const c = cinsiyet || (r() < 0.5 ? 'e' : 'k');
   let ad;
   for (let i = 0; i < 20; i++) {
-    ad = sec(r, ADLAR) + ' ' + sec(r, SOYADLAR);
+    ad = sec(r, c === 'e' ? ERKEK_ADLAR : KADIN_ADLAR) + ' ' + sec(r, SOYADLAR);
     if (!kullanilan.includes(ad)) break;
   }
   const nitelikler = Object.keys(NITELIKLER);
   return {
     id: 'm' + Math.floor(r() * 1e9).toString(36),
     ad,
+    cinsiyet: c,
     uzmanlik,
     rol: UZMANLIKLAR[uzmanlik].rol,
     nitelik: sec(r, nitelikler),
@@ -59,9 +62,9 @@ export function uyeUret(r, uzmanlik, kullanilan = []) {
 // Kapsülden sağ çıkan öncüler: bir mühendis ve bir telsizci hikâyede konuşur
 export function oncuUret(tohum) {
   const r = uretec(tohum);
-  const muhendis = uyeUret(r, 'muhendis');
-  const telsizci = uyeUret(r, 'telsiz', [muhendis.ad]);
-  const hekim = uyeUret(r, 'tip', [muhendis.ad, telsizci.ad]);
+  const muhendis = uyeUret(r, 'muhendis', [], 'e');
+  const telsizci = uyeUret(r, 'telsiz', [muhendis.ad], 'e');
+  const hekim = uyeUret(r, 'tip', [muhendis.ad, telsizci.ad], 'k');
   // Hikâye kişilerinin nitelikleri sabittir: telsizcinin kulağı iyidir
   telsizci.nitelik = 'ses_hassas';
   muhendis.nitelik = 'sogukkanli';

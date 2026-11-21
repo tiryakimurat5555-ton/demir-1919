@@ -6,7 +6,12 @@ tesis kurar, ileride gemini parça parça inşa edip uzaya açılırsın.
 
 Tasarım: Bahtiyar Cankurt (belgeler/). Yapım: Murat ve Bahtiyar. Expo Go ile iPhone ve Android'de çalışır.
 
-## Bu sürümde (1.6)
+## Bu sürümde (1.7)
+- Telsiz konuşmaları artık seslendirilmiş: başçarkçı, telsizci ve hekim kendi sesleriyle konuşur (görev ve bölge
+  bildirimleri, yerel görev çağrıları, gemi içi sefer olayları, savaşta telsizcinin uyarıları). Yüzeyde telsiz,
+  gemide interkom, savaşta kısa ve sert telsiz sesi. Rehber önce konuşanı söyler, sonra kayıt çalar.
+
+## Önceki sürümler
 - Vadi-i Sukût'ta sesle serbest dolaşma; iniş kapsülünün içi ve dışı.
 - Radar: uzun basınca yankılar nesnelerin yönünden döner.
 - Birinci görev "Sinyal Arayışı": alet dolabı, kopan arka modül, yedek jeneratör, Gözcü Tepesi'nde anten
