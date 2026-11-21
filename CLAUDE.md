@@ -471,6 +471,9 @@ Demir 1919 oyunu silindi; geçmişi git kaydında (son sürüm 1.06, commit 556f
   değiştiriliyor"): assets/ses/ortam_revir.mp3 (eski ffmpeg sentezi .wav silindi; ilk 302 sn, 3 sn çapraz geçiş, I=-24, 96k;
   düzey 0,45 → 0,6). Gemilerin revir, yaşam, laboratuvar, koğuş, kseno, cerrahi, mülteci, hidroponik bölmeleri ve YGK Kat -3
   çalar. Telefonda denenmedi.
+- SÜRÜM 2.11 (21 Kasım, Murat ses dosyası ekledi: "gemi klasöründe bulunan ortam kokpit adlı dosya ... ile değiştiriliyor"):
+  assets/ses/ortam_kokpit.mp3 (eski .wav silindi; ilk 302 sn, 3 sn çapraz geçiş, I=-24, 96k; düzey 0,5 → 0,6). Bütün
+  gemilerin kokpit/köprü bölmeleri çalar. Telefonda denenmedi.
 - Sıradaki: Tonoflenya belgelerinin hepsi işlendi; KAPSAM.md'de [~] notları (Bahtiyar'a sorulacaklar) ve telefonda deneme.
 
 ## Sesler
