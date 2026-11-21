@@ -6,6 +6,9 @@ tesis kurar, ileride gemini parça parça inşa edip uzaya açılırsın.
 
 Yapımcı: Bahtiyar Cankurt (tasarım belgeleri belgeler/ içinde). Expo Go ile iPhone ve Android'de çalışır.
 
+## Bu sürümde (2.8)
+- Fenrir Denizi ortam sesi Murat'ın gönderdiği kayıtla değişti (rezonans kayığı yolculuğunda da çalar).
+
 ## Bu sürümde (2.7)
 - Hakkında bölümünde ve oyun sonu kredilerinde yapımcı yalnız Bahtiyar Cankurt.
 

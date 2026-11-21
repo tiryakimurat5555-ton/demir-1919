@@ -171,7 +171,7 @@ const DONGULER = {
   ortam_t_kanton: 0.55,
   ortam_t_sahil: 0.55,
   ortam_t_dock: 0.55,
-  ortam_t_fenrir: 0.55,
+  ortam_t_fenrir: 0.6,
   ortam_t_arin: 0.55,
   ortam_t_veradon: 0.55,
   ortam_t_malazar: 0.55,

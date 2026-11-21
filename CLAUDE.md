@@ -461,6 +461,9 @@ Demir 1919 oyunu silindi; geçmişi git kaydında (son sürüm 1.06, commit 556f
 - SÜRÜM 2.7 (21 Kasım, Murat: "Murat ismini oradan kaldır, yapımcı olarak sadece Bahtiyar Cankurt yazsın"): App.js
   HAKKINDA_METNI ve final.js tf_krediler: "Yapımcı: Bahtiyar Cankurt."; README. Oyuncunun duyduğu metinlerde Murat'ın adı
   geçmez (kod yorumları dışında). Telefonda denenmedi.
+- SÜRÜM 2.8 (21 Kasım, Murat ses dosyası ekledi: "fenrir denizi adlı ortam dosyası bu gönderdiğim ile değiştiriliyor"):
+  assets/ses/t/ortam_t_fenrir.mp3 Murat'ın kaydından (600 sn'nin ilk 302 sn'si, 3 sn çapraz geçişli döngü, I=-24, 96k stereo;
+  efektler.js düzeyi 0,6). Fenrir Işık ve Toz Denizi ve atlas seyahat_kayik (rezonans kayığı yolculuğu) bunu çalar. Telefonda denenmedi.
 - Sıradaki: Tonoflenya belgelerinin hepsi işlendi; KAPSAM.md'de [~] notları (Bahtiyar'a sorulacaklar) ve telefonda deneme.
 
 ## Sesler
