@@ -151,6 +151,14 @@ function SesliListe({ baslik, giris, ogeler, onGeri, rehberAcik, ilkOdak = 0, ge
         } else if (yon === 'sol') {
           if (odakRef.current <= 0) kenar();
           else odakla(odakRef.current - 1);
+        } else if (yon === 'yukari') {
+          // Murat (1.8): yukarı kaydırma listenin başına
+          if (odakRef.current <= 0) kenar();
+          else odakla(0);
+        } else if (yon === 'asagi') {
+          // aşağı kaydırma listenin sonuna
+          if (odakRef.current >= n - 1) kenar();
+          else odakla(n - 1);
         }
       },
       onSurukle: (mod, dx, dy, bilgi) => {

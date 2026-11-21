@@ -57,7 +57,7 @@ import { TESISLER } from '../src/oyun/veri/tesisler';
 
 // Bir yere kendiliğinden yürür (en çok 120 benzetim saniyesi)
 function yuru(d, id) {
-  const h = yerlerListesi(d).find((y) => y.id === id) || { id, ad: NOKTALAR[id].ad, mekan: NOKTALAR[id].mekan, x: NOKTALAR[id].x, y: NOKTALAR[id].y };
+  const h = yerlerListesi(d, true).find((y) => y.id === id) || { id, ad: NOKTALAR[id].ad, mekan: NOKTALAR[id].mekan, x: NOKTALAR[id].x, y: NOKTALAR[id].y };
   otoBaslat(d, h);
   const olaylar = [];
   for (let i = 0; i < 1200 && d.oto; i++) olaylar.push(...ilerle(d, {}, 0.1));
@@ -346,7 +346,7 @@ function ucuncuGorev(d) {
   expect(konus(d, 'muhendis', 'Rezonatörü yap')).toContain('çatala');
   expect(d.envanter).toContain('rezonator');
   // Batı geçidi açık; krater
-  expect(yerlerListesi(d).some((y) => y.id === 'bati_gecit')).toBe(true);
+  expect(yerlerListesi(d, true).some((y) => y.id === 'bati_gecit')).toBe(true);
   yuru(d, 'bati_gecit');
   const r = etkiles(d);
   expect(r.gecti).toBe(true);
@@ -1642,5 +1642,23 @@ describe('seslendirilmiş telsiz (1.7)', () => {
     expect(k.kim).toContain('Başçarkçı');
     d.olay = { id: 'klostrofobi', uye: 'x' };
     expect(olayKaydi(d)).toBe(null);
+  });
+});
+
+describe('Yerler listesi yalnız bulunulan mekân (1.8)', () => {
+  test('vadide kapsülün içi, sırtlarda vadi listelenmez; sırtlarda dönüş geçidi var', () => {
+    const d = yeniOyun(11);
+    d.mekan = 'vadi';
+    d.oyuncu = { x: 0, y: 10, yon: 0 };
+    expect(yerlerListesi(d).every((y) => y.mekan === 'vadi')).toBe(true);
+    d.bayrak.maske = true;
+    d.mekan = 'sirtlar';
+    d.oyuncu = { x: 540, y: -10, yon: 0 };
+    const l = yerlerListesi(d);
+    expect(l.every((y) => y.mekan === 'sirtlar')).toBe(true);
+    expect(l.some((y) => y.id === 'guney_gecit')).toBe(true);
+    d.mekan = 'kapsul';
+    d.oyuncu = { x: 303, y: 3, yon: 0 };
+    expect(yerlerListesi(d).some((y) => y.id === 'kapsul_kilit')).toBe(true);
   });
 });

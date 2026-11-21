@@ -801,13 +801,12 @@ export default function Yuzey({ onGeri, baslangic, yeniOyunUret }) {
     const liste = yerlerListesi(d);
     katmanAc({
       baslik: 'Yerler',
-      giris: 'Bildiğin yerler ve kişiler. Birini seç; oraya kendin yürürsün. Yolda ekrana dokunursan durursun. Yeni yerleri radarla bulursun.',
+      giris: (MEKANLAR[d.mekan] ? MEKANLAR[d.mekan].ad + ': ' : '') + (liste.length ? 'burada bildiğin ' + liste.length + ' yer ve kişi. Birini seç; oraya kendin yürürsün. Yolda ekrana dokunursan durursun. Yeni yerleri radarla bulursun.' : 'burada henüz bildiğin bir yer yok. Radarla ara.'),
       onGeri: () => menuyuAc(),
       ogeler: [
         ...liste.map((y) => ({
           id: y.tur + y.id,
           etiket: y.ad + (y.uzaklik != null ? ', ' + y.uzaklik + ' metre' : ''),
-          ipucu: y.mekan !== d.mekan ? 'Hava kilidinden geçerek gidersin.' : '',
           sec: () => {
             const r = otoBaslat(d, y);
             katmanKapat(r.metin);

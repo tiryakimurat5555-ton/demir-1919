@@ -22,7 +22,7 @@ import { ayarlarOku, ayarlarYaz, otoOku, otoSil, tarihMetni, VARSAYILAN_AYARLAR,
 import { yeniOyun } from './src/oyun/durum';
 import { durumKisa } from './src/oyun/yuzey/dunya';
 
-const SURUM = '1.7';
+const SURUM = '1.8';
 const OYUN_ADI = 'Aethelis';
 
 const HAKKINDA_METNI = [
@@ -52,7 +52,7 @@ const HAREKETLER = [
   'Uzayda, kokpitteyken: yukarı kaydır itki, aşağı ters itici; sağa ya da sola kaydır, burnu çevir. Her noktanın feneri kendi perdesinde çalar; ses iki kulakta eşitlenince pruva kilitlenir. Basılı tut: radar. Çift dokun: yakındaki noktaya kenetlen. Aethelis-IV\'e kenetlenince inersin.',
   'Rezonansta (kilitli kadim kapılarda): kapı nota dizisini çalar. Yukarı ya da aşağı kaydır: nota seçilir ve çalar; yukarı inceltir. Çift dokun: notayı kapıya çal. Dokun: diziyi yeniden dinle. İki parmakla çift dokun: kapıdan çekil.',
   'Frekans ayarında: yukarı ya da aşağı sürükle, ya da iki parmakla çevir; kanal değişir. Sağa ya da sola hızlı kaydır: ince ayar. Dokun: kanalı söyler. İki parmakla çift dokun: ayardan çık.',
-  'Menülerde: sağa ya da sola kaydır, sonraki ya da önceki öğe. Çift dokun, seç. Uzun bas, açıklama. İki parmakla çift dokun, geri.',
+  'Menülerde: sağa ya da sola kaydır, sonraki ya da önceki öğe. Yukarı kaydır, listenin başı; aşağı kaydır, listenin sonu. Çift dokun, seç. Uzun bas, açıklama. İki parmakla çift dokun, geri.',
   'Oyun kendiliğinden kaydedilir; telefonu kilitlesen ya da uygulamadan çıksan da kaldığın yerden sürer. Kapsüldeki merkez terminalinden üç yuvaya elle de kaydedebilirsin.',
   'Kulaklık takarak oyna: sesler bulundukları yönden gelir.',
 ];

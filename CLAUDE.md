@@ -298,6 +298,9 @@ Demir 1919 oyunu silindi; geçmişi git kaydında (son sürüm 1.06, commit 556f
   - Yuzey: telsizOku (bildirim dinleme ve telsiz kayıtları: "Telsizci Aras Kaya." sonra kayıt), sefer_olay sahnesi
     sefer.js olayKaydi ile (SesliListe sessizAc; başlık + konuşan, kayıt, sonra ilk seçenek), savaş uyarısında
     savas.js soz olayının kayit alanı (uyarı efektinden 350 ms sonra).
+- SÜRÜM 1.8 (21 Kasım, Murat): Yerler listesi yalnız bulunulan mekânı gösterir (dunya.js yerlerListesi(d, hepsi);
+  vadi dışında dönüş geçitlerinin bu taraftaki uçları eklenir; testler hepsi=true ile uzak yürür). SesliListe:
+  tek parmak yukarı kaydır listenin başı, aşağı kaydır listenin sonu. Telefonda denenmedi.
 - Sıradaki: KAPSAM.md "Sıradaki adımlar".
 
 ## Sesler

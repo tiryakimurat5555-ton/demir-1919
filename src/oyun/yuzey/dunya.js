@@ -526,7 +526,8 @@ function yaklasmaHaberi(d, olaylar) {
 
 // --- Kendiliğinden yürüme ---
 // Gidilebilecek yerler: keşfedilen noktalar, kişiler ve kapsül. Başka mekândakiler kapıdan geçilerek.
-export function yerlerListesi(d) {
+// hepsi: bütün mekânlar (testlerin uzak yürüyüşü için); ekrandaki liste yalnız bulunulan mekânı gösterir
+export function yerlerListesi(d, hepsi = false) {
   const liste = [];
   const ekle = (tur, id, adi, mekan, x, y) => {
     const m = mekan === d.mekan ? Math.round(uzaklik(d.oyuncu, { x, y })) : null;
@@ -573,7 +574,21 @@ export function yerlerListesi(d) {
     const u = k.uclar[0];
     ekle('kapi', id, u.ad, u.mekan, u.x, u.y);
   }
-  return liste.sort((a, b) => (a.mekan === d.mekan ? 0 : 1) - (b.mekan === d.mekan ? 0 : 1) || (a.uzaklik || 0) - (b.uzaklik || 0));
+  // Murat (1.8): yalnız bulunulan mekânın içindekiler. Vadi dışındaki bir mekândaysan geldiğin geçitlerin bu
+  // taraftaki uçları da listelenir (dönüş yolu).
+  if (hepsi) return liste.sort((a, b) => (a.mekan === d.mekan ? 0 : 1) - (b.mekan === d.mekan ? 0 : 1) || (a.uzaklik || 0) - (b.uzaklik || 0));
+  if (d.mekan !== 'vadi') {
+    const gorulen = d.gorulenMekanlar || [];
+    for (const id of Object.keys(KAPILAR)) {
+      const uclar = KAPILAR[id].uclar;
+      uclar.forEach((u, i) => {
+        if (u.mekan !== d.mekan || liste.some((y) => y.id === id && y.mekan === d.mekan)) return;
+        const obur = uclar[1 - i].mekan;
+        if (obur === 'vadi' || obur === 'kapsul' || gorulen.includes(obur)) ekle('kapi', id, u.ad, u.mekan, u.x, u.y);
+      });
+    }
+  }
+  return liste.filter((y) => y.mekan === d.mekan).sort((a, b) => (a.uzaklik || 0) - (b.uzaklik || 0));
 }
 
 export function otoBaslat(d, hedef) {
