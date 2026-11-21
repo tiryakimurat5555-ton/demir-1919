@@ -62,6 +62,10 @@ jobs:
             BASLIK="$(printf '%s' "$MESAJ" | head -n 1)"
             eas update --branch main --message "$BASLIK" --non-interactive --json > sonuc.json
             cat sonuc.json
+            # Bahtiyar'ın APK'sı "main" kanalını dinler: kanalın her zaman main dalına bağlı olduğundan emin ol
+            eas channel:edit main --branch main --non-interactive || eas channel:create main --non-interactive || true
+            echo "KANAL_DURUMU:"
+            eas channel:view main --json --non-interactive || true
             KIMLIK="$(node -e "console.log(require('./app.json').expo.extra.eas.projectId)")"
             GRUP="$(node -e "const s=require('./sonuc.json');const a=Array.isArray(s)?s:[s];console.log(a[0].group)")"
             echo "EXPO_GO_BAGLANTISI=exp://u.expo.dev/${KIMLIK}/group/${GRUP}"
