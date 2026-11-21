@@ -29,6 +29,8 @@ export function yetenekler(d) {
     const a = SB.SUBAYLAR[k].aktif;
     l.push({ id: a.id, ad: a.ad, sahip: s.ad.split(' ')[0] === 'Dr.' || s.ad.split(' ')[0] === 'Başçavuş' ? s.ad.split(' ')[1] : s.ad.split(' ')[0], bekleme: a.bekleme + (s.cekirdek ? 0 : 1) });
   }
+  // Boyutsal atlama sıçrayıcısı (final görevi 8): acil kaçış
+  if (d.bayrak.tf_sicrayici) l.push({ id: 'atlama', ad: 'Boyutsal Atlama Sıçrayıcısı', sahip: 'Gemi', bekleme: 6 });
   return l;
 }
 function beklemeSuresi(d, y) {
@@ -72,7 +74,7 @@ function yetenekKullan(d) {
   } else if (y.id === 'kaynak') {
     g.govde = Math.min(g.maxGovde, g.govde + Math.round(g.maxGovde * 0.25 * kat));
     o.push({ ses: 'kaynak', soz: y.sahip + ': hidrolik kelepçeler sıkıldı, acil kaynak.' + yuzde() });
-  } else if (y.id === 'gumus') {
+  } else if (y.id === 'gumus' || y.id === 'atlama') {
     o.push({ ses: 'tislama', soz: y.sahip + ': "Çekilme rotası hazır." Gemi savaştan sıyrılıyor.' });
     d.astralOdak = false;
     s.bekleme[y.id] = beklemeSuresi(d, y);
@@ -100,6 +102,10 @@ export const DUSMANLAR = {
   korsan_korvet: { ad: 'korsan korveti', govde: 60, kalkan: 0.5, silahlar: ['plazma', 'torpido'], frek: 140, ganimet: { sasi_celigi: 30, mikrocip: 5 } },
   korsan_avci: { ad: 'korsan avcı gemisi', govde: 40, kalkan: 0.3, silahlar: ['iyon', 'plazma'], frek: 260, ganimet: { plaka: 40 } },
   yabanci_firkateyn: { ad: 'tanımsız yabancı firkateyn', govde: 110, kalkan: 0.6, silahlar: ['iyon', 'torpido', 'plazma'], frek: 90, ganimet: { kseno_alasim: 20, saf_kristal: 10 } },
+  // Tonoflenya final görevleri (2.5): Alt Evren'in karanlık varlıkları (ışık mızrağı iki kat vurur)
+  golge_kanat: { ad: 'Alt Evren hava yaratıkları sürüsü', govde: 70, kalkan: 0.2, silahlar: ['iyon', 'plazma'], frek: 70, karanlik: true, ganimet: { zirhli_plaka: 20 } },
+  golge_gemisi: { ad: 'gölge korsan gemisi', govde: 80, kalkan: 0.4, silahlar: ['torpido', 'plazma'], frek: 120, karanlik: true, ganimet: { zirhli_plaka: 30 } },
+  kahergonat_zirhlisi: { ad: 'Kahergonat öncü zırhlısı', govde: 140, kalkan: 0.65, silahlar: ['torpido', 'plazma', 'iyon'], frek: 60, karanlik: true, ganimet: { zirhli_plaka: 60, kseno_alasim: 15 } },
 };
 
 // Kayıtlanabilir tohumlu zar
@@ -176,6 +182,7 @@ function dusmanaHasar(d, x, olaylar, tur) {
       s.donma = 2;
     } else if (kusan(d, 'isik_mizragi')) h *= 2.4 * (DUSMANLAR[s.tur].karanlik ? 2 : 1);
     else if (kusan(d, 'golge_yayici')) s.dusmanMoral = true;
+    else if (kusan(d, 'onur_kilici')) h *= 2 * (DUSMANLAR[s.tur].karanlik ? 1.5 : 1);
   }
   let muhimmat = false;
   if (tur === 'torpido' && esya(d, 'aether_muhimmati') > 0) {
@@ -187,6 +194,9 @@ function dusmanaHasar(d, x, olaylar, tur) {
   if (!delik) h *= 1 - dm.kalkan * (tur === 'torpido' ? 0.5 : 1) * (tur === 'birincil' && kusan(d, 'plazma_tufegi') ? 0.85 : 1);
   if (tur === 'kizil') h *= 1.5;
   if (s.odak > 0) h *= 2;
+  // Final görevlerinin kalıcı ödülleri: saf astral ışık, efsanevi aether reaktörü
+  if (d.bayrak.tf_astral) h *= 1.15;
+  if (mod(d, 'efsanevi_reaktor')) h *= 1.25;
   // Varek: kritik vuruş; Kızıl baskın (Kırmızı 4. kademe): ilk isabet kritik
   if ((SB.kritikIhtimal(d) && zar(s) < SB.kritikIhtimal(d)) || (SB.kabiliyet(d, 'varek', 4) && !s.ilkIsabet)) {
     h *= 2;
@@ -219,6 +229,8 @@ function dusmanaHasar(d, x, olaylar, tur) {
 function bitir(d, sonuc, olaylar) {
   const s = d.savas;
   d.savasSon = { sonuc, ad: s.dusman.ad, tur: s.tur };
+  const sonraSahne = d.savasSonraSahne;
+  d.savasSonraSahne = null;
   if (sonuc === 'zafer') SB.ekolKazan(d, 'varek', 30);
   if (sonuc === 'kacis') {
     d.sahne = 'savas_son';
@@ -244,6 +256,8 @@ function bitir(d, sonuc, olaylar) {
   }
   // Doku rejenerasyon merhemi: revirde yaralılar iyileşir, stres yarıya
   if (E.etkiVar(d, 'merhem')) for (const u of d.murettebat) u.stres = Math.round((u.stres || 0) / 2);
+  // Final görevlerindeki çatışma: zaferde görevin sonraki sahnesi
+  if ((sonuc === 'zafer' || sonuc === 'ateskes') && sonraSahne) d.sahne = sonraSahne;
   d.savas = null;
   olaylar.push({ bitti: true });
 }
@@ -423,6 +437,7 @@ function darbe(d) {
     h *= mod(d, 'kalkan_amplifikatoru') ? 0.12 : 0.2;
     if ((d.koloni.kaynaklar.kara_aether || 0) > 4) h *= 1.75;
     if (s.odak > 0) h *= 0.5;
+    if (d.bayrak.tf_kalkan) h *= 0.9; // altı halkalı kalibrasyon: kalkan kapasitesi yüzde on
     s.isi += 40 * SB.kalkanIsiCarpani(d) * (mod(d, 'kalkan_amplifikatoru') ? 0.6 : 1);
     if (s.isi >= 100) {
       s.isi = 0;
@@ -434,6 +449,7 @@ function darbe(d) {
   if (u.silah === 'torpido' && mod(d, 'k1_sonumleme')) h *= 0.6;
   if (yet(d, 'C1')) h *= 0.9;
   if (mod(d, 'hisar_kalkani')) h *= 0.8;
+  if (d.bayrak.tf_obsidyen && u.silah !== 'iyon') h *= 0.8; // Malazar obsidyen kaplaması: kinetik direnç
   h *= E.alinanHasarCarpani(d) * yildizCarpani(d, 'hasar'); // Kaelith kalkan kristali, zaman-kristal koruyucu tabakası
   const g = d.gemi;
   g.govde = Math.max(0, g.govde - Math.round(h));

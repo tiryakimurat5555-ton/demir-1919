@@ -364,8 +364,30 @@ bütün bölümlerini sırayla sayar (21 Kasım: v3 paketiyle sekiz belge daha g
       sonra motor iki gün şarj olur (iskelede ya da Aethelis'in terminalinde "şarjı bekle").
 
 ## 16. tonoflenya-buyuk-final-gorevleri.md
-- [ ] 1 Tetiklenme ve çift dokunuşlu harita geçişi · 2 Yirmi ana görev (Kısım I-VII: YGK ve Malkenia 1-3, Malazar 4-6,
-      Fenrir 7-9, Doğu çölleri 10-12, Kara Göl 13-15, Kahergonat 16-18, Cahelon finali 19-20) · 3 Ses motoru şartları.
+- [x] 1.1 Tetiklenme (2.5): YGK kaydından sonra; görevler sırayla açılır (tonoflenya/final.js). 1.2 Harita katmanları:
+      makro (YGK feneri ve sıçrama), karasal (2.3 Tonoflenya haritası: kuşak → bölge), mikro (bölgedeki görev noktaları).
+      [~] Çift dokunuşla harita geçişi menü listesinde (çift dokun = seç); ayrı bir dokunmatik harita yok.
+- [x] 2 Yirmi görev (2.5): her biri belgedeki yerde bir noktada başlar ("Final görevi N"); giriş sahnesi (görev veren,
+      senaryo, ambiyans anlatımı), belgedeki jestlere en yakın operasyon adımları, gereken yerde akustik çatışma,
+      dallanan kararlar (1, 2, 4, 17; d.tf.karar) ve ödüller. Yeni adım türleri (operasyon.js): zikzak (5), sessizlik
+      (15: on saniye dokunmadan), rotasyon (9, 18: kesintisiz çevirme), refleks (1: güvenlik duvarı), mühür (3: üç parmak);
+      frekans + çift dokun (7: lidar), aynı yana kaçış (12), zıplama (13), iki parmak ritim (20). Yüzey operasyonunda
+      hasar kaptanın dayanıklılığına; biterse geri çekilinir, görev yerinden yeniden denenir; duraklatılınca "Göreve dön".
+      Çatışmalar: Alt Evren hava yaratıkları (9), gölge korsan gemisi (12), Kahergonat öncü zırhlısı (16) (karanlık
+      düşmanlar). Yadigârlar akışa bağlı: Cahelon anahtarı (9, Arin monoliti), Runahar taşı (13), Tyzrakhel prizması
+      (15), Runashar taşı (16), Tyzrakhel parçası (11); Dünya Çivisi (18) üçünü ister, Okyanos sıçraması (19) anahtarı.
+      Kalıcı ödüller: kalkan ×0,9 (2), obsidyen kaplama kinetik ×0,8 (6), deniz haritası deniz yolu ×0,8 (7), boyutsal
+      atlama sıçrayıcısı savaş yeteneği (8), astral ışık atış ×1,15, fener ×1,15, yakıt ×0,87 (15), onur kılıcı (17),
+      efsanevi reaktör (18), brövede iskele tamiri yarı fiyat (1), Başmüfettiş mührü (17: kat eksi beş). Titan çatlağı
+      anlatımda (9: %60, 13: %70, 14: ×0,75, 18: 0). Epilog ve krediler (giriş müziği), Evrenin Muhafızı, serbest keşif.
+      [~] "12: +1.200 mülteci" belgedeki gibi nüfusa eklenir (çadır kentleriyle barınma da). "XP" kaptanlık tecrübesine,
+      "Malken Kredisi" Malken Lirası'na, "250 Aether Tozu" büyü tozuna, "Savaş Ganimeti Kredisi" Keşif Kredisine çevrildi.
+      [~] Okyanos-Abyssus ayrı bir yürünen harita değil: 19 ve 20 iskeleden başlayan gemi operasyonları (girdap ortamı).
+- [x] 3 Ses: ElevenLabs (5 × 17 kredi) girdap ortamı ortam_t_girdap, Cahelon böğürtüsü, Lord Sharon'un katmanlı
+      kahkahası, mancınık ıslığı, zafer korosu. [~] Drive'daki dört ambiyans adı (magma_ve_maden_fokurtusu …) Drive'da yok;
+      yerlerine bölgelerin 2.1-2.3 ortamları. [~] Valen sağ, Kefius sol kulak: ekran okuyucu konumlandırılamadığından
+      metinde belirtilir; Valen, Kefius, Sharon için ElevenLabs seslendirmesi yapılmadı (istenirse).
+      [x] Ekran okuyucu dizini her görevin başında: [Görev] - [Konum] - [Tehlike 1-5] - [Gerekli jest].
 
 ## 17. tonoflenya-yan-gorevler-ve-yerel-vakalar.md
 - [ ] Bölüm 1-5: otuz yan görev (Magentor 1-6, Batı 7-12, Doğu 13-18, Kuzey 19-24, Güney 25-30) · 6 Ödül ve itibar
@@ -373,6 +395,6 @@ bütün bölümlerini sırayla sayar (21 Kasım: v3 paketiyle sekiz belge daha g
 
 ## Sıradaki adımlar (sırayla)
 0. Tonoflenya genişlemesi, yönergedeki sırayla: [2.1: Malken (12); 2.2: tarihçe (13); 2.3: atlas (14); 2.4: eşya,
-   zanaat, mürettebat (15), Ekol Kıdemi ve rastgele karşılaşmalar] → yirmi final görevi (16) → otuz yan görev (17).
+   zanaat, mürettebat (15), Ekol Kıdemi ve rastgele karşılaşmalar; 2.5: yirmi final görevi (16)] → otuz yan görev (17).
 1. Telefonda deneme: seslendirilmiş telsizlerin düzeyi ve anlaşılırlığı (Murat ve Bahtiyar), ses dengeleme ve
    erişilebilirlik testleri. İstenirse koloni bilgisayarı için ayrı bir ses.

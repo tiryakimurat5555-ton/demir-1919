@@ -645,9 +645,10 @@ export default function Yuzey({ onGeri, baslangic, yeniOyunUret }) {
       return;
     }
     d.sahne = id;
-    if (sahne.ortam) {
+    const sahneOrtami = typeof sahne.ortam === 'function' ? sahne.ortam(d) : sahne.ortam;
+    if (sahneOrtami) {
       terminalAcik.current = false;
-      ortamCal(sahne.ortam, 0.8);
+      ortamCal(sahneOrtami, 0.8);
     }
     if (id === 'inis') {
       // Moral nabzı: dinleme kulesinden koloninin uğultusu
@@ -755,6 +756,11 @@ export default function Yuzey({ onGeri, baslangic, yeniOyunUret }) {
             }
             if (r.tarimMenu) return tarimMenuGoster(r.tarimMenu, id), 'sessiz';
             if (r.agac) return agacGoster(r.agac, (soz) => noktaGoster(id, soz)), 'sessiz';
+            if (r.opDevam && d.op) {
+              katmanKapatSessiz();
+              opAc([{ soz: 'Göreve dönüyorsun. ' + opDurum(d) }]);
+              return 'sessiz';
+            }
             // Aether Çekirdeği: altı yıldızın akoru
             if (r.akor && m()) NOBETLER.forEach((n, i) => setTimeout(() => m() && m().nota(n.akor[0], null, 0.45, 6), i * 260));
             // YGK asansörü: başka bir kata taşındın
@@ -1445,6 +1451,14 @@ export default function Yuzey({ onGeri, baslangic, yeniOyunUret }) {
   // --- Koloni olayları: üretim, montaj, nüfus (telsiz çağrısı olarak) ---
   const koloniOlaylari = (olaylar) => {
     const d = dunya.current;
+    // Final görevi: sahne kapanınca operasyon ya da çatışma
+    const fo = olaylar.find((x) => x.tur === 'op' || x.tur === 'savas');
+    if (fo) {
+      setKatman(null);
+      if (fo.tur === 'op') opAc(fo.olaylar);
+      else savasAc(fo.olaylar);
+      return;
+    }
     // Yıldız Zamanı: nöbet değişiminde o nöbetin yıldızının rezonans çanı (yönerge 4.B)
     const nb = olaylar.find((x) => x.tur === 'nobet');
     if (nb) {
@@ -2233,14 +2247,16 @@ export default function Yuzey({ onGeri, baslangic, yeniOyunUret }) {
     {
       onDokun: (parmak) => {
         const d = dunya.current;
-        if (parmak >= 2 || !opVer({ tur: 'dokun' }).length) if (d.op) soyle(opDurum(d), 'istek', true);
+        // Üç parmakla basma (mühür) adımı
+        if (parmak >= 3 && opVer({ tur: 'dokun', parmak }).length) return;
+        if (parmak >= 2 || !opVer({ tur: 'dokun', parmak: 1 }).length) if (d.op) soyle(opDurum(d), 'istek', true);
       },
       onCiftDokun: (parmak) => {
         const d = dunya.current;
         if (parmak >= 2) {
           if (opVer({ tur: 'cift2' }).length) return;
           kaydet();
-          opKapat('Operasyon duraklatıldı. Kokpitte çift dokununca kaldığın yerden sürer.');
+          opKapat(d.op && d.op.id.indexOf('tf') === 0 ? 'Görev duraklatıldı. Görevin yerinde "Göreve dön" ile kaldığın yerden sürer.' : 'Operasyon duraklatıldı. Kokpitte çift dokununca kaldığın yerden sürer.');
           return;
         }
         if (d.bildirimler && d.bildirimler.length && bildirimDinle()) return;

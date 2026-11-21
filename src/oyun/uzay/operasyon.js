@@ -33,7 +33,7 @@ export function opTamamMi(d, id) {
 }
 
 export function opBaslat(d, id) {
-  d.op = { id, adim: -1, t: 0, s: {} };
+  d.op = { id, adim: -1, t: 0, s: {}, can: 100 };
   return adimaGec(d);
 }
 function op(d) {
@@ -74,8 +74,14 @@ function adimaGec(d) {
     Object.assign(s, { dizi, i: 0, dinlendi: false });
   }
   if (a.tur === 'bosluk') Object.assign(s, { n: 0, vurus: -1 });
+  // 2.5 final görevleri için: zikzak (sağ-sol sırayla), sessizlik (dokunmadan bekle), rotasyon (kesintisiz çevir),
+  // refleks (alarm sesinde hemen dokun), muhur (üç parmakla bas)
+  if (a.tur === 'zikzak') Object.assign(s, { n: 0, beklenen: 'sag' });
+  if (a.tur === 'sessizlik') Object.assign(s, { sure: 0 });
+  if (a.tur === 'rotasyon') Object.assign(s, { toplam: 0, son: 0 });
+  if (a.tur === 'refleks') Object.assign(s, { n: 0, alarm: null, sonraki: 2 + r(1) * 3 });
   d.op.s = s;
-  return [{ soz: 'Adım ' + (d.op.adim + 1) + ' / ' + o.adimlar.length + ': ' + a.ad + '. ' + a.giris, adim: a.tur }];
+  return [...(a.efekt ? [{ ses: a.efekt }] : []), { soz: 'Adım ' + (d.op.adim + 1) + ' / ' + o.adimlar.length + ': ' + a.ad + '. ' + a.giris, adim: a.tur }];
 }
 
 function adimBitti(d, ses) {
@@ -87,6 +93,18 @@ function adimBitti(d, ses) {
 
 // Gövde hasarı; biterse operasyon başarısız
 function hasar(d, x, soz) {
+  // Yüzey operasyonları (final görevleri): gemi değil kaptanın dayanıklılığı; biterse geri çekilinir
+  if (op(d) && op(d).yuzey) {
+    d.op.can = Math.max(0, (d.op.can == null ? 100 : d.op.can) - x);
+    const o = [{ soz: soz + ' Dayanıklılık yüzde ' + d.op.can + '.', ses: 'patlama', hasar: true }];
+    if (d.op.can <= 0) {
+      d.opSon = d.op.id;
+      d.op = null;
+      d.sahne = 'op_geri_cekil';
+      o.push({ basarisiz: true });
+    }
+    return o;
+  }
   const g = d.gemi;
   g.govde = Math.max(0, g.govde - x);
   const o = [{ soz: soz + ' Gövde yüzde ' + Math.round((100 * g.govde) / g.maxGovde) + '.', ses: 'patlama', hasar: true }];
@@ -106,7 +124,7 @@ function bitir(d) {
   const o = OPERASYONLAR[id];
   if (!d.tamamlananOp) d.tamamlananOp = [];
   // Tekrarlanan seyir karşılaşmaları (sefer.js) tamamlanan operasyon sayılmaz; ödülleri o an belirlenir
-  if (!o.tekrar && !d.tamamlananOp.includes(id)) d.tamamlananOp.push(id);
+  if (!o.tekrar && !o.final && !d.tamamlananOp.includes(id)) d.tamamlananOp.push(id);
   odulVer(d, o.odulFn ? o.odulFn(d) : o.odul || {});
   if (d.gemi && d.gemi.moduller.toplama_dronu && !o.fenomen) {
     d.koloni.kaynaklar.titanyum = (d.koloni.kaynaklar.titanyum || 0) + 2;
@@ -114,7 +132,7 @@ function bitir(d) {
   }
   d.opSon = id;
   d.op = null;
-  d.sahne = 'op_tamam';
+  d.sahne = o.sahne || 'op_tamam';
   return [{ bitti: true, ses: 'sinyal' }];
 }
 
@@ -171,6 +189,11 @@ export function opGirdi(d, g) {
   if (t === 'kenetle' && g.tur === 'cift') return adimBitti(d, a.ses || 'kilit');
   if ((t === 'sonar' && g.tur === 'uzun')) return [{ ses: 'sonar' }, ...adimBitti(d, 'sonar')];
   if (t === 'frekans') {
+    // Lidar benzeri: hedefin üstündeyken çift dokunulur
+    if (a.cift && g.tur === 'cift') {
+      if (Math.abs(s.deger - s.hedef) <= payi(d) * 1.6) return adimBitti(d, 'sinyal');
+      return [{ soz: 'Burada bir şey yok.', ses: 'red' }];
+    }
     if (g.tur === 'dondur') s.deger += g.f * 7;
     else if (g.tur === 'surukle') s.deger -= g.dy * 0.06;
     else if (g.tur === 'kaydir' && (g.yon === 'sag' || g.yon === 'sol')) s.deger += g.yon === 'sag' ? 0.5 : -0.5;
@@ -194,7 +217,7 @@ export function opGirdi(d, g) {
     s.aktif = true;
     return [{ ses: t === 'tut' ? 'kaynak' : 'kapi_gemi', soz: t === 'dron' ? 'Dron fırladı.' : '' }];
   }
-  if (t === 'ritim' && g.tur === 'dokun') {
+  if (t === 'ritim' && (a.girdi === 'kaydir2' ? g.tur === 'kaydir' && g.yon === 'yukari' && g.parmak >= 2 : g.tur === 'dokun')) {
     s.n = d.op.t - s.son < 0.9 || s.n === 0 ? s.n + 1 : 1;
     s.son = d.op.t;
     if (s.n >= (a.n || 3)) return adimBitti(d, 'kilit');
@@ -202,7 +225,7 @@ export function opGirdi(d, g) {
   }
   if (t === 'kacin' && g.tur === 'kaydir') {
     if (!s.tehdit) return [];
-    const dogru = a.yon === 'asagi' ? 'asagi' : s.tehdit.yon === 'sag' ? 'sol' : 'sag';
+    const dogru = a.ayni ? s.tehdit.yon : a.yon ? a.yon : s.tehdit.yon === 'sag' ? 'sol' : 'sag';
     s.tehdit = null;
     s.sonraki = d.op.t + 2 + rastgele(d, ++s.sayac) * 2;
     if (g.yon !== dogru) return hasar(d, 8, 'Yanlış yana! İsabet aldın.');
@@ -254,6 +277,42 @@ export function opGirdi(d, g) {
     if (s.i >= s.dizi.length) return [{ nota: { frek: TONLAR[secim], sure: 0.5 } }, ...adimBitti(d, 'kapi')];
     return [{ nota: { frek: TONLAR[secim], sure: 0.5 } }];
   }
+  if (t === 'zikzak' && g.tur === 'kaydir' && (g.yon === 'sag' || g.yon === 'sol')) {
+    if (g.yon !== s.beklenen) return [{ soz: 'Bariyer koptu; ' + (s.beklenen === 'sag' ? 'sağa' : 'sola') + ' çek.', ses: 'red' }];
+    s.n += 1;
+    s.beklenen = s.beklenen === 'sag' ? 'sol' : 'sag';
+    if (s.n >= (a.n || 6)) return adimBitti(d, 'el_kalkan');
+    return [{ nota: { frek: 440 + s.n * 60, sure: 0.2 } }];
+  }
+  if (t === 'sessizlik' && g.tur !== 'surukle') {
+    s.sure = 0;
+    return [{ soz: 'Dokundun; odak dağıldı. Yeniden yalnız nefesi dinle.', ses: 'red' }];
+  }
+  if (t === 'rotasyon' && g.tur === 'dondur') {
+    s.toplam += Math.abs(g.f);
+    s.son = d.op.t;
+    const hedef = a.radyan || 12;
+    if (s.toplam >= hedef) return adimBitti(d, 'sinyal');
+    const yuzde = Math.floor((s.toplam / hedef) * 10);
+    if (yuzde !== s.yuzde) {
+      s.yuzde = yuzde;
+      return [{ nota: { frek: 300 + yuzde * 40, sure: 0.2 } }];
+    }
+    return [];
+  }
+  if (t === 'refleks' && g.tur === 'dokun') {
+    if (!s.alarm) {
+      s.sonraki = d.op.t + 1.5;
+      return [{ soz: 'Erken!', ses: 'red' }];
+    }
+    s.alarm = null;
+    s.n += 1;
+    s.sonraki = d.op.t + 2 + rastgele(d, 900 + s.n) * 3;
+    if (s.n >= (a.n || 1)) return adimBitti(d, 'kilit');
+    return [{ soz: s.n + ' / ' + a.n + '.', ses: 'kilit' }];
+  }
+  if (t === 'muhur' && g.tur === 'dokun' && (g.parmak || 1) >= 3) return adimBitti(d, 'el_kalkan');
+  if (t === 'muhur' && g.tur === 'dokun') return [{ soz: 'Üç parmakla aynı anda bas.', ses: 'red' }];
   if (t === 'bosluk' && g.tur === 'dokun') {
     const k = Math.round(d.op.t / 0.7);
     const fark = Math.abs(d.op.t - k * 0.7);
@@ -319,8 +378,35 @@ export function opIlerle(d, dt) {
       s.yakin = true;
       o.push({ soz: 'Çok yakın. Yavaş.' });
     }
-    if (s.kilit >= KILIT_SURESI) o.push(...adimBitti(d, 'sinyal'));
+    if (!a.cift && s.kilit >= KILIT_SURESI) o.push(...adimBitti(d, 'sinyal'));
     return o;
+  }
+  if (t === 'sessizlik') {
+    s.sure += dt;
+    if (s.sure >= (a.sure || 10)) return adimBitti(d, 'sinyal');
+    const k = Math.floor(s.sure / 2.5);
+    if (k !== s.nefes) {
+      s.nefes = k;
+      return [{ nota: { frek: 110, sure: 1.6 } }];
+    }
+  }
+  if (t === 'rotasyon' && s.toplam > 0 && d.op.t - s.son > 1.5) {
+    // Kesintisiz olmalı: duraksayınca çember söner
+    s.toplam = Math.max(0, s.toplam - dt * 2);
+  }
+  if (t === 'refleks') {
+    if (!s.alarm && d.op.t >= s.sonraki) {
+      s.alarm = { kalan: 1.3 };
+      return [{ nota: { frek: 1568, sure: 0.3 }, tehlike: 'on' }];
+    }
+    if (s.alarm) {
+      s.alarm.kalan -= dt;
+      if (s.alarm.kalan <= 0) {
+        s.alarm = null;
+        s.sonraki = d.op.t + 2 + rastgele(d, 950 + s.n) * 3;
+        return hasar(d, 10, 'Geç kaldın!');
+      }
+    }
   }
   if (t === 'basinc') {
     s.b += 0.07 * (1 + 0.3 * s.n) * dt;
@@ -337,7 +423,7 @@ export function opIlerle(d, dt) {
   }
   if (t === 'kacin') {
     if (!s.tehdit && d.op.t >= s.sonraki) {
-      s.tehdit = { yon: a.yon === 'asagi' ? 'on' : rastgele(d, 300 + s.sayac) < 0.5 ? 'sag' : 'sol', kalan: 1.8 };
+      s.tehdit = { yon: a.yon === 'asagi' || a.yon === 'yukari' ? 'on' : rastgele(d, 300 + s.sayac) < 0.5 ? 'sag' : 'sol', kalan: 1.8 };
       return [{ tehlike: s.tehdit.yon }];
     }
     if (s.tehdit) {
@@ -411,7 +497,12 @@ export function opDurum(d) {
   else if (a.tur === 'direnc') x += 'Konum yüzde ' + Math.round(s.konum * 100) + '; ' + Math.max(0, Math.round((a.sure || 10) - s.sure)) + ' saniye daha.';
   else if (a.tur === 'ton') x += s.dinlendi ? s.i + ' / ' + s.dizi.length + ' ton doğru.' : 'Basılı tut, tonları dinle.';
   else if (a.tur === 'nisan') x += s.vurus + ' / ' + (a.n || 1) + ' isabet.';
+  else if (a.tur === 'zikzak') x += s.n + ' / ' + (a.n || 6) + '; sıradaki ' + (s.beklenen === 'sag' ? 'sağa.' : 'sola.');
+  else if (a.tur === 'sessizlik') x += Math.max(0, Math.round((a.sure || 10) - s.sure)) + ' saniye daha, dokunma.';
+  else if (a.tur === 'rotasyon') x += 'Çember yüzde ' + Math.round((s.toplam / (a.radyan || 12)) * 100) + '.';
+  else if (a.tur === 'refleks') x += s.n + ' / ' + (a.n || 1) + '.';
   else x += a.giris;
+  if (o.yuzey) return x + ' Dayanıklılık yüzde ' + d.op.can + '.';
   return x + ' Gövde yüzde ' + Math.round((100 * d.gemi.govde) / d.gemi.maxGovde) + '.';
 }
 
@@ -422,6 +513,11 @@ export const SAHNELER = {
     baslik: 'Operasyon tamam',
     efekt: ['sinyal'],
     metin: (d) => (d.opSon ? (typeof OPERASYONLAR[d.opSon].sonuc === 'function' ? OPERASYONLAR[d.opSon].sonuc(d) : OPERASYONLAR[d.opSon].sonuc) : []),
+    secenekler: () => [{ etiket: 'Devam', sonra: null }],
+  },
+  op_geri_cekil: {
+    baslik: 'Geri çekildin',
+    metin: () => ['Dayanamadın; yaralı ama canlı geri çekildin. Görevin yerine dönüp yeniden deneyebilirsin.'],
     secenekler: () => [{ etiket: 'Devam', sonra: null }],
   },
   op_basarisiz: {

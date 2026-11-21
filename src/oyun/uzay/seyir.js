@@ -170,7 +170,7 @@ function uzak(a, b) {
 }
 
 export function fenerMenzili(d) {
-  return FENER_MENZILI * telsizSubayiCarpani(d) * (d.gemi && d.gemi.moduller.optik_prizma ? 1.3 : 1) * (d.bayrak.g_haritalar ? 1.2 : 1) * E.fenerCarpani(d) * yildizCarpani(d, 'fener') * SB.taramaCarpani(d) * (d.gemi && d.gemi.moduller.sinha_sonari ? 2 : 1) * (SB.kabiliyet(d, 'zhaor', 3) ? 1.2 : 1);
+  return FENER_MENZILI * telsizSubayiCarpani(d) * (d.gemi && d.gemi.moduller.optik_prizma ? 1.3 : 1) * (d.bayrak.g_haritalar ? 1.2 : 1) * E.fenerCarpani(d) * yildizCarpani(d, 'fener') * SB.taramaCarpani(d) * (d.bayrak.tf_astral ? 1.15 : 1) * (d.gemi && d.gemi.moduller.sinha_sonari ? 2 : 1) * (SB.kabiliyet(d, 'zhaor', 3) ? 1.2 : 1);
 }
 export const KALKIS_YAKITI = 2;
 
@@ -228,7 +228,7 @@ export function uzayIlerle(d, dt) {
   const g = d.gemi;
   if (u.hiz > 0) {
     const b = d.bayrak;
-    const yakit = u.hiz * YAKIT_TUKETIM * dt * (g.moduller.sivi_iletken ? 0.85 : 1) * (b.f_yakit ? 0.9 : 1) * (b.f_saat ? 0.9 : 1) * (b.p_yakit ? 0.9 : 1) * (b.p_tasarruf ? 0.9 : 1) * E.yakitCarpani(d) * SB.yakitCarpani(d) * (1 - (g.aetherVerimi || 0));
+    const yakit = u.hiz * YAKIT_TUKETIM * dt * (g.moduller.sivi_iletken ? 0.85 : 1) * (b.f_yakit ? 0.9 : 1) * (b.f_saat ? 0.9 : 1) * (b.p_yakit ? 0.9 : 1) * (b.p_tasarruf ? 0.9 : 1) * E.yakitCarpani(d) * SB.yakitCarpani(d) * (1 - (g.aetherVerimi || 0)) * (b.tf_astral ? 0.87 : 1) * (g.moduller.efsanevi_reaktor ? 0.5 : 1);
     g.yakit = Math.max(0, g.yakit - yakit);
     const birim = HIZ_BIRIMI * gucDagitimi(d).hiz * E.hizCarpani(d) * yildizCarpani(d, 'hiz') * ((d.surupBitis || 0) > ((d.zaman && d.zaman.sn) || 0) ? 1.25 : 1);
     u.x += Math.sin(u.yon) * u.hiz * birim * dt;

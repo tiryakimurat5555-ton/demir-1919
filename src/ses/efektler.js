@@ -51,6 +51,11 @@ const KAYNAKLAR = {
   el_mizrak: require('../../assets/ses/el_mizrak.wav'),
   el_golge: require('../../assets/ses/el_golge.wav'),
   el_pelerin: require('../../assets/ses/el_pelerin.wav'),
+  // 2.5: final görevleri
+  el_koro: require('../../assets/ses/el_koro.wav'),
+  el_cahelon: require('../../assets/ses/el_cahelon.wav'),
+  el_sharon: require('../../assets/ses/el_sharon.wav'),
+  el_mancinik: require('../../assets/ses/el_mancinik.wav'),
   // Düğme sesleri (ElevenLabs, 1.18): onay, geri, devam et, yeni oyun
   el_secim: require('../../assets/ses/el_secim.wav'),
   el_geri: require('../../assets/ses/el_geri.wav'),
@@ -109,6 +114,7 @@ const KAYNAKLAR = {
   ortam_t_koy: require('../../assets/ses/t/ortam_t_koy.mp3'),
   ortam_t_ada: require('../../assets/ses/t/ortam_t_ada.mp3'),
   ortam_t_cember: require('../../assets/ses/t/ortam_t_cember.mp3'),
+  ortam_t_girdap: require('../../assets/ses/t/ortam_t_girdap.mp3'),
   el_devam: require('../../assets/ses/el_devam.wav'),
   el_yeni_oyun: require('../../assets/ses/el_yeni_oyun.wav'),
   el_deklansor: require('../../assets/ses/el_deklansor.wav'),
@@ -186,6 +192,7 @@ const DONGULER = {
   ortam_t_koy: 0.55,
   ortam_t_ada: 0.55,
   ortam_t_cember: 0.55,
+  ortam_t_girdap: 0.6,
   ortam_krater: 0.55,
   ortam_kapsul: 0.6,
   ortam_harabe: 0.55,

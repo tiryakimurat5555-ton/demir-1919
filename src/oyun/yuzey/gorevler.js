@@ -32,6 +32,7 @@ import * as AT from '../tonoflenya/atlas';
 import { TESISLER } from '../veri/tesisler';
 import * as ZN from '../tonoflenya/zanaat';
 import * as SB from '../tonoflenya/subay';
+import * as FN from '../tonoflenya/final';
 import { MEKANLAR } from './harita';
 
 export const { ESYALAR, HAREKET_KISA, ayarBaslat, ayarDegis, ayarIlerle, ayarMetni, ayarYakinlik, koloniMetni, insaListesi } = G1;
@@ -40,7 +41,7 @@ export const { NOTALAR, kapiDizisi, rezonansBaslat, rezonansSecimDegis, rezonans
 
 export const { AYAKLAR, ayakSayisi, ayakFrek, teraziBaslat, teraziPompa, teraziIlerle, teraziMetni, DENGE_ESIGI } = G4;
 
-export const SAHNELER = { ...G1.SAHNELER, ...G2.SAHNELER, ...G3.SAHNELER, ...G4.SAHNELER, ...G5.SAHNELER, ...G6.SAHNELER, ...B.SAHNELER, ...K.SAHNELER, ...A.SAHNELER, ...M.SAHNELER, ...O.SAHNELER, ...SV.SAHNELER, ...SF.SAHNELER, ...TM.SAHNELER, ...AT.SAHNELER };
+export const SAHNELER = { ...G1.SAHNELER, ...G2.SAHNELER, ...G3.SAHNELER, ...G4.SAHNELER, ...G5.SAHNELER, ...G6.SAHNELER, ...B.SAHNELER, ...K.SAHNELER, ...A.SAHNELER, ...M.SAHNELER, ...O.SAHNELER, ...SV.SAHNELER, ...SF.SAHNELER, ...TM.SAHNELER, ...AT.SAHNELER, ...FN.SAHNELER };
 
 // Telsiz bildirimleri (belgeler/savas-yetenek-ve-murettebat-mekanikleri.md 4.3): koşulu sağlanınca bir kez kuyruğa
 // girer. gorev alanı varsa yalnız o görev sürerken.
@@ -82,11 +83,12 @@ export function sahneSec(d, id, i) {
 
 export function gorevIpucu(d) {
   const mi = d.mini && d.mini.aktif ? 'Yerel operasyon, ' + M.MINI[d.mini.aktif].ad + ': ' + M.MINI[d.mini.aktif].ipucu(d) + ' ' : '';
+  if (d.bayrak.tonoflenyaGoruldu && d.mekan && MEKANLAR[d.mekan] && MEKANLAR[d.mekan].tonoflenya) return mi + FN.gorevMetni(d);
   return mi + ( G1.gorevIpucu(d) || G2.gorevIpucu(d) || G3.gorevIpucu(d) || G4.gorevIpucu(d) || G5.gorevIpucu(d) || (mi ? '' : 'Şu an bir görev yok.'));
 }
 
 export function noktaEylemleri(d, id) {
-  const ek = [...G6.ekEylemler(d, id), ...K.ekEylemler(d, id), ...M.ekEylemler(d, id), ...TA.ekEylemler(d, id), ...(id === 'tepe' ? TM.tepeEylemi(d) : []), ...ZN.ekEylemler(d, id)];
+  const ek = [...G6.ekEylemler(d, id), ...K.ekEylemler(d, id), ...M.ekEylemler(d, id), ...TA.ekEylemler(d, id), ...(id === 'tepe' ? TM.tepeEylemi(d) : []), ...ZN.ekEylemler(d, id), ...FN.ekEylemler(d, id)];
   if (G6.noktaMi(id)) return [...ek, { id: 'incele', etiket: 'Sütunu incele' }];
   const temel = temelEylemler(d, id);
   if (!ek.length) return temel;
@@ -95,6 +97,7 @@ export function noktaEylemleri(d, id) {
   return i < 0 ? [...temel, ...ek] : [...temel.slice(0, i), ...ek, ...temel.slice(i)];
 }
 function temelEylemler(d, id) {
+  if (FN.noktaMi(id)) return [{ id: 'incele', etiket: 'İncele' }];
   if (ZN.noktaMi(id)) return ZN.noktaEylemleri(d, id);
   if (TA.noktaMi(id)) return TA.noktaEylemleri(d, id);
   if (TM.noktaMi(id)) return TM.noktaEylemleri(d, id);
@@ -112,6 +115,7 @@ function temelEylemler(d, id) {
 
 export function eylemUygula(d, id, eylemId) {
   if (eylemId === 'y_ygk') return TM.ygkAra(d);
+  if (FN.ekEylemMi(eylemId) || FN.noktaMi(id)) return FN.eylemUygula(d, id, eylemId);
   if (eylemId === 'z_sarj' || ZN.noktaMi(id)) return beklemeyiUygula(d, ZN.eylemUygula(d, id, eylemId));
   if (TM.noktaMi(id)) {
     const r = TM.eylemUygula(d, id, eylemId);
@@ -243,6 +247,18 @@ export function zamanIlerle(d, dt) {
   if ((d.zehir || 0) >= 75) {
     const k = SB.kriz(d, 'axira');
     if (k) SB.haber(d, k);
+  }
+  // Final görevleri: sahne kapanınca bekleyen operasyon ya da çatışma başlar (tonoflenya/final.js)
+  if (!d.sahne && !d.op && !d.savas) {
+    if (d.opBekle) {
+      const id = d.opBekle;
+      d.opBekle = null;
+      olaylar.push({ tur: 'op', olaylar: O.opBaslat(d, id) });
+    } else if (d.savasBekle && d.gemi) {
+      const t = d.savasBekle;
+      d.savasBekle = null;
+      olaylar.push({ tur: 'savas', olaylar: SV.savasBaslat(d, t) });
+    }
   }
   if (d.haberKuyrugu && d.haberKuyrugu.length) {
     for (const m of d.haberKuyrugu) olaylar.push({ tur: 'haber', metin: m, acil: true });

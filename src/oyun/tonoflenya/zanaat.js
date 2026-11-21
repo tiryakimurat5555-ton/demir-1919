@@ -253,7 +253,7 @@ export function modulTak(d, id) {
   }
   return { metin: e.ad + ' ' + yuvaAdi(e.yuva) + ' yuvasına takıldı. ' + e.etki, ses: 'kaynak' };
 }
-const yuvaAdi = (y) => ({ savunma: 'savunma', kesif: 'keşif', govde: 'gövde', sicrama: 'sıçrama', yasam: 'yaşam' })[y] || y;
+const yuvaAdi = (y) => ({ savunma: 'savunma', kesif: 'keşif', govde: 'gövde', sicrama: 'sıçrama', yasam: 'yaşam', reaktor: 'reaktör' })[y] || y;
 
 export function kullan(d, id) {
   hazirla(d);
@@ -485,16 +485,17 @@ export function veriSat(d) {
   d.para.gk += v.gk;
   return { metin: v.op.length + ' operasyon ve ' + v.kd.length + ' kodeks kaydı Akademiye aktarıldı: ' + v.gk + ' Galaktik Keşif Kredisi. Toplam ' + d.para.gk + '.', ses: 'sinyal' };
 }
+const tamirBirimi = (d) => 0.5 * SB.tamirCarpani(d) * ((d.esya && d.esya.kidemli_brove) ? 0.5 : 1); // kıdemli kaptan brövesi
 export function bakimMaliyeti(d) {
   const g = d.gemi;
-  return g ? Math.ceil((g.maxGovde - g.govde) * 0.5 * SB.tamirCarpani(d)) : 0;
+  return g ? Math.ceil((g.maxGovde - g.govde) * tamirBirimi(d)) : 0;
 }
 // İskelede bakım: gövde tamiri krediyle (yetmezse yettiği kadar), yakıt Akademiden
 export function bakimYap(d) {
   hazirla(d);
   const g = d.gemi;
   const m = bakimMaliyeti(d);
-  const birim = 0.5 * SB.tamirCarpani(d);
+  const birim = tamirBirimi(d);
   let onar = g.maxGovde - g.govde;
   let odenen = m;
   if (m > d.para.gk) {

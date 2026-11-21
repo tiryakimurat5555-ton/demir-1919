@@ -1351,23 +1351,32 @@ describe('Uzay operasyonları', () => {
         ilerle(4);
       } else if (a.tur === 'frekans') {
         O.opGirdi(d, { tur: 'dondur', f: (s.hedef - s.deger) / 7 });
-        ilerle(3);
+        if (a.cift) O.opGirdi(d, { tur: 'cift' });
+        else ilerle(3);
       } else if (a.tur === 'basinc') {
         while (d.op && d.op.adim === adim && !d.op.s.alarm) O.opIlerle(d, 0.1);
         if (d.op && d.op.adim === adim) O.opGirdi(d, { tur: a.girdi || 'cift' });
       } else if (a.tur === 'ritim') {
         for (let i = 0; i < (a.n || 3) && d.op && d.op.adim === adim; i++) {
-          O.opGirdi(d, { tur: 'dokun' });
+          O.opGirdi(d, a.girdi === 'kaydir2' ? { tur: 'kaydir', yon: 'yukari', parmak: 2 } : { tur: 'dokun' });
           O.opIlerle(d, 0.2);
         }
       } else if (a.tur === 'kacin') {
         while (d.op && d.op.adim === adim && !d.op.s.tehdit) O.opIlerle(d, 0.1);
-        if (d.op && d.op.adim === adim) O.opGirdi(d, { tur: 'kaydir', yon: a.yon === 'asagi' ? 'asagi' : d.op.s.tehdit.yon === 'sag' ? 'sol' : 'sag', parmak: 1 });
+        if (d.op && d.op.adim === adim) O.opGirdi(d, { tur: 'kaydir', yon: a.ayni ? d.op.s.tehdit.yon : a.yon ? a.yon : d.op.s.tehdit.yon === 'sag' ? 'sol' : 'sag', parmak: 1 });
       } else if (a.tur === 'nisan') {
         const h = O.opSes(d).hedef;
         if (Math.abs(h.x) < 2) O.opGirdi(d, { tur: 'cift' });
         else O.opIlerle(d, 0.1);
-      } else if (a.tur === 'kademeli') O.opGirdi(d, { tur: 'kaydir', yon: a.yon || 'asagi', parmak: 2 });
+      } else if (a.tur === 'kademeli') O.opGirdi(d, { tur: 'kaydir', yon: a.yon || 'asagi', parmak: a.parmak || 2 });
+      else if (a.tur === 'zikzak') O.opGirdi(d, { tur: 'kaydir', yon: s.beklenen, parmak: 1 });
+      else if (a.tur === 'sessizlik') ilerle(11);
+      else if (a.tur === 'rotasyon') O.opGirdi(d, { tur: 'dondur', f: 1 });
+      else if (a.tur === 'muhur') O.opGirdi(d, { tur: 'dokun', parmak: 3 });
+      else if (a.tur === 'refleks') {
+        while (d.op && d.op.adim === adim && !d.op.s.alarm) O.opIlerle(d, 0.1);
+        if (d.op && d.op.adim === adim) O.opGirdi(d, { tur: 'dokun', parmak: 1 });
+      }
       else if (a.tur === 'denge') {
         if (a.eksen === 'dikey') O.opGirdi(d, { tur: 'surukle', dx: 0, dy: -s.sapma / 0.004 });
         else O.opGirdi(d, { tur: 'surukle', dx: s.sapma / 0.004, dy: 0 });
@@ -1395,9 +1404,9 @@ describe('Uzay operasyonları', () => {
       O.opBaslat(d, id);
       oyna(O, V, d);
       expect(d.op).toBe(null);
-      if (!V.OPERASYONLAR[id].tekrar) expect(d.tamamlananOp).toContain(id);
+      if (!V.OPERASYONLAR[id].tekrar && !V.OPERASYONLAR[id].final) expect(d.tamamlananOp).toContain(id);
       else expect(d.tamamlananOp).not.toContain(id);
-      expect(d.sahne).toBe('op_tamam');
+      expect(d.sahne).toBe(V.OPERASYONLAR[id].sahne || 'op_tamam');
     }
   });
   test('ödüller: hediye gemiler, bayraklar, terraform girdileri, açılan noktalar', async () => {

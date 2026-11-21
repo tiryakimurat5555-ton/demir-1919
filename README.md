@@ -6,7 +6,14 @@ tesis kurar, ileride gemini parça parça inşa edip uzaya açılırsın.
 
 Tasarım: Bahtiyar Cankurt (belgeler/). Yapım: Murat ve Bahtiyar. Expo Go ile iPhone ve Android'de çalışır.
 
-## Bu sürümde (2.4)
+## Bu sürümde (2.5)
+- Tonoflenya'nın yirmi büyük final görevi: YGK Konsey Salonu'ndan Malazar'ın madenlerine, Fenrir Denizi'nden doğu
+  çöllerine, Kara Göl kraterinden Kahergonat'a; Lord Sharon ile Dünya Çivisi savaşı ve Okyanos-Abyssus'ta Cahelon.
+  Her görev kendi yerinde başlar; ekran okuyucu görevin adını, yerini, tehlikesini ve gereken jesti söyler.
+- Yeni dokunuş mekanikleri: zikzak bariyer, on saniye dokunmadan odaklanma, kesintisiz çevirme, refleks, üç parmak mühür.
+- Kararlar, mühür taşları ve yadigârlar, kalıcı gemi ödülleri, epilog ve krediler.
+
+## 2.4
 - Mürettebat: YGK'nin altı subayı (Elyndra, Varek, Axira, Zhaor, Sinha, Drahmir) akademinin subay kurulundan gemine
   katılır; her biri bir istasyonda pasif katkı ve savaş yeteneği verir. Limanların tavernalarında yeni subaylar.
   Savaşta kendi sıranda aşağı kaydır: yetenek seç; çift dokun: kullan.

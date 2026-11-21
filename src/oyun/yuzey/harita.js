@@ -514,3 +514,6 @@ Object.assign(NOKTALAR, A_NOKTALAR);
 // Eşya, zanaat ve mürettebat (tonoflenya/zanaatHarita.js, 2.4)
 import { Z_NOKTALAR } from '../tonoflenya/zanaatHarita';
 Object.assign(NOKTALAR, Z_NOKTALAR);
+// Final görevlerinin yerleri (tonoflenya/finalHarita.js, 2.5)
+import { F_NOKTALAR } from '../tonoflenya/finalHarita';
+Object.assign(NOKTALAR, F_NOKTALAR);

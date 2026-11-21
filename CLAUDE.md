@@ -430,7 +430,23 @@ Demir 1919 oyunu silindi; geçmişi git kaydında (son sürüm 1.06, commit 556f
     Ekolü kıdemi. SesliListe onIkiParmak, Yuzey ilkOdak geçirir. Sesler ElevenLabs (6 × 17 kredi): el_sayfa, el_tufek,
     el_hancer, el_mizrak, el_golge, el_pelerin.
   - testler/zanaat.test.js.
-- Sıradaki: KAPSAM.md "Sıradaki adımlar" (0: yirmi final görevi, sonra otuz yan görev).
+- SÜRÜM 2.5 (21 Kasım): yirmi final görevi (tonoflenya-buyuk-final-gorevleri.md). Telefonda denenmedi.
+  - tonoflenya/final.js: GOREVLER 1-20 (no, ad, konum, nokta, tehlike, jest, veren, kosul, giris, op adımları, savas,
+    savasOnce, kararlar, sonrasi, odul, ortam); ZN.ESYA'ya ödül/yadigâr eşyaları; OPERASYONLAR tf<no> (yuzey: !uzay,
+    final, sahne 'tf_ara') ve tf2_<0-5> (altı halka rezonatörü, tekrar, odulFn d.tf.rez); d.tf {aktif, evre, biten,
+    karar, rez, catlak, unvan, guven}; ekEylemler (sıradaki görevin noktasında f_bas_/f_devam_/f_savas_/f_rez_);
+    sahneler tf_giris (ortam işlevi), tf_savas_sonra, tf_ara, tf_rez, tf_karar (sonrasiHazirla), tf_odul, tf_epilog,
+    tf_krediler. d.opBekle / d.savasBekle → gorevler.zamanIlerle { tur: 'op' | 'savas' } → Yuzey koloniOlaylari opAc /
+    savasAc; savas.js bitir zaferde d.savasSonraSahne. finalHarita.js F_NOKTALAR.
+  - operasyon.js: yuzey hasarı d.op.can (op_geri_cekil, gemi dokunulmaz), o.final/o.tekrar tamamlanana girmez, o.sahne,
+    a.efekt; yeni adımlar zikzak, sessizlik, rotasyon (a.radyan), refleks, muhur (dokun parmak ≥ 3; opJest parmak
+    geçirir); frekans a.cift, kacin a.ayni ve a.yon 'yukari', ritim a.girdi 'kaydir2'.
+  - savas.js: golge_kanat, golge_gemisi, kahergonat_zirhlisi (karanlik); tf_kalkan, tf_obsidyen, tf_astral, onur_kilici,
+    efsanevi_reaktor, tf_sicrayici ('atlama' yeteneği). seyir.js tf_astral/efsanevi_reaktor; atlas tf_deniz_haritasi;
+    zanaat bakım kidemli_brove ×0,5.
+  - Sesler ElevenLabs (5 × 17 kredi): el_koro, el_cahelon, el_sharon, el_mancinik, t/ortam_t_girdap.
+  - testler/final.test.js (yirmi görev baştan sona).
+- Sıradaki: KAPSAM.md "Sıradaki adımlar" (0: otuz yan görev ve itibar matrisi).
 
 ## Sesler
 - Drive'daki Efektler/Ambians dosyaları 14 MB; Drive bağlayıcısı 10 MB'tan büyük dosyayı indiremiyor. Bu yüzden
