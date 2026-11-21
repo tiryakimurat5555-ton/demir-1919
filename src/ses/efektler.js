@@ -190,7 +190,7 @@ const DONGULER = {
   ortam_t_kahergonat: 0.55,
   ortam_t_tundra: 0.55,
   ortam_t_zeris: 0.55,
-  ortam_t_bataklik: 0.55,
+  ortam_t_bataklik: 0.6,
   ortam_t_orman: 0.55,
   ortam_t_teras: 0.55,
   ortam_t_koy: 0.55,

@@ -6,6 +6,9 @@ tesis kurar, ileride gemini parça parça inşa edip uzaya açılırsın.
 
 Yapımcı: Bahtiyar Cankurt (tasarım belgeleri belgeler/ içinde). Expo Go ile iPhone ve Android'de çalışır.
 
+## Bu sürümde (2.9)
+- Keralon Bataklıkları ortam sesi Murat'ın gönderdiği kayıtla değişti.
+
 ## Bu sürümde (2.8)
 - Fenrir Denizi ortam sesi Murat'ın gönderdiği kayıtla değişti (rezonans kayığı yolculuğunda da çalar).
 
