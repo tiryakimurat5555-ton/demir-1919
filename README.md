@@ -6,7 +6,10 @@ tesis kurar, ileride gemini parça parça inşa edip uzaya açılırsın.
 
 Tasarım: Bahtiyar Cankurt (belgeler/). Yapım: Murat ve Bahtiyar. Expo Go ile iPhone ve Android'de çalışır.
 
-## Bu sürümde (1.12)
+## Bu sürümde (1.13)
+- Ayarlarda konuşma hızı yüzde 350'ye kadar artırılabilir (yüzde 200'ün üstünde yirmi beşer).
+
+## 1.12
 - Vadi-i Sukût'un yeni ortam sesi.
 
 ## 1.11

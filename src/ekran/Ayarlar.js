@@ -4,8 +4,9 @@ import SesliListe from '../arayuz/SesliListe';
 import { soyle, turkceSesListesi } from '../ses/rehber';
 
 const EN_AZ = 0.6;
-const EN_COK = 2.0;
-const ADIM = 0.1;
+const EN_COK = 3.5; // Murat (1.13): yüzde 350'ye kadar
+// Yüzde 200'e kadar onar, üstünde yirmi beşer artar (çok basmak gerekmesin)
+const adim = (h, yon) => (yon > 0 ? (h >= 2 - 1e-6 ? 0.25 : 0.1) : h > 2 + 1e-6 ? 0.25 : 0.1);
 
 const yuzde = (h) => 'yüzde ' + Math.round(h * 100);
 
@@ -15,7 +16,7 @@ export default function Ayarlar({ ayarlar, ayarDegistir, onGeri }) {
   const sesAdi = secili ? secili.ad + (secili.gelismis ? ', gelişmiş' : '') : 'telefonun varsayılan sesi';
 
   const hiz = (yeni) => {
-    const h = Math.round(Math.max(EN_AZ, Math.min(EN_COK, yeni)) * 10) / 10;
+    const h = Math.round(Math.max(EN_AZ, Math.min(EN_COK, yeni)) * 100) / 100;
     ayarDegistir({ konusmaHizi: h });
     // Yeni hız hemen duyulsun diye değer yeni hızla okunur
     setTimeout(() => soyle(h === ayarlar.konusmaHizi ? (h >= EN_COK ? 'En hızlı: ' : 'En yavaş: ') + yuzde(h) : yuzde(h), 'istek', true), 60);
@@ -35,8 +36,8 @@ export default function Ayarlar({ ayarlar, ayarDegistir, onGeri }) {
       etiket: 'Konuşma hızı: ' + yuzde(ayarlar.konusmaHizi),
       ipucu: 'Alttaki Artır ve Azalt ile değiştir.',
     },
-    { id: 'artir', etiket: 'Artır', sec: () => hiz(ayarlar.konusmaHizi + ADIM) },
-    { id: 'azalt', etiket: 'Azalt', sec: () => hiz(ayarlar.konusmaHizi - ADIM) },
+    { id: 'artir', etiket: 'Artır', sec: () => hiz(ayarlar.konusmaHizi + adim(ayarlar.konusmaHizi, 1)) },
+    { id: 'azalt', etiket: 'Azalt', sec: () => hiz(ayarlar.konusmaHizi - adim(ayarlar.konusmaHizi, -1)) },
     {
       id: 'ortam',
       etiket: 'Ortam sesi: ' + yuzde(ayarlar.ortamDuzeyi),
