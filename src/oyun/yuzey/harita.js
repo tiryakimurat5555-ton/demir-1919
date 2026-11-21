@@ -500,3 +500,9 @@ export const KISILER = {
 };
 
 export const BASLANGIC = { mekan: 'kapsul', x: 303, y: 3.5, yon: 0 };
+
+// Tonoflenya'nın haritası (tonoflenya/harita.js; Malken medeniyeti, 2.1)
+import { T_MEKANLAR, T_KAPILAR, T_NOKTALAR } from '../tonoflenya/harita';
+Object.assign(MEKANLAR, T_MEKANLAR);
+Object.assign(KAPILAR, T_KAPILAR);
+Object.assign(NOKTALAR, T_NOKTALAR);

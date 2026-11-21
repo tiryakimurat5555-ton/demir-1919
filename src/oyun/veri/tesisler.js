@@ -21,11 +21,13 @@ export const HAMMADDELER = {
   kseno_kabuk: { ad: 'fosil kseno-kabuk', tarif: 'Solucan tünellerinden; maden kazıcılarına ve araçlara rakipsiz sertlikte zırh ve delici uç.' },
   manyetik_tohum: { ad: 'manyetik tohum materyali', tarif: 'Monolitin yüzeyinden kazınır; graviton dengeleyicisine dönüşür.' },
   notron_cevher: { ad: 'nötron-yoğun cevher', tarif: 'Parçalanmış gezegen çekirdeklerinden; avuç kadarı bir kaya kadar ağır.' },
+  aether: { ad: 'aether kristali', tarif: 'Malazar Dağı\'nın ocaklarından; parlak mor titreşen kristal. Gemilerin warp çekirdeklerine takılır.' },
+  buyu_tozu: { ad: 'büyü tozu', tarif: 'Malazar\'ın tünellerinde havada uçuşan ılık toz; simyacılar odaklanma iksirlerine ve plazma mühürlerine katar.' },
   tohum: { ad: 'kseno-tahıl tohumu', tarif: 'Saklı vahadan; açıkta yetişebilen ilk yerel tarım tohumu.' },
   graviton: { ad: 'graviton minerali', tarif: 'Manyetik sırtların derin kuyularından; yalnız sondaj tankıyla çıkar. Graviton yakıtının hammaddesi.' },
 };
 
-export const HAMMADDE_SIRASI = ['bazalt', 'titanyum', 'kristal', 'izotop', 'kseno', 'polimer', 'graviton', 'sivi_metal', 'civa_tortusu', 'foton_recinesi', 'kseno_spor', 'kriyolit', 'metan', 'plazma_cami', 'obsidyen', 'antigrav_tozu', 'kseno_kabuk', 'manyetik_tohum', 'tohum', 'notron_cevher'];
+export const HAMMADDE_SIRASI = ['bazalt', 'titanyum', 'kristal', 'izotop', 'kseno', 'polimer', 'graviton', 'sivi_metal', 'civa_tortusu', 'foton_recinesi', 'kseno_spor', 'kriyolit', 'metan', 'plazma_cami', 'obsidyen', 'antigrav_tozu', 'kseno_kabuk', 'manyetik_tohum', 'tohum', 'notron_cevher', 'aether', 'buyu_tozu'];
 
 // Tesisler. maliyet: hammadde kimliği → miktar. kosul(d): inşa edilebilmesi için hikâye koşulu.
 export const TESISLER = {

@@ -9,6 +9,7 @@
 // Hasarlı sistem savunmayı kısıtlar: iticiler giderse kaçınma yok, kalkan ısınırsa kalkan yok, reaktör kritikse
 // tepkisiz kilitlenme. (4) değerlendirme.
 import * as E from '../tarim/etki';
+import { yildizCarpani } from '../zaman';
 import { kayitBul } from '../veri/seslendirme';
 import { uretec } from '../veri/murettebat';
 import { GEMI_SINIFLARI } from '../veri/gemiler';
@@ -285,7 +286,7 @@ function darbe(d) {
   if (u.silah === 'torpido' && mod(d, 'k1_sonumleme')) h *= 0.6;
   if (yet(d, 'C1')) h *= 0.9;
   if (mod(d, 'hisar_kalkani')) h *= 0.8;
-  h *= E.alinanHasarCarpani(d); // Kaelith kalkan kristali, zaman-kristal koruyucu tabakası
+  h *= E.alinanHasarCarpani(d) * yildizCarpani(d, 'hasar'); // Kaelith kalkan kristali, zaman-kristal koruyucu tabakası
   const g = d.gemi;
   g.govde = Math.max(0, g.govde - Math.round(h));
   if (u.savunma !== 'kalkan') {

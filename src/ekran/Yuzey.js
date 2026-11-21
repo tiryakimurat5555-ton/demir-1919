@@ -134,6 +134,7 @@ import {
   girdiMetniT,
   zamanNotu,
   zamanMetni,
+  NOBETLER,
 } from '../oyun/yuzey/gorevler';
 import { BITKILER, ISLEME_TESISI } from '../oyun/tarim/bitkiler';
 import { UZMANLIKLAR, subayIstihdam, SEKTORLER, bosta, girdiMetni, harca, yeterMi, ilacDagit, isGucuDegis, moralMetni, moralSesi, parcaMetni, uretimBaslat, uretimListesi } from '../oyun/koloni';
@@ -198,7 +199,7 @@ const DOSYALAR = {
 };
 
 // Eylem sesleri: gorev1.js'teki ses adlarını çalınacak efekte çevirir
-const EYLEM_SESI = { capa: 'tarim_capa', ekme: 'tarim_ekme', hasat: 'tarim_hasat', bip: 'bip', red: 'red', tislama: 'tislama', jenerator: 'jenerator', kes: 'tislama', kur: 'kapi', topla: 'dugme', kristal: 'dugme', sonda: 'sonda', polimer: 'polimer', hidrolik: 'hidrolik', kaynak: 'kaynak', kapi_gemi: 'kapi_gemi', dugme: 'dugme' };
+const EYLEM_SESI = { sinyal: 'sinyal', el_kalkan: 'el_kalkan', capa: 'tarim_capa', ekme: 'tarim_ekme', hasat: 'tarim_hasat', bip: 'bip', red: 'red', tislama: 'tislama', jenerator: 'jenerator', kes: 'tislama', kur: 'kapi', topla: 'dugme', kristal: 'dugme', sonda: 'sonda', polimer: 'polimer', hidrolik: 'hidrolik', kaynak: 'kaynak', kapi_gemi: 'kapi_gemi', dugme: 'dugme' };
 const BACALAR = ['baca_1', 'baca_2', 'baca_3'];
 const CANLAR = ['can_1', 'can_2', 'can_3', 'can_4', 'can_5'];
 // Rüzgârda kendiliğinden çınlayan kristaller (ses: 'kristal'): vadi, krater ve doğu sektörünün kuvars sütunları
@@ -744,6 +745,16 @@ export default function Yuzey({ onGeri, baslangic, yeniOyunUret }) {
               return 'sessiz';
             }
             if (r.tarimMenu) return tarimMenuGoster(r.tarimMenu, id), 'sessiz';
+            // Aether Çekirdeği: altı yıldızın akoru
+            if (r.akor && m()) NOBETLER.forEach((n, i) => setTimeout(() => m() && m().nota(n.akor[0], null, 0.45, 6), i * 260));
+            // YGK asansörü: başka bir kata taşındın
+            if (r.kapat) {
+              katmanKapatSessiz();
+              durakli.current = false;
+              sesleriEsitle(true);
+              soyle(r.metin, 'istek', true);
+              return 'sessiz';
+            }
             if (d.sahne) {
               katmanKapatSessiz();
               sahneGoster(d.sahne, r.metin || null);
@@ -1928,6 +1939,13 @@ export default function Yuzey({ onGeri, baslangic, yeniOyunUret }) {
         }
         const r = kenetlen(d);
         kaydet();
+        // YGK feneri: Tonoflenya'ya hiper-sıçrama
+        if (r.tonoflenya) {
+          gemiModuKapat();
+          cal('kalkis', 1);
+          sahneGoster(d.sahne);
+          return;
+        }
         if (r.inis) {
           cal('hidrolik', 0.9);
           sahneGoster('inis');
@@ -2555,7 +2573,7 @@ export default function Yuzey({ onGeri, baslangic, yeniOyunUret }) {
     durakli.current = true;
     ayarBaslat(d, amac);
     if (m()) m().telsizKur();
-    ortamCal(MEKANLAR.vadi.ortam, 0.3);
+    ortamCal(MEKANLAR[d.mekan].ortam, 0.3);
     setAyarAcik(true);
     soyle('Frekans ayarı. Kulaklığında parazit. İçinde ince, kesik kesik bir ses ara. Parmağını yukarı ya da aşağı sürükle, ya da iki parmakla çevir: kanal değişir. Sağa ya da sola hızlı kaydır: ince ayar. Ses netleşince kıpırdama, kilitlenene kadar bekle. Dokun: kanalı söylerim. İki parmakla çift dokun: ayardan çık. ' + ayarMetni(d), 'istek', true);
   };
@@ -2565,7 +2583,7 @@ export default function Yuzey({ onGeri, baslangic, yeniOyunUret }) {
     dunya.current.ayar = null;
     setAyarAcik(false);
     durakli.current = false;
-    ortamCal(MEKANLAR.vadi.ortam, ortamOrani(dunya.current));
+    ortamCal(MEKANLAR[dunya.current.mekan].ortam, ortamOrani(dunya.current));
     if (soz) soyle(soz, 'istek', true);
   };
 

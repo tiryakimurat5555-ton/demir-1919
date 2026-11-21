@@ -12,7 +12,7 @@
 // }
 // d.tarla: tarla katmanı açıkken { alan: 'sera'|'vaha', i, sec }. d.melez: rezonans eşleme açıkken.
 import { BITKILER, BITKI_SIRASI, KATEGORI_ADI, ORTAM_ADI, KADEMELER, VAHA_PARSEL, ISLEME, ISLEME_TESISI, TOPLULUKLAR, ISCI_TURLERI, SPOR_KRISTAL, HIBRITLER, yetisirMi, hibritBul } from './bitkiler';
-import { nobetNo } from '../zaman';
+import { nobetNo, yildizCarpani } from '../zaman';
 
 export const DONGU_SN = 300; // bir koloni döngüsü (bitkilerin olgunlaşma birimi): nöbetin dörtte biri
 const SU_KAYIP = 15; // döngü başına buharlaşma (yüzde)
@@ -549,7 +549,7 @@ export function melezIlerle(d, dt) {
     m.yakinDendi = true;
     o.push('yakin');
   }
-  if (sapma < MELEZ_ESIK) {
+  if (sapma < MELEZ_ESIK * yildizCarpani(d, 'aether')) {
     if (m.dengede === 0) o.push('dengede');
     m.dengede += dt;
     if (m.dengede >= 2) {

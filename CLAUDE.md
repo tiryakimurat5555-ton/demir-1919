@@ -368,7 +368,26 @@ Demir 1919 oyunu silindi; geçmişi git kaydında (son sürüm 1.06, commit 556f
     ansiklopedi). Sesler ElevenLabs (flow BPWC2OLWbdljIKExgHDq, 10 × 17 kredi): tarim_capa/ekme/vana/hasat/hazir/melez/
     kuru/curuk/saglikli (I=-18, tek kanal 22 kHz wav), ortam_kubbe (20 sn, 2,5 sn çapraz geçiş, I=-24).
   - testler/tarim.test.js.
-- Sıradaki: KAPSAM.md "Sıradaki adımlar" (0: Tonoflenya genişlemesi).
+- SÜRÜM 2.1 (21 Kasım, Murat: "Devam"): Malken medeniyeti belgesi (Tonoflenya'ya varış). Telefonda denenmedi.
+  - tonoflenya/harita.js: T_MEKANLAR 27 (ygk_6 … ygk_m5 iç 20×20, x 8200 + 40×sıra; halka_zhaor/varek/axira/sinha/uma/
+    elyndra 7000-7560 dış 60×60; tenohris 7600; kara_gol 7700; dogu_kanton 7900; flee_plee 6200; aether_dock 6000; fenrir
+    6400; arin 6600; veradon 6800; malazar 9000 statik; malazar_ocaklari 9200), tonoflenya: true; T_KAPILAR (halkalar
+    zincir, bati_sur karaGolIzni, fenrir_iskelesi aetherKayigi, malazar_yolu malazarIzni, faz_kapisi, karavan_hatti …);
+    T_NOKTALAR (asansor_<kat>, malken: konuşma, tonEylem, aether_1/2 ve buyu_tozu_1 yatakları). yuzey/harita.js sonunda
+    Object.assign. dunya.js: Tonoflenya noktaları ve bütün geçit uçları Yerler'de bilinir; geçiş metni kapı adı + tarif.
+  - tonoflenya/malken.js: seferKosullari (Sınıf III+, iki topluluk op'u kadim_mezar/g13/g14/aethel9, GEREKEN_OP 10),
+    tepe eylemi y_ygk → ayarBaslat 'ygk' (gorev1: hedef 32-48, kilit → ygkFrekansi, sahne ygk_frekansi) ve zirve iğnesi
+    'igne' (hedef 92-108 → malazarIzni); seyir.js UZAY_NOKTALARI.ygk_feneri (0,-1450; sinif 3; acKosul ygkFrekansi);
+    gorevler.kenetlen → sicrama (gemi.liman tonoflenya, mekan ygk_5, sahne tonoflenya_varis/tekrar) + sicramaZamani
+    (8 saat, zamanIlerle 60 sn adımlarla); iskelede donus (plato, sahne aethelis_donus). Eylemler ve Malken
+    konuşmaları (kabul → ygkKayit; arşiv ikinci küre → karaGolIzni; iskele → aetherKayigi; kesis; gumruk; lonca; meclis);
+    kodeks hekzat, malken_irki, arsiv_*, tenohris, batik_kule, arin, veradon, cevre_krallik. Asansör r.kapat (Yuzey katman
+    kapatır), çekirdek r.akor (altı nöbet tonu).
+  - zaman.js yildizCarpani (fener, uretim, aether, hiz, hasar, nufus): seyir, savaş, koloni, tarım okur.
+  - tesisler.js hammaddeler aether, buyu_tozu. Sesler ElevenLabs (20 × 17 kredi): assets/ses/t/ortam_t_<ad>.mp3 (22 sn,
+    2,5 sn çapraz geçiş, I=-24, 96k). Kat -3 ortam_revir, -4 ortam_reaktor.
+  - testler/tonoflenya.test.js.
+- Sıradaki: KAPSAM.md "Sıradaki adımlar" (0: kadim tarihçe).
 
 ## Sesler
 - Drive'daki Efektler/Ambians dosyaları 14 MB; Drive bağlayıcısı 10 MB'tan büyük dosyayı indiremiyor. Bu yüzden

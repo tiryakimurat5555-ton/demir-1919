@@ -52,6 +52,21 @@ export function ileriSar(d, sn) {
   return o;
 }
 
+// Hâkim yıldızın gücü (Malken medeniyeti bölüm 1): her nöbette o yıldızın işi güçlenir.
+//   Zhaor fener (zihin, telepati) ×1,1 · Varek üretim (dökümhane, plazma) ×1,15 · Axira tarla ×1,25 (tarim.js) ·
+//   Elyndra aether ayarları (melezleme eşiği) ×1,5 · Sinha hız ×1,1 ve alınan savaş hasarı ×0,9 · Uma nüfus ×1,2
+export function yildizCarpani(d, is) {
+  if (!d || !d.zaman) return 1;
+  const y = nobet(d).yildiz;
+  if (is === 'fener') return y === 'Zhaor' ? 1.1 : 1;
+  if (is === 'uretim') return y === 'Varek' ? 1.15 : 1;
+  if (is === 'aether') return y === 'Elyndra' ? 1.5 : 1;
+  if (is === 'hiz') return y === 'Sinha' ? 1.1 : 1;
+  if (is === 'hasar') return y === 'Sinha' ? 0.9 : 1;
+  if (is === 'nufus') return y === 'Uma' ? 1.2 : 1;
+  return 1;
+}
+
 export function zamanMetni(d, ek) {
   const n = nobet(d);
   const dk = Math.ceil(kalanSn(d) / 60);

@@ -6,7 +6,14 @@ tesis kurar, ileride gemini parça parça inşa edip uzaya açılırsın.
 
 Tasarım: Bahtiyar Cankurt (belgeler/). Yapım: Murat ve Bahtiyar. Expo Go ile iPhone ve Android'de çalışır.
 
-## Bu sürümde (2.0)
+## Bu sürümde (2.1)
+- Tonoflenya: koşullar sağlanınca Gözcü Tepesi'nde YGK frekansı yakalanır; uzay haritasındaki YGK fenerine kenetlenince
+  sekiz saatlik hiper-sıçramayla anavatana gidilir. YGK Akademi'nin on bir katı (asansörle), Malkenia'nın altı halkası ve
+  Tenohris Sarayı, Kara Göl, doğu kantonları, Flee Plee, Aether-Dock, Fenrir Denizi, Uçan Arin Adası, Veradon ve Malazar
+  Dağı; her birinin kendi ortam sesi. Malken'lerle konuşma, izinler, aether kristali.
+- Altı yıldızın nöbetleri artık işe yarar: hâkim yıldızın alanı güçlenir.
+
+## 2.0
 - Tarım: jeotermal tarım alanında ekim terasları ve sera konsolu, saklı vahada dört açık toprak parseli. Toprağı çapala,
   tohum ek, vanayla sula, sıcaklığı ayarla, olgunluk sesini duyunca hasat et. 21 bitki türü (koloni ürünleri, yabani
   flora, uzay görevlerinden kseno-bitkiler, melezler); seralar dört kademe genişler; yataklara kolonist atanabilir.

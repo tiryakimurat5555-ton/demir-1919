@@ -27,6 +27,7 @@ import * as S from '../uzay/seyir';
 import * as TA from '../tarim/eylemler';
 import * as TR from '../tarim/tarim';
 import * as Z from '../zaman';
+import * as TM from '../tonoflenya/malken';
 import { TESISLER } from '../veri/tesisler';
 
 export const { ESYALAR, HAREKET_KISA, ayarBaslat, ayarDegis, ayarIlerle, ayarMetni, ayarYakinlik, koloniMetni, insaListesi } = G1;
@@ -35,7 +36,7 @@ export const { NOTALAR, kapiDizisi, rezonansBaslat, rezonansSecimDegis, rezonans
 
 export const { AYAKLAR, ayakSayisi, ayakFrek, teraziBaslat, teraziPompa, teraziIlerle, teraziMetni, DENGE_ESIGI } = G4;
 
-export const SAHNELER = { ...G1.SAHNELER, ...G2.SAHNELER, ...G3.SAHNELER, ...G4.SAHNELER, ...G5.SAHNELER, ...G6.SAHNELER, ...B.SAHNELER, ...K.SAHNELER, ...A.SAHNELER, ...M.SAHNELER, ...O.SAHNELER, ...SV.SAHNELER, ...SF.SAHNELER };
+export const SAHNELER = { ...G1.SAHNELER, ...G2.SAHNELER, ...G3.SAHNELER, ...G4.SAHNELER, ...G5.SAHNELER, ...G6.SAHNELER, ...B.SAHNELER, ...K.SAHNELER, ...A.SAHNELER, ...M.SAHNELER, ...O.SAHNELER, ...SV.SAHNELER, ...SF.SAHNELER, ...TM.SAHNELER };
 
 // Telsiz bildirimleri (belgeler/savas-yetenek-ve-murettebat-mekanikleri.md 4.3): koşulu sağlanınca bir kez kuyruğa
 // girer. gorev alanı varsa yalnız o görev sürerken.
@@ -81,7 +82,7 @@ export function gorevIpucu(d) {
 }
 
 export function noktaEylemleri(d, id) {
-  const ek = [...G6.ekEylemler(d, id), ...K.ekEylemler(d, id), ...M.ekEylemler(d, id), ...TA.ekEylemler(d, id)];
+  const ek = [...G6.ekEylemler(d, id), ...K.ekEylemler(d, id), ...M.ekEylemler(d, id), ...TA.ekEylemler(d, id), ...(id === 'tepe' ? TM.tepeEylemi(d) : [])];
   if (G6.noktaMi(id)) return [...ek, { id: 'incele', etiket: 'Sütunu incele' }];
   const temel = temelEylemler(d, id);
   if (!ek.length) return temel;
@@ -91,6 +92,7 @@ export function noktaEylemleri(d, id) {
 }
 function temelEylemler(d, id) {
   if (TA.noktaMi(id)) return TA.noktaEylemleri(d, id);
+  if (TM.noktaMi(id)) return TM.noktaEylemleri(d, id);
   if (M.noktaMi(id)) return M.noktaEylemleri(d, id);
   if (K.noktaMi(id)) return K.noktaEylemleri(d, id);
   if (A.noktaMi(id)) return A.noktaEylemleri(d, id);
@@ -103,6 +105,12 @@ function temelEylemler(d, id) {
 }
 
 export function eylemUygula(d, id, eylemId) {
+  if (eylemId === 'y_ygk') return TM.ygkAra(d);
+  if (TM.noktaMi(id)) {
+    const r = TM.eylemUygula(d, id, eylemId);
+    if (r.sicrama) sicramaZamani(d);
+    return r;
+  }
   if (TA.ekEylemMi(eylemId) || TA.noktaMi(id)) return TA.eylemUygula(d, id, eylemId);
   if (G6.ekEylemMi(eylemId) || G6.noktaMi(id)) return G6.eylemUygula(d, id, eylemId);
   if (M.ekEylemMi(eylemId) || M.noktaMi(id)) return M.eylemUygula(d, id, eylemId);
@@ -262,6 +270,12 @@ export function kenetlen(d) {
     d.seferSure = 0;
     d.klostrofobiDendi = false;
   }
+  // YGK feneri: Tonoflenya'ya hiper-sıçrama (tonoflenya/malken.js)
+  if (r.id === 'ygk_feneri' && !r.kilitli) {
+    TM.sicrama(d);
+    sicramaZamani(d);
+    return { metin: '', tonoflenya: true };
+  }
   // Donanım tamsa ve operasyon yapılmadıysa doğrudan operasyon sahasına girilir
   if (r.id && !r.kilitli && O.opVarMi(r.id) && !O.opTamamMi(d, r.id)) r.op = O.opBaslat(d, r.id);
   return r;
@@ -278,3 +292,11 @@ export const {
   melezIlerle, melezMetni, ansiklopedi, durumMetni: tarimDurumu, girdiMetniT, zamanNotu, CAPA_VURUS,
 } = TR;
 export const { zamanMetni, nobet, NOBETLER } = Z;
+
+// Hiper-sıçrama: sekiz saat geçer; koloni, tarlalar ve atölyeler o sürede kendi başına ilerler (yönerge 4.B)
+export function sicramaZamani(d, sn = TM.SICRAMA_SN) {
+  const once = d.koloni.nufus.toplam;
+  for (let t = 0; t < sn; t += 60) zamanIlerle(d, 60);
+  d.sicramaNotu = 'Yolculuk sekiz saat sürdü. ' + Z.zamanMetni(d) + (d.koloni.nufus.toplam > once ? ' Koloninin nüfusu ' + d.koloni.nufus.toplam + '.' : '');
+}
+export const { seferKosullari } = TM;

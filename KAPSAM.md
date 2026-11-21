@@ -213,7 +213,7 @@ bütün bölümlerini sırayla sayar (21 Kasım: v3 paketiyle sekiz belge daha g
       Altın Gece ve Mavi Akşam'da ısıtılmayan teras soğur.
 - [x] 4.B Nöbet değişiminde o yıldızın üç notalı çan akoru; sağ üst köşeye çift dokun (ve menüde "Yıldız Zamanı"):
       gün, nöbet, kalan dakika, tarla notu. Klavye "T" tuşu yok (telefonda klavye yok). Seyahatte zaman gerçek
-      zamanlı akar; hiper-sıçrama yok, ileri sarma işlevi (ileriSar) Tonoflenya yolculuğu için hazır.
+      zamanlı akar; Tonoflenya'ya hiper-sıçrama (2.1) sekiz saat ileri sarar (koloni, tarla ve atölyeler işler).
 - [ ] 5.A Yıldız Ekolü Kıdemi (altı ekol, dört kademe, kabiliyetler): Tonoflenya bölümleriyle (sıra: eşya-zanaat'tan sonra).
 - [~] 5.B Rastgele karşılaşma motoru: korsan pususu 1.3'ten var (sefer.js). Sürüklenen sandıklar (sesli kilit), astral
       fırtına (frekans tutturma), kaçak mülteci sinyali yok; sıra: 5.A ile.
@@ -243,8 +243,31 @@ bütün bölümlerini sırayla sayar (21 Kasım: v3 paketiyle sekiz belge daha g
       ortamı. Sera ortamı Murat'ın kaydı (ortam_tarim), vaha ortamı 0.9'dan.
 
 ## 12. tonoflenya-ve-malken-medeniyeti.md
-- [ ] 1 Hekzat sistemi · 2 Malken ırkı · 3 Malkenia ve altı halka (3.1-3.3) · 4 Güney havzası (4.1-4.5) · 5 YGK Akademi
-      (yüzey ve yeraltı katları) · 6 Malazar Dağı · 7 Çevre krallıklar · 8 Hikâye köprüsü. Sıra: tarımdan sonra ilk.
+- [x] 1 Hekzat sistemi (2.1): altı yıldızın kodeks kaydı; Yıldız Zamanı'nda hâkim yıldızın işi güçlenir (Zhaor fener
+      ×1,1, Varek üretim ×1,15, Axira tarla ×1,25, Elyndra melezleme eşiği ×1,5, Sinha hız ×1,1 ve savaş hasarı ×0,9,
+      Uma nüfus ×1,2). Varışta altı yıldız sahnesi; Tenohris'in Aether Çekirdeği altı yıldızın tonlarını çalar.
+- [x] 2 Malken ırkı (2.1): kodeks (rezonans kriptosunda); Malken'ler konuşulan kişiler (kabul görevlisi, lonca
+      ihtiyarı, Meclis sözcüsü, iskele görevlisi, Arin keşişi, Veradon gümrükçüsü); Malken çırakları koloniye gelir.
+- [x] 3 Malkenia (2.1): altı halka ayrı mekân, dıştan içe Zhaor, Varek, Axira, Sinha, Uma, Elyndra; her birinin ortam
+      sesi ve işi (kalkan kulesi, aether dökümhanesi: 1 aether → 30 zırhlı plaka, asma bahçe, kuantum pilonuyla koloniye
+      bağlantı, altın meydanda halk, lonca). 3.1 Tenohris Sarayı ve Aether Çekirdeği · 3.2 Kara Göl (yasaklı; arşivdeki
+      kaydı dinleyen kayıtlı kaptana koruma mührü), batık kule · 3.3 Doğu çöl kantonları ve aether hamamı (günde bir:
+      mürettebatın stresi sıfır).
+- [x] 4 Güney havzası (2.1): güney karavan hattıyla Flee Plee; doğu ucunda kuantum faz kapısıyla Aether-Dock (kadırga
+      montaj kızağı); rezonans kayığıyla (iskele görevlisi, YGK kaydından sonra) Fenrir (foton tozu, nöbette bir),
+      Uçan Arin Adası (keşişin dersi) ve Veradon (gümrük ve han).
+- [x] 5 YGK Akademi (2.1): on bir kat, asansörle: 6 Zirve İğnesi (altı yıldızı hizalama, frekans ayarı → Malazar izni),
+      5 fırlatma hangarı (gemi buraya iner; bakım, Aethelis'e dönüş), 4 körleme simülatörü (+120 tecrübe), 3 Magitech
+      (çırak, büyü mühürleri: 2 aether → gövde +40), 2 astrogasyon (rota haritaları), 1 kabul, -1 arşiv küreleri, -2
+      rezonans kriptosu, -3 tohum deposu (tohum takası), -4 enerji çekirdeği, -5 yasaklı tonozlar (Başmüfettiş mührü:
+      final görevlerine kaldı).
+- [x] 6 Malazar Dağı (2.1): kuzey sahil kapısından (izinle); tepede mor şimşekler (statik boşalma), altında aether
+      ocakları: aether kristali ve büyü tozu yatakları (yeni hammaddeler).
+- [~] 7 Çevre krallıklar: Zhaor halkasındaki sınır levhası ve kodeks kaydı. Donmuş krallıklar, çöl krallıkları,
+      Kahergonat ve okyanus ötesine yolculuk atlas bölümüyle (14).
+- [x] 8 Hikâye köprüsü (2.1): Gözcü Tepesi'nde "YGK frekansını ara" (koşullar: Sınıf III ya da üstü gemi, iki
+      kurtarılmış topluluk, on uzay operasyonu) → frekans ayarı → uzay haritasında YGK feneri → kenetlenince sekiz
+      saatlik hiper-sıçrama (koloni o sürede kendi başına yaşar) → YGK kat 5. Kabul görevlisi kaptanın kaydını tanır.
 
 ## 13. tonoflenya-kadim-tarihcesi-ve-kronikler.md
 - [ ] 1-12 Kozmik şafak, Üçler miti, koruyucular, Cahelon, Malken I. Çağ, Tyzrakhel, Kahergonat, Beyaz Kıyamet, Valen'in
@@ -267,7 +290,7 @@ bütün bölümlerini sırayla sayar (21 Kasım: v3 paketiyle sekiz belge daha g
       matrisi · 7 Entegrasyon direktifi.
 
 ## Sıradaki adımlar (sırayla)
-0. Tonoflenya genişlemesi, yönergedeki sırayla: Malken medeniyeti ve hekzat sistemi (bölüm 12) → kadim tarihçe (13,
+0. Tonoflenya genişlemesi, yönergedeki sırayla: [2.1'de yapıldı: Malken medeniyeti (12)] → kadim tarihçe (13,
    kodeks) → coğrafi atlas (14, beş kuşak haritası ve gemiyle Tonoflenya yolculuğu) → eşya, zanaat ve prosedürel
    mürettebat (15; Ekol Kıdemi ve rastgele karşılaşmalar, yönerge 5) → yirmi final görevi (16) → otuz yan görev (17).
 1. Telefonda deneme: seslendirilmiş telsizlerin düzeyi ve anlaşılırlığı (Murat ve Bahtiyar), ses dengeleme ve

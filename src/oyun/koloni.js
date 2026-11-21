@@ -9,6 +9,7 @@
 //     - barınma yetiyorsa ve moral iyiyse nüfus doğal yoldan artar; barınma aşılırsa moral düşer.
 //   İş gücü: nüfus üç sektöre paylaştırılır (sanayi, tersane, bilim); kalanı boşta.
 import { NOKTALAR } from './yuzey/harita';
+import { yildizCarpani } from './zaman';
 import { HAMMADDELER } from './veri/tesisler';
 import { PARCALAR, TARIFLER } from './veri/uretim';
 import { montajIlerle } from './gemi/gemi';
@@ -173,7 +174,7 @@ export function uretimBaslat(d, tesis, tarifId) {
   if (!yeterMi(d, t.girdi)) return { metin: 'Girdi yetmiyor: ' + girdiMetni(t.girdi) + '.', ses: 'red' };
   harca(d, t.girdi);
   // Vaelin topluluğu tokken metandan gaz yakıtı yüzde elli hızlı (tarim-ve-kseno-botanik bölüm 6)
-  const kalan = t.sure / uretimHizi(d) / (t.girdi.metan && d.tarim && d.tarim.besli.vaelin ? 1.5 : 1);
+  const kalan = t.sure / uretimHizi(d) / yildizCarpani(d, 'uretim') / (t.girdi.metan && d.tarim && d.tarim.besli.vaelin ? 1.5 : 1);
   d.koloni.uretimler.push({ tesis, tarif: t.id, kalan });
   return { metin: t.ad + ': iş başladı. Yaklaşık ' + Math.ceil(kalan) + ' saniye.', ses: 'dugme' };
 }
@@ -303,7 +304,7 @@ export function koloniIlerle(d, dt) {
   olaylar.push(...montajIlerle(d, dt, 1 + 0.5 * n.tersane));
   // Nüfus ve moral
   if (n.toplam < n.barinma) {
-    const carpan = (d.koloni.binalar.includes('biyo_kubbe') ? 1.5 : 1) * (d.koloni.binalar.includes('sera') ? 1.5 : 1) * (katmanTamamMi(d, 'biyosfer') ? 1.5 : 1) * (d.bayrak.g_tarim ? 1.2 : 1) * (d.bayrak.p_tarim ? 1.3 : 1) * (d.koloni.binalar.includes('hastane') ? 1.2 : 1) * (k.moral >= 50 ? 1 : 0.3);
+    const carpan = (d.koloni.binalar.includes('biyo_kubbe') ? 1.5 : 1) * (d.koloni.binalar.includes('sera') ? 1.5 : 1) * (katmanTamamMi(d, 'biyosfer') ? 1.5 : 1) * (d.bayrak.g_tarim ? 1.2 : 1) * (d.bayrak.p_tarim ? 1.3 : 1) * (d.koloni.binalar.includes('hastane') ? 1.2 : 1) * (k.moral >= 50 ? 1 : 0.3) * yildizCarpani(d, 'nufus');
     k.buyume = (k.buyume || 0) + dt * carpan;
     if (k.buyume >= NUFUS_SN) {
       k.buyume -= NUFUS_SN;

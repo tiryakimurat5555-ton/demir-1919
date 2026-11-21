@@ -328,8 +328,8 @@ const DUYMA_ARALIGI = 25;
 // amac: 'telemetri' (birinci görev) ya da 'ag' (gorev6.js ağ şebekesi entegrasyonu: hedef 10-40 arası)
 export function ayarBaslat(d, amac = 'telemetri') {
   // 'mors' (kesifler.js Vanguard-01): hedef 95-115
-  const hedef = amac === 'ag' ? 25 + (((d.tohum * 7) % 300) / 10 - 15) : amac === 'mors' ? 105 + (((d.tohum * 13) % 200) / 10 - 10) : 70 + ((d.tohum % 400) / 10 - 20); // 50-90 arası
-  d.ayar = { frekans: amac === 'ag' ? 90 : amac === 'mors' ? 60 : 30, hedef: Math.round(hedef * 10) / 10, kilit: 0, yakinDendi: false, amac };
+  const hedef = amac === 'ygk' ? 40 + (((d.tohum * 11) % 160) / 10 - 8) : amac === 'igne' ? 100 + (((d.tohum * 17) % 160) / 10 - 8) : amac === 'ag' ? 25 + (((d.tohum * 7) % 300) / 10 - 15) : amac === 'mors' ? 105 + (((d.tohum * 13) % 200) / 10 - 10) : 70 + ((d.tohum % 400) / 10 - 20); // 50-90 arası
+  d.ayar = { frekans: amac === 'ygk' ? 90 : amac === 'igne' ? 50 : amac === 'ag' ? 90 : amac === 'mors' ? 60 : 30, hedef: Math.round(hedef * 10) / 10, kilit: 0, yakinDendi: false, amac };
   return d.ayar;
 }
 
@@ -365,6 +365,12 @@ export function ayarIlerle(d, dt) {
       d.sahne = 'ag_tamam';
     } else if (a.amac.indexOf('mini_') === 0) {
       miniKilitlendi(d, a.amac);
+    } else if (a.amac === 'ygk') {
+      b(d).ygkFrekansi = true;
+      d.sahne = 'ygk_frekansi';
+    } else if (a.amac === 'igne') {
+      b(d).malazarIzni = true;
+      d.sahne = 'igne_hizalandi';
     } else if (a.amac === 'mors') {
       b(d).morsBulundu = true;
       d.sahne = 'mors_bulundu';

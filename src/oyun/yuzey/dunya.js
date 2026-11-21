@@ -204,6 +204,7 @@ export function gec(d, kapiId, uc) {
   d.haber = {};
   let metin;
   if (k.gecisMetni) metin = k.gecisMetni[uc];
+  else if (MEKANLAR[d.mekan].tonoflenya) metin = k.ad + '. ' + MEKANLAR[d.mekan].ad + '. ' + MEKANLAR[d.mekan].tarif;
   else metin = MEKANLAR[d.mekan].dis ? 'Hava kilidi tıslayarak açılıyor. Dışarıdasın: ' + MEKANLAR[d.mekan].ad + '.' : 'Hava kilidi arkandan kapanıyor. ' + MEKANLAR[d.mekan].ad + '.';
   return { metin, gecti: true, kapi: kapiId };
 }
@@ -537,7 +538,7 @@ export function yerlerListesi(d, hepsi = false) {
     const n = NOKTALAR[id];
     if (n.kaynak && (d.stok[id] || 0) <= 0) continue;
     if (n.mini && !miniGorunur(d, id)) continue;
-    const bilinen = d.kesif.includes(id) || n.mekan === 'kapsul' || id === 'kapsul_dis' || id === 'jenerator' || (id === 'tepe' && d.bayrak.jenerator) || (id === 'enkaz' && d.bayrak.kesiciAlindi) || (n.baca && d.bayrak.sondaAlindi) || ((n.ayak || id === 'dagitim_kutusu') && d.bayrak.zeminHazir) || (id === 'kizak' && d.bayrak.zemin) || (id === 'hangar' && d.koloni.binalar.includes('arac_hangari'));
+    const bilinen = d.kesif.includes(id) || n.mekan === 'kapsul' || id === 'kapsul_dis' || id === 'jenerator' || (id === 'tepe' && d.bayrak.jenerator) || (id === 'enkaz' && d.bayrak.kesiciAlindi) || (n.baca && d.bayrak.sondaAlindi) || ((n.ayak || id === 'dagitim_kutusu') && d.bayrak.zeminHazir) || (id === 'kizak' && d.bayrak.zemin) || (id === 'hangar' && d.koloni.binalar.includes('arac_hangari')) || !!(MEKANLAR[n.mekan] && MEKANLAR[n.mekan].tonoflenya);
     if (bilinen) ekle('nokta', id, n.ad, n.mekan, n.x, n.y);
   }
   for (const id of Object.keys(KISILER)) {
@@ -584,7 +585,8 @@ export function yerlerListesi(d, hepsi = false) {
       uclar.forEach((u, i) => {
         if (u.mekan !== d.mekan || liste.some((y) => y.id === id && y.mekan === d.mekan)) return;
         const obur = uclar[1 - i].mekan;
-        if (obur === 'vadi' || obur === 'kapsul' || gorulen.includes(obur)) ekle('kapi', id, u.ad, u.mekan, u.x, u.y);
+        // Tonoflenya tabelalı bir dünya: bütün geçitleri bilinir
+        if (obur === 'vadi' || obur === 'kapsul' || gorulen.includes(obur) || (MEKANLAR[d.mekan] && MEKANLAR[d.mekan].tonoflenya)) ekle('kapi', id, u.ad, u.mekan, u.x, u.y);
       });
     }
   }
