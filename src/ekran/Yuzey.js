@@ -1635,7 +1635,7 @@ export default function Yuzey({ onGeri, baslangic, yeniOyunUret }) {
       } else if (o.tur === 'haber') {
         sozler.push(o.metin);
       } else if (o.tur === 'fenomen') {
-        cal('sinyal', 0.8);
+        cal('el_kesif_zili', 0.9);
         Haptics.notificationAsync(Haptics.NotificationFeedbackType.Success).catch(() => {});
         sozler.push(o.metin);
       } else if (o.tur === 'fenomenGitti') {
@@ -2033,6 +2033,7 @@ export default function Yuzey({ onGeri, baslangic, yeniOyunUret }) {
     let bitti = false;
     for (const o of olaylar) {
       if (o.soz) sozler.push(o.soz);
+      if (o.soz === 'Kalkan!') cal('el_kalkan', 0.9);
       if (o.ses === 'kilitTonu') {
         if (s) s.nota(1760, null, 0.7, 0.35);
         Haptics.selectionAsync().catch(() => {});
@@ -2042,11 +2043,9 @@ export default function Yuzey({ onGeri, baslangic, yeniOyunUret }) {
       if (o.uyari && s) {
         // Uyarı sesi (telegraph): silahın kendi sesi, düşmanın yanından
         const yan = { x: o.yon === 'sag' ? 8 : -8, y: 3 };
-        if (o.uyari === 'plazma') [330, 494, 740, 1109].forEach((f, i) => setTimeout(() => m() && m().nota(f, yan, 0.8, 0.5), i * 420));
-        else if (o.uyari === 'torpido') {
-          cal('hidrolik', 0.9);
-          if (yuklu.current.hamle) setTimeout(() => m() && m().tek('hamle', yan, 1), 900);
-        } else [1500, 1600, 1700, 1800].forEach((f, i) => setTimeout(() => m() && m().nota(f, yan, 0.55, 0.45), i * 350));
+        // ElevenLabs uyarı sesleri; konumlu ek: düşmanın yanından kısa notalar
+        cal(o.uyari === 'plazma' ? 'el_plazma_sarj' : o.uyari === 'torpido' ? 'el_torpido' : 'el_iyon', 1);
+        [660, 880].forEach((f, i) => setTimeout(() => m() && m().nota(f, yan, 0.4, 0.3), i * 300));
         Haptics.notificationAsync(Haptics.NotificationFeedbackType.Warning).catch(() => {});
       }
       if (o.bitti) bitti = true;

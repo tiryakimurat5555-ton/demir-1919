@@ -481,7 +481,7 @@ for (const id of Object.keys(FENOMENLER)) {
       A('sonar', 'Akustik vizör', 'Basılı tut: vizör açılır, motorlar kısılır, hedefin saf sesi kulaklarına dolar.', f.imza),
       A('frekans', 'Odak ve netleme', 'İki parmakla çevir: bulanık ses kristal bir akora dönüşene dek.', 'Odak kilitlendi.'),
       f.ozel ? OZEL_ADIM[f.ozel] : A('tut', 'Pozlama ve spektrografi', 'Basılı tut: spektrometrenin lazer taraması üç saniye sürer.', 'Spektrogram tamam.'),
-      A('kenetle', 'Deklanşör', 'Ses doruğa vardı: çift dokun.', 'Kozmik izdüşüm kaydedildi.'),
+      A('kenetle', 'Deklanşör', 'Ses doruğa vardı: çift dokun.', 'Kozmik izdüşüm kaydedildi.', { ses: 'el_deklansor' }),
       A('kademeli', 'Veri paketini ışınla', 'Yukarı hızlıca kaydır: gözlem paketi hiper-dalgayla Gözlemevi\'ne.', 'Paket Aethelis-IV\'e ulaştı.', { n: 1, yon: 'yukari', parmak: 1 }),
     ],
     sonuc: [f.ad + ' Evren Kütüphanesi\'nde.', 'Kütüphane kaydı: ' + f.kayit, 'Gözlemcilerin tepkisi: ' + f.tepki, 'Evren itibarı +' + f.itibar + '.'],

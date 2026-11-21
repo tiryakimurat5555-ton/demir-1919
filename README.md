@@ -6,7 +6,7 @@ tesis kurar, ileride gemini parça parça inşa edip uzaya açılırsın.
 
 Tasarım: Bahtiyar Cankurt (belgeler/). Yapım: Murat ve Bahtiyar. Expo Go ile iPhone ve Android'de çalışır.
 
-## Bu sürümde (1.4)
+## Bu sürümde (1.5)
 - Vadi-i Sukût'ta sesle serbest dolaşma; iniş kapsülünün içi ve dışı.
 - Radar: uzun basınca yankılar nesnelerin yönünden döner.
 - Birinci görev "Sinyal Arayışı": alet dolabı, kopan arka modül, yedek jeneratör, Gözcü Tepesi'nde anten
@@ -51,6 +51,7 @@ Tasarım: Bahtiyar Cankurt (belgeler/). Yapım: Murat ve Bahtiyar. Expo Go ile i
   (K1-K5). Seferde subaylardan karar isteyen telsiz haberleri; mürettebat nitelikleri ve görev yerleri; subay istihdamı.
 - Çöl Tilkisi'nin sinyal feneri fırlatıcısı; doğuda elektromanyetik sülükler, kulelerde iplik böcekleri, tünellerde
   sürüngenler; mürettebatın stresi; yarıda kalan çatışma kayıttan sürer.
+- ElevenLabs'tan altı kısa efekt: savaş uyarıları, kalkan, keşif zili, deklanşör.
 - Belgelerin hangi bölümünün yapıldığı: KAPSAM.md.
 - Mürettebattan telsiz çağrıları (çift dokun dinle, iki parmakla aşağı kaydır ertele).
 - Otomatik kayıt (uygulamadan çıkınca ya da telefon kilitlenince) ve kapsüldeki terminalden üç yuvaya elle kayıt.

@@ -15,7 +15,8 @@ bütün bölümlerini sırayla sayar. Her sürümde güncellenir; bir bölüm bu
       durumu (yarıda kalan operasyon ve çatışma kayıttan sürer; 1.4), kodeks, gezegen keşifleri.
 - [~] 3.1 Drive ortam sesleri: Efektler klasörlerinden kullanılıyor. Ambians klasöründeki dosyalar 14 MB; bağlayıcı
       10 MB'tan büyüğünü indiremiyor. Bahtiyar ya da Murat 10 MB altı parçalar koyarsa eklenecek.
-- [ ] 3.2 ElevenLabs kısa efektler ve telsiz sesleri: henüz yok; telsiz konuşmaları Türkçe sentez sesle.
+- [~] 3.2 ElevenLabs kısa efektler (1.5): savaş uyarıları (plazma şarjı, torpido, iyon ıslığı), kalkan, keşif zili,
+      deklanşör ElevenLabs'tan. Telsiz konuşmaları hâlâ Türkçe sentez sesle (seslendirme çok kredi ister; Murat'a sorulacak).
       Plan: telsiz zili ve kısa foley için ElevenLabs (indirme yolu CLAUDE.md'de).
 - [x] 4 Belge okuma sırası (CLAUDE.md'de).
 - [x] 5 Veri modelleri: ColonyWorld [x], Starship [x] (sınıf, odalar, gövde, kalkan, silahlar, kargo, motor sesi),

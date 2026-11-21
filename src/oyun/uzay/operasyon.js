@@ -167,7 +167,7 @@ export function opGirdi(d, g) {
       return [{ soz: 'Hız ' + s.hiz + '.', ses: 'dugme' }];
     }
   }
-  if (t === 'kenetle' && g.tur === 'cift') return adimBitti(d, 'kilit');
+  if (t === 'kenetle' && g.tur === 'cift') return adimBitti(d, a.ses || 'kilit');
   if ((t === 'sonar' && g.tur === 'uzun')) return [{ ses: 'sonar' }, ...adimBitti(d, 'sonar')];
   if (t === 'frekans') {
     if (g.tur === 'dondur') s.deger += g.f * 7;

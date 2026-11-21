@@ -28,6 +28,13 @@ const KAYNAKLAR = {
   ortam_plato: require('../../assets/ses/ortam_plato.wav'),
   hidrolik: require('../../assets/ses/hidrolik.wav'),
   kilit: require('../../assets/ses/kilit.wav'),
+  // ElevenLabs (1.5): savaş uyarıları, kalkan, keşif zili, deklanşör
+  el_plazma_sarj: require('../../assets/ses/el_plazma_sarj.wav'),
+  el_torpido: require('../../assets/ses/el_torpido.wav'),
+  el_iyon: require('../../assets/ses/el_iyon.wav'),
+  el_kalkan: require('../../assets/ses/el_kalkan.wav'),
+  el_kesif_zili: require('../../assets/ses/el_kesif_zili.wav'),
+  el_deklansor: require('../../assets/ses/el_deklansor.wav'),
   polimer: require('../../assets/ses/polimer.wav'),
   ortam_uzay: require('../../assets/ses/ortam_uzay.wav'),
   ortam_kokpit: require('../../assets/ses/ortam_kokpit.wav'),

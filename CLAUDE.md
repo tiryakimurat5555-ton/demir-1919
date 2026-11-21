@@ -273,6 +273,11 @@ Demir 1919 oyunu silindi; geçmişi git kaydında (son sürüm 1.06, commit 556f
     FAUNA sesleri (parazit 3,3 sn / 'kristal' / 'ayak'), fener sesleri bip 2,5 sn. yerlerListesi mini noktaları süzer.
   - savas.js: üreteç yerine kayda girebilen tohum + sayaç (zar); stres (darbe +8, soğukkanlı hariç), verimlilik
     (1 − stres/200, en az 0,5) nişancı etkisini çarpar; eve kenetlenince stres, seferSure, klostrofobi sıfırlanır.
+- SÜRÜM 1.5 (21 Kasım): ElevenLabs efektleri. Telefonda denenmedi.
+  - ElevenLabs bağlayıcısı (creative_generate_in_flow, sfx, eleven_text_to_sound_v3, ~17 kredi/efekt), flow
+    BPWC2OLWbdljIKExgHDq. araclar/indirilecek-sesler.json → ham-sesler dalı → ffmpeg (sessizlik kırp, I=-18) →
+    assets/ses/el_plazma_sarj, el_torpido, el_iyon, el_kalkan, el_kesif_zili, el_deklansor. Yuzey: savaş uyarısı ve kalkan,
+    fenomen zili; fenomen deklanşör adımı (adım alanı ses).
 - Sıradaki: KAPSAM.md "Sıradaki adımlar".
 
 ## Sesler
@@ -293,7 +298,7 @@ Demir 1919 oyunu silindi; geçmişi git kaydında (son sürüm 1.06, commit 556f
   efektler sessizlik kırpma + loudnorm I=-18 TP=-2; konumsal I=-20, 24 kHz tek kanal.
 - Ambians'ı kullanmak için: Bahtiyar ya da Murat dosyaları 10 MB'tan küçük parçalar hâlinde (ör. 3-4 dakikalık
   MP3) Drive'a koyarsa ya da sohbete eklerse indirilebilir.
-- ElevenLabs (kısa efekt, telsiz sesleri) henüz kullanılmadı. Bu ortam elevenlabsusercontent.com'a erişemez:
+- ElevenLabs: 1.5'te altı kısa efekt üretildi (yukarıda). Telsiz seslendirmesi yok. Bu ortam elevenlabsusercontent.com'a erişemez:
   adresleri araclar/indirilecek-sesler.json'a yaz, push et → .github/workflows/sesleri-indir.yml ham-sesler dalına indirir.
 
 ## Teknik
