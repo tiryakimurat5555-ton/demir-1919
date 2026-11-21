@@ -4,9 +4,12 @@ Görsel arayüzü olmayan, üç boyutlu sesle ve dokunma hareketleriyle oynanan 
 İnsanlığın derin uzaydaki sığınağı Aethelis-IV'e inen kapsülden başlarsın: vadide dolaşır, kaynak toplar,
 tesis kurar, ileride gemini parça parça inşa edip uzaya açılırsın.
 
-Tasarım: Bahtiyar Cankurt (belgeler/). Yapım: Murat ve Bahtiyar. Expo Go ile iPhone ve Android'de çalışır.
+Yapımcı: Bahtiyar Cankurt (tasarım belgeleri belgeler/ içinde). Expo Go ile iPhone ve Android'de çalışır.
 
-## Bu sürümde (2.6)
+## Bu sürümde (2.7)
+- Hakkında bölümünde ve oyun sonu kredilerinde yapımcı yalnız Bahtiyar Cankurt.
+
+## 2.6
 - Tonoflenya'nın beş kuşağında otuz yan görev: gece pazarında kaçak kristal, hayalet kalyon, senato suikastı, firari
   şövalye, cam akrebi avı, sürgün simyacı, donmuş mamut, korsan ablukası, sis feneri canavarı ve daha fazlası. Her biri
   kendi kişisinde başlar; her birinde iki yollu bir karar, belgedeki ödüller ve bölgesel itibar.

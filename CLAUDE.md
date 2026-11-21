@@ -458,6 +458,9 @@ Demir 1919 oyunu silindi; geçmişi git kaydında (son sürüm 1.06, commit 556f
     (Tentran ücretsiz bakım, pazar indirimleri, değerli mallar, konser bileti, yeni reaktör eşyaları), atlas.js
     (d.bayrak.tehlikeMuaf, Nirdol kapalı). ElevenLabs (3 × 17 kredi): el_canavar, el_droid, el_kus.
   - testler/yan.test.js (otuz görev baştan sona, A/B dönüşümlü).
+- SÜRÜM 2.7 (21 Kasım, Murat: "Murat ismini oradan kaldır, yapımcı olarak sadece Bahtiyar Cankurt yazsın"): App.js
+  HAKKINDA_METNI ve final.js tf_krediler: "Yapımcı: Bahtiyar Cankurt."; README. Oyuncunun duyduğu metinlerde Murat'ın adı
+  geçmez (kod yorumları dışında). Telefonda denenmedi.
 - Sıradaki: Tonoflenya belgelerinin hepsi işlendi; KAPSAM.md'de [~] notları (Bahtiyar'a sorulacaklar) ve telefonda deneme.
 
 ## Sesler

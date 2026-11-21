@@ -638,8 +638,8 @@ export const SAHNELER = {
     baslik: 'Aethelis',
     ortam: 'giris_muzik',
     metin: () => [
-      'Aethelis. Tasarım ve senaryo: Bahtiyar Cankurt. Yapım: Murat ve Bahtiyar.',
-      'Sesler: Bahtiyar\'ın efekt arşivi, Murat\'ın kayıtları ve ElevenLabs. Ses motoru: üç boyutlu kulaklık sesi.',
+      'Aethelis. Yapımcı: Bahtiyar Cankurt.',
+      'Sesler: Bahtiyar\'ın efekt arşivi ve ElevenLabs. Ses motoru: üç boyutlu kulaklık sesi.',
       'Oynadığın için teşekkürler, Evrenin Muhafızı. Serbest keşif modunda dilediğin gibi dolaşabilirsin.',
     ],
     secenekler: () => [{ etiket: 'Serbest keşfe dön', sonra: null }],

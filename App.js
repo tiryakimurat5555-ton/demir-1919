@@ -22,12 +22,12 @@ import { ayarlarOku, ayarlarYaz, otoOku, otoSil, tarihMetni, VARSAYILAN_AYARLAR,
 import { yeniOyun } from './src/oyun/durum';
 import { durumKisa } from './src/oyun/yuzey/dunya';
 
-const SURUM = '2.6';
+const SURUM = '2.7';
 const OYUN_ADI = 'Aethelis';
 
 const HAKKINDA_METNI = [
   OYUN_ADI + '. İnsanlığın derin uzaydaki sığınağı Aethelis-IV\'te bir koloni kurup gemi inşa ettiğin, sesle oynanan bir uzay keşif oyunu.',
-  'Tasarım: Bahtiyar Cankurt. Yapım: Murat ve Bahtiyar.',
+  'Yapımcı: Bahtiyar Cankurt.',
   'Sürüm ' + SURUM + '. Görevler: Sinyal Arayışı, Jeotermal Sondaj, Antik Kseno-Laboratuvar Kazısı Tersane Zemin Güçlendirmesi, Kıvılcım ve İlk Uçuş. Vadi-i Sukût, iniş kapsülü, Gözcü Tepesi, Manyetik Sırtlar, Kadim Krater, Uğultulu Plato ve yörünge.',
   'Ortam sesleri ve efektler Bahtiyar\'ın ses arşivinden.',
 ];
