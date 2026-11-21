@@ -315,6 +315,9 @@ Demir 1919 oyunu silindi; geçmişi git kaydında (son sürüm 1.06, commit 556f
 - SÜRÜM 1.11 (21 Kasım, Murat sohbete ses dosyası ekledi: "Bunu oyunun giriş melodisi yap"): assets/ses/giris_muzik.mp3
   (174 sn; baş sessizliği kırpıldı, 1,5 sn açılış, loudnorm I=-20, 112k stereo; efektler.js döngü düzeyi 0,6).
   App.js menülerde ortam_menu yerine giris_muzik çalar (döngü; oyuna girince Yüzey ortamı devralır). Telefonda denenmedi.
+- SÜRÜM 1.12 (21 Kasım, Murat ses dosyası ekledi: "Bu da ilk haritamızın ambiyans sesi olacak"): assets/ses/ortam_vadi.mp3
+  (10 dakikalık kaydın ilk 302 sn'si, 3 sn çapraz geçişli döngü, loudnorm I=-24, 96k stereo). harita.js vadi ve vadide
+  geçen sahneler (telemetri, kule, dökümhane, biyo-kubbe) ortam_vadi; ortam_yuzey krater/vanguard için kaldı. Telefonda denenmedi.
 - Sıradaki: KAPSAM.md "Sıradaki adımlar".
 
 ## Sesler

@@ -65,7 +65,7 @@ export const SAHNELER = {
   },
   biyo_kubbe: {
     baslik: 'Kseno-Biyoloji Araştırma Kubbesi',
-    ortam: 'ortam_yuzey',
+    ortam: 'ortam_vadi',
     efekt: ['kapi', 'sinyal'],
     metin: (d) => [
       'Kapsülün yanında, jeneratörün sıcaklığına sığınan şeffaf bir kubbe. İçinde steril tezgâhlar, veri kristallerinin okuyucuları ve bir karantina bölmesi.',

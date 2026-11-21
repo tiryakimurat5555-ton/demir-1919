@@ -59,7 +59,7 @@ export const SAHNELER = {
   },
   telemetri: {
     baslik: 'Kestrel-7',
-    ortam: 'ortam_yuzey',
+    ortam: 'ortam_vadi',
     efekt: ['sinyal'],
     metin: (d) => [
       'Parazit bir anda çekiliyor. Yerine temiz, düzenli bir ses: veri akıyor.',
@@ -72,7 +72,7 @@ export const SAHNELER = {
   },
   kule: {
     baslik: 'Sinyal Kulesi',
-    ortam: 'ortam_yuzey',
+    ortam: 'ortam_vadi',
     efekt: ['sinyal'],
     metin: (d) => [
       ilkAd(d, 0) + ' ile iki gün boyunca bazalt bloklarını Gözcü Tepesi\'ne taşıyorsunuz. Titanyum direk, kristal alıcılar, kapsülden sökülen kablolar.',

@@ -7,7 +7,7 @@ export const MEKANLAR = {
     ad: 'Vadi-i Sukût',
     tarif: 'Kanyonun korunaklı dibi. Zemin gevşek bazalt ve kristalleşmiş silikat; rüzgâr yukarıda, kayaların üstünde uğulduyor.',
     alan: { bati: -55, dogu: 55, guney: -45, kuzey: 60 },
-    ortam: 'ortam_yuzey',
+    ortam: 'ortam_vadi',
     zemin: 'tas',
     dis: true,
   },

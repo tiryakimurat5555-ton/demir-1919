@@ -49,7 +49,7 @@ export const SAHNELER = {
   },
   dokumhane: {
     baslik: 'Ağır Alaşım Dökümhanesi',
-    ortam: 'ortam_yuzey',
+    ortam: 'ortam_vadi',
     efekt: ['jenerator', 'sinyal'],
     metin: (d) => [
       'Jeneratörün yanına üç bazalt duvar, bir ağır metal pota ve kapsülün ısı kalkanından sökülmüş bir fırın ağzı. ' + ilkAd(d, 0) + ' ilk ateşi yakıyor.',
