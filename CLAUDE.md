@@ -332,6 +332,9 @@ Demir 1919 oyunu silindi; geçmişi git kaydında (son sürüm 1.06, commit 556f
 - SÜRÜM 1.16 (21 Kasım, Murat: "yukarıdaki müziği kadim yarık, notalarla etkileşime girdiğimiz haritaya, döngüsel"):
   gönderdiği dosya 1.15'teki tarım sesiyle bayt bayt aynı (md5 aeff8543…). Kadim Krater ortamı ortam_krater (efektler.js'te
   aynı ortam_tarim.mp3; ortamOran 0,18 → 0,5, çanlar duyulsun). Tarım alanı şimdilik aynı sesi çalıyor. Telefonda denenmedi.
+- SÜRÜM 1.17 (21 Kasım, Murat, Bahtiyar'dan: kraterdeki gömülü yapıya girince müzik kesilmesin): kseno_lab ve mabet
+  ortamı da ortam_krater (oran 0,5), kazi_tamam sahnesi de; ortamCal aynı adda döngüyü yeniden başlatmaz, yalnız düzeyi
+  ayarlar → krater, salon ve mabet arasında müzik kesintisiz. ortam_harabe artık kullanılmıyor. Telefonda denenmedi.
 - Sıradaki: KAPSAM.md "Sıradaki adımlar".
 
 ## Sesler

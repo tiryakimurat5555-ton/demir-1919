@@ -45,7 +45,8 @@ export const MEKANLAR = {
     ad: 'Gömülü yapının salonu',
     tarif: 'Pürüzsüz, serin taş duvarlar. Hava kımıldamıyor; yerin altından ağır, nabız gibi bir çekim uğultusu geliyor.',
     alan: { bati: 900, dogu: 924, guney: 0, kuzey: 24 },
-    ortam: 'ortam_harabe',
+    ortam: 'ortam_krater', // kraterin müziği kesilmeden sürer (Murat, 1.17)
+    ortamOran: 0.5,
     zemin: 'tas',
     dis: false,
     disariKonum: { x: 740, y: 35 },
@@ -159,7 +160,8 @@ export const MEKANLAR = {
     ad: 'İç mabet',
     tarif: 'Küçük, yuvarlak bir oda. Ortada bir kaide; duvarlar parmaklarının altında hafifçe titriyor.',
     alan: { bati: 950, dogu: 966, guney: 0, kuzey: 16 },
-    ortam: 'ortam_harabe',
+    ortam: 'ortam_krater', // kraterin müziği kesilmeden sürer (Murat, 1.17)
+    ortamOran: 0.5,
     zemin: 'tas',
     dis: false,
     disariKonum: { x: 740, y: 35 },
