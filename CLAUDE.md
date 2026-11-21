@@ -467,6 +467,10 @@ Demir 1919 oyunu silindi; geçmişi git kaydında (son sürüm 1.06, commit 556f
 - SÜRÜM 2.9 (21 Kasım, Murat ses dosyası ekledi: "t bataklik adlı ortam dosyası bununla değiştiriliyor"): assets/ses/t/
   ortam_t_bataklik.mp3 Murat'ın kaydından (600 sn'nin ilk 302 sn'si, 3 sn çapraz geçiş, I=-24, 96k; düzey 0,6). Keralon
   Bataklıkları çalar. Telefonda denenmedi.
+- SÜRÜM 2.10 (21 Kasım, Murat ses dosyası ekledi: "gemi uzay klasöründe bulunan ortam revir adlı dosya bu gönderdiğim ile
+  değiştiriliyor"): assets/ses/ortam_revir.mp3 (eski ffmpeg sentezi .wav silindi; ilk 302 sn, 3 sn çapraz geçiş, I=-24, 96k;
+  düzey 0,45 → 0,6). Gemilerin revir, yaşam, laboratuvar, koğuş, kseno, cerrahi, mülteci, hidroponik bölmeleri ve YGK Kat -3
+  çalar. Telefonda denenmedi.
 - Sıradaki: Tonoflenya belgelerinin hepsi işlendi; KAPSAM.md'de [~] notları (Bahtiyar'a sorulacaklar) ve telefonda deneme.
 
 ## Sesler

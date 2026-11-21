@@ -6,6 +6,9 @@ tesis kurar, ileride gemini parça parça inşa edip uzaya açılırsın.
 
 Yapımcı: Bahtiyar Cankurt (tasarım belgeleri belgeler/ içinde). Expo Go ile iPhone ve Android'de çalışır.
 
+## Bu sürümde (2.10)
+- Gemi revir ortam sesi Murat'ın gönderdiği kayıtla değişti (revir ve yaşam bölmeleri, YGK Kat -3).
+
 ## Bu sürümde (2.9)
 - Keralon Bataklıkları ortam sesi Murat'ın gönderdiği kayıtla değişti.
 
