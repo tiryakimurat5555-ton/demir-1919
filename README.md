@@ -6,7 +6,7 @@ tesis kurar, ileride gemini parça parça inşa edip uzaya açılırsın.
 
 Tasarım: Bahtiyar Cankurt (belgeler/). Yapım: Murat ve Bahtiyar. Expo Go ile iPhone ve Android'de çalışır.
 
-## Bu sürümde (1.5)
+## Bu sürümde (1.6)
 - Vadi-i Sukût'ta sesle serbest dolaşma; iniş kapsülünün içi ve dışı.
 - Radar: uzun basınca yankılar nesnelerin yönünden döner.
 - Birinci görev "Sinyal Arayışı": alet dolabı, kopan arka modül, yedek jeneratör, Gözcü Tepesi'nde anten

@@ -278,6 +278,11 @@ Demir 1919 oyunu silindi; geçmişi git kaydında (son sürüm 1.06, commit 556f
     BPWC2OLWbdljIKExgHDq. araclar/indirilecek-sesler.json → ham-sesler dalı → ffmpeg (sessizlik kırp, I=-18) →
     assets/ses/el_plazma_sarj, el_torpido, el_iyon, el_kalkan, el_kesif_zili, el_deklansor. Yuzey: savaş uyarısı ve kalkan,
     fenomen zili; fenomen deklanşör adımı (adım alanı ses).
+- SÜRÜM 1.6 (21 Kasım): sağlamlık. Telefonda denenmedi.
+  - testler/bulanik.test.js: 12 tohumla 8000 rastgele adım (yürüme, eylem, kapı, inşa, sahne seçimi, uzay, operasyon,
+    savaş; her 200 adımda JSON kaydı/kaydiTamamla) — hata atmamalı. Bulduğu hatalar düzeltildi: mini.js görünmeyen
+    nokta ve aktif olmayan görev eylemleri; vana görevinde dört bağlantının yalnız kaçıranı görünüyordu (artık dördü).
+  - Tanımsız ad denetimi: tsc --checkJs (/tmp/tsconfig.json; allowJs, noEmit) çıktısında TS2304/TS2552 olmamalı.
 - Sıradaki: KAPSAM.md "Sıradaki adımlar".
 
 ## Sesler
@@ -306,7 +311,7 @@ Demir 1919 oyunu silindi; geçmişi git kaydında (son sürüm 1.06, commit 556f
 - Sözdizimi denetimi: `bun build index.js --outdir /tmp/bb -e expo -e expo-speech -e expo-haptics -e expo-status-bar -e react -e react-native -e 'react-native/*' -e '@react-native-async-storage/async-storage' -e expo-audio -e '*.wav' -e react-native-webview -e expo-asset -e expo-file-system`
 - Motor betiği: konumsal.js'teki <script> içeriği `new Function` ile ve headless Chrome'da (google-chrome --headless=new
   --dump-dom) denenebilir.
-- Testler: `bun test testler/`.
+- Testler: `bun test testler/` (yuzey.test.js senaryolar, bulanik.test.js rastgele sağlamlık).
 - Expo proje kimliği c16f7fc6-b024-4e29-b55c-b0a304381807 (app.json; @murat5561/demir-1919). Ekran dikey (orientation portrait).
 - Yayın: main'e push → GitHub Actions (.github/workflows/expo-guncelleme.yml) → eas update (branch main).
   Gizli anahtar depoda EXPO_TEKEN adıyla kayıtlı (iş akışı EXPO_TOKEN, EXPO_TEKEN, DEMIR1919'u dener).

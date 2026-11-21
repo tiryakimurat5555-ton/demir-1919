@@ -106,7 +106,8 @@ export function miniGorunur(d, id) {
   const m = d.mini;
   if (!m || m.aktif !== n.mini) return false;
   if ((m.bitenler || []).includes(id)) return false;
-  if (n.secenek != null && m.secim !== n.secenek) return false;
+  // Kayıp ekip: yalnız seçilen yer; vana: dört bağlantının hepsi var, yalnız biri kaçırır
+  if (n.secenek != null && n.mini !== 'vana_donmasi' && m.secim !== n.secenek) return false;
   return true;
 }
 function noktalari(id) {
@@ -260,6 +261,7 @@ export function ekEylemMi(eylemId) {
 }
 export function noktaEylemleri(d, id) {
   const n = NOKTALAR[id];
+  if (!miniGorunur(d, id)) return [];
   const e = [];
   if (n.mini === 'mantar_hasadi') e.push({ id: 'm_hasat', etiket: 'Kristali kopar' });
   if (n.mini === 'vana_donmasi') e.push({ id: 'm_muhurle', etiket: 'Termal meşaleyle mühürle', ipucu: '5 polimer levha.' });
@@ -285,6 +287,9 @@ export function olgunMu(d, id) {
 export function eylemUygula(d, id, eylemId) {
   const m = miniDurum(d);
   const n = NOKTALAR[id];
+  // Görev bitmiş ya da başka görev sürüyorsa nokta yoktur
+  if (n && n.mini && !miniGorunur(d, id)) return { metin: 'Burada artık bir şey yok.' };
+  if ((eylemId === 'm_teslim' && !(m.aktif === 'mantar_hasadi' && m.toplanan >= 3)) || (eylemId === 'm_ceviri' && m.aktif !== 'ceviri_krizi')) return { metin: '' };
   if (eylemId === 'm_teslim') {
     kaynakEkle(d, 'foton_recinesi', 4);
     moral(d, 5);
