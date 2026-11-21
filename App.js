@@ -22,7 +22,7 @@ import { ayarlarOku, ayarlarYaz, otoOku, otoSil, tarihMetni, VARSAYILAN_AYARLAR,
 import { yeniOyun } from './src/oyun/durum';
 import { durumKisa } from './src/oyun/yuzey/dunya';
 
-const SURUM = '1.17';
+const SURUM = '1.18';
 const OYUN_ADI = 'Aethelis';
 
 const HAKKINDA_METNI = [
@@ -150,11 +150,12 @@ export default function App() {
         rehberAcik
         ogeler={[
           ...(kayit
-            ? [{ id: 'devam', etiket: 'Devam et', ipucu: () => 'Kaldığın yer: ' + durumKisa(kayit), sec: () => oyunuBaslat(kayit) }]
+            ? [{ id: 'devam', etiket: 'Devam et', efekt: 'el_devam', ipucu: () => 'Kaldığın yer: ' + durumKisa(kayit), sec: () => oyunuBaslat(kayit) }]
             : []),
           {
             id: 'yeni',
             etiket: 'Yeni oyun',
+            efekt: kayit ? 'el_secim' : 'el_yeni_oyun',
             ipucu: 'Aethelis-IV, Vadi-i Sukût. Birinci görev: Sinyal Arayışı. Kulaklık tak.',
             sec: () => (kayit ? setEkran('yeniOnay') : oyunuBaslat(null)),
           },
@@ -178,6 +179,7 @@ export default function App() {
           {
             id: 'evet',
             etiket: 'Evet, baştan başla',
+            efekt: 'el_yeni_oyun',
             sec: () => {
               otoSil();
               setKayit(null);

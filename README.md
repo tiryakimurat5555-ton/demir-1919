@@ -6,7 +6,11 @@ tesis kurar, ileride gemini parça parça inşa edip uzaya açılırsın.
 
 Tasarım: Bahtiyar Cankurt (belgeler/). Yapım: Murat ve Bahtiyar. Expo Go ile iPhone ve Android'de çalışır.
 
-## Bu sürümde (1.17)
+## Bu sürümde (1.18)
+- Menü düğmelerinde bilim kurgu sesleri: seçince holografik onay, geri dönünce inen bir blip, "Devam et"te güç açılışı,
+  "Yeni oyun"da fırlatma sesi.
+
+## 1.17
 - Kadim Krater'in müziği gömülü yapının salonunda ve iç mabette de kesilmeden sürer.
 
 ## 1.16

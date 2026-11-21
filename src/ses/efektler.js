@@ -44,6 +44,11 @@ const KAYNAKLAR = {
   el_iyon: require('../../assets/ses/el_iyon.wav'),
   el_kalkan: require('../../assets/ses/el_kalkan.wav'),
   el_kesif_zili: require('../../assets/ses/el_kesif_zili.wav'),
+  // Düğme sesleri (ElevenLabs, 1.18): onay, geri, devam et, yeni oyun
+  el_secim: require('../../assets/ses/el_secim.wav'),
+  el_geri: require('../../assets/ses/el_geri.wav'),
+  el_devam: require('../../assets/ses/el_devam.wav'),
+  el_yeni_oyun: require('../../assets/ses/el_yeni_oyun.wav'),
   el_deklansor: require('../../assets/ses/el_deklansor.wav'),
   polimer: require('../../assets/ses/polimer.wav'),
   ortam_uzay: require('../../assets/ses/ortam_uzay.wav'),

@@ -335,6 +335,13 @@ Demir 1919 oyunu silindi; geçmişi git kaydında (son sürüm 1.06, commit 556f
 - SÜRÜM 1.17 (21 Kasım, Murat, Bahtiyar'dan: kraterdeki gömülü yapıya girince müzik kesilmesin): kseno_lab ve mabet
   ortamı da ortam_krater (oran 0,5), kazi_tamam sahnesi de; ortamCal aynı adda döngüyü yeniden başlatmaz, yalnız düzeyi
   ayarlar → krater, salon ve mabet arasında müzik kesintisiz. ortam_harabe artık kullanılmıyor. Telefonda denenmedi.
+- SÜRÜM 1.18 (21 Kasım, Murat: "butonlara efektler, eleven üzerinden; devam et, yeni oyun gibi şeylere 2 saniyelik bilim
+  kurgu efektleri"). ElevenLabs sfx (flow BPWC2OLWbdljIKExgHDq, 4 × 17 kredi) → assets/ses/el_devam (2 sn güç açılışı + çan),
+  el_yeni_oyun (2 sn fırlatma + hava kilidi), el_secim (0,75 sn holografik onay), el_geri (0,7 sn inen blip + panel).
+  SesliListe etkinlestir: oge.efekt ya da id geri/hayir → el_geri, öteki → el_secim; iki parmak çift dokun geri → el_geri.
+  App.js: Devam et el_devam, Yeni oyun (kayıt yoksa) ve "Evet, baştan başla" el_yeni_oyun. Telefonda denenmedi.
+  Yayın iş akışı artık her yayında `eas channel:edit main --branch main` (APK kanalı) çalıştırıp durumu kayda yazar;
+  sesleri-indir.yml ham-sesler dalındaki eski dosyaları korur.
 - Sıradaki: KAPSAM.md "Sıradaki adımlar".
 
 ## Sesler

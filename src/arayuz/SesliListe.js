@@ -116,7 +116,9 @@ function SesliListe({ baslik, giris, ogeler, onGeri, rehberAcik, ilkOdak = 0, ge
       oku(i);
       return;
     }
-    cal('secim', 0.5);
+    cal('secim', 0.5); // titreşim
+    // ElevenLabs düğme sesleri (1.18): öğe kendi efektini söyleyebilir; geri öğeleri geri sesi, öteki her şey onay sesi
+    cal(oge.efekt || (oge.id === 'geri' || oge.id === 'hayir' ? 'el_geri' : 'el_secim'), 0.7);
     const sonuc = oge.sec();
     // Değeri değişen öğeler (ayarlar) yeni haliyle okunur
     if (sonuc !== 'sessiz') {
@@ -189,6 +191,7 @@ function SesliListe({ baslik, giris, ogeler, onGeri, rehberAcik, ilkOdak = 0, ge
         if (parmak >= 2) {
           if (onGeri) {
             cal('secim', 0.5);
+            cal('el_geri', 0.7);
             onGeri();
           } else {
             soyle('Bu ekrandan geri dönülmez.', 'menu', true);
