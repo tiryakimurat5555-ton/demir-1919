@@ -807,13 +807,15 @@ export default function Yuzey({ onGeri, baslangic, yeniOyunUret }) {
   };
 
   // --- Menü ---
-  const yerlerGoster = () => {
+  // dogrudan: menüden değil, iki parmakla yukarı kaydırarak açıldı; geri dönünce oyuna döner
+  const yerlerGoster = (dogrudan = false) => {
     const d = dunya.current;
     const liste = yerlerListesi(d);
+    const geri = () => (dogrudan ? katmanKapat() : menuyuAc());
     katmanAc({
       baslik: 'Yerler',
       giris: (MEKANLAR[d.mekan] ? MEKANLAR[d.mekan].ad + ': ' : '') + (liste.length ? 'burada bildiğin ' + liste.length + ' yer ve kişi. Birini seç; oraya kendin yürürsün. Yolda ekrana dokunursan durursun. Yeni yerleri radarla bulursun.' : 'burada henüz bildiğin bir yer yok. Radarla ara.'),
-      onGeri: () => menuyuAc(),
+      onGeri: geri,
       ogeler: [
         ...liste.map((y) => ({
           id: y.tur + y.id,
@@ -824,7 +826,7 @@ export default function Yuzey({ onGeri, baslangic, yeniOyunUret }) {
             return 'sessiz';
           },
         })),
-        { id: 'geri', etiket: 'Menüye dön', sec: () => (menuyuAc(), 'sessiz') },
+        { id: 'geri', etiket: dogrudan ? 'Oyuna dön' : 'Menüye dön', sec: () => (geri(), 'sessiz') },
       ],
     });
   };
@@ -2332,6 +2334,11 @@ export default function Yuzey({ onGeri, baslangic, yeniOyunUret }) {
       },
       onKaydir: (yon, parmak) => {
         if (parmak >= 2 && yon === 'asagi') bildirimErtele();
+        // Murat (1.19): iki parmakla yukarı kaydırma, yürürken başka işe yaramadığı için Yerler'i doğrudan açar
+        else if (parmak >= 2 && yon === 'yukari') {
+          cal('el_secim', 0.7);
+          yerlerGoster(true);
+        }
       },
       onUzunBas: () => {
         const d = dunya.current;

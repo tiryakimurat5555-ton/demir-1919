@@ -342,6 +342,9 @@ Demir 1919 oyunu silindi; geçmişi git kaydında (son sürüm 1.06, commit 556f
   App.js: Devam et el_devam, Yeni oyun (kayıt yoksa) ve "Evet, baştan başla" el_yeni_oyun. Telefonda denenmedi.
   Yayın iş akışı artık her yayında `eas channel:edit main --branch main` (APK kanalı) çalıştırıp durumu kayda yazar;
   sesleri-indir.yml ham-sesler dalındaki eski dosyaları korur.
+- SÜRÜM 1.19 (21 Kasım, Murat): yüzeyde (yürüme katmanı) iki parmakla yukarı kaydırma boştaydı → Yerler'i doğrudan açar
+  (yerlerGoster(true): geri ve "Oyuna dön" katmanı kapatır, menüye gitmez). Gemi, operasyon, savaş ve öteki katmanlar
+  kendi hareketlerini korur. Telefonda denenmedi.
 - Sıradaki: KAPSAM.md "Sıradaki adımlar".
 
 ## Sesler

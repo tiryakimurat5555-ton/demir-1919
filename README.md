@@ -6,7 +6,10 @@ tesis kurar, ileride gemini parça parça inşa edip uzaya açılırsın.
 
 Tasarım: Bahtiyar Cankurt (belgeler/). Yapım: Murat ve Bahtiyar. Expo Go ile iPhone ve Android'de çalışır.
 
-## Bu sürümde (1.18)
+## Bu sürümde (1.19)
+- Yürürken iki parmakla yukarı kaydırınca Yerler listesi doğrudan açılır.
+
+## 1.18
 - Menü düğmelerinde bilim kurgu sesleri: seçince holografik onay, geri dönünce inen bir blip, "Devam et"te güç açılışı,
   "Yeni oyun"da fırlatma sesi.
 

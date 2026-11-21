@@ -22,7 +22,7 @@ import { ayarlarOku, ayarlarYaz, otoOku, otoSil, tarihMetni, VARSAYILAN_AYARLAR,
 import { yeniOyun } from './src/oyun/durum';
 import { durumKisa } from './src/oyun/yuzey/dunya';
 
-const SURUM = '1.18';
+const SURUM = '1.19';
 const OYUN_ADI = 'Aethelis';
 
 const HAKKINDA_METNI = [
@@ -38,7 +38,7 @@ const HAREKETLER = [
   'Uzun bas: radar. Bir dalga gönderirsin; yankılar nesnelerin yönünden, uzaklarsa geç döner. En yakın üç şey söylenir.',
   'Çift dokun: yanındaki şeyi kullan, hava kilidinden geç ya da yanındakiyle konuş.',
   'İki parmakla dokun: konuşmayı sustur.',
-  'İki parmakla çift dokun: oyun menüsü. Görev, Yerler, koloni, mürettebat, uzay haritası ve ana menü orada. Yerler\'den bir yer seçersen oraya kendin yürürsün; yolda ekrana dokunursan durursun.',
+  'İki parmakla çift dokun: oyun menüsü. Görev, Yerler, koloni, mürettebat, uzay haritası ve ana menü orada. Yerler\'den bir yer seçersen oraya kendin yürürsün; yolda ekrana dokunursan durursun. Yürürken iki parmakla yukarı kaydırırsan Yerler doğrudan açılır.',
   'Telsiz çağrısı gelince üç tonlu bir zil çalar: çift dokun, dinle. İki parmakla aşağı kaydırırsan ertelenir; menüdeki telsiz kayıtlarından sonra dinlersin. Telsiz konuşurken rehber araya girmez, söyleyeceğini telsiz bitince söyler; yalnız menüde gezinirken öğeler telsiz kısılarak hemen okunur. Telsizi susturmak için iki parmakla dokun.',
   'Valf dengelemede: basınç yükseldikçe gazın tıslaması tizleşir. Kesik alarm başlayınca çift dokun. Dokun: basıncı söyler. İki parmakla çift dokun: valften çekil.',
   'Ayak dengelemede: kulaklıkta iki ton. Ayak yüksekse tonu ince: aşağı sürükle; alçaksa yukarı. Tonlar birleşip titreşim durunca kıpırdama. Dokun: durumu söyler. İki parmakla çift dokun: çekil.',
