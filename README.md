@@ -6,7 +6,13 @@ tesis kurar, ileride gemini parça parça inşa edip uzaya açılırsın.
 
 Tasarım: Bahtiyar Cankurt (belgeler/). Yapım: Murat ve Bahtiyar. Expo Go ile iPhone ve Android'de çalışır.
 
-## Bu sürümde (2.5)
+## Bu sürümde (2.6)
+- Tonoflenya'nın beş kuşağında otuz yan görev: gece pazarında kaçak kristal, hayalet kalyon, senato suikastı, firari
+  şövalye, cam akrebi avı, sürgün simyacı, donmuş mamut, korsan ablukası, sis feneri canavarı ve daha fazlası. Her biri
+  kendi kişisinde başlar; her birinde iki yollu bir karar, belgedeki ödüller ve bölgesel itibar.
+- Menüde "Yan görevler ve itibar": otuz görevin durumu, otuz üç fraksiyonun itibarı, özel mürettebat.
+
+## 2.5
 - Tonoflenya'nın yirmi büyük final görevi: YGK Konsey Salonu'ndan Malazar'ın madenlerine, Fenrir Denizi'nden doğu
   çöllerine, Kara Göl kraterinden Kahergonat'a; Lord Sharon ile Dünya Çivisi savaşı ve Okyanos-Abyssus'ta Cahelon.
   Her görev kendi yerinde başlar; ekran okuyucu görevin adını, yerini, tehlikesini ve gereken jesti söyler.

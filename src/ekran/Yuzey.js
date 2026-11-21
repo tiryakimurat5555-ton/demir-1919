@@ -34,6 +34,7 @@ import { kayitCal, kayitVarMi } from '../ses/telsiz';
 import { kayitBul } from '../oyun/veri/seslendirme';
 import { olayKaydi } from '../oyun/uzay/sefer';
 import * as ZN from '../oyun/tonoflenya/zanaat';
+import * as YN from '../oyun/tonoflenya/yan';
 import { RENK, UST_BOSLUK } from '../arayuz/tema';
 import KonumsalSes from '../ses/konumsal';
 import { ALANLAR, KAPILAR, MEKANLAR, NOKTALAR } from '../oyun/yuzey/harita';
@@ -1014,6 +1015,7 @@ export default function Yuzey({ onGeri, baslangic, yeniOyunUret }) {
         { id: 'envanter', etiket: 'Envanter', ipucu: 'Beş kategori; iki parmakla sağa kaydır: sonraki kategori. Çift dokun: eylem menüsü.', sec: () => (agacGoster((x) => ZN.envanterMenu(x, 0), () => menuyuAc()), 'sessiz') },
         ...(dunya.current.gemi ? [{ id: 'zanaat', etiket: 'Zanaat tezgâhları', ipucu: 'Gemideki dökümhane masası, aether laboratuvarı ve imbik ünitesi.', sec: () => (agacGoster((x) => ZN.zanaatMenu(x), () => menuyuAc()), 'sessiz') }] : []),
         ...(dunya.current.bayrak.tonoflenyaGoruldu ? [{ id: 'subaylar', etiket: 'Subaylar ve istasyonlar', sec: () => (agacGoster((x) => ZN.subayMenu(x), () => menuyuAc()), 'sessiz') }] : []),
+        ...(dunya.current.bayrak.tonoflenyaGoruldu ? [{ id: 'yan', etiket: 'Yan görevler ve itibar', ipucu: 'Otuz yan görev, bölgesel itibar, özel mürettebat.', sec: () => (agacGoster((x) => YN.yanMenu(x), () => menuyuAc()), 'sessiz') }] : []),
         { id: 'ekol', etiket: 'Yıldız Ekolü kıdemi', ipucu: 'Altı ekolde kıdem ve açılan kabiliyetler.', sec: () => (agacGoster((x) => ZN.ekolMenu(x), () => menuyuAc()), 'sessiz') },
         { id: 'harita', etiket: 'Uzay haritası', sec: () => (soyle(haritaMetni(), 'istek', true), 'sessiz') },
         ...(dunya.current.arac === 'col_tilkisi'
@@ -2256,7 +2258,7 @@ export default function Yuzey({ onGeri, baslangic, yeniOyunUret }) {
         if (parmak >= 2) {
           if (opVer({ tur: 'cift2' }).length) return;
           kaydet();
-          opKapat(d.op && d.op.id.indexOf('tf') === 0 ? 'Görev duraklatıldı. Görevin yerinde "Göreve dön" ile kaldığın yerden sürer.' : 'Operasyon duraklatıldı. Kokpitte çift dokununca kaldığın yerden sürer.');
+          opKapat(d.op && (d.op.id.indexOf('tf') === 0 || d.op.id.indexOf('yan') === 0) ? 'Görev duraklatıldı. Görevin yerinde "Göreve dön" ile kaldığın yerden sürer.' : 'Operasyon duraklatıldı. Kokpitte çift dokununca kaldığın yerden sürer.');
           return;
         }
         if (d.bildirimler && d.bildirimler.length && bildirimDinle()) return;

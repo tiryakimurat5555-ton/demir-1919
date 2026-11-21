@@ -20,6 +20,7 @@ import * as SB from '../tonoflenya/subay';
 // yüzde on kısaltır, baş-büyücü cübbesi bir tur). Astral iksir sonraki yeteneği iki kat etkili yapar.
 const kusan = (d, id) => !!(d.kusanilan && (d.kusanilan.silah === id || d.kusanilan.zirh === id));
 const esya = (d, id) => (d.esya && d.esya[id]) || 0;
+const ozelVar = (d, ad) => !!(d.yan && d.yan.ozel && d.yan.ozel.some((x) => x.ad.indexOf(ad) >= 0));
 export function yetenekler(d) {
   const l = [{ id: 'odak', ad: SB.KAPTAN.aktif.ad, sahip: 'Kaptan', bekleme: SB.KAPTAN.aktif.bekleme }];
   for (const ist of SB.ISTASYON_SIRASI) {
@@ -31,6 +32,7 @@ export function yetenekler(d) {
   }
   // Boyutsal atlama sıçrayıcısı (final görevi 8): acil kaçış
   if (d.bayrak.tf_sicrayici) l.push({ id: 'atlama', ad: 'Boyutsal Atlama Sıçrayıcısı', sahip: 'Gemi', bekleme: 6 });
+  if (d.bayrak.yan_protokol) l.push({ id: 'atlama', ad: 'Magentor Acil Işınlanma Protokolü', sahip: 'Gemi', bekleme: 8 });
   return l;
 }
 function beklemeSuresi(d, y) {
@@ -156,6 +158,11 @@ export function savasBaslat(d, tur) {
     yetenekNo: 0,
   };
   const ek = [];
+  // Kahergonat gizli geçit haritası: zırhlılar hazırlıksız yakalanır
+  if (tur === 'kahergonat_zirhlisi' && esya(d, 'gecit_haritasi') > 0) {
+    d.savas.dusman.govde = Math.round(d.savas.dusman.govde * 0.7);
+    d.savas.dusman.max = d.savas.dusman.govde;
+  }
   if (DUSMANLAR[tur].karanlik || tur === 'yabanci_firkateyn') {
     const k = SB.kriz(d, 'sinha');
     if (k) ek.push({ soz: k });
@@ -164,7 +171,7 @@ export function savasBaslat(d, tur) {
 }
 
 function kilitPayi(d) {
-  return KILIT_ACI * (yet(d, 'A1') ? 1.43 : 1);
+  return KILIT_ACI * (yet(d, 'A1') ? 1.43 : 1) * (esya(d, 'feneri_kristali') > 0 ? 1.5 : 1);
 }
 export function kilitliMi(d) {
   return Math.abs(d.savas.dusman.aci) < kilitPayi(d);
@@ -183,7 +190,15 @@ function dusmanaHasar(d, x, olaylar, tur) {
     } else if (kusan(d, 'isik_mizragi')) h *= 2.4 * (DUSMANLAR[s.tur].karanlik ? 2 : 1);
     else if (kusan(d, 'golge_yayici')) s.dusmanMoral = true;
     else if (kusan(d, 'onur_kilici')) h *= 2 * (DUSMANLAR[s.tur].karanlik ? 1.5 : 1);
+    else if (kusan(d, 'haydut_tabancasi')) h *= 1.5;
   }
+  if (mod(d, 'varek_bataryasi')) h *= 1.18; // yan görev 4
+  // Yan görev ödülleri: cam akrebi zehri (asit kaplama), Deli Simyacı Malakor (torpido yarıçapı)
+  if (tur === 'torpido' && esya(d, 'akrep_zehri') > 0) {
+    d.esya.akrep_zehri -= 1;
+    h *= 1.3;
+  }
+  if (tur === 'torpido' && ozelVar(d, 'Malakor')) h *= 1.2;
   let muhimmat = false;
   if (tur === 'torpido' && esya(d, 'aether_muhimmati') > 0) {
     d.esya.aether_muhimmati -= 1;
@@ -198,8 +213,10 @@ function dusmanaHasar(d, x, olaylar, tur) {
   if (d.bayrak.tf_astral) h *= 1.15;
   if (mod(d, 'efsanevi_reaktor')) h *= 1.25;
   // Varek: kritik vuruş; Kızıl baskın (Kırmızı 4. kademe): ilk isabet kritik
-  if ((SB.kritikIhtimal(d) && zar(s) < SB.kritikIhtimal(d)) || (SB.kabiliyet(d, 'varek', 4) && !s.ilkIsabet)) {
+  const kb = esya(d, 'kara_buz_parcasi') > 0 ? 0.15 : 0; // saf kara buz cephane kaplaması
+  if ((SB.kritikIhtimal(d) + kb && zar(s) < SB.kritikIhtimal(d) + kb) || (SB.kabiliyet(d, 'varek', 4) && !s.ilkIsabet)) {
     h *= 2;
+    if (kb) d.esya.kara_buz_parcasi -= 1;
     olaylar.push({ soz: 'Kritik vuruş!' });
   }
   s.ilkIsabet = true;
@@ -230,6 +247,7 @@ function bitir(d, sonuc, olaylar) {
   const s = d.savas;
   d.savasSon = { sonuc, ad: s.dusman.ad, tur: s.tur };
   const sonraSahne = d.savasSonraSahne;
+  if (d.yan && d.yan.hardrinBariyer > 0) d.yan.hardrinBariyer -= 1;
   d.savasSonraSahne = null;
   if (sonuc === 'zafer') SB.ekolKazan(d, 'varek', 30);
   if (sonuc === 'kacis') {
@@ -376,7 +394,7 @@ function uyariBaslat(d) {
   // Fenrir ışık pelerini: ilk saldırı hedef bulamaz; kara buz hançeri: donan düşman gecikir
   if (kusan(d, 'isik_pelerini') && !s.pelerin) {
     s.pelerin = true;
-    s.sonraki = s.t + 4;
+    s.sonraki = s.t + 4 * (esya(d, 'toz_pelerini') > 0 ? 1.2 : 1);
     return [{ soz: 'Işık pelerini gemiyi düşman tarayıcılarından sakladı; hedef bulamadı.', ses: 'el_pelerin' }];
   }
   if (s.donma > 0) {
@@ -450,6 +468,9 @@ function darbe(d) {
   if (yet(d, 'C1')) h *= 0.9;
   if (mod(d, 'hisar_kalkani')) h *= 0.8;
   if (d.bayrak.tf_obsidyen && u.silah !== 'iyon') h *= 0.8; // Malazar obsidyen kaplaması: kinetik direnç
+  if (kusan(d, 'drahmir_kalkani')) h *= 0.85;
+  if (ozelVar(d, 'Gareth')) h *= 0.87;
+  if (d.yan && d.yan.hardrinBariyer > 0) h *= 0.5;
   h *= E.alinanHasarCarpani(d) * yildizCarpani(d, 'hasar'); // Kaelith kalkan kristali, zaman-kristal koruyucu tabakası
   const g = d.gemi;
   g.govde = Math.max(0, g.govde - Math.round(h));
@@ -482,6 +503,12 @@ function darbe(d) {
   if (g.govde > 0 && g.govde < g.maxGovde * 0.2) kz.push(SB.kriz(d, 'elyndra'));
   if (s.sistem.itici > 0) kz.push(SB.kriz(d, 'zhaor'));
   for (const k of kz) if (k) o.push({ soz: k });
+  // Axira hayat muskası: ölümcül darbede bir kez yarı canla diriliş
+  if (g.govde <= 0 && esya(d, 'hayat_muskasi') > 0) {
+    d.esya.hayat_muskasi -= 1;
+    g.govde = Math.round(g.maxGovde / 2);
+    o.push({ soz: 'Axira\'nın hayat muskası parladı: gemi ve mürettebat yarı canla ayakta!', ses: 'sinyal' });
+  }
   if (g.govde <= 0) bitir(d, 'yenilgi', o);
   return o;
 }

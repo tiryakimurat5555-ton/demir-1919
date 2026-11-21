@@ -390,11 +390,36 @@ bütün bölümlerini sırayla sayar (21 Kasım: v3 paketiyle sekiz belge daha g
       [x] Ekran okuyucu dizini her görevin başında: [Görev] - [Konum] - [Tehlike 1-5] - [Gerekli jest].
 
 ## 17. tonoflenya-yan-gorevler-ve-yerel-vakalar.md
-- [ ] Bölüm 1-5: otuz yan görev (Magentor 1-6, Batı 7-12, Doğu 13-18, Kuzey 19-24, Güney 25-30) · 6 Ödül ve itibar
-      matrisi · 7 Entegrasyon direktifi.
+- [x] Bölüm 1-5 (2.6, tonoflenya/yan.js): otuz görev belgedeki bölgelerinde (Magentor halkaları ve Tenohris; Loran,
+      Julithan, Anitor, Filtra, Safran; Ajmero, Cam Düzlükleri, Hardrin/Nirdol, Gölge Hattı/Morluk Kapısı, Kırık Vadi,
+      Kahergonat; Halyon, Gümüş Tüy, Zeris, Norvask, Helgar, Drahmir; Flee Plee, Tentran, Arin, Veradon, Tharal,
+      Keralon), görevi veren kişide "Yan görev: …". Giriş sahnesinde kod, tür, harita hiyerarşisi, ön koşullar,
+      ambiyans ve ekran okuyucu notu; belgedeki mekaniğe en yakın operasyon adımları; A/B kritik kararı ve belgedeki
+      ödüller. Aynı anda bir yan görev.
+      Ön koşullar: oyunda karşılığı olanlar denetlenir (seviye yerine ekol kıdemi, gemi sınıfı, kuşanılı zırh, plazma
+      tüfeği, tarım, YGK kaydı, rezonans kayığı); karşılığı olmayan aletleri görevi veren ödünç verir ("görev gereci").
+      Ödüller: "Kredi" Malken Lirası; eşyalar envanterde ve etkileriyle (gümüş rozet Malkenia'da %10 indirim, aether
+      bataryası/graviton hücresi/ışık yakıtı reaktöre yüklenir, gübre formülü tarla ×1,25, Varek bataryası ve parazit
+      sensörü gemi modülü, hayat muskası savaşta bir kez diriliş, konser bileti, ticaret beratı, maden hissesi günde 100
+      lira, rüzgâr muskası / dağ pusulası / radar haritası / bataklık ayrıcalığı atlas tehlikelerinden muafiyet, akrep
+      zehri ve kara buz parçası cephane, haydut tabancası ve Drahmir kalkanı teçhizat, mavi prizma ve yıldız atlası fener,
+      Hardrin bariyeri üç çatışma yarı hasar, gizli geçit haritası Kahergonat zırhlıları ×0,7, ışık tozu pelerini, Tentran
+      ücretsiz bakım ya da çift graviton itkisi ×1,25, korsan korveti filoya, Tharal rasyonları her gün, haftalık 50
+      büyü tozu, bataklık feneri kilit payı ×1,5). Sir Gareth, Deli Simyacı Malakor özel mürettebat (savaş etkileri),
+      Drahmir'in üç askeri mürettebata. Değerli mallar (safran kristali, güneş küresi, orkide, tüy, sedef) ticaret
+      masalarında satılır. Eşya rehberi 4.2'nin belgeleri buradan: Loran tableti (8), Filtra şartnamesi (11), Ajmero
+      küresi (13), Mormon pusulası (20), Tentran izni (26), Zeris aynası (21), Halyon prangası (19), Veradon defteri (28).
+      [~] "Bilim puanı" sayaç (ve kaptanlık tecrübesi); "kanun düzeni", "YGK araştırma ilerlemesi", "terraforming hızı
+      %10", "klonlanabilir binek" bayrak/kayıt olarak tutulur, ayrı mekanikleri yok. 15-B'de Nirdol Boynu bir hafta kapalı.
+- [x] 6 Ödül ve itibar matrisi: d.yan.itibar fraksiyonları (otuz üç); menüde "Yan görevler ve itibar" (görev listesi,
+      bölgesel itibar, özel mürettebat). Olumlu itibar evren itibarına da eklenir.
+- [x] 7 Entegrasyon: harita (atlas bölgeleri), ekran okuyucu (giriş notu, kararlar çift dokunla), sesler ElevenLabs
+      (topçu droidi, göçmen kuşlar, bataklık canavarı). [~] Belgedeki Drive ambiyans dosya adları Drive'da yok; bölge
+      ortamları 2.1-2.3'ten.
 
 ## Sıradaki adımlar (sırayla)
 0. Tonoflenya genişlemesi, yönergedeki sırayla: [2.1: Malken (12); 2.2: tarihçe (13); 2.3: atlas (14); 2.4: eşya,
-   zanaat, mürettebat (15), Ekol Kıdemi ve rastgele karşılaşmalar; 2.5: yirmi final görevi (16)] → otuz yan görev (17).
+   zanaat, mürettebat (15), Ekol Kıdemi ve rastgele karşılaşmalar; 2.5: yirmi final görevi (16); 2.6: otuz yan görev
+   ve itibar matrisi (17)]. Tonoflenya belgelerinin hepsi işlendi.
 1. Telefonda deneme: seslendirilmiş telsizlerin düzeyi ve anlaşılırlığı (Murat ve Bahtiyar), ses dengeleme ve
    erişilebilirlik testleri. İstenirse koloni bilgisayarı için ayrı bir ses.

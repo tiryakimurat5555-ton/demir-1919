@@ -446,7 +446,19 @@ Demir 1919 oyunu silindi; geçmişi git kaydında (son sürüm 1.06, commit 556f
     zanaat bakım kidemli_brove ×0,5.
   - Sesler ElevenLabs (5 × 17 kredi): el_koro, el_cahelon, el_sharon, el_mancinik, t/ortam_t_girdap.
   - testler/final.test.js (yirmi görev baştan sona).
-- Sıradaki: KAPSAM.md "Sıradaki adımlar" (0: otuz yan görev ve itibar matrisi).
+- SÜRÜM 2.6 (21 Kasım): otuz yan görev ve itibar matrisi (tonoflenya-yan-gorevler-ve-yerel-vakalar.md). Telefonda denenmedi.
+  - tonoflenya/yan.js: YAN 1-30 (no, kod, ad, tur, mekan + fx/fy, yer, npc, harita, onkosul [[ad, denetim|null]], ambiyans,
+    talkback, giris, op, kararlar [K(etiket, sonuc, itibar, odul)]); YAN_NOKTALARI yan_<no> (yuzey/harita.js birleştirir);
+    YADIGAR (eşya rehberi 4.2 belgeleri); OPERASYONLAR yan<no> (yuzey, final, sahne yan_karar); d.yan {aktif, biten,
+    karar, itibar, bilim, ozel, gun, odunc, hardrinBariyer, nirdolKapali}; sahneler yan_giris, yan_karar, yan_odul;
+    yanIlerle (maden hissesi, Tharal rasyonu, haftalık büyü tozu); FRAKSIYONLAR; yanMenu (menüde "Yan görevler ve itibar").
+  - Kancalar: savas.js (haydut tabancası, Varek bataryası, akrep zehri, Malakor, kara buz parçası, bataklık feneri,
+    Drahmir kalkanı, Gareth, Hardrin bariyeri, hayat muskası, gizli geçit haritası, Magentor protokolü 'atlama', toz
+    pelerini), seyir.js (yıldız atlası, mavi prizma, parazit sensörü, çift graviton), tarim.js (gübre), zanaat.js
+    (Tentran ücretsiz bakım, pazar indirimleri, değerli mallar, konser bileti, yeni reaktör eşyaları), atlas.js
+    (d.bayrak.tehlikeMuaf, Nirdol kapalı). ElevenLabs (3 × 17 kredi): el_canavar, el_droid, el_kus.
+  - testler/yan.test.js (otuz görev baştan sona, A/B dönüşümlü).
+- Sıradaki: Tonoflenya belgelerinin hepsi işlendi; KAPSAM.md'de [~] notları (Bahtiyar'a sorulacaklar) ve telefonda deneme.
 
 ## Sesler
 - Drive'daki Efektler/Ambians dosyaları 14 MB; Drive bağlayıcısı 10 MB'tan büyük dosyayı indiremiyor. Bu yüzden

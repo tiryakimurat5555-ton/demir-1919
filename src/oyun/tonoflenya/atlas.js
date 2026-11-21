@@ -312,11 +312,18 @@ export function seyahatEt(d, hedef) {
   if (y.ayaklar.some((a) => a.tehlike === 'kahergonat') && nobet(d).yildiz !== 'Sinha') {
     return { metin: 'Kahergonat Yolu yalnız Mavi Akşam nöbetinde, Sinha\'nın hizalanmasında açılır. Şu an ' + nobet(d).ad + '. Bekle ya da başka yere git.', ses: 'red' };
   }
+  // Yan görev 15: kanyon patlatıldıysa Nirdol Boynu bir hafta kapalı
+  const simdi = (d.zaman && d.zaman.sn) || 0;
+  if (d.yan && d.yan.nirdolKapali > simdi && y.ayaklar.some((a) => a.ad.indexOf('Nirdol') >= 0)) {
+    return { metin: 'Nirdol Boynu kapalı: patlatılan kanyonun molozu temizleniyor; ' + Math.ceil((d.yan.nirdolKapali - simdi) / GUN) + ' gün daha.', ses: 'red' };
+  }
   d.seyahatEk = 0;
   const notlar = [];
+  const muaf = d.bayrak.tehlikeMuaf || {};
   for (const a of y.ayaklar) {
     notlar.push(a.ad + '.');
-    if (a.tehlike && TEHLIKELER[a.tehlike]) notlar.push(TEHLIKELER[a.tehlike](d));
+    if (a.tehlike && TEHLIKELER[a.tehlike] && !muaf[a.tehlike]) notlar.push(TEHLIKELER[a.tehlike](d));
+    else if (a.tehlike && muaf[a.tehlike]) notlar.push('Yanındakiler sayesinde yolun tehlikesi seni teğet geçti.');
   }
   const g = BOLGELER[hedef];
   d.mekan = g.giris;

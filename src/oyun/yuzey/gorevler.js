@@ -33,6 +33,7 @@ import { TESISLER } from '../veri/tesisler';
 import * as ZN from '../tonoflenya/zanaat';
 import * as SB from '../tonoflenya/subay';
 import * as FN from '../tonoflenya/final';
+import * as YN from '../tonoflenya/yan';
 import { MEKANLAR } from './harita';
 
 export const { ESYALAR, HAREKET_KISA, ayarBaslat, ayarDegis, ayarIlerle, ayarMetni, ayarYakinlik, koloniMetni, insaListesi } = G1;
@@ -41,7 +42,7 @@ export const { NOTALAR, kapiDizisi, rezonansBaslat, rezonansSecimDegis, rezonans
 
 export const { AYAKLAR, ayakSayisi, ayakFrek, teraziBaslat, teraziPompa, teraziIlerle, teraziMetni, DENGE_ESIGI } = G4;
 
-export const SAHNELER = { ...G1.SAHNELER, ...G2.SAHNELER, ...G3.SAHNELER, ...G4.SAHNELER, ...G5.SAHNELER, ...G6.SAHNELER, ...B.SAHNELER, ...K.SAHNELER, ...A.SAHNELER, ...M.SAHNELER, ...O.SAHNELER, ...SV.SAHNELER, ...SF.SAHNELER, ...TM.SAHNELER, ...AT.SAHNELER, ...FN.SAHNELER };
+export const SAHNELER = { ...G1.SAHNELER, ...G2.SAHNELER, ...G3.SAHNELER, ...G4.SAHNELER, ...G5.SAHNELER, ...G6.SAHNELER, ...B.SAHNELER, ...K.SAHNELER, ...A.SAHNELER, ...M.SAHNELER, ...O.SAHNELER, ...SV.SAHNELER, ...SF.SAHNELER, ...TM.SAHNELER, ...AT.SAHNELER, ...FN.SAHNELER, ...YN.SAHNELER };
 
 // Telsiz bildirimleri (belgeler/savas-yetenek-ve-murettebat-mekanikleri.md 4.3): koşulu sağlanınca bir kez kuyruğa
 // girer. gorev alanı varsa yalnız o görev sürerken.
@@ -83,7 +84,8 @@ export function sahneSec(d, id, i) {
 
 export function gorevIpucu(d) {
   const mi = d.mini && d.mini.aktif ? 'Yerel operasyon, ' + M.MINI[d.mini.aktif].ad + ': ' + M.MINI[d.mini.aktif].ipucu(d) + ' ' : '';
-  if (d.bayrak.tonoflenyaGoruldu && d.mekan && MEKANLAR[d.mekan] && MEKANLAR[d.mekan].tonoflenya) return mi + FN.gorevMetni(d);
+  const yn = d.yan && d.yan.aktif ? 'Süren yan görev: ' + YN.YAN_GOREV[d.yan.aktif].ad + ', ' + YN.YAN_GOREV[d.yan.aktif].yer + '. ' : '';
+  if (d.bayrak.tonoflenyaGoruldu && d.mekan && MEKANLAR[d.mekan] && MEKANLAR[d.mekan].tonoflenya) return mi + yn + FN.gorevMetni(d);
   return mi + ( G1.gorevIpucu(d) || G2.gorevIpucu(d) || G3.gorevIpucu(d) || G4.gorevIpucu(d) || G5.gorevIpucu(d) || (mi ? '' : 'Şu an bir görev yok.'));
 }
 
@@ -98,6 +100,7 @@ export function noktaEylemleri(d, id) {
 }
 function temelEylemler(d, id) {
   if (FN.noktaMi(id)) return [{ id: 'incele', etiket: 'İncele' }];
+  if (YN.noktaMi(id)) return YN.noktaEylemleri(d, id);
   if (ZN.noktaMi(id)) return ZN.noktaEylemleri(d, id);
   if (TA.noktaMi(id)) return TA.noktaEylemleri(d, id);
   if (TM.noktaMi(id)) return TM.noktaEylemleri(d, id);
@@ -116,6 +119,7 @@ function temelEylemler(d, id) {
 export function eylemUygula(d, id, eylemId) {
   if (eylemId === 'y_ygk') return TM.ygkAra(d);
   if (FN.ekEylemMi(eylemId) || FN.noktaMi(id)) return FN.eylemUygula(d, id, eylemId);
+  if (YN.noktaMi(id)) return YN.eylemUygula(d, id, eylemId);
   if (eylemId === 'z_sarj' || ZN.noktaMi(id)) return beklemeyiUygula(d, ZN.eylemUygula(d, id, eylemId));
   if (TM.noktaMi(id)) {
     const r = TM.eylemUygula(d, id, eylemId);
@@ -244,6 +248,7 @@ export function zamanIlerle(d, dt) {
   // Ekol kıdemi, ambar dengesi, subayların kriz sözleri (tonoflenya/zanaat.js, subay.js)
   ZN.ekolDenetle(d, MEKANLAR, FENOMENLER);
   ZN.kargoDenetle(d);
+  YN.yanIlerle(d);
   if ((d.zehir || 0) >= 75) {
     const k = SB.kriz(d, 'axira');
     if (k) SB.haber(d, k);

@@ -161,7 +161,7 @@ export function tarimIlerle(d, dt) {
       let c = yesil * (k4 && y.ortam !== 'vaha' ? 1 / 0.6 : 1);
       if (y.isci === 'insan' && b.kat === 'A') c *= 1.2;
       // Axira (büyüme süresi yüzde yirmi kısa), Yeşil el kabiliyeti, biyo-habitat iklim kubbesi
-      c *= SB.tarimCarpani(d) * (d.gemi && d.gemi.moduller.iklim_kubbesi ? 1.3 : 1);
+      c *= SB.tarimCarpani(d) * (d.gemi && d.gemi.moduller.iklim_kubbesi ? 1.3 : 1) * (d.bayrak.yan_gubre ? 1.25 : 1);
       y.buyume = Math.min(1, y.buyume + (dt * c) / (b.dongu * DONGU_SN));
       y.saglik = Math.min(1, y.saglik + (0.1 * dt) / DONGU_SN);
       if (y.buyume >= 1 && !y.haber) {

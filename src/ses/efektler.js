@@ -56,6 +56,10 @@ const KAYNAKLAR = {
   el_cahelon: require('../../assets/ses/el_cahelon.wav'),
   el_sharon: require('../../assets/ses/el_sharon.wav'),
   el_mancinik: require('../../assets/ses/el_mancinik.wav'),
+  // 2.6: yan görevler
+  el_canavar: require('../../assets/ses/el_canavar.wav'),
+  el_droid: require('../../assets/ses/el_droid.wav'),
+  el_kus: require('../../assets/ses/el_kus.wav'),
   // Düğme sesleri (ElevenLabs, 1.18): onay, geri, devam et, yeni oyun
   el_secim: require('../../assets/ses/el_secim.wav'),
   el_geri: require('../../assets/ses/el_geri.wav'),

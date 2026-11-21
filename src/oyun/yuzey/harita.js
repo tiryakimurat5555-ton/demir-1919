@@ -517,3 +517,6 @@ Object.assign(NOKTALAR, Z_NOKTALAR);
 // Final görevlerinin yerleri (tonoflenya/finalHarita.js, 2.5)
 import { F_NOKTALAR } from '../tonoflenya/finalHarita';
 Object.assign(NOKTALAR, F_NOKTALAR);
+// Yan görevlerin yerleri (tonoflenya/yan.js, 2.6)
+import { YAN_NOKTALARI } from '../tonoflenya/yan';
+Object.assign(NOKTALAR, YAN_NOKTALARI);

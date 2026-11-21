@@ -270,6 +270,10 @@ export function kullan(d, id) {
   } else if (id === 'astral_iksir') {
     d.astralOdak = true;
     metin = 'Astral iksir içildi: savaşta kullanılacak sonraki subay yeteneği kritik olacak.';
+  } else if (id === 'konser_bileti') {
+    for (const u of d.murettebat) u.stres = 0;
+    d.koloni.moral = Math.min(100, d.koloni.moral + 10);
+    metin = 'Mürettebat Malken senfonisini dinledi: sadakat ve moral yükseldi.';
   } else if (id === 'malken_rasyonu') {
     d.seferEtki.rasyon = Math.max(d.seferEtki.rasyon || 0, 1);
     metin = 'Malken sefer rasyonları ambara yüklendi: sonraki seferde besin yorgunluğu yok.';
@@ -282,7 +286,7 @@ export function surupEtkin(d) {
 }
 
 // Reaktöre yükle: aether türü kristaller gemi yakıtına dönüşür (Elyndra yüzde yirmi beş fazla)
-const REAKTOR = { aether: 10, saf_aether: 25, buzul_aether: 15, mavi_aether: 8, kara_aether: 12, morluk_kristali: 10 };
+const REAKTOR = { aether: 10, saf_aether: 25, buzul_aether: 15, mavi_aether: 8, kara_aether: 12, morluk_kristali: 10, aether_bataryasi: 30, graviton_hucresi: 50, isik_yakiti: 25 };
 export function reaktoreYukle(d, k) {
   const g = d.gemi;
   if (!g) return { metin: 'Yükleyecek reaktör yok.', ses: 'red' };
@@ -332,7 +336,7 @@ export function eylemler(d, k) {
   const e = ESYA[k];
   const l = [];
   if (e && e.yuva) l.push({ id: 'kusan', etiket: e.kat === 2 ? (d.gemi && d.gemi.moduller[k] ? 'Gemiden sök' : 'Gemiye tak') : kusanildiMi(d, k) ? 'Çıkar' : 'Kuşan' });
-  if (e && e.kat === 4 && k !== 'aether_muhimmati') l.push({ id: 'kullan', etiket: 'Kullan' });
+  if (['glies_ignesi', 'vaha_surubu', 'astral_iksir', 'malken_rasyonu', 'konser_bileti'].includes(k)) l.push({ id: 'kullan', etiket: 'Kullan' });
   if (REAKTOR[k]) l.push({ id: 'reaktor', etiket: 'Reaktöre yükle' });
   if (DOKUM[k]) l.push({ id: 'dokum', etiket: 'Dökümhaneye gönder' });
   l.push({ id: 'at', etiket: 'At' });
@@ -485,7 +489,7 @@ export function veriSat(d) {
   d.para.gk += v.gk;
   return { metin: v.op.length + ' operasyon ve ' + v.kd.length + ' kodeks kaydı Akademiye aktarıldı: ' + v.gk + ' Galaktik Keşif Kredisi. Toplam ' + d.para.gk + '.', ses: 'sinyal' };
 }
-const tamirBirimi = (d) => 0.5 * SB.tamirCarpani(d) * ((d.esya && d.esya.kidemli_brove) ? 0.5 : 1); // kıdemli kaptan brövesi
+const tamirBirimi = (d) => (d.bayrak.yan_tentran_bakim ? 0 : 0.5 * SB.tamirCarpani(d) * ((d.esya && d.esya.kidemli_brove) ? 0.5 : 1)); // kıdemli kaptan brövesi; Tentran'ın ücretsiz bakımı
 export function bakimMaliyeti(d) {
   const g = d.gemi;
   return g ? Math.ceil((g.maxGovde - g.govde) * tamirBirimi(d)) : 0;
@@ -498,7 +502,7 @@ export function bakimYap(d) {
   const birim = tamirBirimi(d);
   let onar = g.maxGovde - g.govde;
   let odenen = m;
-  if (m > d.para.gk) {
+  if (birim > 0 && m > d.para.gk) {
     onar = Math.floor(d.para.gk / birim);
     odenen = Math.ceil(onar * birim);
   }
@@ -509,8 +513,13 @@ export function bakimYap(d) {
 }
 
 // --- Ticaret masası ---
-function fiyat(d, f, alim) {
-  const k = SB.kabiliyet(d, 'uma', 2) ? 0.1 : 0;
+const MALKENIA = ['uma_pazari', 'zhaor_pazari', 'axira_tezgahi', 'sinha_tezgahi', 'elyndra_dokumacisi'];
+function fiyat(d, f, alim, pz) {
+  let k = SB.kabiliyet(d, 'uma', 2) ? 0.1 : 0;
+  // Yan görev ödülleri: gümüş muhafız rozeti (Malkenia alışı), istihbarat ağı (karaborsa), ticaret beratı (batı satışı)
+  if (alim && MALKENIA.includes(pz) && d.esya && d.esya.gumus_rozet) k += 0.1;
+  if (alim && pz === 'kahergonat_karaborsa' && d.bayrak.yan_istihbarat) k += 0.1;
+  if (!alim && pz === 'julithan_limani' && d.esya && d.esya.ticaret_berati) k += 0.1;
   return Math.max(alim ? 1 : 0, Math.round(f * (alim ? 1 - k : 1 + k) * 10) / 10);
 }
 function paraAdi(p) {
@@ -526,7 +535,7 @@ function paraEkle(d, p, n) {
 export function satinAl(d, pz, k) {
   hazirla(d);
   const P = PAZARLAR[pz];
-  const f = fiyat(d, P.satar[k], true);
+  const f = fiyat(d, P.satar[k], true, pz);
   if (paraVar(d, P.para) < f) return { metin: adi(k) + ' ' + f + ' ' + paraAdi(P.para) + '. Paran yetmiyor: ' + paraMetni(d), ses: 'red' };
   paraEkle(d, P.para, -f);
   ekle(d, k, 1);
@@ -543,7 +552,7 @@ export function sat(d, pz, k, hepsi = false) {
   const P = PAZARLAR[pz];
   const n = hepsi ? miktar(d, k) : Math.min(1, miktar(d, k));
   if (!n) return { metin: 'Elinde ' + adi(k) + ' yok.', ses: 'red' };
-  const f = fiyat(d, P.alir[k], false);
+  const f = P.alir[k] != null ? fiyat(d, P.alir[k], false, pz) : (ESYA[k] && ESYA[k].deger) || 0;
   ekle(d, k, -n);
   paraEkle(d, P.para, Math.round(f * n * 10) / 10);
   SB.ekolKazan(d, 'uma', 2);
@@ -557,8 +566,9 @@ export function pazarMenu(d, pz) {
     baslik: n.ad,
     giris: (P.para === 'isik' ? 'Burada yalnız Fenrir ışık tozu geçer. ' : '') + paraMetni(d),
     ogeler: [
-      { id: 'al', etiket: 'Satın al', alt: (x) => ({ baslik: 'Satın al', giris: paraMetni(x), ogeler: Object.keys(P.satar).map((k) => ({ id: k, etiket: adi(k) + ': ' + fiyat(x, P.satar[k], true) + ' ' + paraAdi(P.para) + '. Elinde ' + miktar(x, k) + '.', yap: (y) => satinAl(y, pz, k) })) }) },
-      { id: 'sat', etiket: 'Sat', alt: (x) => ({ baslik: 'Sat', giris: 'Bir kez dokun: bir tane; listenin sonunda hepsini sat.', ogeler: [...Object.keys(P.alir).map((k) => ({ id: k, etiket: adi(k) + ': tanesi ' + fiyat(x, P.alir[k], false) + ' ' + paraAdi(P.para) + '. Elinde ' + Math.round(miktar(x, k)) + '.', yap: (y) => sat(y, pz, k) })), ...Object.keys(P.alir).filter((k) => miktar(x, k) > 1).map((k) => ({ id: 'h_' + k, etiket: 'Bütün ' + adi(k) + ' stoğunu sat', yap: (y) => sat(y, pz, k, true) }))] }) },
+      { id: 'al', etiket: 'Satın al', alt: (x) => ({ baslik: 'Satın al', giris: paraMetni(x), ogeler: Object.keys(P.satar).map((k) => ({ id: k, etiket: adi(k) + ': ' + fiyat(x, P.satar[k], true, pz) + ' ' + paraAdi(P.para) + '. Elinde ' + miktar(x, k) + '.', yap: (y) => satinAl(y, pz, k) })) }) },
+      { id: 'sat', etiket: 'Sat', alt: (x) => ({ baslik: 'Sat', giris: 'Bir kez dokun: bir tane; listenin sonunda hepsini sat.', ogeler: [...Object.keys(P.alir).map((k) => ({ id: k, etiket: adi(k) + ': tanesi ' + fiyat(x, P.alir[k], false, pz) + ' ' + paraAdi(P.para) + '. Elinde ' + Math.round(miktar(x, k)) + '.', yap: (y) => sat(y, pz, k) })), ...Object.keys(P.alir).filter((k) => miktar(x, k) > 1).map((k) => ({ id: 'h_' + k, etiket: 'Bütün ' + adi(k) + ' stoğunu sat', yap: (y) => sat(y, pz, k, true) }))] }) },
+      ...(P.para === 'ml' ? [{ id: 'deger', etiket: 'Değerli malları sat', ipucu: 'Antikalar, kristaller, sedef, baharat.', alt: (x) => ({ baslik: 'Değerli mallar', giris: paraMetni(x), ogeler: Object.keys(ESYA).filter((k) => ESYA[k].deger && miktar(x, k) > 0).map((k) => ({ id: k, etiket: adi(k) + ': tanesi ' + ESYA[k].deger + ' lira. Elinde ' + miktar(x, k) + '.', yap: (y) => sat(y, pz, k) })) }) }] : []),
       ...(P.para === 'ml' ? [{ id: 'kur', etiket: 'Kur: ışık tozu ' + ISIK_ML + ' lira', alt: (x) => kurMenu(x) }] : [{ id: 'kur', etiket: 'Kur: ışık tozu ' + ISIK_ML + ' lira', alt: (x) => kurMenu(x) }]),
       ...(n.liman ? [{ id: 'istihdam', etiket: 'Tavernadaki subaylar', ipucu: 'İstasyonlarına subay istihdam et.', alt: (x) => istihdamMenu(x, pz) }] : []),
     ],
