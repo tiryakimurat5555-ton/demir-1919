@@ -474,6 +474,9 @@ Demir 1919 oyunu silindi; geçmişi git kaydında (son sürüm 1.06, commit 556f
 - SÜRÜM 2.11 (21 Kasım, Murat ses dosyası ekledi: "gemi klasöründe bulunan ortam kokpit adlı dosya ... ile değiştiriliyor"):
   assets/ses/ortam_kokpit.mp3 (eski .wav silindi; ilk 302 sn, 3 sn çapraz geçiş, I=-24, 96k; düzey 0,5 → 0,6). Bütün
   gemilerin kokpit/köprü bölmeleri çalar. Telefonda denenmedi.
+- SÜRÜM 2.12 (21 Kasım, Murat ses dosyası ekledi: "gemi ortam kargo adlı dosya bununla değiştirilsin"): assets/ses/
+  ortam_kargo.mp3 (eski yankılı kapsül .wav'ı silindi; ilk 302 sn, 3 sn çapraz geçiş, I=-24, 96k; düzey 0,5 → 0,6). Gemilerin
+  kargo/hangar bölmeleri çalar. Telefonda denenmedi.
 - Sıradaki: Tonoflenya belgelerinin hepsi işlendi; KAPSAM.md'de [~] notları (Bahtiyar'a sorulacaklar) ve telefonda deneme.
 
 ## Sesler
