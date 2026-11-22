@@ -6,6 +6,14 @@ tesis kurar, ileride gemini parça parça inşa edip uzaya açılırsın.
 
 Yapımcı: Bahtiyar Cankurt (tasarım belgeleri belgeler/ içinde). Expo Go ile iPhone ve Android'de çalışır.
 
+## Bu sürümde (3.9)
+- Savaşın bütün sesleri: her düşman ailesinin (korsanlar, yabancı gemi, dronlar, gölge sürüsü ve gemisi, akrepler,
+  otomatlar, haydutlar, tarikat, canavarlar, mantar, kriyo, solucan, uçan avcılar, sürüngen, ses illüzyonu, yavrular,
+  abis yaratıkları) ve dört bossun geliş, hafif ve ağır hasar, yetenek, ölüm sesleri; bossların aşama geçişleri;
+  düşman silahlarının atışı, kalkana, sipere, gövdeye ve zırha vuruşlar, ıska, kalkan kırılması, savaş alarmı, zafer
+  ve yenilgi. Silah sesleri Bahtiyar'ın Drive arşivinden, ötekiler ElevenLabs'tan.
+- Tarım alanının ortam sesi Kadim Krater'le aynı oynatıcıyı paylaşıyor (önceden çalmıyordu).
+
 ## Bu sürümde (3.8)
 - Tonoflenya'da bölgeler arası geçiş kuralları; Oronte, Barracuda, Zeno ve Mirelza ile üçer aşamalı bölgesel ittifak
   zincirleri (taslaklar ve Tether-Key mekik hakları bunlarla açılır); Final 12'den sonra Büyük Tonoflenya Ambargosu kararı.

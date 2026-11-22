@@ -617,6 +617,24 @@ Demir 1919 oyunu silindi; geçmişi git kaydında (son sürüm 1.06, commit 556f
     TARIFLER.kosul); mekikKilidi (karakter.js mekikKosulu); bl_ambargo (bayrak ambargo merkez|tasra, ambargoAski);
     ambargoCephesi (savas.js final cephesi, ambargoIkmal). operasyon.js tf17 taşrada hasar ×0,5. gorevler.js bolgeleriTanit.
   - Bayraklar: oronteKus, arinDostu, arinKapali. testler/bolgesel.test.js; tonoflenya/komuta/binalar testleri yeni şartlara göre.
+- SÜRÜM 3.9 (22 Kasım, Murat: "yaratık, gemi, kişi, boss ... tüm ses unsurları eleven labs; silah sesleri için Drive
+  arşivi"): savaş sesleri. Telefonda denenmedi.
+  - uzay/savasSesleri.js (bağımlılıksız): AILE (42 tür → 22 aile), dusmanSesi(tur, gelis|hasar1|hasar2|yetenek|olum|faz|
+    hareket), uyariSesi, ATIS_SESI, hasarAgir, savasSesListesi. savas.js olaylara sesler: [{ ad, gecikme, duzey, yon }]
+    ekler (başlangıç alarmı + gelişler, isabet, ölüm, faz, çağrı, kaçış, darbe atışı, kalkan/siper/gövde/zırh vuruşu,
+    ıska, kalkan kırılması, zafer/yenilgi). Yuzey savasOlaylari sesler'i zamanlar; savasAc onYukle, savasKapat 8 sn sonra bosalt.
+  - assets/ses/savas/s_*.mp3 (134; 22 kHz tek kanal 64k, sessizlik kırpıldı, loudnorm I=-18, alimiter -2,5 dB level=false).
+    ElevenLabs 120 (adresler araclar/indirilecek-sesler.json'da, ham çıktılar ham-sesler dalında), Drive 14: s_oyuncu_lazer ←
+    Efektler 4 "Bilim Kurgu Silahı Blaster Lazer Patlaması Zap", s_kalkan_acilis ← Efektler 4 "Geleceğin Silah Kalkanı"
+    (ilk 1,6 sn), s_atis_plazma ← "CK Blaster Atışı", s_atis_agir_plazma ← "Silah Ateşi Uzay Gemisi Süper Blaster 04"
+    (3,8 sn), s_atis_lazer ← "Synth Temel Lazer Gibi Lazer", s_atis_mermi ← "Hafif Makineli Tüfek Otomatik Seri Atış 01",
+    s_atis_kilic ← "Hollywood Tarzı Kılıç Saldırısı 004", s_atis_pence ← "Yaratık Canavar Saldırısı 09", s_atis_isi ←
+    "Tasarlanmış Ateş Swoosh'ları Burst Gelişiyor" (1,6-4,2 sn), s_oyuncu_tufek ← "İttifak SaldırısıTüfek Tek Atış",
+    s_isabet_govde ← "Ağır Metal Mermi Çarpması 08", s_isabet_zirh ← "Örme Zırh Sert Darbe Vuruşu 03", s_siper_vurus ←
+    "WEAPArmr Metal Kalkan Bloğu" (ilk darbe), s_iska ← "Hızlı Mermi Islığı Geçişi 05".
+  - efektler.js TEMBEL: savaş sesleri açılışta değil ilk çalışta / onYukle ile açılır, bosalt bırakır (oynatıcı sayısı).
+    TAKMA_ADLAR { ortam_krater: 'ortam_tarim' }: tarım alanında ses gelmiyordu (Bahtiyar); iki oynatıcı aynı dosyayı
+    açıyordu, artık tek. testler/savasSesleri.test.js.
 - Sıradaki: v4 paketinin bütün belgeleri işlendi; KAPSAM.md'de [~] notları (Bahtiyar'a sorulacaklar) ve telefonda deneme.
 
 ## Sesler

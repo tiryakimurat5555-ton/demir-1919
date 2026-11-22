@@ -16,7 +16,6 @@ const KAYNAKLAR = {
   // Jeotermal tarım alanının ortamı (Murat, 21 Kasım: telefondan gönderdiği kayıt; 5 dakikalık döngü)
   ortam_tarim: require('../../assets/ses/ortam_tarim.mp3'),
   // Kadim Krater'in müziği: Murat'ın gönderdiği kayıt (tarım alanınınkiyle aynı dosya; 21 Kasım 12:58)
-  ortam_krater: require('../../assets/ses/ortam_tarim.mp3'),
   ortam_kapsul: require('../../assets/ses/ortam_kapsul.wav'),
   ortam_harabe: require('../../assets/ses/ortam_harabe.wav'),
   ortam_menu: require('../../assets/ses/ortam_menu.wav'),
@@ -261,6 +260,151 @@ const DONGULER = {
   ortam_gez_p20: 0.6,
 };
 
+
+// Savaş sesleri (3.9): düşman aileleri, boss aşamaları, silah atışları ve vuruşları. Çok sayıda oynatıcıyı
+// açılışta açmamak için tembel: savaş başında (onYukle) ya da ilk çalındığında açılır, savaş bitince bırakılır.
+const TEMBEL = {
+  s_abis_gelis: require('../../assets/ses/savas/s_abis_gelis.mp3'),
+  s_abis_hasar1: require('../../assets/ses/savas/s_abis_hasar1.mp3'),
+  s_abis_olum: require('../../assets/ses/savas/s_abis_olum.mp3'),
+  s_akrep_gelis: require('../../assets/ses/savas/s_akrep_gelis.mp3'),
+  s_akrep_hasar1: require('../../assets/ses/savas/s_akrep_hasar1.mp3'),
+  s_akrep_hasar2: require('../../assets/ses/savas/s_akrep_hasar2.mp3'),
+  s_akrep_olum: require('../../assets/ses/savas/s_akrep_olum.mp3'),
+  s_akrep_yetenek: require('../../assets/ses/savas/s_akrep_yetenek.mp3'),
+  s_alarm_kara: require('../../assets/ses/savas/s_alarm_kara.mp3'),
+  s_alarm_uzay: require('../../assets/ses/savas/s_alarm_uzay.mp3'),
+  s_atis_agir_plazma: require('../../assets/ses/savas/s_atis_agir_plazma.mp3'),
+  s_atis_golge_oku: require('../../assets/ses/savas/s_atis_golge_oku.mp3'),
+  s_atis_isi: require('../../assets/ses/savas/s_atis_isi.mp3'),
+  s_atis_iyon: require('../../assets/ses/savas/s_atis_iyon.mp3'),
+  s_atis_kilic: require('../../assets/ses/savas/s_atis_kilic.mp3'),
+  s_atis_lazer: require('../../assets/ses/savas/s_atis_lazer.mp3'),
+  s_atis_mermi: require('../../assets/ses/savas/s_atis_mermi.mp3'),
+  s_atis_pence: require('../../assets/ses/savas/s_atis_pence.mp3'),
+  s_atis_plazma: require('../../assets/ses/savas/s_atis_plazma.mp3'),
+  s_atis_sonik: require('../../assets/ses/savas/s_atis_sonik.mp3'),
+  s_atis_torpido: require('../../assets/ses/savas/s_atis_torpido.mp3'),
+  s_cahelon_faz: require('../../assets/ses/savas/s_cahelon_faz.mp3'),
+  s_cahelon_gelis: require('../../assets/ses/savas/s_cahelon_gelis.mp3'),
+  s_cahelon_hasar1: require('../../assets/ses/savas/s_cahelon_hasar1.mp3'),
+  s_cahelon_hasar2: require('../../assets/ses/savas/s_cahelon_hasar2.mp3'),
+  s_cahelon_olum: require('../../assets/ses/savas/s_cahelon_olum.mp3'),
+  s_cahelon_yetenek: require('../../assets/ses/savas/s_cahelon_yetenek.mp3'),
+  s_canavar_gelis: require('../../assets/ses/savas/s_canavar_gelis.mp3'),
+  s_canavar_hasar1: require('../../assets/ses/savas/s_canavar_hasar1.mp3'),
+  s_canavar_hasar2: require('../../assets/ses/savas/s_canavar_hasar2.mp3'),
+  s_canavar_olum: require('../../assets/ses/savas/s_canavar_olum.mp3'),
+  s_canavar_yetenek: require('../../assets/ses/savas/s_canavar_yetenek.mp3'),
+  s_dron_gelis: require('../../assets/ses/savas/s_dron_gelis.mp3'),
+  s_dron_hasar1: require('../../assets/ses/savas/s_dron_hasar1.mp3'),
+  s_dron_olum: require('../../assets/ses/savas/s_dron_olum.mp3'),
+  s_dron_yetenek: require('../../assets/ses/savas/s_dron_yetenek.mp3'),
+  s_dusman_kalkan: require('../../assets/ses/savas/s_dusman_kalkan.mp3'),
+  s_golgegemi_gelis: require('../../assets/ses/savas/s_golgegemi_gelis.mp3'),
+  s_golgegemi_hasar1: require('../../assets/ses/savas/s_golgegemi_hasar1.mp3'),
+  s_golgegemi_hasar2: require('../../assets/ses/savas/s_golgegemi_hasar2.mp3'),
+  s_golgegemi_olum: require('../../assets/ses/savas/s_golgegemi_olum.mp3'),
+  s_golgegemi_yetenek: require('../../assets/ses/savas/s_golgegemi_yetenek.mp3'),
+  s_golgesuru_gelis: require('../../assets/ses/savas/s_golgesuru_gelis.mp3'),
+  s_golgesuru_hasar1: require('../../assets/ses/savas/s_golgesuru_hasar1.mp3'),
+  s_golgesuru_hasar2: require('../../assets/ses/savas/s_golgesuru_hasar2.mp3'),
+  s_golgesuru_olum: require('../../assets/ses/savas/s_golgesuru_olum.mp3'),
+  s_golgesuru_yetenek: require('../../assets/ses/savas/s_golgesuru_yetenek.mp3'),
+  s_illuzyon_gelis: require('../../assets/ses/savas/s_illuzyon_gelis.mp3'),
+  s_illuzyon_hasar1: require('../../assets/ses/savas/s_illuzyon_hasar1.mp3'),
+  s_illuzyon_hasar2: require('../../assets/ses/savas/s_illuzyon_hasar2.mp3'),
+  s_illuzyon_olum: require('../../assets/ses/savas/s_illuzyon_olum.mp3'),
+  s_illuzyon_yetenek: require('../../assets/ses/savas/s_illuzyon_yetenek.mp3'),
+  s_insan_gelis: require('../../assets/ses/savas/s_insan_gelis.mp3'),
+  s_insan_hasar1: require('../../assets/ses/savas/s_insan_hasar1.mp3'),
+  s_insan_hasar2: require('../../assets/ses/savas/s_insan_hasar2.mp3'),
+  s_insan_olum: require('../../assets/ses/savas/s_insan_olum.mp3'),
+  s_insan_yetenek: require('../../assets/ses/savas/s_insan_yetenek.mp3'),
+  s_isabet_govde: require('../../assets/ses/savas/s_isabet_govde.mp3'),
+  s_isabet_zirh: require('../../assets/ses/savas/s_isabet_zirh.mp3'),
+  s_iska: require('../../assets/ses/savas/s_iska.mp3'),
+  s_kahergonat_faz: require('../../assets/ses/savas/s_kahergonat_faz.mp3'),
+  s_kahergonat_gelis: require('../../assets/ses/savas/s_kahergonat_gelis.mp3'),
+  s_kahergonat_hasar1: require('../../assets/ses/savas/s_kahergonat_hasar1.mp3'),
+  s_kahergonat_hasar2: require('../../assets/ses/savas/s_kahergonat_hasar2.mp3'),
+  s_kahergonat_olum: require('../../assets/ses/savas/s_kahergonat_olum.mp3'),
+  s_kahergonat_yetenek: require('../../assets/ses/savas/s_kahergonat_yetenek.mp3'),
+  s_kalkan_acilis: require('../../assets/ses/savas/s_kalkan_acilis.mp3'),
+  s_kalkan_kirildi: require('../../assets/ses/savas/s_kalkan_kirildi.mp3'),
+  s_kalkan_vurus: require('../../assets/ses/savas/s_kalkan_vurus.mp3'),
+  s_korsan_gelis: require('../../assets/ses/savas/s_korsan_gelis.mp3'),
+  s_korsan_hasar1: require('../../assets/ses/savas/s_korsan_hasar1.mp3'),
+  s_korsan_hasar2: require('../../assets/ses/savas/s_korsan_hasar2.mp3'),
+  s_korsan_olum: require('../../assets/ses/savas/s_korsan_olum.mp3'),
+  s_korsan_yetenek: require('../../assets/ses/savas/s_korsan_yetenek.mp3'),
+  s_kriyo_gelis: require('../../assets/ses/savas/s_kriyo_gelis.mp3'),
+  s_kriyo_hasar1: require('../../assets/ses/savas/s_kriyo_hasar1.mp3'),
+  s_kriyo_hasar2: require('../../assets/ses/savas/s_kriyo_hasar2.mp3'),
+  s_kriyo_olum: require('../../assets/ses/savas/s_kriyo_olum.mp3'),
+  s_kriyo_yetenek: require('../../assets/ses/savas/s_kriyo_yetenek.mp3'),
+  s_otomat_gelis: require('../../assets/ses/savas/s_otomat_gelis.mp3'),
+  s_otomat_hasar1: require('../../assets/ses/savas/s_otomat_hasar1.mp3'),
+  s_otomat_hasar2: require('../../assets/ses/savas/s_otomat_hasar2.mp3'),
+  s_otomat_olum: require('../../assets/ses/savas/s_otomat_olum.mp3'),
+  s_otomat_yetenek: require('../../assets/ses/savas/s_otomat_yetenek.mp3'),
+  s_oyuncu_lazer: require('../../assets/ses/savas/s_oyuncu_lazer.mp3'),
+  s_oyuncu_tufek: require('../../assets/ses/savas/s_oyuncu_tufek.mp3'),
+  s_sharon_faz: require('../../assets/ses/savas/s_sharon_faz.mp3'),
+  s_sharon_gelis: require('../../assets/ses/savas/s_sharon_gelis.mp3'),
+  s_sharon_hasar1: require('../../assets/ses/savas/s_sharon_hasar1.mp3'),
+  s_sharon_hasar2: require('../../assets/ses/savas/s_sharon_hasar2.mp3'),
+  s_sharon_olum: require('../../assets/ses/savas/s_sharon_olum.mp3'),
+  s_sharon_yetenek: require('../../assets/ses/savas/s_sharon_yetenek.mp3'),
+  s_siper_vurus: require('../../assets/ses/savas/s_siper_vurus.mp3'),
+  s_solucan_gelis: require('../../assets/ses/savas/s_solucan_gelis.mp3'),
+  s_solucan_hasar1: require('../../assets/ses/savas/s_solucan_hasar1.mp3'),
+  s_solucan_hasar2: require('../../assets/ses/savas/s_solucan_hasar2.mp3'),
+  s_solucan_olum: require('../../assets/ses/savas/s_solucan_olum.mp3'),
+  s_solucan_yetenek: require('../../assets/ses/savas/s_solucan_yetenek.mp3'),
+  s_spor_gelis: require('../../assets/ses/savas/s_spor_gelis.mp3'),
+  s_spor_hasar1: require('../../assets/ses/savas/s_spor_hasar1.mp3'),
+  s_spor_hasar2: require('../../assets/ses/savas/s_spor_hasar2.mp3'),
+  s_spor_olum: require('../../assets/ses/savas/s_spor_olum.mp3'),
+  s_spor_yetenek: require('../../assets/ses/savas/s_spor_yetenek.mp3'),
+  s_surungen_gelis: require('../../assets/ses/savas/s_surungen_gelis.mp3'),
+  s_surungen_hasar1: require('../../assets/ses/savas/s_surungen_hasar1.mp3'),
+  s_surungen_hasar2: require('../../assets/ses/savas/s_surungen_hasar2.mp3'),
+  s_surungen_olum: require('../../assets/ses/savas/s_surungen_olum.mp3'),
+  s_surungen_yetenek: require('../../assets/ses/savas/s_surungen_yetenek.mp3'),
+  s_tarikat_gelis: require('../../assets/ses/savas/s_tarikat_gelis.mp3'),
+  s_tarikat_hasar1: require('../../assets/ses/savas/s_tarikat_hasar1.mp3'),
+  s_tarikat_hasar2: require('../../assets/ses/savas/s_tarikat_hasar2.mp3'),
+  s_tarikat_olum: require('../../assets/ses/savas/s_tarikat_olum.mp3'),
+  s_tarikat_yetenek: require('../../assets/ses/savas/s_tarikat_yetenek.mp3'),
+  s_ucan_gelis: require('../../assets/ses/savas/s_ucan_gelis.mp3'),
+  s_ucan_hasar1: require('../../assets/ses/savas/s_ucan_hasar1.mp3'),
+  s_ucan_hasar2: require('../../assets/ses/savas/s_ucan_hasar2.mp3'),
+  s_ucan_olum: require('../../assets/ses/savas/s_ucan_olum.mp3'),
+  s_ucan_yetenek: require('../../assets/ses/savas/s_ucan_yetenek.mp3'),
+  s_xarathia_faz: require('../../assets/ses/savas/s_xarathia_faz.mp3'),
+  s_xarathia_gelis: require('../../assets/ses/savas/s_xarathia_gelis.mp3'),
+  s_xarathia_hasar1: require('../../assets/ses/savas/s_xarathia_hasar1.mp3'),
+  s_xarathia_hasar2: require('../../assets/ses/savas/s_xarathia_hasar2.mp3'),
+  s_xarathia_olum: require('../../assets/ses/savas/s_xarathia_olum.mp3'),
+  s_xarathia_yetenek: require('../../assets/ses/savas/s_xarathia_yetenek.mp3'),
+  s_yabanci_gelis: require('../../assets/ses/savas/s_yabanci_gelis.mp3'),
+  s_yabanci_hasar1: require('../../assets/ses/savas/s_yabanci_hasar1.mp3'),
+  s_yabanci_hasar2: require('../../assets/ses/savas/s_yabanci_hasar2.mp3'),
+  s_yabanci_olum: require('../../assets/ses/savas/s_yabanci_olum.mp3'),
+  s_yabanci_yetenek: require('../../assets/ses/savas/s_yabanci_yetenek.mp3'),
+  s_yavru_gelis: require('../../assets/ses/savas/s_yavru_gelis.mp3'),
+  s_yavru_hasar1: require('../../assets/ses/savas/s_yavru_hasar1.mp3'),
+  s_yavru_olum: require('../../assets/ses/savas/s_yavru_olum.mp3'),
+  s_yenilgi: require('../../assets/ses/savas/s_yenilgi.mp3'),
+  s_zafer: require('../../assets/ses/savas/s_zafer.mp3'),
+};
+
+// Aynı dosyayı çalan ortamlar tek oynatıcıyı paylaşır (Kadim Krater ile tarım alanı aynı kaydı çalar).
+// 3.9'a kadar ikisi ayrı oynatıcıdan aynı dosyayı açıyordu; Bahtiyar tarım alanında sesin hiç gelmediğini bildirdi.
+const TAKMA_ADLAR = { ortam_krater: 'ortam_tarim' };
+const asil = (ad) => (ad && TAKMA_ADLAR[ad]) || ad;
+
 const oynaticilar = {};
 let hazir = false;
 let ortamDuzeyi = 0.6;
@@ -328,8 +472,37 @@ function basaSarVeCal(p) {
   }
 }
 
+function oynatici(ad) {
+  if (!oynaticilar[ad] && hazir && TEMBEL[ad]) {
+    try {
+      oynaticilar[ad] = createAudioPlayer(TEMBEL[ad], { keepAudioSessionActive: true });
+    } catch (e) {}
+  }
+  return oynaticilar[ad];
+}
+
+// Savaş başında o savaşın seslerini belleğe alır (ilk çalışta gecikme olmasın)
+export function onYukle(adlar) {
+  for (const ad of adlar || []) oynatici(ad);
+}
+
+// Tembel açılan oynatıcıları bırakır (savaş bitince)
+export function bosalt() {
+  for (const ad of Object.keys(oynaticilar)) {
+    if (!TEMBEL[ad]) continue;
+    try {
+      oynaticilar[ad].remove();
+    } catch (e) {}
+    delete oynaticilar[ad];
+  }
+}
+
+export function sesVarMi(ad) {
+  return !!(KAYNAKLAR[ad] || TEMBEL[ad]);
+}
+
 export function cal(ad, duzey = 1) {
-  const p = oynaticilar[ad];
+  const p = oynatici(ad);
   if (!p) {
     titret(ad);
     return;
@@ -379,6 +552,7 @@ function sol(ad, hedef, sure = 900) {
 // Mekânın ortam sesini çalar; öncekini yavaşça kısar. ad null ise ortam susar.
 export function ortamCal(ad, oran = 1) {
   ortamOrani = oran;
+  ad = asil(ad);
   if (ad && !oynaticilar[ad]) ad = null;
   if (calanOrtam && calanOrtam !== ad) sol(calanOrtam, 0);
   calanOrtam = ad;

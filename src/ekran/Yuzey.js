@@ -29,7 +29,7 @@ import * as Haptics from 'expo-haptics';
 import { useJestler } from '../arayuz/jestler';
 import SesliListe from '../arayuz/SesliListe';
 import { soyle, sustur } from '../ses/rehber';
-import { cal, calanOrtamAdi, ortamCal } from '../ses/efektler';
+import { cal, calanOrtamAdi, ortamCal, onYukle, bosalt } from '../ses/efektler';
 import { kayitCal, kayitVarMi } from '../ses/telsiz';
 import { kayitBul } from '../oyun/veri/seslendirme';
 import { olayKaydi } from '../oyun/uzay/sefer';
@@ -45,6 +45,7 @@ import { monolitEtkisi } from '../oyun/yuzey/kesifler';
 import { FENOMENLER, GEZEGENLER, ITIBAR_KADEMELERI } from '../oyun/veri/gozlem';
 import { OPERASYONLAR } from '../oyun/veri/uzayGorevleri';
 import { DESTEK as SAVAS_DESTEK } from '../oyun/uzay/savas';
+import { savasSesListesi } from '../oyun/uzay/savasSesleri';
 import { binaMenu } from '../oyun/binalar';
 import { aracYukle } from '../oyun/gemi/gemi';
 import { degerCumlesi } from '../oyun/tonoflenya/zanaat';
@@ -2370,7 +2371,9 @@ export default function Yuzey({ onGeri, baslangic, yeniOyunUret }) {
       const mk = MEKANLAR[dunya.current.mekan];
       if (mk && mk.ortam) ortamCal(mk.ortam, 0.3);
     } else ortamCal('ortam_uzay', 0.25);
-    savasRef.current = { acik: true, dusman: false, kaynaklar: {} };
+    savasRef.current = { acik: true, dusman: false, kaynaklar: {}, zamanlar: [] };
+    // 3.9: bu savaşın düşman, silah ve vuruş seslerini belleğe al
+    if (ds) onYukle(savasSesListesi((ds.dusmanlar || []).map((x) => x.tur).concat(['yavru', 'saldiri_dronu', 'golge_dronu', 'golge_muhafizi']), ds.ortam === 'kara'));
     setSavasAcik(true);
     Haptics.notificationAsync(Haptics.NotificationFeedbackType.Warning).catch(() => {});
     savasOlaylari(olaylar);
@@ -2378,6 +2381,10 @@ export default function Yuzey({ onGeri, baslangic, yeniOyunUret }) {
   const savasKapat = () => {
     const s = m();
     if (s) for (const id of Object.keys(savasRef.current.kaynaklar || {})) s.sil(id);
+    // Zafer ya da yenilgi sesi bitsin diye oynatıcılar biraz sonra bırakılır
+    setTimeout(() => {
+      if (!savasRef.current.acik) bosalt();
+    }, 8000);
     savasRef.current = { acik: false, dusman: false, kaynaklar: {} };
     setSavasAcik(false);
     kaydet();
@@ -2398,11 +2405,17 @@ export default function Yuzey({ onGeri, baslangic, yeniOyunUret }) {
         setTimeout(() => { if (!kayitCal(k, 1)) soyle(o.soz, 'istek', false); }, 350);
         kayitli = true;
       } else if (o.soz) sozler.push(o.soz);
-      if (o.soz === 'Kalkan!') cal('el_kalkan', 0.9);
       if (o.ses === 'kilitTonu') {
         if (s) s.nota(1760, null, 0.7, 0.35);
         Haptics.selectionAsync().catch(() => {});
       } else if (o.ses) cal(SAVAS_SESI[o.ses] || o.ses, o.ses === 'tik' ? 0.4 : 0.9);
+      // 3.9: sıralı savaş sesleri (geliş, hasar, ölüm, aşama, atış, vuruş); gecikmeli olanlar zamanlanır
+      if (o.sesler) for (const x of o.sesler) {
+        if (!x || !x.ad) continue;
+        const duz = x.duzey == null ? 0.95 : x.duzey;
+        if (x.gecikme) setTimeout(() => cal(x.ad, duz), x.gecikme);
+        else cal(x.ad, duz);
+      }
       if (o.hasar) Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Heavy).catch(() => {});
       if (o.nota && s) s.nota(o.nota.frek, null, 0.6, o.nota.sure);
       if (o.uyari && s) {

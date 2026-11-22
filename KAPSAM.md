@@ -844,7 +844,23 @@ bütün bölümlerini sırayla sayar (21 Kasım: v3 paketiyle sekiz belge daha g
       filosu (işaretleme, operasyon hasarı yarı); Magentor kapıları kapalı (sıradaki final görevi oradaysa geçilir),
       Akademiye eksi birinci kattaki Kör Rıhtım'dan girilir; Final 18'den sonra kapılar açılır.
 
-## 57. v4 paketinin bütün belgeleri işlendi. Kalanlar: yukarıdaki [~] notları (Bahtiyar'a sorulacaklar) ve telefonda deneme.
+## 57. v4 paketinin bütün belgeleri işlendi.
+
+## 58. Savaş sesleri (3.9, Murat'ın isteği; belge dışı)
+- [x] Her düşman türü bir ses ailesine bağlı (src/oyun/uzay/savasSesleri.js AILE; 42 tür, 22 aile). Her ailenin geliş,
+      hafif hasar, ağır hasar (gövdenin dörtte biri ya da can üçte birin altı), yetenek (çağırma, kalkan tonu, sis,
+      zehir, dalış...) ve ölüm sesi; kahergonat, Xarathia, Lord Sharon ve Cahelon'un aşama geçişi sesi. Yer değiştirme
+      ve kaçış hareket sesi. ElevenLabs sfx v3, 120 efekt (flow BPWC2OLWbdljIKExgHDq, 17 kredi).
+- [x] Silahlar: düşmanın atışı darbe anında (plazma, ağır plazma, lazer, tüfek, kılıç, pençe, ısı dalgası: Drive
+      Efektler arşivi; torpido, iyon, gölge oku, sonik dalga: ElevenLabs), uyarı sesi aileye göre (otomat lazer şarjı,
+      boss hazırlıkları, uçanın dalışı, kriyo nefesi). Oyuncunun gemi lazeri (Efektler 4) ve tüfeği, torpido fırlatma.
+- [x] Vuruşlar: kalkana (ElevenLabs), sipere ve zırha (Drive), gövdeye (Drive), ağır darbede patlama; düşman kalkanının
+      atışı saptırması (uzayda ve frekans kalkanlılarda); ıska ıslığı; kalkan kırılması; kalkan açılışı (Drive,
+      "Geleceğin Silah Kalkanı"); uzay ve kara savaş alarmı; zafer ve yenilgi.
+      [~] Sesler kulaklıkta konumlu değil (iki kulağa eşit); konum düşmanın motor tonundan ve uyarı notalarından gelir.
+
+## 59. Tarım alanı ortam sesi (3.9, Bahtiyar): tarım alanı ve Kadim Krater aynı dosyayı iki ayrı oynatıcıyla açıyordu;
+      artık tek oynatıcı (efektler.js TAKMA_ADLAR). [~] Telefonda doğrulanmadı. Kalanlar: yukarıdaki [~] notları (Bahtiyar'a sorulacaklar) ve telefonda deneme.
 
 ## Sıradaki adımlar (sırayla)
 0. Tonoflenya genişlemesi, yönergedeki sırayla: [2.1: Malken (12); 2.2: tarihçe (13); 2.3: atlas (14); 2.4: eşya,
