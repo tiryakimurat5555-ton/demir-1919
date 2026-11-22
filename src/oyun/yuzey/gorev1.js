@@ -192,6 +192,8 @@ export function eylemUygula(d, id, eylemId) {
     d.koloni.kaynaklar[tur] = (d.koloni.kaynaklar[tur] || 0) + (n.gerekArac && b(d).deliciUc ? 2 : 1);
     // Mor Yıldız 2. kademe (aether duyusu): aether damarlarından iki kat
     if (['aether', 'saf_aether', 'buzul_aether', 'mavi_aether', 'kara_aether'].includes(tur) && SB.kabiliyet(d, 'elyndra', 2)) d.koloni.kaynaklar[tur] += 1;
+    // T-10 magma çekirdekli matkap: yüzey madenciliği iki kat
+    if (d.esya && d.esya.magma_matkap > 0) d.koloni.kaynaklar[tur] += 1;
     // Klipsomanyak (toplayıcı) mürettebat: her dördüncü toplamada beklenmedik fazladan bir parça
     let ek = '';
     const toplayici = d.murettebat.find((u) => u.nitelik === 'toplayici');

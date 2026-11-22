@@ -421,7 +421,7 @@ bütün bölümlerini sırayla sayar (21 Kasım: v3 paketiyle sekiz belge daha g
 00-YAPAY-ZEKA-UYGULAMA-VE-OKUMA-REHBERI.txt beş fazlık sırayı verir; aşağıdaki bölümler o sırayla işlenir.
 - [x] 0 Değişmez kurallar: mevcut binalar, tarifler, görevler silinmez; 25 bina belgesi esas; ses ve jest odaklı; zaman
       Yıldız Nöbeti, savaş içi etkiler tur; kilitler hikâye ve görevle açılır.
-- [~] 1 Faz 1 [x] (3.0) · Faz 2 [ ] · Faz 3 [ ] · Faz 4 [ ] · Faz 5 [ ].
+- [~] 1 Faz 1 [x] (3.0) · Faz 2 [x] (3.1) · Faz 3 [ ] · Faz 4 [ ] · Faz 5 [ ].
 
 ## 19. v4 / evrensel-savas-sistemi-uzay-ve-kara.txt (3.0, uzay/savas.js)
 - [x] 1 Tek çekirdek: dinle, kilitle (sağa-sola), dokun birincil, yukarı kaydır ağır saldırı (iki tur dolum), iki parmakla
@@ -481,7 +481,83 @@ bütün bölümlerini sırayla sayar (21 Kasım: v3 paketiyle sekiz belge daha g
       Cahelon (final 20) ve Xarathia (Pyros-Prime) çatışmaları Faz 4'te görevlere bağlanacak.
 - [x] 5 Yeni düşman şablonu: DUSMANLAR satırı (ad, ortam, arketip, ses, özel hamle, teslim, ganimet) yeter.
 
-## 22-57. v4 paketinin öteki belgeleri: [ ] Faz 2-5 (rehber bölüm 1'deki sırayla).
+## 22. v4 / bina-etkileri-ve-isleyis-mantigi.txt (3.1, binalar.js)
+- [x] 1 Üç kural: pasif iş (mevcut tesis üretimi), sefer/savaş hazırlığı (HAZIRLIKLAR: tarama, ziyafet, tedavi iğneleri,
+      kalibrasyon, istihbarat; koloni yönetiminde "Binalar, sefer hazırlığı ve Ar-Ge masası"; bir sonraki çatışmada ya da
+      seferde harcanır), hızlanma (rolCarpani: topluluk ve nöbet).
+- [x] 2 Beş evrensel rol (ROLLER, ROL_NOBETLERI: 1 Zhaor, 2 Axira/Uma, 3 Varek, 4 Elyndra/Sinha); yeni bina için ROLLER ve
+      KATKI satırı yeter.
+- [x] 3.1 Enerji yetmezliği: 25 bina belgesi kW kısıtı eklenmesin dediği için yok; hız jeotermal, nöbet, moral ve iş
+      gücüyle. 3.2 Irk/personel: Kaelith ve Aethel-9 sanayi ×1,25, Vaelin yaşam ×1,25, Malken ve Kithron bilim ×1,25,
+      insan yönetim ×1,1. 3.3 İç mekân: tesislerin işlemleri terminal menülerinde. [~] Tesis kademesiyle yeni oda: mevcut
+      kademeli tesisler (tersane 1-3, tarım 1-4) dışında yok.
+- [x] 4 Yeni bina şablonu: ROLLER + KATKI + TESISLER kartı.
+
+## 23. v4 / 25-bina-evrensel-butunsellik-ve-yetim-esya-baglantisi.txt (3.1)
+- [x] 1 Mevcut 25 bina, maliyet ve tarifler aynen; kW yok.
+- [x] 2 Rollere göre savaş/sefer katkıları (KATKI ve savas.js): komuta merkezi arketip + 0,5 sn; yüksek reaktör Sınıf IV-V
+      ağır silah dolumu 1 tur; jeotermal santral Aethelis kara çatışmasında ısı ×0,5; koloni kalkanı baskında ilk darbe
+      ×0,5; Tina pencere +0,3; biyo-kubbe stres ×0,7; hastane savaş sonrası stres sıfır; mutfak ziyafet hazırlığı; kseno-eczane
+      yenilgide kayıp yok; itki hangarı pencere +0,2; kriyo-atölye ısı ×0,75; askeri tersane gemi hasarı ×1,15 ve karada
+      zırh delme; kuantum lab frekans eşleme payı ×1,5; tersaneler destek yuvası; dinleme kulesi menzili (2 / 3 anten +
+      sinyal çözücü / 5 komuta + kuantum arşivleyici), gezegen sinyalleri halkaya göre açılır; akademi Ar-Ge masası.
+      [~] Sera moral dengesi, yaşam bloğu, mülteci kampüsü ve kseno-habitatın ek katkıları mevcut nüfus ve moral
+      sistemlerinin içinde (ayrı sayı eklenmedi).
+- [x] 3 Kilitli dört bina: akademi (Prometheus + Deney 07), kseno-habitat (G-13 ya da G-14 + Kadim Genom), mülteci kampüsü
+      (Aethel-9 + Tarras), Tina (Alevin Ruhu); dördü kurulunca kademe 4 şartı (mevcut terraform.js).
+- [x] 4.1 Yirmi gezegen numunesi (d.numuneler) Ar-Ge masasında: her biri +250 bilim, +25 itibar, +30 tecrübe; 5 kalkan ×0,9,
+      10 birincil ×1,1, 15 derin uzay yakıtı ×0,85, 20 Tonoflenya/Alt Evren direnci ×0,85 ve "Galaktik Kâşif".
+- [x] 4.2 Yetim hammaddeler: lav orkidesi → termal lazer soğutucu (askeri tersane, dökümhane; ısı ×0,7), girdap reçinesi →
+      sürtünmesiz itki yağlayıcısı (itki hangarı; pencere +0,3) ve T-03, morluk kristali ve buzul aether aether
+      laboratuvarında saf aetherin yerine, piezo kristali silikat kristalinin yerine (koloni üretiminde).
+- [x] 4.3 On eşya: termal giysi (kara zırh, ısı ×0,5), lamine zırh takımı (kara zırh), dondurucu köpük (savaş sarfı),
+      topraklama çubuğu (iyon kilidi), sonik kovucu (sürü ve akıncı), ikmal karakolu (gezegenlere kurulur: ücretsiz yakıt ve
+      onarım), sismik dengeleyici (sarsıntı çevresi), nötralizasyon kulesi (asit ve zehir sıfır), kripto anten (firkateyn
+      ×2, kule menzili), biyo-karantina (inişte maruziyet ve kara aether laneti temizlenir).
+- [x] 4.4 "Saf demir teli" dört birim titanyum; süper-iletken soğutucu Hisar'da kalkan ısınmasını kaldırır.
+
+## 24. v4 / gemiler-araclar-ve-filo-sistemi.txt (3.1)
+- [x] 1 Sınıf I-III yüzeye iner, bir alt kızak; IV-V yörüngede, iç hangar (TASIMA; kokpit terminalinde "Alt kızak ya da
+      hangar: araç yükle"; gezegen kara çatışmasında araç eşlik eder). Aktif amiral + yedek filo: destek yuvası ve
+      otomatik koloni görevi (filoGorevi: 300 sn'de bir sınıf kadar titanyum ve bazalt, Sınıf III+ kristal).
+      [~] Kişi kapasitesi veride (kisi); mürettebat ataması hâlâ oda sayısıyla sınırlı.
+- [x] 2 Sınıf savaş özellikleri: Kıvılcım isabet ×0,85 ve pencere +0,3; Rüzgarkıran gövde ×0,9, pencere −0,1, zırhlıya
+      lazer ×1,25; Aethel Muhafızı dengeli; Gökdelen pencere −0,3; Hisar üç katman kalkan ×0,6 ve yan birimlere yarım
+      vuruş. Destek yuvaları belgedeki gibi (işaret +0,4 sn, ganimet +%35, kalkan %25 yenileme ve frekans kolaylığı,
+      %10 onarım ve ikmal, ağır plazma yaylımı). Üretim maliyetleri mevcut montaj aşamalarında (değiştirilmedi).
+- [x] 3 Yüzey araçlarının kara işlevleri: Çöl Tilkisi pencere +0,5 ve kilit, Mammoth hasar ×0,6 ve iki turda bir matkap
+      darbesi (frekans/zırhlıya ×2), Demir Kervan mobil siper (ısınmaz) ve ikmal, Atmosphere-X hava taraması ve taktik
+      tahliye yeteneği, Akrep bir ücretsiz şaşırtma, yardımcı avı ve ganimet +%20.
+- [x] 4 Yeni gemi/araç şablonu: GEMI_SINIFLARI + TASIMA + DESTEK satırı. 5 Gemi içi gezinti mevcut.
+
+## 25. v4 / dinamik-yakit-ve-rota-sistemi.txt (3.1, seyir.js)
+- [x] 1 Zincirleme mesafe: halka(id) (belgedeki noktalar sabit, ötekiler uzaklıktan), yolBirimi (fark; aynı halkada 1),
+      BIRIM_LITRE (5/5/6/10/15); kargo ≥ %80 ×1,25 (cep-ambar siler), Sinha nöbeti ×0,9, Zephyr helyum-3 ×0,85, tersane
+      kalibrasyonu ×0,85; kenetlenince düşer (yalnız ön tarama yakmaz); sürekli tüketim manevra ve yaşam desteği için
+      dörtte bir. Sert kaçış manevrası +4 L.
+- [x] 2 Halka listesi belgedeki gibi (Kızıl Yutucu ve YGK feneri 5).
+- [x] 3 İkmal karakolu, yüzde on beşte kritik uyarı ve en yakın ikmalin yönü, yakıt bitince imdat (10 GK ya da korsan
+      ateşiyle gövde −%20), oyun kilitlenmez.
+
+## 26. v4 / esya-silah-zirh-ve-melez-zanaat-sistemi.txt (3.1, zanaat.js)
+- [x] 1.1 Üç kademe: saha (rasyon, kartuş, iğne, nektar her yerde), standart (Aethelis'te ilgili tesis ya da Tonoflenya),
+      melez (Aethelis kademe 3 dökümhanesi ya da YGK); gözetmen atanırsa maliyet ×0,75 ve usta işi (d.gozetmen Faz 3).
+      1.2 Kara + uzay çift rol (savas.js).
+- [x] 2 Silahlar: Filtra tüfeği, kara buz hançeri (karada dondurur, uzayda pencereyi 0,5 sn yavaşlatır), ışık mızrağı,
+      gölge yayıcı, T-05 sonik tüfek, T-06 geometrik namlu, T-07 plazma pençesi, T-08 söğüt nişangâhı.
+- [x] 3 Zırhlar: oksit (karada +, uzayda torpido ×0,9), ışık pelerini, baş-büyücü cübbesi, T-01 kemik-alaşım, T-02 cıva plakası.
+- [x] 4 Modüller ve ilaçlar: mevcutlar + T-03 cep-ambar (+500 kargo, yük cezası yok), T-04 rezonans halkası, T-09 kseno-
+      panzehir (5 doz, savaş sarfı), T-10 magma matkabı (toplamada +1). [~] T-04'ün Tether-Key mekikleri Faz 5 belgesinde.
+- [x] 5 Hammadde kökenleri (eşleme zanaat.js başında); 1 GK = 25 ML (GK_ML), 1 g ışık tozu = 50 ML.
+      [~] İki dünya arası kargo nakli: kaynaklar ortak ambarda tutulduğu için ayrı nakil gerekmiyor.
+- [x] 6 Yeni eşya şablonu: ESYA + TARIFLER + DEGER satırı.
+
+## 27. v4 / item-deger-garantisi-ve-niye-yapayim-kurali.txt (3.1, veri/deger.js)
+- [x] 1 Dört gerekçe: on yetim eşya ve T serisi savaşta, keşifte ya da ekonomide işe yarar.
+- [x] 2 Değer anonsu: zanaat menüsünde, envanterde ve koloni üretim menüsünde adın ardından "ne işe yarar" cümlesi.
+- [x] 3 Kontrol kuralı: DEGER ya da eşyanın etki cümlesi.
+
+## 28-57. v4 paketinin öteki belgeleri: [ ] Faz 3-5 (rehber bölüm 1'deki sırayla).
 
 ## Sıradaki adımlar (sırayla)
 0. Tonoflenya genişlemesi, yönergedeki sırayla: [2.1: Malken (12); 2.2: tarihçe (13); 2.3: atlas (14); 2.4: eşya,

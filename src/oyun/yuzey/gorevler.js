@@ -18,6 +18,7 @@ import * as M from './mini';
 import * as O from '../uzay/operasyon';
 import * as F from '../uzay/fenomen';
 import * as SV from '../uzay/savas';
+import * as BN from '../binalar';
 import * as SF from '../uzay/sefer';
 import { HAMMADDELER } from '../veri/tesisler';
 import { FENOMENLER, GEZEGENLER } from '../veri/gozlem';
@@ -266,6 +267,7 @@ export function zamanIlerle(d, dt) {
   // Ekol kıdemi, ambar dengesi, subayların kriz sözleri (tonoflenya/zanaat.js, subay.js)
   ZN.ekolDenetle(d, MEKANLAR, FENOMENLER);
   ZN.kargoDenetle(d);
+  for (const x of ZN.zanaatIlerle(d)) SB.haber(d, x);
   YN.yanIlerle(d);
   if ((d.zehir || 0) >= 75) {
     const k = SB.kriz(d, 'axira');
@@ -314,12 +316,27 @@ export function uzayAdim(d, dt) {
   olaylar.push(...SF.seferIlerle(d, dt));
   if (olaylar.some((o) => o.tur === 'yakitBitti')) {
     // Yakıt bitti: koloni bir yakıt kapsülü yollar, gemi kızağa döner
-    d.gemi.yer = 'kizak';
-    d.uzay = null;
-    d.sahne = 'kurtarma';
+    acilImdat(d);
   }
   return olaylar;
 }
+// Yakıt sıfırlanırsa oyun kilitlenmez: imdat sinyali, çekici gemi; bedel 10 Galaktik Keşif Kredisi ya da (kredi yoksa)
+// çekilirken korsan ateşi: gövde yüzde yirmi
+export function acilImdat(d) {
+  if (!d.para) d.para = { ml: 0, gk: 0 };
+  if ((d.para.gk || 0) >= 10) {
+    d.para.gk -= 10;
+    d.kurtarmaNotu = 'Çekici gemi 10 Galaktik Keşif Kredisi bedel kesti.';
+  } else {
+    d.gemi.govde = Math.max(1, d.gemi.govde - Math.round(d.gemi.maxGovde * 0.2));
+    d.kurtarmaNotu = 'Kredin olmadığından çekici gemi sessiz rotayı seçemedi; yolda korsan ateşi gövdeyi yüzde yirmi yaraladı.';
+  }
+  d.gemi.yer = 'kizak';
+  d.uzay = null;
+  d.sahne = 'kurtarma';
+  return { metin: '', imdat: true };
+}
+
 export function kenetlen(d) {
   // Yol üstü fenomen: gereçler tamsa gözlem operasyonu
   if (F.fenomenYakinMi(d) && d.uzay.hiz <= 1) {
@@ -330,8 +347,45 @@ export function kenetlen(d) {
     d.uzay.hiz = 0;
     return { metin: FENOMENLER[id].ad + '. Gözlem başlıyor.', op: O.opBaslat(d, id), id };
   }
+  // Dinamik yakıt: kenetlenince zincirleme rotanın yakıtı düşer (son kenetlendiğin halkadan hedefin halkasına).
+  // Yalnız ön tarama (kilitli) yakıt yakmaz; eve dönüşte eksik kalan yakıt çekiciyle tamamlanır.
+  const e0 = S.enYakin(d);
+  let ucret = 0;
+  if (e0 && d.uzay && d.gemi) {
+    const kg = ZN.kargo(d);
+    ucret = (d.karakollar || []).includes(e0.id) ? 0 : S.rotaYakiti(d, e0.id, kg.kapasite ? kg.hacim / kg.kapasite : 0);
+  }
   const r = S.kenetlen(d);
+  if (ucret > 0 && (r.inis || (r.id && !r.kilitli))) {
+    if (d.gemi.yakit < ucret && !r.inis) {
+      d.gemi.yakit = 0;
+      return acilImdat(d);
+    }
+    d.gemi.yakit = Math.max(0, d.gemi.yakit - ucret);
+    if (r.metin != null && !r.inis) r.metin += ' Rota yakıtı ' + String(ucret).replace('.', ',') + ' litre; tankta ' + Math.round(d.gemi.yakit) + ' litre.';
+  }
+  if (r.id && !r.kilitli && d.uzay) d.uzay.halka = S.halka(r.id);
+  // Otomatik ikmal karakolu: operasyonu bitmiş bir noktaya kurulur; uğrayınca ücretsiz yakıt ve gövde onarımı
+  if (r.id && (!r.kilitli || O.opTamamMi(d, r.id)) && d.gemi) {
+    if (!d.karakollar) d.karakollar = [];
+    if (d.karakollar.includes(r.id)) {
+      d.gemi.yakit = d.gemi.maxYakit;
+      d.gemi.govde = d.gemi.maxGovde;
+      r.metin = (r.metin || '') + ' İkmal karakolu: tank dolduruldu, gövde onarıldı.';
+    } else if (O.opTamamMi(d, r.id) && (d.koloni.parcalar.ikmal_karakolu || 0) > 0) {
+      d.koloni.parcalar.ikmal_karakolu -= 1;
+      d.karakollar.push(r.id);
+      d.gemi.yakit = d.gemi.maxYakit;
+      r.metin = (r.metin || '') + ' Buraya otomatik ikmal karakolu kuruldu; bundan sonra uğradıkça ücretsiz yakıt ve onarım.';
+    }
+  }
   if (r.inis) {
+    BN.seferHazirligiBitti(d);
+    // Biyo-karantina bölmesi: seferden dönen enfekte ya da lanetli mürettebat anında temizlenir (maruziyet ve kara aether laneti)
+    if (SV.sahip(d, 'bolme_a')) {
+      d.zehir = 0;
+      if ((d.koloni.kaynaklar.kara_aether || 0) > 4) d.koloni.kaynaklar.kara_aether = 4;
+    }
     G5.inisSonrasi(d);
     TR.seferBitti(d); // sentetik küp yorgunluğu, erzak etkilerinin sayaçları
     // Kolonide dinlenme: mürettebatın stresi silinir, sefer sayaçları sıfırlanır

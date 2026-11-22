@@ -66,6 +66,10 @@ describe('Eşya, zanaat ve mürettebat', () => {
     const d = hazir();
     const k = d.koloni.kaynaklar;
     Object.assign(k, { oksit_celik: 30, kizilkaya_titanyumu: 10, safran_kukurt: 2, izotop: 2, titanyum: 10, aether: 5 });
+    // v4: standart ekipman üste üretilir (Tonoflenya üssü ya da Aethelis'te dökümhane)
+    expect(ZN.uretimYeri(d, 'plazma_tufegi')).toBeTruthy();
+    d.bayrak.tonoflenyada = true;
+    expect(ZN.uretimYeri(d, 'plazma_tufegi')).toBe(null);
     expect(ZN.zanaatEt(d, 'plazma_tufegi').ses).toBe('red');
     ZN.zanaatEt(d, 'plazma_kartusu');
     expect(ZN.miktar(d, 'plazma_kartusu')).toBe(2);
@@ -125,7 +129,7 @@ describe('Eşya, zanaat ve mürettebat', () => {
     ZN.bakimYap(d);
     expect(d.gemi.govde).toBe(d.gemi.maxGovde);
     expect(d.para.gk).toBe(gk - 16);
-    ZN.krediBoz(d, 100);
+    ZN.krediBoz(d, 8); // v4 para düzeltmesi: 1 GK = 25 ML
     expect(d.para.ml).toBe(200);
     ZN.satinAl(d, 'uma_pazari', 'deri_astar');
     expect(ZN.miktar(d, 'deri_astar')).toBe(1);

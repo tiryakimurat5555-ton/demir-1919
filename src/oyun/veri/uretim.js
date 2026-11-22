@@ -115,6 +115,14 @@ TARIFLER.askeri_tersane.push(
   { id: 'super_alasim', ad: '500 nötron takviyeli süper alaşım plakası (Hisar şeması)', girdi: { notron_matris: 50, zirhli_plaka: 100 }, cikti: { super_alasim: 500 }, sure: 150, bayrak: 'sema_super' },
 );
 TARIFLER.dokumhane.push({ id: 'notron_matris', ad: '90 birim nötron-yoğun çelik ve kristal matris', girdi: { notron_cevher: 1, saf_kristal: 20 }, cikti: { notron_matris: 90 }, sure: 120 });
+// v4 25 bina belgesi 4.2: boşta kalan hammaddeler. Pyros lav orkidesi → termal lazer soğutucu (askeri tersane ve
+// dökümhane); Arin girdap reçinesi → sürtünmesiz itki yağlayıcısı (itki hangarı)
+PARCALAR.lazer_sogutucu = { ad: 'termal lazer soğutucu', tarif: 'Gemi ve kara lazerlerinin ısınmasını yüzde otuz azaltır.' };
+PARCALAR.itki_yaglayici = { ad: 'sürtünmesiz itki yağlayıcısı', tarif: 'Kaçınma manevrasını kolaylaştırır.' };
+TARIFLER.askeri_tersane.push({ id: 'lazer_sogutucu', ad: 'Termal lazer soğutucu', girdi: { lav_orkidesi: 2, helyum: 5 }, cikti: { lazer_sogutucu: 1 }, sure: 60 });
+TARIFLER.dokumhane.push({ id: 'lazer_sogutucu', ad: 'Termal lazer soğutucu', girdi: { lav_orkidesi: 2, helyum: 5 }, cikti: { lazer_sogutucu: 1 }, sure: 75 });
+TARIFLER.itki_hangari = TARIFLER.itki_hangari || [];
+TARIFLER.itki_hangari.push({ id: 'itki_yaglayici', ad: 'Sürtünmesiz itki yağlayıcısı', girdi: { girdap_recinesi: 3, polimer_levha: 5 }, cikti: { itki_yaglayici: 1 }, sure: 60 });
 TARIFLER.kuantum_lab = TARIFLER.kuantum_lab || [];
 TARIFLER.kuantum_lab.push(
   { id: 'kadim_disk', ad: '200 kadim kseno-kristal ve optik şifreleme diski (tapınak şeması)', girdi: { kseno: 2, saf_kristal: 20 }, cikti: { kadim_disk: 200 }, sure: 150, bayrak: 'sema_kadim' },

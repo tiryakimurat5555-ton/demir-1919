@@ -126,6 +126,11 @@ function bitir(d) {
   // Tekrarlanan seyir karşılaşmaları (sefer.js) tamamlanan operasyon sayılmaz; ödülleri o an belirlenir
   if (!o.tekrar && !o.final && !d.tamamlananOp.includes(id)) d.tamamlananOp.push(id);
   odulVer(d, o.odulFn ? o.odulFn(d) : o.odul || {});
+  // Gezegen numunesi ambara girer; akademinin Ar-Ge masasına teslim edilir (v4 25 bina belgesi 4.1)
+  if (o.gezegen) {
+    if (!d.numuneler) d.numuneler = [];
+    if (!d.numuneler.includes(id)) d.numuneler.push(id);
+  }
   if (d.gemi && d.gemi.moduller.toplama_dronu && !o.fenomen) {
     d.koloni.kaynaklar.titanyum = (d.koloni.kaynaklar.titanyum || 0) + 2;
     d.koloni.kaynaklar.bazalt = (d.koloni.kaynaklar.bazalt || 0) + 2;

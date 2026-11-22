@@ -171,6 +171,16 @@ export const SINIF_KATMANLARI = {
 };
 
 // Yüzey ve destek araçları (bölüm 3). maliyet: araç hangarında üretim girdisi (belgedeki miktarlar).
+// v4 gemiler-araclar-ve-filo-sistemi.txt bölüm 1-2: Sınıf I-III yüzeye iner ve dışarıda bir modüler alt kızak taşır;
+// Sınıf IV-V yörüngede kalır, iç hangarına birkaç araç ve Atmosphere-X alır. kisi: barındırdığı mürettebat.
+export const TASIMA = {
+  1: { yorunge: false, arac: 1, kisi: 2, ad: 'harici alt kızak (Akrep dronu)', yalniz: ['akrep'] },
+  2: { yorunge: false, arac: 1, kisi: 4, ad: 'harici alt kızak (Çöl Tilkisi ya da Akrep)', yalniz: ['col_tilkisi', 'akrep'] },
+  3: { yorunge: false, arac: 1, kisi: 8, ad: 'alt kızak (bir yüzey aracı ya da Atmosphere-X)' },
+  4: { yorunge: true, arac: 3, kisi: 16, ad: 'dahili araç hangarı (iki ağır araç ve bir Atmosphere-X)' },
+  5: { yorunge: true, arac: 7, kisi: 50, ad: 'uçuş güvertesi (dört araç, iki Atmosphere-X ve dron filosu)' },
+};
+
 export const ARACLAR = {
   col_tilkisi: {
     ad: 'Çöl Tilkisi',

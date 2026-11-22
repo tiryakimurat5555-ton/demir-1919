@@ -465,6 +465,7 @@ export const OPERASYONLAR = {
 };
 
 // --- Fenomen gözlemleri ve gezegen keşifleri (veri/gozlem.js) operasyon olarak ---
+import { kuleMenzili } from '../binalar';
 import { FENOMENLER, GEZEGENLER, GOZLEM_DONANIMLARI, INIS_ARACLARI } from './gozlem';
 const GEZEGEN_SALONU = { p03: 'biyoloji', p04: 'biyoloji', p12: 'biyoloji', p13: 'biyoloji', p19: 'biyoloji', p09: 'tarih', p17: 'tarih', p14: 'anomali', p18: 'anomali' };
 const OZEL_ADIM = {
@@ -489,6 +490,8 @@ for (const id of Object.keys(FENOMENLER)) {
   };
 }
 const gezNo = (id) => Number(id.slice(1));
+const modulVar = (d, id) => !!((d.gemi && d.gemi.moduller[id]) || (d.koloni.parcalar && (d.koloni.parcalar['mod_' + id] > 0 || d.koloni.parcalar[id] > 0)));
+export const gezHalka = (id) => { const n = gezNo(id); return n <= 6 ? 2 : n <= 12 ? 3 : n <= 18 ? 4 : 5; };
 for (const id of Object.keys(GEZEGENLER)) {
   const p = GEZEGENLER[id];
   const adimlar = [
@@ -519,6 +522,7 @@ for (const id of Object.keys(GEZEGENLER)) {
     tehlike: p.akustik,
     hedef: 'Yörüngeden spektrum ve fotoğraf; ' + p.poi1 + ' ve ' + p.poi2 + '; numune: ' + p.numuneAd + '.',
     gerekli: ['spektrometre', 'kamera', p.arac].map((k) => ({ katman: k, ad: (GOZLEM_DONANIMLARI[k] || INIS_ARACLARI[k]).ad })),
-    acKosul: (d) => !!d.gemi && d.koloni.binalar.includes('sinyal_kulesi') && !!(d.gemi.moduller.spektrometre || d.gemi.moduller.kamera || (d.filo || []).length) && (d.tamamlananOp || []).length >= Math.floor((gezNo(id) - 1) * 0.6),
+    // Dinleme kulesinin menzili halkayı açar (v4 25 bina belgesi, madde 21): halka 1-2 kule, 3 anten + çözücü, 4-5 komuta + arşivleyici
+    acKosul: (d) => !!d.gemi && kuleMenzili(d, modulVar) >= gezHalka(id) && !!(d.gemi.moduller.spektrometre || d.gemi.moduller.kamera || (d.filo || []).length) && (d.tamamlananOp || []).length >= Math.floor((gezNo(id) - 1) * 0.6),
   };
 }

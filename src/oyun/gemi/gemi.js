@@ -9,7 +9,7 @@
 // tersane iş gücü kısaltır). Platodaki rüzgâr parçayı sürükler, hamle sarsar (dunya.js firtinaIlerle).
 // Gemi içi: odalar arasında iki parmakla sağa-sola kaydırma, odada dokunma terminal, basılı tutma mürettebatla
 // konuşma (bölüm 5). Mürettebat odalara atanır (savas-yetenek-ve-murettebat 4.2).
-import { GEMI_SINIFLARI, SINIF_KATMANLARI } from '../veri/gemiler';
+import { ARACLAR, GEMI_SINIFLARI, SINIF_KATMANLARI, TASIMA } from '../veri/gemiler';
 import { PARCALAR } from '../veri/uretim';
 
 export { SINIF_KATMANLARI };
@@ -380,4 +380,25 @@ export function odaKonusmasi(d) {
   if (o.id === d.gemi.odalar[0])
     return ilk + ': "Telsiz açık, Kaptan. ' + (d.gemi.yer === 'uzay' ? 'Fenerleri dinliyorum; hangisine gideceğimizi söyle, rotayı sesten tutarız."' : 'Kalkışa hazırız; komut sende."');
   return ilk + ': "Kasa bağlı, ranza hazır, Kaptan. Numune alırsak buraya istiflerim."';
+}
+
+// Alt kızağa ya da hangara araç yükle (sırayla dener; sahip olunan araçlardan). Kara çatışmalarında gezegen yüzeyinde
+// ekibe eşlik eder (uzay/savas.js spec.gezegen).
+export function aracYukle(d) {
+  const g = d.gemi;
+  if (!g) return { metin: 'Gemi yok.', ses: 'red' };
+  const t = TASIMA[g.sinif];
+  const sahip = (d.araclar || []).filter((a) => !t.yalniz || t.yalniz.includes(a));
+  if (!sahip.length) return { metin: 'Bu gemiye yüklenebilecek bir yüzey aracın yok. ' + t.ad + '.', ses: 'red' };
+  if (!g.tasinan) g.tasinan = [];
+  // Tek yuvada sıradaki araca geç; hangarda sırayla ekle, dolunca boşalt
+  if (t.arac === 1) {
+    const i = sahip.indexOf(g.tasinan[0]);
+    g.tasinan = i + 1 < sahip.length ? [sahip[i + 1]] : [];
+  } else {
+    const sonraki = sahip.find((a) => !g.tasinan.includes(a));
+    if (sonraki && g.tasinan.length < t.arac) g.tasinan.push(sonraki);
+    else g.tasinan = [];
+  }
+  return { metin: t.ad[0].toUpperCase() + t.ad.slice(1) + ': ' + (g.tasinan.length ? g.tasinan.map((a) => ARACLAR[a].ad).join(', ') : 'boş') + '.', ses: 'zincir' };
 }

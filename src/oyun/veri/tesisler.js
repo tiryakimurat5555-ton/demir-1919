@@ -190,6 +190,13 @@ TESISLER.sera = {
 
 // Uzaydan gelen ırkların yapıları (gezegen-gelisimi-v2 bölüm 7; terraform.js IRK_YAPILARI). Uzay görevlerine bağlı.
 import { IRK_YAPILARI } from '../terraform';
+const opBitti = (d, id) => (d.tamamlananOp || []).includes(id);
+export const IRK_KOSULLARI = {
+  akademi: { kosul: (d) => opBitti(d, 'sektor15') && opBitti(d, 'xerad'), metin: 'Büyük operasyon Prometheus Derinliği (Sektör 15) ve Deney 07 tamamlanınca açılır.' },
+  kseno_habitat: { kosul: (d) => (opBitti(d, 'g13') || opBitti(d, 'g14')) && opBitti(d, 'moloz_kusagi'), metin: 'G-13 (Kithron) ya da G-14 (Vaelin) ile Kadim Genom (Moloz Kuşağı) tamamlanınca açılır.' },
+  multeci_kampusu: { kosul: (d) => opBitti(d, 'aethel9') && opBitti(d, 'tarras'), metin: 'Aethel-9 Gezegen Kuşatması ve Tarras Boğazı Donanma Mahşeri tamamlanınca açılır.' },
+  tina_cekirdegi: { kosul: (d) => opBitti(d, 'yanan_gemi') || !!d.bayrak.vaka6_tina, metin: 'Alevin Ruhu ve Yapay Bilinç Tina operasyonu tamamlanınca açılır.' },
+};
 for (const id of Object.keys(IRK_YAPILARI)) {
   const y = IRK_YAPILARI[id];
   TESISLER[id] = {
@@ -199,8 +206,9 @@ for (const id of Object.keys(IRK_YAPILARI)) {
     katki: 'Kademe 4 (Galaktik Başkent) için gerekir.',
     acar: 'Koloni nüfusuna yeni bir tür.',
     maliyet: y.maliyet,
-    kosul: (d) => y.bayraklar.every((b) => d.bayrak[b]),
-    kosulMetni: 'Bu yapı bir derin uzay görevinin sonucunu bekliyor (görevler sonraki sürümde).',
+    // v4 25 bina belgesi bölüm 3: kilitli dört bina mevcut büyük operasyonlara bağlandı
+    kosul: (d) => IRK_KOSULLARI[id].kosul(d),
+    kosulMetni: IRK_KOSULLARI[id].metin,
   };
 }
 

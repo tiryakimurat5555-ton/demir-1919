@@ -8,6 +8,7 @@
 //     - tersanedeki kaynak işi ilerler (tersane mühendisleri hızlandırır; gemi.js montajIlerle),
 //     - barınma yetiyorsa ve moral iyiyse nüfus doğal yoldan artar; barınma aşılırsa moral düşer.
 //   İş gücü: nüfus üç sektöre paylaştırılır (sanayi, tersane, bilim); kalanı boşta.
+import { rolCarpani } from './binalar';
 import { NOKTALAR } from './yuzey/harita';
 import { yildizCarpani } from './zaman';
 import * as SB from './tonoflenya/subay';
@@ -127,11 +128,18 @@ function ekle(d, ad, n) {
     d.koloni.parcalar[ad] = (d.koloni.parcalar[ad] || 0) + n;
   }
 }
+// Piezo kristali silikat kristaliyle aynı sensör ve rezonans grubunda: kristal yetmezse eksik piezodan düşer (v4 25 bina 4.2)
 export function harca(d, girdi) {
-  for (const k of Object.keys(girdi)) ekle(d, k, -girdi[k]);
+  for (const k of Object.keys(girdi)) {
+    if (k === 'kristal' && miktar(d, 'kristal') < girdi[k]) {
+      const eksik = girdi[k] - miktar(d, 'kristal');
+      ekle(d, 'kristal', -miktar(d, 'kristal'));
+      ekle(d, 'piezo', -eksik);
+    } else ekle(d, k, -girdi[k]);
+  }
 }
 export function yeterMi(d, girdi) {
-  return Object.keys(girdi).every((k) => miktar(d, k) >= girdi[k]);
+  return Object.keys(girdi).every((k) => miktar(d, k) + (k === 'kristal' ? miktar(d, 'piezo') : 0) >= girdi[k]);
 }
 export function adMetni(ad) {
   return HAMMADDELER[ad] ? HAMMADDELER[ad].ad : PARCALAR[ad] ? PARCALAR[ad].ad : ad;
@@ -160,7 +168,7 @@ export function uretimListesi(d) {
       else if (is) durum = 'Tesis meşgul.';
       else if (yeterMi(d, t.girdi)) durum = 'Üretilebilir. Girdi: ' + girdiMetni(t.girdi) + '.';
       else durum = 'Girdi: ' + girdiMetni(t.girdi) + '. Elinde: ' + Object.keys(t.girdi).map((k) => miktar(d, k) + ' ' + adMetni(k)).join(', ') + '.';
-      liste.push({ tesis, id: t.id, ad: t.ad, durum, yapilabilir: !is && yeterMi(d, t.girdi), surer: !!(is && is.tarif === t.id) });
+      liste.push({ tesis, id: t.id, ad: t.ad, cikti: t.cikti, durum, yapilabilir: !is && yeterMi(d, t.girdi), surer: !!(is && is.tarif === t.id) });
     }
   }
   return liste;
@@ -175,16 +183,39 @@ export function uretimBaslat(d, tesis, tarifId) {
   if (!yeterMi(d, t.girdi)) return { metin: 'Girdi yetmiyor: ' + girdiMetni(t.girdi) + '.', ses: 'red' };
   harca(d, t.girdi);
   // Vaelin topluluğu tokken metandan gaz yakıtı yüzde elli hızlı (tarim-ve-kseno-botanik bölüm 6)
-  const kalan = t.sure / uretimHizi(d) / yildizCarpani(d, 'uretim') / (t.girdi.metan && d.tarim && d.tarim.besli.vaelin ? 1.5 : 1);
+  const kalan = t.sure / uretimHizi(d) / yildizCarpani(d, 'uretim') / (t.girdi.metan && d.tarim && d.tarim.besli.vaelin ? 1.5 : 1) / rolCarpani(d, tesis); // evrensel bina rolü: topluluk ve nöbet
   d.koloni.uretimler.push({ tesis, tarif: t.id, kalan });
   return { metin: t.ad + ': iş başladı. Yaklaşık ' + Math.ceil(kalan) + ' saniye.', ses: 'dugme' };
 }
 
 // --- Zamanla ilerleme ---
+// Yedek filo boşta yatmaz: destek yuvasındaki dışındaki gemiler yakın sistemlerden maden ve hurda taşır
+// (gemiler-araclar-ve-filo-sistemi.txt bölüm 1). Sınıf başına: titanyum ve bazalt, Sınıf III ve üstü kristal de.
+export const FILO_SN = 300;
+export function filoGorevi(d, dt) {
+  const f = d.filo || [];
+  if (!f.length) return null;
+  d.filoSayac = (d.filoSayac || 0) + dt;
+  if (d.filoSayac < FILO_SN) return null;
+  d.filoSayac -= FILO_SN;
+  const k = d.koloni.kaynaklar;
+  let say = 0;
+  f.forEach((g, i) => {
+    if (i === (d.destekNo || 0) && f.length > 1) return; // destek gemisi savaşa hazır bekler
+    const sn = g.sinif || 1;
+    k.titanyum = (k.titanyum || 0) + sn;
+    k.bazalt = (k.bazalt || 0) + sn;
+    if (sn >= 3) k.kristal = (k.kristal || 0) + 1;
+    say++;
+  });
+  return say;
+}
+
 export function koloniIlerle(d, dt) {
   const olaylar = [];
   const k = d.koloni;
   const n = nufus(d);
+  filoGorevi(d, dt);
   // Yatakların yenilenmesi
   if (!d.yenilenme) d.yenilenme = {};
   // Aethel-9 madenci aileleri tokken grev olmaz, ocaklar daha hızlı (tarim-ve-kseno-botanik bölüm 6)

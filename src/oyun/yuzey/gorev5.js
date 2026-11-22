@@ -75,7 +75,7 @@ export const SAHNELER = {
     metin: (d) => [
       'Türbin öksürüp susuyor. Kıvılcım sessizce sürükleniyor; yalnız göstergelerin bip sesleri kalıyor.',
       ilkAd(d, 1) + ' acil durum feneri yakıyor. Saatler sonra koloniden fırlatılan bir yakıt kapsülü kenetleniyor; son damlalarla Aethelis-IV\'e dönebiliyorsun.',
-      'Kızaktasın. Tank boş: kalkmadan önce yakıt doldur.',
+      'Kızaktasın. Tank boş: kalkmadan önce yakıt doldur.' + (d.kurtarmaNotu ? ' ' + d.kurtarmaNotu : ''),
     ],
     secenekler: () => [{ etiket: 'Devam', sonra: null }],
   },

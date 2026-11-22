@@ -39,9 +39,13 @@ import { RENK, UST_BOSLUK } from '../arayuz/tema';
 import KonumsalSes from '../ses/konumsal';
 import { ALANLAR, KAPILAR, MEKANLAR, NOKTALAR } from '../oyun/yuzey/harita';
 import { monolitEtkisi } from '../oyun/yuzey/kesifler';
-import { FENOMENLER, ITIBAR_KADEMELERI } from '../oyun/veri/gozlem';
+import { FENOMENLER, GEZEGENLER, ITIBAR_KADEMELERI } from '../oyun/veri/gozlem';
 import { OPERASYONLAR } from '../oyun/veri/uzayGorevleri';
 import { DESTEK as SAVAS_DESTEK } from '../oyun/uzay/savas';
+import { binaMenu } from '../oyun/binalar';
+import { aracYukle } from '../oyun/gemi/gemi';
+import { degerCumlesi } from '../oyun/tonoflenya/zanaat';
+import { TESISLER } from '../oyun/veri/tesisler';
 import { harcanabilir, yetenekAc, yetenekListesi } from '../oyun/veri/yetenek';
 import { fenerBirak, cevreMetni, durumMetni, esyaMetni, etkiles, firtinaIlerle, maruziyetAdi, ilerle, kisiAdi, otoBaslat, radar, yerlerListesi, zehirIlerle } from '../oyun/yuzey/dunya';
 import {
@@ -897,7 +901,8 @@ export default function Yuzey({ onGeri, baslangic, yeniOyunUret }) {
       ogeler: [
         ...liste.map((t) => ({
           id: t.id,
-          etiket: t.ad + '. ' + t.durum,
+          // "Niye yapayım?" kuralı: çıktının ne işe yaradığı tek cümlede
+          etiket: t.ad + '. ' + Object.keys(t.cikti || {}).map((k) => degerCumlesi(k)).filter(Boolean).join(' ') + ' ' + t.durum,
           ipucu: t.tarif,
           sec: () => {
             if (t.kurulu || !t.acik) {
@@ -1555,6 +1560,7 @@ export default function Yuzey({ onGeri, baslangic, yeniOyunUret }) {
         ...ogeler,
         { id: 'istihdam', etiket: 'Subay istihdam et', ipucu: 'Boştaki bir kolonist gemi mürettebatına katılır.', sec: () => (istihdamGoster(), 'sessiz') },
         { id: 'yetenek', etiket: 'Kaptan yetenekleri', sec: () => (yetenekGoster(null, () => isGucuGoster()), 'sessiz') },
+        { id: 'binalar', etiket: 'Binalar, sefer hazırlığı ve Ar-Ge masası', sec: () => (agacGoster((x) => binaMenu(x, TESISLER, GEZEGENLER), () => isGucuGoster()), 'sessiz') },
         { id: 'terraform', etiket: 'Terraforming katmanları', sec: () => (terraformGoster(), 'sessiz') },
         { id: 'bolgeler', etiket: 'Bölge arındırma durumu', sec: () => (bolgeGoster(), 'sessiz') },
         {
@@ -1969,6 +1975,20 @@ export default function Yuzey({ onGeri, baslangic, yeniOyunUret }) {
             const x = SAVAS_DESTEK[g.sinif];
             kaydet();
             soyle('Destek yuvası: ' + g.ad + '. ' + (x ? x.ad + ': ' + x.tarif : ''), 'istek', true);
+            return 'sessiz';
+          },
+        });
+      if ((d.araclar || []).length)
+        ogeler.push({
+          id: 'tasima',
+          etiket: 'Alt kızak ya da hangar: araç yükle',
+          ipucu: 'Gezegen yüzeyindeki çatışmalarda araç ekibine eşlik eder.',
+          sec: () => {
+            const r = aracYukle(d);
+            kaydet();
+            if (r.ses === 'red') cal('red', 0.6);
+            else cal('zincir', 0.6);
+            soyle(r.metin, 'istek', true);
             return 'sessiz';
           },
         });

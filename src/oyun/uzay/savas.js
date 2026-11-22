@@ -24,6 +24,7 @@ import { kayitBul } from '../veri/seslendirme';
 import { uretec } from '../veri/murettebat';
 import { GEMI_SINIFLARI } from '../veri/gemiler';
 import * as SB from '../tonoflenya/subay';
+import { savasHazirligi } from '../binalar';
 
 // --- Ortak yardımcılar ---
 const kusan = (d, id) => !!(d.kusanilan && (d.kusanilan.silah === id || d.kusanilan.zirh === id));
@@ -48,6 +49,13 @@ function harca(d, id) {
   else return false;
   return true;
 }
+
+const sinifi = (d) => (d.gemi && d.gemi.sinif) || 1;
+const aethelisteMi = (d) => !(d.bayrak && d.bayrak.tonoflenyada);
+// Akademiye teslim edilen gezegen numunesi sayısı (25 bina belgesi 4.1)
+export const numuneSayisi = (d) => (d.numuneTeslim || []).length;
+// Lamine titanyum zırh takımı (montaj parçası) karada ekip zırhıdır
+const lamineVar = (d) => parca(d, 'mod_govde') > 0 || mod(d, 'govde');
 
 // Kayıtlanabilir tohumlu zar
 function zar(s) {
@@ -180,6 +188,7 @@ export const CEVRELER = {
   iyon_firtinasi: { ad: 'iyon fırtınası', soz: 'Çevrede iyon fırtınası: iticiler ara ara kilitlenebilir.' },
   isi: { ad: 'aşırı ısı alanı', soz: 'Kızgın bir alan: kalkan ve silahlar hızla ısınıyor.' },
   asit: { ad: 'asit yağmuru', soz: 'Asit yağmuru: zırh her tur biraz eriyor.' },
+  sarsinti: { ad: 'yer sarsıntısı', soz: 'Zemin titriyor: ara ara sarsıntı savurur. Sismik dengeleyici korur.', kara: true },
 };
 const IKINCIL = ['iyon', 'isi', 'zehir', 'pusucu', 'frekans'];
 
@@ -199,7 +208,10 @@ export function karsilasmaUret(d, baglam = {}) {
     havuz = ['korsan_avci', 'korsan_korvet'];
     if (k >= 2) havuz.push('agir_maden_korsani');
     if (k >= 3) havuz.push('dron_tasiyici');
-    if (k >= 3 || (k >= 2 && bina(d, 'sinyal_kulesi') && baglam.bolge === 'derin')) havuz.push('yabanci_firkateyn');
+    if (k >= 3 || (k >= 2 && bina(d, 'sinyal_kulesi') && baglam.bolge === 'derin')) {
+      havuz.push('yabanci_firkateyn');
+      if (parca(d, 'mod_burun') > 0 || mod(d, 'burun')) havuz.push('yabanci_firkateyn'); // kripto frekans anteni
+    }
   }
   const sec = (l) => l[Math.floor(r() * l.length)];
   const ana = sec(havuz);
@@ -249,6 +261,7 @@ export function yetenekler(d) {
   }
   // Boyutsal atlama sıçrayıcısı (final görevi 8): acil kaçış
   if (!kara(s) && d.bayrak.tf_sicrayici) l.push({ id: 'atlama', ad: 'Boyutsal Atlama Sıçrayıcısı', sahip: 'Gemi', bekleme: 6 });
+  if (kara(s) && s.arac === 'atmosphere_x') l.push({ id: 'gumus', ad: 'Atmosphere-X taktik tahliyesi', sahip: 'Mekik', bekleme: 5 });
   if (d.bayrak.yan_protokol) l.push({ id: 'atlama', ad: 'Magentor Acil Işınlanma Protokolü', sahip: kara(s) ? 'Kaptan' : 'Gemi', bekleme: 8 });
   for (const x of SARF) if (sahip(d, x.id) && (esya(d, x.id) > 0 || parca(d, x.id) > 0 || (d.koloni.kaynaklar[x.id] || 0) > 0)) l.push({ id: 'sarf_' + x.id, ad: x.ad + ' (' + (esya(d, x.id) || parca(d, x.id) || d.koloni.kaynaklar[x.id]) + ')', sahip: 'Sarf', bekleme: 1, sarf: x.id });
   return l;
@@ -280,7 +293,8 @@ function sarfKullan(d, id, o) {
     }
   } else if (id === 'sonik_kovucu') {
     const yard = s.dusmanlar.filter((x) => x.kucuk && x.govde > 0);
-    if (!yard.length) o.push({ soz: 'Sonik kovucu uğulduyor ama çağrılmış birim yok.' });
+    for (const x of etkin(s)) if (kara(s) && DUSMANLAR[x.tur].arketip === 'akinci') x.donma = Math.max(x.donma || 0, 1);
+    if (!yard.length) o.push({ soz: kara(s) ? 'Sonik kovucu uğulduyor; akıncılar bir tur sersem.' : 'Sonik kovucu uğulduyor ama çağrılmış birim yok.' });
     else if (kara(s)) {
       for (const x of yard) x.govde = 0;
       o.push({ ses: 'sonar', soz: 'Sonik kovucu sürüyü dağıttı.' });
@@ -401,7 +415,7 @@ function enYuksekStres(d) {
 function stresEkle(d, x) {
   const s = d.savas;
   if (kusan(d, 'bas_buyucu_cubbesi') && x > 0) return;
-  let k = x * (bina(d, 'biyo_kubbe') ? 0.7 : 1) * (sahip(d, 'iklim_kubbesi') ? 0.7 : 1);
+  let k = x * (bina(d, 'biyo_kubbe') ? 0.7 : 1) * (sahip(d, 'iklim_kubbesi') ? 0.7 : 1) * (d.hazirlik && d.hazirlik.ilac ? 0.5 : 1);
   if (kara(s)) {
     if (s.sistem.kask > 0) k *= 2; // kask hasarlı: solunum bozuk, stres hızlanır
     s.stres = Math.min(100, (s.stres || 0) + k);
@@ -504,12 +518,21 @@ export function savasBaslat(d, spec) {
   d.savas = s;
   // Karada ekibin zırh bütünlüğü: kademe, kuşanılan zırh ve yüzey aracı
   if (ortam === 'kara') {
+    // Zırh katkıları (v4 eşya belgesi): oksit +350, lamine takım +200, termal giysi +150, kemik-alaşım +120, cıva +95 (binde)
     let m = 100 * (1 + 0.5 * (oyuncuKademesi(d) - 1));
-    if (kusan(d, 'oksit_zirhi')) m *= 1.35;
-    if (d.arac === 'mammoth') m *= 1.5;
+    let ek = 0;
+    if (kusan(d, 'oksit_zirhi')) ek += 0.35;
+    if (lamineVar(d)) ek += 0.2;
+    if (sahip(d, 'termal_giysi')) ek += 0.15;
+    if (kusan(d, 'kemik_zirh')) ek += 0.12;
+    if (kusan(d, 'civa_plakasi')) ek += 0.095;
+    m *= 1 + ek;
+    // Gezegen yüzeyinde geminin alt kızağındaki ya da hangarındaki araç eşlik eder; Aethelis'te bindiğin araç
+    const tas = spec.gezegen && d.gemi && d.gemi.tasinan && d.gemi.tasinan.length ? d.gemi.tasinan[0] : null;
+    s.arac = tas || d.arac || ((d.araclar || []).includes('akrep') ? 'akrep' : null);
+    if (s.arac === 'mammoth') m *= 1.5;
     s.maxCan = Math.round(m);
     s.can = s.maxCan;
-    s.arac = d.arac || null;
   }
   const n = spec.dusmanlar.length;
   spec.dusmanlar.forEach((tur, i) => {
@@ -526,6 +549,14 @@ export function savasBaslat(d, spec) {
     s.sonraki = 9;
   }
   if (s.gelis === 'tuzak') s.tuzak = true;
+  // Evrensel bina sistemi: sefer öncesi yapılan hazırlıklar bu çatışmada harcanır
+  const hz = savasHazirligi(d);
+  if (hz.tarama) s.taramaEk = 0.5;
+  if (hz.ziyafet) s.ziyafet = 2;
+  if (hz.istihbarat && !s.sizma) {
+    s.sizma = true;
+    s.sonraki = Math.max(s.sonraki, 9);
+  }
   hedefSec(s);
   const h0 = s.dusmanlar[0];
   // Kahergonat gizli geçit haritası: zırhlılar hazırlıksız yakalanır
@@ -571,6 +602,7 @@ function kilitPayi(d, h) {
   if (kara(s) && s.arac === 'col_tilkisi') p *= 1.2;
   if (enYuksekStres(d) >= 100) p *= 0.6; // zihin paraziti: isabet bozulur
   if (h && h.kilitCarpani) p *= h.kilitCarpani;
+  if (s.isaret > 0) p *= 1.3;
   return p;
 }
 export function kilitliMi(d) {
@@ -595,14 +627,25 @@ function dusmanaHasar(d, x, olaylar, tur, hedef) {
     if (kusan(d, 'plazma_tufegi')) h *= 1.8;
     else if (kusan(d, 'kara_buz_hancer')) {
       h *= 1.2;
-      dm.donma = dm.moduller.includes('isi') ? 3 : 2;
+      // Karada iki tur dondurur; uzayda hedefin bir sonraki uyarı penceresini yarım saniye yavaşlatır
+      if (kara(s)) dm.donma = dm.moduller.includes('isi') ? 3 : 2;
+      else if (dm.moduller.includes('isi')) dm.donma = 2;
+      else s.yavas = 0.5;
     } else if (kusan(d, 'isik_mizragi')) h *= 2.4 * (dm.karanlik ? 2 : 1);
     else if (kusan(d, 'tyzrakhel_mizragi')) h *= 2.6 * (dm.karanlik ? 2 : 1);
     else if (kusan(d, 'golge_yayici')) s.dusmanMoral = true;
     else if (kusan(d, 'onur_kilici')) h *= 2 * (dm.karanlik ? 1.5 : 1);
     else if (kusan(d, 'haydut_tabancasi')) h *= 1.5;
+    else if (kusan(d, 'sonik_tufek')) h *= 1.8;
+    else if (kusan(d, 'geometrik_namlu')) h *= 2.4;
     if (kara(s) && s.arac === 'mammoth') h *= 1.3;
+    if (numuneSayisi(d) >= 10) h *= 1.1; // akademi: on numune
+    // Hisar-ı Kadim'in ağır bataryaları çoklu düşmana eşzamanlı vurur
   }
+  if (!kara(s) && bina(d, 'askeri_tersane')) h *= 1.15; // askeri tersane: gemi silah hasarı
+  if (tur === 'torpido' && (sahip(d, 'plazma_pencesi'))) h *= 1.5; // T-07 bordalama pençesi
+  // Rüzgarkıran'ın madencilik lazerleri zırhı eritir
+  if (!kara(s) && sinifi(d) === 2 && DUSMANLAR[dm.tur].arketip === 'zirhli') h *= 1.25;
   if (!kara(s) && mod(d, 'varek_bataryasi')) h *= 1.18; // yan görev 4
   // Yan görev ödülleri: cam akrebi zehri (asit kaplama), Deli Simyacı Malakor (torpido yarıçapı)
   if (tur === 'torpido' && esya(d, 'akrep_zehri') > 0) {
@@ -628,7 +671,7 @@ function dusmanaHasar(d, x, olaylar, tur, hedef) {
     if (frekansli) {
       const yari = (!kara(s) && mod(d, 'k3_plazma_bobini')) || (kara(s) && s.arac === 'mammoth');
       h *= yari ? 0.65 : 0.3;
-    } else h *= 1 - dm.kalkan * (tur === 'torpido' ? 0.5 : 1) * (tur === 'birincil' && kusan(d, 'plazma_tufegi') ? 0.85 : 1);
+    } else h *= 1 - dm.kalkan * (tur === 'torpido' ? 0.5 : 1) * (tur === 'birincil' && kusan(d, 'plazma_tufegi') ? 0.85 : 1) * (kara(s) && bina(d, 'askeri_tersane') ? 0.85 : 1);
   }
   // Karanlık: kinetik ve plazma atışlara yüzde elli direnç (ışık ve aether hariç)
   if (dm.karanlik && !isikliMi(d, tur)) h *= 0.5;
@@ -649,6 +692,7 @@ function dusmanaHasar(d, x, olaylar, tur, hedef) {
   }
   if (tur === 'kizil') h *= 1.5;
   if (s.odak > 0) h *= 2;
+  if (s.ziyafet > 0) h *= 1.15;
   // Yıldız Zamanı sinerjisi (gizli): Varek nöbetinde termal ve plazma, Elyndra nöbetinde aether ve ışık silahları güçlü
   const y = d.zaman ? nobet(d).yildiz : null;
   if (y === 'Varek' && (tur === 'kizil' || kusan(d, 'plazma_tufegi'))) h *= 1.1;
@@ -664,10 +708,10 @@ function dusmanaHasar(d, x, olaylar, tur, hedef) {
   if (d.bayrak.tf_astral) h *= 1.15;
   if (!kara(s) && mod(d, 'efsanevi_reaktor')) h *= 1.25;
   // Varek: kritik vuruş; Kızıl baskın (Kırmızı 4. kademe): ilk isabet kritik
-  const kb = esya(d, 'kara_buz_parcasi') > 0 ? 0.15 : 0; // saf kara buz cephane kaplaması
+  const kb = (esya(d, 'kara_buz_parcasi') > 0 ? 0.15 : 0) + (sahip(d, 'sogut_nisangahi') ? 0.3 : 0); // kara buz kaplaması, T-08 söğüt nişangâhı
   if ((SB.kritikIhtimal(d) + kb && zar(s) < SB.kritikIhtimal(d) + kb) || (SB.kabiliyet(d, 'varek', 4) && !s.ilkIsabet)) {
     h *= 2;
-    if (kb) d.esya.kara_buz_parcasi -= 1;
+    if (esya(d, 'kara_buz_parcasi') > 0) d.esya.kara_buz_parcasi -= 1;
     olaylar.push({ soz: 'Kritik vuruş!' });
   }
   s.ilkIsabet = true;
@@ -684,6 +728,10 @@ function dusmanaHasar(d, x, olaylar, tur, hedef) {
   h *= E.verilenHasarCarpani(d); // prizmatik odaklama lensi
   dm.govde = Math.max(0, dm.govde - Math.round(h));
   olaylar.push({ ses: 'patlama', hasar: true });
+  // Hisar-ı Kadim'in bataryaları yan birimlere de yarım vurur
+  if (tur === 'birincil' && !kara(s) && sinifi(d) === 5) for (const x of etkin(s)) if (x !== dm) x.govde = Math.max(0, x.govde - Math.round(h * 0.5));
+  // T-06 geometrik namlu gözetmeni (Ignador): her isabette kalkan yeniler
+  if (tur === 'birincil' && kusan(d, 'geometrik_namlu') && d.gozetmen && d.gozetmen.ignador) s.isi = Math.max(0, s.isi - 10);
   // Gölge yayıcının alevi yan birimleri de yakar
   if (tur === 'birincil' && kusan(d, 'golge_yayici')) for (const x of etkin(s)) if (x !== dm && x.kucuk) x.govde = Math.max(0, x.govde - Math.round(h * 0.5));
   // EMP şok dalga topu: torpido isabeti düşmanın sistemini bir tur kilitler
@@ -797,6 +845,10 @@ function bitir(d, sonuc, olaylar) {
       for (const k of Object.keys(g)) pay[k] = (pay[k] || 0) + Math.round(g[k] * kat(x.tier) * oran);
     }
     if (sonuc === 'ateskes' && !Object.keys(pay).length) for (const k of Object.keys(DUSMANLAR[ana.tur].ganimet || {})) pay[k] = Math.round(DUSMANLAR[ana.tur].ganimet[k] / 2);
+    // Rüzgarkıran destek gemisi enkazdan metal ve kristali yüzde otuz beş fazla toplar; Akrep ganimeti otomatik toplar;
+    // T-07 plazma pençesi enkazdan yüzde elli fazla hurda
+    const ganimetKat = (!kara(s) && destekSinifi(d) === 2 ? 1.35 : 1) * (s.arac === 'akrep' || (d.araclar || []).includes('akrep') ? 1.2 : 1);
+    for (const k of Object.keys(pay)) pay[k] = Math.round(pay[k] * ganimetKat * (sahip(d, 'plazma_pencesi') && ['sasi_celigi', 'plaka', 'zirhli_plaka'].includes(k) ? 1.5 : 1));
     for (const k of Object.keys(pay)) if (pay[k] > 0) {
       if (d.koloni.kaynaklar[k] != null) d.koloni.kaynaklar[k] += pay[k];
       else d.koloni.parcalar[k] = (d.koloni.parcalar[k] || 0) + pay[k];
@@ -826,9 +878,14 @@ function bitir(d, sonuc, olaylar) {
     if (E.etkiVar(d, 'kriyo')) {
       d.seferEtki.kriyo = 0;
       d.savasSon.kriyo = true;
-    } else SB.moralKaybi(d, 5); // yenilgi kolonide yas (Axira yarıya indirir)
+    } else if (bina(d, 'kseno_eczane') || (d.hazirlik && d.hazirlik.ilac)) d.savasSon.eczane = true; // eczane ya da tedavi iğneleri: kayıp yok
+    else SB.moralKaybi(d, 5); // yenilgi kolonide yas (Axira yarıya indirir)
     d.sahne = 'savas_son';
   }
+  // Bölge hastanesi: savaş sonrası yaralanma ve travma cezaları temizlenir
+  if (bina(d, 'hastane')) for (const u of d.murettebat) u.stres = 0;
+  // Uzayda sert kaçış manevrası ek yakıt yakar (dinamik yakıt belgesi bölüm 1 adım 3)
+  if (sonuc === 'kacis' && !kara(s) && d.gemi) d.gemi.yakit = Math.max(0, d.gemi.yakit - 4);
   // Doku rejenerasyon merhemi: revirde yaralılar iyileşir, stres yarıya
   if (E.etkiVar(d, 'merhem')) for (const u of d.murettebat) u.stres = Math.round((u.stres || 0) / 2);
   // Final görevlerindeki çatışma: zaferde görevin sonraki sahnesi
@@ -854,7 +911,8 @@ export function savasGirdi(d, g) {
   }
   if (g.tur === 'dondur') {
     s.silahFrek = Math.max(0, Math.min(120, s.silahFrek + g.f * 7));
-    if (!dm.delik && Math.abs(s.silahFrek - dm.kalkanFrek) < (SB.kabiliyet(d, 'sinha', 4) ? 6 : 3)) {
+    const tol = (SB.kabiliyet(d, 'sinha', 4) ? 6 : 3) * (bina(d, 'kuantum_lab') ? 1.5 : 1) + (!kara(s) && destekSinifi(d) === 3 ? 2 : 0);
+    if (!dm.delik && Math.abs(s.silahFrek - dm.kalkanFrek) < tol) {
       dm.delik = true;
       return [{ soz: 'Silah frekansı ' + (kara(s) ? 'zırhın tonuyla' : 'kalkanla') + ' eşleşti; ' + (kara(s) ? 'zırh' : 'kalkan') + ' delinebilir.', ses: 'sinyal' }];
     }
@@ -934,7 +992,7 @@ export function savasGirdi(d, g) {
     if (!kilitliMi(d)) return [{ soz: ad + ' için tam kilit gerekir.', ses: 'red' }];
     // Ağır saldırı iki turda dolar; B-1 salvo senkronizasyonu birincil ateşin ardından şarjsız ateşler
     if ((s.torpidoBekle || 0) > 0 && !(yet(d, 'B1') && s.sonEylem === 'birincil')) return [{ soz: kara(s) ? 'Ağır silah henüz dolmadı.' : 'Torpido tüpü henüz dolmadı.', ses: 'red' }];
-    s.torpidoBekle = 2;
+    s.torpidoBekle = !kara(s) && sinifi(d) >= 4 && bina(d, 'yuksek_reaktor') ? 1 : 2;
     s.sonEylem = 'torpido';
     s.eylem = true;
     o.push({ ses: 'hidrolik' });
@@ -981,8 +1039,22 @@ function pencere(d, x, silah) {
   let p = (x.pencere || T.pencere) * SILAHLAR[silah].p * (0.9 + zar(s) * 0.2);
   if (DUSMANLAR[x.tur].arketip === 'akinci') p -= 0.5;
   p += (yet(d, 'A3') ? 1 : 0) + (!kara(s) && mod(d, 'k2_soguk_nozul') ? 0.6 : 0) + E.uyariEki(d, s) + (SB.kabiliyet(d, 'varek', 2) ? 0.5 : 0);
-  if (kara(s) && s.arac === 'col_tilkisi') p += 0.6;
+  if (kara(s) && s.arac === 'col_tilkisi') p += 0.5;
+  if (bina(d, 'tina_cekirdegi')) p += 0.3; // Tina nöral çekirdeği
+  if (!kara(s)) {
+    if (bina(d, 'itki_hangari')) p += 0.2; // itki hangarı: kaçınma manevrası
+    if (sahip(d, 'itki_yaglayici')) p += 0.3; // Arin girdap reçinesinden sürtünmesiz itki yağlayıcısı
+    p += { 1: 0.3, 2: -0.1, 3: 0, 4: -0.3, 5: 0 }[sinifi(d)]; // gemi sınıfının çevikliği
+  }
+  if (s.isaret > 0) p += 0.4; // Kıvılcım destek gemisi düşmanı işaretledi
+  if (s.yavas) {
+    p += s.yavas;
+    s.yavas = 0;
+  }
   if (s.taktik && s.raunt === 0) p += 0.5;
+  if (s.taramaEk && s.raunt === 0) p += s.taramaEk;
+  if (s.ziyafet > 0) p += 1;
+  if (!kara(s) && d.hazirlik && d.hazirlik.kalibrasyon) p += 0.3;
   // Sinha nöbetinde akustik ve kaçınma ekipmanları biraz daha net duyulur
   if (d.zaman && nobet(d).yildiz === 'Sinha' && (sahip(d, 'sinha_sonari') || s.arac === 'col_tilkisi' || sahip(d, 'parazit_sensoru'))) p += 0.2;
   if (enYuksekStres(d) >= 100) p *= 0.8;
@@ -1037,6 +1109,7 @@ function turSonu(d, o) {
   if (s.odak > 0) s.odak -= 1;
   if (s.silahYok > 0) s.silahYok -= 1;
   if (s.bagisiklik > 0) s.bagisiklik -= 1;
+  if (s.ziyafet > 0) s.ziyafet -= 1;
   // Arızalar tur geçtikçe onarılır (başçarkçı hızlandırır; soğukkanlı panik yapmaz)
   const carkci = gorevli(d, 'Başçarkçı');
   for (const k of Object.keys(s.sistem)) if (s.sistem[k] > 0) s.sistem[k] = Math.max(0, s.sistem[k] - (carkci ? (carkci.nitelik === 'sogukkanli' ? 2 : 1.5) : 1));
@@ -1047,7 +1120,12 @@ function turSonu(d, o) {
     canEkle(d, -h);
     o.push({ soz: 'Asit zırhı eritiyor.', hasar: true });
   }
-  if (s.cevre === 'asit' && !s.bagisiklik && zar(s) < 0.5) s.zehir = Math.max(s.zehir, 1);
+  if (s.cevre === 'asit' && !s.bagisiklik && !sahip(d, 'notralizasyon_kulesi') && zar(s) < 0.5) s.zehir = Math.max(s.zehir, 1);
+  // Yer sarsıntısı: sismik dengeleyici ve Mammoth korur
+  if (s.cevre === 'sarsinti' && !sahip(d, 'sismik_dengeleyici') && s.arac !== 'mammoth' && zar(s) < 0.4) {
+    canEkle(d, -Math.round(6 * TEHDIT[s.dusman.tier].hasar));
+    o.push({ soz: 'Zemin sarsılıyor; ekip savruldu.', hasar: true });
+  }
   if (s.cevre === 'iyon_firtinasi' && zar(s) < 0.3 && !harcaTopraklama(d)) {
     s.sistem.itici = Math.max(s.sistem.itici, 1);
     o.push({ soz: 'İyon fırtınası iticileri bir tur kilitledi.' });
@@ -1093,7 +1171,14 @@ function turSonu(d, o) {
   if (s.sersem) s.sersem -= 1;
 }
 function isiCarpani(d) {
-  return sahip(d, 'termal_giysi') || mod(d, 'termal_karartma') ? 0.5 : 1;
+  const s = d.savas;
+  let c = sahip(d, 'termal_giysi') || mod(d, 'termal_karartma') ? 0.5 : 1;
+  if (bina(d, 'kriyo_atolye')) c *= 0.75; // kriyo-atölye
+  if (sahip(d, 'lazer_sogutucu')) c *= 0.7; // Pyros lav orkidesi termal lazer soğutucusu
+  if (kara(s) && aethelisteMi(d) && bina(d, 'jeotermal_santral')) c *= 0.5; // jeotermal santralin termal kalkanı
+  if (kara(s) && s.arac === 'demir_kervan') c = 0; // Demir Kervan mobil siper
+  if (!kara(s) && sinifi(d) === 5 && (E.etkiVar(d, 'super_iletken') || sahip(d, 'super_iletken'))) c = 0; // Hisar süper-soğutma
+  return c;
 }
 function harcaTopraklama(d) {
   if (parca(d, 'topraklama_cubugu') > 0) {
@@ -1103,13 +1188,18 @@ function harcaTopraklama(d) {
   return mod(d, 'iyon_paratoner') || kusan(d, 'paratoner_zirhi');
 }
 // Filo destek yuvası: seçilen yedek geminin sınıfına göre her üç turda bir katkı
+// (gemiler-araclar-ve-filo-sistemi.txt bölüm 2)
 export const DESTEK = {
-  1: { ad: 'Kıvılcım iz sürücü', tarif: 'Kilit toleransı yüzde otuz geniş.' },
-  2: { ad: 'Rüzgarkıran yan ateşi', tarif: 'Üç turda bir hedefin kalkanını bir tur deler.' },
-  3: { ad: 'Aethel Muhafızı kalkan şemsiyesi', tarif: 'Alınan hasar yüzde on beş az.' },
-  4: { ad: 'Gökdelen lojistik onarımı', tarif: 'Üç turda bir gövdenin yüzde sekizi onarılır.' },
-  5: { ad: 'Hisar-ı Kadim yaylımı', tarif: 'Üç turda bir yan birimleri süpürür, ötekilere hasar.' },
+  1: { ad: 'Kıvılcım işaretçisi', tarif: 'Üç turda bir düşmanı işaretler: kilit ve kaçınma penceresi 0,4 saniye uzar.' },
+  2: { ad: 'Rüzgarkıran enkaz toplayıcısı', tarif: 'Zaferde metal ve kristal ganimeti yüzde otuz beş fazla.' },
+  3: { ad: 'Aethel Muhafızı kalkan desteği', tarif: 'Üç turda bir kalkan enerjisini yüzde yirmi beş yeniler; frekans eşleme kolaylaşır.' },
+  4: { ad: 'Gökdelen lojistik onarımı', tarif: 'Üç turda bir gövdenin yüzde onu onarılır, cephane ikmal edilir.' },
+  5: { ad: 'Hisar-ı Kadim yaylımı', tarif: 'Üç turda bir ağır plazma yaylımı: hedefin kalkanı kırılır, yüksek gövde hasarı, yan birimler süpürülür.' },
 };
+function destekSinifi(d) {
+  const g = destekGemisi(d);
+  return g ? g.sinif : 0;
+}
 export function destekGemisi(d) {
   const f = d.filo || [];
   if (!f.length) return null;
@@ -1126,24 +1216,48 @@ function destekTuru(d, o) {
         o.push({ soz: 'Akrep dronu bir ' + y.ad + ' birimini avladı.' });
       }
     }
+    // Mammoth: iki turda bir matkapla zırh kırıcı ağır darbe (frekans ve zırhlı düşmana iki kat)
+    if (s.arac === 'mammoth' && s.raunt % 2 === 0 && s.dusman && s.dusman.govde > 0) {
+      const z = s.dusman.moduller.includes('frekans') || DUSMANLAR[s.dusman.tur].arketip === 'zirhli';
+      s.dusman.govde = Math.max(0, s.dusman.govde - Math.round(15 * oyuncuGucu(d, s) * (z ? 2 : 1)));
+      o.push({ soz: 'Mammoth matkabı ' + s.dusman.ad + ' zırhına saplandı!', ses: 'hidrolik' });
+    }
+    // Demir Kervan: savaş arasında ilaç ve cephane ikmali
+    if (s.arac === 'demir_kervan' && s.raunt % 3 === 0) {
+      canEkle(d, Math.round(canMax(d) * 0.05));
+      o.push({ soz: 'Demir Kervan\'dan ikmal: zırh yamandı.' });
+    }
+    // Atmosphere-X: üç turda bir havadan çağrılan birimleri tarar
+    if (s.arac === 'atmosphere_x' && s.raunt % 3 === 0) {
+      const l = etkin(s).filter((x) => x.kucuk);
+      for (const x of l) x.govde = 0;
+      if (l.length) o.push({ soz: 'Atmosphere-X havadan taradı: ' + l.length + ' birim düştü.', ses: 'patlama' });
+    }
     return;
   }
+  if (s.isaret > 0) s.isaret -= 1;
   const g = destekGemisi(d);
   if (!g || s.raunt % 3 !== 0) return;
   const h = s.dusman;
-  if (g.sinif === 2 && h) {
+  if (g.sinif === 1) {
+    s.isaret = 1;
+    o.push({ soz: g.ad + ' düşmanı işaretledi.' });
+  } else if (g.sinif === 3) {
+    s.isi = Math.max(0, s.isi - 25);
+    if (s.sistem.kalkan > 0) s.sistem.kalkan -= 1;
+    o.push({ soz: g.ad + ' kalkan enerjisini yeniledi.' });
+  } else if (g.sinif === 4) {
+    canEkle(d, Math.round(canMax(d) * 0.1));
+    s.torpidoBekle = 0;
+    o.push({ soz: g.ad + ' lojistik ekibi gövdeyi yamadı, cephane ikmal edildi.' });
+  } else if (g.sinif === 5 && h) {
     h.delik = true;
     h.kalkanKilit = Math.max(h.kalkanKilit || 0, 1);
-    o.push({ soz: g.ad + ' yan ateş açtı: ' + h.ad + ' kalkanı bir tur delik.' });
-  } else if (g.sinif === 4) {
-    canEkle(d, Math.round(canMax(d) * 0.08));
-    o.push({ soz: g.ad + ' lojistik ekibi gövdeyi yamadı.' });
-  } else if (g.sinif === 5) {
     for (const x of etkin(s)) {
       if (x.kucuk) x.govde = 0;
-      else x.govde = Math.max(1, x.govde - Math.round(x.max * 0.08));
+      else if (x === h) x.govde = Math.max(1, x.govde - Math.round(x.max * 0.15));
     }
-    o.push({ soz: g.ad + ' yaylım ateşi açtı.', ses: 'patlama' });
+    o.push({ soz: g.ad + ' ağır plazma yaylımı açtı: ' + h.ad + ' kalkanı kırıldı.', ses: 'patlama' });
   }
 }
 
@@ -1208,18 +1322,50 @@ function darbe(d) {
     if (d.bayrak.tf_obsidyen && u.silah !== 'iyon') h *= 0.8; // Malazar obsidyen kaplaması: kinetik direnç
     const dg = destekGemisi(d);
     if (dg && dg.sinif === 3) h *= 0.85;
+    if (kusan(d, 'oksit_zirhi') && u.silah === 'torpido') h *= 0.9; // oksit zırhı: torpido direnci
+    if (sinifi(d) === 2) h *= 0.9; // Rüzgarkıran'ın kalın gövdesi
+    if (sinifi(d) === 1) h *= 0.85; // Kıvılcım küçük hedeftir
+    if (kalkanli && sinifi(d) === 5) h *= 0.6; // üç katmanlı kalkan
+    if (kalkanli && numuneSayisi(d) >= 5) h *= 0.9; // akademi: beş numune
   } else {
     if (kusan(d, 'oksit_zirhi')) h *= 0.85;
     if (s.arac === 'mammoth') h *= 0.6;
     if (refakatciAnahtari(d)) h *= 0.9;
+    // Koloni kalkan jeneratörü: Aethelis baskınlarında ilk darbe yarıya
+    if (aethelisteMi(d) && bina(d, 'koloni_kalkani') && !s.ilkDarbe) h *= 0.5;
+  }
+  s.ilkDarbe = true;
+  // T-02 akışkan cıva plakası: lazer ve plazmaya direnç (gözetmeni Oronte yansıtır)
+  if (kusan(d, 'civa_plakasi') && ['plazma', 'lazer', 'agir_plazma', 'isi_dalgasi'].includes(u.silah)) {
+    h *= 0.6;
+    if (d.gozetmen && d.gozetmen.oronte) x.govde = Math.max(1, x.govde - Math.round(h * 0.2));
+  }
+  if (kusan(d, 'kemik_zirh') && u.silah === 'agir_plazma') h *= 0.75; // delici direnç
+  // Galaktik Kâşif: Tonoflenya ve Alt Evren düşmanlarına karşı direnç
+  if (numuneSayisi(d) >= 20 && (x.karanlik || x.tier >= 4)) h *= 0.85;
+  // T-01 kemik-alaşım zırhı: can yüzde otuzun altına inince hasar almadığın turlar (karada iki, uzayda bir)
+  if (s.kemik > 0) {
+    s.kemik -= 1;
+    h = 0;
   }
   if (yet(d, 'C1')) h *= 0.9;
   if (kusan(d, 'drahmir_kalkani')) h *= 0.85;
   if (ozelVar(d, 'Gareth')) h *= 0.87;
   if (d.yan && d.yan.hardrinBariyer > 0) h *= 0.5;
   if (sil.ozel === 'isi') h *= isiCarpani(d);
+  // Akrep dronu bir kez sahte ses yayıp atışı şaşırtır
+  if (!kalkanli && s.arac === 'akrep' && !s.akrepSahte && kara(s)) {
+    s.akrepSahte = true;
+    h = 0;
+    o.push({ soz: 'Akrep dronu sahte bir ses yaydı; atış onu vurdu.', ses: 'tislama' });
+  }
   h *= E.alinanHasarCarpani(d) * yildizCarpani(d, 'hasar'); // Kaelith kalkan kristali, zaman-kristal koruyucu tabakası
   canEkle(d, -Math.round(h));
+  if (kusan(d, 'kemik_zirh') && !s.kemikKullanildi && canAl(d) > 0 && canAl(d) < canMax(d) * 0.3) {
+    s.kemikKullanildi = true;
+    s.kemik = kara(s) ? 2 : 1;
+    o.push({ soz: 'Kemik-alaşım zırhı kilitlendi: ' + (kara(s) ? 'iki tur' : 'bir tur') + ' hasar işlemez.', ses: 'el_kalkan' });
+  }
   // Karanlık saldırılar kalkan tutsa bile zihni yorar
   if (x.moduller.includes('karanlik') || sil.ozel === 'stres') stresEkle(d, kalkanli ? 5 : 15);
   // Isı düşmanının darbesi kalkanı ve silahları ısıtır
@@ -1243,7 +1389,7 @@ function darbe(d) {
       o.push({ soz: 'Canlı gövde macunu delikleri kapattı. Gövde yüzde ' + Math.round((100 * g.govde) / g.maxGovde) + '.' });
     }
     // Zehir ve asit bulaşır
-    if ((sil.ozel === 'zehir' || x.moduller.includes('zehir')) && !s.bagisiklik) {
+    if ((sil.ozel === 'zehir' || x.moduller.includes('zehir')) && !s.bagisiklik && !sahip(d, 'notralizasyon_kulesi')) {
       s.zehir = 2;
       o.push({ soz: 'Asit bulaştı; zırh iki tur eriyecek.' });
     }

@@ -101,7 +101,7 @@ export const ISLEME = [
   { id: 'kronos_eliksiri', ad: 'Kronos Eliksiri', tesis: 'revir', girdi: { zaman_tozu: 1 }, etki: { sefer: { kronos: 1 } }, tarif: 'Pilotun reaksiyon hızını iki katına çıkarır: savaşta her uyarıda savunma süresi bir buçuk saniye uzar.' },
   // 7 Melezlerin ürünleri
   { id: 'super_iletken', ad: 'Süper-İletken Soğutucu Sıvı', tesis: 'dokum', girdi: { gunes_buz: 1 }, etki: { kalici: { bayrak: 'sancak_sogutucu' } }, tarif: 'Sancak Zırhlısı çekirdek reaktörünün tek soğutucusu. Depoya kondu.' },
-  { id: 'demir_tel', ad: 'Saf demir teli çek', tesis: 'dokum', girdi: { demir_kok: 1 }, etki: { kaynak: { titanyum: 4 } }, tarif: 'Kazma gerektirmeden saf tel: dört birim metal.' },
+  { id: 'demir_tel', ad: 'Saf demir teli çek', tesis: 'dokum', girdi: { demir_kok: 1 }, etki: { kaynak: { titanyum: 4 } }, tarif: 'Kazma gerektirmeden saf tel: dört birim titanyum.' },
   { id: 'altin_sat', ad: 'Altın Nöro-Hurmayı diplomatlara sat', tesis: 'mutfak', girdi: { altin_hurma: 1 }, etki: { kaynak: { titanyum: 6, kristal: 3 }, itibar: 25 }, tarif: 'Galaktik diplomatların en çok aradığı lüks ticaret metası.' },
   { id: 'koruyucu_tabaka', ad: 'Zaman-Kristal Koruyucu Tabakası', tesis: 'dokum', girdi: { zaman_yosunu: 1 }, etki: { kalici: { bayrak: 'koruyucu_tabaka' } }, tarif: 'Aşınmayı durduran kseno-tabaka; gemiye kaplanır: savaş hasarı kalıcı olarak yüzde on azalır.' },
 ];

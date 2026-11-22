@@ -13,6 +13,7 @@ import { OPERASYONLAR } from '../veri/uzayGorevleri';
 import { BITKILER } from '../tarim/bitkiler';
 import { Z_NOKTALAR } from './zanaatHarita';
 import * as SB from './subay';
+import { DEGER } from '../veri/deger';
 const SICRAMA_SN = 8 * 300; // malken.js ile aynı: sekiz oyun saati (döngüsel içe aktarma olmasın diye)
 
 // Pyros-7 ve Glies-9b operasyonlarının ganimetine özütler eklenir (bölüm 2.3, 3.4)
@@ -87,7 +88,48 @@ export const ISTASYONLAR = {
   dokum: { ad: 'Dökümhane Masası', tarif: 'Fiziksel silahlar, zırhlar ve zırh plakaları.', ekol: 'varek', ses: 'kaynak' },
   aether: { ad: 'Aether Laboratuvarı', tarif: 'Büyü modülleri ve kristaller.', ekol: 'elyndra', ses: 'el_kalkan' },
   imbik: { ad: 'Kseno-Sera İmbik Ünitesi', tarif: 'İlaçlar, iksirler ve rasyonlar.', ekol: 'axira', ses: 'polimer' },
+  // v4 eşya belgesi 1.1, kademe 3: iki dünyanın malzemesini birleştiren melez (T-01 … T-10) efsanevi üretim
+  melez: { ad: 'Melez zanaat tezgâhı', tarif: 'T serisi efsanevi taslaklar: Aethelis gelişmiş dökümhanesi (koloni kademe 3) ya da YGK 5. kat simya laboratuvarı.', ekol: 'elyndra', ses: 'kaynak' },
 };
+// v4 eşya belgesi 1.1: zanaatın üç kademesi. 1 saha ve gemi içi (her yerde), 2 standart ekipman (Aethelis'te ilgili tesis
+// kuruluyken ya da Tonoflenya üslerinde), 3 melez (Aethelis kademe 3 dökümhanesi ya da YGK 5. kat)
+export const SAHA_TARIFLERI = ['plazma_kartusu', 'malken_rasyonu', 'glies_ignesi', 'nektar'];
+const IST_TESISI = { dokum: ['dokumhane'], aether: ['kuantum_lab', 'reaktor_lab'], imbik: ['kseno_eczane', 'biyo_kubbe', 'koloni_mutfagi'] };
+export function uretimYeri(d, id) {
+  const t = TARIFLER[id];
+  if (!t) return null;
+  if (t.ist === 'melez') {
+    const aethelis = !d.bayrak.tonoflenyada && d.koloni.binalar.includes('dokumhane') && (d.koloni.seviye || 1) >= 3;
+    const ygk = d.bayrak.tonoflenyada && !!d.bayrak.ygkKayit;
+    return aethelis || ygk ? null : 'Melez taslak yalnız Aethelis gelişmiş dökümhanesinde (koloni kademe 3) ya da YGK Akademi 5. kat simya laboratuvarında üretilir.';
+  }
+  if (SAHA_TARIFLERI.includes(id)) return null;
+  if (d.bayrak.tonoflenyada) return null;
+  if ((IST_TESISI[t.ist] || []).some((b) => d.koloni.binalar.includes(b))) return null;
+  return 'Bu standart ekipman üste üretilir: Aethelis\'te ' + (IST_TESISI[t.ist] || []).map((b) => b.replace(/_/g, ' ')).join(' ya da ') + ' kurulu olmalı ya da Tonoflenya üslerinde olmalısın.';
+}
+// --- Melez taslaklar T-01 … T-10 (v4 esya-silah-zirh-ve-melez-zanaat-sistemi.txt bölüm 2-4) ---
+// Hammadde eşlemesi (bölüm 5 kanonik kökenler): Filtra çeliği/demiri/hurdası → oksit ağır alaşımı, Malazar akustik kristali
+// → rezonans camı, Aethelis membranı → polimer levha, kondansatör → mikroçip, magma özütü → Pyros lav orkidesi, Aethelis
+// lav yağı → sıvı metal, Malken bronzu → Kızılkaya titanyumu, plazma şasisi → şasi çeliği, Aethelis plazması → plazma
+// yakıtı, Fenrir katranı → Arin girdap reçinesi, Loran söğüt reçinesi → foton reçinesi, Zeris merceği → plazma camı,
+// saf aether kılı → saf aether, derin kuyu titanyumu → titanyum, Malazar reçinesi → büyü tozu, kseno-omur → fosil kseno-kabuk,
+// Filtra cıvası → cıva tortusu, Zhaor tozu → Fenrir ışık tozu, ağır alaşım → güçlendirilmiş alaşım.
+// gozetmen: taslağın sahibi; atanırsa (d.gozetmen[ad]) maliyet yüzde yirmi beş düşer ve "usta işi" bonusu gelir.
+// nobet: üretim kaç Yıldız Nöbeti sürer (d.zanaatKuyrugu).
+Object.assign(ESYA, {
+  kemik_zirh: { kat: 1, yuva: 'zirh', ad: 'T-01 Kemik-Alaşım Zırhı', tarif: 'Kaelan\'ın taslağı: +120 zırh, delici saldırıya yüzde yirmi beş direnç.', etki: 'Can yüzde otuzun altına inince karada iki tur, uzayda bir tur hasar işlemez.' },
+  civa_plakasi: { kat: 1, yuva: 'zirh', ad: 'T-02 Akışkan Cıva Plakası', tarif: 'Oronte\'nin taslağı: +95 kalkan, lazer ve plazmaya yüzde kırk direnç.', etki: 'Lazer ve plazma darbeleri yüzde kırk az işler; gözetmeniyle yüzde yirmisi saldırgana yansır.' },
+  cep_ambar: { kat: 2, yuva: 'kargo', ad: 'T-03 Katlanmış Cep-Ambar', tarif: 'Tixie\'nin taslağı: gemi kargo kapasitesi kalıcı +500.', etki: 'Ağır maden yükünün yakıt cezası sıfırlanır.' },
+  rezonans_halkasi: { kat: 2, yuva: 'baglanti', ad: 'T-04 Rezonans Bağlantı Halkası', tarif: 'Nyxara\'nın taslağı: Tether-Key mekiklerinin dönüş süresi altı nöbetten iki nöbete iner.', etki: 'Mekik bekleme süresi üçte birine iner.' },
+  sonik_tufek: { kat: 1, yuva: 'silah', ad: 'T-05 Sonik Çığlık Tüfeği', ses: 'el_tufek', tarif: 'Mirelza\'nın taslağı: 180 sonik hasar.', etki: 'Frekans kalkanını iki tur kilitler; karada siperi kilitler.' },
+  geometrik_namlu: { kat: 1, yuva: 'silah', ad: 'T-06 Geometrik Plazma Namlusu', ses: 'el_tufek', tarif: 'Ignador\'un taslağı: 240 termal hasar, yüzde yüz zırh delme.', etki: 'Kalkan tonunu yok sayar; gözetmeniyle her isabette kalkan soğur.' },
+  plazma_pencesi: { kat: 2, yuva: 'burun', ad: 'T-07 Plazma Pençeli Kesici', tarif: 'Barracuda\'nın taslağı: gemi burnuna yakın bordalama pençesi.', etki: 'Ağır saldırı yüzde elli güçlü, kaçan düşmanın motorunu kilitler, enkazdan yüzde elli fazla hurda.' },
+  sogut_nisangahi: { kat: 2, yuva: 'nisan', ad: 'T-08 Gümüş Söğüt Nişangâhı', tarif: 'Lyra\'nın taslağı: yüzde otuz kritik, ıskalamayı sıfırlar.', etki: 'Kilit payı geniş, sahte sesleri eler, kritik şansı yüzde otuz.' },
+  kseno_panzehir: { kat: 3, ad: 'T-09 Evrensel Kseno-Panzehir', tarif: 'Sarah\'nın formülü: zehir, radyasyon ve kara aether lanetini siler.', etki: 'Savaşta sarf: zehir ve stres silinir, üç tur bağışıklık.' },
+  magma_matkap: { kat: 3, ad: 'T-10 Magma Çekirdekli Matkap', tarif: 'Cüretkâr Cüce\'nin aleti: yüzey madenciliği iki kat hızlı.', etki: 'Kaynak yataklarından her toplamada bir birim fazla.' },
+});
+
 // Girdi anahtarları: hammadde (koloni.kaynaklar), parça (koloni.parcalar), eşya (d.esya), urun_<bitki> (hasat),
 // tohum (herhangi bir tohum)
 export const TARIFLER = {
@@ -110,6 +152,17 @@ export const TARIFLER = {
   astral_iksir: { ist: 'imbik', girdi: { buyu_tozu: 1, mor_cicek: 1 }, ilac: true, not: 'Malazar tozu: ocakların büyü tozu.' },
   malken_rasyonu: { ist: 'imbik', girdi: { urun_akifer: 1, urun_soya: 1, bal: 1 }, ilac: true, not: 'Hidroponik buğday: akifer buğdayı; protein bloğu: soya-kazein baklası.' },
   nektar: { ist: 'imbik', girdi: { urun_vaha_hurmasi: 1, kseno_spor: 1 } },
+  // Melez taslaklar (T-01 … T-10)
+  kemik_zirh: { ist: 'melez', girdi: { titanyum: 40, oksit_celik: 25, buyu_tozu: 15, kseno_kabuk: 2 }, nobet: 2, gozetmen: 'kaelan' },
+  civa_plakasi: { ist: 'melez', girdi: { plazma_yakiti: 30, civa_tortusu: 35, isik_tozu: 100, guclu_alasim: 5 }, nobet: 3, gozetmen: 'oronte' },
+  cep_ambar: { ist: 'melez', girdi: { girdap_recinesi: 20, kompozit: 10, saf_aether: 5 }, nobet: 2, gozetmen: 'tixie', not: 'Arin girdap reçinesi bu taslağın temelidir.' },
+  rezonans_halkasi: { ist: 'melez', girdi: { rezonans_cami: 10, saf_aether: 4, mavi_aether: 2 }, nobet: 1, gozetmen: 'nyxara' },
+  sonik_tufek: { ist: 'melez', girdi: { rezonans_cami: 25, polimer_levha: 30, oksit_celik: 15, mikrocip: 10 }, nobet: 3, gozetmen: 'mirelza' },
+  geometrik_namlu: { ist: 'melez', girdi: { lav_orkidesi: 20, sivi_metal: 35, kizilkaya_titanyumu: 40, sasi_celigi: 15 }, nobet: 2, gozetmen: 'ignador' },
+  plazma_pencesi: { ist: 'melez', girdi: { oksit_celik: 35, plazma_yakiti: 25, titanyum: 15, girdap_recinesi: 20 }, nobet: 2, gozetmen: 'barracuda' },
+  sogut_nisangahi: { ist: 'melez', girdi: { foton_recinesi: 15, plazma_cami: 20, piezo: 25, saf_aether: 10 }, nobet: 1, gozetmen: 'lyra' },
+  kseno_panzehir: { ist: 'melez', girdi: { kseno_spor: 3, foton_recinesi: 2, glies_buzu: 1 }, adet: 5, ilac: true, nobet: 1, gozetmen: 'sarah' },
+  magma_matkap: { ist: 'melez', girdi: { titanyum: 20, lav_orkidesi: 10, sondaj_cekirdegi: 2 }, nobet: 3, gozetmen: 'curetkar_cuce' },
 };
 
 // Ticaret masaları: satar (eşya ya da hammadde → fiyat), alir (hammadde → birim fiyatı), para 'ml' | 'isik'
@@ -126,7 +179,7 @@ export const PAZARLAR = {
   kahergonat_karaborsa: { para: 'ml', satar: { ruh_kapsulu: 300, kara_aether: 120 }, alir: { kara_aether: 60, obsidyen: 40 }, yasakli: true },
 };
 export const ISIK_ML = 50; // bir gram ışık tozu elli Malken Lirası
-export const GK_ML = 2; // YGK bankası: bir kredi iki lira
+export const GK_ML = 25; // YGK bankası: bir Galaktik Keşif Kredisi yirmi beş lira (v4 eşya belgesi bölüm 5; 2 GK ≈ 1 g ışık tozu)
 
 // --- Durum ve stok yardımcıları ---
 export function hazirla(d) {
@@ -190,6 +243,21 @@ function eksikMetni(d, g) {
 export function tarifGirdisi(d, id) {
   const t = TARIFLER[id];
   const g = { ...t.girdi };
+  if (t.gozetmen && d.gozetmen && d.gozetmen[t.gozetmen]) for (const k of Object.keys(g)) g[k] = Math.max(1, Math.round(g[k] * 0.75));
+  // Morluk kristali ve buzul aether, aether laboratuvarında saf aetherin yerine yüksek saflıkta alternatif girdi (v4 25 bina 4.2)
+  if (t.ist === 'aether' && g.saf_aether && miktar(d, 'saf_aether') < g.saf_aether) {
+    let eksik = g.saf_aether - miktar(d, 'saf_aether');
+    g.saf_aether -= eksik;
+    for (const alt of ['morluk_kristali', 'buzul_aether']) {
+      const v = Math.min(eksik, miktar(d, alt));
+      if (v > 0) {
+        g[alt] = (g[alt] || 0) + v;
+        eksik -= v;
+      }
+    }
+    g.saf_aether += eksik;
+    if (!g.saf_aether) delete g.saf_aether;
+  }
   if (t.ist === 'aether' && SB.kabiliyet(d, 'elyndra', 3)) {
     const en = Object.keys(g).filter((k) => HAMMADDELER[k]).sort((a, b) => g[b] - g[a])[0];
     if (en && g[en] > 1) g[en] -= en === 'isik_tozu' ? Math.min(50, g[en] - 1) : 1;
@@ -202,11 +270,21 @@ export function zanaatEt(d, id) {
   const t = TARIFLER[id];
   if (!t) return { metin: '', ses: 'red' };
   if (t.kosul && !t.kosul(d)) return { metin: adi(id) + ': ' + t.kosulMetni, ses: 'red' };
+  const yer = uretimYeri(d, id);
+  if (yer) return { metin: adi(id) + ': ' + yer, ses: 'red' };
   const g = tarifGirdisi(d, id);
   const eksik = eksikMetni(d, g);
   if (eksik) return { metin: adi(id) + ' için eksik: ' + eksik + '.', ses: 'red' };
   for (const k of Object.keys(g)) ekle(d, k, -g[k]);
   const n = (t.adet || 1) * (t.ilac && SB.kabiliyet(d, 'axira', 3) ? 2 : 1);
+  // Melez taslaklar Yıldız Nöbeti cinsinden sürer
+  if (t.nobet) {
+    if (!d.zanaatKuyrugu) d.zanaatKuyrugu = [];
+    const sn = (d.zaman && d.zaman.sn) || 0;
+    const usta = !!(t.gozetmen && d.gozetmen && d.gozetmen[t.gozetmen]);
+    d.zanaatKuyrugu.push({ id, n, bitis: sn + t.nobet * 1200, usta });
+    return { metin: ISTASYONLAR[t.ist].ad + ': ' + adi(id) + ' tezgâhta; ' + t.nobet + ' Yıldız Nöbeti sürecek.' + (usta ? ' Gözetmen başında: usta işi olacak.' : ''), ses: ISTASYONLAR[t.ist].ses };
+  }
   ekle(d, id, n);
   const ist = ISTASYONLAR[t.ist];
   SB.ekolKazan(d, ist.ekol, t.ist === 'aether' ? 10 : 5);
@@ -216,6 +294,32 @@ export function zanaatEt(d, id) {
     ek = ' YGK yasaklı zanaatı duydu: itibar on düştü.';
   }
   return { metin: ist.ad + ': ' + (n > 1 ? n + ' ' : '') + adi(id) + ' hazır.' + ek, ses: ist.ses };
+}
+
+// Eşyanın tek cümlelik değer anonsu ("Niye yapayım?" kuralı)
+export function degerCumlesi(id) {
+  const x = DEGER[id] || (ESYA[id] && (ESYA[id].etki || ESYA[id].tarif)) || (PARCALAR[id] && PARCALAR[id].tarif) || '';
+  return x ? (/[.!?]$/.test(x) ? x : x + '.') : '';
+}
+// Nöbet süren melez üretimleri tamamlar (gorevler.zamanIlerle çağırır); biten eşyaların sözleri döner
+export function zanaatIlerle(d) {
+  const q = d.zanaatKuyrugu;
+  if (!q || !q.length) return [];
+  hazirla(d);
+  const sn = (d.zaman && d.zaman.sn) || 0;
+  const biten = q.filter((x) => x.bitis <= sn);
+  if (!biten.length) return [];
+  d.zanaatKuyrugu = q.filter((x) => x.bitis > sn);
+  const sozler = [];
+  for (const x of biten) {
+    ekle(d, x.id, x.n);
+    if (x.usta) {
+      if (!d.usta) d.usta = {};
+      d.usta[x.id] = true;
+    }
+    sozler.push('Melez tezgâh: ' + (x.n > 1 ? x.n + ' ' : '') + adi(x.id) + ' hazır' + (x.usta ? ', usta işi' : '') + '.');
+  }
+  return sozler;
 }
 
 // --- Kuşanma, modül, kullanma ---
@@ -330,7 +434,8 @@ function esyaSatiri(d, k) {
   const n = miktar(d, k);
   const tarif = e ? e.tarif : HAMMADDELER[k] ? HAMMADDELER[k].tarif : '';
   const durum = kusanildiMi(d, k) ? ' Kuşanılı.' : d.gemi && d.gemi.moduller[k] ? ' Gemiye takılı.' : '';
-  return adi(k) + ', adet ' + n + '.' + durum + ' ' + tarif;
+  const deger = degerCumlesi(k);
+  return adi(k) + ', adet ' + n + '.' + durum + ' ' + (deger && deger !== tarif ? deger + ' ' : '') + tarif;
 }
 export function eylemler(d, k) {
   const e = ESYA[k];
@@ -399,7 +504,8 @@ export function zanaatMenu(d, ist) {
       const eksik = eksikMetni(d, g);
       return {
         id,
-        etiket: adi(id) + '. ' + (kilit ? 'Kilitli: ' + t.kosulMetni : eksik ? 'Eksik: ' + eksik : 'Hazır') + '. Gerekir: ' + girdiMetni(g) + '.' + (t.not ? ' ' + t.not : '') + (ESYA[id] && ESYA[id].etki ? ' Etki: ' + ESYA[id].etki : ''),
+        // "Niye yapayım?" kuralı: önce ne işe yaradığı, sonra durum ve maliyet
+        etiket: adi(id) + '. ' + degerCumlesi(id) + ' ' + (kilit ? 'Kilitli: ' + t.kosulMetni : uretimYeri(d, id) ? 'Burada üretilmez.' : eksik ? 'Eksik: ' + eksik : 'Hazır') + '. Gerekir: ' + girdiMetni(g) + '.' + (t.nobet ? ' Süre: ' + t.nobet + ' nöbet.' : '') + (t.not ? ' ' + t.not : ''),
         yap: (x) => zanaatEt(x, id),
       };
     }),
@@ -415,7 +521,7 @@ export function kargo(d) {
   for (const k of Object.keys(d.esya)) if (!(d.gemi && d.gemi.moduller[k])) h += (d.esya[k] || 0) * HACIM(k);
   const siniflar = Object.keys(GEMI_SINIFLARI);
   const s = d.gemi ? Math.max(0, siniflar.indexOf(d.gemi.sinif)) : 0;
-  const kapasite = Math.round((60 + 30 * s) * (SB.kabiliyet(d, 'uma', 3) ? 1.5 : 1));
+  const kapasite = Math.round((60 + 30 * s) * (SB.kabiliyet(d, 'uma', 3) ? 1.5 : 1)) + (d.gemi && d.gemi.moduller.cep_ambar ? 500 : 0); // T-03 cep-ambar
   const kara = miktar(d, 'kara_aether');
   return { hacim: Math.round(h), kapasite, asim: h > kapasite, karaFazla: kara > 4 };
 }
@@ -600,7 +706,7 @@ export function veriMenu(d) {
     giris: 'Satılmamış ' + v.op.length + ' operasyon ve ' + v.kd.length + ' kodeks kaydı: ' + v.gk + ' kredi. ' + paraMetni(d),
     ogeler: [
       { id: 'sat', etiket: 'Veri paketlerini Akademiye sat', yap: (x) => veriSat(x) },
-      { id: 'boz', etiket: '100 krediyi Malken Lirası\'na çevir: ' + 100 * GK_ML + ' lira', yap: (x) => krediBoz(x, 100) },
+      { id: 'boz', etiket: '10 krediyi Malken Lirası\'na çevir: ' + 10 * GK_ML + ' lira', yap: (x) => krediBoz(x, 10) },
       { id: 'kartus', etiket: 'İki plazma kartuşu al: 40 kredi', yap: (x) => krediyleAl(x, 'plazma_kartusu', 2, 40) },
     ],
   };

@@ -6,6 +6,12 @@ tesis kurar, ileride gemini parça parça inşa edip uzaya açılırsın.
 
 Yapımcı: Bahtiyar Cankurt (tasarım belgeleri belgeler/ içinde). Expo Go ile iPhone ve Android'de çalışır.
 
+## Bu sürümde (3.1)
+- v4 Faz 2: evrensel bina rolleri ve sefer hazırlıkları, kilitli dört binanın açılması, akademi Ar-Ge masası (20 numune),
+  gemi sınıflarının savaş özellikleri ve destek yuvaları, alt kızak ve hangar, yedek filonun koloni görevi, yüzey
+  araçlarının kara savaşı işlevleri, dinamik (halkalı) yakıt, ikmal karakolları ve imdat, T-01 … T-10 melez taslaklar,
+  her eşyada "ne işe yarar" anonsu.
+
 ## Bu sürümde (3.0)
 - Bahtiyar'ın v4 paketi (39 belge, belgeler/v4/) işlenmeye başladı; Faz 1: evrensel savaş motoru.
 - Kara (yüzey) savaşı, birden çok düşman, T1-T5 tehdit ölçeği, sekiz düşman davranış modülü, altı geliş biçimi,

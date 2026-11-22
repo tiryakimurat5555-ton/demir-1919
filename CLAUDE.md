@@ -504,6 +504,25 @@ Demir 1919 oyunu silindi; geçmişi git kaydında (son sürüm 1.06, commit 556f
   - Yuzey: savaşta her düşmana konumlu kaynak savas_dusman_<no> (etkin hedef önde), uyarı sesi o.ses2, karada mekân
     ortamı; kokpit terminalinde "Savaşta destek yuvası" ve "Kara çatışmasında refakatçi".
   - testler/savas2.test.js (12 senaryo).
+- SÜRÜM 3.1 (22 Kasım): v4 Faz 2 (binalar, gemiler, araçlar, eşyalar, dinamik yakıt). Telefonda denenmedi.
+  - binalar.js (yeni): ROLLER (25 tesis → rol), ROL_NOBETLERI, KATKI, topluluklar, rolCarpani (koloni uretimBaslat),
+    HAZIRLIKLAR + hazirlikYap/savasHazirligi/seferHazirligiBitti (d.hazirlik), NUMUNE_ESIKLERI + numuneTeslim
+    (d.numuneler ← operasyon.js gezegen op'u; d.numuneTeslim; d.yan.bilim), kuleMenzili(d, sahip), binaMenu (koloni
+    yönetimi). tesisler.js IRK_KOSULLARI (kilitli dört bina op'lara bağlı). uzayGorevleri.js gezHalka + gezegen
+    acKosul'da kuleMenzili.
+  - savas.js: sınıf özellikleri, DESTEK belgedeki gibi (destekSinifi), kara araçları (Mammoth matkabı, Kervan siperi ve
+    ikmali, Atmosphere-X taraması ve tahliyesi, Akrep şaşırtması), bina katkıları, T-01/T-02/T-05..T-08, numune bonusları,
+    termal giysi/lamine zırh, sarsıntı çevresi, nötralizasyon, kripto anten, Hisar süper-soğutma, hazırlıklar, kaçışta
+    yakıt −4, spec.gezegen (gemi.tasinan aracı).
+  - seyir.js: halka, yolBirimi, BIRIM_LITRE, rotaYakiti (kargo, Sinha, p07, kalibrasyon, numune 15); sürekli tüketim ×0,25;
+    %15 kritik uyarı + en yakın ikmal yönü; uzay.halka. gorevler.js kenetlen: rota yakıtı (kilitli taramada yok), d.karakollar
+    (ikmal karakolu kurulumu ve dolum), acilImdat (10 GK ya da gövde −%20; d.kurtarmaNotu), inişte biyo-karantina.
+  - koloni.js filoGorevi (FILO_SN 300), harca/yeterMi piezo ↔ kristal. uretim.js lazer_sogutucu, itki_yaglayici.
+  - gemiler.js TASIMA; gemi.js aracYukle (gemi.tasinan). zanaat.js: melez istasyonu, uretimYeri (saha/standart/melez),
+    T-01..T-10 ESYA + TARIFLER (nobet, gozetmen; d.zanaatKuyrugu, zanaatIlerle, d.usta), tarifGirdisi gözetmen ×0,75 ve
+    morluk/buzul aether ikamesi, cep-ambar +500 kargo, GK_ML 25, degerCumlesi (veri/deger.js DEGER).
+  - Yuzey: kokpit terminalinde araç yükleme; koloni yönetiminde binalar ağacı; üretim menüsünde değer cümlesi.
+  - testler/binalar.test.js (14 senaryo).
 - Sıradaki: Tonoflenya belgelerinin hepsi işlendi; KAPSAM.md'de [~] notları (Bahtiyar'a sorulacaklar) ve telefonda deneme.
 
 ## Sesler

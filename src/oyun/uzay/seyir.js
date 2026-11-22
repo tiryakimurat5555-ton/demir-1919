@@ -8,7 +8,7 @@
 // Bir noktaya kenetlenince ön tarama raporu: çevre analizi ve zorunlu donanım. Eksik varsa görev kilitli.
 import * as E from '../tarim/etki';
 import * as SB from '../tonoflenya/subay';
-import { yildizCarpani } from '../zaman';
+import { nobet, yildizCarpani } from '../zaman';
 import { GEMI_SINIFLARI, MODUL_KATMANLARI } from '../veri/gemiler';
 import { aciDuzelt, goreliAci, saatYonu } from '../konum';
 import { telsizSubayiCarpani, gucDagitimi } from '../gemi/gemi';
@@ -148,6 +148,45 @@ UZAY_NOKTALARI.ygk_feneri = {
 import { G_NOKTALARI } from '../veri/uzayGorevleri';
 Object.assign(UZAY_NOKTALARI, G_NOKTALARI);
 
+// --- Dinamik yakıt, zincirleme rota ve ikmal (belgeler/v4/dinamik-yakit-ve-rota-sistemi.txt) ---
+// Her noktanın Aethelis-IV'e göre halka mesafesi (1-5). Belgede adı geçenler sabit; ötekiler uzaklıktan.
+const HALKA_SABIT = {
+  g01: 1, g02: 1, g03: 1, g04: 1, g05: 1, g06: 1, kadim_mezar: 1,
+  p01: 2, p02: 2, p03: 2, p04: 2, p05: 2, p06: 2,
+  p07: 3, p08: 3, p09: 3, p10: 3, p11: 3, p12: 3,
+  p13: 4, p14: 4, p15: 4, p16: 4, p17: 4, p18: 4,
+  p19: 5, p20: 5, kizil_yutucu: 5, ygk_feneri: 5,
+};
+export function halka(id) {
+  if (id === 'aethelis') return 0;
+  if (HALKA_SABIT[id]) return HALKA_SABIT[id];
+  const n = UZAY_NOKTALARI[id];
+  if (!n) return 1;
+  return Math.max(1, Math.min(5, Math.ceil(Math.hypot(n.x, n.y) / 340)));
+}
+// Yol birimi: halkalar arası fark; aynı halkada komşuya geçiş 1 birim
+export function yolBirimi(a, b) {
+  return a === b ? (a === 0 ? 0 : 1) : Math.abs(b - a);
+}
+export const BIRIM_LITRE = { 1: 5, 2: 5, 3: 6, 4: 10, 5: 15 };
+// Bir yolculuğun yakıtı: taban × yük, nöbet, teknoloji ve hazırlık çarpanları. kargoOrani: ambarın doluluğu (0-1+)
+export function rotaYakiti(d, hedef, kargoOrani = 0) {
+  const g = d.gemi;
+  const u = d.uzay;
+  if (!g) return 0;
+  const bas = u && u.halka != null ? u.halka : 0;
+  const son = hedef === 'aethelis' ? 0 : halka(hedef);
+  let l = yolBirimi(bas, son) * (BIRIM_LITRE[g.sinif] || 5);
+  const b = d.bayrak;
+  if (kargoOrani >= 0.8 && !g.moduller.cep_ambar) l *= 1.25; // ağır ambar; T-03 katlanmış cep-ambar cezayı siler
+  if (d.zaman && nobet(d).yildiz === 'Sinha') l *= 0.9; // Mavi Akşam nöbeti
+  if ((d.tamamlananOp || []).includes('p07')) l *= 0.85; // Zephyr-Major helyum-3 teknolojisi
+  if (d.hazirlik && d.hazirlik.kalibrasyon) l *= 0.85; // tersane motor ayarı (sefer hazırlığı)
+  if ((d.numuneTeslim || []).length >= 15 && Math.max(bas, son) >= 3) l *= 0.85; // akademi: on beş numune, derin uzay
+  l *= (g.moduller.sivi_iletken ? 0.85 : 1) * (b.f_yakit ? 0.9 : 1) * (b.p_yakit ? 0.9 : 1) * (b.p_tasarruf ? 0.9 : 1) * E.yakitCarpani(d) * SB.yakitCarpani(d) * (b.tf_astral ? 0.87 : 1) * (g.moduller.efsanevi_reaktor ? 0.5 : 1);
+  return Math.round(l * 10) / 10;
+}
+
 // Tesisler kuruldukça haritada yeni ziyaret noktaları belirir (bölüm 4 ve 6). Yeni çıkanların listesi döner.
 export function poiGuncelle(d) {
   const yeni = [];
@@ -187,7 +226,7 @@ export function kalkis(d) {
   if (engel) return { metin: engel, ses: 'red' };
   d.gemi.yakit = Math.max(0, d.gemi.yakit - KALKIS_YAKITI * (d.gemi.moduller.grav_kalkani ? 0.5 : 1) * (d.bayrak.p_takyon ? 0 : 1) * SB.kalkisYakitCarpani(d));
   d.gemi.yer = 'uzay';
-  d.uzay = { x: 0, y: 45, yon: 0, hiz: 0, yaklasilan: {}, kilitli: null, yakitUyari: false };
+  d.uzay = { x: 0, y: 45, yon: 0, hiz: 0, yaklasilan: {}, kilitli: null, yakitUyari: false, halka: 0 };
   d.sahne = 'kalkis';
   return { metin: '' };
 }
@@ -228,7 +267,8 @@ export function uzayIlerle(d, dt) {
   const g = d.gemi;
   if (u.hiz > 0) {
     const b = d.bayrak;
-    const yakit = u.hiz * YAKIT_TUKETIM * dt * (g.moduller.sivi_iletken ? 0.85 : 1) * (b.f_yakit ? 0.9 : 1) * (b.f_saat ? 0.9 : 1) * (b.p_yakit ? 0.9 : 1) * (b.p_tasarruf ? 0.9 : 1) * E.yakitCarpani(d) * SB.yakitCarpani(d) * (1 - (g.aetherVerimi || 0)) * (b.tf_astral ? 0.87 : 1) * (g.moduller.efsanevi_reaktor ? 0.5 : 1);
+    const yakit = 0.25 * u.hiz * YAKIT_TUKETIM * dt * // manevra ve yaşam desteği; asıl yol yakıtı varışta (rotaYakiti)
+      (g.moduller.sivi_iletken ? 0.85 : 1) * (b.f_yakit ? 0.9 : 1) * (b.f_saat ? 0.9 : 1) * (b.p_yakit ? 0.9 : 1) * (b.p_tasarruf ? 0.9 : 1) * E.yakitCarpani(d) * SB.yakitCarpani(d) * (1 - (g.aetherVerimi || 0)) * (b.tf_astral ? 0.87 : 1) * (g.moduller.efsanevi_reaktor ? 0.5 : 1);
     g.yakit = Math.max(0, g.yakit - yakit);
     const birim = HIZ_BIRIMI * gucDagitimi(d).hiz * E.hizCarpani(d) * yildizCarpani(d, 'hiz') * ((d.surupBitis || 0) > ((d.zaman && d.zaman.sn) || 0) ? 1.25 : 1) * (d.bayrak.yan_cift_graviton ? 1.25 : 1);
     u.x += Math.sin(u.yon) * u.hiz * birim * dt;
@@ -238,9 +278,13 @@ export function uzayIlerle(d, dt) {
       olaylar.push({ tur: 'yakitBitti' });
     }
   }
-  if (!u.yakitUyari && g.yakit <= g.maxYakit * 0.2) {
+  if (!u.yakitUyari && g.yakit <= g.maxYakit * 0.15) {
     u.yakitUyari = true;
-    olaylar.push({ tur: 'yakitAz', metin: 'Yakıt yüzde yirminin altında: ' + Math.round(g.yakit) + ' litre. Eve dönüşü düşün.' });
+    // Kritik uyarı: en yakın karakolun ya da Aethelis'in yönü
+    const hedefler = [{ ad: 'Aethelis-IV', x: 0, y: 0 }, ...(d.karakollar || []).filter((id) => UZAY_NOKTALARI[id]).map((id) => ({ ad: UZAY_NOKTALARI[id].ad + ' ikmal karakolu', x: UZAY_NOKTALARI[id].x, y: UZAY_NOKTALARI[id].y }))];
+    hedefler.sort((a, b) => uzak(u, a) - uzak(u, b));
+    const h = hedefler[0];
+    olaylar.push({ tur: 'yakitAz', metin: 'Kritik yakıt: ' + Math.round(g.yakit) + ' litre, yüzde on beşin altında. En yakın ikmal: ' + h.ad + ', saat ' + saatYonu(goreliAci({ x: u.x, y: u.y, yon: u.yon }, h)) + ' yönünde, ' + Math.round(uzak(u, h)) + ' birim.' });
   }
   const r = Math.hypot(u.x, u.y);
   if (r > UZAY_SINIRI) {
