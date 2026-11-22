@@ -13,6 +13,7 @@ import * as ZN from './zanaat';
 import * as SB from './subay';
 import { T_MEKANLAR } from './harita';
 import { A_MEKANLAR } from './atlas';
+import { nobet } from '../zaman';
 
 const A = (tur, ad, giris, bitis, ek) => ({ tur, ad, giris, bitis, ...(ek || {}) });
 const ml = (d, n) => {
@@ -519,10 +520,21 @@ export const FRAKSIYONLAR = {
   yasal: 'Yasal itibar', doga_koruma: 'Doğa koruma', ygk_astronomi: 'YGK astronomi', norvask: 'Norvask Krallığı', helgar: 'Helgar Dükalığı',
   drahmir: 'Drahmir Krallığı', fleeplee: 'Fleeplee köyü', tentran: 'Tentran Teknoloji Konseyi', arin: 'Arin Ada Krallığı', veradon: 'Veradon ticareti',
   tharal: 'Tharal halkı', keralon: 'Keralon halkı',
+  // Beş ana güç (v4 30 yan görev derinleştirmesi 1.2): görev ödülleri doğrudan ana itibar paneline
+  g_ygk: 'YGK Akademi', g_bati: 'Batı ve Filtra Sendikası', g_dogu: 'Doğu ve Zorah Çöl Loncası', g_kuzey: 'Kuzey, Zeris ve Mormon', g_guney: 'Güney, Fleeplee ve Veradon',
 };
 
-// Operasyonlar
-for (const g of YAN) OPERASYONLAR['yan' + g.no] = { yuzey: true, final: true, yan: g.no, adimlar: g.op, sonuc: () => [], odul: {}, sahne: 'yan_karar' };
+// Operasyonlar (çatışmalı görevlerde operasyondan sonra yan_savas)
+export function operasyonlariKaydet() {
+  for (const g of YAN) OPERASYONLAR['yan' + g.no] = { yuzey: true, final: true, yan: g.no, adimlar: g.op, sonuc: () => [], odul: {}, sahne: g.savas ? 'yan_savas' : 'yan_karar' };
+}
+operasyonlariKaydet();
+// Evrensel savaş (v4 30 yan görev derinleştirmesi): zaferde karar sahnesi; yenilgide noktadan yeniden girilir
+function savasKur(d, g) {
+  yan(d).evre = 'savas';
+  d.savasBekle = typeof g.savas === 'function' ? g.savas(d) : g.savas;
+  d.savasSonraSahne = 'yan_karar';
+}
 
 // --- Durum ---
 export function yan(d) {
@@ -549,6 +561,7 @@ export function noktaEylemleri(d, id) {
   const e = [];
   if (y.biten.includes(no)) e.push({ id: 'yn_bitti_' + no, etiket: g.npc + ' ile konuş', ipucu: 'Görev tamam.' });
   else if (y.aktif === no && d.op && d.op.id === 'yan' + no) e.push({ id: 'yn_devam_' + no, etiket: 'Göreve dön: ' + g.ad });
+  else if (y.aktif === no && y.evre === 'savas') e.push({ id: 'yn_savas_' + no, etiket: 'Çatışmaya yeniden gir: ' + g.ad });
   else e.push({ id: 'yn_bas_' + no, etiket: 'Yan görev: ' + g.ad, ipucu: g.kod + ', ' + g.tur + '. Ön koşullar: ' + onkosulMetni(d, g) });
   e.push({ id: 'incele', etiket: 'İncele' });
   return e;
@@ -560,9 +573,16 @@ export function eylemUygula(d, id, eid) {
   if (eid === 'incele') return { metin: YAN_NOKTALARI[id].tarif };
   if (eid.indexOf('yn_bitti_') === 0) return { metin: g.npc + ': "' + (y.karar[no] === 'B' ? 'Seçimini unutmayacağız, Kaptan.' : 'Yaptığını unutmayacağız, Kaptan.') + '"' };
   if (eid.indexOf('yn_devam_') === 0) return { opDevam: true, metin: '' };
+  if (eid.indexOf('yn_savas_') === 0) {
+    savasKur(d, g);
+    return { metin: g.savasMetni || 'Çatışma!', ses: 'red' };
+  }
   if (eid.indexOf('yn_bas_') === 0) {
     if (y.aktif && y.aktif !== no) return { metin: 'Önce sürmekte olan yan görevi bitir: ' + YAN_GOREV[y.aktif].ad + '.', ses: 'red' };
     if (d.op) return { metin: 'Başka bir operasyon sürüyor.', ses: 'red' };
+    // Ortak tetik: Final 1'de YGK Kayıt Mührü alınmış olmalı; bazı görevler yalnız belli Yıldız Nöbetlerinde
+    if (!(d.tf && d.tf.biten && d.tf.biten.includes(1))) return { metin: g.npc + ': "Önce Akademinin Kayıt Mührü, Kaptan." Yan görevler final görevi birden sonra açılır.', ses: 'red' };
+    if (g.nobet && !g.nobet.includes(nobet(d).yildiz)) return { metin: g.npc + ': "' + g.nobetMetni + '" Şu an ' + nobet(d).ad + '.', ses: 'red' };
     const e = eksikler(d, g);
     if (e.length) return { metin: g.npc + ' başını sallıyor: önce şunlar gerekir: ' + e.join('; ') + '.', ses: 'red' };
     y.aktif = no;
@@ -602,12 +622,23 @@ export const SAHNELER = {
       ];
     },
   },
+  yan_savas: {
+    baslik: 'Çatışma',
+    efekt: ['alarm'],
+    metin: (d) => {
+      const g = YAN_GOREV[yan(d).aktif];
+      return g ? [g.op[g.op.length - 1].bitis, g.savasMetni] : [];
+    },
+    secenekler: (d) => [{ etiket: 'Çatışmaya gir', yap: () => { const g = YAN_GOREV[yan(d).aktif]; if (g) savasKur(d, g); }, sonra: null }],
+  },
   yan_karar: {
     baslik: 'Kritik karar',
     efekt: ['sinyal'],
     metin: (d) => {
       const g = YAN_GOREV[yan(d).aktif];
-      return g ? [g.op[g.op.length - 1].bitis, 'Kararını ver.'] : [];
+      if (!g) return [];
+      yan(d).evre = 'karar';
+      return [g.savas ? g.savasBitis || 'Çatışma kazanıldı.' : g.op[g.op.length - 1].bitis, 'Kararını ver.'];
     },
     secenekler: (d) => {
       const y = yan(d);
@@ -622,6 +653,7 @@ export const SAHNELER = {
           y.karar[g.no] = i ? 'B' : 'A';
           if (!y.biten.includes(g.no)) y.biten.push(g.no);
           y.aktif = null;
+          y.evre = null;
           d.yanSon = { sonuc: k.sonuc, odul, itibar: it };
           SB.ekolKazan(d, 'uma', 15);
         },
@@ -645,8 +677,12 @@ export function yanIlerle(d) {
   while (d.yan.gun < gun) {
     d.yan.gun += 1;
     if (ZN.miktar(d, 'maden_hissesi') > 0) d.para.ml += 100;
+    if (ZN.miktar(d, 'kervan_hissesi') > 0) d.para.ml += 100; // yan görev 12
     if (d.bayrak.yan_tharal_rasyon && ZN.miktar(d, 'malken_rasyonu') < 2) ZN.ekle(d, 'malken_rasyonu', 2 - ZN.miktar(d, 'malken_rasyonu'));
-    if (d.bayrak.yan_aether_tozu && d.yan.gun % 7 === 0) d.koloni.kaynaklar.buyu_tozu = (d.koloni.kaynaklar.buyu_tozu || 0) + 50;
+    if (d.bayrak.yan_aether_tozu && d.yan.gun % 7 === 0) {
+      d.koloni.kaynaklar.buyu_tozu = (d.koloni.kaynaklar.buyu_tozu || 0) + 50;
+      d.koloni.kaynaklar.isik_tozu = (d.koloni.kaynaklar.isik_tozu || 0) + 50; // v4 derinleştirme: elli gram ışık tozu da
+    }
   }
 }
 

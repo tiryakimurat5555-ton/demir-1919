@@ -37,6 +37,7 @@ import * as FN from '../tonoflenya/final';
 import * as YN from '../tonoflenya/yan';
 import * as KR from '../tonoflenya/karakter';
 import * as AK from '../tonoflenya/akademi';
+import '../tonoflenya/yanDerin';
 import * as KM from '../komuta';
 import * as HK from '../hikaye';
 import '../hikayeKoloni';

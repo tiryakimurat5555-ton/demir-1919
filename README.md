@@ -6,6 +6,10 @@ tesis kurar, ileride gemini parça parça inşa edip uzaya açılırsın.
 
 Yapımcı: Bahtiyar Cankurt (tasarım belgeleri belgeler/ içinde). Expo Go ile iPhone ve Android'de çalışır.
 
+## Bu sürümde (3.7)
+- Otuz Tonoflenya yan görevi derinleşti: gerçek ön koşullar, Yıldız Nöbeti şartları, on görevde çatışma, belgedeki
+  A/B ödülleri; ödüller beş ana güce yazar ve yan görevler Final 1'den sonra açılır.
+
 ## Bu sürümde (3.6)
 - YGK Akademi gezilebilir: on bir kat ana görevlerle açılır, katta iki parmakla sağa sola kişiler arasında gezilir;
   on kürsü eğitmeninin testleri kalıcı yetenekler verir; Ignador'un darbesi, Tixie'nin çipi, stasis tutsakları Zephyra ve Morwenna.

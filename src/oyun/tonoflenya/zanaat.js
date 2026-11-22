@@ -177,7 +177,7 @@ export const PAZARLAR = {
   elyndra_dokumacisi: { para: 'ml', satar: { mor_kumas: 110 }, alir: { buzul_aether: 40, aether: 22 } },
   tentran_tuccari: { para: 'isik', satar: { tentran_rolesi: 6, glies_buzu: 2, lav_orkidesi: 2, sinha_cipi: 3 }, alir: { kara_aether: 2, saf_aether: 1 } },
   veradon_hani: { para: 'ml', satar: { deri_astar: 35, bal: 12, saf_su: 4 }, alir: { safran_kukurt: 10, kizilkaya_titanyumu: 25, arin_tuyu: 30 } },
-  julithan_limani: { para: 'ml', satar: { deri_astar: 35, saf_su: 4, bal: 12, altin_tel: 115 }, alir: { oksit_celik: 20, kizilkaya_titanyumu: 25, safran_kukurt: 10, norvask_buzu: 35 } },
+  julithan_limani: { para: 'ml', satar: { oksit_celik: 30, deri_astar: 35, saf_su: 4, bal: 12, altin_tel: 115 }, alir: { oksit_celik: 20, kizilkaya_titanyumu: 25, safran_kukurt: 10, norvask_buzu: 35 } },
   nerya_limani: { para: 'ml', satar: { bal: 12, saf_su: 4, deri_astar: 38, altin_tel: 110, mor_cicek: 22 }, alir: { aether: 18, oksit_celik: 18, girdap_recinesi: 30, isik_tozu: 0.9 } },
   kahergonat_karaborsa: { para: 'ml', satar: { ruh_kapsulu: 300, kara_aether: 120 }, alir: { kara_aether: 60, obsidyen: 40 }, yasakli: true },
 };
@@ -290,7 +290,7 @@ export function zanaatEt(d, id) {
     if (!d.zanaatKuyrugu) d.zanaatKuyrugu = [];
     const sn = (d.zaman && d.zaman.sn) || 0;
     const usta = !!(t.gozetmen && d.gozetmen && d.gozetmen[t.gozetmen]);
-    d.zanaatKuyrugu.push({ id, n, bitis: sn + t.nobet * 1200, usta });
+    d.zanaatKuyrugu.push({ id, n, bitis: sn + t.nobet * 1200 * (d.bayrak.yan_melezHiz ? 0.9 : 1), usta }); // yan görev 3: melez süresi yüzde on kısa
     return { metin: ISTASYONLAR[t.ist].ad + ': ' + adi(id) + ' tezgâhta; ' + t.nobet + ' Yıldız Nöbeti sürecek.' + (usta ? ' Gözetmen başında: usta işi olacak.' : ''), ses: ISTASYONLAR[t.ist].ses };
   }
   ekle(d, id, n);
@@ -631,12 +631,13 @@ export function bakimYap(d) {
 
 // --- Ticaret masası ---
 const MALKENIA = ['uma_pazari', 'zhaor_pazari', 'axira_tezgahi', 'sinha_tezgahi', 'elyndra_dokumacisi'];
-function fiyat(d, f, alim, pz) {
+function fiyat(d, f, alim, pz, mal) {
   let k = (SB.kabiliyet(d, 'uma', 2) ? 0.1 : 0) + evrenEtki(d).pazar; // evren itibarı: pazar avantajı
   // Yan görev ödülleri: gümüş muhafız rozeti (Malkenia alışı), istihbarat ağı (karaborsa), ticaret beratı (batı satışı)
   if (alim && MALKENIA.includes(pz) && d.esya && d.esya.gumus_rozet) k += 0.1;
   if (alim && pz === 'kahergonat_karaborsa' && d.bayrak.yan_istihbarat) k += 0.1;
   if (!alim && pz === 'julithan_limani' && d.esya && d.esya.ticaret_berati) k += 0.1;
+  if (alim && mal === 'oksit_celik' && d.bayrak.yan_filtra_fiyat) k += 0.2; // yan görev 11: Filtra oksit demiri
   return Math.max(alim ? 1 : 0, Math.round(f * (alim ? 1 - k : 1 + k) * 10) / 10);
 }
 function paraAdi(p) {
@@ -652,7 +653,7 @@ function paraEkle(d, p, n) {
 export function satinAl(d, pz, k) {
   hazirla(d);
   const P = PAZARLAR[pz];
-  const f = fiyat(d, P.satar[k], true, pz);
+  const f = fiyat(d, P.satar[k], true, pz, k);
   if (paraVar(d, P.para) < f) return { metin: adi(k) + ' ' + f + ' ' + paraAdi(P.para) + '. Paran yetmiyor: ' + paraMetni(d), ses: 'red' };
   paraEkle(d, P.para, -f);
   ekle(d, k, 1);

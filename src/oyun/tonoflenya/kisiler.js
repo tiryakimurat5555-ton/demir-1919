@@ -139,7 +139,8 @@ export const FRAKSIYON_GUCU = {
   sehir_guvenligi: 'ygk', sehir_halki: 'ygk', uma_aristokrasi: 'ygk', botanikciler: 'ygk', karaborsa: 'ygk', yasal: 'ygk',
   julithan: 'bati', julithan_senatosu: 'bati', anitor: 'bati', filtra_madencileri: 'bati', safran_gocebeleri: 'bati',
   fleeplee: 'guney', tentran: 'guney', arin: 'guney', veradon: 'guney', tharal: 'guney', keralon: 'guney',
-  col_kabileleri: 'dogu', kervan_loncasi: 'dogu', dogu_kesisleri: 'dogu', sinir_muhafiz: 'dogu', drahmir: 'dogu', avcilar: 'dogu',
+  col_kabileleri: 'dogu', kervan_loncasi: 'dogu', dogu_kesisleri: 'dogu', sinir_muhafiz: 'dogu', drahmir: 'kuzey', avcilar: 'dogu',
+  g_ygk: 'ygk', g_bati: 'bati', g_dogu: 'dogu', g_kuzey: 'kuzey', g_guney: 'guney',
   mormon_muhafiz: 'kuzey', norvask: 'kuzey', helgar: 'kuzey', doga_koruma: 'kuzey',
 };
 export const ITIBAR_BASAMAKLARI = [

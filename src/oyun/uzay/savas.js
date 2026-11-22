@@ -166,6 +166,13 @@ export const DUSMANLAR = {
   vaha_solucani: { ad: 'vaha kaya solucanı', ortam: 'kara', tier: 1, arketip: 'zirhli', moduller: [], govde: 60, kalkan: 0.5, silahlar: ['sonik_dalga', 'pence'], frek: 110, ses: 'Taşları ezen, derin, sürtünmeli bir gümbürtü.', zayif: 'Zırhlı; sismik dengeleyici vadiyi çökertmeden onu durdurur.', ganimet: { bazalt: 4 } },
   dev_kor_solucan: { ad: 'dev kör solucan öncüsü', ortam: 'kara', tier: 2, arketip: 'zirhli', moduller: [], govde: 80, kalkan: 0.5, silahlar: ['sonik_dalga', 'sonik_dalga', 'pence'], frek: 70, ses: 'Yerin altından yükselen, kemikleri titreten bir gürleme.', zayif: 'Onu durdurursan sürü yön değiştirir; sismik dengeleyici de saptırır.', ganimet: { kseno_kabuk: 2 } },
   yagmaci_lideri: { ad: 'yağmacı lideri', ortam: 'kara', tier: 2, arketip: 'pusucu', moduller: ['pusucu', 'kacis'], teslim: true, govde: 55, kalkan: 0.3, silahlar: ['mermi', 'mermi', 'lazer'], frek: 190, ses: 'Kalın bir ses komut veriyor; tüfek kurma şakırtısı.', zayif: 'Yüzde yirmi beşte teslim olur.', ganimet: { sasi_celigi: 20 } },
+  // Otuz yan görevin çatışmaları (v4 30 yan görev derinleştirmesi)
+  sinir_muhafizi: { ad: 'kraliyet sınır muhafızı', ortam: 'kara', tier: 3, arketip: 'zirhli', moduller: [], govde: 60, kalkan: 0.45, silahlar: ['kilic', 'mermi'], frek: 160, ses: 'Ağır zırh şakırtısı ve hızla yaklaşan çizme sesleri.', zayif: 'Zırhlı ama atak; hızla gelir, kaçınınca açılır.', ganimet: { oksit_celik: 2 } },
+  kum_kertenkelesi: { ad: 'Zorah kum kertenkelesi', ortam: 'kara', tier: 3, arketip: 'akinci', moduller: [], govde: 40, kalkan: 0.15, silahlar: ['pence', 'pence'], frek: 340, ses: 'Kumun içinden hızla yaklaşan sürtünme ve keskin bir tıslama.', zayif: 'Hızlı biter; uyarıda kaçın, sonra vur.', ganimet: { kseno_kabuk: 1 } },
+  cam_akrebi: { ad: 'kristal çöl akrebi', ortam: 'kara', tier: 3, arketip: 'zirhli', moduller: ['pusucu'], govde: 60, kalkan: 0.5, silahlar: ['pence', 'tukuruk'], frek: 400, ses: 'Camın altından gelen tınlayan bir tıkırtı; her darbede yer değiştiriyor.', zayif: 'Sonik kovucu kristal zırhını sarsar.', ganimet: { rezonans_cami: 2 } },
+  simya_muhafizi: { ad: 'çılgın simya muhafızı', ortam: 'kara', tier: 4, arketip: 'karanlik', moduller: ['karanlik', 'zehir'], karanlik: true, govde: 65, kalkan: 0.3, silahlar: ['tukuruk', 'golge_oku'], frek: 120, ses: 'Kaynayan imbik fokurtusu ve kara bir fısıltı.', zayif: 'Işık silahları ve panzehir.', ganimet: { kara_aether: 1 } },
+  yildiz_paraziti: { ad: 'etobur Alt Evren yıldız paraziti', ortam: 'kara', tier: 4, arketip: 'karanlik', moduller: ['karanlik'], karanlik: true, govde: 45, kalkan: 0.2, silahlar: ['pence', 'golge_oku'], frek: 520, ses: 'Teleskop merceklerinde yankılanan, cam üstünde kanat sürtünmesi.', zayif: 'Işık mızrağı iki kat vurur.', ganimet: {} },
+  sis_canavari: { ad: 'sis feneri bataklık canavarı', ortam: 'kara', tier: 4, arketip: 'pusucu', moduller: ['pusucu', 'karanlik'], karanlik: true, sahte: true, govde: 90, kalkan: 0.35, silahlar: ['pence', 'sonik_dalga'], frek: 60, ses: 'Derin bir göğüs hırıltısı; önünde sallanan fenerin sahte çan tınısı.', zayif: 'Fener yanıltır; yalnız hırıltıya kilitlen.', ganimet: {} },
   // YGK Akademi kürsü testi (Kaelis 'Echo' Duman): oyuncunun kendi saldırı sesini taklit eden pusucu
   ses_illuzyonu: { ad: 'ses illüzyonu', ortam: 'kara', tier: 3, arketip: 'pusucu', moduller: ['pusucu'], sahte: true, govde: 55, kalkan: 0.3, silahlar: ['sonik_dalga', 'mermi'], frek: 210, ses: 'Senin kendi atış sesin, bir sağdan bir soldan; arkasında ince bir nefes.', zayif: 'Sahte yönleri ele; gerçek nefese kilitlen.', ganimet: {} },
   // Çağrılan yardımcılar (küçük birimler: her tur üst üste ek hasar)
@@ -705,7 +712,7 @@ function dusmanaHasar(d, x, olaylar, tur, hedef) {
   if (tur === 'torpido' && (sahip(d, 'plazma_pencesi'))) h *= 1.5; // T-07 bordalama pençesi
   // Rüzgarkıran'ın madencilik lazerleri zırhı eritir
   if (!kara(s) && sinifi(d) === 2 && DUSMANLAR[dm.tur].arketip === 'zirhli') h *= 1.25;
-  if (!kara(s) && mod(d, 'varek_bataryasi')) h *= 1.18; // yan görev 4
+  if (!kara(s) && mod(d, 'varek_bataryasi')) h *= 1.15; // yan görev 4 (v4 derinleştirme: yüzde on beş)
   // Yan görev ödülleri: cam akrebi zehri (asit kaplama), Deli Simyacı Malakor (torpido yarıçapı)
   if (tur === 'torpido' && esya(d, 'akrep_zehri') > 0) {
     d.esya.akrep_zehri -= 1;
@@ -1410,7 +1417,8 @@ function darbe(d) {
   }
   // Aşama 4: Elyon'un zırh desteği, Kırmızı Mühür Parçası (Sharon'un karanlık darbesi), Cahelon Girdap Anahtarı (birinci aşama)
   if (s.elyon > 0) h *= 0.8;
-  if (kara(s) && s.arac && d.bayrak.ak_zeva) h *= 0.7; // Zeva: araçla engebeli arazide
+  if (kara(s) && s.arac && d.bayrak.ak_zeva) h *= 0.7;
+  if (kara(s) && d.bayrak.sinirAskeri) h *= 0.9; // yan görev 24: Drahmir sınır askerleri // Zeva: araçla engebeli arazide
   if (sil === SILAHLAR.iyon && esya(d, 'firtina_kalkani') > 0) h *= 0.8; // Zephyra'nın Fırtına Kalkanı
   if (x.tur === 'lord_sharon' && d.bayrak.morwennaYanda) h *= 0.75; // Morwenna Sharon'un zihin saldırılarını büker
   if (x.tur === 'lord_sharon' && esya(d, 'kirmizi_muhur') > 0) h *= 0.8;

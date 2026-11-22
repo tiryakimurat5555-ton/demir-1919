@@ -599,7 +599,16 @@ Demir 1919 oyunu silindi; geçmişi git kaydında (son sürüm 1.06, commit 556f
     zephyraSerbest); operasyon.js (ak_zeva gezegen); dunya.js (ak_trellis); karakter.js (Tixie kaçtı, Valen stasiste).
   - harita.js YGK kat adları belgedeki gibi. Yuzey: YGK katında iki parmak sağ/sol katGezNo ile sıradaki yere yürür.
   - testler/akademi.test.js.
-- Sıradaki: v4 Faz 5 kalanı (tonoflenya-30-yan-gorev-derinlestirme, tonoflenya-bolgesel-gorevler-ve-ambargo-entegrasyonu); KAPSAM.md'de [~] notları (Bahtiyar'a sorulacaklar) ve telefonda deneme.
+- SÜRÜM 3.7 (22 Kasım): v4 Faz 5, otuz yan görev derinleştirmesi. Telefonda denenmedi.
+  - tonoflenya/yanDerin.js (gorevler.js içe aktarır): YAN_GOREV üstüne yazar: onkosul ESLEME + GEMI, nobet/nobetMetni (1, 3, 25),
+    savas/savasMetni/savasBitis (4, 10, 13, 14, 15, 19, 21, 24, 28, 30), kararlar belgedeki gibi (g_* fraksiyonları), sonra
+    operasyonlariKaydet. yan.js: yn_bas Final 1 ve nöbet şartı, y.evre 'savas', yan_savas sahnesi, savasKur (savasSonraSahne
+    yan_karar), yn_savas_ yeniden giriş; FRAKSIYONLAR g_*; kervan_hissesi günlük, yan_aether_tozu ışık tozu da. kisiler.js
+    FRAKSIYON_GUCU g_* ve drahmir kuzey. savas.js yeni düşmanlar (sinir_muhafizi, kum_kertenkelesi, cam_akrebi,
+    simya_muhafizi, yildiz_paraziti, sis_canavari), Varek bataryası ×1,15, sinirAskeri ×0,9. zanaat.js yan_melezHiz,
+    fiyat(…, mal) yan_filtra_fiyat, Julithan oksit_celik satışı.
+  - testler/yan.test.js yeni koşullar ve çatışma testi.
+- Sıradaki: v4 Faz 5 kalanı (tonoflenya-bolgesel-gorevler-ve-ambargo-entegrasyonu); KAPSAM.md'de [~] notları (Bahtiyar'a sorulacaklar) ve telefonda deneme.
 
 ## Sesler
 - Drive'daki Efektler/Ambians dosyaları 14 MB; Drive bağlayıcısı 10 MB'tan büyük dosyayı indiremiyor. Bu yüzden

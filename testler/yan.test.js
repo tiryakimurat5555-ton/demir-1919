@@ -93,15 +93,29 @@ function hazir() {
   d.esya.plazma_tufegi = 1;
   d.kusanilan.zirh = 'oksit_zirhi';
   d.esya.oksit_zirhi = 1;
+  // v4 derinleştirme (3.7): Final 1, gerçek ön koşul eşyaları ve araçlar
+  d.tf = { aktif: null, evre: null, biten: [1], karar: {}, rez: [], catlak: 0, unvan: [], guven: { kefius: 0, valen: 0, halk: 0 } };
+  Object.assign(d.esya, { isik_pelerini: 1, sinha_cipi: 1, isik_mizragi: 1 });
+  d.koloni.parcalar.dondurucu_kopuk = 4;
+  d.araclar = ['col_tilkisi'];
+  SB.ekolKazan(d, 'varek', 300);
   return d;
 }
 function surdur(d, secim) {
   for (let k = 0; k < 200; k++) {
     if (d.op) oyna(O, V, d);
+    else if (d.savas) {
+      d.savas.dusman.govde = 1;
+      d.savas.dusman.aci = 0;
+      d.savas.uyari = null;
+      d.savas.sizma = false;
+      savasGirdi(d, { tur: 'dokun', parmak: 1 });
+      if (d.savas) savasIlerle(d, 0.1);
+    }
     else if (d.sahne) sahneSec(d, d.sahne, d.sahne === 'yan_karar' ? Math.min(secim, sahneSecenekleri(d, d.sahne).length - 1) : 0);
     else {
       const o = zamanIlerle(d, 0.1);
-      if (!o.some((x) => x.tur === 'op')) break;
+      if (!o.some((x) => x.tur === 'op' || x.tur === 'savas')) break;
     }
   }
 }
@@ -124,6 +138,8 @@ describe('Tonoflenya yan görevleri', () => {
     const d = hazir();
     for (const g of YN.YAN) {
       const id = 'yan_' + g.no;
+      if (g.nobet && !d.zaman) d.zaman = { sn: 0 };
+      if (g.nobet) d.zaman.sn = ['Zhaor', 'Varek', 'Axira', 'Elyndra', 'Sinha', 'Uma'].indexOf(g.nobet[0]) * 1200 + 600 + Math.floor((d.zaman.sn || 0) / 7200) * 7200;
       const e = noktaEylemleri(d, id).find((x) => x.id === 'yn_bas_' + g.no);
       expect(e).toBeTruthy();
       eylemUygula(d, id, e.id);
@@ -170,5 +186,44 @@ describe('Tonoflenya yan görevleri', () => {
     for (let i = 0; i < 400 && d.savas && d.esya.hayat_muskasi; i++) savasIlerle(d, 0.1);
     expect(d.esya.hayat_muskasi).toBe(0);
     expect(d.gemi.govde).toBeGreaterThan(1);
+  });
+});
+
+describe('Otuz yan görev derinleştirmesi (3.7)', () => {
+  test('Final 1 ve Yıldız Nöbeti şartı; gerçek ön koşullar', () => {
+    const d = hazir();
+    d.tf.biten = [];
+    expect(eylemUygula(d, 'yan_2', 'yn_bas_2').metin).toContain('Kayıt Mührü');
+    d.tf.biten = [1];
+    d.zaman = { sn: 1200 + 10 }; // Kızıl Kuşluk
+    expect(eylemUygula(d, 'yan_1', 'yn_bas_1').metin).toContain('Gümüş Şafak');
+    expect(YN.YAN_GOREV[8].onkosul.some(([a]) => a.indexOf('Çöl Tilkisi') >= 0)).toBe(true);
+    expect(YN.YAN_GOREV[30].onkosul.some(([a, f]) => a.indexOf('Işık Mızrağı') >= 0 && f)).toBe(true);
+    expect(YN.YAN_GOREV[28].onkosul[0][0]).toContain('Sınıf III');
+  });
+  test('çatışmalı görev: operasyondan sonra savaş, zaferde karar; ödül ana güce yazar', () => {
+    const d = hazir();
+    eylemUygula(d, 'yan_4', 'yn_bas_4');
+    sahneSec(d, 'yan_giris', 0);
+    zamanIlerle(d, 0.1);
+    d.op = null;
+    d.sahne = 'yan_savas';
+    sahneSec(d, 'yan_savas', 0);
+    expect(d.savasBekle.dusmanlar).toEqual(['kadim_otomat']);
+    expect(noktaEylemleri(d, 'yan_4').some((e) => e.id === 'yn_savas_4')).toBe(true);
+    zamanIlerle(d, 0.1);
+    expect(d.savas).toBeTruthy();
+    for (let k = 0; k < 200 && d.savas; k++) {
+      d.savas.dusman.govde = 1;
+      d.savas.dusman.aci = 0;
+      d.savas.uyari = null;
+      d.savas.sizma = false;
+      savasGirdi(d, { tur: 'dokun', parmak: 1 });
+      if (d.savas) savasIlerle(d, 0.1);
+    }
+    expect(d.sahne).toBe('yan_karar');
+    sahneSec(d, 'yan_karar', 0);
+    expect(ZN.miktar(d, 'varek_bataryasi')).toBe(1);
+    expect(d.yan.itibar.g_ygk).toBe(20);
   });
 });

@@ -799,7 +799,30 @@ bütün bölümlerini sırayla sayar (21 Kasım: v3 paketiyle sekiz belge daha g
       hücrede (YGK +10); Morwenna serbest ya da ikna → Final 18'de Sharon'un zihin saldırıları %25 zayıf; hücrede bırakılırsa
       kara aether verisi. [~] İkna için Kefius'un güveni ya da Silas'ın dersi şartı benim eklemem.
 
-## 55-57. v4 paketinin öteki belgeleri: [ ] tonoflenya-30-yan-gorev-derinlestirme, tonoflenya-bolgesel-gorevler-ve-ambargo-entegrasyonu.
+## 55. v4 / tonoflenya-30-yan-gorev-derinlestirme.txt (3.7; yanDerin.js, yan.js)
+- [x] 1.1 Olmayan ön koşullar gerçek karşılıklarına bağlandı: gürültü pelerini / zihin tılsımı → Fenrir Işık Pelerini ya
+      da Baş-Büyücü Cübbesi; plazma söndürücü → iki dondurucu köpük; aether akort anahtarı → T-05 Sonik Tüfek ya da Sinha
+      çipi; şok mızrağı / plazma kılıcı → Zhaor Işık Mızrağı ya da Filtra Tüfeği; Manta-01 / Nomad-01 → Çöl Tilkisi ya da
+      Mammoth; zırh seviyesi 2 → Filtra oksit zırhı ya da lamine zırh; savaş seviyesi 15 → Kırmızı ekolde Yıldız Muhafızı
+      (300); gemi sınıfları belgedeki gibi (7 ve 19: Sınıf II, 28: Sınıf III). [~] Karşılığı belgede yazmayan öteki gereçler
+      (sonar, barometre, tarayıcı…) eskisi gibi görevi veren kişi ödünç veriyor.
+- [x] 1.2 Ödüller beş ana güce yazar (g_ygk, g_bati, g_dogu, g_kuzey, g_guney; karakter ağındaki bölge itibarında
+      görünür); Drahmir artık Kuzey'e sayılıyor. Ortak tetik: yan görevler Final 1'den (YGK Kayıt Mührü) sonra.
+- [x] 2-6 Nöbet dinamikleri: MAG-01 Altın Gece ya da Gümüş Şafak, MAG-03 Mor İkindi, STH-01 Mavi Akşam.
+- [x] On çatışmalı göreve evrensel savaş (operasyondan sonra çatışma, zaferde karar; yenilgide noktadan yeniden girilir):
+      MAG-04 Varek savaş otomatı (T3 frekans), WST-04 iki kraliyet sınır muhafızı, EST-01 iki kum kertenkelesi, EST-02 cam
+      akrebi (sonik kovucu ilk turda zırhı sarsar), EST-03 üç haydut çetesi (teslim), NTH-01 çılgın simya muhafızı, NTH-03
+      iki yıldız paraziti (ışık mızrağı iki kat), NTH-06 iki buzul biyom yaratığı, STH-04 korvet ve dron taşıyıcı (uzay),
+      STH-06 sis feneri canavarı.
+- [x] Belgedeki Seçenek A/B ödülleri (karışanlar düzeltildi): bütün otuz görevin ödülleri belgeye göre; tek "Ödül" yazan
+      görevlerde ödül iki seçeneğe de eklendi. Varek bataryası yüzde on beş; MAG-03 melez üretim süresi %10 kısa;
+      WST-05 Julithan limanında Filtra oksit demiri %20 ucuz (limana oksit demiri satışı eklendi); WST-06 günlük yüz liralık
+      kervan hissesi; EST-04 Hardrin bariyeri üç çatışma; NTH-02 Kuzey girdap ve kara buz bağışıklığı; NTH-06 B üç sınır
+      askeri (kara çatışmasında hasar %10 az); STH-05 B haftada elli gram ışık tozu.
+      [~] Bazı eski ödüller (gümüş rozet, liman nişanı, yadigârlar) belgeyle çelişmediği için korundu. STH-03'teki
+      Aethelgard / Nyxara ayrımı ödül metninde söyleniyor; ayrı karakter olarak eklenmedi.
+
+## 56-57. v4 paketinin öteki belgeleri: [ ] tonoflenya-bolgesel-gorevler-ve-ambargo-entegrasyonu.
 
 ## Sıradaki adımlar (sırayla)
 0. Tonoflenya genişlemesi, yönergedeki sırayla: [2.1: Malken (12); 2.2: tarihçe (13); 2.3: atlas (14); 2.4: eşya,
