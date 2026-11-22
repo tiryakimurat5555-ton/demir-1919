@@ -84,6 +84,7 @@ export function rolCarpani(d, tesis) {
   // Fotonik kristaller aydınlatma hatlarında (yerel operasyon 1A): gece nöbetlerinde (Sinha, Uma) verim yüzde on
   if (d.bayrak && d.bayrak.fotonHat && d.zaman && ['Sinha', 'Uma'].includes(nobet(d).yildiz)) c *= 1.1;
   // Dr. Selin'in iksir deneyi: eczane bir gün hızlı
+  if (tesis === 'reaktor_lab' && d.bayrak && d.bayrak.halvar) c *= 1.15; // Radion-Kızıl'dan teknisyen Halvar
   if (tesis === 'kseno_eczane' && d.bayrak && d.zaman && (d.bayrak.eczaneHizBitis || 0) > d.zaman.sn) c *= 1.5;
   // Günün nöbeti tesisin işiyle uyuşuyorsa
   if (d.zaman) {

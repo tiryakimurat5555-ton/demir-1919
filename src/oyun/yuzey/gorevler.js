@@ -39,6 +39,7 @@ import * as KR from '../tonoflenya/karakter';
 import * as KM from '../komuta';
 import * as HK from '../hikaye';
 import '../hikayeKoloni';
+import * as GZ from '../gezegenHikayeleri';
 import { MEKANLAR } from './harita';
 
 export const { ESYALAR, HAREKET_KISA, ayarBaslat, ayarDegis, ayarIlerle, ayarMetni, ayarYakinlik, koloniMetni, insaListesi } = G1;
@@ -369,6 +370,18 @@ export function kenetlen(d) {
       d.karakollar.push(r.id);
       d.gemi.yakit = d.gemi.maxYakit;
       r.metin = (r.metin || '') + ' Buraya otomatik ikmal karakolu kuruldu; bundan sonra uğradıkça ücretsiz yakıt ve onarım.';
+    } else if (d.bayrak.gz_tamir && O.opTamamMi(d, r.id)) {
+      // Automata-Enkaz onarım algoritması: karakolsuz noktada da yüzde on beş ücretsiz onarım
+      d.gemi.govde = Math.min(d.gemi.maxGovde, d.gemi.govde + Math.round(d.gemi.maxGovde * 0.15));
+    }
+  }
+  // Gezegen hikâyesi bittiyse atıl kalmaz: belgedeki nöbette yeniden kenetlenince hasat (gezegenHikayeleri.js)
+  if (r.id && GEZEGENLER[r.id] && O.opTamamMi(d, r.id) && d.bayrak['gz_' + r.id]) {
+    const h = GZ.gezegenHasat(d, r.id);
+    if (h) r.metin = (r.metin || '') + ' ' + h.metin;
+    if (r.id === 'p11') {
+      d.bayrak.yildirimSarj = true;
+      r.metin = (r.metin || '') + ' Paratoner platosunda yıldırım toplandı: sonraki savaşa aşırı şarjlı başlarsın.';
     }
   }
   if (r.inis) {

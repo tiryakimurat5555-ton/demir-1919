@@ -93,6 +93,7 @@ function adimBitti(d, ses) {
 
 // Gövde hasarı; biterse operasyon başarısız
 function hasar(d, x, soz) {
+  if (d.bayrak && d.bayrak.gz_yercekimi) x = Math.round(x * 0.7); // Fractura yerçekimi sönümleme
   // Yüzey operasyonları (final görevleri): gemi değil kaptanın dayanıklılığı; biterse geri çekilinir
   if (op(d) && op(d).yuzey) {
     d.op.can = Math.max(0, (d.op.can == null ? 100 : d.op.can) - x);

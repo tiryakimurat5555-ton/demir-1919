@@ -6,6 +6,11 @@ tesis kurar, ileride gemini parça parça inşa edip uzaya açılırsın.
 
 Yapımcı: Bahtiyar Cankurt (tasarım belgeleri belgeler/ içinde). Expo Go ile iPhone ve Android'de çalışır.
 
+## Bu sürümde (3.4)
+- v4 Faz 4, ikinci kısım: on sekiz gezegenin karakter hikâyesi (Thalassa'dan Corona Lux'a). Gezegen operasyonu bitince
+  telsizden çağrı gelir; operasyon, çatışma ve kararlarla ilerler, kalıcı gemi ve koloni etkileri bırakır, hikâyeler
+  birbirine bağlanır; tamamlanan gezegenlerden nöbet başına hasat.
+
 ## Bu sürümde (3.3)
 - v4 Faz 4, birinci kısım: karakter merkezli hikâye motoru ("Hikâye çağrıları"), kilitli dört binayı açan karakter
   hikâyeleri (Dr. Vael, Sira-Vel, Tina, Mirek) ve yabancı firkateynin ilk teması; sekiz yerel operasyon karakter, kara

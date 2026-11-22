@@ -137,10 +137,15 @@ export function hikayeIlerle(d) {
     hk.evre = null;
     hk.ertele = t + NOBET_SN;
   }
-  if (!hk.aktif && hk.bekleyen.length && t >= (hk.ertele || 0) && bosta(d)) baslat(d, hk.bekleyen[0]);
+  if (!hk.aktif && hk.bekleyen.length && t >= (hk.ertele || 0)) {
+    const id = hk.bekleyen.find((x) => bosta(d, HIKAYELER[x]));
+    if (id) baslat(d, id);
+  }
 }
-function bosta(d) {
-  return !d.sahne && !d.op && !d.opBekle && !d.savas && !d.savasBekle && !d.uzay && !d.valf && !d.ayar && !d.terazi && !(d.komuta && d.komuta.aktif) && !(d.tf && d.tf.aktif) && !(d.yan && d.yan.aktif);
+function bosta(d, h) {
+  // Gezegen hikâyeleri yörüngede (gemi dururken) de açılır
+  const uzay = d.uzay && !(h && h.uzayda && !(d.uzay.hiz > 0));
+  return !d.sahne && !d.op && !d.opBekle && !d.savas && !d.savasBekle && !uzay && !d.valf && !d.ayar && !d.terazi && !(d.komuta && d.komuta.aktif) && !(d.tf && d.tf.aktif) && !(d.yan && d.yan.aktif);
 }
 
 export const SAHNELER = {

@@ -654,7 +654,7 @@ function parcaEdin(d, parca, n) {
   while (miktar(d, parca) < n && tur++ < 200) {
     let tesis, t;
     for (const ts of Object.keys(TARIFLER)) {
-      const x = TARIFLER[ts].find((y) => y.cikti[parca]);
+      const x = TARIFLER[ts].find((y) => y.cikti[parca] && !/^g_/.test(y.id)); // gezegen malzemesi tarifleri (gezegenHikayeleri.js) zincire girmez
       if (x) {
         tesis = ts;
         t = x;

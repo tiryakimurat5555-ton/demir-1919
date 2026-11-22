@@ -527,7 +527,7 @@ export function kargo(d) {
   const siniflar = Object.keys(GEMI_SINIFLARI);
   const s = d.gemi ? Math.max(0, siniflar.indexOf(d.gemi.sinif)) : 0;
   const kapasite = Math.round((60 + 30 * s) * (SB.kabiliyet(d, 'uma', 3) ? 1.5 : 1)) + (d.gemi && d.gemi.moduller.cep_ambar ? 500 : 0); // T-03 cep-ambar
-  const ikmal = (d.murettebat || []).some((u) => u.uzmanlik === 'ikmal') ? 1.2 : 1; // ikmal subayı
+  const ikmal = ((d.murettebat || []).some((u) => u.uzmanlik === 'ikmal') ? 1.2 : 1) * (1 + ((d.bayrak && d.bayrak.gz_kargo) || 0)); // ikmal subayı; Aero-Flora yerçekimsiz ambar
   const kara = miktar(d, 'kara_aether');
   return { hacim: Math.round(h), kapasite: Math.round(kapasite * ikmal), asim: h > kapasite * ikmal, karaFazla: kara > 4 };
 }
@@ -551,7 +551,9 @@ export function sicramaSuresi(d) {
   return SICRAMA_SN / (SB.kabiliyet(d, 'zhaor', 4) ? 2 : 1);
 }
 export function sarjSuresi(d) {
-  return d.gemi && d.gemi.moduller.tentran_modulatoru ? 7200 : SARJ_SN;
+  // Chronos-Döngü takyon teknolojisi: şarj beklemesi sıfır (döngü hızlandırıldıysa yarı)
+  if (d.bayrak && d.bayrak.gz_takyon) return 0;
+  return (d.gemi && d.gemi.moduller.tentran_modulatoru ? 7200 : SARJ_SN) * (d.bayrak && d.bayrak.gz_yarimSarj ? 0.5 : 1);
 }
 const simdi = (d) => (d.zaman && d.zaman.sn) || 0;
 export function sarjKalan(d) {

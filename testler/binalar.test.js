@@ -94,7 +94,7 @@ describe('Dinamik yakıt ve ikmal', () => {
     expect(S.rotaYakiti(d, 'p14', 0.9)).toBe(6.3); // ağır ambar +%25 (yuvarlanmış)
     d.zaman.sn = 4 * 1200; // Mavi Akşam
     expect(S.rotaYakiti(d, 'p14')).toBe(4.5);
-    d.tamamlananOp = ['p07'];
+    d.bayrak.gz_helyum = true; // Zephyr-Major hikâyesi, akustik kepçe
     expect(S.rotaYakiti(d, 'p14')).toBeCloseTo(3.8, 1);
   });
 

@@ -569,6 +569,13 @@ export function savasBaslat(d, spec) {
   }
   if (s.gelis === 'tuzak') s.tuzak = true;
   if (spec.bagisik) s.bagisiklik = 99; // biyo-kubbe ya da karantina: zehir işlemez
+  // Hikâyelerde düşmanlara kendi adları (mekanik aynı katalog birimi)
+  if (spec.adlar) s.dusmanlar.forEach((x, i) => { if (spec.adlar[i] && !x.kucuk) x.ad = spec.adlar[i]; else if (spec.adlar[i]) x.ad = spec.adlar[i]; });
+  // Fulgur-3 yıldırım şarj istasyonu: sonraki savaşa aşırı şarjlı (iki tur geniş pencere)
+  if (d.bayrak && d.bayrak.yildirimSarj) {
+    d.bayrak.yildirimSarj = false;
+    s.ziyafet = Math.max(s.ziyafet || 0, 2);
+  }
   // Evrensel bina sistemi: sefer öncesi yapılan hazırlıklar bu çatışmada harcanır
   const hz = savasHazirligi(d);
   if (hz.tarama) s.taramaEk = 0.5;
@@ -657,7 +664,7 @@ function dusmanaHasar(d, x, olaylar, tur, hedef) {
   const dm = hedef || s.dusman;
   if (!dm || dm.govde <= 0) return;
   const T = DUSMANLAR[dm.tur];
-  let h = x * oyuncuGucu(d, s) * (d.bayrak && d.bayrak.akademiAskeri ? 1.05 : 1); // akademinin askerî Ar-Ge'si (3A)
+  let h = x * oyuncuGucu(d, s) * (d.bayrak && d.bayrak.akademiAskeri ? 1.05 : 1) * (d.bayrak && d.bayrak.gz_emp && !kara(s) ? 1.05 : 1); // akademinin askerî Ar-Ge'si (3A), Fulgur EMP mühimmatı
   // Kuşanılan silah: karada doğrudan el silahı, uzayda kaptanın bataryasına odak
   if (tur === 'birincil') {
     if (kusan(d, 'plazma_tufegi')) h *= 1.8;
@@ -1420,7 +1427,7 @@ function darbe(d) {
   if (kusan(d, 'drahmir_kalkani')) h *= 0.85;
   if (ozelVar(d, 'Gareth')) h *= 0.87;
   if (d.yan && d.yan.hardrinBariyer > 0) h *= 0.5;
-  if (sil.ozel === 'isi') h *= isiCarpani(d);
+  if (sil.ozel === 'isi') h *= isiCarpani(d) * (d.bayrak && d.bayrak.gz_termal ? 0.7 : d.bayrak && d.bayrak.gz_cift ? 0.8 : 1);
   // Akrep dronu bir kez sahte ses yayıp atışı şaşırtır
   if (!kalkanli && s.arac === 'akrep' && !s.akrepSahte && kara(s)) {
     s.akrepSahte = true;
@@ -1428,6 +1435,11 @@ function darbe(d) {
     o.push({ soz: 'Akrep dronu sahte bir ses yaydı; atış onu vurdu.', ses: 'tislama' });
   }
   h *= E.alinanHasarCarpani(d) * yildizCarpani(d, 'hasar'); // Kaelith kalkan kristali, zaman-kristal koruyucu tabakası
+  // Gezegen hikâyelerinin kalıcı kazanımları (v4 gezegen-05 … 20)
+  const bb = d.bayrak || {};
+  if (!kara(s)) h *= (bb.gz_optik ? 0.95 : 1) * (bb.gz_nukleer ? 0.9 : 1) * (bb.gz_yildizKalkan ? 0.77 : 1);
+  if (sil.ozel === 'iyon') h *= (bb.gz_kriyo ? 0.7 : bb.gz_cift ? 0.8 : 1) * (bb.kivilcim7 ? 0.8 : 1);
+  if (bb.galaktikKasif) h *= 0.95;
   h *= 1 - evrenEtki(d).savunma; // Evrenin Muhafızı: yüzde on savunma
   if (kara(s) && misafir(d, 'zeno') && !(d.bayrak && d.bayrak.tonoflenyada)) h /= 1.4; // Silahşör Zeno kolonide: savunma yüzde kırk
   canEkle(d, -Math.round(h));

@@ -181,6 +181,7 @@ export function koloniGirdisi(d, tesis, t) {
   let c = 1;
   if (tesis === 'arac_hangari' && misafir(d, 'oronte')) c *= 0.5;
   if (tesis === 'dokumhane' && d.komuta && d.komuta.torvok) c *= 1 - d.komuta.torvok;
+  if (tesis === 'dokumhane' && d.bayrak.gz_brom) c *= 0.9; // Ferros-Omega'dan usta Brom
   if (c < 1) for (const k of Object.keys(g)) if (['titanyum', 'bazalt', 'sasi_celigi', 'agir_metal', 'kizilkaya_titanyumu', 'oksit_celik'].includes(k) || tesis === 'arac_hangari') g[k] = Math.max(1, Math.ceil(g[k] * c));
   return g;
 }
@@ -264,8 +265,9 @@ export function koloniIlerle(d, dt) {
   // Akrep: yataklardan sırayla bir birim toplar (derin damarlar hariç)
   if ((d.araclar || []).includes('akrep')) {
     k.akrep = (k.akrep || 0) + dt;
-    if (k.akrep >= AKREP_SN) {
-      k.akrep -= AKREP_SN;
+    const akrepSn = AKREP_SN / (d.bayrak.gz_tamir ? 1.5 : 1); // Automata-Enkaz otonom dron zekâsı
+    if (k.akrep >= akrepSn) {
+      k.akrep -= akrepSn;
       const ids = Object.keys(NOKTALAR).filter((id) => NOKTALAR[id].kaynak && !NOKTALAR[id].gerekArac && (d.stok[id] || 0) > 0);
       if (ids.length) {
         const id = ids[(k.akrepSira = ((k.akrepSira || 0) + 1) % ids.length)];

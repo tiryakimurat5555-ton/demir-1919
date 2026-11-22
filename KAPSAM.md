@@ -608,7 +608,8 @@ bütün bölümlerini sırayla sayar (21 Kasım: v3 paketiyle sekiz belge daha g
       operasyon ve/veya evrensel savaş adımları, ara ve son kararlar, kalıcı iz; "Sonra" bir nöbet erteler; yarım kalan
       hikâye bekleyenlere döner). Menüde "Hikâye çağrıları".
 - [x] 2.1 Kilitli dört bina karakter hikâyeleriyle (bölüm 32'de).
-- [ ] 2.2 Yirmi gezegen numunesinin karakter zincirleri: gezegen hikâyeleriyle (sonraki sürüm).
+- [x] 2.2 Yirmi gezegen numunesinin karakter zincirleri: 3.4'te on sekiz gezegen hikâyesiyle (bölüm 34-51; p01 ve p02
+      belgesi yok, numune eşikleri 3.1'de).
 - [x] 2.3 Kaelith kurtarma (3.2, Görev 2B).
 - [ ] 3.1 On yan görevin çatışmaları: Faz 5 (tonoflenya-30-yan-gorev-derinlestirme).
 - [ ] 3.2 Final #1, #16, #18, #20: Aşama 4 belgesiyle.
@@ -641,9 +642,109 @@ bütün bölümlerini sırayla sayar (21 Kasım: v3 paketiyle sekiz belge daha g
 - [x] 3D Evi Olmayanların Şehri (Mirek; korvet + avcı) → Mülteci Kampüsü; dört bina ile Kademe 4.
 - [x] 3E Bilinmeyen Frekans: Sınıf III ve gezegen rotası; firkateyn T3; piezo ve kseno-alaşım; gezegen yörünge devriyeleri
       artık bu temastan sonra.
-- [ ] Bölüm 2 gezegen matrisi ve 18 gezegen hikâyesi: sonraki sürüm.
+- [x] Bölüm 2 gezegen matrisi ve 18 gezegen hikâyesi: 3.4 (bölüm 34-51).
 
-## 34-57. v4 paketinin öteki belgeleri: [ ] Faz 4 kalanı (18 gezegen hikâyesi, Aşama 4) ve Faz 5.
+## 34. v4 / gezegen-03-...-hikayesi.txt (3.4, gezegenHikayeleri.js gz_p03): Thalassa
+- [x] "Derinlerin Mührü ve Siren-0" — çağıran Dr. Nerissa Tide (YGK Biyo-Akustik); gezegen operasyonu bitince telsizden gelir (gemi dururken uzayda da açılır); belgedeki
+      adımlar operasyon ve/veya evrensel savaş, ara ve son kararlar (iyi / kötü ya da yol), ödül malzemesi, kalıcı etki ve
+      çapraz bağlar; her nöbet bir kez gezegen hasadı (kenetlenince).
+
+## 35. v4 / gezegen-04-...-hikayesi.txt (3.4, gezegenHikayeleri.js gz_p04): Mycelia IV
+- [x] "Nefes Alan Kovan ve Miselyum Ağı" — çağıran Botanikçi Mara; gezegen operasyonu bitince telsizden gelir (gemi dururken uzayda da açılır); belgedeki
+      adımlar operasyon ve/veya evrensel savaş, ara ve son kararlar (iyi / kötü ya da yol), ödül malzemesi, kalıcı etki ve
+      çapraz bağlar; her nöbet bir kez gezegen hasadı (kenetlenince).
+
+## 36. v4 / gezegen-05-...-hikayesi.txt (3.4, gezegenHikayeleri.js gz_p05): Sol-Kharra
+- [x] "Kırılan Mercekler ve Çölün Şarkısı" — çağıran Kaptan Daro ve Haris (Kum-Yelkeni 4); gezegen operasyonu bitince telsizden gelir (gemi dururken uzayda da açılır); belgedeki
+      adımlar operasyon ve/veya evrensel savaş, ara ve son kararlar (iyi / kötü ya da yol), ödül malzemesi, kalıcı etki ve
+      çapraz bağlar; her nöbet bir kez gezegen hasadı (kenetlenince).
+
+## 37. v4 / gezegen-06-...-hikayesi.txt (3.4, gezegenHikayeleri.js gz_p06): Ferros Omega
+- [x] "3,5G Altındaki Demirci ve Cıva Kanyonu" — çağıran Usta demirci Brom (Filtra) ve Kaelith madenci Korgath; gezegen operasyonu bitince telsizden gelir (gemi dururken uzayda da açılır); belgedeki
+      adımlar operasyon ve/veya evrensel savaş, ara ve son kararlar (iyi / kötü ya da yol), ödül malzemesi, kalıcı etki ve
+      çapraz bağlar; her nöbet bir kez gezegen hasadı (kenetlenince).
+
+## 38. v4 / gezegen-07-...-hikayesi.txt (3.4, gezegenHikayeleri.js gz_p07): Zephyr Major
+- [x] "Siklon Gözündeki İstasyon ve Elmas Yağmuru" — çağıran Kaptan Vess (Bulut-9) ve Kithron gözlemci Tiz-Kanat; gezegen operasyonu bitince telsizden gelir (gemi dururken uzayda da açılır); belgedeki
+      adımlar operasyon ve/veya evrensel savaş, ara ve son kararlar (iyi / kötü ya da yol), ödül malzemesi, kalıcı etki ve
+      çapraz bağlar; her nöbet bir kez gezegen hasadı (kenetlenince).
+
+## 39. v4 / gezegen-08-...-hikayesi.txt (3.4, gezegenHikayeleri.js gz_p08): Lithos Echo
+- [x] "Çan Kulesinin Yankısı ve Mor Monolitler" — çağıran Akustik keşiş Lirael-9; gezegen operasyonu bitince telsizden gelir (gemi dururken uzayda da açılır); belgedeki
+      adımlar operasyon ve/veya evrensel savaş, ara ve son kararlar (iyi / kötü ya da yol), ödül malzemesi, kalıcı etki ve
+      çapraz bağlar; her nöbet bir kez gezegen hasadı (kenetlenince).
+
+## 40. v4 / gezegen-09-...-hikayesi.txt (3.4, gezegenHikayeleri.js gz_p09): Necron Sıfır
+- [x] "Taşlaşmış Sessizlik ve Gömülü Arşiv" — çağıran Arkeolog Kael-Or; gezegen operasyonu bitince telsizden gelir (gemi dururken uzayda da açılır); belgedeki
+      adımlar operasyon ve/veya evrensel savaş, ara ve son kararlar (iyi / kötü ya da yol), ödül malzemesi, kalıcı etki ve
+      çapraz bağlar; her nöbet bir kez gezegen hasadı (kenetlenince).
+
+## 41. v4 / gezegen-10-...-hikayesi.txt (3.4, gezegenHikayeleri.js gz_p10): Janus Split
+- [x] "Alacakaranlık Çizgisinde İki Kardeş" — çağıran İkiz kardeşler Soren ve Nadia; gezegen operasyonu bitince telsizden gelir (gemi dururken uzayda da açılır); belgedeki
+      adımlar operasyon ve/veya evrensel savaş, ara ve son kararlar (iyi / kötü ya da yol), ödül malzemesi, kalıcı etki ve
+      çapraz bağlar; her nöbet bir kez gezegen hasadı (kenetlenince).
+
+## 42. v4 / gezegen-11-...-hikayesi.txt (3.4, gezegenHikayeleri.js gz_p11): Fulgur-3
+- [x] "Yıldırım Senfonisi ve Kıvılcım-7" — çağıran Maestro Kıvılcım-7 (bakım robotu); gezegen operasyonu bitince telsizden gelir (gemi dururken uzayda da açılır); belgedeki
+      adımlar operasyon ve/veya evrensel savaş, ara ve son kararlar (iyi / kötü ya da yol), ödül malzemesi, kalıcı etki ve
+      çapraz bağlar; her nöbet bir kez gezegen hasadı (kenetlenince).
+
+## 43. v4 / gezegen-12-...-hikayesi.txt (3.4, gezegenHikayeleri.js gz_p12): Miasma-9
+- [x] "Kemik Flütleri ve Bataklık Hekimi" — çağıran Dr. Veyra (yazılı telsiz); gezegen operasyonu bitince telsizden gelir (gemi dururken uzayda da açılır); belgedeki
+      adımlar operasyon ve/veya evrensel savaş, ara ve son kararlar (iyi / kötü ya da yol), ödül malzemesi, kalıcı etki ve
+      çapraz bağlar; her nöbet bir kez gezegen hasadı (kenetlenince).
+
+## 44. v4 / gezegen-13-...-hikayesi.txt (3.4, gezegenHikayeleri.js gz_p13): Umbra (Kayıp)
+- [x] "Güneşsiz Dünyanın Sıcak Kalbi" — çağıran Kör Kaptan Mira; gezegen operasyonu bitince telsizden gelir (gemi dururken uzayda da açılır); belgedeki
+      adımlar operasyon ve/veya evrensel savaş, ara ve son kararlar (iyi / kötü ya da yol), ödül malzemesi, kalıcı etki ve
+      çapraz bağlar; her nöbet bir kez gezegen hasadı (kenetlenince).
+
+## 45. v4 / gezegen-14-...-hikayesi.txt (3.4, gezegenHikayeleri.js gz_p14): Fractura
+- [x] "Kırılan Kıtanın Halatı" — çağıran Kaptan Oskar (Çapa-3); gezegen operasyonu bitince telsizden gelir (gemi dururken uzayda da açılır); belgedeki
+      adımlar operasyon ve/veya evrensel savaş, ara ve son kararlar (iyi / kötü ya da yol), ödül malzemesi, kalıcı etki ve
+      çapraz bağlar; her nöbet bir kez gezegen hasadı (kenetlenince).
+
+## 46. v4 / gezegen-15-...-hikayesi.txt (3.4, gezegenHikayeleri.js gz_p15): Carbonis V
+- [x] "Sürtünmesiz Labirent ve Elmas Çekirdeği" — çağıran Madenciler Bram ve Kaelith Sera-K; gezegen operasyonu bitince telsizden gelir (gemi dururken uzayda da açılır); belgedeki
+      adımlar operasyon ve/veya evrensel savaş, ara ve son kararlar (iyi / kötü ya da yol), ödül malzemesi, kalıcı etki ve
+      çapraz bağlar; her nöbet bir kez gezegen hasadı (kenetlenince).
+
+## 47. v4 / gezegen-16-...-hikayesi.txt (3.4, gezegenHikayeleri.js gz_p16): Radion Kızıl
+- [x] "Geiger Gölgesindeki Son Nöbet" — çağıran Teknisyen Halvar (Kurşun-4); gezegen operasyonu bitince telsizden gelir (gemi dururken uzayda da açılır); belgedeki
+      adımlar operasyon ve/veya evrensel savaş, ara ve son kararlar (iyi / kötü ya da yol), ödül malzemesi, kalıcı etki ve
+      çapraz bağlar; her nöbet bir kez gezegen hasadı (kenetlenince).
+
+## 48. v4 / gezegen-17-...-hikayesi.txt (3.4, gezegenHikayeleri.js gz_p17): Automata Enkaz
+- [x] "Milyon Yıllık Vardiya" — çağıran Fabrika bilinci Ünite-0; gezegen operasyonu bitince telsizden gelir (gemi dururken uzayda da açılır); belgedeki
+      adımlar operasyon ve/veya evrensel savaş, ara ve son kararlar (iyi / kötü ya da yol), ödül malzemesi, kalıcı etki ve
+      çapraz bağlar; her nöbet bir kez gezegen hasadı (kenetlenince).
+
+## 49. v4 / gezegen-18-...-hikayesi.txt (3.4, gezegenHikayeleri.js gz_p18): Chronos Döngü
+- [x] "Patlamadan Önceki Son Yankı" — çağıran Pilot Elara; gezegen operasyonu bitince telsizden gelir (gemi dururken uzayda da açılır); belgedeki
+      adımlar operasyon ve/veya evrensel savaş, ara ve son kararlar (iyi / kötü ya da yol), ödül malzemesi, kalıcı etki ve
+      çapraz bağlar; her nöbet bir kez gezegen hasadı (kenetlenince).
+
+## 50. v4 / gezegen-19-...-hikayesi.txt (3.4, gezegenHikayeleri.js gz_p19): Aero-Flora
+- [x] "Gökyüzünün Balina Şarkısı" — çağıran Ana Kese (hidrofon) ve Vaelin sözcüsü Sira-Vel; gezegen operasyonu bitince telsizden gelir (gemi dururken uzayda da açılır); belgedeki
+      adımlar operasyon ve/veya evrensel savaş, ara ve son kararlar (iyi / kötü ya da yol), ödül malzemesi, kalıcı etki ve
+      çapraz bağlar; her nöbet bir kez gezegen hasadı (kenetlenince).
+
+## 51. v4 / gezegen-20-...-hikayesi.txt (3.4, gezegenHikayeleri.js gz_p20): Corona Lux
+- [x] "Güneşin Kalbindeki Kapan" — çağıran Fizikçi Dr. Kaelen-Sol (Helios-1); gezegen operasyonu bitince telsizden gelir (gemi dururken uzayda da açılır); belgedeki
+      adımlar operasyon ve/veya evrensel savaş, ara ve son kararlar (iyi / kötü ya da yol), ödül malzemesi, kalıcı etki ve
+      çapraz bağlar; her nöbet bir kez gezegen hasadı (kenetlenince).
+
+## 52. Gezegen hikâyelerinin ortak [~] notları (3.4)
+- [~] Trellis-7, Seraphine, Profesör Püskül ve Sarah'nın T-09 ikiye katlaması şimdilik bayrak ve güç itibarı (Faz 5'te
+      karakter olarak).
+- [~] Cahelon'a karşı abis verisi üstünlüğü bayrak olarak duruyor; Aşama 4 boss savaşında okunacak.
+- [~] Bazı ödüller yaklaşık: GK miktarları belgedeki gibi, birkaç parça yerine yakın parça (ör. kuantum çip).
+- [x] Etkiler: optik kalkan, helyum-3 yakıt ×0,85, hiper itki ×1,15, termal/kriyo/çift kaplama, EMP hasar +%5, yıldırım
+      şarjı, yerçekimi operasyon hasarı ×0,7, nükleer kalkan, Halvar reaktör lab ×1,15, uzak tamir, takyon şarjı (0 ya da
+      yarı), kargo, yıldız kalkanı, plazma motoru ×1,2, karanlık halka yakıtı ×0,8, enzim tarım ×1,15, Brom dökümhane ×0,9,
+      Galaktik Kâşif unvanı (hasar ×0,95).
+
+## 53-57. v4 paketinin öteki belgeleri: [ ] Aşama 4 (3.5) ve Faz 5.
 
 ## Sıradaki adımlar (sırayla)
 0. Tonoflenya genişlemesi, yönergedeki sırayla: [2.1: Malken (12); 2.2: tarihçe (13); 2.3: atlas (14); 2.4: eşya,

@@ -148,3 +148,71 @@ describe('Dokuz yüzey bölgesi', () => {
     expect((d.koloni.kaynaklar.plazma_cami || 0)).toBeGreaterThan(pc);
   });
 });
+
+describe('On sekiz gezegen hikâyesi', () => {
+  const GZ = require('../src/oyun/gezegenHikayeleri');
+  // Hikâyeyi baştan sona oynar: operasyonlar ve çatışmalar kazanılmış sayılır, kararlarda secim sırası
+  function oyna(d, pid, secim) {
+    d.tamamlananOp = [...(d.tamamlananOp || []), pid];
+    HK.hikayeIlerle(d);
+    expect(d.hikaye.aktif).toBe('gz_' + pid);
+    for (let i = 0; i < 40 && d.sahne; i++) {
+      const sc = SAHNELER[d.sahne].secenekler(d);
+      let j = 0;
+      if (d.sahne === 'hk_karar') {
+        j = Math.min(secim, sc.length - 1);
+        while (j > 0 && /gerekir\)$/.test(sc[j].etiket)) j--;
+      }
+      sec(d, j);
+      if (d.opBekle) {
+        d.opBekle = null;
+        d.sahne = 'hk_ara';
+      } else if (d.savasBekle) zafer(d);
+      if (d.sahne === 'hk_sonuc') {
+        d.sahne = null;
+        break;
+      }
+    }
+    expect(HK.bittiMi(d, 'gz_' + pid)).toBe(true);
+    return d.bayrak['gz_' + pid];
+  }
+  test('hepsi iyi yolla biter; çapraz bağlar taşınır; nöbet hasadı', () => {
+    const d = oyun(70);
+    G.gemiOlustur(d, 3);
+    const pidler = ['p03', 'p04', 'p05', 'p06', 'p07', 'p08', 'p09', 'p10', 'p11', 'p12', 'p13', 'p14', 'p15', 'p16', 'p17', 'p18', 'p19', 'p20'];
+    for (const pid of pidler) {
+      const son = oyna(d, pid, 0);
+      expect(son).toBeTruthy();
+    }
+    expect(d.bayrak.gz_p03).toBe('iyi');
+    expect(d.koloni.parcalar.miselyum_sporu).toBe(1);
+    expect(d.koloni.parcalar.sol_mercek).toBe(1);
+    expect(d.koloni.parcalar.yanki_anahtari).toBe(1);
+    expect(d.koloni.parcalar.otomat_sifresi).toBe(1);
+    expect(d.bayrak.gz_p10).toBe('a');
+    expect(d.bayrak.gz_p12).toBe('iyi'); // miselyum sporu şifa yolunu açtı
+    expect(d.bayrak.gz_takyon).toBe(true);
+    expect(d.bayrak.lazer_sogutucu).toBe(true);
+    // Hasat: Thalassa Sinha nöbetinde
+    d.zaman.sn = 4 * 1200;
+    const once = d.koloni.parcalar.hidro_camur || 0;
+    expect(GZ.gezegenHasat(d, 'p03').ses).toBe('sinyal');
+    expect(d.koloni.parcalar.hidro_camur).toBe(once + 2);
+    expect(GZ.gezegenHasat(d, 'p03').metin).toContain('alındı');
+    expect(GZ.gezegenHasat(d, 'p04').metin).toContain('Axira');
+  });
+  test('kötü yollar ve çapraz cezalar: kırık mühür, sömürülen kovan, Miasma savaşı', () => {
+    const d = oyun(71);
+    G.gemiOlustur(d, 3);
+    d.koloni.binalar.push('sinyal_kulesi');
+    oyna(d, 'p03', 1);
+    expect(d.bayrak.thalassaKirik).toBe(true); // ikinci seçenekler mührü kırar
+    expect(d.bayrak.gz_p03).toBe('kotu');
+    oyna(d, 'p04', 1);
+    expect(d.bayrak.gz_p04).toBe('kotu');
+    expect(d.koloni.parcalar.miselyum_sporu || 0).toBe(0);
+    oyna(d, 'p12', 1);
+    expect(d.bayrak.gz_p12).toBe('kotu');
+    expect(d.bayrak.notralizasyon_kulesi).toBe(true);
+  });
+});

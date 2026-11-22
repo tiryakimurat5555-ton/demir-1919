@@ -568,7 +568,15 @@ Demir 1919 oyunu silindi; geçmişi git kaydında (son sürüm 1.06, commit 556f
     harita.js karakol_kriyo/obsidyen/kuleler/tuneller/vaha.
   - Yeni kara düşmanları: mantar_pusucusu, kriyo_yaratigi, kriyo_pusucusu, kristal_akrep, vaha_solucani, dev_kor_solucan,
     yagmaci_lideri. testler/hikaye.test.js; yuzey.test.js mini testleri yeni akışa göre, ana akışta solucan/yağmacı kapalı.
-- Sıradaki: v4 Faz 4 kalanı (18 gezegen hikâyesi ve numune karakter zincirleri, Aşama 4 bosslar), Faz 5; KAPSAM.md'de [~] notları (Bahtiyar'a sorulacaklar) ve telefonda deneme.
+- SÜRÜM 3.4 (22 Kasım, Murat: "Devam"): v4 Faz 4 ikinci kısım, 18 gezegen hikâyesi. Telefonda denenmedi.
+  - gezegenHikayeleri.js: MALZEMELER (20 gezegen malzemesi → PARCALAR), g_ tarifleri (reaktör lab, dökümhane, biyo-kubbe),
+    G(pid) → hikayeEkle('gz_'+pid, uzayda: true; tetik gezegen op'u bitti); bitince bayrak gz_<pid> ('iyi'/'kotu'/yol harfi);
+    çapraz bağlar (thalassaKirik, miselyum_sporu, sol_mercek, yanki_anahtari, otomat_sifresi, ferrosMatkap, iyonHarita);
+    gezegenHasat (kenetlenince nöbet başına bir; bayrak hasat_<pid>). hikaye.js bosta: h.uzayda ise gemi durunca açılır.
+  - Etki bayrakları okunur: savas.js (adlar, hasar çarpanları, yildirimSarj), seyir.js (gz_helyum, gz_karanlik, hız),
+    zanaat.js (şarj, kargo), tarim.js, koloni.js, binalar.js (halvar), operasyon.js (gz_yercekimi), gorevler.js (gz_tamir).
+  - testler/hikaye.test.js: on sekiz hikâye iyi yolla ve kötü yollar.
+- Sıradaki: v4 Aşama 4 (asama-4-tonoflenya-ana-gorevler-ve-final-derinlestirme; bosslar), Faz 5; KAPSAM.md'de [~] notları (Bahtiyar'a sorulacaklar) ve telefonda deneme.
 
 ## Sesler
 - Drive'daki Efektler/Ambians dosyaları 14 MB; Drive bağlayıcısı 10 MB'tan büyük dosyayı indiremiyor. Bu yüzden
