@@ -576,7 +576,20 @@ Demir 1919 oyunu silindi; geçmişi git kaydında (son sürüm 1.06, commit 556f
   - Etki bayrakları okunur: savas.js (adlar, hasar çarpanları, yildirimSarj), seyir.js (gz_helyum, gz_karanlik, hız),
     zanaat.js (şarj, kargo), tarim.js, koloni.js, binalar.js (halvar), operasyon.js (gz_yercekimi), gorevler.js (gz_tamir).
   - testler/hikaye.test.js: on sekiz hikâye iyi yolla ve kötü yollar.
-- Sıradaki: v4 Aşama 4 (asama-4-tonoflenya-ana-gorevler-ve-final-derinlestirme; bosslar), Faz 5; KAPSAM.md'de [~] notları (Bahtiyar'a sorulacaklar) ve telefonda deneme.
+- SÜRÜM 3.5 (22 Kasım, Murat: "Devam"): v4 Aşama 4. Telefonda denenmedi.
+  - malken.js tonoflenya_varis: fren kilidi, Valen ve Kefius. final.js: ESYA ygk_muhru, tyzrakhel_mizragi (silah); Final 1
+    ödülü 500 ML + 100 GK + mühür + KR.seckinKadro; Final 4 kosul bayrak.zirveHizasi; Final 16 op (kacin) + kararlar
+    (150 kara aether / 60 saf aether); Final 17 kararları bayrak tfElyon / tfKusatma; Final 18 giris işlevi, hazirla =
+    mizrakBirlestir, savasOnce lord_sharon, sonra op (mühür taşları, çember); Final 19 efsanevi_reaktor ister; Final 20
+    savas cahelon (op yok); bayrak kopruBarisi. tf_giris: giris işlev olabilir, g.hazirla, kara savaşta "Savaşa gir".
+  - tonoflenya/asama4.js: hikâye 'zirve_ignesi' (4B; tetik Final 3; iki frekans adımı → zirveHizasi, malazarIzni, kodeks
+    okyanos_abyssus). kronik.js ONKOSUL 4 zirveHizasi.
+  - savas.js: gizli geçit kalkan ×0,75; s.elyon (3 tur, alınan ×0,8, ek atış 'elyon'); kırmızı mühür Sharon ×0,8; Girdap
+    Anahtarı Cahelon birinci aşama ×0,75; Sharon faz 2 tfKusatma tek muhafız; Cahelon faz 2 abisVeri kilit 1;
+    xarathiaIttifak ısı ×0,8.
+  - gezegenHikayeleri.js gz_p01 Xarathia (taslak). hikaye.js planlaSonra(d, secilen): ara karar seçimi atla'ya yansır.
+  - testler/asama4.test.js; final.test.js 4B adımı.
+- Sıradaki: v4 Faz 5 (ygk-akademi-gezilebilir-sistem-ve-10-kursu, tonoflenya-30-yan-gorev-derinlestirme, tonoflenya-bolgesel-gorevler-ve-ambargo-entegrasyonu); KAPSAM.md'de [~] notları (Bahtiyar'a sorulacaklar) ve telefonda deneme.
 
 ## Sesler
 - Drive'daki Efektler/Ambians dosyaları 14 MB; Drive bağlayıcısı 10 MB'tan büyük dosyayı indiremiyor. Bu yüzden

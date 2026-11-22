@@ -229,7 +229,7 @@ export const SAHNELER = {
               hk.secim = { ...(hk.secim || {}), [hk.aktif + '_' + hk.adim]: a.karar.indexOf(c) };
               ilerle(d);
             },
-            sonra: ok ? planlaSonra(d) : 'hk_karar',
+            sonra: ok ? planlaSonra(d, a.karar.indexOf(c)) : 'hk_karar',
           };
         });
       }
@@ -247,10 +247,15 @@ export const SAHNELER = {
   },
 };
 // Ara karardan sonra nereye (saf): ara kararın kendisi geçilmiş sayılır
-function planlaSonra(d) {
+// (seçim sonraki adımın atla'sını etkileyebilir: geçici olarak yazılır, sonra geri alınır)
+function planlaSonra(d, secilen) {
   const hk = hikaye(d);
   const h = HIKAYELER[hk.aktif];
+  const anahtar = hk.aktif + '_' + hk.adim;
+  const eski = hk.secim;
+  hk.secim = { ...(eski || {}), [anahtar]: secilen };
   const { j } = sonrakiAdim(d, h, hk.adim);
+  hk.secim = eski;
   if (j >= h.adimlar.length) return h.kararlar && h.kararlar.length ? 'hk_karar' : 'hk_sonuc';
   return h.adimlar[j].karar ? 'hk_karar' : null;
 }

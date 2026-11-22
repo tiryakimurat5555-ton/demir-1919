@@ -144,7 +144,7 @@ describe('Kadim tarihçe', () => {
   test('on bir bölüm kendi yerlerinde, sırayla açılır; çağlar dolar', () => {
     const d = hazir();
     // Önkoşullar
-    Object.assign(d.bayrak, { malazarIzni: true, arinDersi: true });
+    Object.assign(d.bayrak, { malazarIzni: true, zirveHizasi: true, arinDersi: true });
     for (let i = 1; i <= 11; i++) {
       const k = KRONIKLER[i];
       expect(NOKTALAR[k.yer]).toBeDefined();

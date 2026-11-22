@@ -6,6 +6,11 @@ tesis kurar, ileride gemini parça parça inşa edip uzaya açılırsın.
 
 Yapımcı: Bahtiyar Cankurt (tasarım belgeleri belgeler/ içinde). Expo Go ile iPhone ve Android'de çalışır.
 
+## Bu sürümde (3.5)
+- v4 Aşama 4: Tonoflenya ana ekseni. Varışta Valen ve Kefius karşılar; Final 1'in ödülü tamamlandı; Final 3'ten sonra
+  Zirve İğnesi hizalanır ve Okyanos-Abyssus görünür. Final 16'ya sızma ve iki aşamalı zırhlı; Final 17'nin kararı Final
+  18'e bağlanır; Lord Sharon ve Cahelon artık üç aşamalı boss savaşları. Pyros-Prime'da Xarathia: ittifak ya da savaş.
+
 ## Bu sürümde (3.4)
 - v4 Faz 4, ikinci kısım: on sekiz gezegenin karakter hikâyesi (Thalassa'dan Corona Lux'a). Gezegen operasyonu bitince
   telsizden çağrı gelir; operasyon, çatışma ve kararlarla ilerler, kalıcı gemi ve koloni etkileri bırakır, hikâyeler

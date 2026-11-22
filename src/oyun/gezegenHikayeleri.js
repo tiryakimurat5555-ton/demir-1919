@@ -596,3 +596,36 @@ G('p20', {
   ],
   hasat: { iyi: { nobet: ['Varek'], odul: { gunes_plazmasi: 1 }, metin: 'kuyu kenarından güneş plazması.' }, kotu: { nobet: ['Varek'], odul: { gunes_plazmasi: 1 }, metin: 'kuyu kenarından güneş plazması.' } },
 });
+
+// --- 01 Pyros-Prime: Xarathia (v4 karakter ağı 10, düşman kataloğu Boss 1; ayrıntılı gezegen belgesi yok, taslak) ---
+// "İttifak yolunda savaşılmaz": soğuk bir armağanla (iki dondurucu köpük ya da beş kriyolit) Xarathia'yla konuşulursa
+// çatışma atlanır; yoksa iki aşamalı boss savaşı (ikinci aşamada buz silahlarına ve soğutmaya iki kat zayıf).
+const sogukArmagan = (d) => p(d, 'dondurucu_kopuk') >= 2 || (d.koloni.kaynaklar.kriyolit || 0) >= 5;
+G('p01', {
+  ad: 'Kızıl Kalbin Muhafızı', veren: 'Pyros-Prime\'ın ateş figürü Xarathia', numune: 'Torvok ve Ignador',
+  giris: [
+    'Derin bas homurtuları, menfezlerden fışkıran kükürt tıslamaları; kabin tavanına sıvı cam damlaları çarpıyor.',
+    'Kızıl Kalp Kalderası\'nın dibinden, lav göllerinin altından nefes alan bir ses yükseliyor: "Isı kalkanlı küçük böcek... Kalbime matkap saplayan yağmacıların akrabası mısın, yoksa ateşi anlayan biri mi?" Bu, Xarathia: ne YGK tutsağı ne Malazar afeti; Pyros-Prime\'ın kendi ateşi.',
+  ],
+  hazirlik: 'Ağır termal rover hazır. Soğuk bir armağan (iki dondurucu köpük ya da beş kriyolit) Xarathia\'yla konuşmanın yolunu açar; termal giysi ve buz silahları savaşta işe yarar.',
+  adimlar: [
+    { op: [A('kacin', 'Isı dalgaları', 'Kalderanın kenarında ısı dalgaları vuruyor: dalga hangi yandan gelirse ters yana kaydır. Üç kez.', 'Kızıl Kalp\'in kıyısındasın; lav sütunu nabız gibi atıyor.', { n: 3 })] },
+    { karar: [
+      { etiket: 'Soğuk bir armağanla Xarathia\'yla konuş', sonuc: 'Armağanı lavın kıyısına bıraktın.' },
+      { etiket: 'Lav sütununa saldır, çekirdeğini söndür', sonuc: 'Termal rover silahlarını kalderaya çevirdin.' },
+    ], soru: 'Kızıl Kalp\'in muhafızına nasıl yaklaşacaksın?' },
+    {
+      savas: S(['xarathia'], null, 'kara', 5),
+      atla: (d) => secimi(d, 'gz_p01', 1) === 0 && sogukArmagan(d),
+      atlaMetni: 'Xarathia soğuk armağanı kabul etti: "Ateşi söndürmeye değil, dengelemeye gelmişsin." Savaşılmadı.',
+      bitis: 'Xarathia lavın derinine çekildi; Kızıl Kalp\'in ağzı açık.',
+    },
+  ],
+  kararSoru: 'Kızıl Kalp Kalderası\'nın sıvı titanyum-kobalt damarı önünde.',
+  kararlar: [
+    { etiket: 'Xarathia\'yla ittifak: damardan yalnız payına düşeni al', kosul: (d) => secimi(d, 'gz_p01', 1) === 0 && sogukArmagan(d), kosulMetni: 'İttifak ancak soğuk armağanla, savaşmadan kurulur.', sonuc: 'Xarathia ateşin dengesini öğretti: dökümhane termal manyetik çekirdeği; ısı düşmanlarına karşı kalkan daha yavaş ısınır. Pyros yağmacılara kapalı.', yap: (d) => { if ((d.koloni.parcalar.dondurucu_kopuk || 0) >= 2) d.koloni.parcalar.dondurucu_kopuk -= 2; else if (p(d, 'dondurucu_kopuk') >= 2) d.esya.dondurucu_kopuk -= 2; else d.koloni.kaynaklar.kriyolit -= 5; ver(d, { itibar: 600, titanyum: 10, sivi_metal: 4 }); b(d).xarathiaIttifak = true; } },
+    { etiket: 'Damarı boşalt: bütün sıvı titanyum-kobaltı çek', sonuc: 'Kalderanın kalbi söndü; ambar sıvı metal ve titanyumla dolu. Pyros artık yalnız taş ve küldür.', yap: (d) => { ver(d, { itibar: 600, titanyum: 25, sivi_metal: 8 }); } },
+  ],
+  son: (d, i) => (i === 0 ? 'iyi' : 'kotu'),
+  hasat: { iyi: { nobet: ['Varek'], odul: { sivi_metal: 1, titanyum: 2 }, metin: 'Xarathia damardan payını ayırdı.' }, kotu: { odul: { bazalt: 4 }, metin: 'sönmüş kalderadan bazalt.' } },
+});

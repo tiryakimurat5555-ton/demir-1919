@@ -39,6 +39,7 @@ import * as KR from '../tonoflenya/karakter';
 import * as KM from '../komuta';
 import * as HK from '../hikaye';
 import '../hikayeKoloni';
+import '../tonoflenya/asama4';
 import * as GZ from '../gezegenHikayeleri';
 import { MEKANLAR } from './harita';
 

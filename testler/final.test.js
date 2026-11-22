@@ -125,6 +125,17 @@ describe('Tonoflenya final görevleri', () => {
     expect(noktaEylemleri(d, 'yasak_dolaplar').some((e) => e.id.indexOf('f_bas') === 0)).toBe(false);
     for (const g of FN.GOREVLER) {
       const yer = g.nokta;
+      if (g.no === 4) {
+        // Ara sahne 4B: Kefius'un çağrısı, Zirve İğnesi hizalanır (Kronik 4 ve Final 4 bunu bekler)
+        expect(eylemUygula(d, yer, 'f_bas_4').ses).toBe('red');
+        for (let k = 0; k < 20 && !d.bayrak.zirveHizasi; k++) {
+          if (!d.sahne) zamanIlerle(d, 1);
+          if (d.sahne) surdur(d);
+        }
+        expect(d.bayrak.zirveHizasi).toBe(true);
+        expect(d.kodeks.some((k) => k.id === 'okyanos_abyssus')).toBe(true);
+        d.sahne = null;
+      }
       expect(noktaEylemleri(d, yer).some((e) => e.id === 'f_bas_' + g.no)).toBe(true);
       const rr = eylemUygula(d, yer, 'f_bas_' + g.no);
       expect(d.sahne).toBe('tf_giris');
@@ -149,7 +160,11 @@ describe('Tonoflenya final görevleri', () => {
     expect(d.bayrak.serbestKesif).toBe(true);
     expect(d.bayrak.tonoflenyaKurtuldu).toBe(true);
     for (const y of ['runahar_tasi', 'runashar_tasi', 'cahelon_anahtari', 'tyzrakhel_prizmasi', 'tyzrakhel_parcasi', 'efsanevi_reaktor']) expect(ZN.miktar(d, y)).toBe(1);
-    expect(Object.keys(d.tf.karar).length).toBe(4);
+    expect(Object.keys(d.tf.karar).length).toBe(5);
+    expect(d.tf.unvan).toContain('Malken Kahramanı');
+    expect(ZN.miktar(d, 'tyzrakhel_mizragi')).toBe(1);
+    expect(ZN.miktar(d, 'ygk_muhru')).toBe(1);
+    expect(d.bayrak.kopruBarisi).toBe(true);
     expect(d.koloni.nufus.toplam).toBeGreaterThan(1200);
     expect(gorevIpucu(d)).toContain('Bütün final görevleri tamam');
   });

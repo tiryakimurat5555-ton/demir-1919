@@ -58,10 +58,14 @@ export const SAHNELER = {
   tonoflenya_varis: {
     baslik: 'Tonoflenya',
     ortam: 'ortam_t_hangar',
-    efekt: ['kalkis'],
+    efekt: ['kalkis', 'kilit', 'tislama'],
     metin: (d) => [
+      'Sekiz saatlik alt-uzay uğultusu diniyor; manyetik frenler kilitleniyor: klank, tısss.',
       'Koridorun sonunda gökyüzü hiç kararmıyor: altı yıldız. Gümüşi Zhaor, kızıl Varek, zümrüt Axira, ametist Elyndra, mavi Sinha ve altın Uma; üç ikili çift birbirinin çevresinde dönüyor.',
       'Gemi YGK Akademi\'nin beşinci katındaki yerçekimi iskelesine kilitleniyor. Hoparlörlerden binlerce öğrencinin uğultusu ve uzak bir ilahi.',
+      'Gökte altı yıldızın altı notalı çan akoru. İskelede iki kişi bekliyor.',
+      'Baş Yönetici Valen Lazeria: "Demek Aethelis\'ten geri dönen kayıp kaptan sensin... Yıllar önce kat beş katapultundan fırlatıldığında görev emrin kapanmamıştı. Hoş geldin."',
+      'Antik Büyü Ustası Kefius Arateon: "Zamanımız dar, Valen. Altı yıldızın kilidi titriyor ve Kara Göl\'ün altındaki mühür çatlıyor. Bu kaptanın getirdiği Aethelis teknolojisi olmadan Tonoflenya ayakta kalamaz."',
       'Şu an ' + nobet(d).ad + ' nöbeti: gökyüzüne ' + nobet(d).yildiz + ' hâkim.',
       'Akademinin kabul masası birinci katta; asansör iskelenin yanında. Önce kendini bildir.',
     ],

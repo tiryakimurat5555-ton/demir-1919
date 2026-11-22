@@ -71,7 +71,7 @@ Object.assign(ZN.ESYA, {
   haydut_tabancasi: { kat: 1, yuva: 'silah', ad: 'Haydut Başı Akustik Tabancası', tarif: 'Kanyonun yankısında doğan bir silah.', etki: 'Birincil atış 1,5 kat.' },
   mavi_prizma: { kat: 5, ad: 'Kutsal Mavi Kristal Prizma', tarif: 'Fener menzili yüzde on artar.' },
   gunes_kuresi: { kat: 3, ad: 'Kadim güneş küresi', tarif: 'Karaborsada paha biçilmez bir antika.', deger: 3500 },
-  gecit_haritasi: { kat: 5, ad: 'Kahergonat Gizli Geçit Haritası', tarif: 'Ana görevlerde sızma kolaylığı: Kahergonat zırhlıları yüzde otuz zayıf yakalanır.' },
+  gecit_haritasi: { kat: 5, ad: 'Kahergonat Gizli Geçit Haritası', tarif: 'Ana görevlerde sızma kolaylığı: Final 16\'da arka kanyondan sızılır, Kahergonat öncü zırhlısının kalkanı yüzde yirmi beş kırık başlar.' },
   gumus_tuy: { kat: 3, ad: 'Gümüş tüy', tarif: 'Lüks kabin yalıtımı.', deger: 40 },
   yildiz_atlasi: { kat: 5, ad: 'Yıldız Atlası Haritası', tarif: 'Fener menzili yüzde on artar.' },
   parazit_sensoru: { kat: 2, yuva: 'kesif', ad: 'Kozmik Parazit Sensörü', tarif: 'Keşif yuvası.', etki: 'Derin uzay sinyal yakalama yüzde otuz fazla (fener menzili).' },

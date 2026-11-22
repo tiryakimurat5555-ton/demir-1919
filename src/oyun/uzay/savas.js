@@ -587,10 +587,11 @@ export function savasBaslat(d, spec) {
   hedefSec(s);
   const h0 = s.dusmanlar[0];
   // Kahergonat gizli geçit haritası: zırhlılar hazırlıksız yakalanır
-  if (h0.tur === 'kahergonat_zirhlisi' && esya(d, 'gecit_haritasi') > 0) {
-    h0.govde = Math.round(h0.govde * 0.7);
-    h0.max = h0.govde;
-  }
+  // Kahergonat gizli geçit haritası (EST-SQ-06): arka kanyondan sızılır, zırhlının kalkanı yüzde yirmi beş kırık başlar
+  const gizliGecit = h0.tur === 'kahergonat_zirhlisi' && esya(d, 'gecit_haritasi') > 0;
+  if (gizliGecit) h0.kalkan = Math.round(h0.kalkan * 0.75 * 100) / 100;
+  // Final #18: Final #17'de saray korunduysa Mareşal Elyon Vane ilk üç tur yanında (zırh yüzde yirmi, ek atış)
+  if (h0.tur === 'lord_sharon' && d.bayrak.tfElyon) s.elyon = 3;
   const ek = [];
   if (h0.karanlik || h0.tur === 'yabanci_firkateyn') {
     const k = SB.kriz(d, 'sinha');
@@ -598,6 +599,9 @@ export function savasBaslat(d, spec) {
   }
   const g = GELISLER[s.gelis];
   const giris = spec.giris ? [spec.giris] : [];
+  if (gizliGecit) giris.push('Gizli geçit haritasıyla arka kanyondan sızdın: zırhlının kalkanı yüzde yirmi beş kırık, ilk vuruş senin.');
+  if (s.elyon) giris.push('Mareşal Elyon Vane yanında: ilk üç tur zırhın yüzde yirmi güçlü ve o da ateş ediyor.');
+  if (h0.tur === 'cahelon' && esya(d, 'cahelon_anahtari') > 0) giris.push('Girdap Anahtarı kalkan rezonatöründe: yüzey girdabının darbeleri dengeleniyor.');
   // Dinleme kulesi pusuları ve yabancı firkateyni önceden bildirir; tuzakta ilk saldırı erken gelir
   if (s.tuzak) {
     if (bina(d, 'sinyal_kulesi') || sahip(d, 'parazit_sensoru')) giris.push('Dinleme kulesi uyarmıştı: sinyal bir tuzak. Hazırsın.');
@@ -819,8 +823,12 @@ function fazDenetle(d, dm, olaylar) {
     if (x.olumsuz) dm.olumsuz = true;
     if (x.sahte) dm.sahte = true;
     if (x.frek) dm.frek = x.frek;
-    if (x.kilit) dm.kilitCarpani = x.kilit;
-    if (x.cagir) for (const c of x.cagir) yardimciCagir(d, dm, c, olaylar, true);
+    if (x.kilit && !(dm.tur === 'cahelon' && d.bayrak.abisVeri)) dm.kilitCarpani = x.kilit;
+    else if (x.kilit) dm.kilitCarpani = 1;
+    const cagri = x.cagir && dm.tur === 'lord_sharon' && d.bayrak.tfKusatma ? x.cagir.slice(0, 1) : x.cagir;
+    if (cagri) for (const c of cagri) yardimciCagir(d, dm, c, olaylar, true);
+    if (cagri && x.cagir && cagri.length < x.cagir.length) olaylar.push({ soz: 'Gölge ordusu kuşatmada kırılmıştı: Sharon yalnız bir muhafız çağırabildi.' });
+    if (x.kilit && dm.tur === 'cahelon' && d.bayrak.abisVeri) olaylar.push({ soz: 'Abis veri çekirdeği dalış rotasını biliyor: Cahelon\'un yerini kaçırmıyorsun.' });
     s.uyari = null;
     s.evre = 'oyuncu';
     s.sonraki = s.t + 3;
@@ -1044,8 +1052,13 @@ export function savasGirdi(d, g) {
       return [{ soz: 'Iskaladın; ' + (kara(s) ? 'nişan' : 'pruva') + ' hedefte değil.', ses: 'red' }, ...sira(d)];
     }
     const sil = d.kusanilan && d.kusanilan.silah;
-    if (sil) o.push({ ses: { plazma_tufegi: 'el_tufek', kara_buz_hancer: 'el_hancer', isik_mizragi: 'el_mizrak', golge_yayici: 'el_golge' }[sil] });
+    if (sil) o.push({ ses: { plazma_tufegi: 'el_tufek', kara_buz_hancer: 'el_hancer', isik_mizragi: 'el_mizrak', tyzrakhel_mizragi: 'el_mizrak', golge_yayici: 'el_golge' }[sil] });
     dusmanaHasar(d, 10, o, 'birincil');
+    // Mareşal Elyon Vane'nin ek atışı (Final #18, ilk üç tur)
+    if (d.savas && s.elyon > 0 && s.dusman && s.dusman.govde > 0) {
+      o.push({ soz: 'Elyon Vane de ateş ediyor.' });
+      dusmanaHasar(d, 5, o, 'elyon');
+    }
     if (d.savas) o.push(...sira(d));
     return o;
   }
@@ -1179,6 +1192,7 @@ function uyariBaslat(d) {
 function turSonu(d, o) {
   const s = d.savas;
   s.raunt += 1;
+  if (s.elyon > 0) s.elyon -= 1;
   if (s.torpidoBekle > 0) s.torpidoBekle -= 1;
   for (const k of Object.keys(s.bekleme || {})) s.bekleme[k] = Math.max(0, s.bekleme[k] - 1);
   if (s.odak > 0) s.odak -= 1;
@@ -1250,6 +1264,7 @@ function isiCarpani(d) {
   let c = sahip(d, 'termal_giysi') || mod(d, 'termal_karartma') ? 0.5 : 1;
   if (bina(d, 'kriyo_atolye')) c *= 0.75; // kriyo-atölye
   if (sahip(d, 'lazer_sogutucu')) c *= 0.7; // Pyros lav orkidesi termal lazer soğutucusu
+  if (d.bayrak.xarathiaIttifak) c *= 0.8; // Pyros-Prime: Xarathia ateşin dengesini öğretti
   if (kara(s) && aethelisteMi(d) && bina(d, 'jeotermal_santral')) c *= 0.5; // jeotermal santralin termal kalkanı
   if (kara(s) && s.arac === 'demir_kervan') c = 0; // Demir Kervan mobil siper
   if (!kara(s) && sinifi(d) === 5 && (E.etkiVar(d, 'super_iletken') || sahip(d, 'super_iletken'))) c = 0; // Hisar süper-soğutma
@@ -1372,6 +1387,10 @@ function darbe(d) {
     s.morKalkan -= 1;
     h *= 0.5;
   }
+  // Aşama 4: Elyon'un zırh desteği, Kırmızı Mühür Parçası (Sharon'un karanlık darbesi), Cahelon Girdap Anahtarı (birinci aşama)
+  if (s.elyon > 0) h *= 0.8;
+  if (x.tur === 'lord_sharon' && esya(d, 'kirmizi_muhur') > 0) h *= 0.8;
+  if (x.tur === 'cahelon' && !x.faz && esya(d, 'cahelon_anahtari') > 0) h *= 0.75;
   const kalkanli = u.savunma === 'kalkan' && !sil.delici;
   if (u.savunma === 'kalkan' && sil.delici) o.push({ soz: sil.ad + ' kalkanı delip geçti!' });
   if (kalkanli) {

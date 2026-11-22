@@ -38,7 +38,7 @@ export const KRONIKLER = [
     ],
   },
   {
-    no: 4, baslik: 'Cahelon\'un laneti ve komşu gezegendeki su mezarı', yer: 'zirve_ignesi', ipucu: 'Zirve İğnesi hizalandıktan sonra, komşu gezegene bakarak.',
+    no: 4, baslik: 'Cahelon\'un laneti ve komşu gezegendeki su mezarı', yer: 'zirve_ignesi', ipucu: 'Final görevi üçten sonra Kefius\'un çağrısıyla Zirve İğnesi yeniden hizalanınca, komşu gezegene bakarak.',
     metin: [
       'Savaşın son anlarında, ebeveynlerinin taşlaştırıldığını gören Cahelon karanlık gemisine atılıp kaçmaya çalıştı. Koruyucuların kırmızı yargıcı Varek arkasından ilahi bir lanet oku fırlattı.',
       'Işıktan hızlı lanet gemiyi motorlarından vurdu. Cahelon Tonoflenya\'nın hemen komşusundaki kurak, kayalık bir gezegene çakıldı; çarpma kabuğu yardı. Lanetin ateşini söndürmek, kendini bir kozaya almak için son bir büyü fısıldadı: gezegenin bütün nemi, buharı, yeraltındaki bütün su tek bir noktaya mıknatıs gibi çekildi.',
@@ -132,7 +132,7 @@ export function acikMi(d, no) {
 }
 
 // Bir noktada dinlenebilecek bölüm: sıradaki açılmamış ve önkoşulu tamam olan
-const ONKOSUL = { 2: (d) => acikMi(d, 1), 4: (d) => !!d.bayrak.malazarIzni, 6: (d) => !!d.bayrak.arinDersi, 9: (d) => acikMi(d, 8) };
+const ONKOSUL = { 2: (d) => acikMi(d, 1), 4: (d) => !!d.bayrak.zirveHizasi, 6: (d) => !!d.bayrak.arinDersi, 9: (d) => acikMi(d, 8) };
 export function noktadakiBolum(d, noktaId) {
   for (let i = 1; i < KRONIKLER.length; i++) {
     const k = KRONIKLER[i];

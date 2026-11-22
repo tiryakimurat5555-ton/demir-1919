@@ -612,7 +612,7 @@ bütün bölümlerini sırayla sayar (21 Kasım: v3 paketiyle sekiz belge daha g
       belgesi yok, numune eşikleri 3.1'de).
 - [x] 2.3 Kaelith kurtarma (3.2, Görev 2B).
 - [ ] 3.1 On yan görevin çatışmaları: Faz 5 (tonoflenya-30-yan-gorev-derinlestirme).
-- [ ] 3.2 Final #1, #16, #18, #20: Aşama 4 belgesiyle.
+- [x] 3.2 Final #1, #16, #18, #20: 3.5'te Aşama 4 belgesiyle (bölüm 53).
 
 ## 32. v4 / koloni-yerel-operasyonlar-ve-yuzey-derinlestirme.txt (3.3, mini.js, arindirma.js)
 - [x] 1 Fotonik hasat: Dr. Selin; çürümüşe dokununca iki spor pusucusu (biyo-kubbe ya da karantina zehri işletmez); karar
@@ -744,7 +744,38 @@ bütün bölümlerini sırayla sayar (21 Kasım: v3 paketiyle sekiz belge daha g
       yarı), kargo, yıldız kalkanı, plazma motoru ×1,2, karanlık halka yakıtı ×0,8, enzim tarım ×1,15, Brom dökümhane ×0,9,
       Galaktik Kâşif unvanı (hasar ×0,95).
 
-## 53-57. v4 paketinin öteki belgeleri: [ ] Aşama 4 (3.5) ve Faz 5.
+## 53. v4 / asama-4-tonoflenya-ana-gorevler-ve-final-derinlestirme.txt (3.5; final.js, asama4.js, malken.js, savas.js)
+- [x] 4A Altı Yıldızın Altında: varış sahnesinde manyetik fren kilidi (klank, tıslama), öğrenci uğultusu, altı notalı çan
+      akoru; Valen ve Kefius'un sözleri. Final #1 ödülü: 500 ML, YGK Kayıt Mührü (Kat 1-5 ve pazar erişimi), 100 Keşif
+      Kredisi (Galaktik Keşif Kredisi); altı YGK Seçkin Subayı bu ödülle resmen kadroda. [~] Önceki sürümdeki 5000 ML
+      belgedeki 500'e indi; Kıdemli Kaptan Brövesi (önceki belge) korundu.
+- [x] 4B Zirve İğnesi'nin Hizalanması: Final #3 bitince Kefius ve Gözlemevi Görevlisi telsizden çağırır (Hikâye çağrıları);
+      iki parmakla çevirerek altı yıldızın ışığı iki adımda tek tonda toplanır → Kronik #4 açılır, Okyanos-Abyssus kodekse
+      girer, Malazar yolu açılır. Final #4 bunu bekler. [~] Eski frekans iğnesi (2.1) Malazar izni için yerinde duruyor.
+- [x] Final #16: Mareşal Elyon Vane'nin sözü; Adım 1 karanlık sızma (40 Hz davul nabzına ters yana kaydırma); Adım 2 gizli
+      geçit haritası zırhlının kalkanını yüzde yirmi beş kırık başlatır (önceden gövde yüzde otuz); Adım 3 iki aşamalı
+      Kahergonat Öncü Zırhlısı (T4; kalkan tonu değiştirir, ağır plazma; yarıda kalkan patlar, iki gölge dronu, ışık
+      mızrağı ve torpido iki kat). Ödül Runashar Mühür Taşı, 2000 ganimet kredisi ve 150 kara aether ya da arıtma hakkı
+      (karar: ambara al / YGK'da arıt → 60 saf aether). [~] Arıtma hakkının karşılığı (60 saf aether) benim tahminim.
+- [x] Final #17 → #18: A sarayı ve halkı koru → Elyon Vane Final #18'de refakatçi (ilk üç tur zırh yüzde yirmi, her atışta
+      ek atış); B kuşatma merkezine saldır → Sharon ikinci aşamada tek gölge muhafızı çağırır.
+- [x] Final #18 Dünya Çivisi: Valen, Kefius ve Sharon'un sözleri; hazırlıkta Malok'un parçası ve Tyzrakhel Işık Prizması
+      birleşip Tyzrakhel Işık Mızrağı olur ve kuşanılır; Kırmızı Mühür Parçası Sharon'un karanlık hasarını yüzde yirmi
+      azaltır; önce üç aşamalı kara boss savaşı (Lord Sharon T5: çifte gölge kılıcı; karanlık, muhafızlar ve sahte yönler;
+      ölümsüz gölge zırhı, yalnız mızrak yarar), sonra mühür taşlarını yuvalara itme ve büyü çemberi. Ödül Efsanevi Aether
+      Reaktörü (Okyanos-Abyssus sıçramasının tek anahtarı: Final #19 bunu da ister) ve Malken Kahramanı unvanı.
+- [x] Final #19 → #20 Cahelon: girdap ve infrasonik çığlık, Valen'in telsiz sözü; üç aşamalı uzay boss savaşı (yüzey
+      girdabında Girdap Anahtarı kalkanı dengeler, alınan hasar yüzde yirmi beş az; derin aşamada dalar, yalnız infrasonik
+      nabızdan bulunur, su yaratıkları; Thalassa'nın abis verisi varsa yer kaybolmaz; son aşamada uyarı penceresi 1,5 sn,
+      frekans eşlemesi ve ışık darbeleri büyük hasar). Kapanış: altı yıldızın sabit uyum akoru, Evrenin Muhafızı, köprüde
+      kalıcı barış, serbest keşif. [~] Eski jest operasyonu (sonar, ritim, uzun basma) yerini savaşa bıraktı.
+- [x] Düşman kataloğu Boss 1 Xarathia: Pyros-Prime hikâyesi (gz_p01): ısı dalgaları, soğuk armağanla (iki dondurucu köpük
+      ya da beş kriyolit) ittifak, savaşılmaz; ya da iki aşamalı boss savaşı. [~] Pyros-Prime'ın ayrıntılı hikâye belgesi
+      yok; adımlar, armağan ve ödüller benim taslağım, Bahtiyar'a sorulacak.
+- [x] Düzeltme: hikâye motorunda ara karardan sonraki adımın atlanıp atlanmayacağı artık seçilen seçeneğe göre hesaplanıyor.
+
+## 54-57. v4 paketinin öteki belgeleri: [ ] Faz 5 (ygk-akademi-gezilebilir-sistem-ve-10-kursu, tonoflenya-30-yan-gorev-derinlestirme,
+   tonoflenya-bolgesel-gorevler-ve-ambargo-entegrasyonu).
 
 ## Sıradaki adımlar (sırayla)
 0. Tonoflenya genişlemesi, yönergedeki sırayla: [2.1: Malken (12); 2.2: tarihçe (13); 2.3: atlas (14); 2.4: eşya,

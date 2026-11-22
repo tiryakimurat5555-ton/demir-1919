@@ -12,6 +12,7 @@ import { OPERASYONLAR } from '../veri/uzayGorevleri';
 import { F_NOKTALAR } from './finalHarita';
 import * as ZN from './zanaat';
 import * as SB from './subay';
+import * as KR from './karakter';
 
 const A = (tur, ad, giris, bitis, ek) => ({ tur, ad, giris, bitis, ...(ek || {}) });
 
@@ -33,6 +34,8 @@ Object.assign(ZN.ESYA, {
   kara_plazma: { kat: 5, ad: 'Kara Plazma Çekirdeği', tarif: 'Kahergonat zırhlılarının yüreği; YGK laboratuvarına emanet.' },
   onur_kilici: { kat: 1, yuva: 'silah', ad: 'Kraliyet Onur Kılıcı', tarif: 'Tenohris kuşatmasının kahramanına IV. Bagrius\'tan.', etki: 'Birincil atış iki kat; karanlık düşmanlara bir buçuk kat daha.' },
   zirve_brovesi: { kat: 5, ad: 'Kozmik Seyrüsefer Zirve Brövesi', tarif: 'Hiper-uzay koridorunu geçen kaptana.' },
+  ygk_muhru: { kat: 5, ad: 'YGK Kayıt Mührü', tarif: 'Akademinin mührü: YGK Kat 1-5 ve şehir pazarlarına erişim izni.' },
+  tyzrakhel_mizragi: { kat: 1, yuva: 'silah', ad: 'Tyzrakhel Işık Mızrağı', tarif: 'Rahip Malok\'un mızrak parçası ve astral kulenin prizması birleşince: Lord Sharon\'un ölümsüz gölge zırhını yaran ışık.', etki: 'Birincil atış iki buçuk kat, karanlık düşmanlara iki kat daha; gölge zırhını yarar.' },
   efsanevi_reaktor: { kat: 2, yuva: 'reaktor', ad: 'Efsanevi Aether Reaktörü', tarif: 'Dünya Çivisi savaşından sonra Akademinin hediyesi.', etki: 'Yakıt tüketimi yarı; savaşta verilen hasar yüzde yirmi beş fazla.' },
 });
 
@@ -59,9 +62,12 @@ export const GOREVLER = [
       { etiket: 'Önce Kefius kara işaretleri gizlice incelesin', sonuc: 'Kefius bir süre susuyor; sonra mühürlü bir parşömen uzatıyor. Güveni arttı.', yap: (d) => { guven(d).kefius += 30; ZN.ekle(d, 'gizli_parsomen', 1); } },
     ],
     odul: (d) => {
-      d.para.ml += 5000;
+      d.para.ml += 500;
+      d.para.gk += 100;
+      ZN.ekle(d, 'ygk_muhru', 1);
       ZN.ekle(d, 'kidemli_brove', 1);
-      return '5000 Malken Lirası, YGK Kıdemli Kaptan Brövesi; Akademinin hangarında tamir yüzde elli indirimli.';
+      const kadro = KR.seckinKadro(d);
+      return '500 Malken Lirası, 100 Galaktik Keşif Kredisi, YGK Kayıt Mührü (Akademi Kat 1-5 ve şehir pazarlarına erişim) ve YGK Kıdemli Kaptan Brövesi; Akademinin hangarında tamir yüzde elli indirimli.' + (kadro ? ' Altı YGK Seçkin Subayı, Elyndra, Varek, Axira, Zhaor, Sinha ve Başçavuş Drahmir, resmen komuta kadronda.' : '');
     },
   },
   {
@@ -104,6 +110,7 @@ export const GOREVLER = [
   {
     no: 4, ad: 'Aether Kristallerinin Ağlayışı', konum: 'Malazar Dağı, derin ocaklar', nokta: 'derin_ocak', tehlike: 3, jest: 'çatlama sesinde çift dokunma',
     veren: 'Baş Maden Mühendisi Bront',
+    kosul: (d) => !!d.bayrak.zirveHizasi, kosulMetni: 'Önce Kefius\'un çağrısıyla Akademinin altıncı katında Zirve İğnesi\'ni hizala (Hikâye çağrıları).',
     giris: [
       'Bront: "İşçiler aletleri bıraktı. Kristallerden melodi yerine tiz bir ağlama geliyor; madencilerin burnundan siyah kan damlıyor."',
       'Tünellerde derin kazma sesleri; araya yüksek frekanslı kristal inlemeleri giriyor. Maden derinliği sekiz yüz metre.',
@@ -290,11 +297,19 @@ export const GOREVLER = [
     no: 16, ad: 'Kara Şehrin Uyanan Kuleleri', konum: 'Kuzeydoğu sınırı, Kahergonat', nokta: 'kara_kuleler', tehlike: 5, jest: 'akustik savaş',
     veren: 'Mareşal Elyon Vane ve Valen Lazeria',
     giris: [
+      'Mareşal Elyon Vane: "Kaptan, Doğu dağlarının ardındaki Kahergonat kuleleri yüzyıllardır ilk kez kara aether ateşi yakıyor. Şehirde kimse yaşamıyor sanırdık ama gölge zırhlıları göğe yükseldi. Oraya ilk sen sızacaksın!"',
       'Kahergonat\'ın siyah sivri kuleleri göğe mor yıldırımlar fırlatıyor. Beş müridin birleşimi Lord Sharon, kulelerin tepesinde devasa bir gölge olarak yükseliyor; beş sesin üst üste bindiği metalik bir kahkaha.',
       'Metalik savaş boruları, binlerce Alt Evren yaratığının hırıltılı yürüyüşü, gök gürültüsü.',
     ],
+    op: [
+      A('kacin', 'Karanlık sızma', 'Mavi Hardrin geçidindesin. Kulaklıkta rüzgâr ve kırk hertzlik savaş davulu; davulun nabzı hangi yandan vurursa ters yana kaydır, kule radarlarından sıyrıl. Dört kez.', 'Kule radarlarının altından geçtin.', { n: 4, frek: 40 }),
+    ],
     savas: 'kahergonat_zirhlisi',
-    savasMetni: 'Kahergonat öncü zırhlıları hücumda!',
+    savasMetni: 'Kahergonat öncü zırhlısı göğe yükseldi! Birinci aşamada kalkan tonunu değiştirir, ağır plazma atar; yarıya inince kalkanını patlatıp gölge dronları çağırır.',
+    kararlar: [
+      { etiket: 'Zırhlının yüz elli kara aetherini ambara al', sonuc: 'Yüz elli kara aether ambarda. Dikkat: ambarda dörtten fazla kara kristal kalkan frekansını bozar; reaktörde ya da zanaatta harca.', yap: (d) => { ZN.ekle(d, 'kara_aether', 150); } },
+      { etiket: 'Kara aetheri YGK laboratuvarında arıtma hakkına çevir', sonuc: 'Akademi yüz elli kara kristali arıttı: altmış saf aether senin.', yap: (d) => { ZN.ekle(d, 'saf_aether', 60); guven(d).kefius += 10; } },
+    ],
     sonrasi: (d) => {
       ZN.ekle(d, 'runashar_tasi', 1);
       return 'Zırhlıların ardından Lord Sharon\'un taht odasına dalıyorsun; taht boş, yalnız titreşen dişi bir mühür taşı kalmış: Runashar Kara Mühür Taşı. ' + (ZN.miktar(d, 'runahar_tasi') ? 'Ambardaki ikiziyle yan yana gelince yüksek bir rezonans ıslığı çalıyor.' : '');
@@ -311,8 +326,8 @@ export const GOREVLER = [
     giris: ['Kara ordular dış halkaları aşmış, sarayın oval kapılarına dayanmış. IV. Bagrius balkondan halka sesleniyor; gökten kara mancınık kayaları yağıyor. Hava savunma bataryası senin.'],
     op: [A('basinc', 'Hava savunma bataryaları', 'Yaklaşan kayanın ıslığı yükseliyor; tam tependeyken çift dokun: vur. Üç kez.', 'Gökyüzü temiz; mancınıklar sustu.', { efekt: 'el_mancinik' })],
     kararlar: [
-      { etiket: 'Saray muhafızlarını Akademiyi korumaya gönder', sonuc: 'Akademi sağlam; öğrenciler kurtuldu. Sarayın kapısında sen ve birkaç sadık asker kalıyorsunuz.', yap: (d) => { guven(d).valen += 20; } },
-      { etiket: 'Saray kapısında ölümüne barikat kur', sonuc: 'Barikat tutuyor; IV. Bagrius omzuna elini koyuyor.', yap: (d) => { d.itibar += 50; } },
+      { etiket: 'Sarayı ve halkı koru: muhafızları Akademiye ve halkın yanına gönder', sonuc: 'Akademi sağlam, öğrenciler ve halk kurtuldu. Mareşal Elyon Vane hayatta; Dünya Çivisi\'nde yanında savaşacak.', yap: (d) => { guven(d).valen += 20; guven(d).halk += 10; d.bayrak.tfElyon = true; } },
+      { etiket: 'Doğrudan kuşatma merkezine saldır', sonuc: 'Saray hasar aldı ama Sharon\'un gölge ordusu kırıldı; IV. Bagrius omzuna elini koyuyor. Sharon artık daha az muhafız çağırabilir.', yap: (d) => { d.itibar += 50; d.bayrak.tfKusatma = true; } },
     ],
     odul: (d) => {
       ZN.ekle(d, 'onur_kilici', 1);
@@ -324,16 +339,21 @@ export const GOREVLER = [
   {
     no: 18, ad: 'Dünya Çivisi Savunması', konum: 'YGK Akademi, Kat eksi 5, gezegenin omurgası', nokta: 'dunya_civisi', tehlike: 5, jest: 'yön takibi, iki parmakla ileri itme, kesintisiz üç parmak rotasyonu',
     veren: 'Valen Lazeria ve Kefius Arateon',
-    kosul: (d) => ZN.miktar(d, 'tyzrakhel_parcasi') > 0 && ZN.miktar(d, 'runahar_tasi') > 0 && ZN.miktar(d, 'runashar_tasi') > 0,
-    kosulMetni: 'Lord Sharon\'u durdurmak için Tyzrakhel mızrağının parçası, zemindeki yuvalara iki mühür taşı (Runahar, Runashar) gerekir.',
-    giris: [
-      'Valen ve Kefius birlikte: "Sızma birlikleri mühür sütununa ulaştı. Sütun kırılırsa Runahar ve Runashar tamamen canlanır; Tonoflenya bir yumurta gibi çatlar."',
-      'Mühür taşlarını zemindeki yuvalarına yerleştiriyorsun; ikisi birden ıslık çalıyor. Karanlıkta beş sesli bir kahkaha: Lord Sharon\'un gölgesi.',
-    ],
+    kosul: (d) => (ZN.miktar(d, 'tyzrakhel_mizragi') > 0 || (ZN.miktar(d, 'tyzrakhel_parcasi') > 0 && ZN.miktar(d, 'tyzrakhel_prizmasi') > 0)) && ZN.miktar(d, 'runahar_tasi') > 0 && ZN.miktar(d, 'runashar_tasi') > 0,
+    kosulMetni: 'Lord Sharon\'u durdurmak için Tyzrakhel mızrağının parçası (Final 11), Tyzrakhel Işık Prizması (Final 15) ve zemindeki yuvalara iki mühür taşı (Runahar, Runashar) gerekir.',
+    giris: (d) => [
+      'Akademinin eksi beşinci katı, Sıfırıncı Karanlık. Valen Lazeria ve Kefius Arateon mühür sütununun başında nefes nefese bekliyor: "Sızma birlikleri sütuna ulaştı. Sütun kırılırsa Runahar ve Runashar tamamen canlanır; Tonoflenya bir yumurta gibi çatlar."',
+      'Sütunun önünden bir gölge yükseliyor. Lord Sharon\'un sesi yankılı, soğuk ve çok katmanlı: "Beyaz Kıyamet beni parçaladı sandınız... Ama Kara Göl beni besledi! Şimdi Runahar ve Runashar yeniden birleşecek!"',
+      'Hazırlık: Malok\'un mızrak parçası ile astral kulenin prizması birleşiyor; Tyzrakhel Işık Mızrağı elinde.' + (ZN.miktar(d, 'kirmizi_muhur') > 0 ? ' Kırmızı Mühür Parçası sütunu geçici olarak sabitliyor: Sharon\'un karanlık darbeleri yüzde yirmi zayıf.' : ''),
+      d.bayrak.tfElyon ? 'Mareşal Elyon Vane yanında: ilk üç turda zırhın yüzde yirmi güçlü, her atışında o da ateş edecek.' : d.bayrak.tfKusatma ? 'Kuşatmada gölge ordusu kırıldığı için Sharon ikinci aşamada yalnız bir muhafız çağırabilecek.' : '',
+    ].filter(Boolean),
+    hazirla: (d) => mizrakBirlestir(d),
+    savasOnce: true,
+    savas: 'lord_sharon',
+    savasMetni: 'Lord Sharon\'un gölgesi sana yöneldi! Birinci aşamada çifte gölge kılıcı ve siper kıran patlamalar; sonra karanlık ve muhafızlar; son aşamada yalnız Tyzrakhel\'in ışığı işler.',
     op: [
-      A('nisan', 'Birinci faz: teleport takibi', 'Lord Sharon ışınlanıyor; sesinin geldiği yöne dön, sağa sola kaydır; önündeyken çift dokun: kalkanını indir. Üç kez.', 'Kalkanı düştü!', { n: 3, efekt: 'el_sharon' }),
-      A('kademeli', 'İkinci faz: Tyzrakhel mızrağı', 'Mızrağı sapla: iki parmakla yukarı it.', 'Mızrak gölgenin göğsüne saplandı; beş ses birden çığlık atıyor.', { n: 1, yon: 'yukari', parmak: 2 }),
-      A('rotasyon', 'Üçüncü faz: büyü çemberi', 'Valen ve Kefius\'un çemberini besle: iki ya da üç parmakla kesintisiz çevir.', 'Çember kapandı.', { radyan: 14 }),
+      A('kademeli', 'Mühür taşları', 'Sharon\'un gölge zırhı yarıldı. Runahar ve Runashar taşlarını Dünya Çivisi\'nin yuvalarına it: iki parmakla yukarı, iki kez.', 'İki taş yuvalarında; ikisi birden ıslık çalıyor.', { n: 2, yon: 'yukari', parmak: 2 }),
+      A('rotasyon', 'Büyü çemberi', 'Valen ve Kefius\'un mühür çemberini besle: iki ya da üç parmakla kesintisiz çevir.', 'Çember kapandı; Sharon kalıcı olarak mühürlendi.', { radyan: 14 }),
     ],
     sonrasi: (d) => {
       d.tf.catlak = 0;
@@ -342,13 +362,14 @@ export const GOREVLER = [
     odul: (d) => {
       d.bayrak.tonoflenyaKurtuldu = true;
       ZN.ekle(d, 'efsanevi_reaktor', 1);
-      return 'Tonoflenya kurtarıldı. Akademinin hediyesi: Efsanevi Aether Reaktörü (envanterden gemiye tak).';
+      unvan(d, 'Malken Kahramanı');
+      return 'Tonoflenya kurtarıldı. Akademinin hediyesi: Efsanevi Aether Reaktörü (Okyanos-Abyssus sıçramasının tek anahtarı; envanterden gemiye tak) ve Malken Kahramanı unvanı.';
     },
   },
   {
     no: 19, ortam: 'ortam_t_girdap', ad: 'Lanetli Gezegene Hiper-Sıçrama', konum: 'Tonoflenya yörüngesi → Okyanos-Abyssus', nokta: 'ygk_iskelesi', tehlike: 4, jest: 'sesli yönlendirmeyle sola sağa kaçış',
     veren: '(Bütün filo)',
-    kosul: (d) => ZN.miktar(d, 'cahelon_anahtari') > 0, kosulMetni: 'Girdaba inmek için kalkana takılacak Cahelon Girdap Anahtarı gerekir (Arin gözlemevi).',
+    kosul: (d) => ZN.miktar(d, 'cahelon_anahtari') > 0 && ZN.miktar(d, 'efsanevi_reaktor') > 0, kosulMetni: 'Okyanos-Abyssus sıçraması için Efsanevi Aether Reaktörü (Final 18) ve kalkana takılacak Cahelon Girdap Anahtarı (Arin gözlemevi) gerekir.',
     giris: ['Bütün okyanusun tek noktaya toplandığı bir girdap: komşu gezegende Cahelon uyanıyor. Filon son sefer için hiper-sıçrama motorlarını ateşliyor; Cahelon Girdap Anahtarı kalkana takılı.'],
     op: [A('kacin', 'Hiper-uzay koridoru', 'Asteroitler ve boyutsal yırtıklar! Tehlike hangi yandansa ters yana kaydır. Altı kez.', 'Koridorun sonunda mavi bir dünya: Okyanos-Abyssus.', { n: 6 })],
     uzay: true,
@@ -360,19 +381,18 @@ export const GOREVLER = [
   {
     no: 20, ortam: 'ortam_t_girdap', ad: 'Su Mezarında Cahelon ile Hesaplaşma', konum: 'Okyanos-Abyssus, dipsiz girdabın kalbi', nokta: 'ygk_iskelesi', tehlike: 5, jest: 'infrasonik merkezde ateş, iki parmakla ritmik yukarı kaydırma, uzun basma',
     veren: '(Büyük final)',
-    giris: [
-      'Gezegenin bütün okyanusu gökyüzüne yükselen devasa bir su kulesi olmuş. Merkezinde milyonlarca yıldır uyuyan kıyamet varlığı Cahelon gözlerini açıyor; dev yüzgeçler, zırhlı kıkırdak bir gövde.',
-      'Derin, balina gibi bir infrasonik böğürtü gövdeni titretiyor.',
+    giris: (d) => [
+      'Okyanos-Abyssus\'un sonsuz okyanusunda dev bir girdabın uğultusu. Gezegenin bütün suyu gökyüzüne yükselen devasa bir su kulesi olmuş; su altından yükselen balina benzeri infrasonik bir çığlık gövdeni titretiyor.',
+      'Valen Lazeria telsizden: "Kaptan, Cahelon uyanıyor! Arin\'den getirdiğin Girdap Anahtarı\'nı kalkan rezonatörüne tak. Bu sadece Tonoflenya\'nın değil, Aethelis-IV\'ün de kader savaşı!"',
+      'Girdap Anahtarı kalkan rezonatöründe dönüyor; birinci aşamada yüzgeç darbelerini ve sonik dalgaları dengeleyecek.' + (d.bayrak.abisVeri ? ' Thalassa\'nın abis veri çekirdeği Cahelon\'un dalış rotasını biliyor: derin aşamada yerini kaçırmazsın.' : ''),
     ],
-    op: [
-      A('nisan', 'Birinci aşama: sonar savaşı', 'Cahelon suyun altında dönüyor. Böğürtüsü önüne gelince çift dokun ya da yukarı kaydır: torpido. Dört isabet.', 'Cahelon yaralı; ama suyu çevirmeye başladı!', { n: 4, efekt: 'el_cahelon' }),
-      A('ritim', 'İkinci aşama: girdap kaçışı', 'Dev bir burgaç gemiyi içine çekiyor. Motor gücü için iki parmakla ritmik yukarı kaydır, aksatmadan altı kez.', 'Burgaçtan sıyrıldın!', { n: 6, girdi: 'kaydir2' }),
-      A('tut', 'Üçüncü aşama: altı yıldızın ışığı', 'Tonoflenya\'nın altı yıldızının ışık sütunları reaktörüne odaklanıyor. Bütün gücünle basılı tut: Kozmik Mühür Işını!', 'Işın Cahelon\'un çekirdeğine saplandı.'),
-    ],
+    savas: 'cahelon',
+    savasMetni: 'Cahelon yüzeye çıktı! Birinci aşama yüzey girdabı; ikinci aşamada dalar ve yalnız infrasonik nabzından bulunur; üçüncü aşamada göğsündeki çatlak açılır, uyarı penceresi bir buçuk saniye: tonu eşle ve ışıkla vur.',
     uzay: true,
     odul: (d) => {
       unvan(d, 'Evrenin Muhafızı');
       d.bayrak.serbestKesif = true;
+      d.bayrak.kopruBarisi = true;
       d.itibar += 1000;
       return '"Evrenin Muhafızı" efsanevi unvanı. Sonsuz serbest keşif modu açıldı: galaksi senin.';
     },
@@ -497,6 +517,13 @@ export function eylemUygula(d, id, eid) {
   }
   return { metin: '' };
 }
+// Final #18 hazırlığı: Malok'un mızrak parçası (#11) ve Tyzrakhel Işık Prizması (#15) birleşir, mızrak kuşanılır
+export function mizrakBirlestir(d) {
+  if (ZN.miktar(d, 'tyzrakhel_mizragi') < 1 && ZN.miktar(d, 'tyzrakhel_parcasi') > 0 && ZN.miktar(d, 'tyzrakhel_prizmasi') > 0) {
+    ZN.ekle(d, 'tyzrakhel_mizragi', 1); // parça ve prizma yadigâr olarak envanterde kalır
+  }
+  if (ZN.miktar(d, 'tyzrakhel_mizragi') > 0 && !ZN.kusanildiMi(d, 'tyzrakhel_mizragi')) ZN.kusan(d, 'tyzrakhel_mizragi');
+}
 function savasKur(d, g) {
   const t = tf(d);
   t.evre = 'savas';
@@ -549,15 +576,16 @@ export const SAHNELER = {
     metin: (d) => {
       const g = GOREV[tf(d).aktif];
       if (!g) return [];
-      return ['Görev ' + g.no + ': ' + dizin(g) + '.', 'Görev veren: ' + g.veren + '.', ...g.giris];
+      return ['Görev ' + g.no + ': ' + dizin(g) + '.', 'Görev veren: ' + g.veren + '.', ...(typeof g.giris === 'function' ? g.giris(d) : g.giris)];
     },
     secenekler: (d) => {
       const t = tf(d);
       const g = GOREV[t.aktif];
       if (!g) return [{ etiket: 'Devam', sonra: null }];
       if (g.rezonator) return [{ etiket: 'Halkalara git', yap: () => { t.evre = 'rezonator'; t.rez = []; }, sonra: null }];
-      if (g.savasOnce) return [{ etiket: 'Gemine koş', yap: () => savasKur(d, g), sonra: null }];
-      if (!g.op) return [{ etiket: 'Saldırıya geç', yap: () => savasKur(d, g), sonra: null }];
+      const hz = () => g.hazirla && g.hazirla(d);
+      if (g.savasOnce) return [{ etiket: g.uzay ? 'Gemine koş' : 'Savaşa gir', yap: () => { hz(); savasKur(d, g); }, sonra: null }];
+      if (!g.op) return [{ etiket: 'Saldırıya geç', yap: () => { hz(); savasKur(d, g); }, sonra: null }];
       return [
         { etiket: 'Başla', yap: () => { t.evre = 'op'; d.opBekle = 'tf' + g.no; }, sonra: null },
         { etiket: 'Sonra', yap: () => { t.aktif = null; t.evre = null; }, sonra: null },
@@ -627,9 +655,10 @@ export const SAHNELER = {
     ortam: 'giris_muzik',
     efekt: ['el_koro'],
     metin: (d) => [
-      'Cahelon suyun dibinde ebedî bir kristal heykele dönüşüyor. Gökyüzüne yükselen okyanus yavaşça gezegenin yüzeyine geri dökülüyor.',
+      'Cahelon ebediyen su mezarına kilitleniyor; suyun dibinde ebedî bir kristal heykele dönüşüyor. Gökyüzüne yükselen okyanus yavaşça gezegenin yüzeyine geri dökülüyor.',
+      'Altı yıldız gökyüzünde yeniden sabit bir uyum akoru çalıyor.',
       'Telsizden Valen Lazeria\'nın, Kefius Arateon\'un ve kurtardığın bütün ırkların ortak zafer marşı yükseliyor.',
-      'Galaksi, Alt Evren\'in Kızıl Kıyamet tehdidinden tamamen temizlendi.',
+      'Galaksi, Alt Evren\'in Kızıl Kıyamet tehdidinden tamamen temizlendi. Aethelis-IV, Galaktik Başkent, ile Tonoflenya arasındaki köprü kalıcı barış dönemine geçti; kalan yan görevler, melez zanaatlar ve gezegen keşifleri için serbest keşif sürüyor.',
       'Ödül: ' + d.tfOdulMetni,
     ],
     secenekler: () => [{ etiket: 'Kredileri dinle', sonra: 'tf_krediler' }],
