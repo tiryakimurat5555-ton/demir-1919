@@ -10,6 +10,7 @@ import { guvenliMi } from './arindirma';
 import { miniGorunur } from './mini';
 import { katmanTamamMi } from '../terraform';
 import * as SB from '../tonoflenya/subay';
+import { misafir } from '../tonoflenya/kisiler';
 
 // Arındırılmış (güvenli) bölgede tehlikeler kalkar (arindirma.js)
 const TEHLIKELER = ['zehirli', 'soguk', 'statik', 'magma', 'yarasa', 'firtinali'];
@@ -144,7 +145,7 @@ function cevreMetniHam(d) {
 
 // Uzun bas: durum + radar. Radar her şeyi keşfedilmiş sayar ve yankıların geleceği yerleri döndürür.
 function radarHam(d) {
-  const menzil = (MEKANLAR[d.mekan].radarMenzili || RADAR_MENZILI) * aracCarpani(d, 'radar') * (SB.kabiliyet(d, 'sinha', 3) ? 1.3 : 1);
+  const menzil = (MEKANLAR[d.mekan].radarMenzili || RADAR_MENZILI) * aracCarpani(d, 'radar') * (SB.kabiliyet(d, 'sinha', 3) ? 1.3 : 1) * (misafir(d, 'mirelza') ? 2 : 1);
   const liste = siraliYakin(d).filter((n) => n.m <= menzil && n.tur !== 'kapi' && !n.radarsiz);
   const pingler = liste.slice(0, 6).map((n) => ({ id: n.id, x: n.x, y: n.y, gecikme: Math.round(250 + n.m * 22) }));
   for (const n of liste) if (n.tur === 'nokta' && !d.kesif.includes(n.id)) d.kesif.push(n.id);

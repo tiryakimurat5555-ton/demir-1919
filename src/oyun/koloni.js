@@ -9,6 +9,7 @@
 //     - barınma yetiyorsa ve moral iyiyse nüfus doğal yoldan artar; barınma aşılırsa moral düşer.
 //   İş gücü: nüfus üç sektöre paylaştırılır (sanayi, tersane, bilim); kalanı boşta.
 import { rolCarpani } from './binalar';
+import { misafir } from './tonoflenya/kisiler';
 import { NOKTALAR } from './yuzey/harita';
 import { yildizCarpani } from './zaman';
 import * as SB from './tonoflenya/subay';
@@ -174,14 +175,24 @@ export function uretimListesi(d) {
   return liste;
 }
 
+// Karakter ağı ve Kaelith (v4): Oronte kolonideyken araç üretimi yarı fiyat; Torvok dökümhanede metal ergitmeyi ucuzlatır
+export function koloniGirdisi(d, tesis, t) {
+  const g = { ...t.girdi };
+  let c = 1;
+  if (tesis === 'arac_hangari' && misafir(d, 'oronte')) c *= 0.5;
+  if (tesis === 'dokumhane' && d.komuta && d.komuta.torvok) c *= 1 - d.komuta.torvok;
+  if (c < 1) for (const k of Object.keys(g)) if (['titanyum', 'bazalt', 'sasi_celigi', 'agir_metal', 'kizilkaya_titanyumu', 'oksit_celik'].includes(k) || tesis === 'arac_hangari') g[k] = Math.max(1, Math.ceil(g[k] * c));
+  return g;
+}
 export function uretimBaslat(d, tesis, tarifId) {
   const t = (TARIFLER[tesis] || []).find((x) => x.id === tarifId);
   if (!t || !d.koloni.binalar.includes(tesis)) return { metin: 'Bu tesis kurulu değil.', ses: 'red' };
   if (t.bayrak && !d.bayrak[t.bayrak]) return { metin: 'Bu üretimin şeması henüz yok; bir uzay görevinden gelir.', ses: 'red' };
   if (!d.koloni.uretimler) d.koloni.uretimler = [];
   if (d.koloni.uretimler.some((u) => u.tesis === tesis)) return { metin: 'Bu tesis şu an başka bir iş yapıyor.', ses: 'red' };
-  if (!yeterMi(d, t.girdi)) return { metin: 'Girdi yetmiyor: ' + girdiMetni(t.girdi) + '.', ses: 'red' };
-  harca(d, t.girdi);
+  const girdi = koloniGirdisi(d, tesis, t);
+  if (!yeterMi(d, girdi)) return { metin: 'Girdi yetmiyor: ' + girdiMetni(girdi) + '.', ses: 'red' };
+  harca(d, girdi);
   // Vaelin topluluğu tokken metandan gaz yakıtı yüzde elli hızlı (tarim-ve-kseno-botanik bölüm 6)
   const kalan = t.sure / uretimHizi(d) / yildizCarpani(d, 'uretim') / (t.girdi.metan && d.tarim && d.tarim.besli.vaelin ? 1.5 : 1) / rolCarpani(d, tesis); // evrensel bina rolü: topluluk ve nöbet
   d.koloni.uretimler.push({ tesis, tarif: t.id, kalan });

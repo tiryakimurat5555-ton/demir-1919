@@ -162,8 +162,9 @@ TESISLER.jeotermal_santral = {
   katki: 'Bütün tesislerde üretim yüzde yirmi hızlanır.',
   acar: 'Koloniye bol enerji.',
   maliyet: { bazalt: 10, titanyum: 6, polimer: 2 },
-  kosul: (d) => (d.gorulenMekanlar || []).includes('lav'),
-  kosulMetni: 'Önce güneydeki lav koridorlarını keşfet.',
+  // v4 Görev 1A: güney sektörü akrep yuvasından temizlenince (komuta paneli)
+  kosul: (d) => (d.gorulenMekanlar || []).includes('lav') && !!d.bayrak.sektor_guney,
+  kosulMetni: 'Önce güneydeki lav koridorlarını keşfet ve komuta panelinden güney sektörünü akrep yuvasından temizle.',
 };
 TESISLER.koloni_kalkani = {
   ad: 'Koloni Kalkan Jeneratörü',
@@ -172,8 +173,9 @@ TESISLER.koloni_kalkani = {
   katki: 'Manyetosfer terraformingi ve savunma için.',
   acar: 'Koloni kalkanı.',
   maliyet: { civa_tortusu: 3, titanyum: 6, kristal: 4 },
-  kosul: (d) => (d.gorulenMekanlar || []).includes('civa'),
-  kosulMetni: 'Önce cıva şelalelerini keşfet; tortusu gerekir.',
+  // v4 Görev 1C: doğu sektörü güvenli olunca cıva tortusu hattı açılır
+  kosul: (d) => (d.gorulenMekanlar || []).includes('civa') && !!d.bayrak.sektor_dogu,
+  kosulMetni: 'Önce cıva şelalelerini keşfet ve komuta panelinden doğu sektörünü güvenli hâle getir; tortusu gerekir.',
 };
 
 // Saklı vahanın tohumlarıyla (gezegen-gelisimi-v2 4.5)

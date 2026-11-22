@@ -14,6 +14,7 @@
 import { BITKILER, BITKI_SIRASI, KATEGORI_ADI, ORTAM_ADI, KADEMELER, VAHA_PARSEL, ISLEME, ISLEME_TESISI, TOPLULUKLAR, ISCI_TURLERI, SPOR_KRISTAL, HIBRITLER, yetisirMi, hibritBul } from './bitkiler';
 import { nobetNo, yildizCarpani } from '../zaman';
 import * as SB from '../tonoflenya/subay';
+import { misafir } from '../tonoflenya/kisiler';
 
 export const DONGU_SN = 300; // bir koloni döngüsü (bitkilerin olgunlaşma birimi): nöbetin dörtte biri
 const SU_KAYIP = 15; // döngü başına buharlaşma (yüzde)
@@ -161,7 +162,7 @@ export function tarimIlerle(d, dt) {
       let c = yesil * (k4 && y.ortam !== 'vaha' ? 1 / 0.6 : 1);
       if (y.isci === 'insan' && b.kat === 'A') c *= 1.2;
       // Axira (büyüme süresi yüzde yirmi kısa), Yeşil el kabiliyeti, biyo-habitat iklim kubbesi
-      c *= SB.tarimCarpani(d) * (d.gemi && d.gemi.moduller.iklim_kubbesi ? 1.3 : 1) * (d.bayrak.yan_gubre ? 1.25 : 1);
+      c *= SB.tarimCarpani(d) * (d.gemi && d.gemi.moduller.iklim_kubbesi ? 1.3 : 1) * (d.bayrak.yan_gubre ? 1.25 : 1) * (misafir(d, 'mirelza') ? 1.3 : 1) * (d.bayrak.doguUzmanlari ? 1.1 : 1); // Mirelza'nın şarkısı; doğudan kurtarılan uzmanlar
       y.buyume = Math.min(1, y.buyume + (dt * c) / (b.dongu * DONGU_SN));
       y.saglik = Math.min(1, y.saglik + (0.1 * dt) / DONGU_SN);
       if (y.buyume >= 1 && !y.haber) {

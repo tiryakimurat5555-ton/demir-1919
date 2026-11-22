@@ -120,6 +120,9 @@ TARIFLER.dokumhane.push({ id: 'notron_matris', ad: '90 birim nötron-yoğun çel
 PARCALAR.lazer_sogutucu = { ad: 'termal lazer soğutucu', tarif: 'Gemi ve kara lazerlerinin ısınmasını yüzde otuz azaltır.' };
 PARCALAR.itki_yaglayici = { ad: 'sürtünmesiz itki yağlayıcısı', tarif: 'Kaçınma manevrasını kolaylaştırır.' };
 TARIFLER.askeri_tersane.push({ id: 'lazer_sogutucu', ad: 'Termal lazer soğutucu', girdi: { lav_orkidesi: 2, helyum: 5 }, cikti: { lazer_sogutucu: 1 }, sure: 60 });
+// Karakter ağı belgesi bölüm 4: Tether-Key mekiğinin bedeli (25 litre)
+PARCALAR.jeotermal_sogutucu = { ad: 'jeotermal soğutucu (litre)', tarif: 'Aethelis\'in jeotermal hattından süzülmüş soğutucu; Tether-Key mekiğinin aether rölesini soğutur.' };
+TARIFLER.dokumhane.push({ id: 'jeotermal_sogutucu', ad: '25 litre jeotermal soğutucu', girdi: { izotop: 1, polimer: 1 }, cikti: { jeotermal_sogutucu: 25 }, sure: 60 });
 TARIFLER.dokumhane.push({ id: 'lazer_sogutucu', ad: 'Termal lazer soğutucu', girdi: { lav_orkidesi: 2, helyum: 5 }, cikti: { lazer_sogutucu: 1 }, sure: 75 });
 TARIFLER.itki_hangari = TARIFLER.itki_hangari || [];
 TARIFLER.itki_hangari.push({ id: 'itki_yaglayici', ad: 'Sürtünmesiz itki yağlayıcısı', girdi: { girdap_recinesi: 3, polimer_levha: 5 }, cikti: { itki_yaglayici: 1 }, sure: 60 });

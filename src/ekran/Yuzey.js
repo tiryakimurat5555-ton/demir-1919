@@ -35,6 +35,8 @@ import { kayitBul } from '../oyun/veri/seslendirme';
 import { olayKaydi } from '../oyun/uzay/sefer';
 import * as ZN from '../oyun/tonoflenya/zanaat';
 import * as YN from '../oyun/tonoflenya/yan';
+import * as KR from '../oyun/tonoflenya/karakter';
+import * as KM from '../oyun/komuta';
 import { RENK, UST_BOSLUK } from '../arayuz/tema';
 import KonumsalSes from '../ses/konumsal';
 import { ALANLAR, KAPILAR, MEKANLAR, NOKTALAR } from '../oyun/yuzey/harita';
@@ -839,6 +841,11 @@ export default function Yuzey({ onGeri, baslangic, yeniOyunUret }) {
             sahneGoster(dunya.current.sahne, r.metin || null);
             return 'sessiz';
           }
+          // Harekât ya da savunma başladı: menü kapanır, oyun akar (bekleyen çatışma zamanIlerle'de başlar)
+          if (r.kapat) {
+            katmanKapat(r.metin || null);
+            return 'sessiz';
+          }
           if (o.geri) {
             geri(r.metin);
             return 'sessiz';
@@ -850,7 +857,11 @@ export default function Yuzey({ onGeri, baslangic, yeniOyunUret }) {
       { id: 'geri', etiket: 'Geri', sec: () => (geri(), 'sessiz') },
     ];
     const ik = mn.ikiParmak;
+    const sesler = mn.ogeler.map((o) => o.ses || null);
     katmanAc({
+      // Satıra gelince durum sesi (komuta paneli: sisli, düşman, baskın, güvenli)
+      onOdak: sesler.some(Boolean) ? (i) => sesler[i] && cal(sesler[i], 0.35) : null,
+      ucParmak: mn.ucParmak ? () => soyle(mn.ucParmak(dunya.current), 'istek', true) : null,
       baslik: mn.baslik,
       giris: mn.giris,
       onGeri: () => geri(),
@@ -1022,6 +1033,8 @@ export default function Yuzey({ onGeri, baslangic, yeniOyunUret }) {
         { id: 'envanter', etiket: 'Envanter', ipucu: 'Beş kategori; iki parmakla sağa kaydır: sonraki kategori. Çift dokun: eylem menüsü.', sec: () => (agacGoster((x) => ZN.envanterMenu(x, 0), () => menuyuAc()), 'sessiz') },
         ...(dunya.current.gemi ? [{ id: 'zanaat', etiket: 'Zanaat tezgâhları', ipucu: 'Gemideki dökümhane masası, aether laboratuvarı ve imbik ünitesi.', sec: () => (agacGoster((x) => ZN.zanaatMenu(x), () => menuyuAc()), 'sessiz') }] : []),
         ...(dunya.current.bayrak.tonoflenyaGoruldu ? [{ id: 'subaylar', etiket: 'Subaylar ve istasyonlar', sec: () => (agacGoster((x) => ZN.subayMenu(x), () => menuyuAc()), 'sessiz') }] : []),
+        { id: 'komuta', etiket: 'Komuta ve Genişleme Paneli', ipucu: 'Bölge haritası, savunma hattı, ileri karakollar. İki parmakla sağa sola: sekme; üç parmakla dokun: en acil bölge.', sec: () => (agacGoster((x) => KM.panel(x, 'harita'), () => menuyuAc()), 'sessiz') },
+        { id: 'karakter', etiket: 'Karakter ağı, mekik ve itibar', ipucu: 'Kilit karakterler, Tether-Key mekiği, beş ana güç ve evren itibarı.', sec: () => (agacGoster((x) => KR.karakterMenu(x), () => menuyuAc()), 'sessiz') },
         ...(dunya.current.bayrak.tonoflenyaGoruldu ? [{ id: 'yan', etiket: 'Yan görevler ve itibar', ipucu: 'Otuz yan görev, bölgesel itibar, özel mürettebat.', sec: () => (agacGoster((x) => YN.yanMenu(x), () => menuyuAc()), 'sessiz') }] : []),
         { id: 'ekol', etiket: 'Yıldız Ekolü kıdemi', ipucu: 'Altı ekolde kıdem ve açılan kabiliyetler.', sec: () => (agacGoster((x) => ZN.ekolMenu(x), () => menuyuAc()), 'sessiz') },
         { id: 'harita', etiket: 'Uzay haritası', sec: () => (soyle(haritaMetni(), 'istek', true), 'sessiz') },
@@ -3036,7 +3049,7 @@ export default function Yuzey({ onGeri, baslangic, yeniOyunUret }) {
       ) : null}
       {katman ? (
         <View style={StyleSheet.absoluteFill}>
-          <SesliListe key={'k' + katman.no} baslik={katman.baslik} giris={katman.giris} rehberAcik onGeri={katman.onGeri} ogeler={katman.ogeler} sessizAc={!!katman.sessizAc} ilkOdak={katman.ilkOdak || 0} onIkiParmak={katman.ikiParmak || null} />
+          <SesliListe key={'k' + katman.no} baslik={katman.baslik} giris={katman.giris} rehberAcik onGeri={katman.onGeri} ogeler={katman.ogeler} sessizAc={!!katman.sessizAc} ilkOdak={katman.ilkOdak || 0} onIkiParmak={katman.ikiParmak || null} onUcParmak={katman.ucParmak || null} onOdak={katman.onOdak || undefined} />
         </View>
       ) : null}
     </View>

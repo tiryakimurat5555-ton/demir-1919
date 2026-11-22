@@ -83,6 +83,8 @@ export function itibarIlerle(d) {
   }
   if (k >= 2 && once < 2) d.bayrak.g_ticaret = true;
   if (k >= 3 && once < 3) d.koloni.moral = Math.min(100, d.koloni.moral + 15);
+  // Tanınan Kâşif: koloni taban moraline artı beş (karakter ağı belgesi 5.1)
+  if (k >= 1 && once < 1) d.koloni.moral = Math.min(100, d.koloni.moral + 5);
   const x = ITIBAR_KADEMELERI[k];
   return [{ tur: 'itibar', metin: 'Galaktik itibar kademesi ' + (k + 1) + ': ' + x.ad + '. ' + x.tarif }];
 }

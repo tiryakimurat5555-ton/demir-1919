@@ -24,7 +24,9 @@ export function seferKosullari(d) {
   const eksik = [];
   const siniflar = [d.gemi, ...(d.filo || [])].filter(Boolean).map((g) => g.sinif || 1);
   if (!siniflar.some((s) => s >= 3)) eksik.push('Sınıf III ya da üstü bir gemi (Aethel Muhafızı bilim kruvazörü)');
-  const irklar = ['kadim_mezar', 'g13', 'g14', 'aethel9'].filter((x) => (d.tamamlananOp || []).includes(x)).length;
+  // Kaelith: kadim mezar ya da asteroit kuşağındaki maden ocağından kurtarma (v4 Aşama 2B)
+  const op0 = d.tamamlananOp || [];
+  const irklar = ['kadim_mezar', 'g13', 'g14', 'aethel9'].filter((x) => op0.includes(x) && !(x === 'kadim_mezar' && d.bayrak.kaelithKurtarildi)).length + (d.bayrak.kaelithKurtarildi ? 1 : 0);
   if (irklar < 2) eksik.push('çok ırklı bir koloni: en az iki kurtarılmış topluluk (Kaelith, Kithron, Vaelin ya da Aethel-9 madencileri)');
   const op = (d.tamamlananOp || []).length;
   if (op < GEREKEN_OP) eksik.push('derin uzayda en az ' + GEREKEN_OP + ' tamamlanmış operasyon (şimdi ' + op + ')');

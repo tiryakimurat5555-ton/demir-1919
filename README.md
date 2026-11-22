@@ -6,6 +6,12 @@ tesis kurar, ileride gemini parça parça inşa edip uzaya açılırsın.
 
 Yapımcı: Bahtiyar Cankurt (tasarım belgeleri belgeler/ içinde). Expo Go ile iPhone ve Android'de çalışır.
 
+## Bu sürümde (3.2)
+- v4 Faz 3: kanonik karakter ağı (Valen, Morvenna, Kefius, Ignador, Tixie, Lyra, Nyxara, Oronte, Barracuda, Zeno, Mirelza,
+  Sarah, Kaelan, Cüretkâr Cüce), Tether-Key mekiği, gözetmenler, iki aşamalı mürettebat, evren itibarı ve beş güçlü
+  Tonoflenya bölge itibarı; Komuta ve Genişleme Paneli (üç sekme), komşu halka baskısı, ileri karakollar ve Aşama 1-2
+  harekâtları (dört sektör, yörünge ablukası, Kaelith kurtarma).
+
 ## Bu sürümde (3.1)
 - v4 Faz 2: evrensel bina rolleri ve sefer hazırlıkları, kilitli dört binanın açılması, akademi Ar-Ge masası (20 numune),
   gemi sınıflarının savaş özellikleri ve destek yuvaları, alt kızak ve hangar, yedek filonun koloni görevi, yüzey

@@ -98,8 +98,8 @@ export const SALONLAR = {
   anomali: 'Anomali Laboratuvarı',
 };
 export const ITIBAR_KADEMELERI = [
-  { esik: 0, ad: 'Bilinmeyen Sığınak', tarif: 'Galakside adınız duyulmamış; hayatta kalmaya çalışan bir mülteci kampı olarak görülüyorsunuz.' },
-  { esik: 1000, ad: 'Dikkat Çeken Gözlemevi', tarif: 'İlk raporlar bağımsız akademilerin dikkatini çekti; ilk yabancı araştırmacılar geliyor.' },
-  { esik: 5000, ad: 'Saygın Bilim Merkezi', tarif: 'Kütüphaneniz galaksinin en zengin arşivlerinden biri. Konfederasyonlar bilgi için elçi yolluyor.' },
-  { esik: 12000, ad: 'Galaksinin Işığı', tarif: 'Aethelis-IV artık bir koloni değil: evrenin sırlarının çözüldüğü tarafsız, dokunulmaz bir galaktik fener.' },
+  { esik: 0, ad: 'Bilinmeyen Kazazede', tarif: 'Galakside adınız duyulmamış; hayatta kalmaya çalışan bir mülteci kampı olarak görülüyorsunuz. Ek bonus yok.' },
+  { esik: 1000, ad: 'Tanınan Kâşif', tarif: 'İlk raporlar bağımsız akademilerin dikkatini çekti; ilk yabancı araştırmacılar geliyor. Taramalar yüzde on beş hızlı, pazarlarda yüzde on avantaj, koloni moraline artı beş.' },
+  { esik: 5000, ad: 'Galaktik Öncü', tarif: 'Kütüphaneniz galaksinin en zengin arşivlerinden biri; konfederasyonlar elçi yolluyor. Araştırma yüzde yirmi beş hızlı, pazar yüzde on beş; korsanlar adını tanır: savaşmadan korkutma ya da yüzde otuz beşte teslim. Tonoflenya\'nın beş ana gücü artı on saygınlık tanır.' },
+  { esik: 12000, ad: 'Evrenin Muhafızı', tarif: 'Aethelis-IV artık bir koloni değil: evrenin sırlarının çözüldüğü tarafsız, dokunulmaz bir galaktik fener. Pazar yüzde yirmi beş, araştırma yüzde otuz beş, bütün savaşlarda yüzde on savunma; Konsey ve ambargo ikna testlerinde sözün geçer.' },
 ];

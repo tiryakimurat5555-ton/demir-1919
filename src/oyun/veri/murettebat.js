@@ -9,6 +9,8 @@ export const UZMANLIKLAR = {
   telsiz: { ad: 'Telsiz ve Keşif', rol: 'Telsiz Subayı' },
   muharebe: { ad: 'Muharebe', rol: 'Taktik Nişancı' },
   tip: { ad: 'Biyo-Tıp', rol: 'Başhekim' },
+  // Beşinci istasyon uzmanı (v4 karakter ağı belgesi bölüm 1): geminin ambarını düzenler, kargo kapasitesi yüzde yirmi
+  ikmal: { ad: 'İkmal ve Lojistik', rol: 'İkmal Subayı' },
 };
 
 export const NITELIKLER = {

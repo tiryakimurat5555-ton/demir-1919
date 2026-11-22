@@ -35,6 +35,8 @@ import * as ZN from '../tonoflenya/zanaat';
 import * as SB from '../tonoflenya/subay';
 import * as FN from '../tonoflenya/final';
 import * as YN from '../tonoflenya/yan';
+import * as KR from '../tonoflenya/karakter';
+import * as KM from '../komuta';
 import { MEKANLAR } from './harita';
 
 export const { ESYALAR, HAREKET_KISA, ayarBaslat, ayarDegis, ayarIlerle, ayarMetni, ayarYakinlik, koloniMetni, insaListesi } = G1;
@@ -43,7 +45,7 @@ export const { NOTALAR, kapiDizisi, rezonansBaslat, rezonansSecimDegis, rezonans
 
 export const { AYAKLAR, ayakSayisi, ayakFrek, teraziBaslat, teraziPompa, teraziIlerle, teraziMetni, DENGE_ESIGI } = G4;
 
-export const SAHNELER = { ...G1.SAHNELER, ...G2.SAHNELER, ...G3.SAHNELER, ...G4.SAHNELER, ...G5.SAHNELER, ...G6.SAHNELER, ...B.SAHNELER, ...K.SAHNELER, ...A.SAHNELER, ...M.SAHNELER, ...O.SAHNELER, ...SV.SAHNELER, ...SF.SAHNELER, ...TM.SAHNELER, ...AT.SAHNELER, ...FN.SAHNELER, ...YN.SAHNELER };
+export const SAHNELER = { ...G1.SAHNELER, ...G2.SAHNELER, ...G3.SAHNELER, ...G4.SAHNELER, ...G5.SAHNELER, ...G6.SAHNELER, ...B.SAHNELER, ...K.SAHNELER, ...A.SAHNELER, ...M.SAHNELER, ...O.SAHNELER, ...SV.SAHNELER, ...SF.SAHNELER, ...TM.SAHNELER, ...AT.SAHNELER, ...FN.SAHNELER, ...YN.SAHNELER, ...KM.SAHNELER };
 
 // Telsiz bildirimleri (belgeler/savas-yetenek-ve-murettebat-mekanikleri.md 4.3): koşulu sağlanınca bir kez kuyruğa
 // girer. gorev alanı varsa yalnız o görev sürerken.
@@ -100,6 +102,7 @@ export function noktaEylemleri(d, id) {
   return i < 0 ? [...temel, ...ek] : [...temel.slice(0, i), ...ek, ...temel.slice(i)];
 }
 function temelEylemler(d, id) {
+  if (KR.noktaMi(id)) return KR.noktaEylemleri(d, id);
   if (FN.noktaMi(id)) return [{ id: 'incele', etiket: 'İncele' }];
   if (YN.noktaMi(id)) return YN.noktaEylemleri(d, id);
   if (ZN.noktaMi(id)) return ZN.noktaEylemleri(d, id);
@@ -119,6 +122,7 @@ function temelEylemler(d, id) {
 
 export function eylemUygula(d, id, eylemId) {
   if (eylemId === 'y_ygk') return TM.ygkAra(d);
+  if (KR.noktaMi(id) && !FN.ekEylemMi(eylemId)) return KR.eylemUygula(d, id, eylemId);
   if (FN.ekEylemMi(eylemId) || FN.noktaMi(id)) return FN.eylemUygula(d, id, eylemId);
   if (YN.noktaMi(id)) return YN.eylemUygula(d, id, eylemId);
   if (eylemId === 'z_sarj' || ZN.noktaMi(id)) return beklemeyiUygula(d, ZN.eylemUygula(d, id, eylemId));
@@ -235,24 +239,7 @@ export const { aracaBin, aractanIn, aracListesi } = H;
 export const { projeMetni, projeListesi } = G6;
 export const { miniBaslat, MINI, olgunMu, miniGorunur } = M;
 
-// Koloni krizleri (evrensel savaş, kara): Aethelis yüzeyinde dışarıdayken ara sıra maden ve yaratık baskını.
-// Karakolu kurulmuş (arındırılmış) bölge korunur; Tonoflenya'da, gemide, operasyonda ve sahnede baskın olmaz.
-export const BASKIN_SN = 900;
-export function baskinIlerle(d, dt) {
-  d.baskinSayac = (d.baskinSayac || 0) + dt;
-  if (d.baskinSayac < BASKIN_SN) return;
-  d.baskinSayac = 0;
-  d.baskinNo = (d.baskinNo || 0) + 1;
-  const mk = MEKANLAR[d.mekan];
-  if (!mk || !mk.dis || mk.tonoflenya || d.bayrak.tonoflenyada || d.gemide || d.savas || d.op || d.sahne || d.savasBekle) return;
-  if ((d.koloni.seviye || 1) < 2 || ((d.koloni.bolgeDurumu || {})[d.mekan] || 0) >= 4) return;
-  const x = Math.sin((d.tohum || 1) * 0.37 + d.baskinNo * 7.31) * 9301.17;
-  if (x - Math.floor(x) > 0.35) return;
-  const spec = SV.karsilasmaUret(d, { ortam: 'kara', bolge: 'koloni', no: d.baskinNo });
-  spec.giris = 'Koloni bilgisayarı: ' + mk.ad + ' civarında ' + SV.DUSMANLAR[spec.dusmanlar[0]].ad + ' baskını! Ekibinle savun.';
-  d.savasBekle = spec;
-}
-
+// Koloni baskınları artık komşu halka baskısıyla (komuta.js komutaIlerle): sonsuz rastgele dalga yok.
 export function zamanIlerle(d, dt) {
   const olaylar = koloniIlerle(d, dt);
   olaylar.push(...Z.zamanAkit(d, dt));
@@ -273,7 +260,9 @@ export function zamanIlerle(d, dt) {
     const k = SB.kriz(d, 'axira');
     if (k) SB.haber(d, k);
   }
-  baskinIlerle(d, dt);
+  // Karakter ağı (mekik, gözetmen, seçkin kadro) ve komuta paneli (komşu halka baskısı, karakol aktarımı)
+  KR.karakterIlerle(d);
+  KM.komutaIlerle(d);
   // Final görevleri: sahne kapanınca bekleyen operasyon ya da çatışma başlar (tonoflenya/final.js)
   if (!d.sahne && !d.op && !d.savas) {
     // Bekleyen çatışma önce (ör. yörüngedeki devriye), ardından bekleyen operasyon

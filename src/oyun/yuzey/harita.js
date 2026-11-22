@@ -520,3 +520,6 @@ Object.assign(NOKTALAR, F_NOKTALAR);
 // Yan görevlerin yerleri (tonoflenya/yan.js, 2.6)
 import { YAN_NOKTALARI } from '../tonoflenya/yan';
 Object.assign(NOKTALAR, YAN_NOKTALARI);
+
+import { K_NOKTALAR } from '../tonoflenya/karakterHarita';
+Object.assign(NOKTALAR, K_NOKTALAR);

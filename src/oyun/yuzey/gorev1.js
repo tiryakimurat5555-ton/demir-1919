@@ -8,6 +8,7 @@
 import { NOKTALAR } from './harita';
 import { miniKilitlendi } from './mini';
 import * as SB from '../tonoflenya/subay';
+import { misafir, evrenEtki } from '../tonoflenya/kisiler';
 import { HAMMADDELER, KOLONI_KADEMELERI, TESISLER, eksikMetni, karsilanirMi, maliyetMetni } from '../veri/tesisler';
 import { bosta, moralMetni, parcaMetni } from '../koloni';
 
@@ -194,6 +195,8 @@ export function eylemUygula(d, id, eylemId) {
     if (['aether', 'saf_aether', 'buzul_aether', 'mavi_aether', 'kara_aether'].includes(tur) && SB.kabiliyet(d, 'elyndra', 2)) d.koloni.kaynaklar[tur] += 1;
     // T-10 magma çekirdekli matkap: yüzey madenciliği iki kat
     if (d.esya && d.esya.magma_matkap > 0) d.koloni.kaynaklar[tur] += 1;
+    // Cüretkâr Cüce mekikle kolonideyken: Aethelis yüzeyinde madencilik iki kat
+    if (misafir(d, 'curetkar_cuce') && !d.bayrak.tonoflenyada) d.koloni.kaynaklar[tur] += 1;
     // Klipsomanyak (toplayıcı) mürettebat: her dördüncü toplamada beklenmedik fazladan bir parça
     let ek = '';
     const toplayici = d.murettebat.find((u) => u.nitelik === 'toplayici');
@@ -362,7 +365,8 @@ export function ayarIlerle(d, dt) {
     a.yakinDendi = true;
     olaylar.push('yakin');
   }
-  if (a.kilit >= KILIT_SURESI) {
+  // Tanınan Kâşif kademesi: dinleme taramaları yüzde on beş hızlı
+  if (a.kilit >= KILIT_SURESI / (1 + evrenEtki(d).tarama)) {
     d.ayar = null;
     d.kaptan.tecrube += 20;
     if (a.amac === 'ag') {

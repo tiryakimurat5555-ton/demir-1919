@@ -25,7 +25,7 @@ function metinAl(deger) {
 
 // disaridanJest: true ise liste kendi dokunma katmanını kurmaz; dokunmaları dışarıdaki
 // bileşen ref üzerinden iletir (dalış ekranı gibi tek dokunma katmanı olan yerler için).
-function SesliListe({ baslik, giris, ogeler, onGeri, rehberAcik, ilkOdak = 0, gezinmeSesi = true, onOdak, disaridanJest = false, ust = null, sessizAc = false, onIkiParmak = null }, ref) {
+function SesliListe({ baslik, giris, ogeler, onGeri, rehberAcik, ilkOdak = 0, gezinmeSesi = true, onOdak, disaridanJest = false, ust = null, sessizAc = false, onIkiParmak = null, onUcParmak = null }, ref) {
   const [odak, setOdak] = useState(Math.max(0, Math.min(ilkOdak, ogeler.length - 1)));
   const odakRef = useRef(odak);
   odakRef.current = Math.max(0, Math.min(odakRef.current, ogeler.length - 1));
@@ -174,6 +174,11 @@ function SesliListe({ baslik, giris, ogeler, onGeri, rehberAcik, ilkOdak = 0, ge
         if (i >= 0 && i !== odakRef.current) odakla(i);
       },
       onDokun: (parmak, konum) => {
+        // Üç parmakla dokunma: listenin sahibinin kısayolu (ör. komuta panelinde en acil bölge)
+        if (parmak >= 3 && onUcParmak) {
+          onUcParmak();
+          return;
+        }
         if (parmak >= 2) {
           sustur();
           return;

@@ -4,7 +4,9 @@ import { describe, expect, test } from 'bun:test';
 import { yeniOyun } from '../src/oyun/durum';
 import * as G from '../src/oyun/gemi/gemi';
 import * as SV from '../src/oyun/uzay/savas';
-import { baskinIlerle, BASKIN_SN, zamanIlerle } from '../src/oyun/yuzey/gorevler';
+import { zamanIlerle } from '../src/oyun/yuzey/gorevler';
+import * as KM from '../src/oyun/komuta';
+import { NOBET_SN } from '../src/oyun/zaman';
 
 function uzaydaOyun(tohum = 21, sinif = 1) {
   const d = yeniOyun(tohum);
@@ -211,27 +213,32 @@ describe('Evrensel savaş motoru', () => {
     expect(gelisler.size).toBeGreaterThanOrEqual(5);
   });
 
-  test('koloni baskını: Aethelis yüzeyinde dışarıdayken kara çatışması bekler; karakol korur', () => {
+  test('koloni baskını: komşu halka baskısı; panelden bizzat savunulan baskın kara çatışması başlatır; karakol korur', () => {
     const d = yeniOyun(33);
     d.sahne = null;
-    d.koloni.seviye = 2;
     d.mekan = 'vadi';
+    // Güney güvenli, öteki sektörler hâlâ düşman elinde: baskın komşudan gelir
+    KM.komuta(d).sektor.guney = { durum: 'guvenli', karakol: null };
     let oldu = false;
     for (let i = 0; i < 40 && !oldu; i++) {
-      baskinIlerle(d, BASKIN_SN);
-      oldu = !!d.savasBekle;
+      (d.zaman = d.zaman || { sn: 0 }).sn += NOBET_SN * 13;
+      KM.komutaIlerle(d);
+      oldu = d.komuta.baskinlar.length > 0;
     }
     expect(oldu).toBe(true);
+    KM.bizzatSavun(d, 'guney');
     expect(d.savasBekle.ortam).toBe('kara');
     zamanIlerle(d, 0.1);
     expect(d.savas && d.savas.ortam).toBe('kara');
-    // Karakolu kurulu bölge korunur
+    // İkmal karakolu bağlı bölge baskını kendiliğinden püskürtür
     const d2 = yeniOyun(34);
     d2.sahne = null;
-    d2.koloni.seviye = 2;
-    d2.mekan = 'vadi';
-    d2.koloni.bolgeDurumu = { vadi: 4 };
-    for (let i = 0; i < 40; i++) baskinIlerle(d2, BASKIN_SN);
+    KM.komuta(d2).sektor.guney = { durum: 'guvenli', karakol: 'ikmal' };
+    for (let i = 0; i < 40; i++) {
+      (d2.zaman = d2.zaman || { sn: 0 }).sn += NOBET_SN * 13;
+      KM.komutaIlerle(d2);
+    }
+    expect(d2.komuta.baskinlar.length).toBe(0);
     expect(d2.savasBekle).toBeFalsy();
   });
 

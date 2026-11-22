@@ -14,6 +14,7 @@ import { BITKILER } from '../tarim/bitkiler';
 import { Z_NOKTALAR } from './zanaatHarita';
 import * as SB from './subay';
 import { DEGER } from '../veri/deger';
+import { evrenEtki, misafir } from './kisiler';
 const SICRAMA_SN = 8 * 300; // malken.js ile aynı: sekiz oyun saati (döngüsel içe aktarma olmasın diye)
 
 // Pyros-7 ve Glies-9b operasyonlarının ganimetine özütler eklenir (bölüm 2.3, 3.4)
@@ -58,6 +59,7 @@ export const ESYA = {
   plazma_kartusu: { kat: 3, ad: 'Plazma kartuşu', tarif: 'Safran kükürdüyle fitillenmiş izotop kartuşu; plazma tüfeğinin şarjı.' },
   deri_astar: { kat: 3, ad: 'Deri astar', tarif: 'Tharal ve Uma tabakhanelerinden kalın deri.' },
   zhaor_ipegi: { kat: 3, ad: 'Zhaor ipeği', tarif: 'Gümüş halkanın dokumacılarından; ışığı kıran ince ipek.' },
+  malazar_odagi: { kat: 3, ad: 'Saf Malazar kristal odaklayıcısı', tarif: 'Tether-Key mekiğinin aether rölesini odaklayan kristal; her mekik yolculuğunda biri yanar.' },
   mor_kumas: { kat: 3, ad: 'Elyndra mor kumaşı', tarif: 'Elyndra\'nın ışığında boyanmış, aether akımı geçiren kumaş.' },
   altin_tel: { kat: 3, ad: '100 gram altın tel', tarif: 'Uma halkasının kuyumcularından.' },
   sinha_cipi: { kat: 3, ad: 'Sinha akustik çipi', tarif: 'Mavi halkanın frekans atölyesinden; sonar dizilerinin beyni.' },
@@ -134,6 +136,7 @@ Object.assign(ESYA, {
 // tohum (herhangi bir tohum)
 export const TARIFLER = {
   plazma_tufegi: { ist: 'dokum', girdi: { oksit_celik: 4, kizilkaya_titanyumu: 2, plazma_kartusu: 1 } },
+  malazar_odagi: { ist: 'aether', girdi: { aether: 3, saf_aether: 1 } },
   kara_buz_hancer: { ist: 'aether', girdi: { norvask_buzu: 2, saf_aether: 1, isik_tozu: 50 } },
   isik_mizragi: { ist: 'aether', girdi: { zhaor_prizmasi: 1, kizilkaya_titanyumu: 3, isik_tozu: 200 } },
   golge_yayici: { ist: 'aether', girdi: { kara_aether: 2, obsidyen: 1, ruh_kapsulu: 1 }, not: 'Nirdol obsidyeni: obsidyen ovasının kompozit tabakası.' },
@@ -244,6 +247,8 @@ export function tarifGirdisi(d, id) {
   const t = TARIFLER[id];
   const g = { ...t.girdi };
   if (t.gozetmen && d.gozetmen && d.gozetmen[t.gozetmen]) for (const k of Object.keys(g)) g[k] = Math.max(1, Math.round(g[k] * 0.75));
+  // Oronte kolonideyken ağır zırh üretimi yarı fiyat (karakter ağı belgesi bölüm 3)
+  if (misafir(d, 'oronte') && ESYA[id] && ESYA[id].yuva === 'zirh') for (const k of Object.keys(g)) g[k] = Math.max(1, Math.ceil(g[k] * 0.5));
   // Morluk kristali ve buzul aether, aether laboratuvarında saf aetherin yerine yüksek saflıkta alternatif girdi (v4 25 bina 4.2)
   if (t.ist === 'aether' && g.saf_aether && miktar(d, 'saf_aether') < g.saf_aether) {
     let eksik = g.saf_aether - miktar(d, 'saf_aether');
@@ -522,8 +527,9 @@ export function kargo(d) {
   const siniflar = Object.keys(GEMI_SINIFLARI);
   const s = d.gemi ? Math.max(0, siniflar.indexOf(d.gemi.sinif)) : 0;
   const kapasite = Math.round((60 + 30 * s) * (SB.kabiliyet(d, 'uma', 3) ? 1.5 : 1)) + (d.gemi && d.gemi.moduller.cep_ambar ? 500 : 0); // T-03 cep-ambar
+  const ikmal = (d.murettebat || []).some((u) => u.uzmanlik === 'ikmal') ? 1.2 : 1; // ikmal subayı
   const kara = miktar(d, 'kara_aether');
-  return { hacim: Math.round(h), kapasite, asim: h > kapasite, karaFazla: kara > 4 };
+  return { hacim: Math.round(h), kapasite: Math.round(kapasite * ikmal), asim: h > kapasite * ikmal, karaFazla: kara > 4 };
 }
 // Ambardaki kara kristal fazlası kalkan frekansını bozar: Sinha bir kez uyarır
 export function kargoDenetle(d) {
@@ -598,7 +604,7 @@ export function veriSat(d) {
 const tamirBirimi = (d) => (d.bayrak.yan_tentran_bakim ? 0 : 0.5 * SB.tamirCarpani(d) * ((d.esya && d.esya.kidemli_brove) ? 0.5 : 1)); // kıdemli kaptan brövesi; Tentran'ın ücretsiz bakımı
 export function bakimMaliyeti(d) {
   const g = d.gemi;
-  return g ? Math.ceil((g.maxGovde - g.govde) * tamirBirimi(d)) : 0;
+  return g ? Math.ceil((g.maxGovde - g.govde) * tamirBirimi(d) * (misafir(d, 'oronte') ? 0.5 : 1)) : 0;
 }
 // İskelede bakım: gövde tamiri krediyle (yetmezse yettiği kadar), yakıt Akademiden
 export function bakimYap(d) {
@@ -621,7 +627,7 @@ export function bakimYap(d) {
 // --- Ticaret masası ---
 const MALKENIA = ['uma_pazari', 'zhaor_pazari', 'axira_tezgahi', 'sinha_tezgahi', 'elyndra_dokumacisi'];
 function fiyat(d, f, alim, pz) {
-  let k = SB.kabiliyet(d, 'uma', 2) ? 0.1 : 0;
+  let k = (SB.kabiliyet(d, 'uma', 2) ? 0.1 : 0) + evrenEtki(d).pazar; // evren itibarı: pazar avantajı
   // Yan görev ödülleri: gümüş muhafız rozeti (Malkenia alışı), istihbarat ağı (karaborsa), ticaret beratı (batı satışı)
   if (alim && MALKENIA.includes(pz) && d.esya && d.esya.gumus_rozet) k += 0.1;
   if (alim && pz === 'kahergonat_karaborsa' && d.bayrak.yan_istihbarat) k += 0.1;

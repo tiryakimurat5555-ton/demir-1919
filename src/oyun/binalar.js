@@ -6,6 +6,7 @@
 // Üç kural: (1) pasif iş (tesisin kendi üretimi ve kilidi), (2) sefer/savaş hazırlığı: oyuncu sefer öncesi tesise
 // uğrarsa bir sonraki sefere tek seferlik avantaj (d.hazirlik), (3) hızlanma: işten anlayan topluluk ve uyan nöbet.
 import { nobet } from './zaman';
+import { evrenEtki } from './tonoflenya/kisiler';
 
 export const ROL_ADLARI = {
   1: 'Çekirdek, yönetim ve savunma',
@@ -74,6 +75,10 @@ export function rolCarpani(d, tesis) {
   if (roller.includes(2) && t.vaelin) c *= 1.25; // su, tıp, doğa uyumlu
   if (roller.includes(4) && (t.malken || t.kithron)) c *= 1.25; // bilim, sinyal, aether uyumlu
   if (roller.includes(1)) c *= 1.1; // insan koloniciler yönetimi hızlandırır
+  // Evren itibarı: araştırma hızı (Galaktik Öncü yüzde yirmi beş, Evrenin Muhafızı yüzde otuz beş)
+  if (roller.includes(4)) c *= 1 + evrenEtki(d).bilim;
+  // Doğu bataklığından sağ dönen uzmanlar: enstitü ve sera yüzde on hızlı (v4 Görev 1C)
+  if (roller.includes(2) && d.bayrak && d.bayrak.doguUzmanlari) c *= 1.1;
   // Günün nöbeti tesisin işiyle uyuşuyorsa
   if (d.zaman) {
     const y = nobet(d).yildiz;

@@ -557,13 +557,59 @@ bütün bölümlerini sırayla sayar (21 Kasım: v3 paketiyle sekiz belge daha g
 - [x] 2 Değer anonsu: zanaat menüsünde, envanterde ve koloni üretim menüsünde adın ardından "ne işe yarar" cümlesi.
 - [x] 3 Kontrol kuralı: DEGER ya da eşyanın etki cümlesi.
 
-## 28-57. v4 paketinin öteki belgeleri: [ ] Faz 3-5 (rehber bölüm 1'deki sırayla).
+## 28. v4 / karakter-aglari-murettebat-ve-ygk-akademi.txt (3.2, tonoflenya/kisiler.js, karakter.js)
+- [x] 1 İki aşamalı mürettebat: prosedürel beş istasyon uzmanı (İkmal Subayı eklendi: kargo yüzde yirmi); Akademiye kayıt
+      olunca altı seçkin subay istasyonlara kendiliğinden geçer, prosedürel ekip yedek kalır (seckinKadro). Zhaor dümende:
+      uzay savaşında kaçınma penceresi +0,3 sn.
+- [~] 2 YGK'nin on bir katı: karakterler kanonik katlarına kondu (Ignador 1, Tixie 2, Kefius 4, Lyra 5, Valen ve Morvenna 6).
+      Katların kendi adları ve içerikleri v4 Faz 5'teki ygk-akademi-gezilebilir-sistem belgesiyle yeniden kurulacak.
+- [x] 3 Kilit karakterler: Valen (Morvenna vekil), Kefius, Ignador, Tixie, Oronte (Filtra), Barracuda (Fleeplee), Nyxara
+      (Tentran kıyısı, resmî elçi değil), Mirelza (Zeris), Zeno (Gri Yel, Yolboyu Hanı), Xarathia (yalnız Pyros notu).
+      Konuşma noktaları k_<id>: kodeks, bölge gücüne +5, taslak bilgisi. Gözetmenler: akademidekiler YGK katlarında, ustalar
+      kendi bölgelerinde, misafir kolonide (d.gozetmen her karede).
+      [~] Kaelan, Lyra, Sarah ve Cüretkâr Cüce'nin yeri belgede yok: Kaelan Helgar, Lyra YGK kat 5, Sarah Loran, Cüce
+      Filtra'ya kondu. Bahtiyar'a sorulacak.
+- [x] 4 Tether-Key mekiği: köprü (Tonoflenya görülmüş) + tanışma; bedel 1 Malazar kristal odaklayıcısı (aether
+      laboratuvarı), 50 ışık tozu, 25 L jeotermal soğutucu (dökümhane); iki nöbet kalış, altı nöbet bekleme (T-04 halkasıyla
+      iki); rıhtımda tek misafir. Etkiler: Oronte zırh, araç, bakım yarı; Barracuda kargo ve ambar kaybı yok; Zeno savunma
+      +%40, pusu ve baskın yok; Mirelza radar ×2, sera +%30; ustalar kendi taslaklarının gözetmeni.
+- [x] 5 İtibar: evren itibarı dört kademe (pazar %10/15/25, taramalar +%15, araştırma +%25/35, taban moral +5, korsan
+      korkutma ve %35 teslim, beş güce +10, savunma %10); Tonoflenya bölge itibarı beş güç (yan görev fraksiyonları toplanır,
+      -100…+100, beş basamak). Menüde "Karakter ağı, mekik ve itibar".
+
+## 29. v4 / bolge-genisletme-panel-ve-ilerleme-sistemi.txt (3.2, komuta.js)
+- [x] 1 Komuta ve Genişleme Paneli: üç sekme (iki parmakla sağa sola), satırda durum sesi (sisli statik, düşman alarm,
+      baskın zil, güvenli jeneratör uğultusu), çift dokun eylem menüsü (tara, saldır, savun, karakol kur, bilgi), üç parmakla
+      dokun en acil bölge. [~] Durum sesleri mevcut efektlerden; istenirse ElevenLabs ile özel sesler.
+- [x] 2 Dört aşamalı ilerleme: halka 1 dört sektör, halka 2 yörünge ve Kaelith, halka 3 derin uzay koridorları (Sınıf III;
+      gezegen operasyonu ve ikmal karakoluyla), halka 4 beş Tonoflenya kuşağı (itibar 20+ güvenli müttefik). En az üç kuşak
+      güvenliyse final 16-18 çatışmalarında müttefik takviyesi, değilse cephe savunmasız.
+- [x] 3 Karakollar: ikmal (baskın püskürtür), sinyal rölesi, maden sondajı (çift aktarım); her oyun günü aktarım.
+- [x] 4 Komşu halka baskısı: baskın 6-12 nöbet arayla yalnız ele geçirilmemiş komşudan; ikmal karakolu, kalkan jeneratörü,
+      devriye ya da erken uyarı bağlıysa kendiliğinden püskürtülür; dört sektör + yörünge güvenli → Tam Güvence. Karşılıksız
+      baskın ambarı yağmalar, moral -5. Eski rastgele koloni baskını kaldırıldı. Nadir hikâye baskını: hikayeBaskini.
+
+## 30. v4 / asama-1-ve-2-aethelis-fetih-ve-kaelith-hikayeleri.txt (3.2, komuta.js)
+- [x] 1A Güney (Kaya; vana operasyonu; 2 akrep + yuva ana akrebi; mühürle / biyo-kubbeyle izole). Jeotermal Santral artık
+      güney güvenli olunca kurulur.
+- [x] 1B Batı (telsiz subayı; dört notalı kilit; yağmacı öncüsü + Vanguard otomatı; affet +15 iş gücü / sür, tohum kasaları
+      ve veri diski).
+- [x] 1C Doğu (Dr. Selin; imdat sinyali; iki bataklık pusucusu; tahliye, sera ve enstitü +%10 / tortu, yaralı). Kalkan
+      Jeneratörü doğu güvenli olunca.
+- [x] 1D Kuzey (hangar sorumlusu; pike kaçınması; iki kseno-avcı asit yağmurunda; erken uyarı / polimer bacası).
+- [x] 2A Yörünge ablukası (avcı + korvet, uzay) → yedek filo devriyesi.
+- [x] 2B Kaelith (Torvok; zırhlı korsan uzay savaşı; köpükle ya da vanayla hava kilidi; iki magma akrebi + galeri çağıranı;
+      tahliye +25 Kaelith, dökümhane %30 / depo ganimeti +15 Kaelith, %15). Kaelith köprü şartında topluluk sayılır.
+- [~] Tetiklenme anları belgedeki görev sırasına bağlandı (sondaj, kazı, ilk uçuş, G-02/kule); G-14 sonrası şartı yerine
+      Sınıf 2 gemi.
+
+## 31-57. v4 paketinin öteki belgeleri: [ ] Faz 4-5 (rehber bölüm 1'deki sırayla).
 
 ## Sıradaki adımlar (sırayla)
 0. Tonoflenya genişlemesi, yönergedeki sırayla: [2.1: Malken (12); 2.2: tarihçe (13); 2.3: atlas (14); 2.4: eşya,
    zanaat, mürettebat (15), Ekol Kıdemi ve rastgele karşılaşmalar; 2.5: yirmi final görevi (16); 2.6: otuz yan görev
    ve itibar matrisi (17)]. Tonoflenya belgelerinin hepsi işlendi.
-0b. v4 paketi: Faz 2 (binalar, gemiler, araçlar, eşyalar, dinamik yakıt), Faz 3 (karakterler, komuta paneli), Faz 4
+0b. v4 paketi: Faz 2 (binalar, gemiler, araçlar, eşyalar, dinamik yakıt), Faz 3 (karakterler, komuta paneli; 3.2), Faz 4
    (ana hikâye, 18 gezegen hikâyesi, bosslar), Faz 5 (YGK Akademi, yan görevler, ambargo).
 1. Telefonda deneme: seslendirilmiş telsizlerin düzeyi ve anlaşılırlığı (Murat ve Bahtiyar), ses dengeleme ve
    erişilebilirlik testleri. İstenirse koloni bilgisayarı için ayrı bir ses.

@@ -523,7 +523,32 @@ Demir 1919 oyunu silindi; geçmişi git kaydında (son sürüm 1.06, commit 556f
     morluk/buzul aether ikamesi, cep-ambar +500 kargo, GK_ML 25, degerCumlesi (veri/deger.js DEGER).
   - Yuzey: kokpit terminalinde araç yükleme; koloni yönetiminde binalar ağacı; üretim menüsünde değer cümlesi.
   - testler/binalar.test.js (14 senaryo).
-- Sıradaki: Tonoflenya belgelerinin hepsi işlendi; KAPSAM.md'de [~] notları (Bahtiyar'a sorulacaklar) ve telefonda deneme.
+- SÜRÜM 3.2 (22 Kasım): v4 Faz 3 + Aşama 1-2 hikâyeleri. Telefonda denenmedi.
+  - tonoflenya/kisiler.js (bağımlılıksız): KARAKTERLER (14; fraksiyon, yer [mekan, dx, dy], ygk, taslak, mekik, etki, soz),
+    misafir(d, id), evrenKademe/evrenEtki (pazar, tarama, bilim, savunma, korsan), GUCLER 5 + FRAKSIYON_GUCU (yan.js
+    fraksiyonları), gucItibari (-100…100; Galaktik Öncü +10), gucBasamagi, gucEkle. karakterHarita.js K_NOKTALAR k_<id>.
+  - tonoflenya/karakter.js: konus (kodeks kisi_<id>, güç +5), mekikKosulu/mekikCagir (MEKIK_BEDELI malazar_odagi [aether
+    tarifi], isik_tozu 50, jeotermal_sogutucu 25 [dökümhane parçası]; 2 nöbet; bekleme 6, halkayla 2), karakterIlerle
+    (gorevler.zamanIlerle): dönüş, gozetmenGuncelle (d.gozetmen = d.gozetmenAta + misafir + YGK katında akademililer +
+    kendi mekânında ustalar), seckinKadro (ygkKayit + gemi → altı çekirdek subay). karakterMenu (menüde).
+  - Etkiler: zanaat fiyat evren pazarı, Oronte zırh tarifi ve bakım ×0,5, ikmal subayı kargo ×1,2 (murettebat.js 'ikmal');
+    koloni.js koloniGirdisi (Oronte araç hangarı ×0,5, Torvok dökümhane metal indirimi); gorev1 Cüce madencilik +1, frekans
+    kilidi tarama hızıyla; tarim Mirelza ×1,3, doğu uzmanları ×1,1; dunya radar Mirelza ×2; binalar rolCarpani bilim;
+    fenomen kademe 2'de moral +5; gozlem.js kademe adları kanonik. savas.js: yeni kara düşmanları (yuva_ana_akrebi,
+    yagmaci_oncusu, vanguard_otomati, bataklik_pusucusu, kseno_avci, magma_akrebi, galeri_cagirani), korsan korkutma (s.korkut,
+    ilk sırada iki parmak yukarı → ateşkes) ve %35 teslim, Evrenin Muhafızı hasar ×0,9, Zeno kara ×1/1,4, Zhaor dümende +0,3,
+    final 16-18 müttefik takviyesi (s.isaret) ya da s.cephe -0,2, uzay yenilgisinde Tonoflenya mallarının %20'si (Barracuda yok).
+  - komuta.js: BOLGELER (guney, bati, dogu, kuzey, yorunge, kaelith; kosul, aktarim, baskinDusman), GOREVLER 1A-2B (giris,
+    hazirlik, op → OPERASYONLAR kom_<id> sahne kom_ara, savas/savasOnce, kararlar, odul), d.komuta; tara, saldir (sahne
+    kom_giris), karakolKur (ikmal/role/sondaj), devriyeAta, komutaIlerle (yarım harekât sıfırlanır; baskın 6-12 nöbet,
+    bağlıysa püskürtülür, süresi dolan baskın yağmalar; Tam Güvence; GUN aktarım), bizzatSavun (sahne kom_savunma),
+    otomatikSavun, hikayeBaskini, panel(d, sekme) ağaç (ikiParmak sekme, ucParmak enAcil, öğe ses), SAHNELER kom_*.
+    bayrak.sektor_<id>; tesisler.js jeotermal_santral sektor_guney, koloni_kalkani sektor_dogu ister. Eski baskinIlerle kalktı.
+    malken.js seferKosullari Kaelith'i bayrak.kaelithKurtarildi ile de sayar.
+  - Yuzey: menüde Komuta ve Genişleme Paneli, Karakter ağı; agacGoster öğe ses (onOdak), ucParmak, r.kapat. SesliListe
+    onUcParmak (üç parmak dokunuş).
+  - testler/komuta.test.js (14); savas2 baskın testi komşu halkaya çevrildi.
+- Sıradaki: v4 Faz 4 (görev harmanlama, koloni yerel operasyonlar, Aşama 3 ve 18 gezegen hikâyesi, Aşama 4 bosslar), Faz 5; KAPSAM.md'de [~] notları (Bahtiyar'a sorulacaklar) ve telefonda deneme.
 
 ## Sesler
 - Drive'daki Efektler/Ambians dosyaları 14 MB; Drive bağlayıcısı 10 MB'tan büyük dosyayı indiremiyor. Bu yüzden

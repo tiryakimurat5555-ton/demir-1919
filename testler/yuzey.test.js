@@ -974,12 +974,14 @@ describe('Faz 2 bölgeleri', () => {
     eylemUygula(d, 'civa_tortusu_1', 'topla');
     expect(d.koloni.kaynaklar.civa_tortusu).toBe(1);
     expect(d.gorulenMekanlar).toContain('civa');
+    d.bayrak.sektor_dogu = true;
     expect(TESISLER.koloni_kalkani.kosul(d)).toBe(true);
   });
   test('lav koridorları: magmadan kaçan yanmaz, kalan yanar; mantar ormanı yarasaları', () => {
     const d = hazir();
     d.mekan = 'sirtlar';
     git(d, 'lav_gecit');
+    d.bayrak.sektor_guney = true;
     expect(TESISLER.jeotermal_santral.kosul(d)).toBe(true);
     d.zehir = 0;
     const o = [];
