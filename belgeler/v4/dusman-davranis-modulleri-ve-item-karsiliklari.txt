@@ -1,0 +1,114 @@
+# DÜŞMAN DAVRANIŞ MODÜLLERİ, EŞYA KARŞILIKLARI VE SERBEST TAKTİK MATRİSİ
+
+Bu belge; `evrensel-savas-sistemi-uzay-ve-kara.txt`, `somut-dusman-katalogu-ve-bosslar.txt` ve `25-bina-evrensel-butunsellik-ve-yetim-esya-baglantisi.txt` belgelerini birbirine bağlayarak **düşmanların modüler yapay zekâ davranışlarını**, **hangi eşyanın nerede hangi tehdidi kırdığını** ve **özel eşya olmadan da refleks/serbestlikle baş edebilme kurallarını** tanımlar.
+
+---
+
+## 1. TEMEL FELSEFE: "EŞYA ZORUNLULUK DEĞİL, TAKTİK AVANTAJDIR"
+
+1. **Modüler Düşman Mantığı:** Her düşman (veya boss fazı) tek bir kalıba sıkışmaz; aşağıdaki **8 Davranış Modülü**nden 1 veya 2 tanesini üzerinde taşır.
+2. **Üç Farklı Çözüm Yolu (Serbestlik İlkesi):** Oyuncu aynı düşman modülüyle 3 farklı yoldan baş edebilir:
+   - **Yol 1 — Saf Refleks / Serbest Oyun:** Hiçbir özel eşya olmadan yalnızca kulaklık sesi, zamanlama, kaçınma ve doğru hedef seçimiyle yenebilir (daha uzun ve dikkat ister).
+   - **Yol 2 — Eşya & Zanaat Kısayolu:** Doğru silah, zırh, sarf malzemesi veya gemi modülü takılıysa düşmanın özel modülü kırılır ya da doğrudan tersine döner.
+   - **Yol 3 — Bina, Araç & Mürettebat Desteği:** Sefer öncesi bina hazırlığı, yüzey aracı veya yedek filo desteği aynı tehdidi pasifize eder.
+3. **Ucu Açık Tasarım:** İleride oyuna yeni bir eşya veya yeni bir düşman eklendiğinde yeni kod yazılmaz; yalnızca eşyanın hangi **Davranış Modülü**nü kırdığı işaretlenir.
+
+---
+
+## 2. 8 DÜŞMAN DAVRANIŞ MODÜLÜ VE EŞYA / SERBESTLİK KARŞILIKLARI
+
+### MODÜL 1: FREKANS KALKANI *(Kalkan Tonu Değiştirme)*
+- **Kimlerde Var:** *Tanımsız Yabancı Firkateyn*, *Kadim Otomatlar*, *Kahergonat Öncü Zırhlısı (Faz 1)*.
+- **Davranışı:** Her 2 turda bir kalkanının/zırhının rezonans tonunu (kalın/orta/tiz) değiştirir. Yanlış tonda gelen atışlar `%70` azalır.
+- **Serbest Baş Etme:** İki parmakla çevirme yaparak kulaklıktaki tonu elle yakalayıp kalkanı kırabilirsin.
+- **Hangi İtem Nerede İş Yapar:**
+  - `T-05 Sonik Çığlık Tüfeği`: Kalkanı **2 tur tamamen kilitler** (ton aramaya gerek kalmaz).
+  - `T-06 Geometrik Plazma Namlusu`: `%100` zırh delme ile kalkan tonunu görmezden gelir.
+  - `K3 Çift Fazlı Plazma Bobini` / `Mammoth`: Zırh/kalkan direncini yarıya indirir.
+
+### MODÜL 2: PUSUCU VE SAHTE SİNYAL *(Yön Değiştirme & Yanıltma)*
+- **Kimlerde Var:** *Korsan Korveti*, *Gölge Korsan Gemisi*, *Kristal Bataklık Pusucusu*, *Tonoflenya Haydutları*, *Sis Feneri Canavarı*.
+- **Davranışı:** Her darbede sağdan sola yer değiştirir; gelişmiş türler (`Gölge Korsan`) sahte saldırı uyarısı verip gerçek yönü gizler.
+- **Serbest Baş Etme:** Sesin kaydığı yönü kulaklıkla takip edip yeniden pruva/nişan kilitleyerek; sahte seste ise ana motor nabzını dinleyerek atlatılır.
+- **Hangi İtem Nerede İş Yapar:**
+  - `Sinha Akustik Derinlik Sonarı` & `Kozmik Parazit Sensörü`: Sahte sesleri eler, gerçek yönü net işaretler.
+  - `T-08 Gümüş Söğüt Nişangâhı`: Iskalamayı sıfırlar ve pusu yemeden ilk atış hakkı verir.
+  - `Çöl Tilkisi` (Kara) / `Kıvılcım` (Uzay): Hızlı dönüşle hedefi kaçırmaz.
+
+### MODÜL 3: SÜRÜ VE TAKVİYE ÇAĞIRAN *(Birim Üretme)*
+- **Kimlerde Var:** *Korsan Dron Taşıyıcısı*, *Yuva Ana Akrebi*, *Buzul/Mantar Sürüsü*, *Lord Sharon (Faz 2)*, *Cahelon (Faz 2)*.
+- **Davranışı:** 3 turda bir yanına küçük saldırı dronu veya yavru yaratık çağırır; temizlenmezse her tur üst üste ek hasar gelir.
+- **Serbest Baş Etme:** Çoklu ses hedeflemesiyle sağa-sola kaydırıp önce küçük birimleri tek tek indirmek.
+- **Hangi İtem Nerede İş Yapar:**
+  - `2 Sonik Kovucu` (Kara): Çağrılan sürüleri **1 tur sersemletir veya dağıtır**.
+  - `Kahergonat Gölge Yayıcı`: Alan hasarı ile ana hedefi ve yan birimleri aynı anda yakar.
+  - `Hisar-ı Kadim` (Destek Yuvası): Her 3 turda yaylım ateşiyle yan birimleri süpürür.
+
+### MODÜL 4: KARANLIK VE ZİHİN PARAZİTİ *(Fiziksel Direnç + Stres Saldırısı)*
+- **Kimlerde Var:** *Alt-Evren Hava Yaratıkları*, *Gölge Korsanı*, *Tarikat Muhafızları*, *Lord Sharon*, *Cahelon*.
+- **Davranışı:** Standart kinetik atışlara `%50` dirençlidir. Vurduğunda yalnızca canı değil, **mürettebat stresini** yükseltir (stres `%100` olursa atış isabeti ve uyarı netliği bozulur).
+- **Serbest Baş Etme:** Savunma pencerelerini hiç kaçırmadan hasar yememeye odaklanmak ve uzun süren çatışmada sabırlı oynamak.
+- **Hangi İtem Nerede İş Yapar:**
+  - `Zhaor Işık Mızrağı` / `Tyzrakhel Mızrağı`: Tüm Karanlık/Alt-Evren düşmanlarına **`2x` hasar** vurur.
+  - `YGK Baş-Büyücü Cübbesi`: Zihinsel stres saldırılarına **`%100` bağışıklık** sağlar.
+  - `T-09 Evrensel Kseno-Panzehir` / `Jeotermal Vaha Şurubu`: Savaş içi stresi ve kara kristal lanetini anında sıfırlar.
+  - `#5 Biyoloji Kubbesi` / `Biyo-Habitat İklim Kubbesi`: Stres birikimini kalıcı `%30` azaltır.
+
+### MODÜL 5: AŞIRI ISI VE PLAZMA AŞIRI YÜKLEMESİ *(Kalkan/Silah Isıtma)*
+- **Kimlerde Var:** *Xarathia / Magma Muhafızı*, *Ağır Maden Korsanı*, *Corona-Lux Muhafızları*.
+- **Davranışı:** Saldırıları oyuncunun kalkanını ve silahlarını hızla ısıtır; ısınan kalkan bir sonraki tur açılmaz, silah bekleme süresi uzar.
+- **Serbest Baş Etme:** Kalkan açmak yerine **kaçınma manevrası** (sesin tersine kaydırma) yaparak kalkanı dinlendirmek.
+- **Hangi İtem Nerede İş Yapar:**
+  - `2 Tüp Dondurucu Köpük` (Sarf): Aşırı ısınan kalkanı veya silahı savaş ortasında anında soğutur.
+  - `Termal Giysi` (Kara) / `Pasif Termal Karartma Modülü` (Uzay): Isı hasarını ve ısınma hızını `%50` düşürür.
+  - `Norvask Kara Buz Hançeri` / `Süper-İletken Soğutucu Sıvı`: Isı temelli düşmanı **2 tur dondurur/yavaşlatır**.
+
+### MODÜL 6: İYON KİLİDİ VE ELEKTRİK ŞOKU *(Sistem Dondurma)*
+- **Kimlerde Var:** *Korsan Avcı (İyon Yaylımı)*, *Tanımsız Yabancı Firkateyn*, *Fulgur-3 İyon Dronları*.
+- **Davranışı:** İsabet ettirdiğinde gemi iticilerini veya aracın hareket sistemini **1 tur kilitler** (kaçınma yapılamaz).
+- **Serbest Baş Etme:** İyon ıslığı duyulduğunda kaçınma yerine **karşı ateş** (torpidoya/mermiye çift dokunma) veya **kalkan** kullanmak.
+- **Hangi İtem Nerede İş Yapar:**
+  - `3 Topraklama Çubuğu`: Yıldırım/İyon kilidini emerek sistem dondurmasını tamamen engeller.
+  - `EMP Şok Dalga Topu` / `İyon Dağıtıcı Paratoner Zırhı`: Düşmanın kendi enerji sistemini 1 tur kilitler.
+
+### MODÜL 7: ZEHİR, ASİT VE YARALAMA *(Zamanla Hasar / DoT)*
+- **Kimlerde Var:** *Aethelis Sülfür Akrebi*, *Miasma-9 / Viridion Yaratıkları*.
+- **Davranışı:** Her tur zırhı eriten asit veya zehir bırakır.
+- **Serbest Baş Etme:** Savaş uzamadan yüksek hasarlı saldırılarla hızlı bitirmek; savaş sonrası Revir'e uğramak.
+- **Hangi İtem Nerede İş Yapar:**
+  - `Nötralizasyon Kulesi` (Bölge) / `Asit-Direnç Polimer Zırhı`: Asit eritmesini sıfırlar.
+  - `T-09 Kseno-Panzehir` / `Kseno-Radyasyon Detoksu`: Savaş ortasında tüm zehri siler ve **3 tur bağışıklık** verir.
+
+### MODÜL 8: KAÇIŞ, TESLİM VE ZIRH KIRILMA *(Dinamik Sonlanma)*
+- **Kimlerde Var:** *Korsan Korveti*, *Tonoflenya Haydutları*, *Kraliyet Muhafızları*.
+- **Davranışı:** Canı `%30`'un altına indiğinde kaçmaya çalışır veya `%25`'te ateşkes/teslim teklif eder.
+- **Serbest Baş Etme:** Hızlı ağır atışla (torpido/ağır silah) kaçmadan indirmek ya da ateşkesi kabul etmek.
+- **Hangi İtem Nerede İş Yapar:**
+  - `T-07 Plazma Pençeli Kesici` / `Ağır Çekici Kiriş`: Kaçış motorlarını kilitler; düşman yenildiğinde personeli otomatik esir alma seçeneği açar.
+  - `Aşırı Yüklü İyon İticileri`: Kaçan düşmanı kovalamada tam hız avantajı verir.
+
+---
+
+## 3. UCU AÇIK ESNEK SİNERJİLER (GELECEĞE AÇIK TASARIM)
+
+- **Biyom ve Yıldız Zamanı Sinerjisi:** `Varek` nöbetinde termal silahlar, `Sinha` nöbetinde akustik/kaçınma ekipmanları, `Elyndra` nöbetinde Aether/büyü eşyaları gizli olarak biraz daha güçlü hissedilir; bu esneklik ileride yeni eşya kombinasyonlarına kapı açar.
+- **Kombinasyon Serbestliği:** Oyuncu örneğin *Karanlık + Pusucu* bir düşmana karşı illa `Işık Mızrağı` bulmak zorunda değildir; `Filtra Tüfeği` + `Sinha Sonarı` + `Vaha Şurubu` kombinasyonuyla da aynı düşmanı rahatça yenebilir.
+- **Yeni Eşya / Modül Ekleme Kuralı:** İleride eklenecek her yeni eşya için yalnızca **"Hangi Modülleri (1–8) zayıflatır / kırar?"** satırını eklemek yeterlidir.
+
+---
+
+## 4. GELİŞ BİÇİMİ VE KARŞILAŞMA ÇEŞİTLİLİĞİ (AYNI MANTIK, FARKLI SAHNELER)
+
+Düşmanların her seferinde aynı tekdüze 1v1 düello şeklinde çıkmaması için, mevcut **8 Davranış Modülü** korunarak iki katmanlı çeşitlilik uygulanır:
+
+### 4.1. 6 Farklı Geliş Biçimi
+1. **Çift Yönlü Kıskaç:** Soldan hızlı *Akıncı*, sağdan *Pusucu* aynı anda açılır; kulaklıkta iki farklı yönden gelen tehdit arasında anlık hedef değiştirme ister.
+2. **Öncü + Destek İkilisi:** Önde kalın zırhlı bir birim yolu kapatır, arkasında *Çağıran* veya *Frekans* destekçisi durur (arkadaki indirilmeden savaş uzar).
+3. **Kaçan Konvoy / Kurye Yarışı:** Düşman saldırmak yerine 3–4 tur içinde kaçmaya çalışır; savunmadan çok yüksek hasar veya `T-07 / Çekici Kiriş` ile motor kilitleme yarışı yaşanır.
+4. **Çevresel Tehlike Altında Çatışma:** Aynı düşman *İyon Fırtınası*, *Aşırı Isı* veya *Asit Yağmuru* içinde çıkar (hem düşmanla hem ortamın ekstra modülüyle baş edilir).
+5. **Sessiz Sızma / İlk Vuruş:** Oyuncu tehlikeyi fark etmeden yaklaşırsa ilk turu gizlice/avantajlı başlatır; gürültü yaparsa düşman tam alarm ve takviyeyle gelir.
+6. **Sahte Yardım / Tuzak Sinyali:** Kurtarma veya enkaz sinyali sanılan noktadan pusu kuran *Gölge Korsanı* veya *Yabancı Firkateyn* çıkar.
+
+### 4.2. Dinamik İkincil Modül (T2+ Çeşitlemesi)
+T2 kademesinden itibaren düşmanlar yalnızca sabit tek tiple gelmez; kendi ana kimliğinin yanına bölgeye/şansa bağlı olarak **1 ikincil davranış modülü** eklenir (ör. normalde *Pusucu* olan bir Korsan Korveti bazen *İyon Kilidi* veya *Aşırı Isı* donanımıyla gelir). Bu sayede `#14 Komuta Merkezi` taraması her seferinde anlamlı kalır ve her karşılaşma taze hissettirir.
+

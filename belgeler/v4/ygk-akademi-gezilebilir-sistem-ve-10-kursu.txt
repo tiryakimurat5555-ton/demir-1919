@@ -1,0 +1,80 @@
+# YGK AKADEMİ: GEZİLEBİLİR 11 KAT, 10 KÜRSÜ TESTİ VE İÇ DENGE SİSTEMİ
+
+Bu belge; `ygk-akademi-derinlestirme-ve-karakter-rehberi.md` ve `ygk-akademi-dort-kilit-figur-ve-rpg-etkilesimleri.md` dosyalarındaki tüm içerikleri **Yeni_Icerikler** omurgasına entegre ederek YGK Akademi'yi gerçekten gezilebilir, katları ana görevlerle açılan ve içi politik/eğitimsel dengelerle dolu yaşayan bir merkeze dönüştürür.
+
+---
+
+## 1. AKADEMİ KATLARININ AÇILMA ZAMANLAMASI (`görevler.txt` BAĞLANTISI)
+
+Oyuncu Tonoflenya'ya ilk sıçramada (Bölüm 6) **5. Kat Yerçekimi İskelesi**'ne iner. Katlar ana görev ilerleyişine göre kademeli açılır:
+
+- **Faz A — `Final #1 (YGK Kayıt Mührü)` Sonrası Açılanlar (+1 ile +6):**
+  - **1. Kat (Varış Avlusu & Ağır Plazma Talimgahı):** *3D Ses:* Mekik motorları, plazma talim atışları. **Ignador** buradadır.
+  - **2. Kat (Yıldız Ekolleri Amfileri & Cep-Park):** *3D Ses:* Öğrenci uğultusu, cep-boyut rüzgarı. **Faelan Cinder**, **Kaelis 'Echo' Duman** ve havalandırma sakini **Tixie** buradadır.
+  - **3. Kat (Kristal İhtisas & Zanaat Atölyeleri):** *3D Ses:* Çekiç sesleri, kristal törpüleme. **Forges** ve **Zeva Thorne** buradadır.
+  - **4. Kat (Kartografya & Kütüphane):** *3D Ses:* Sayfa/parşömen hışırtısı, saat tik-takları. **Kefius Arateon** ve **Profesör Püskül** buradadır.
+  - **5. Kat (Aether Simya Lab & Kseno-Seralar):** *3D Ses:* 1200–2400 Hz kristal armonisi, sera fıskiyeleri. Melez Zanaat Lab, **Trellis-7** ve **Seraphine Rael** buradadır.
+  - **6. Kat (Yüksek Konsey & Gözlemevi):** *3D Ses:* Yüksek kubbe yankısı, 6 yıldız çan tonu. **Valen Lazeria** ve *Zirve İğnesi* (Final #3 sonrası) buradadır.
+- **Faz B — `Final #3 (Akademi Dehlizleri)` Sonrası Açılanlar (-1 ile -3):**
+  - **-1. Kat (Röle & Mekik İskelesi):** *3D Ses:* 40 Hz röle uğultusu. **Maelis** ve Tether-Key mekik terminali.
+  - **-2. Kat (Sessiz Arşivler & Disiplin):** *3D Ses:* Tam sessizlik, uzak kapı sürgüleri. **Silas Vex** buradadır.
+  - **-3. Kat (Malazar Çatlağı):** *3D Ses:* Mağara akustiği, kristal çatırtısı. **Jolkar Tectus** ve **Caelum Nokturnus** (astral geçit) buradadır.
+- **Faz C — `Final #13–#15 (Kara Göl)` Sonrası & `Final #18` Öncesi Açılanlar (-4 ve -5):**
+  - **-4. Kat (Kadim Stasis Hücreleri):** *3D Ses:* Kriyo-tüp nabızları. Özgün mahkumlar (*Zephyra*, *Morwenna*) buradadır.
+  - **-5. Kat (Sıfırıncı Karanlık / Dünya Çivisi):** *Final #18 (Lord Sharon)* boss sahnesi.
+
+*(Dokunsal Gezinme: Asansörde tek parmak yukarı/aşağı ile kat seçilir, çift dokunmayla kata inilir; kat içinde iki parmak sağa/sola kaydırma ile NPC ve odalar arası gezilir.)*
+
+---
+
+## 2. 10 KÜRSÜ EĞİTMENİ VE ÖZEL TEST GÖREVLERİ (SAVAŞ + KIDEM ENTEGRASYONU)
+
+Her eğitmen, ilgili **Yıldız Ekolü Kıdemi** ve **Evrensel Savaş** yeteneklerini açan tek seferlik derin bir test görevi sunar:
+
+1. **Korvinus Vael** *(Anti-Büyü — 3. Kat | Final #3 sonrası):*
+   - *Test ("Kusursuz Hata"):* Sesle bozuk rezonans kalkanının zayıf frekansını bulup kapatma.
+   - *Ödül:* `+50 Yıldız Ekolü Kıdemi`, düşman **Frekans Kalkanı** kırıldığında `+25%` ek kritik hasar.
+2. **Silas Vex** *(Gölge & Psikometri — -2. Kat | Final #3 sonrası):*
+   - *Test ("Gölge Şantajı"):* Ses çıkarmadan Konsey katibinin odasına sızma (hızlı yürürsen yakalanırsın).
+   - *Ödül:* `+50 Yıldız Ekolü Kıdemi`, kara ve uzayda **ilk tur pusu önleme / şaşırtma** yeteneği.
+3. **Forges** *(Mekanik & Enerji — 3. Kat | Final #1 sonrası):*
+   - *Test ("Çelik Damar"):* Patlamak üzere olan dengesiz Aether kristalini 3 aşamalı ısı soğutmasıyla dövme.
+   - *Ödül:* Tüm zırh ve gemi gövde üretim maliyetlerinde kalıcı **`%10` indirim**. *(Not: Tier 4 Dökümhane kilidi Aethelis Tersanesi'ne bağlıdır, Forges ek verim verir.)*
+4. **Jolkar Tectus** *(Rünler & Antik Dil — -3. Kat | Final #6 sonrası):*
+   - *Test ("Konuşan Taş"):* -3. Kattaki lanetli yazıtı doğru ritimle okuyup uyanan **1x Kadim Otomat / Gölge Muhafızı** (*T4*) ile **Kara Savaşı**.
+   - *Ödül:* Karanlık düşmanların zihin/stres saldırılarına karşı **`%20` kalıcı direnç**.
+5. **Faelan Cinder** *(Hata Büyüsü — 2. Kat | Final #1 sonrası):*
+   - *Test ("Kontrollü İnfilak"):* Aynı anda hem ateş hem buz yükleyip dengeyi tutturma bulmacası.
+   - *Ödül:* Gemi silahları aşırı ısındığında **1 tur ekstra kritik hasar** bonusu (`Glitch Shot`).
+6. **Trellis-7** *(Kseno-Botanik & Zehir — 5. Kat | Final #3 sonrası):*
+   - *Test ("Zehirli Nefes"):* Sporlu odada nefes ritmini dinleyerek panzehir bitkisini toplama.
+   - *Ödül:* Zehir ve asit hasarlarına karşı kalıcı **`%25` direnç** + nadir sera tohumu.
+7. **Seraphine 'Işık Yolu' Rael** *(Şifa & Empati — 5. Kat | Final #3 sonrası):*
+   - *Test ("Acıyı Paylaş"):* Yaralı askerin nabzıyla senkronize dokunma ritmi tutturma.
+   - *Ödül:* Savaş sonrası mürettebat stres/yaralanma iyileşme süresi **yarıya iner**.
+8. **Caelum Nokturnus** *(Astral Seyahat — -3. Kat | Final #6 sonrası):*
+   - *Test ("Kör Uçuş"):* Görsel/harita olmadan yalnızca 3D sesle Mormon Denizi fırtına rotasını geçme.
+   - *Ödül:* Derin uzay ve Tonoflenya arası **seyahat/sıçrama süresi `%20` kısalır**.
+9. **Kaelis 'Echo' Duman** *(Ses & İllüzyon — 2. Kat | Final #1 sonrası):*
+   - *Test ("Kendi Sesinle Savaş" — Kara Savaşı):* Akustik odada oyuncunun kendi saldırı sesini taklit eden **1x Ses İllüzyonu** (*Pusucu, T3*) ile düello.
+   - *Ödül:* Savaşlarda **Sahte Gürültü / Şaşırtma** yeteneği 1 tur daha hızlı dolar.
+10. **Zeva 'Kılavuz' Thorne** *(Mekik & Denge — 3. Kat | Final #3 sonrası):*
+    - *Test:* Ağırlık/yerçekimi merkezini sesle dengeleme.
+    - *Ödül:* Yüzey araçları ve mekiklerin engebeli/tehlikeli arazide aldığı hasar **`%30` azalır**.
+
+---
+
+## 3. 4 KİLİT FİGÜR DENGESİ VE -4. KAT ÖZGÜN MAHKUMLARI
+
+### 3.1. 4 Kilit Figür Politik Dengesi (`Valen`, `Kefius`, `Ignador`, `Tixie`)
+Karmaşık ayrı puanlar yerine **YGK İtibarı** + **Kişisel Güven** dengesi işler:
+- **Valen Lazeria (6. Kat) vs. Ignador (1. Kat):** Valen Konsey düzenini, Ignador Konsey karşıtı askeri reformu savunur.
+  - Oyuncu Ignador'un tarafını tutup Valen'e karşı darbe yaparsa Valen -4. Kat'a kapatılır; Konsey Vekili **Morvenna Kael** yönetimi devralır (hikâye tıkanmaz).
+  - Valen korunursa diplomatik erişim ve Konsey desteği tam kalır; Ignador yine de *T-06 Plazma Namlusu* taslağını verir ama ağır talim indirimi düşer.
+- **Kefius Arateon (4. Kat / -5. Kat):** Oyuncunun Alt-Evren sırlarını kurcalamasına göre güvenir; yüksek güvende Final #18 öncesi Dünya Çivisi zayıf noktasını paylaşır.
+- **Tixie (2. Kat):** 5. Kattan *Boyut Sabitleyici Çip* getirilirse *T-03 Cep-Ambar* açılır; YGK muhafızlarına ihbar edilirse kaçıp kaybolur (`YGK İtibarı +15`, ama `T-03` kaçırılır).
+
+### 3.2. -4. Kat Özgün Stasis Mahkumları *(Dış Liderler Çıkarıldı)*
+`Oronte`, `Mirelza`, `Xarathia` ve `Kaelan` dış dünyadaki kendi bölgelerinde kaldığı için -4. Kat Stasis Hücreleri **yalnızca özgün tehlikeli tutsakları** barındırır (`Final #13` sonrası açılır):
+1. **Zephyra (Göğün Hiddeti):** Kanatlı atmokinezi ustası. Dar hücrede klostrofobik kriz geçirir; serbest bırakılırsa **`Fırtına Kalkanı`** (hava/yıldırım direnci) hediye eder ve Arin/Güney rotalarında destek olur.
+2. **Morwenna (Karanlık Ses Bükücü):** Eski Tyzrakhel rahibesi adayı. Serbest bırakılır veya ikna edilirse Final #18'de **Lord Sharon'un zihin saldırılarını `%25` zayıflatır**; hücrede bırakılırsa ek `Kara Aether` verisi alınır.

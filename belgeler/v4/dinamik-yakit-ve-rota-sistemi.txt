@@ -1,0 +1,45 @@
+# DİNAMİK YAKIT, ZİNCİRLEME ROTA VE İKMAL SİSTEMİ
+
+Bu belge, uzay seyrüseferinde sabit "şu gezegene git = şu kadar yakıt" kuralını kaldırarak; geminin **aldığı gerçek yola, taşıdığı kargo yüküne ve rotadaki olaylara** göre değişen sade, anlaşılır bir yakıt mantığı kurar.
+
+---
+
+## 1. BASİT HESAPLAMA MANTIĞI (KARMAŞIK FORMÜL YOK)
+
+Her noktanın Aethelis-IV'e göre bir **Halka Mesafesi (1–5)** vardır. Oyuncu bir noktadan diğerine giderken harcayacağı yakıt şu **3 basit adımda** belirlenir:
+
+### Adım 1: Zincirleme Mesafe (Bulunduğun Yerden Hedefe)
+- Aethelis-IV'ten doğrudan 4. Halkadaki bir gezegene gitmek `4 birim` yol tutar.
+- Ama oyuncu zaten 3. Halkadaki bir gezegendeyse, oradan 4. Halkadaki yan gezegene geçmek için baştan 4 birim değil, **aradaki fark kadar (`1 birim`)** yakıt harcar.
+- *Aynı Halka İçindeki Geçiş:* Aynı halka içindeki bir komşu gezegene geçmek yalnızca **`1 birim`** temel yakıt tüketir.
+- **Taban Tüketim (Birim Başına):**
+  - *Sınıf 1–2 (`Kıvılcım`, `Rüzgarkıran`):* `1 Birim Yol = 5 Litre` (İtki / Plazma Yakıtı)
+  - *Sınıf 3 (`Aethel Muhafızı`):* `1 Birim Yol = 6 Litre` (Graviton Yakıtı)
+  - *Sınıf 4–5 (`Gökdelen`, `Hisar-ı Kadim`):* `1 Birim Yol = 10–15 Litre` (Graviton Yakıtı)
+
+### Adım 2: Yük, Saat ve Teknoloji Etkisi
+- **Kargo Ağırlığı:** Ambar `%80` ve üzeri doluysa (ağır maden/ganimet taşınıyorsa) tüketim **`+%25` artar** (`T-03 Katlanmış Cep-Ambar` varsa bu ceza sıfırlanır).
+- **Yıldız Nöbeti (`Sinha`):** *Mavi Akşam* nöbetinde yola çıkılırsa gemi verimiyle yakıt **`%10` azalır**.
+- **Kalıcı Teknoloji İndirimi:** `Zephyr-Major` Helyum-3 teknolojisi (`%15`) ve Tersane motor ayarı (`%15`) yakıt tüketimini doğrudan düşürür.
+
+### Adım 3: Rotadaki Olaylar (Sakin vs. Tehlikeli Rota)
+- Sakin bir rotada başka ek yakıt gitmez.
+- Yolda **korsan pususundan kaçmak**, **iyon fırtınasından çıkmak** veya **karadelik çekiminden kurtulmak** için sert manevra yapılırsa anlık **`+3 ile +5 Litre`** arası ek manevra yakıtı harcanır.
+
+---
+
+## 2. 20 GEZEGEN VE OPERASYONLARIN HALKA MESAFELERİ
+
+- **Halka 1 (Yakın Yörünge):** Aethelis Yörüngesi, `G-01..G-06`, Kaelith Maden Kuşağı.
+- **Halka 2 (İç Kuşak):** `Pyros-Prime (01)`, `Kriyos-7 (02)`, `Thalassa (03)`, `Mycelia-IV (04)`, `Sol-Kharra (05)`, `Ferros-Omega (06)`.
+- **Halka 3 (Orta / Sessiz Kuşak):** `Zephyr-Major (07)`, `Lithos-Echo (08)`, `Necron-Sıfır (09)`, `Janus-Split (10)`, `Fulgur-3 (11)`, `Miasma-9 (12)`.
+- **Halka 4 (Dış / Unutulmuş Sektör):** `Umbra-Kayıp (13)`, `Fractura (14)`, `Carbonis-V (15)`, `Radion-Kızıl (16)`, `Automata-Enkaz (17)`, `Chronos-Döngü (18)`.
+- **Halka 5 (Sınır Ötesi):** `Aero-Flora (19)`, `Corona-Lux (20)`, `Kızıl Yutucu`, `YGK Feneri (Tonoflenya Sıçraması)`.
+
+---
+
+## 3. YAKIT İKMALİ VE KİLİTLENMEME GARANTİSİ
+
+1. **İleri Karakoldan İkmal:** Üzerinde `Otomatik İkmal Karakolu` kurulmuş herhangi bir gezegene uğrandığında oyuncu üsse dönmeden yakıt tankını doldurabilir.
+2. **Kritik Uyarı (`%15` Altı):** Yakıt kritik seviyeye indiğinde sesli uyarı çalar ve en yakın karakol/üssün yönü söylenir.
+3. **Yakıt Sıfırlanırsa (Oyun Kilitlenmez):** Gemi uzayda mahsur kalmaz; **Acil İmdat Sinyali** gönderilir ve Aethelis'ten çekici gemi (küçük bir kredi/tamir bedeli veya yolda korsan karşılaşması riskiyle) gemiyi en yakın güvenli karakola ya da Aethelis'e çeker.

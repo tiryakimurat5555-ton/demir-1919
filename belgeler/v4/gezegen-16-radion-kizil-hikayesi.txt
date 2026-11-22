@@ -1,0 +1,45 @@
+# GEZEGEN 16: RADION-KIZIL — "GEİGER GÖLGESİNDEKİ SON NÖBET"
+
+Bu belge, **Gezegen 16: Radion-Kızıl**'ı (Radyoaktif Gama Dünyası) kabin hoparlörlerinde çıldıran Geiger sayacı sesleri eşliğinde **kurşun kayalıklarının gölgesinden gölgeye ilerlenen** yüksek gerilimli bir radyasyon hayatta kalma ve nükleer krater müdahalesi hikâyesine dönüştürür.
+
+* **TETİKLENME NOKTASI:** `görevler.txt` *Derin Uzay Sınıf III+* dönemi (`Kurşun Zırhlı Sondaj Robotu` üretildikten sonra — Halka 4).
+* **YEREL GERİ PLAN:** Bir süpernova artığının dibindeki bu ölümcül dünyada, yıllar önce izotop çıkaran *"Kurşun-4"* istasyonu ani bir gama patlaması yüzünden tahliye edilmiştir. Ancak *Uranyum Krateri*'ndeki doğal nükleer göl aşırı ısınmaya başlayınca, diğerlerinin kaçabilmesi için istasyonun kurşun kapaklarını içeriden manuel tutan **Kıdemli Teknisyen Halvar** geride kalmıştır.
+
+---
+
+## SAHNE 1: GEİGER TIKIRTISI VE GÖLGE KORİDORLARI (`KURŞUN TEPELERİ`)
+
+### 1.1. Sesli Sahne ve Radyasyon Gölgesi Mekaniği
+* **3D Ses Ortamı:** Kabin dışındaki iyonlaşmış havanın fosforlu vızıltısı, sıcak radyoaktif toz rüzgarı ve oyuncunun aldığı pozisyona göre hızlanıp yavaşlayan **Geiger sayacı çıtırtısı** (`tık... tık... tık-tık-tık!`).
+* **Yeni Oynanış (Gölge Takibi):**
+  * *Kurşun Tepeleri* radyasyonu engelleyen doğal koridorlar oluşturur. Oyuncu açık alana çıktığında Geiger sayacı çıldırır; tıkırtının seyreldiği kurşun gölgelerine sağa-sola kayarak ilerler.
+  * (`Ağır Kurşun-Polimer Radyasyon Zırhı` veya `T-09 Kseno-Panzehir` varsa açık alandaki gama hasarı büyük ölçüde engellenir.)
+* **Telsiz Diyaloğu (`Teknisyen Halvar` — bitkin ama görevine bağlı, telsiz cızırtısı altında):**
+  > *"Kaptan... Eğer benim için geliyorsan kurşun kayalarının gölgesinden ayrılma. Ben iyiyim sayılır ama kraterdeki doğal reaktör kaynamaya başladı. Kurşun kapakları kilitlemezsek bütün vadi havaya uçacak — yalnız etraftaki güvenlik robotları radyasyondan delirip her hareket edene ateş açıyor!"*
+
+---
+
+## SAHNE 2: KAYNAYAN GÖL (`URANYUM KRATERİ`) — STABİLİZASYON MU, TAHLİYE Mİ?
+
+Kraterin kenarına ulaşıldığında gama ışınlarının manyetik dalgalanması Spektrometre ile kaydedilir. Burada oyuncunun önünde iki belirgin yol vardır:
+
+### YOL A: Deliren Robotları Aş, Kurşun Kapakları Kilitle *(Savaş & Kalıcı Kalkan Yolu)*
+* **Ne Yapılır:**
+  1. **Evrensel Savaş (T4):** Krater çevresindeki **2x Radyasyon Korumalı Otomat** (*Arketip: Frekans Değiştiren + Zehir/Radyasyon*) ile çatışılır. `Kurşun-Polimer Zırh` ve `Kseno-Radyasyon Detoksu` radyasyon stresini sıfırlar.
+  2. Halvar'ın yanına ulaşılıp 3 kurşun kapağı sesle senkronize biçimde kilitlenir; krater sakinleşir.
+* **Ödül:**
+  * **`+850 Evren İtibarı`**, Aethelis için **Süper Nükleer Piller & Savaş Gemisi Kalkan Reaktörleri Teknolojisi** (tüm gemilerin savaş içi kalkan yenileme hızı kalıcı **`+%20` artar**!).
+  * **Halvar**, Aethelis `#3 Reaktör Laboratuvarı`'na katılarak yakıt üretim verimini artırır.
+
+### YOL B: Savaşmadan Halvar'ı Çek, Kaynamadan Ham İzotopları Al *(Hızlı Yakıt & Tahliye Yolu)*
+* **Ne Yapılır:** Robotlarla çarpışmaya girmeden, yüksek Geiger tıkırtısı altında hızlı zamanlamayla Halvar'ın kapsülü çekilir ve kraterin kenarından zenginleştirilmiş doğal izotop kayası robotla kapılıp kalkışa geçilir.
+* **Ödül:**
+  * **`+850 Evren İtibarı`**, anında **`+15x Ağır İzotop`**, **`+80 L Plazma Yakıtı`** ve **`1x Zengin Doğal İzotop`**.
+  * *Sonuç:* Halvar sağ salim kurtulur ama soğutulmayan krater küçük bir nükleer patlamayla çöker (*Kurşun-4* üssü yok olur, kalıcı `+%20` kalkan yenileme bonusu açılmaz).
+
+---
+
+## SAHNE 3: ATIL KALMAMA — İZOTOP İKMAL DÖNGÜSÜ
+
+- **Yol A (Kurşun-4 Nükleer Üssü):** Her **Gümüş Şafak (`Zhaor`)** nöbetinde kraterdeki gama fırtınası azalınca oyuncu dönüp düzenli **`Ağır İzotop`** ve **`Doğal İzotop`** toplayabilir.
+- **Yol B (Patlamış Krater):** Sadece `Kurşun Zırhlı Robot` ile tepelerin gölgesinde kalan ufak izotop kırıntıları kazılabilir.

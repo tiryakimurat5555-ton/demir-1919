@@ -1556,7 +1556,7 @@ describe('Savaş, yetenekler, mürettebat ve sefer olayları', () => {
     d.uzay = { x: 0, y: 0, yon: 0, hiz: 0, yaklasilan: {} };
     SV.savasBaslat(d, 'korsan_korvet');
     SV.savasGirdi(d, { tur: 'dondur', f: (d.savas.dusman.kalkanFrek - d.savas.silahFrek) / 7 });
-    expect(d.savas.delik).toBe(true);
+    expect(d.savas.dusman.delik).toBe(true);
     d.kaptan.tecrube = 250;
     expect(Y.yetenekAc(d, 'A2').ses).toBe('red');
     expect(Y.yetenekAc(d, 'A1').ses).toBe('kur');

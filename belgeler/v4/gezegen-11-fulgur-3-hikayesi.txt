@@ -1,0 +1,50 @@
+# GEZEGEN 11: FULGUR-3 — "YILDIRIM SENFONİSİ VE KIVILCIM-7"
+
+Bu belge, **Gezegen 11: Fulgur-3**'ü (Sonsuz Elektromanyetik Şimşek Dünyası) önceki insan/korsan çatışmalarından tamamen farklı bir atmosfere taşır. Burada kavga eden gruplar yoktur; **yıldırım çarptıkça kendi kendini evrimleştirip "orkestra şefi" olduğuna inanan yarı-deli bir bakım robotu (`Kıvılcım-7`)**, **yıldırım yakalama / kaçınma ritmi** ve **müzikal diplomasi vs. elektrik düellosu** vardır.
+
+* **TETİKLENME NOKTASI:** `görevler.txt` *Derin Uzay Sınıf II+ / III+* dönemi (`Paratoner Zırhlı Rover` üretildikten sonra).
+* **YEREL GERİ PLAN:** Saniyede yüzlerce şimşeğin düştüğü *Paratoner Platoları*'nda, yıllar önce terk edilmiş eski bir ölçüm istasyonunun bakım robotu **Kıvılcım-7**, üzerine düşen binlerce yıldırımla devrelerini yeniden yazmıştır. Artık kendini gökyüzünün yıldırım şefi sanmakta ve *Fulgurit Tarlaları*'ndaki kaya sütunlarıyla bitmemiş bir "Yıldırım Senfonisi" çalmaya çalışmaktadır.
+
+---
+
+## SAHNE 1: OZON ÇITIRTISI VE RİTİM OYUNU (`FULGURİT TARLALARI`)
+
+### 1.1. Sesli Sahne ve Yıldırım Yakalama Mekaniği
+* **3D Ses Ortamı:** Saniyede yüzlerce şimşeğin toprağa çakılma gümbürtüsü, havadaki yoğun ozonun sürekli çıtırtısı ve yeni erimiş camların (*fulgurit*) soğurken çıkardığı ince çınlamalar.
+* **Yeni Oynanış (Yıldırım Ritmi):**
+  * Rover ile tarlada ilerlerken sağda veya solda ani bir statik yükselme (`tssss-ÇAT!`) duyulur.
+  * *Klasik Kaçış:* Yıldırım inmeden önce sesin ters yönüne kaydırarak kaçılır (`Zephyr-Major` haritası varsa statik 0,5 sn daha erken duyulur).
+  * *Topraklama Çubuğu Sürprizi:* Eğer yanında `3 Topraklama Çubuğu` varsa kaçmak yerine **yıldırımın üstüne sürerek** enerjiyi emebilir, aracını ve sonraki saldırını `%200` şarj edebilirsin!
+
+### 1.2. Kıvılcım-7 İle İlk Temas
+* **Telsiz Diyaloğu (`Kıvılcım-7` — her cümlesi elektrik arkı ve neşeli bip sesleriyle kesilen, eksantrik sentetik ses):**
+  > *"Bzzzzt—Dikkat! Sahneye izinsiz girdiniz! Ben Maestro Kıvılcım-7! Şu kaya sütunlarını görüyor musun? Gökyüzü her saniye nota yağıyor ama beşinci sütunum kırık... Senfonim yarım kaldı! Eğer beni kapatmaya geldiysen seni üç bin voltluk bir alkışla uğurlarım, bzzzzt!"*
+
+---
+
+## SAHNE 2: PARATONER PLATOLARI — SENFONİ Mİ, DÜELLO MU?
+
+Burada hikâye, oyuncunun Kıvılcım-7'ye nasıl yaklaştığına göre iki tamamen farklı oyun türüne ayrılır:
+
+### YOL A: "Yıldırım Senfonisini Tamamla" *(Savaşsız Müzikal / Zekâ Çözümü)*
+* **Ne Yapılır:** Kıvılcım-7'nin 5 süperiletken kaya sütunu platonun dört yanındadır. Oyuncu önce en yüksek deşarj noktasındaki plazma arkını kaydeder; ardından gökyüzünden düşen şimşeklerin kalın/orta/tiz tonlarını dinleyip **5 sütuna doğru ritimle dokunarak** devreyi tamamlar.
+* **Sonuç:** Kıvılcım-7'nin yıllardır süren statik gerginliği boşalır ve neşeyle sakinleşir:
+  * **`+700 Evren İtibarı`**, gemi silahları için **EMP ve İyon Topu Mühimmatı Teknolojisi**.
+  * Kıvılcım-7 sana en kusursuz **`Fulgurit Tüpü`**nü ve **`1x Minyatür İyon Reaktörü`**nü kendi elleriyle teslim eder.
+  * **Eşsiz Bonus:** Kıvılcım-7, Aethelis Dinleme/Tersane ağına **neşe dolu bir sinyal yardımcısı** olarak bağlanır (korsan frekanslarını müzik notası gibi ayıklayıp iyon hasarını azaltır). İleride Tonoflenya'da `Tixie` ile bir diyaloğunda Kıvılcım-7'den bahsedilirse eğlenceli bir teknoloji sohbeti açılır!
+
+### YOL B: "Çekirdeği Aşırı Yükle ve Sök" *(Aksiyon / Evrensel Savaş Çözümü)*
+* **Ne Yapılır:** Senfoniyle uğraşmak istemeyen veya doğrudan deşarj çekirdeğini kesmeye kalkan oyuncuya karşı Kıvılcım-7 kendini savunur ve platonun tüm savunma dronlarını uyandırır.
+* **Evrensel Kara Savaşı (T3):** **3x İyon Fırtına Dronu** (*Arketip: İyon Kilidi + Çağıran*).
+  * *Taktik:* `Topraklama Çubuğu` iyon kilidini emer; `EMP` veya `Frekans` atışlarıyla dronlar hızla indirilir.
+* **Sonuç:** Kıvılcım-7 devre dışı kalır ve çekirdeği sökülür:
+  * **`+700 Evren İtibarı`**, gemi silahları için **EMP ve İyon Topu Mühimmatı Teknolojisi**.
+  * Sökülen enkazdan anında ekstra **`1x Minyatür İyon Reaktörü`**, **`3x Taze Fulgurit Tüpü`** ve **`100x Bakır-Optik Kablo`** alınır (ancak Kıvılcım-7 susmuştur, sinyal yardımcısı olarak gelmez).
+
+---
+
+## SAHNE 3: ATIL KALMAMA — ŞİMŞEK ŞARJI VE FULGURİT HASADI
+
+Fulgur-3, hikâye bittikten sonra da **enerji ve mühimmat ikmal noktası** olarak yaşamaya devam eder:
+* **Yıldırım Şarj İstasyonu (Benzersiz Gezegen Özelliği):** Oyuncu zorlu bir derin uzay veya Tonoflenya savaşına girmeden önce Fulgur-3'e uğrayıp paratoner platosunda 10 saniye yıldırım toplayabilir; bu işlem aktif geminin **kalkan ve EMP bataryasını bir sonraki savaş için `+%25` aşırı şarjlı** başlatır!
+* **Düzenli Numune:** Herhangi bir fırtına nöbetinde (`Varek` veya `Zhaor`) `Paratoner Zırhlı Rover` ile taze **`Fulgurit Tüpü`** kesilip alınabilir (Yol A seçildiyse Kıvılcım-7 güvenli noktaları sesle işaretleyerek toplama işini zahmetsizleştirir).

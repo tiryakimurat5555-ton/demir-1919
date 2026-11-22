@@ -1,0 +1,104 @@
+# 25 BİNA EVRENSEL BÜTÜNSELLİK, KİLİT AÇILIMI VE YETİM EŞYA BAĞLANTISI
+
+Bu belge, oyunda hâlihazırda kurulu olan `Bina ve araçlar.txt` (25 bina, 5 gemi, 5 yüzey aracı, 204 tarif, 39 hammadde) ve `görevler.txt` yapısına **hiç dokunmadan** (mevcut bina adlarını, maliyetlerini ve tariflerini bozmadan) onları **Evrensel Bina ve Evrensel Savaş** sistemine oturtur; kilitli kalmış 4 binayı mevcut görevlere bağlar ve boşta duran tüm numune/eşyaları anlamlı hâle getirir.
+
+---
+
+## 1. TEMEL İLKE: MEVCUT YAPIYI KORU, EVRENSEL ÇATIDA BİRLEŞTİR
+
+- `Bina ve araçlar.txt` içindeki **25 bina, inşaat maliyetleri ve mevcut 204 tarif aynen korunur**.
+- Oyunda bulunmayan yeni bir kW elektrik kısıtı eklenmez; enerji/üretim hızı mevcut **Jeotermal Santral (%20 hızlanma)**, **Yıldız Nöbeti bonusları** ve **moral/iş gücü** üzerinden işler.
+- Tüm mevcut binalar, önceden belirlenen **5 Evrensel Bina Rolü** altında gruplanarak savaş ve seferlere somut katkı sağlar.
+
+---
+
+## 2. MEVCUT 25 BİNANIN 5 EVRENSEL ROLE DAĞILIMI VE SAVAŞ/SEFER KATKILARI
+
+### Rol 1: Çekirdek, Yönetim ve Savunma Binaları *(Bağlı Nöbet: `Zhaor` — Gümüş Şafak)*
+1. **#14 Komuta Merkezi:** *(Mevcut: Ağı yönetir, Tarras Boğazı'nı açar, K5/karadutu üretir.)* → **Evrensel Savaş Katkısı:** Sefer öncesi hedef sektör taraması yaparak karşılaşılacak düşmanın **Arketipini** (Akıncı, Tuner, Çağıran vb.) önceden bildirir ve ilk turda **`+0,5 sn` uyarı avantajı** sağlar.
+2. **#15 Yüksek Enerji Reaktörü:** *(Mevcut: Dev graviton reaktörü, Kızıl Yutucu'yu açar.)* → **Savaş Katkısı:** Sınıf IV–V gemilerin ağır silah ve kalkan şarj bekleme süresini **1 tur kısaltır**.
+3. **#16 Jeotermal Enerji Santrali:** *(Mevcut: Tüm tesislerde üretimi %20 hızlandırır.)* → **Savaş Katkısı:** Yüzey üslerinde/krizlerde ücretsiz termal kalkan desteği sağlar.
+4. **#17 Koloni Kalkan Jeneratörü:** *(Mevcut: Koloni savunma bariyeri, cıva tortusuyla 2x güç.)* → **Savaş Katkısı:** Aethelis koloni baskınlarında (kara savaşı) ekibin aldığı ilk hasarı **%50 azaltır**.
+5. **#22 Merkezi Nöral Veri Çekirdeği (Tina):** *(Kilitli — Bölüm 3'te açılıyor.)* → **Savaş Katkısı:** Tüm gemi ve kara araçlarının hedef kilitleme ve otomatik kaçınma tepki penceresini kalıcı olarak **`+0,3 sn`** uzatır.
+
+### Rol 2: Yaşam, Tarım ve Sağlık Binaları *(Bağlı Nöbet: `Axira` — Yeşil Öğle & `Uma` — Altın Gece)*
+6. **#4 Basınçlı Yaşam Bloğu:** *(Mevcut: +10 barınma kapasitesi.)* → **Ek Katkı:** Nüfus arttıkça iş gücü üzerinden üretim süresini kısaltır.
+7. **#5 Kseno-Biyoloji Araştırma Kubbesi:** *(Mevcut: İzolasyon, Biyo-Karantina, K4 valf, sakinleştirici.)* → **Savaş Katkısı:** Alt-Evren / Karanlık düşmanların verdiği **stres birikimini %30 azaltır**.
+8. **#18 Sera Hubu:** *(Mevcut: Kseno-tahıl/ekmek, nüfus artışı +%50, moral.)* → **Ek Katkı:** Koloni moralini %80 üzerinde tutarak dolaylı üretim/savunma dengesi sağlar.
+9. **#20 Kseno-Habitat Yaşam Kubbeleri:** *(Kilitli — Bölüm 3'te açılıyor.)* → **Ek Katkı:** Farklı ırkların (`Kithron`, `Vaelin`, `Kaelith`) moral kaybını sıfırlar.
+10. **#21 Yıldızlararası Mülteci Entegrasyon Kampüsü:** *(Kilitli — Bölüm 3'te açılıyor.)* → **Ek Katkı:** Yüksek nüfusla birlikte koloni savunma ve üretim kapasitesini üst düzeye çıkarır.
+11. **#23 Bölge Hastanesi:** *(Mevcut: Kseno-tıp, salgın önleme, 2x sakinleştirici.)* → **Savaş Katkısı:** Savaş sonrası oluşan mürettebat yaralanma/travma cezalarını otomatik temizler.
+12. **#24 Koloni Mutfağı:** *(Mevcut: 13 sefer rasyonu ve iksir tarifi.)* → **Savaş Katkısı:** Sefer öncesi yüklenen rasyonlar sayesinde savaşlarda ek **tepki süresi (`+1 sn / +1,5 sn`)** ve moral sağlar.
+13. **#25 Revir ve Kseno-Eczane:** *(Mevcut: 7 tıbbi tarif, yenilgide kaybı önler.)* → **Savaş Katkısı:** Kara ve uzay savaşlarında yenilgi durumunda ekip/mürettebat kaybını sıfırlar.
+
+### Rol 3: Sanayi, Tersane ve Araç Binaları *(Bağlı Nöbet: `Varek` — Kızıl Kuşluk)*
+14. **#2 Ağır Alaşım Dökümhanesi (+ Biyo Hattı):** *(Mevcut: 27 temel + 13 biyo tarifi.)* → **Savaş Katkısı:** Üretilen kalıcı zırh/gövde kaplamaları (`Darbe Sönümleyici Astar` vb.) hem gemi gövdesine hem yüzey araçlarına işler.
+15. **#3 Graviton ve Reaktör Laboratuvarı:** *(Mevcut: 30 yakıt/reaktör/K3 tarifi.)* → **Savaş Katkısı:** K3 çift fazlı bobinlerle uzayda kalkan yenileme hızını artırır.
+16. **#6 Yüzey Araçları Montaj Hangarı:** *(Mevcut: 5 yüzey aracı, 20 iniş aracı, 5 saha donanımı.)* → **Savaş Katkısı:** Kara savaşlarında kullanılacak yüzey araçlarının (`Çöl Tilkisi`, `Mammoth` vb.) silah/zırh bakımını yapar. *(Not: İnşa şartındaki "temel elektrik şebekesi" oyundaki `#3 Reaktör Lab.` veya `#16 Jeotermal Santral` olarak eşlenir.)*
+17. **#7 Merkezi Montaj Tersanesi (K1), #8 Manyetik Beşik (K2), #9 Hisar Tersanesi (K3):** *(Mevcut: Sınıf 1–5 gemi montajı ve sefer onarımı.)* → **Savaş Katkısı:** Yedek filodaki gemileri **Destek Gemisi** yuvasına hazırlar.
+18. **#11 İtki Hangarı:** *(Mevcut: K2 nozulları, çekici kiriş, iyon iticileri.)* → **Savaş Katkısı:** Geminin savaş içi **kaçınma manevrası** başarı oranını artırır.
+19. **#12 Kriyo-Atölye:** *(Mevcut: Termal giysi, yangın bastırma, helyum-3.)* → **Savaş Katkısı:** Aşırı ısı/plazma saldırılarına karşı gemi ve kara ekibi direncini artırır.
+20. **#13 Askeri Tersane:** *(Mevcut: 9 ağır silah/zırh/EMP tarifi, Aethel-9 hattını açar.)* → **Savaş Katkısı:** Gemi silah hasarını ve kara zırh delme kapasitesini yükseltir.
+
+### Rol 4: Bilim, Dinleme ve Akademi Binaları *(Bağlı Nöbet: `Elyndra` — Mor İkindi & `Sinha` — Mavi Akşam)*
+21. **#1 Dinleme ve Sinyal Kulesi:** *(Mevcut: 20 sensör/telsiz tarifi, YGK feneri taraması.)* → **Menzil & Savaş Katkısı:** Kule menzili ürettiği modüllerle 3 kademede genişler: **1)** Kurulum = Halka 1–2 gezegen sinyalleri; **2)** `kripto frekans anteni` + `çok kanallı sinyal çözücü` = Halka 3 sinyalleri; **3)** `#14 Komuta Merkezi` + `kuantum kripto-arşivleyicisi` = Halka 4–5 ve `YGK Feneri` sinyalleri. Ayrıca seferde **Korsan veya Tanımsız Yabancı Firkateyn** saldırısı gelmeden önce erken uyarı vererek kaçınma veya ilk vuruş hakkı tanır.
+22. **#10 Kuantum İtki ve Reaktör Kalibrasyon Lab.:** *(Mevcut: 8 kuantum/zaman tarifi, Zaman Döngüsü Havzası.)* → **Savaş Katkısı:** Taktik ışınlanma ve frekans eşleme işlemlerini kolaylaştırır.
+23. **#19 Çoklu-Tür Bilim ve Felsefe Akademisi:** *(Kilitli — Bölüm 3'te açılıyor.)* → **Savaş & Keşif Katkısı:** 20 gezegen numunesini ve fenomen verilerini kalıcı **Evren İtibarı + Kaptan Tecrübesi + Ar-Ge Bonusuna** dönüştürür.
+
+### Rol 5: Hibrit ve Tonoflenya Üretim Birimleri
+24. **Tonoflenya Zanaat Tezgâhları** (`Dökümhane Masası`, `Aether Lab`, `Kseno-Sera İmbik`) ve **Tenohris Sarayı Aether Arıtma Halkası**: Tonoflenya'da üretilen tüm silah, zırh ve modülleri `esya-silah-zirh-ve-melez-zanaat-sistemi.txt` kurallarıyla hem karaya hem uzaya bağlar.
+
+---
+
+## 3. KİLİTLİ 4 BİNANIN (`#19–#22`) MEVCUT GÖREVLERE BAĞLANMASI
+
+`Bina ve araçlar.txt` içinde *"görevler sonraki sürümde"* notuyla kilitli kalmış 4 bina, aslında `görevler.txt` içinde **hâlihazırda var olan** Büyük Operasyonlara doğrudan bağlanarak açılır:
+
+1. **#19 Çoklu-Tür Bilim ve Felsefe Akademisi:**
+   - *Yeni Açılma Şartı:* **Büyük Operasyon #1 (Prometheus Derinliği)** VE **#5 (Deney 07)** tamamlandığında açılır.
+2. **#20 Kseno-Habitat Yaşam Kubbeleri:**
+   - *Yeni Açılma Şartı:* **G-13 (Kithron)** VEYA **G-14 (Vaelin)** ile **Büyük Operasyon #2 (Kadim Genom)** tamamlandığında açılır.
+3. **#21 Yıldızlararası Mülteci Entegrasyon Kampüsü:**
+   - *Yeni Açılma Şartı:* **Büyük Operasyon #7 (Aethel-9 Kuşatması)** VE **#8 (Tarras Boğazı)** tamamlandığında açılır.
+4. **#22 Merkezi Nöral Veri Çekirdeği (Tina):**
+   - *Yeni Açılma Şartı:* **Büyük Operasyon #6 (Alevin Ruhu ve Yapay Bilinç Tina)** tamamlandığında açılır.
+
+*Sonuç:* Bu 4 bina tamamlandığında Aethelis-IV kolonisi **Kademe 4 (Galaktik Başkent)** statüsüne ulaşır ve oyundaki son kilitli koloni evresi tamamen açılmış olur.
+
+---
+
+## 4. YETİM KALAN NUMUNE, HAMMADDE VE EŞYALARIN BÜTÜNSELLİĞE BAĞLANMASI
+
+Mevcut tarifleri silmeden, boşta kalan tüm öğelere net işlev verilmiştir:
+
+### 4.1. 20 Gezegen Numunesinin Kullanımı (`Pyros-Prime` .. `Corona-Lux`)
+20 gezegenden getirilen benzersiz numuneler artık sadece envanterde yatmaz; **#19 Çoklu-Tür Bilim Akademisi**'ndeki **"Galaktik Kodeks & Ar-Ge Masası"**na teslim edilir:
+- **Her Numune Teslimi:** `+250 Bilim Puanı` + ilgili gezegenin Evren İtibarı onayı.
+- **Kümülâtif Kalıcı Bonuslar:**
+  - `5 Numune Teslimi:` Tüm gemilerin kalkan kapasitesi kalıcı `+%10` artar.
+  - `10 Numune Teslimi:` Kara ve uzay savaşlarında birincil silah hasarı kalıcı `+%10` artar.
+  - `15 Numune Teslimi:` Derin uzay yakıt tüketimi kalıcı `%15` azalır.
+  - `20 Numune (Tam Koleksiyon):` Tüm Tonoflenya ve Alt-Evren düşmanlarına karşı `+%15` ek direnç ve özel **"Galaktik Kâşif"** unvanı.
+
+### 4.2. Boşta Duran 5 Hammadde İçin Ek Bağlantılar
+1. **Pyros Lav Orkidesi Özütü:** Askeri Tersane / Dökümhane'de gemi ve kara lazerlerinin ısınmasını %30 azaltan **Termal Lazer Soğutucu** modülüne bağlanır.
+2. **Arin Girdap Reçinesi:** İtki Hangarı'nda kaçınma kolaylaştıran **Sürtünmesiz İtki Yağlayıcısı** ve melez `T-03 Cep-Ambar` üretimine bağlanır.
+3. **Morluk Kristali & Buzul Aether:** YGK Aether Lab'da **Gelişmiş Aether Kalkan/Mühimmat** güçlendirmelerinde (alternatif yüksek saflıkta girdi) kullanılır.
+4. **Piezo Kristali:** Vadi-i Sukût'tan çıkan `piezo kristali`, `silikat kristali` ile aynı sensör/rezonans grubunda ikame malzeme olarak da kabul edilir.
+
+### 4.3. Kullanılmayan 10 Üretilebilir Eşyanın Somut İşlevleri
+`Bina ve araçlar.txt`'de üretilip hiçbir yerde kullanılmayan 10 eşya doğrudan **Evrensel Savaş** ve **Koloni/Sefer** sistemine bağlanır:
+1. **`termal giysi`:** Kara savaşında ve sıcak gezegenlerde (`Pyros-Prime`, `Corona-Lux`) ekip zırhına `+150` ve yanma/ısıya `%50` direnç verir.
+2. **`lamine titanyum zırh takımı`:** Kara savaşında standart ekip zırhıdır (`+200` koruma); ayrıca yüzey aracı zırhını artırır.
+3. **`2 tüp dondurucu köpük`:** Savaş içi tek kullanımlık sarf malzemesi — aşırı ısınan gemi kalkanını veya kara silahını anında soğutur (bekleme süresini sıfırlar).
+4. **`3 topraklama çubuğu`:** `Fulgur-3` ve *İyon/Elektrik* temalı düşmanlara karşı tek seferlik yıldırım/EMP emici koruma sağlar.
+5. **`2 sonik kovucu`:** Kara savaşında *Akıncı* ve *Çağıran* yaratık sürülerini 1 tur sersemletir / kaçırır.
+6. **`otomatik ikmal karakolu`:** Keşif gezegenleri veya derin uzay rotalarına kurularak sefer sırasında **ücretsiz gövde tamiri ve yakıt ikmali** noktası oluşturur.
+7. **`sismik dengeleyici`:** `Mammoth` ve kara ekibini yer sarsıntısı/çökme krizlerinden korur.
+8. **`nötralizasyon kulesi`:** Asit ve toksik gezegen operasyonlarında (`Miasma-9`, `Viridion-IV`) çevre hasarını sıfırlar.
+9. **`kripto frekans anteni`:** Dinleme Kulesi'ne takılarak **Tanımsız Yabancı Firkateyn** ve gizli maden koordinatlarının çıkma şansını 2 katına çıkarır.
+10. **`biyo-karantina ve plazma dekontaminasyon bölmesi`:** Seferden dönen enfekte/lanetli mürettebatı anında temizler.
+
+### 4.4. Küçük Tutarsızlık Düzeltmeleri (Mevcut Yapıyı Bozmaz)
+- `Saf demir teli çek` (st. 943) çıktısı olan belirsiz `"4 birim metal"`, **`4x titanyum`** olarak netleştirilir.
+- `Süper-İletken Soğutucu Sıvı` (st. 942), `Hisar-ı Kadim` (Sınıf 5 Sancak Zırhlısı) için zorunlu montajı bozmadan **opsiyonel "Reaktör Süper-Soğutma Yükseltmesi"** (savaşta kalkan ısınmasını önler) olarak bağlanır.

@@ -1,0 +1,60 @@
+# GEZEGEN 06: FERROS-OMEGA — "3.5G ALTINDAKİ DEMİRCİ VE CIVA KANYONU"
+
+Bu belge, **Gezegen 06: Ferros-Omega**'yı; geçmişte Tonoflenya Batı Kuşağı'nda (`Filtra`) bulunmuş yaşlı bir usta demirci (**Brom**), yaralı bir Kaelith madencisi (**Korgath**) ve yağmacı hurdacılar üzerinden kuran; Aethelis'in **Sancak Zırhlısı (`Hisar-ı Kadim`)** üretimine, **Gezegen 15 (`Carbonis-V`)**'e ve ileride Tonoflenya'daki `Filtra / Oronte` dengelerine katmanlı biçimde bağlanan bir hikâyeye dönüştürür.
+
+* **TETİKLENME NOKTASI:** `görevler.txt` *Derin Uzay Sınıf II+ / III+* dönemi (`Ağır Hidrolik Ekskavatör` üretildikten sonra).
+* **GERİ PLAN:** 3.5G yerçekimi nedeniyle normal gemilerin motorlarını inleten bu metal devde, yıllar önce Tonoflenya'nın Batı Kuşağı'ndaki *Filtra Madenleri*'nden ayrılıp derin uzaya açılmış usta metalurjist **Brom** ile genç Kaelith madencisi **Korgath**'ın gemisi *Sıvı Cıva Kanyonu* kıyısında ezilip mahsur kalmıştır. Brom, Filtra'nın kadim cıva-alaşım bilgisini gezegenin *nötron-yoğun demir* damarlarıyla birleştirmeye çalışmaktadır.
+
+---
+
+## AŞAMA 1: 3.5G ALTINDA EZİLEN İNİŞ (`MANYETİK DAĞ SIRTI`)
+
+### 1.1. Sesli Sahne ve Telsiz Çağrısı
+* **3D Ses Ortamı:** Kabini ve motorları inleten ağır 3.5G bas uğultusu, havada süzülen demir tozu bulutlarının elektrikli çıtırtısı ve sürekli çalan jiroskop sapma sinyali.
+* **Telsiz Diyaloğu (`Brom` — kalın, körük gibi hırıltılı bir usta sesi):**
+  > *"Hey, yukarıdaki gemi! Manyetit kulelerinin üstünden dikine inersen 3.5G motorlarını koparıp seni yere yapıştırır! Ben Filtra'dan Brom... Yıllar önce o kızıl kayalardan kaçtım ama burada da yanındaki Kaelith çırağım Korgath ile sıkıştık. İniş takımlarımız ezildi, Korgath'ın bacağı kırık. Üstelik bir grup hurda korsanı cıva kanyonundaki nötron-demir külçelerimize çöküyor!"*
+
+### 1.2. Hazırlık, Bulmaca ve İlk İkilem
+* **Araç & Eşya:** `Ağır Hidrolik Ekskavatör` (veya `Mammoth`). Varsa `Sismik Dengeleyici` ve `Topraklama Çubuğu` (manyetik çıtırtıyı ve jiroskop kilidini engeller).
+* **Yüzey Bulmacası:** Pusula ve jiroskoplar kilitliyken, demir tozu bulutlarındaki elektrikli çıtırtının azaldığı koridoru sesle takip ederek güvenli iniş yapmak.
+* **DALLANAN KARAR 1 (Güvenli İniş Mi, Kuleyi Patlatmak Mı?):**
+  * **Seçenek A [ Manyetik Kulelerin Etrafından Dolanıp Korgath ve Brom'a Acil Destek İndir ]:**
+    * *Mekanik:* Daha uzun ve dikkatli sürüş ister; ama sismik denge bozulmaz (`Brom Güveni +15`, `Kaelith +10`).
+  * **Seçenek B [ Manyetit Kulesinin Güç Düğümünü Patlatıp Alanı Kısa Devre Et ]:**
+    * *Mekanik:* Anında yol açılır ve **`+40 Titanyum / Demir`** toplanır; ancak patlama 3.5G altında sarsıntı yaratır ve Aşama 2'de *Sıvı Cıva Kanyonu* taşma tehlikesiyle başlar.
+
+---
+
+## AŞAMA 2: SIVI CIVA KANYONU VE AĞIR METAL ÇATIŞMASI
+
+### 2.1. Sesli Sahne ve Evrensel Savaş (T3 — Kara / Yörünge)
+* **3D Ses Ortamı:** Kanyon duvarlarına çarparak akan yoğun sıvı cıva nehirlerinin boğuk gümbürtüsü ve hidrolik matkap darbeleri.
+* **Düşmanlar:** Damarı ele geçirmeye çalışan **1x Ağır Maden Korsanı** (*Arketip: Zırhlı + İyon Kilidi*) ve manyetik alanda uyanan **1x Ferros Manyetik Otomatı** (*Arketip: Frekans Değiştiren*).
+* **Taktik & Serbestlik:**
+  * *Serbest Oyun:* 3.5G altında yavaş hareket edilir; kalkan frekansını iki parmakla kırıp, iyon uyarısında karşı ateş/kalkan açmak gerekir.
+  * *Eşya Kısayolu:* `Topraklama Çubuğu` iyon kilidini sıfırlar; `Sismik Dengeleyici` kanyon sarsıntısından gelen ekstra hasarı engeller.
+
+### 2.2. Nötron-Yoğun Demir ve Büyük İkilem
+Düşmanlar püskürtüldükten sonra Brom'un gemisinin enkazından **Filtra Cıva-Alaşım Şemaları** ve kanyondan **Nötron-Yoğun Demir Külçesi** çıkarılır.
+
+* **DALLANAN KARAR 2 (Ustalarla İttifak Mı, Zorla El Koyma Mı?):**
+  * **Seçenek A [ Brom ve Korgath'ı Aethelis'e Al, Kanyon Damarını Sancak Zırhlısı İçin Düzenli Üretime Aç ]:**
+    * *Doğrudan Ödül:* **`+800 Evren İtibarı`**, `Gökdelen (Sınıf 4)` ve `Hisar-ı Kadim (Sınıf 5 Sancak Zırhlısı)` için **Süper-Ağır Gövde Plakası Teknolojisi** açılır. **Brom**, Aethelis Dökümhanesi'ne ustabaşı yardımcısı olur.
+    * *Katmanlı Etki (Gezegen 15 & Tonoflenya):*
+      1. Brom, **Gezegen 15 (`Carbonis-V`)**'teki süper basınçlı elmas sütunlarını kesmek için gereken sertleştirilmiş matkap ucunun formülünü paylaşır.
+      2. Tonoflenya'ya henüz gitmemiş olsan bile Brom sana eski **`Filtra Çekiç Damgası`**nı verir; ileride Tonoflenya Batı Kuşağı'nda **Oronte** ve **Filtra Madencileri (`WST-SQ-05`)** ile karşılaştığında bu damga güven kapısını açar ve zırh ticaretinde ekstra `%10` avantaj sağlar.
+  * **Seçenek B [ Cıva Şemasını Zorla Al, Kanyonu Aşırı Yükleyip Tüm Nötron Cevherini Tek Seferde Sök ]:**
+    * *Doğrudan Ödül:* Anında **`5x Nötron-Yoğun Cevher`**, **`+300 Şasi Çeliği`** ve **`+800 Evren İtibarı`**.
+    * *Ceza (Katmanlı Sonuç):* Aşırı kazı kanyondaki cıva nehrini taşırır; Brom ve Korgath acil kaçış kapsülüyle Tonoflenya yönüne kaçar. İleride Tonoflenya Batı Kuşağı'na ulaştığında Brom senin adını *"maden yağmacısı"* olarak duyurduğu için **Batı / Filtra İtibarı `-20`** ile başlarsın.
+
+---
+
+## AŞAMA 3: KALICI DÖNÜŞÜM VE ATIL KALMAMA DÖNGÜSÜ
+
+### 3.1. Gezegenin Kalıcı Sonu
+* **İyi Son ("3.5G Ağır Döküm Karakolu"):** Kanyon kıyısında kurulan hidrolik karakol sayesinde gezegen Sancak Zırhlısı gövde plakalarının ana tedarikçisi olur.
+* **Karanlık Son ("Taşmış Cıva Kanyonu"):** Zehirli cıva buharı vadiyi kaplar; sonraki inişlerde `Demir Kervan` veya `Nötralizasyon Kulesi` gerekir.
+
+### 3.2. Atıl Kalmama: Yıldız Nöbeti Tekrar Ziyaret Döngüsü
+* **Kızıl Kuşluk (`Varek`) Nöbeti Penceresi:** Her `Varek` nöbetinde kanyondaki manyetik akıntılar dengelenir; oyuncu geri dönüp düzenli **`Nötron-Yoğun Cevher`** ve **`Manyetik Cıva`** hasat edebilir.
+* **Gezegen 15 (`Carbonis-V`) Bağlantısı:** Buradan alınan ağır metal uç, ileride `Carbonis-V` görevinde elmas sütunlarını kırmayı kolaylaştırır.

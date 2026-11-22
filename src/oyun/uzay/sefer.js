@@ -5,7 +5,7 @@
 // mekanik arıza, moral olayı ya da dış tehdit. Haber bir karar sahnesidir. Kırk beş saniyede bir, iki operasyon
 // tamamlandıktan sonra yüzde on iki ihtimalle korsan saldırır.
 import { kayitBul } from '../veri/seslendirme';
-import { savasBaslat, gorevli } from './savas';
+import { savasBaslat, gorevli, karsilasmaUret } from './savas';
 import { OPERASYONLAR } from '../veri/uzayGorevleri';
 import { opBaslat as opBaslatF } from './operasyon';
 import * as SB from '../tonoflenya/subay';
@@ -117,7 +117,9 @@ export function seferIlerle(d, dt) {
     d.korsanNo = (d.korsanNo || 0) + 1;
     if ((d.tamamlananOp || []).length >= 2 && u.hiz > 0 && rastgele(d, 900 + d.korsanNo) < KORSAN_IHTIMAL) {
       u.hiz = 0;
-      o.push({ tur: 'savas', olaylar: savasBaslat(d, rastgele(d, 950 + d.korsanNo) < 0.5 ? 'korsan_korvet' : 'korsan_avci') });
+      // Evrensel savaş: düşman, geliş biçimi ve ikincil modül tehdit kademesine göre (yakın ya da derin uzay)
+      const bolge = Math.hypot(u.x || 0, u.y || 0) > 900 ? 'derin' : 'yakin';
+      o.push({ tur: 'savas', olaylar: savasBaslat(d, karsilasmaUret(d, { ortam: 'uzay', bolge, no: d.korsanNo })) });
       return o;
     }
   }

@@ -1,0 +1,47 @@
+# GEZEGEN 20: CORONA-LUX — "GÜNEŞİN KALBİNDEKİ KAPAN"
+
+Bu belge, 20 gezegenlik keşif serisinin son halkası olan **Gezegen 20: Corona-Lux**'ı (Yıldızlara Bitişik Plazma Dünyası) kükreyen güneş fırtınaları altında **saniyelerle yarışan bir termal sonda dalışı**, **Yıldız Plazma Muhafızı** çatışması ve **Dr. Kaelen-Sol'ü kurtarma vs. kuyuyu sömürme** hikâyesine dönüştürür.
+
+* **TETİKLENME NOKTASI:** `görevler.txt` *Derin Uzay Sınıf III+ / IV+* dönemi (`Süper Termal İntihar Sondası` üretildikten sonra — Halka 5).
+* **YEREL GERİ PLAN:** Ana yıldızın taç çemberinde dönen bu cehennem dünyasında, kayalar sıcaktan buharlaşıp metalik gaza dönüşmektedir. Yıllar önce yıldız enerjisi üzerine deney yapan **"Helios-1"** gemisi, *Güneş Rüzgarı Kapanı*nın ağır manyetik alanına hapsolmuştur. Fizikçi **Dr. Kaelen-Sol** son soğutma hücreleriyle hayatta kalmaya çalışırken, manyetik kuyunun enerjisiyle beslenen devasa bir **Yıldız Plazma Muhafızı** çıkış yolunu kapatmıştır.
+
+---
+
+## SAHNE 1: ALEV DALGALARI VE TERMAL SONDA (`PLAZMA ŞELALESİ MENFEZİ`)
+
+### 1.1. Sesli Sahne ve Sıcaklık Yarışı
+* **3D Ses Ortamı:** Ana yıldızın kükreyen güneş fırtınasının korkunç uğultusu, yüzeydeki kayaların metalik buhara dönüşürken çıkardığı keskin cızırtı ve gökkuşağı plazma kuyusunun elektriksel vızıltısı.
+* **Gözlem & Dalış Mekaniği:** Ana gemi yörüngedeki güvenli manyetik gölgede beklerken yüzeye `Süper Termal İntihar Sondası` fırlatılır. Yıldızdan kopan alev dalgaları her birkaç saniyede bir vadiyi yalayıp geçer; oyuncu dalga sesini duyduğunda sonda ile kaya siperlerine sığınır (`Termal Giysi`, `Dondurucu Köpük` veya `Janus-Split Termal Zırhı` varsa sonda erime süresi 2 kat uzar).
+* **Telsiz Diyaloğu (`Dr. Kaelen-Sol` — yüksek statik paraziti altında soğukkanlı ama aceleci ses):**
+  > *"Burada... Helios-1! Kaptan, sakın ana gemiyle yaklaşma, kalkanların saniyeler içinde buharlaşır! Sondanla beni duyuyorsan güneş rüzgarı kapanının merkezine in. Kalkanım son %5'te; ama kuyunun ağzında saf plazmadan doğmuş bir anomali nöbet tutuyor!"*
+
+---
+
+## SAHNE 2: GÜNEŞ RÜZGARI KAPANI — KURTARMA MI, AŞIRI ŞARJ MI?
+
+### 2.1. Evrensel Savaş (T4/T5 — Plazma Kuyusu)
+* **Düşman:** Kuyunun enerjisiyle beslenen **1x Yıldız Plazma Muhafızı** (*Arketip: Aşırı Isı + Frekans Değiştiren + Zırhlı*).
+* **Taktik & Serbestlik:**
+  * *Serbest Oyun:* Muhafızın kalkanını ısıtmamak için her saldırıdan sonra kalkan açmak yerine **kaçınma manevrası** yapmak ve frekansını iki parmakla kırmak.
+  * *Eşya Kısayolu:* `Norvask Kara Buz Hançeri`, `Süper-İletken Soğutucu Sıvı` veya `2 Tüp Dondurucu Köpük` aşırı ısınmış muhafıza `2x` soğutma/şok hasarı vurur!
+
+### 2.2. Yoğun Güneş Plazması ve Büyük Seçim
+Muhafız püskürtüldüğünde sondanın kapsülüne **Yoğun Güneş Plazması** çekilirken son kritik karar verilir:
+
+### YOL A: Helios-1'i Çek, Dr. Sol'ü Kurtar ve Plazma Kalkanlarını Çöz *(Savunma & Hız Yolu)*
+* **Ne Yapılır:** Çekici kirişle `Helios-1` manyetik kuyudan çıkarılır ve Dr. Sol güvenli şekilde gemiye alınır.
+* **Ödül:**
+  * **`+1.000 Evren İtibarı`** ve Aethelis için **Yıkılmaz Yıldız Kalkanları & Nihai Plazma Tahrik Motorları Teknolojisi** (tüm gemilerin kalkan dayanıklılığı kalıcı **`+%30`**, kaçınma ve itki hızı **`+%20` artar**!).
+  * **Dr. Kaelen-Sol** koloniye katılarak gelişmiş reaktör ve kalkan araştırmalarına liderlik eder.
+
+### YOL B: Helios-1'in Kalan Kalkanını Kuyuya Bağlayıp Dev Plazma Hasadı Yap *(Saf Güç & Yakıt Yolu)*
+* **Ne Yapılır:** Dr. Sol acil kapsülle son anda fırlatılır ama gemisi ve araştırmaları feda edilerek kuyudaki bütün enerji tek seferde sondaya ve yakıt tanklarına çekilir.
+* **Ödül:**
+  * **`+1.000 Evren İtibarı`**, anında **`+250 L Plazma Yakıtı`**, **`+100 L Graviton Yakıtı`**, **`3x Yoğun Güneş Plazması`** ve **Nihai Plazma Motorları** (kalkan bonusu yerine devasa yakıt stoğu ve ham enerji; Dr. Sol ise kurtarılsa da araştırması yandığı için üzgün ayrılır).
+
+---
+
+## SAHNE 3: ATIL KALMAMA — YILDIZ PLAZMA HASADI
+
+- **Kızıl Kuşluk (`Varek`) Nöbeti Penceresi:** Güneş patlamalarının görece durulduğu her `Varek` nöbetinde oyuncu `Süper Termal İntihar Sondası` ile yörüngeye gelip kuyu kenarından **`Yoğun Güneş Plazması`** (en üst seviye yakıt ve zırh/kalkan hammaddesi) çekmeye devam edebilir.
+- **20/20 Tamamlanma Ödülü:** Tüm 20 gezegenin numunesi `#19 Çoklu-Tür Bilim Akademisi`'nde birleştiğinde oyuncu **"Galaktik Kâşif"** unvanını ve tüm Alt-Evren/Tonoflenya tehditlerine karşı kalıcı direnç kazanır!

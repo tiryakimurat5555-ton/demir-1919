@@ -1,0 +1,62 @@
+# GEZEGEN 07: ZEPHYR-MAJOR — "SİKLON GÖZÜNDEKİ İSTASYON VE ELMAS YAĞMURU"
+
+Bu belge, **Gezegen 07: Zephyr-Major**'ı (Fırtınalı Gaz Devi Katmanları); katı yüzeyi olmayan bu devasa gezegende sürüklenen bağımsız bir gaz toplama istasyonu (**Bulut-9**), **Kaptan Vess**, bir **Kithron akustik gözlemcisi (`Tiz-Kanat`)** ve yörüngedeki **Tanımsız Yabancı Firkateyn** üzerinden kuran; Aethelis yakıt verimliliği ile **Gezegen 11 (`Fulgur-3`)** ve **Gezegen 19 (`Aero-Flora`)**'ya katmanlı bağlanan dallı budaklı bir hikâyeye dönüştürür.
+
+* **TETİKLENME NOKTASI:** `görevler.txt` *Derin Uzay Sınıf II+ / III+* dönemi (`Yüksek İrtifa Mekiği` veya `Atmosphere-X` üretildikten sonra).
+* **YEREL GERİ PLAN:** Katı yüzeyi bulunmayan Zephyr-Major'ın 800 km/s'lik amonyak fırtınalarının üstünde, bağımsız gaz toplayıcısı **Kaptan Vess**'in *"Bulut-9"* adlı yüzen istasyonu sürüklenmektedir. İstasyonda ayrıca şimşeklerin frekansını dinleyen bir Kithron gözlemcisi (**Tiz-Kanat**) çalışmaktadır. Ancak denge balonları hasar gören istasyon *Elmas Yağmuru Katmanı*'na doğru batmaya başlamış, üstelik çıkış yolunu yabancı bir firkateyn kesmiştir.
+
+---
+
+## AŞAMA 1: 800 KM/S FIRTINANIN ORTASINDAKİ SESSİZLİK (`BÜYÜK SİKLON GÖZÜ`)
+
+### 1.1. Sesli Sahne ve İlk Temas
+* **3D Ses Ortamı:** Atmosfere girildiği anda geminin kanatlarını titreten 800 km/s amonyak fırtınasının kükremesi duyulur. *Büyük Siklon Gözü*'nün duvarı aşıldığı an ses bıçak gibi kesilir; yerini tekinsiz, mutlak bir sessizliğe ve uzaktaki dikey iyon şimşeklerinin tok patlamalarına bırakır.
+* **Telsiz Diyaloğu (`Kaptan Vess` — rüzgar paraziti arasında netleşen kararlı ses):**
+  > *"Dikkat et Kaptan! Siklon duvarını aşıp göze girmezsen rüzgar mekiğini parçalar! Ben Bulut-9'dan Kaptan Vess. Denge balonlarımızdan ikisi şimşekten delindi, elmas yağmuru katmanına doğru düşüyoruz. Üstelik tepemizde o garip, melodik sesli yabancı gemi bekliyor — tahliye kapsüllerimizi fırlattırmıyor!"*
+
+### 1.2. Hazırlık, Savaş ve İlk İkilem
+* **Araç & Eşya:** `Yüksek İrtifa Mekiği` (veya `Atmosphere-X`). Varsa `Topraklama Çubuğu` (dikey şimşek hasarını emer) ve `Kripto Anten`.
+* **Evrensel Uzay/Atmosfer Savaşı (T3):** İstasyonun üst çıkışını tutan **1x Tanımsız Yabancı Firkateyn** (*Arketip: Frekans Değiştiren + İyon Kilidi*).
+* **DALLANAN KARAR 1 (İstasyonu Kurtarmak Mı, Hızlı Çatışma Mı?):**
+  * **Seçenek A [ Firkateyni Püskürtürken Denge Balonlarını Hızla Onar ]:**
+    * *Mekanik:* Savaş sırasında her 2 turda bir gelen şimşek uyarılarına dikkat edilmelidir; ama Bulut-9 istasyonu havada kalır.
+    * *Sonuç:* **`Vess Güveni +20`**, istasyon kurtulur ve Aşama 2'ye kontrollü bir dalış yapılır.
+  * **Seçenek B [ Tüm Güçle Firkateyni Patlat, Vess'i Acil Tahliye Et ve İstasyonu Bırak ]:**
+    * *Mekanik:* Daha kolay savaş ve firkateynden anında **`+80 Kseno-Alaşım`** + **`+40 Piezo Saf Kristal`** düşer.
+    * *Ceza:* Bulut-9 *Elmas Yağmuru Katmanı*'na düşüp parçalanır; Aşama 2'de fırtına çok daha şiddetli eser ve ek gövde hasarı riski doğar.
+
+---
+
+## AŞAMA 2: KARBON KRİSTALİ FIRTINASI (`ELMAS YAĞMURU KATMANI`)
+
+### 2.1. Sesli Sahne ve Evrensel Hava Savaşı (T3)
+* **3D Ses Ortamı:** Yüksek basınç altında karbon gazının katı elmas kristallerine dönüştüğü orta katmana inildiğinde, mekiğin camına kurşun gibi çarpan binlerce küçük elmasın kristal şıngırtısı duyulur. Şıngırtının arasından karanlıkta süzülen yaratıkların kanat/gaz çırpınışları yükselir.
+* **Düşmanlar:** Fırtına içindeki **2x Alt-Evren Hava Yaratığı** (*Arketip: Karanlık + Akıncı*).
+* **Taktik & Serbestlik:**
+  * *Serbest Oyun:* Elmas yağmuru sesi arasında yaratıkların pike sesini dinleyip ters yöne kaçınarak indirmek.
+  * *Eşya Kısayolu:* `Zhaor Işık Mızrağı` `2x` hasar vurur; `Topraklama Çubuğu` ortamdaki dikey şimşek kilidini önler.
+
+### 2.2. Helyum-3 & Elmas Hasadı ve Büyük İkilem
+Çatışma sonrası kepçe uzatılıp **Saf Helyum-3 ve Donmuş Elmas Kristalleri** çekilirken Kithron gözlemcisi **Tiz-Kanat** kritik bir uyarı yapar:
+
+* **DALLANAN KARAR 2 (Akustik Dengeyle Sürdürülebilir Yakıt Mı, Aşırı Sömürü Mü?):**
+  * **Seçenek A [ Tiz-Kanat'ın Akustik Kepçe Yöntemiyle Katmanı Bozmadan Saf Helyum-3 Çek ]:**
+    * *Doğrudan Ödül:* **`+750 Evren İtibarı`**, Aethelis füzyon reaktörleri için **Verimli Helyum-3 Yakıt Teknolojisi** (tüm derin uzay seferlerinde yakıt tüketimi kalıcı **`%15` azalır**).
+    * *Katmanlı Etki (Gezegen 11 & Gezegen 19):* Tiz-Kanat, fırtınadan kaydettiği **`İyon-Hava Akustik Haritası`**nı seninle paylaşır. Bu kayıt:
+      1. **Gezegen 11 (`Fulgur-3`)**'deki ölümcül yıldırım fırtınalarında güvenli rotaları önceden gösterir.
+      2. **Gezegen 19 (`Aero-Flora`)**'daki yüzen atmosfer canlılarıyla ilk temasta iletişim kurmayı kolaylaştırır!
+  * **Seçenek B [ Kepçeyi Sonuna Kadar Zorla, Katmandaki Tüm Elmas ve Gazı Tek Seferde Çek ]:**
+    * *Doğrudan Ödül:* Anında **`+150 Helyum-3 Tüpü`**, **`+100 L Plazma/Graviton Yakıtı`**, **`+800 GK` değerinde Ham Elmas** ve **`+750 Evren İtibarı`**.
+    * *Ceza (Katmanlı Sonuç):* Aşırı basınç boşalması katmanda zincirleme şimşek patlaması yaratır. Vess ve Tiz-Kanat öfkeyle kendi gemilerine binip ayrılır; kalıcı `%15` yakıt tasarrufu ve `Fulgur-3 / Aero-Flora` akustik haritası alınamaz.
+
+---
+
+## AŞAMA 3: KALICI DÖNÜŞÜM VE ATIL KALMAMA DÖNGÜSÜ
+
+### 3.1. Gezegenin Kalıcı Sonu
+* **İyi Son ("Bulut-9 Helyum İstasyonu"):** İstasyon siklon gözünün kenarına sabitlenir; Vess ve Tiz-Kanat koloniye düzenli yakıt tedarikçisi olur.
+* **Karanlık Son ("Vahşi Şimşek Siklonu"):** İstasyon yoktur; gezegenin üst katmanı sürekli dikey şimşeklerle çalkalanır.
+
+### 3.2. Atıl Kalmama: Yıldız Nöbeti Tekrar Ziyaret Döngüsü
+* **Gümüş Şafak (`Zhaor`) Nöbeti Penceresi:** Her `Zhaor` nöbetinde *Büyük Siklon Gözü* genişleyip sakinleşir; oyuncu geri dönüp düzenli **`Sıvı Helyum-3`**, **`Elmas Kristali`** ve **`Plazma Yakıtı`** çekebilir.
+* **Karanlık Son Alternatifi:** Yalnızca `Atmosphere-X` + `Topraklama Çubuğu` taşıyan oyuncu fırtınaya dalıp yüksek riskle ham elmas toplayabilir.

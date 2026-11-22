@@ -20,7 +20,7 @@ import * as F from '../uzay/fenomen';
 import * as SV from '../uzay/savas';
 import * as SF from '../uzay/sefer';
 import { HAMMADDELER } from '../veri/tesisler';
-import { FENOMENLER } from '../veri/gozlem';
+import { FENOMENLER, GEZEGENLER } from '../veri/gozlem';
 import { PARCALAR } from '../veri/uretim';
 import { koloniIlerle } from '../koloni';
 import * as S from '../uzay/seyir';
@@ -234,6 +234,24 @@ export const { aracaBin, aractanIn, aracListesi } = H;
 export const { projeMetni, projeListesi } = G6;
 export const { miniBaslat, MINI, olgunMu, miniGorunur } = M;
 
+// Koloni krizleri (evrensel savaş, kara): Aethelis yüzeyinde dışarıdayken ara sıra maden ve yaratık baskını.
+// Karakolu kurulmuş (arındırılmış) bölge korunur; Tonoflenya'da, gemide, operasyonda ve sahnede baskın olmaz.
+export const BASKIN_SN = 900;
+export function baskinIlerle(d, dt) {
+  d.baskinSayac = (d.baskinSayac || 0) + dt;
+  if (d.baskinSayac < BASKIN_SN) return;
+  d.baskinSayac = 0;
+  d.baskinNo = (d.baskinNo || 0) + 1;
+  const mk = MEKANLAR[d.mekan];
+  if (!mk || !mk.dis || mk.tonoflenya || d.bayrak.tonoflenyada || d.gemide || d.savas || d.op || d.sahne || d.savasBekle) return;
+  if ((d.koloni.seviye || 1) < 2 || ((d.koloni.bolgeDurumu || {})[d.mekan] || 0) >= 4) return;
+  const x = Math.sin((d.tohum || 1) * 0.37 + d.baskinNo * 7.31) * 9301.17;
+  if (x - Math.floor(x) > 0.35) return;
+  const spec = SV.karsilasmaUret(d, { ortam: 'kara', bolge: 'koloni', no: d.baskinNo });
+  spec.giris = 'Koloni bilgisayarı: ' + mk.ad + ' civarında ' + SV.DUSMANLAR[spec.dusmanlar[0]].ad + ' baskını! Ekibinle savun.';
+  d.savasBekle = spec;
+}
+
 export function zamanIlerle(d, dt) {
   const olaylar = koloniIlerle(d, dt);
   olaylar.push(...Z.zamanAkit(d, dt));
@@ -253,16 +271,19 @@ export function zamanIlerle(d, dt) {
     const k = SB.kriz(d, 'axira');
     if (k) SB.haber(d, k);
   }
+  baskinIlerle(d, dt);
   // Final görevleri: sahne kapanınca bekleyen operasyon ya da çatışma başlar (tonoflenya/final.js)
   if (!d.sahne && !d.op && !d.savas) {
-    if (d.opBekle) {
+    // Bekleyen çatışma önce (ör. yörüngedeki devriye), ardından bekleyen operasyon
+    const sb = d.savasBekle;
+    const karaSavas = sb && ((typeof sb === 'object' && sb.ortam === 'kara') || (typeof sb === 'string' && SV.DUSMANLAR[sb] && SV.DUSMANLAR[sb].ortam === 'kara'));
+    if (sb && (d.gemi || karaSavas)) {
+      d.savasBekle = null;
+      olaylar.push({ tur: 'savas', olaylar: SV.savasBaslat(d, sb) });
+    } else if (d.opBekle) {
       const id = d.opBekle;
       d.opBekle = null;
       olaylar.push({ tur: 'op', olaylar: O.opBaslat(d, id) });
-    } else if (d.savasBekle && d.gemi) {
-      const t = d.savasBekle;
-      d.savasBekle = null;
-      olaylar.push({ tur: 'savas', olaylar: SV.savasBaslat(d, t) });
     }
   }
   if (d.haberKuyrugu && d.haberKuyrugu.length) {
@@ -331,7 +352,18 @@ export function kenetlen(d) {
     return { metin: '', tonoflenya: true };
   }
   // Donanım tamsa ve operasyon yapılmadıysa doğrudan operasyon sahasına girilir
-  if (r.id && !r.kilitli && O.opVarMi(r.id) && !O.opTamamMi(d, r.id)) r.op = O.opBaslat(d, r.id);
+  if (r.id && !r.kilitli && O.opVarMi(r.id) && !O.opTamamMi(d, r.id)) {
+    // Keşfedilebilir gezegen yörüngelerinde tanımsız yabancı firkateyn devriyesi (T3+, dinleme kulesi): önce çatışma
+    const gez = GEZEGENLER[r.id];
+    if (gez && SV.oyuncuKademesi(d) >= 3 && d.koloni.binalar.includes('sinyal_kulesi') && !d.bayrak['devriye_' + r.id] && ((d.tohum || 1) * 7 + r.id.charCodeAt(2)) % 3 === 0) {
+      d.bayrak['devriye_' + r.id] = true;
+      d.uzay.hiz = 0;
+      d.savasBekle = 'yabanci_firkateyn';
+      d.opBekle = r.id;
+      return { metin: 'Dinleme kulesi uyarıyor: ' + gez.ad + ' yörüngesinde tanımsız yabancı firkateyn devriyesi! Melodik bir rezonans vızıltısı yaklaşıyor.', ses: 'red' };
+    }
+    r.op = O.opBaslat(d, r.id);
+  }
   return r;
 }
 export const { salonListesi, itibarKademesi } = F;

@@ -1,0 +1,82 @@
+# EVRENSEL BİNA SİSTEMİ VE İŞLEYİŞ MANTIĞI
+
+Bu belge, oyundaki mevcut tüm binaları (sayısı kaç olursa olsun) ve gelecekte Aethelis-IV, Tonoflenya veya başka gezegenlere eklenecek her yeni yapıyı **tek bir sade mantık** altında toplar.
+
+Amaç, her bina için ayrı ayrı karmaşık kurallar yazmak yerine; oyundaki her binanın içine oturacağı **evrensel bir şablon** kurmaktır.
+
+---
+
+## 1. TEMEL MANTIK (3 BASİT KURAL)
+
+Oyundaki her bina —ister küçük bir mutfak, ister dev bir yörünge tersanesi olsun— şu 3 basit kurala göre çalışır:
+
+1. **Ne Üretir / Ne Açar? (Pasif İş):** Bina ayakta olduğu sürece kendi görevini yapar (enerji verir, yemek pişirir, gemi tamir eder veya kilitli bir teknolojiyi açar).
+2. **Sefere / Savaşa Ne Hazırlar? (Aktif Hazırlık):** Oyuncu sefere çıkmadan önce binaya uğrarsa, bir sonraki sefer veya savaş için tek seferlik pratik bir avantaj alır (bakım, tarama, ziyafet, ilaç vb.). Uğraşmazsa oyun yine devam eder ama bu ekstra bonusu almaz.
+3. **Nasıl Hızlanır? (İşçi + Yıldız Saati):** Binaya işten anlayan topluluk atanırsa ve günün Yıldız Nöbeti binanın işiyle uyuşuyorsa verimi artar.
+
+---
+
+## 2. 5 EVRENSEL BİNA ROLÜ (MEVCUT VE GELECEK TÜM BİNALAR İÇİN)
+
+Oyunda bugün var olan tüm tesisler ve gelecekte eklenecek yeni binalar şu **5 evrensel rolden** birine (veya ikisine birden) girer. Böylece yeni bir bina eklendiğinde sisteme otomatik uyum sağlar:
+
+### Rol 1: Çekirdek ve Enerji Binaları
+*Örnekler: Komuta Merkezi (Nexus), Yüksek Enerji / Füzyon Reaktörü, Tina Nöral Çekirdeği, Kuantum Röle.*
+- **Pasif İş:** Koloniye enerji (kW) sağlar, depolama sınırını ve yönetim kapasitesini belirler.
+- **Sefer / Savaş Etkisi:** Sefer öncesi hedef bölgeyi tarayarak düşman türünü bildirir ve savaş başında oyuncuya küçük bir tepki/uyarı avantajı verir.
+- **Bağlı Yıldız Nöbeti:** `Zhaor` (Gümüş Şafak — haberleşme/düzen).
+
+### Rol 2: Yaşam, Tarım ve Sağlık Binaları
+*Örnekler: Seralar, Saklı Vaha, Koloni Mutfağı, Revir & Eczane, Kseno-Enstitü, Mülteci Kubbeleri.*
+- **Pasif İş:** Nüfus barındırır, rasyon/su/ilaç üretir, koloninin moralini ve mürettebatın sağlığını/stresini iyileştirir.
+- **Sefer / Savaş Etkisi:** Sefer öncesi iyi erzak/ziyafet veya acil tedavi iğneleri hazırlayarak savaşta geçici hasar, direnç veya toparlanma avantajı sağlar.
+- **Bağlı Yıldız Nöbeti:** `Axira` (Yeşil Öğle — tarım/büyüme) ve `Uma` (Altın Gece — nüfus/moral).
+
+### Rol 3: Sanayi, Tersane ve Üretim Binaları
+*Örnekler: Ağır Metal Dökümhanesi, Yüzey Araçları Hangarı, Yörüngesel Kuru Tersane, İtki Hangarı, Biyo-Dökümhane.*
+- **Pasif İş:** Hammadde işler, yeni gemi/yüzey aracı inşa eder, mevcut araçları ve silah/zırhları üretir veya onarır.
+- **Sefer / Savaş Etkisi:** Sefer öncesi motor/silah kalibrasyonu yaparak yakıt tasarrufu, kaçınma kolaylığı veya geçici silah/zırh güçlendirmesi sağlar.
+- **Bağlı Yıldız Nöbeti:** `Varek` (Kızıl Kuşluk — sanayi/üretim).
+
+### Rol 4: Bilim, Dinleme ve Akademi Binaları
+*Örnekler: Dinleme Kulesi, Kseno-Teknoloji Laboratuvarı, Kuantum Laboratuvarı, İleri Bilim ve Kütüphane Kulesi, Çoklu-Tür Akademisi, YGK Birimleri.*
+- **Pasif İş:** Yeni eşya/modül tariflerini açar, şifre ve sinyal çözer, kaptan tecrübesi ve Evren İtibarı kazandırır.
+- **Sefer / Savaş Etkisi:** Savaş ve keşiflerde erken uyarı verir (pusudan kaçma veya ilk vuruş avantajı), düşman zayıf noktalarını ve yeni operasyonları açar.
+- **Bağlı Yıldız Nöbeti:** `Elyndra` (Mor İkindi — bilim/melezleme/aether) ve `Sinha` (Mavi Akşam — seyrüsefer/fener).
+
+### Rol 5: Özel / Hibrit ve Geçiş Binaları
+*Örnekler: Kuantum Köprü İstasyonları, Gezegen İleri Karakolları, İleri Aether Atölyeleri.*
+- **Pasif İş:** Yukarıdaki rollerden iki veya daha fazlasını birleştirir; dünyalar arası geçişi, özel ırk/fraksiyon kilitlerini veya benzersiz mekanikleri çalıştırır.
+- **Sefer / Savaş Etkisi:** Bağlı olduğu ana rollere göre hem lojistik hem özel taktik avantajlar (örn. sıçrama şarjı kısaltma, Aether yükleme) sağlar.
+
+---
+
+## 3. TÜM BİNALARDA GEÇERLİ ORTAK KURALLAR
+
+### 3.1. Enerji Yetmezliği Kuralı (Çökme Yok, Öncelik Var)
+Hangi binalar kurulu olursa olsun elektrik yetmediğinde oyun kilitlenmez; sistem **Role Göre Öncelik** uygular:
+1. **Asla Kapanmaz:** *Rol 1 (Çekirdek/Enerji)* ve *Rol 2'nin barınma/yemek kısmı* tam güçte kalır.
+2. **Yarı Hıza Düşer:** Elektrik yetmediğinde *Rol 4 (Bilim)* ve *Rol 3 (Sanayi)* binaları durmaz, sadece yarı hızda çalışır ve sefer öncesi aktif hazırlık bonusları geçici olarak kilitlenir.
+
+### 3.2. Irk / Personel Atama Kuralı
+Yeni bir topluluk veya uzman eklendiğinde hangi binada verimli olacağı bina rolüne göre otomatik bellidir:
+- *Maden / Metal / Ateş uyumlu topluluklar* (`Kaelith`, `Aethel-9`) -> **Rol 3 (Sanayi)** binalarını hızlandırır ve maliyeti düşürür.
+- *Su / Tıp / Doğa uyumlu topluluklar* (`Vaelin`) -> **Rol 2 (Yaşam/Sağlık)** binalarını hızlandırır.
+- *Bilim / Sinyal / Aether uyumlu topluluklar* (`Malken`, `Kithron`) -> **Rol 4 (Bilim/Dinleme)** binalarını güçlendirir.
+- *İnsan Koloniciler* -> **Rol 1 (Çekirdek/Yönetim)** ve temel tarımda genel hızlandırma sağlar.
+
+### 3.3. İç Mekan (Mikro-Oda) Kuralı
+- İster ana bina olsun ister büyük bir kompleksin alt odası; bir binanın içine girildiğinde **3D ses ortamı** başlar ve o binanın rolüne uygun aktif işlemler (zanaat, bakım, tarama, tedavi) sesli menüden yapılır.
+- Bir binanın kademesi (Tier) arttıkça kapasitesi büyür ve içinde yeni bir işlev/oda açılır.
+
+---
+
+## 4. GELECEKTE YENİ BİNA EKLEME ŞABLONU
+
+Projeye ileride yeni bir bina eklendiğinde yalnızca şu **5 satırlık kart** doldurulur; başka hiçbir sistem kuralı yazmaya gerek kalmaz:
+
+- **Bina Adı & Ana Rolü:** *(Örn: "Aether Simya Atölyesi" — Rol 3 + Rol 4)*
+- **Enerji:** *(Ne kadar kW üretir veya tüketir)*
+- **Pasif Görevi:** *(Her gün/nöbet ne üretir veya hangi kilidi açar)*
+- **Sefer/Savaş Hazırlığı:** *(Oyuncu içine girip hazırlık yaparsa bir sonraki sefere ne bonus verir)*
+- **Kademe (Tier) Büyümesi:** *(Seviye atladıkça kapasitesi veya açtığı yeni oda nedir)*

@@ -1,0 +1,71 @@
+# GEZEGEN 04: MYCELIA-IV — "NEFES ALAN KOVAN VE MİSELYUM AĞI"
+
+Bu belge, `kesfedilebilir-gezegenler-rehberi.md` ve `görevler.txt` içinde yalnızca tek seferlik numune noktası olarak kalan **Gezegen 04: Mycelia-IV**'ü; **Gezegen 03 (Thalassa-Derinlik), Gezegen 12 (Miasma-9), YGK Akademi 5. Kat (`Trellis-7`) ve Tonoflenya (`Sarah` / `Loran`)** ile doğrudan bağlayan dallı budaklı bir hikâye paketine dönüştürür.
+
+* **TETİKLENME NOKTASI:** `görevler.txt` *Derin Uzay Sınıf II+ / III+* dönemi (`Yüzen Hava Filtreli Rover` üretildikten sonra).
+* **GİZLİ GERİ PLAN (LORE BAĞI):** 500 metre yüksekliğindeki *Büyük Kovan Mantarı*, Tonoflenya'daki Loran Vadisi (`Sarah`) ve YGK 5. Kat Seraları (`Trellis-7`) tarafından yüzyıllar önce uzaya saçılan kadim kseno-botanik tohumlarının ana köküdür. Bütün gezegen, kök ağlarıyla tek bir canlı organizma gibi nefes alır.
+
+---
+
+## AŞAMA 1: NEFES ALAN ORMAN VE THALASSA ETKİSİ
+
+### 1.1. Sesli Sahne ve Dinamik Başlangıç
+* **3D Ses Ortamı:** İniş yapıldığında kabinin etrafını ritmik olarak nefes alıp veren bir orman uğultusu sarar; orman tabanından tok spor kesesi patlamaları ve ılık yağmurun hışırtısı duyulur. *Fosforlu Spor Vadisi*'nde tekerlek/adım attıkça yerden elektrik akımı gibi cızırtılı ışık sesleri yükselir.
+* **Çapraz Bağlantı (`Gezegen 03: Thalassa` Sonucu):**
+  * Eğer oyuncu `Thalassa-Derinlik`te yosun mührünü **koruduysa**, orman sağlıklıdır ve berrak armonik sesler verir.
+  * Eğer oyuncu `Thalassa`da mührü **kırdıysa**, uzaya sızan abisal toksin vadinin üst katmanına çökmüştür; havada boğucu bir asit tıslaması vardır (`Biyo-Karantina` veya `T-09 Panzehir` yoksa ekip her 2 turda stres/zehir alır).
+
+### 1.2. Telsiz Diyaloğu ve İlk İkilem
+* **Karakter (`Botanikçi Mara` — eski koloni araştırmacısı, sesi nefes nefese ve heyecanlı):**
+  > *"Kaptan! Bu orman sıradan bir bitki örtüsü değil, tek bir devasa zihin gibi tepki veriyor! Ama bizden önce buraya inen korsan/madenci artıkları, Kovan Mantarı'nın köklerine yakıcı plazma sondaları saplamış. Eğer ana kökü yakarlarsa tarımımızı kurtaracak enzimler de yok olacak; üstelik sporlar çıldırıp her yere saldırıyor!"*
+* **Araç & Eşya:** `Yüzen Hava Filtreli Rover` (zorunlu iniş aracı). `Biyo-Karantina` ve `Sonik Kovucu` büyük avantaj sağlar.
+* **Yüzey Bulmacası:** Gece/gölgelik altında sporların yaydığı biyo-manyetik titreşimi dinleyerek, ormanın "nefes verme" anlarında ilerleyip "nefes alma" anlarında durma (ritmik gizlilik).
+* **DALLANAN KARAR 1:**
+  * **Seçenek A [ Sporlara Zarar Vermeden Hava Filtreli Rover'la Sessizce Sız ]:** Ritme uyarak ilerlenir. **`Mara Güveni +15`**, orman sakin kalır ve kovanın iç tünelleri dostça açılır.
+  * **Seçenek B [ Yosun Tabakasını Yakarak Hızlı Yol Aç ]:** Anında Kovan Mantarı'na ulaşılır; ancak orman bunu saldırı olarak algılar ve Aşama 2'de ekstra **Dev Spor Sürüsü** düşman olarak çıkar.
+
+---
+
+## AŞAMA 2: 500 METRELİK BÜYÜK KOVAN MANTARI İÇİ
+
+### 2.1. Sesli Sahne ve Evrensel Kara Savaşı (T3)
+* **3D Ses Ortamı:** 500 metrelik devasa mantar gövdesinin iç tünellerinde derin, kalp atışı benzeri damar uğultusu ve duvarlardan sızan sıvı tıkırtıları yankılanır.
+* **Düşmanlar:** Kökleri söken **1x Korsan Maden Sondaj Ekibi** (*Arketip: Zırhlı + Aşırı Isı*) ve kargaşadan korkup saldıran **2x Dev Spor Sürüsü** (*Arketip: Çağıran + Zehir/Asit*).
+* **Taktik & Serbestlik:**
+  * *Klasik Savaş:* Önce zehir yayan sporları temizleyip ardından sondaj ekibini indirebilirsin.
+  * *Akıllı / Barışçıl Çözüm:* Eğer yanında `2 Sonik Kovucu` veya `T-05 Sonik Tüfek` varsa spor sürülerini öldürmeden uyutursun; yalnızca korsan sondaj ekibini yok ettiğinde Kovan Mantarı seni **"Koruyucu"** olarak tanır!
+
+### 2.2. Kovan Çekirdeği ve Büyük İkilem
+Korsan sondaları söküldüğünde Kovan'ın merkezindeki **Ana Miselyum Çekirdeği** açığa çıkar. Burada iki yol vardır:
+
+* **DALLANAN KARAR 2 (Sürdürülebilir Koruma Mı, Tek Seferlik Sömürü Mü?):**
+  * **Seçenek A [ Sondaları Sök, Çekirdeği İyileştir ve Yalnızca Doğal Spor Hasadı Al ]:**
+    * *Ödül:* **`+650 Evren İtibarı`**. Aethelis-IV tarım teraslarında mahsul verimi **kalıcı olarak artar (enzim kilidi)**.
+    * *Tonoflenya & Gezegen 12 Bağı:* Kovan seni ödüllendirir ve **`Ana Miselyum Sporu`** verir. Bu spor:
+      1. YGK 5. Katta **Trellis-7** ile itibarını `+25` artırır ve gizli bir kseno-botanik tohumu açar.
+      2. Tonoflenya Loran'daki **Sarah**'a götürülürse `T-09 Evrensel Kseno-Panzehir` üretimini aynı maliyetle **2 katına** çıkarır.
+      3. **Gezegen 12 (`Miasma-9`)**'daki ölümcül asit/küf krizini savaşsız veya çok düşük hasarla çözmeni sağlayan **doğal panzehir anahtarı** olur!
+  * **Seçenek B [ Çekirdeği Aşırı Uyararak Tüm Spor Özünü Tek Seferde Sömür ]:**
+    * *Ödül:* Anında **`50x Canlı Kseno-Spor`**, **`20x Organik Foton Reçinesi`**, **`15x Sakinleştirici Spor`** ve **`+1.500 Bilim Puanı`**.
+    * *Ceza (Ağır Bedel):* Büyük Kovan Mantarı enerjisini kaybedip kurur ve çöker!
+      1. Kalıcı tarım verimi bonusu **açılmaz** (yalnızca stok biter bitmez tükenen tek seferlik artış olur).
+      2. YGK 5. Katta **Trellis-7** bu doğa katliamını öğrenir ve itibarı **`-25`** düşer (özel botanik tariflerini kapatır).
+      3. **Gezegen 12 (`Miasma-9`)**'da doğal panzehir şansı kaybolduğu için oradaki asit salgını daha agresif ve yüksek hasarlı başlar.
+
+---
+
+## AŞAMA 3: KALICI DÖNÜŞÜM, ÖDÜL-CEZA VE ATIL KALMAMA DÖNGÜSÜ
+
+### 3.1. Gezegenin Kalıcı Sonu
+* **İyi Son ("Canlı Kovan Laboratuvarı"):** Kovan yaşamaya devam eder; Mara ve keşif ekibi gövdenin içine küçük bir araştırma karakolu kurar.
+* **Karanlık Son ("Taşlaşmış Kovan Enkazı"):** Dev mantar kuruyup sertleşir; ışıldayan sporlar söner, yerini kuru ve sessiz fosil tüneller alır.
+
+### 3.2. Atıl Kalmama: Yıldız Nöbeti Tekrar Ziyaret Döngüsü
+Hikâye tamamlandıktan sonra Mycelia-IV şu döngüyle yaşamaya devam eder:
+* **Yeşil Öğle (`Axira`) Nöbeti Penceresi:** İyi son yaşandıysa her `Axira` nöbetinde spor keseleri yeniden olgunlaşır; oyuncu geri dönüp düzenli **`Canlı Kseno-Spor`**, **`Sakinleştirici Spor`** ve **`Foton Reçinesi`** toplayabilir.
+* **Karanlık Son Alternatifi:** Kovan kuruduysa `Axira` hasadı kapanır; ancak taşlaşmış gövdeden `Fosil Kseno-Kabuk` ve `Bazalt` kazılabilir.
+
+### 3.3. Çapraz Bağlantı Özeti
+- **Gezegen 03 (`Thalassa-Derinlik`):** Önceki gezegendeki mühür seçimin buradaki başlangıç atmosferini doğrudan belirler.
+- **Gezegen 12 (`Miasma-9`):** Buradan alınan `Ana Miselyum Sporu` Miasma-9'daki asit krizinin anahtarıdır.
+- **YGK 5. Kat (`Trellis-7`) & Tonoflenya (`Sarah`):** `T-09 Panzehir` ve melez botanik tariflerini güçlendirir veya kilitler.

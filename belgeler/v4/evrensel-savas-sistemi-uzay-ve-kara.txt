@@ -1,0 +1,124 @@
+# EVRENSEL SAVAŞ SİSTEMİ: UZAY, FİLO VE KARA (YÜZEY) ÇATIŞMA MİMARİSİ
+
+Bu belge, oyundaki mevcut uzay savaşı çekirdeğini (`A Blind Legend` tarzı sesli, tur tabanlı ve reaktif sistem) koruyarak; **koloni savunmasından derin uzaya, 20 keşif gezegeninden Tonoflenya'ya ve final bosslarına** kadar tüm çatışmaları tek bir evrensel mekanik altında birleştirir.
+
+*Not: Gemi sınıfları, yüzey araçları ve tekil eşya/silah katalogları sonraki ilgili belgelerde detaylandırılacaktır. Bu belge, tüm o donanımların içine oturacağı **evrensel savaş kurallarını ve motorunu** tanımlar.*
+
+---
+
+## 1. TEMEL İLKE: TEK EVRENSEL ÇEKİRDEK (UZAY VE KARA AYNI REFLEKS)
+
+Oyuncu nerede savaşırsa savaşsın (uzay boşluğu, koloni madeni, keşif gezegeni yüzeyi veya Tonoflenya kuleleri) aynı temel döngü ve dokunsal refleks çalışır:
+
+1. **Sesi Dinle (Konumlandırma):** Düşman tehdidi kulaklıkta sağ, sol veya merkez eksende konumlu ses (motor uğultusu, adım/pençe sesi, plazma şarjı) olarak duyulur.
+2. **Kilitle (Sağa/Sola Kaydırma):** Tek parmak sağa-sola kaydırılarak gemi pruvası veya karakter/araç nişanı düşmanın ses kaynağına çevrilir. Tam hizalanınca net bir **kilit tonu** çalar.
+3. **Saldır (Oyuncu Turu):**
+   - **Tek Dokunma:** Birincil silahı ateşler (Uzay: ana batarya | Kara: el silahı / araç tareti).
+   - **Yukarı Kaydırma:** Ağır / Özel saldırı (Uzay: torpido — 2 tur dolum | Kara: ağır patlayıcı / yakın darbe — 2 tur dolum).
+   - **İki Parmakla Çevirme:** Frekans / Zırh Kırıcı Eşleme. Silah frekansını düşman kalkanının veya zırhının duyulan tonuna eşitler; tutturulduğunda kalkan/zırh kırılır.
+   - **Aşağı Kaydırma + Çift Dokunma:** Subay veya Refakatçi Yeteneği seçip kullanma (her yeteneğin tur cinsinden bekleme süresi vardır).
+4. **Savun (Düşman Turu — 1,5 ile 3,0 Saniye Reaktif Pencere):**
+   - Düşman saldırmadan önce kendi silah türüne özgü uyarı sesi verir. Oyuncu bu pencerede tepki verir:
+   - **İki Parmakla Dokunma:** Kalkan / Siper açar (hasarı büyük ölçüde emer; üst üste kullanımda ısınır/yorulur).
+   - **Sesin Ters Yönüne Kaydırma:** Kaçınma manevrası / Yana atlama.
+   - **Çift Dokunma (Mermi/Torpido uyarısında):** Karşı ateşle gelen mermiyi/saldırıyı havada düşürme.
+   - **Aşağı Kaydırma:** Sahte gürültü / Sinyal şaşırtma (yetenekle açılır).
+   - **Üç Parmakla Dokunma:** Taktik ışınlanma / Acil pozisyon değiştirme (subay/ekip kabiliyetiyle açılır).
+
+---
+
+## 2. UZAY VS. KARA (YÜZEY) SAVAŞI KARŞILAŞTIRMASI
+
+Aynı çekirdek motor, ortama göre şu kavramları ve hasar kurallarını kullanır:
+
+| Bileşen | Uzay / Yörünge Savaşı | Kara / Yüzey Savaşı |
+| :--- | :--- | :--- |
+| **Oyuncu Birimi** | Amiral Gemisi (+ varsa Filo Desteği) | Kaptan + 1 Refakatçi Subay (veya Yüzey Aracı) |
+| **Dayanıklılık** | Gövde Bütünlüğü (%) ve Kalkan | Zırh/Araç Bütünlüğü (%) ve Siper Dayanıklılığı |
+| **Sistem Arızaları** | İtici (kaçınma kilitlenir), Kalkan (ısınır), Reaktör (tüm savunma durur) | Hareket/Teker (kaçınma kilitlenir), Siper (parçalanır), Solunum/Kask (stres hızlanır) |
+| **Kişisel Silahların Rolü** | Gemi bataryasına bağlı çarpan/özellik modülü (örn. Tüfek x1,8 atış, Işık Mızrağı karanlığa 2x) | Doğrudan ana el silahı olarak kullanılır (Tüfek, Hançer, Plazma, Işık Mızrağı) |
+| **Zırhların Rolü** | Gemi gövdesine pasif direnç katkısı | Doğrudan kaptan ve ekibin aldığı hasarı azaltır |
+| **Ortam Etkisi** | Asteroit/radyasyon/Alt-Evren alanı | Yıldız Zamanı (gece soğuk/görüş), asit yağmuru, yerçekimi |
+
+### Kara Savaşının Devreye Gireceği Yerler
+1. **Aethelis-IV Koloni Krizleri:** Maden baskınları ve kseno-yaratık saldırıları.
+2. **20 Keşif Gezegeni Yüzey Görevleri:** Tehlikelerden sadece kaçmak yerine yerel yaratık ve muhafızlarla çatışma.
+3. **30 Tonoflenya Yan Görevi:** Riskli, suçlu veya tarikat bağlantılı vakalarda doğrudan yüzey/mekan düellosu.
+4. **Final Görevleri:** YGK alt katları, Kara Göl, Kahergonat kule baskınları.
+
+---
+
+## 3. EVRENSEL TEHDİT ÖLÇEĞİ (DİNAMİK GÜÇLENME SİSTEMİ)
+
+*"50. saatte de ilk korsan aynı korsan"* sorununu çözmek için her düşman 5 kademeli **Tehdit Ölçeği (T1 - T5)** üzerinden güçlenir. Düşmanın seviyesi bulunduğu bölgeye **ve** oyuncunun koloni/gemi ilerleyişine göre ölçeklenir:
+
+- **T1 — Koloni ve Yakın Yörünge:** Vahşi kseno-yaratıklar, akıncı dronlar, başıboş korsan keşifçileri. (Yavaş uyarı penceresi: 3,0 sn).
+- **T2 — Yakın Uzay ve İlk Gezegenler:** Korsan korvetleri, avcı gemileri, gezegen yüzeyi sürüleri. (2,5 sn pencere, temel kalkan/zırh).
+- **T3 — Derin Uzay ve Zorlu Gezegenler:** **Tanımsız Yabancı Firkateyn** (oyun içi karşılaşma olayları ve derin uzay keşifleriyle aktifleşir), ağır maden korsanları, çoklu düşman grupları. (2,0 sn pencere, özel taktikler).
+- **T4 — Tonoflenya ve Alt-Evren:** Gölge korsanları, tarikat muhafızları, Alt-Evren hava/kara yaratıkları, **Kahergonat öncü zırhlıları**. (1,8 sn pencere; Işık Mızrağı / Aether silahlarına zayıf).
+- **T5 — Aşamalı Boss Savaşları:** Lord Sharon, Cahelon ve bölge lordları. (1,5 sn pencere, çoklu aşama geçişi).
+
+*Ölçekleme Kuralı:* Oyuncunun gemi sınıfı veya koloni Nexus kademesi yükseldikçe, eski bölgelerdeki rastgele karşılaşmalar da minimum `(Oyuncu Kademesi - 1)` seviyesine çekilerek savaşın tamamen önemsizleşmesi önlenir.
+
+---
+
+## 4. 5 EVRENSEL DÜŞMAN DAVRANIŞ ARKETİPİ
+
+Düşmanlar yalnızca can ve hasar rakamlarıyla değil, **sesle hissedilen davranışlarıyla** ayrılır. Bu 5 arketip hem uzayda hem karada geçerlidir:
+
+1. **Akıncı (Rusher):**
+   - *Ses İpucu:* Hızlı, yüksek devirli motor veya seri adım sesi.
+   - *Mekanik:* Zırhı/kalkanı düşüktür ama uyarı penceresi kısadır (`1,5 sn`). Hızlı kaçınma ve karşı ateş ister.
+2. **Frekans Değiştiren (Tuner):**
+   - *Ses İpucu:* Her 2 turda bir değişen metalik titreşim tonu.
+   - *Mekanik:* Savunma tonunu sürekli değiştirir. İki parmakla çevirme yaparak yeni frekansı bulmadan yüksek hasar yemez.
+3. **Kaçak / Pusucu (Skirmisher):**
+   - *Ses İpucu:* Hasar aldığında hızla sağdan sola (veya tam tersi) kayan hareket sesi.
+   - *Mekanik:* Her isabetten sonra yön değiştirir, yeniden kilitlenmeyi zorunlu kılar. Canı %30'un altına indiğinde kaçmaya çalışır (kaçarsa ganimet azalır).
+4. **Çağıran (Caller):**
+   - *Ses İpucu:* Arka planda yükselen sinyal/çağrı uğultusu.
+   - *Mekanik:* 3 turda bir yanına küçük bir destek dronu veya yaratık çağırır. Öncelikli hedef olarak susturulmalıdır.
+5. **Karanlık / Alt-Evren (Void):**
+   - *Ses İpucu:* Derin, yankılı, boğuk Alt-Evren uğultusu.
+   - *Mekanik:* Standart kinetik/plazma silahlara %50 dirençlidir. **Işık Mızrağı** veya Aether temelli saldırılardan 2 kat hasar alır.
+
+---
+
+## 5. ÇOKLU DÜŞMAN, FİLO DESTEĞİ VE AŞAMALI BOSS MANTIĞI
+
+### 5.1. Çoklu Düşman Savaşı (1v2 ve 1v3)
+- Oyuncu birden fazla düşmanla karşılaştığında kulaklıkta tüm hedeflerin sesleri kendi yönlerinden (ör. biri solda, biri sağda) aynı anda duyulur.
+- **Hedef Değiştirme:** Yukarıda pruva kilitlerken sağa-sola kaydırma hangi düşmanın sesine denk gelirse aktif hedef o olur; odaklanan hedefin sesi öne çıkar, diğerleri arka plana çekilir.
+- **Uyarı Önceliği:** Düşmanların uyarı sesleri üst üste binmez; sırayla çalar ve oyuncu her saldırıya ayrı ayrı tepki verir.
+
+### 5.2. Filo Desteği (Uzayda) ve Refakatçi Desteği (Karada)
+- **Uzayda:** Oyuncunun filosunda bekleyen diğer gemiler doğrudan kontrol edilmez ama savaş başında **Destek Yuvası** olarak seçilebilir (ör. Korvet yan ateşi her 3 turda düşman kalkanını zayıflatır; Lojistik gemisi gövde tamiri sağlar).
+- **Karada:** Seçilen 1 refakatçi subay veya yüzey aracı (`Çöl Tilkisi` hız/kaçınma, `Mammoth` zırh/ağır atış) pasif bonus ve tur bekleme süreli aktif yetenek sunar.
+
+### 5.3. Aşamalı Boss Savaşları (3 Fazlı Yapı)
+Kahergonat Öncü Zırhlısı, Lord Sharon ve Cahelon gibi bosslar tek barlık savaşlar değildir:
+- **Faz 1 (%100 - %66 Can/Gövde):** Standart düzen ve birincil arketip davranışı.
+- **Faz 2 (%66 - %33):** Kısa bir sesli ara sahne/uyarı tonuyla boss zırhını veya formunu değiştirir (ör. çağıran moduna geçer veya frekansı çift tona çıkarır).
+- **Faz 3 (%33 - %0):** Çaresiz/öfkeli son aşama; uyarı penceresi daralır ama zayıf noktası (ör. reaktör çekirdeği veya astral mühür) açığa çıkar.
+
+---
+
+## 6. SAVAŞ SONUÇLARI, ÖDÜL VE İLERLEME BAĞLANTISI
+
+Mevcut oyundaki 4 ilerleme çizgisi ve koloni binaları doğrudan bu sistemden beslenir:
+
+- **Üç Savaş Sonucu:**
+  1. **Zafer:** Tam ganimet (hammadde, eşya, parça), tam Kaptan Tecrübesi, Yıldız Ekolü kıdem puanı ve Evren İtibarı.
+  2. **Ateşkes / Teslim (Sadece akıllı düşmanlarda %25 altında):** Yarım ganimet, daha düşük tecrübe, ancak düşman fraksiyonla itibarın tamamen çökmesini engeller.
+  3. **Yenilgi:** Uzayda gemi Aethelis kızağına/en yakın güvenli rıhtıma çekilir; karada ekip acil tahliye edilir. Koloni morali düşer, ekip/gemi tamir ve tedavi gerektirir.
+- **Bina ve Hazırlık Etkisi:**
+  - *Tersane / Dökümhane:* K1-K5 savaş modifikasyonları ve araç/zırh tamiri.
+  - *Nexus Taktik Harp Dairesi:* Savaş öncesi düşman arketipini gösterir ve ilk turda +0,5 sn uyarı avantajı verir.
+  - *Dinleme Kulesi:* Pusu ve Tanımsız Yabancı Firkateyn karşılaşmalarını önceden bildirir.
+  - *Sera ve Enstitü:* Savaş başı rasyon/ziyafet bonusları (ilk 2 tur +hasar/hız) ve savaş sonrası mürettebat stres/yaralanma tedavisi.
+
+---
+
+## 7. SONRAKİ BELGELERLE ENTEGRASYON NOTU
+
+Bu evrensel savaş motorunun kullanacağı somut içerikler (5 gemi sınıfının savaş değerleri, yüzey araçlarının kara savaşı istatistikleri, kişisel/melez silahların hem kara hem uzay bataryası karşılıkları ve 30 yan görevdeki çatışma noktaları) sonraki ayrı belgelerde tek tek işlenecektir.

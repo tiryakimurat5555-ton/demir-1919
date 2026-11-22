@@ -1,0 +1,67 @@
+# YAPAY ZEKÂ GELİŞTİRİCİ İÇİN MASTER OKUMA VE UYGULAMA REHBERİ
+
+Bu belge, `Yeni_Icerikler` klasöründeki tüm tasarım dokümanlarını oyuna entegre edecek geliştirici yapay zekâ için **kesin okuma sırasını, uygulama kurallarını ve öncelik hiyerarşisini** tanımlar.
+
+---
+
+## 0. DEĞİŞMEZ TEMEL KURALLAR (KODLAMAYA BAŞLAMADAN ÖNCE OKU)
+
+1. **Mevcut Oyunu Bozma, Üzerine İnşa Et:** `Bina ve araçlar.txt` ve `görevler.txt` içinde tanımlı olan mevcut binalar, tarifler ve görevler **silinmez / değiştirilmez**. Yeni dokümanlar mevcut yapının aralarındaki boşlukları doldurur ve sistemleri birbirine bağlar.
+2. **Bina Referansı Kuralı:** İlk yazılan `aethelis-koloni-ve-bina-derinlestirme.txt` (6 bina + kW modeli) yalnızca *mikro-oda 3D ses atmosferi ilhamı* içindir. Oyundaki gerçek bina yapısı ve sayısı için **`25-bina-evrensel-butunsellik-ve-yetim-esya-baglantisi.txt`** esas alınır (yeni bir kW elektrik kısıtı eklenmez).
+3. **Erişilebilirlik (Grafiksiz & Ses Odaklı):** Tüm paneller dikey odak gezintisine (TalkBack/VoiceOver), kulaklıkta 3D ses yönlendirmesine ve oyun içi özel dokunsal jestlere tam uyumlu olmalıdır.
+4. **Zaman ve Savaş Birimi:** Dünya zamanı **Yıldız Nöbeti** (1 gün = 6 nöbet × 20 gerçek dk), savaş içi etkiler **Tur** birimiyle çalışır ("saniye" ifadeleri tura çevrilmiştir).
+5. **Tıkla-Yap Yerine Hikâye:** Yeni kilitler, binalar ve numuneler soğuk menü butonlarıyla değil, karakter çağrıları ve görevler üzerinden açılır.
+
+---
+
+## 1. ADIM ADIM OKUMA VE UYGULAMA SIRASI (5 FAZ)
+
+Geliştirici yapay zekâ dosyaları rastgele değil, aşağıdaki **5 fazlı sırayla** okuyup uygulamalıdır:
+
+### FAZ 1: Evrensel Savaş Motoru ve Düşman Altyapısı *(Önce Çekirdeği Kur)*
+1. **`evrensel-savas-sistemi-uzay-ve-kara.txt`**
+   - *Ne Yapılacak:* Mevcut uzay savaşı motorunu hem **uzayı** hem **karayı (yüzey/koloni/Tonoflenya)** yönetecek tek çekirdeğe çevir. 1vÇoklu hedef değiştirmeyi, filo destek yuvasını ve T1–T5 tehdit ölçeğini kur.
+2. **`dusman-davranis-modulleri-ve-item-karsiliklari.txt`**
+   - *Ne Yapılacak:* **8 Düşman Davranış Modülü**nü, **6 Geliş Biçimi**ni ve T2+ **Dinamik İkincil Modül** sistemini kodla. Her modül için *"Eşya zorunlu değil, taktik kısayoldur"* (serbest refleks vs. eşya avantajı) kuralını uygula.
+3. **`somut-dusman-katalogu-ve-bosslar.txt`**
+   - *Ne Yapılacak:* 8 uzay düşmanını (oyunda çıkmayan *Tanımsız Yabancı Firkateyn* dahil), 5 kara düşmanını ve 2–3 fazlı bossları (*Xarathia*, *Kahergonat Öncü Zırhlısı*, *Lord Sharon*, *Cahelon*) tanımla.
+
+### FAZ 2: Binalar, Gemiler, Araçlar ve Eşyalar *(Mevcut Veriyi Bağla)*
+4. **`bina-etkileri-ve-isleyis-mantigi.txt`** → 5 Evrensel Bina Rolü'nün sade işleyiş mantığını al.
+5. **`25-bina-evrensel-butunsellik-ve-yetim-esya-baglantisi.txt`**
+   - *Ne Yapılacak:* `Bina ve araçlar.txt`'deki gerçek 25 binayı 5 role oturt, savaş/sefer katkılarını bağla. Kilitli `#19–#22` binalarını mevcut Büyük Operasyonlara aç. Boşta duran 20 gezegen numunesini, 5 yetim hammaddeyi ve 10 üretilebilir eşyayı (`termal giysi`, `dondurucu köpük`, `topraklama çubuğu`, `sonik kovucu`, `otomatik ikmal karakolu` vb.) aktif kullanıma bağla.
+6. **`gemiler-araclar-ve-filo-sistemi.txt` + `dinamik-yakit-ve-rota-sistemi.txt`**
+   - *Ne Yapılacak:* Sınıf I–III (yüzeye inebilen, 1 alt kızaklı) ve Sınıf IV–V (yörünge, dahili hangarlı) gemi ayrımını uygula; yedek gemileri **Destek Gemisi** yuvasına bağla; 5 yüzey aracına kara savaşı istatistiklerini ver. Sabit yakıt yerine **Zincirleme Mesafe (Halka 1–5) + Kargo/Saat/Tehlike** dinamik yakıt mantığını uygula.
+7. **`esya-silah-zirh-ve-melez-zanaat-sistemi.txt` + `item-deger-garantisi-ve-niye-yapayim-kurali.txt`**
+   - *Ne Yapılacak:* Kişisel silah/zırhlara **kara + uzay çift rolü** ekle. Zanaatın 3 katmanlı üretim yerini, para birimi dönüşümünü ve TalkBack arayüzünde her eşya için **"Ne işe yarar?"** tek cümlelik değer anonsunu zorunlu kıl.
+
+### FAZ 3: Karakter Sabitleri ve Komuta Paneli *(Dünya Omurgası)*
+8. **`karakter-aglari-murettebat-ve-ygk-akademi.txt`**
+   - *Ne Yapılacak:* Aethelis prosedürel ekibi + Tonoflenya sonrası 6 seçkin YGK subayını (`Zhaor` dahil) birleştir. `Ignador`, `Oronte`, `Mirelza`, `Barracuda`, `Nyxara`, `Tixie`, `Valen`, `Kefius` için tek kanonik kimlik ve konumu uygula.
+9. **`bolge-genisletme-panel-ve-ilerleme-sistemi.txt`**
+   - *Ne Yapılacak:* 3 sekmeli grafiksiz **Komuta ve Genişleme Paneli**ni (`Bölge Haritası`, `Savunma Hattı`, `İleri Karakol`) ve **Komşu Halka Baskısı** (bölgeler fethedildikçe baskının sıfırlanması, sınırsız angarya baskını olmaması) kuralını kur.
+
+### FAZ 4: Ana Hikâye, Koloni ve Gezegen Genişletmeleri *(Mevcut Akışın Arasına Yerleştir)*
+10. **`gorev-ve-hikaye-harmanlama-mimarisi.txt`** → Görevlerin karakter hikâyesi + bulmaca + savaş + karar şablonunu esas al.
+11. **`koloni-yerel-operasyonlar-ve-yuzey-derinlestirme.txt`**
+    - *Ne Yapılacak:* `görevler.txt` içindeki 8 Yerel Operasyonu (#5, #7, #8'deki sabit cezaları düzelterek) ve 9 yüzey bölgesini (`keşif -> izole -> stabil -> karakol`) derinleştir.
+12. **`asama-1-ve-2-aethelis-fetih-ve-kaelith-hikayeleri.txt`**
+    - *Ne Yapılacak:* Dosya başındaki `TETİKLENME NOKTASI` haritasına göre 4 sektör fetih görevini, yörünge ablukasını ve eksik olan **Kaelith Kurtarma Görevi**ni mevcut görevlerin arasına yerleştir.
+13. **`asama-3-derin-uzay-ve-kilitli-binalar-hikayeleri.txt` + 18 Yeni Gezegen Dosyası (`gezegen-03` – `gezegen-20`)**
+    - *Ne Yapılacak:* `#19–#22` binalarını açan 4 karakter hikâyesini (`Dr. Vael`, `Sira-Vel`, `Tina`, `Mirek`) ve *Yabancı Firkateyn* ilk temasını yerleştir.
+    - *Gezegen Keşif & Sinyal Kuralı:* 20 gezegen aynı anda açılmaz; **1)** `#1 Sinyal Kulesi` menzili genişledikçe (`Halka 1-2` → `Anten/Çözücü` ile `Halka 3` → `#14 Komuta/Kuantum Arşiv` ile `Halka 4-5`), **2)** önceki gezegen/operasyon haritalarından (`Umbra-Kayıp`, `Necron-Sıfır`, `Chronos-Döngü` vb.) ve **3)** `Zhaor` nöbetindeki sonar taramasından açılır.
+    - *18 Detaylı Gezegen Hikâyesi (Atıl Kalmayan & Dallanan):*
+      - `gezegen-03-thalassa-derinlik-hikayesi.txt` | `gezegen-04-mycelia-iv-hikayesi.txt` | `gezegen-05-sol-kharra-hikayesi.txt`
+      - `gezegen-06-ferros-omega-hikayesi.txt` | `gezegen-07-zephyr-major-hikayesi.txt` | `gezegen-08-lithos-echo-hikayesi.txt`
+      - `gezegen-09-necron-sifir-hikayesi.txt` | `gezegen-10-janus-split-hikayesi.txt` | `gezegen-11-fulgur-3-hikayesi.txt`
+      - `gezegen-12-miasma-9-hikayesi.txt` | `gezegen-13-umbra-kayip-hikayesi.txt` | `gezegen-14-fractura-hikayesi.txt`
+      - `gezegen-15-carbonis-v-hikayesi.txt` | `gezegen-16-radion-kizil-hikayesi.txt` | `gezegen-17-automata-enkaz-hikayesi.txt`
+      - `gezegen-18-chronos-dongu-hikayesi.txt` | `gezegen-19-aero-flora-hikayesi.txt` | `gezegen-20-corona-lux-hikayesi.txt`
+    - *Atıl Kalmama Kuralı:* Her gezegende hikâye bittikten sonra ilgili **Yıldız Nöbeti**nde geri dönülüp özel kaynak/avantaj toplanmaya devam edilir.
+14. **`asama-4-tonoflenya-ana-gorevler-ve-final-derinlestirme.txt`**
+    - *Ne Yapılacak:* Final #1 ödülünü, *Zirve İğnesi* (Kronik #4) sahnesini, Final #16 adımlarını ve *Lord Sharon* (#18) + *Cahelon* (#20) 3 fazlı boss savaşlarını entegre et.
+
+### FAZ 5: Tonoflenya Yan İçerikleri ve YGK Akademi Derinliği *(Son Katman)*
+15. **`ygk-akademi-gezilebilir-sistem-ve-10-kursu.txt`** → Akademi katlarının `Final #1 / #3 / #13` ile açılmasını, 10 kürsü testini, 4 kilit figür dengesini ve -4. Kat özgün mahkumlarını uygula.
+16. **`tonoflenya-30-yan-gorev-derinlestirme.txt`** → 30 yan görevin olmayan ön şartlarını düzelt, 10'una savaş ekle, Seçenek A/B ödüllerini ayır ve 5 Ana Güç itibarına bağla.
+17. **`tonoflenya-bolgesel-gorevler-ve-ambargo-entegrasyonu.txt`** → Seyahat/geçit kısıtlarını (`Sinha` nöbeti, kartlar, pusulalar), 12 bölgesel görevi (`Final #1/#6/#10` zamanlamasıyla) ve `Final #12` sonrası *Büyük Tonoflenya Ambargosu*nu uygula.

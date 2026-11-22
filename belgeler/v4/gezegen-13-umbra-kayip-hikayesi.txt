@@ -1,0 +1,42 @@
+# GEZEGEN 13: UMBRA-KAYIP — "GÜNEŞSİZ DÜNYANIN SICAK KALBİ"
+
+Bu belge, **Gezegen 13: Umbra-Kayıp**'ı (Yıldızsız Başıboş Karanlık Dünya) güneşsiz boşlukta kendi iç ısısıyla yaşayan gerilim dolu bir mağara hikâyesine dönüştürür. Burada **Kör Kaptan Mira** ile karanlığı paylaşan bir hayatta kalma ve **sessizlik vs. ışık savaşı** tercihi vardır.
+
+* **TETİKLENME NOKTASI:** `görevler.txt` *Derin Uzay Sınıf III+* dönemi (`Kızılötesi Sondaj Aracı` üretildikten sonra — Halka 4).
+* **YEREL GERİ PLAN:** Hiçbir yıldıza bağlı olmadan uzayda sürüklenen bu yetim gezegende, yıllar önce rotası şaşmış sivil bir gözlem gemisinin kaptanı **Mira** hayatta kalmayı başarmıştır. Görme engelli olan Mira, mutlak karanlıkta yalnızca sıcak buhar bacalarını ve biyolüminesan likenleri dinleyerek yaşamakta; ancak son zamanlarda mağaralara sızan **Gölge Pusucuları** bu sıcak sığınağı tehdit etmektedir.
+
+---
+
+## SAHNE 1: MUTLAK KARANLIKTAKİ BUZUL ÇATIRDAMALARI (`KARANLIK KANYON BACALARI`)
+
+### 1.1. Sesli Sahne ve Kızılötesi Tarama
+* **3D Ses Ortamı:** Güneş rüzgarı veya rüzgar uğultusu yoktur; yalnızca uzayın mutlak sessizliği, gezegenin derin çekirdeğinden gelen boğuk yer altı gürültüleri ve soğuktan çatlayan buzulların ani tabanca sesi gibi patlamaları.
+* **Gözlem Adımı:** `Kızılötesi Sondaj Aracı` ile karanlık kanyonda manyetik radar taraması yapılırken, sıcak buhar bacalarının yanından taşlara vurulan ritmik bir sinyal ("tık-tık... tık") gelir.
+* **Telsiz Diyaloğu (`Kaptan Mira` — sakin, fısıltı gibi ama son derece keskin kulaklı ses):**
+  > *"Fenerlerini kapat yabancı... Burada ışık yakarsan gölgeler seni bir kilometre öteden görür. Ben Mira. Yıllardır bu güneşsiz taşın üstünde sesleri dinleyerek yaşıyorum. Liken mağarasının girişini iki gölge yaratığı kesti; benimle sessizce yürümeye var mısın, yoksa silahlarınla mı geleceksin?"*
+
+---
+
+## SAHNE 2: BİYOLÜMİNESAN LİKEN MAĞARALARI — SESSİZLİK Mİ, IŞIK MI?
+
+Mağaranın içinde kendi ışığını ve ısısını üreten likenler hafifçe cızırdar; çıkışta ise **2x Gölge Pusucusu** (*Arketip: Karanlık + Pusucu*, *T4*) beklemektedir:
+
+### YOL A: Mira'nın Karanlık Yöntemi *(Sessiz Sızma & Savaşsız Ustalık)*
+* **Ne Yapılır:** Tüm araç farları ve aktif radarlar kapatılır. Oyuncu yalnızca Mira'nın attığı küçük çakıl taşlarının sesini ve gölge yaratıklarının nefes alıp verişini dinleyerek, yaratıklar uzaklaştığı anlarda tek parmakla sessizce ilerler ve sıcak bacalardan `Kseno-Bakteri` kolonisini vakumlar.
+* **Ödül:**
+  * **`+850 Evren İtibarı`** ve **Işıksız Derin Uzayda Enerji Tasarrufu Teorisi** (Halka 4 ve Halka 5 seferlerinde yaşam desteği ve yakıt tüketimi kalıcı **`%20` azalır**).
+  * **Mira'nın Hediyesi (`Kör Kılavuz Pusulası`):** Karanlık ve *Pusucu* düşmanların sahte ses sinyallerini otomatik eler. Mira gezegendeki sıcak mağarasında yaşamaya devam eder ve her dönüşünde sıcak sığınak desteği verir.
+
+### YOL B: Projektörleri ve Işık Silahlarını Ateşle *(Aksiyon & Bol Kaynak Yolu)*
+* **Ne Yapılır:** Oyuncu gizlenmek yerine yüksek güçlü projektörleri açıp bacaların etrafını zorla temizlemeye karar verir. Işığı gören yaratıklar öfkeyle saldırır!
+* **Evrensel Kara Savaşı (T4):** **2x Gölge Pusucusu** (*Arketip: Karanlık + Pusucu*). `Zhaor Işık Mızrağı` veya `Fenrir Işık Pelerini` `2x` avantaj sağlar.
+* **Ödül:**
+  * **`+850 Evren İtibarı`** ve **Enerji Tasarrufu Teorisi** yine kazanılır.
+  * Mağara tamamen temizlendiği için bacaların dibindeki **`40x Kseno-Bakteri`**, **`30x Fosforlu Damar Likeni`** ve **`1x Saf/Kara Aether`** anında toplanır. Mira ise mağarasının doğal karanlığı bozulduğu için Aethelis-IV kolonisine taşınmayı seçer (`+1 Uzman Kaptan`).
+
+---
+
+## SAHNE 3: ATIL KALMAMA — YETİM GEZEGEN İKMALİ
+
+- **Yıldız Nöbeti Bağımsızlığı:** Umbra-Kayıp hiçbir yıldıza bağlı olmadığı için **gece-gündüz veya Yıldız Nöbeti kısıtı olmadan her zaman aynıdır** (yalnızca Aethelis/Tonoflenya saatinden bağımsız kendi sıcak çekirdek döngüsüne sahiptir).
+- **Tekrar Ziyaret:** Halka 4 ve Halka 5 seferlerine çıkan oyuncular, uzun yolda enerji/yakıt tasarrufu için buraya uğrayıp sıcak bacalardan düzenli **`Kseno-Bakteri Kolonisi`** ve **`Fosforlu Liken`** toplayabilir.

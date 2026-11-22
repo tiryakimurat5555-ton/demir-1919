@@ -1,0 +1,94 @@
+# EVRENSEL EŞYA, SİLAH, ZIRH VE MELEZ ZANAAT SİSTEMİ
+
+Bu belge; `tonoflenya-esya-zanaat-ve-murettebat-rehberi.md` ve `tonoflenya-ve-aethelis-melez-zanaat-rehberi.md` belgelerindeki tüm silah, zırh, gemi modülü, ilaç, yadigar ve melez taslakları tek bir çatı altında birleştirir; **Evrensel Savaş Sistemi** (kara + uzay çift rolü) ve **Evrensel Bina Sistemi** ile uyumlu hâle getirir.
+
+---
+
+## 1. TEMEL ZANAAT VE KULLANIM KURALLARI
+
+### 1.1. Zanaat Nerede Yapılır? (Üretim Yeri Çelişkisinin Çözümü)
+Zanaat üç kademeye ayrılır; böylece hem "gemide üretim" hem "üs zorunluluğu" çelişkisi ortadan kalkar:
+1. **Saha / Gemi İçi Hızlı Üretim:** Acil tamir kitleri, standart cephane, temel bandaj/iğne ve sefer rasyonları gemideki tezgâhta veya sefer sırasında üretilebilir.
+2. **Standart Ekipman Üretimi:** Tüfekler, zırhlar, gemi modülleri ve gelişmiş ilaçlar Aethelis-IV veya Tonoflenya üslerindeki ilgili **Rol 2 (Yaşam/Sağlık)**, **Rol 3 (Sanayi/Dökümhane)** veya **Rol 4 (Bilim/YGK 5. Kat)** tesislerinde üretilir.
+3. **Melez (T-01 – T-10) Efsanevi Üretim:** İki dünyanın malzemelerini birleştiren özel taslaklar yalnızca **Aethelis Gelişmiş Dökümhane/Sera (Tier 3-4)** veya **YGK Akademi 5. Kat Aether Simya Laboratuvarı**'nda üretilir. İlgili taslağın sahibi gözetmen olarak atanırsa hammadde maliyeti `%25` düşer ve eşyaya eşsiz "Usta İşi" bonus eklenir.
+
+### 1.2. Silah ve Zırhların Çift Rolü (Kara vs. Uzay)
+Oyunda kişisel silah ve zırhlar boşa gitmez; **her ekipman kartı iki ortamda da çalışır**:
+- **Karada:** Doğrudan kaptan ve ekibin el silahı / zırhı olarak birebir hasar ve koruma sağlar.
+- **Uzayda:** Gemi bataryasına veya gövdesine takılan **çarpan / özel efekt modülü** olarak çalışır.
+- *Süre Birimi Standardı:* Eski belgelerdeki "saniye" ifadeleri evrensel savaşla uyumlu olarak **tur** birimine çevrilmiştir.
+
+---
+
+## 2. SİLAHLAR KATALOĞU (KARA + UZAY ÇİFT ROLÜ)
+
+| Silah Adı | Üretim / Maliyet | Kara Savaşı İşlevi | Uzay Savaşı İşlevi (Batarya Modülü) |
+| :--- | :--- | :--- | :--- |
+| **Filtra Ağır Plazma Tüfeği** | Dökümhane \| 4x Filtra Oksit Demiri, 2x Kızılkaya Titanyumu, 1x Plazma Kartuşu | 180 Hasar, `%15` Zırh Delme | Gemi birincil atış hasarını **`x1,8`** yapar |
+| **Norvask Kara Buz Hançeri** | YGK Lab \| 2x Norvask Kara Buzu, 1x Saf Aether Taşı, 50g Fenrir Tozu | 120 Hasar, hedefi **2 tur** dondurur (yavaşlatır) | Gemi atışı hedefin bir sonraki uyarı penceresini **`+0,5 sn`** yavaşlatır |
+| **Zhaor Işık Mızrağı** | YGK Lab \| 1x Zhaor Gümüş Prizması, 3x Kızılkaya Titanyumu, 200g Fenrir Tozu | 240 Hasar; **Karanlık/Alt-Evren** düşmanlara **`2x`** hasar | **Karanlık** gemi ve yaratıklara (Gölge, Kahergonat) **`2x`** hasar |
+| **Kahergonat Gölge Yayıcı** | Yasaklı \| 2x Kara Aether, 1x Nirdol Obsidyeni, 1x Ruh Kapsülü | Alan etkili gölge alevi; siperi yok sayar, stres kırar | Düşman kalkanını yok sayar, düşman mürettebatını bozar |
+| **T-05 Sonik Çığlık Tüfeği** *(Mirelza)* | YGK + Aethelis (3 Nöbet) \| 25x Malazar Akustik Kristali, 30x Aethelis Membran, 15x Filtra Çeliği, 10x Kondansatör | 180 Sonik Hasar, düşman siperini **2 tur** kilitler | Düşman kalkanını **2 tur** tamamen kilitler; *Gözetmen:* gizli odaları/menzili 2x açar |
+| **T-06 Geometrik Plazma Namlusu** *(Ignador)* | Aethelis Dökümhane T4 (2 Nöbet) \| 20x Magma Özütü, 35x Aethelis Lav Yağı, 40x Malken Bronzu, 15x Plazma Şasisi | 240 Termal Hasar, `%100` Zırh Delme | Çoklu düşman hattında delici atış; *Gözetmen:* her isabette `%10` kalkan yeniler |
+| **T-07 Plazma Pençeli Kesici** *(Barracuda)* | Aethelis Dökümhane T3 (2 Nöbet) \| 35x Filtra Hurda, 25x Aethelis Plazma, 15x Titanyum, 20x Fenrir Katranı | (Araç/Ağır destek yuvası) Yakın ağır darbe | Gemi burnuna takılır: **+300** yakın bordalama hasarı, enkazdan `+%50` hurda |
+| **T-08 Gümüş Söğüt Nişangâhı** *(Lyra)* | YGK Lab 5. Kat (1 Nöbet) \| 15x Loran Söğüt Reçinesi, 20x Zeris Merceği, 25x Piezo Algılayıcı, 10x Saf Aether Kılı | `+%30` Kritik, ıskalamayı sıfırlar, zayıf nokta sesi | Aynı etki gemi bataryasına geçer; *Gözetmen:* pusu yemeden ilk atış hakkı |
+
+---
+
+## 3. ZIRHLAR VE KORUYUCU DONANIMLAR
+
+| Zırh Adı | Maliyet | Kara Savaşı İşlevi | Uzay Savaşı İşlevi (Gövde Katkısı) |
+| :--- | :--- | :--- | :--- |
+| **Filtra Oksit Ağır Zırhı** | 8x Filtra Demiri, 4x Titanyum, 2x Deri Astar | `+350` Can/Zırh koruması, patlamaya `%40` direnç | Gemi gövdesine `+%10` patlama/torpido direnci |
+| **Fenrir Işık Pelerini** | 500g Fenrir Tozu, 2x Arin Tüyü, 1x Zhaor İpeği | `+150` Büyü direnci; **1 tur** görünmezlik | Savaşta 1 kez ücretsiz tam kaçınma / gizlenme |
+| **YGK Baş-Büyücü Cübbesi** | 2x Saf Aether, 1x Elyndra Mor Kumaşı, 100g Altın Tel | Yetenek bekleme süresini **1 tur** kısaltır; zihin saldırısına bağışıklık | Subay yeteneklerinin bekleme süresini **1 tur** kısaltır |
+| **T-01 Kemik-Alaşım Zırhı** *(Kaelan)* | Dökümhane T3 (2 Nöbet) \| 40x Aethelis Derin Kuyu Titanyumu, 25x Filtra Çeliği, 15x Malazar Reçinesi, 2x Kseno-Omur | `+120` Zırh, `+%25` Delici direnç; can `%30` altına inince **2 tur** hasar almaz | Gövde `%30` altına inince **1 tur** acil kalkan; *Gözetmen:* yakın saldırgana geri tepme |
+| **T-02 Akışkan Cıva Plakası** *(Oronte)* | Dökümhane T4 (3 Nöbet) \| 30x Aethelis Plazması, 35x Filtra Cıvası, 10x Zhaor Tozu, 5x Ağır Alaşım | `+95` Kalkan, `+%40` Lazer/Plazma direnci | Aynı direnç gemiye geçer; *Gözetmen:* lazer hasarının `%20`'sini saldırgana yansıtır |
+
+---
+
+## 4. GEMİ MODÜLLERİ, LOJİSTİK VE İLAÇLAR
+
+### 4.1. Gemi & Boyut Modülleri
+* **Aether Kalkan Amplifikatörü:** Kalkan kapasitesi `+%40`, frekans delinmesini önler. *(3x Saf Aether, 2x Zhaor Prizması, 150g Işık Tozu)*
+* **Sinha Akustik Derinlik Sonarı:** Gizli asteroit ve batıkları `2x` mesafeden duyar. *(2x Mavi Hardrin, 1x Sinha Çipi)*
+* **Filtra Basınçlı Zırh Plakaları:** Gemi azami gövdesini `+%50` artırır. *(12x Filtra Demiri, 6x Titanyum)*
+* **Tentran Işınlanma Modülatörü:** Tonoflenya sıçrama motoru şarj süresini kısaltır (`Kısa bilgilendirme.txt` uyumlu). *(1x Tentran Rölesi, 4x Graviton Yakıtı)*
+* **Biyo-Habitat İklim Kubbesi:** Gemideki yabancı mürettebatın moralini ve stres direncini `%30` artırır. *(2x Cam Kumu, 1x Axira Filtresi, Tohumlar)*
+* **T-03 Katlanmış Cep-Ambar** *(Tixie - YGK Lab, 2 Nöbet)*: Gemi kargo kapasitesini kalıcı `+500 birim` artırır, ağır maden yakıt cezasını sıfırlar.
+* **T-04 Rezonans Bağlantı Halkası** *(Nyxara - YGK Lab, 1 Nöbet)*: Tether-Key kullanan mekik karakterlerin dönüş/bekleme süresini `6 nöbetten 2 nöbete` indirir.
+
+### 4.2. İlaçlar, İksirler ve Özel Araçlar
+* **Glies Kriyojenik İğnesi:** *(Kriyos-7 Buz Kristali + Saf Su)* Ağır yaralı mürettebatı dondurarak ölümünü engeller.
+* **Jeotermal Vaha Şurubu:** *(2x Vaha Meyvesi + Aethelis Nektarı)* Mürettebat stresini/yorgunluğunu sıfırlar.
+* **Astral Odak İksiri:** *(Malazar Tozu + Mor Çiçek Özütü)* Subayın bir sonraki yeteneğini kritik/güçlendirilmiş yapar.
+* **Malken Sefer Rasyonu:** *(Hidroponik Buğday + Protein Bloğu + Bal)* Moral yüksek tutar, ziyafet etkisi verir.
+* **T-09 Evrensel Kseno-Panzehir** *(Sarah - Aethelis Sera/Enstitü T3, 1 Nöbet = 5 doz)*: Zehir, radyasyon ve Kara Aether lanetlerini siler, **3 tur** bağışıklık ve iyileşme verir.
+* **T-10 Magma Çekirdekli Matkap** *(Cüretkar Cüce - Dökümhane T4, 3 Nöbet)*: Yüzey madenciliği hızını `%100` artırır, nadir çekirdek mineralleri çıkarır.
+
+---
+
+## 5. HAMMADDE KÖKENLERİ VE EKONOMİ DÜZELTMESİ
+
+İki dünya arasındaki isim çakışmaları şu kanonik kökenlerle sabitlenmiştir:
+- **Aethelis-IV Kaynakları:** *Aethelis Derin Kuyu Titanyumu*, *Aethelis Lav Yağı*, *Aethelis Plazması*, *Kükürt Mantarı*, *Piezo Algılayıcı/Kristal*, *Vaha Meyvesi*.
+- **Keşif Gezegenleri Kaynakları:** *Pyros Lav Orkidesi* (**Pyros-Prime**), *Glies Buz Kristali/Sıvısı* (**Kriyos-7**), *Saf Helyum-3* (**Zephyr-Major**).
+- **Tonoflenya Kaynakları:** *Filtra Oksit Demiri/Çeliği & Cıvası*, *Kızılkaya Titanyumu* (Batı/Filtra), *Norvask Kara Buzu*, *Zhaor Gümüş Prizması*, *Fenrir Işık Tozu*, *Malazar Akustik Kristali/Reçinesi*, *Saf & Kara Aether*.
+
+### Para Birimleri ve Kuantum Kargo Nakil Harcı
+1. **Malken Lirası (ML):** Tonoflenya şehir içi standart ticaret parası.
+2. **Fenrir Işık Tozu (Gram):** `1 gram = 50 ML`. Büyü, teknoloji ve lüks eşya birimi.
+3. **Galaktik Keşif Kredisi (GK):** Uzay ve Aethelis arası ticaret/tamir birimi (`1 GK ≈ 25 ML`, yani `2 GK ≈ 1g Fenrir Tozu`).
+- **Kargo Transferi (İki Dünya Arası):** Standart nakil `1 Yıldız Nöbeti` sürer ve **`10 GK` veya `5g Fenrir Tozu`** harç keser (önceki belgedeki orantısız 25g düzeltilmiştir). Acil nakil anlıktır, `%15` gemi yakıtı tüketir.
+
+---
+
+## 6. GELECEKTE YENİ EŞYA EKLEME ŞABLONU (EVRENSEL EŞYA KARTI)
+
+İleride oyuna yeni bir silah, zırh, modül veya iksir eklendiğinde yalnızca şu **6 satır** doldurulur:
+1. **Eşya Adı ve Kategorisi:** *(Silah / Zırh / Gemi Modülü / İlaç / Yadigar)*
+2. **Üretim Yeri ve Maliyeti:** *(Saha mı, Üs mü, Melez mi? Hangi malzemeler?)*
+3. **Kara Savaşı Etkisi:** *(Hasar, koruma, tur bazlı durum etkisi — yoksa "Yok")*
+4. **Uzay Savaşı Etkisi:** *(Batarya çarpanı, kalkan/gövde bonusu veya pasif — yoksa "Yok")*
+5. **Gözetmen / Özel Şart:** *(Varsa özel NPC gözetmeni veya görev kilidi)*
+6. **Ses İmzası:** *(Kullanıldığında kulaklıkta çalacak ayırt edici ses)*

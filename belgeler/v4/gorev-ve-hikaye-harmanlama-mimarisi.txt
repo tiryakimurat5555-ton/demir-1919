@@ -1,0 +1,80 @@
+# KARAKTER MERKEZLİ HİKÂYE, GÖREV VE SAVAŞ HARMANLAMA MİMARİSİ
+
+Bu belge, oyundaki ilerlemeyi soğuk "menüden tıkla-yap" mantığından çıkarıp **karakterlerin hikâyeleri, diyalogları ve kişisel talepleri** üzerine kuran; bunu da `görevler.txt`, `Bina ve araçlar.txt`, **Evrensel Savaş Sistemi** ve **Düşman Kataloğu** ile tek potada harmanlayan ana tasarım omurgasıdır.
+
+---
+
+## 1. TEMEL FELSEFE: HER SİSTEM BİR KARAKTERİN HİKÂYESİNDEN GEÇER
+
+Oyuncu hiçbir büyük kilidi, yeni teknolojiyi, gezegen numunesini veya boss savaşını yalnızca "butona basarak" yaşamaz. Her mekanik şu **5 adımlı harman döngüsünden** geçer:
+
+1. **Karakter Çağrısı (Tetikleyici):** İlgili NPC (gemideki subay, kolonideki uzman veya Tonoflenya'daki kilit figür) kendi derdini, sırrını veya ihtiyacını telsizden ya da yüz yüze anlatır.
+2. **Hazırlık ve Keşif (Bina + Eşya):** Görev, oyuncuyu belirli bir binaya, araca veya hammaddenin kaynağına yönlendirir (bina ve eşyalar burada anlam kazanır).
+3. **Mücadele (Bulmaca + Evrensel Savaş):** Görev tekdüze değildir; sesli/dokunsal bir bulmaca ile başlar, risk yükseldiğinde doğrudan **Uzay veya Kara Savaşı** tetiklenir.
+4. **Ahlaki / Stratejik Karar:** Karakterin hikâyesinin dönüm noktasında oyuncu bir seçim yapar (ör. kâr mı vicdan mı, ittifak mı çatışma mı?).
+5. **Kalıcı İz ve Harman Ödül:** Seçim yalnızca puan vermez; o karakterin tavrını değiştirir, yeni bir eşya/gemi/bina kilidi açar veya sonraki görevde farklı bir yol doğurur.
+
+---
+
+## 2. MEVCUT OYUNUN EKSİK VE KİLİTLİ KISIMLARININ HİKÂYELERE BAĞLANMASI
+
+### 2.1. Kilitli 4 Bina (`#19–#22`) Tıkla-Yap Yerine Karakter Hikâyeleriyle Açılır
+* **`#19 Çoklu-Tür Bilim ve Felsefe Akademisi`:** *Prometheus* kurtulanı ve *Deney 07* uzmanı koloniye gelip *"Bilgilerimizi birleştirecek bir çatı olmazsa unutuluruz"* diyerek inşayı ister.
+* **`#20 Kseno-Habitat Yaşam Kubbeleri`:** *Kithron* veya *Vaelin* temsilcisi nefes alma/ortam sıkıntısını dile getirir; kubbe onlar için kurulunca kendi kültürlerinin tariflerini paylaşır.
+* **`#21 Yıldızlararası Mülteci Entegrasyon Kampüsü`:** *Aethel-9* ve *Tarras Boğazı* kurtarma görevlerinden dönen mülteci sözcüsü barınma ve iş gücü düzeni için oyuncuya başvurur.
+* **`#22 Merkezi Nöral Veri Çekirdeği (Tina)`:** *Büyük Operasyon #6*'da kurtarılan **Yapay Bilinç Tina**, gemi belleğine sığamadığını belirterek koloni merkezinde kendi veri çekirdeğinin kurulmasını ister.
+
+### 2.2. 20 Gezegen Numunesi ve 18 Eksik Gezegen (03–20) İçin Hikâye Kancaları
+Tekdüze *"in → kaz → çık"* yerine 20 gezegenin numuneleri, onları incelemek isteyen karakterlerin kısa hikâye zincirlerine bağlanır (menü teslimi yerine karakter diyaloğu):
+* **Dr. Axira Nerys** (Biyoloji/Tıp): `Mycelia-IV`, `Miasma-9`, `Aero-Flora` numunelerini ister; her birinde yeni bir tıbbi/biyolojik kriz hikâyesi ve iksir açılır.
+* **Varek Kaelon & Başçavuş Drahmir** (Silah/Zırh): `Pyros-Prime`, `Ferros-Omega`, `Carbonis-V`, `Fulgur-3`, `Radion-Kızıl` numunelerini ister; yüzeyde *Kadim Otomat* veya *Biyom Yaratığı* ile kara çatışması çıkar.
+* **Sinha Mar-Zul & Zhaor** (Akustik/Zaman/Uzay): `Lithos-Echo`, `Necron-Sıfır`, `Chronos-Döngü`, `Umbra-Kayıp`, `Zephyr-Major` numunelerini ister; yörüngede **Tanımsız Yabancı Firkateyn** devriyesiyle karşılaşma riski doğar.
+* **Kriyo / Atmosfer Keşifleri:** `Kriyos-7`, `Thalassa-Derinlik`, `Sol-Kharra`, `Janus-Split`, `Fractura`, `Automata-Enkaz`, `Corona-Lux` gezegenlerinde iniş aracı (`Atmosphere-X`, `Mammoth`, `Çöl Tilkisi`) ile hem bulmaca hem saha çatışması harmanlanır.
+
+### 2.3. Eksik `Kaelith` Kurtarma Görevi (Hikâye Taslağı)
+Tonoflenya köprüsü ön şartında yer alıp `görevler.txt`'de eksik olan **Kaelith** topluluğu için karakter odaklı görev zinciri:
+* **Tetikleyici:** Dinleme Kulesi'nden lav ve kükürt fırtınaları altındaki eski bir maden kolonisinden (Kaelith) boğuk yardım sinyali gelir.
+* **Akış:** Yüzeyde aşırı ısı altında sesli yön bulma → maden kapısını kilitleyen *Ağır Maden Korsanı / Sülfür Akrebi* ile **Evrensel Savaş** → Kaelith lideriyle seçim: *Tüm madencileri tahliye et (yüksek nüfus/iş gücü)* veya *Korsan zırh deposunu da kurtar (yüksek metal/riskli çatışma)*.
+
+---
+
+## 3. `görevler.txt` İÇİNDEKİ GÖREVLERE EVRENSEL SAVAŞ HARMANI
+
+Mevcut görevlerin akışını bozmadan, sadece tematik olarak çatışma içeren ama jestle geçiştirilen noktalara **gerçek savaş motoru** (`Çatışma:`) bağlanır:
+
+### 3.1. 30 Tonoflenya Yan Görevinden Çatışmalı Olanlar (10 Görev)
+1. **`MAG-SQ-04` (Varek Kışlası Kazası):** Arızalı otonom savaş kulesi → *Kadim Otomat (Frekans Değiştiren)* kara/tesis savaşı.
+2. **`WST-SQ-04` (Anitor Firari Şövalye):** Kraliyet muhafızlarıyla düello → *Tonoflenya Haydut/Muhafız* kara düellosu (kazanılırsa Sir Gareth ile özel diyalog).
+3. **`EST-SQ-01` (Ajmero Kulesi):** Kum kertenkeleleri baskını → *Biyom Yaratığı (Akıncı)* kara savaşı.
+4. **`EST-SQ-02` (Cam Düzlükleri):** Kristal Çöl Akrebi → *Sülfür/Kristal Akrebi (Akıncı)* kara savaşı.
+5. **`EST-SQ-03` (Nirdol Boynu):** Haydut pususu → *Haydut Çetesi (Pusucu)* kara savaşı.
+6. **`NTH-SQ-01` (Halyon Adası):** Deli simyacı Malakor → Simyacıyı ikna etme veya *Karanlık/Simya Muhafızı* kara savaşı.
+7. **`NTH-SQ-03` (Zeris Kulesi):** Etobur yıldız parazitleri → *Alt-Evren Parazit Sürüsü* kara/hava savaşı.
+8. **`NTH-SQ-06` (Drahmir Sınırı):** Buz yaratıkları → *Biyom Yaratığı (Çağıran)* kara savaşı.
+9. **`STH-SQ-04` (Veradon Ablukası):** Bataklık korsan zırhlıları → *Korsan Korveti / Dron Taşıyıcısı* uzay/deniz savaşı.
+10. **`STH-SQ-06` (Keralon Bataklıkları):** Sis Feneri Canavarı → *Biyom Canavarı (Pusucu)* kara savaşı.
+
+*(Not: Yan görevlerin ön şartlarında yer alıp oyunda olmayan `Manta-01`, `Nomad-01`, `Şok mızrağı` gibi eşyalar; mevcut `Çöl Tilkisi`, `Mammoth`, `Zhaor Işık Mızrağı`, `Filtra Tüfeği` gibi gerçek envanter eşyalarıyla eşlenir.)*
+
+### 3.2. Büyük Final Görevleri Eksiklerinin Tamamlanması
+- **Final #1:** Ödül satırı tamamlanır (`+500 ML`, *YGK Kayıt Mührü* ve *Kat 1–5 Erişim İzni*).
+- **Final #16 (`Kara Şehrin Uyanan Kuleleri`):** Eksik olan `Adımlar:` bölümü eklenir. Eğer oyuncu `EST-SQ-06`'dan **Kahergonat Gizli Geçit Haritası**'nı aldıysa, 2 aşamalı *Kahergonat Öncü Zırhlısı* savaşına ilk turdan kalkanı %-25 kırılmış şekilde (ilk vuruş avantajıyla) başlar.
+- **Final #18 (Lord Sharon) & Final #20 (Cahelon):** Jestlerle geçiştirmek yerine doğrudan `somut-dusman-katalogu-ve-bosslar.txt` içindeki **3 Fazlı Boss Savaşı** motoruna bağlanır (Tyzrakhel Mızrağı ve Cahelon Girdap Anahtarı bu fazların kilidini açar).
+
+---
+
+## 4. YENİ HİKÂYE VE GÖREV YAZIM ŞABLONU (YGK AKADEMİ TARZI)
+
+Bundan sonra eklenecek her yeni hikâye, karakter görevi veya gezegen operasyonu şu **6 bölümlü şablonla** yazılacaktır; böylece diyalog, bina, eşya ve savaş her zaman iç içe olur:
+
+```text
+[GÖREV ADI & KODU]
+1. KARAKTER & TETİKLEYİCİ: (Hangi NPC, hangi binada/bölgede ve hangi şartta konuşur? Kısa motivasyon.)
+2. SESLİ SAHNE & DİYALOG: (3D ortam sesi + karakterin oyuncudan somut talebi.)
+3. HAZIRLIK & KEŞİF ADIMI: (Hangi bina/araç/bulmaca gerekir? Jest ve sesli yön bulma.)
+4. ÇATIŞMA / SAVAŞ ENTEGRASYONU: (Varsa Uzay/Kara düşmanı, Arketipi, Tehdit Kademesi T1-T5, zayıf noktası.)
+5. DALLANAN KARAR (İKİLEM):
+   - Seçenek A: (Sonuç, itibar, karakter ilişkisi)
+   - Seçenek B: (Sonuç, itibar, karakter ilişkisi)
+6. HARMANLANMIŞ ÖDÜL: (Eşya/tarif, bina/gemi kilidi veya sonraki hikâye bağlantısı — çıkmaza girmeyen ödül.)
+```

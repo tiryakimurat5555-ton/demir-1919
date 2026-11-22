@@ -1,0 +1,46 @@
+# GEZEGEN 12: MIASMA-9 — "KEMİK FLÜTLERİ VE BATAKLIK HEKİMİ"
+
+Bu belge, **Gezegen 12: Miasma-9**'u (Zehirli Asit Bataklığı ve Fosil Havzası); milyonlarca yıl önce dev yaratıkları eriten bir salgının izini süren yalnız hekim **Dr. Veyra**, rüzgarda flüt gibi öten dev fosil kaburgaları ve asit içinde acı çeken bir bataklık canlısı üzerinden işleyen dokunaklı, atmosferik bir hikâyeye dönüştürür.
+
+* **TETİKLENME NOKTASI:** `görevler.txt` *Derin Uzay Sınıf II+ / III+* dönemi (`Korozyon Korumalı Dron` üretildikten sonra — Halka 3).
+* **YEREL GERİ PLAN:** Fokurdayan yeşil asit gölleri ve devasa taşlaşmış iskeletlerle kaplı bu gezegende, eski bir bağımsız koloni veba doktoru olan **Dr. Veyra** dev bir kseno-iskeletin kaburga kafesi içine izole bir çadır kurmuştur. Amacı, devleri yok eden antik korozif hastalığın panzehirini kemik iliklerinden çıkarmaktır; ancak asit buharı ses tellerini yakmış ve kampının girişini devasa, acı içinde kıvranan bir bataklık canlısı kapatmıştır.
+
+---
+
+## SAHNE 1: GAYZER RİTMİ VE KEMİK FLÜTLERİ (`ASİT GAYZERİ KRATERİ`)
+
+### 1.1. Sesli Sahne ve Zamanlama Geçişi
+* **3D Ses Ortamı:** Sağda ve solda fokurdayan yeşil asit gölleri, eriyen kayaların keskin kimyasal fıslama sesleri ve dev fosil kaburgalarının içinden geçen rüzgarın çıkardığı hüzünlü flüt melodileri.
+* **Gayzer Mekaniği:** *Asit Gayzeri Krateri*'nden geçerken yer altından yükselen fokurtu 3 saniyede zirveye çıkar ve hidroklorik asit buharı püskürtür. Oyuncu bu ritmi dinleyip püskürme aralarında dronunu/aracını ilerletir (`Nötralizasyon Kulesi` veya `Asit-Direnç Polimer Zırh` varsa buhar hasarı almaz).
+* **Gözlem Adımı:** Rüzgarın fosil kaburgalarından çıkardığı flüt sesleri kaydedilir; bu sesin içinde **Dr. Veyra**'nın çaresizce vurduğu metalik SOS tıklamaları duyulur.
+
+### 1.2. Telsiz / Metin Mesajı (`Dr. Veyra`)
+* **Mesaj (sesi asitten kısıldığı için yazılı telsiz ve boğuk nefes sesiyle gelir):**
+  > *"[Yazılı Telsiz — Dr. Veyra]: Sesim çıkmıyor, sadece tıklamalarımı duyabiliyorsanız lütfen dikkatli yaklaşın. Fosil kafatasının altında acı çeken dev bir bataklık canlısı var; asit gölü onu canlı canlı yakıyor ama bir yandan da kemik iliğine ulaşmamı engelliyor. İhtiyacımız olan şey vahşet değil, bu asidi durduracak bir çözüm..."*
+
+---
+
+## SAHNE 2: DEVASA KSENO-FOSİL MEZARLIĞI — ŞİFA MI, AV MI?
+
+Kafatasının altına ulaşıldığında **1x Asit Bataklık Canavarı** (*Arketip: Zehir/Asit + Zırhlı*, *T3*) yolu kapatmıştır. Burada iki tamamen farklı çözüm yolu vardır:
+
+### YOL A: Asidi Nötralize Et ve Canlıyı Sakinleştir *(Şifa & Bilim Yolu)*
+* **Nasıl Açılır:** Oyuncunun yanında **`Nötralizasyon Kulesi`**, **`T-09 Evrensel Kseno-Panzehir`** veya **Gezegen 04 (`Mycelia-IV`)**'ten gelen **`Ana Miselyum Sporu`** varsa bu seçenek aktifleşir.
+* **Ne Yapılır:** Dron ile asit havuzuna nötralizasyon/miselyum çözeltisi bırakılır. Fokurtu kesilir, canavarın iniltisi sakin bir nefes sesine dönüşür ve hayvan kafatasının derinliklerine çekilir (hiç savaş yapılmaz).
+* **Ödül:**
+  * **`+600 Evren İtibarı`**, gemiler için **Kimyasal Korozyona Mutlak Bağışık Gövde Verniği** (asit ve korozif ortamlarda kalıcı `%100` gövde koruması).
+  * **Dr. Veyra**'nın **`Asit-Kemik Şifa Reçetesi`** (Aethelis `#25 Eczane` / `#23 Hastane`'de zehir ve asit yaralanmalarını anında iyileştiren yeni ilaç).
+
+### YOL B: Bataklık Canavarını Temizle ve Kemik İliğini Sök *(Savaş & Yüksek Kaynak Yolu)*
+* **Ne Yapılır:** Nötralizasyon çözeltisi yoksa veya oyuncu doğrudan çatışmayı seçerse **Evrensel Savaş (T3)** başlar.
+  * *Taktik:* Asit püskürtmesine karşı `Asit-Direnç Zırhı` veya hızlı kaçınma kullanılır; zırhlı kabuk `T-06 Plazma` veya `Mammoth` ağır vuruşuyla kırılır.
+* **Ödül:**
+  * **`+600 Evren İtibarı`**, gemiler için **Kimyasal Korozyona Mutlak Bağışık Gövde Verniği**.
+  * Canavarın kabuğundan ve taze kemik iliğinden normalden **2 kat fazla `Kalsiyum-Ksenon Bileşiği`** + **`4x Fosil Kseno-Kabuk`** (`Araç Hangarı`'nda kalıcı araç zırhı geliştirme malzemesi!) çıkarılır. Veyra hayatta kalır ama canlıyı kaybettiği için üzüntüyle tahliye edilir.
+
+---
+
+## SAHNE 3: ATIL KALMAMA — FOSİL TOPLAMA DÖNGÜSÜ
+
+- **Korozyon Verniği Kazanımı:** Artık gemin kimyasal korozyona bağışık olduğu için gezegen bir engel olmaktan çıkar.
+- **Tekrar Ziyaret:** Özellikle rüzgarlı nöbetlerde (*Mavi Akşam `Sinha`* veya *Gümüş Şafak `Zhaor`*) `Korozyon Korumalı Dron` ile dönüp düzenli **`Kalsiyum-Ksenon Bileşiği`** ve **`Fosil Kseno-Kabuk`** toplanabilir.

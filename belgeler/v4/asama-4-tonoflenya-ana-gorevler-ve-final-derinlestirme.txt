@@ -1,0 +1,85 @@
+# AŞAMA 4: TONOFLENYA ANA GÖREV EKSENİ VE BÜYÜK FİNAL DERİNLEŞTİRMESİ
+
+Bu belge, `görevler.txt` içindeki **Bölüm 6 (Tonoflenya Köprüsü)** ve **Bölüm 7 (20 Büyük Final Görevi)** ekseninde ilerleyerek; eksik kalan bölümleri doldurur, `Zirve İğnesi` (Kronik #4) gibi kopuk bağları kurar ve **Final #16, #18 (Lord Sharon), #20 (Cahelon)** görevlerini derin karakter anlatımı + **Evrensel Savaş** ile ana hikâyenin görkemli bitişine bağlar. *(Yan görevler bir sonraki aşamada ayrı ele alınacaktır.)*
+
+## 📍 MEVCUT `görevler.txt` AKIŞINA YERLEŞİM HARİTASI
+- **Ara Sahne 4A (YGK Karşılama & Final #1 Ödülü):** `görevler.txt` *Bölüm 6 (Sıçrama)* ile *Final #1* arasına ve *Final #1*'in eksik `Ödül:` alanına yerleşir.
+- **Ara Sahne 4B (`Zirve İğnesi` Hizalaması):** *Final #3 (Akademi Dehlizlerinde Sızıntı)* tamamlandıktan hemen sonra (Kronik #4'ü açar).
+- **Tamamlanan Final #16 (`Kara Şehrin Uyanan Kuleleri`):** `görevler.txt`'de eksik olan `Adımlar:` bölümünü ve 2 aşamalı boss savaşını ekler.
+- **Derinleştirilen Final #17 → #18 (`Lord Sharon`):** Final #17 kararlarını #18'e bağlar; Lord Sharon'u 3 fazlı kara boss savaşına dönüştürür.
+- **Derinleştirilen Final #19 → #20 (`Cahelon` Büyük Finali):** Okyanos-Abyssus finalini 3 fazlı uzay/su altı boss savaşıyla tamamlar ve oyun sonu serbest keşfe bağlar.
+
+---
+
+## BÖLÜM 1: KÖPRÜ VARIŞI VE İLK TEMAS DERİNLEŞTİRMESİ
+
+### ARA SAHNE 4A: "ALTI YILDIZIN ALTINDA" (Köprü Varışı & Final #1 Tamamlaması)
+* **TETİKLENME NOKTASI:** `görevler.txt` *Bölüm 6 (Sıçrama)* sonu → *Final #1 (Sürgünün Sonu)*.
+1. **KARAKTER & SESLİ SAHNE:**
+   - *3D Ses:* 8 saatlik alt-uzay uğultusunun ardından manyetik frenlerin kilitlenme sesi (`klank-tssss`), dışarıda binlerce öğrencinin yankılanan uğultusu ve gökte altı yıldızın altı notalı çan akoru.
+   - *Diyalog (**Valen Lazeria** & **Kefius Arateon**):*
+     - **Valen:** *"Demek Aethelis'ten geri dönen kayıp kaptan sensin... Yıllar önce kat 5 katapultundan fırlatıldığında görev emrin kapanmamıştı. Hoş geldin."*
+     - **Kefius:** *"Zamanımız dar, Valen. Altı yıldızın kilidi titriyor ve Kara Göl'ün altındaki mühür çatlıyor. Bu kaptanın getirdiği Aethelis teknolojisi olmadan Tonoflenya ayakta kalamaz."*
+2. **MÜRETTEBAT ENTEGRASYONU:** Bu sahneyle birlikte geminin 6 YGK Seçkin Subayı (`Elyndra`, `Varek`, `Axira`, `Zhaor`, `Sinha`, `Drahmir`) resmi olarak komuta kadrosuna tam entegre olur.
+3. **FİNAL #1 EKSİK ÖDÜL TAMAMLAMASI:**
+   - `Ödül:` **`+500 Malken Lirası`**, **`YGK Kayıt Mührü`** (Akademi Kat 1–5 ve Şehir Pazarları erişim izni) ve **`100 Keşif Kredisi`**.
+
+---
+
+### ARA SAHNE 4B: "ZİRVE İĞNESİ'NİN HİZALANMASI" (Kronik #4 Bağlantısı)
+* **TETİKLENME NOKTASI:** `görevler.txt` *Final #3 (Akademi Dehlizlerinde Sızıntı)* sonrası, *Final #4* öncesi.
+- **Karakter:** **Kefius Arateon** ve Gözlemevi Görevlisi.
+- **Sahne:** Akademi 6. Kat Gözlemevi'ndeki dev pirinç ve kristal **Zirve İğnesi**, dehliz sızıntısı yüzünden kaymıştır. Oyuncu iki parmakla çevirerek 6 yıldız ışığını iğnenin ucunda tek tonda toplar.
+- **Sonuç:** Zirve İğnesi hizalanır → **`Kronik #4 (Cahelon'un laneti ve su mezarı)`** artık mantıksal olarak açılır ve oyuncu ilk kez komşu okyanus gezegeni *Okyanos-Abyssus*'un varlığını öğrenir.
+
+---
+
+## BÖLÜM 2: EKSİK VE KOPUK FİNAL GÖREVLERİNİN DERİNLEŞTİRİLMESİ (#16 – #20)
+
+### FİNAL #16: "KARA ŞEHRİN UYANAN KULELERİ" *(Eksik Adımlar Tamamlandı)*
+* **TETİKLENME NOKTASI:** `görevler.txt` *Final #15 (Tyzrakhel Kulesi)* sonrası.
+1. **KARAKTER & DİYALOG:**
+   - **Mareşal Elyon Vane:** *"Kaptan, Doğu dağlarının ardındaki Kahergonat kuleleri yüzyıllardır ilk kez kara aether ateşi yakıyor. Şehirde kimse yaşamıyor sanırdık ama gölge zırhlıları göğe yükseldi. Oraya ilk sen sızacaksın!"*
+2. **SESLİ SAHNE & ADIMLAR (Eksik Kısım):**
+   - *Adım 1 (Karanlık Sızma):* Mavi Hardrin geçidinden geçerken kulaklıkta rüzgar uğultusu ve 40 Hz savaş davulu nabzı duyulur. Oyuncu tek parmakla nabza ters yönde sessiz manevra yaparak kule radarlarından sıyrılır.
+   - *Adım 2 (Gizli Harita Avantajı):* Eğer oyuncu `EST-SQ-06` yan görevinden **Kahergonat Gizli Geçit Haritası**'nı aldıysa, arka kanyon rotasından sızıp düşman zırhlısının kalkanını **`%-25` kırık** başlatır.
+   - *Adım 3 (2 Aşamalı Boss — Uzay Savaşı, T4):* **Kahergonat Öncü Zırhlısı** (*Karanlık + Frekans Değiştiren*).
+     - *Aşama 1 (%100–%50):* Kalkan tonu değiştirir, ağır plazma atar.
+     - *Aşama 2 (%50–%0):* Kalkanını patlatıp 2 adet Gölge Dronu çağırır; `Zhaor Işık Mızrağı` `2x` vurur.
+3. **ÖDÜL:** `Runashar Mühür Taşı`, `2.000 Savaş Ganimeti Kredisi`, `150x Kara Aether` (veya arıtma hakkı).
+
+---
+
+### FİNAL #17 → #18: "TENOHRİS KUŞATMASI VE DÜNYA ÇİVİSİ — LORD SHARON"
+* **TETİKLENME NOKTASI:** `görevler.txt` *Final #17* kararı doğrudan *Final #18*'e bağlanır:
+
+#### Final #17 Karar Etkisi:
+- **Seçenek A (Sarayı ve Halkı Koru):** **Mareşal Elyon Vane** hayatta kalır ve Final #18'de kaptanın yanında **Refakatçi Takviyesi** olarak savaşır (ilk 3 tur +%20 zırh ve ek atış).
+- **Seçenek B (Doğrudan Kuşatma Merkezine Saldır):** Saray hasar alır ama Sharon'un gölge ordusu kırılır; Final #18'de Lord Sharon **2. Fazda yalnızca 1 Gölge Muhafızı** çağırabilir.
+
+#### Final #18: "DÜNYA ÇİVİSİ SAVUNMASI" *(3 Fazlı Kara Boss Savaşı)*
+1. **KARAKTER & DİYALOG:**
+   - YGK Akademi -5. Kat (*Sıfırıncı Karanlık*). **Valen Lazeria** ve **Kefius Arateon** mühür sütununun başında nefes nefese beklemektedir.
+   - **Lord Sharon** gölge formunda sütunun önünden yükselir; sesi yankılı, soğuk ve çok katmanlıdır: *"Beyaz Kıyamet beni parçaladı sandınız... Ama Kara Göl beni besledi! Şimdi Runahar ve Runashar yeniden birleşecek!"*
+2. **HAZIRLIK & YADİGAR BAĞLANTISI:**
+   - Final #11 (`Malok`) ve #15 (`Astral Yankı` — `Tyzrakhel Işık Prizması`) birleştirilerek **Tyzrakhel Mızrağı** kuşanılır. Final #14'teki `Kırmızı Mühür Parçası` ise sütunu geçici olarak stabilize ederek Sharon'un karanlık hasarını `%20` azaltır.
+3. **3 FAZLI KARA BOSS SAVAŞI (`Lord Sharon` — T5):**
+   - *Faz 1 (%100–%66):* Çifte gölge kılıcı ve siper kıran patlamalar.
+   - *Faz 2 (%66–%33):* Odayı zifiri karanlığa boğar ve Gölge Muhafızları çağırır; `Sinha` akustik sensörü veya kulaklıkla gerçek Sharon'un nefes sesi bulunup vurulur.
+   - *Faz 3 (%33–%0):* Sharon ölümsüz gölge zırhına bürünür → Oyuncu **Tyzrakhel Işık Mızrağı**'nı ateşleyerek mührü kırar, ardından `Runahar` ve `Runashar` mühür taşlarını Dünya Çivisi'ne yerleştirip Sharon'u kalıcı olarak mühürler.
+4. **ÖDÜL:** `Efsanevi Aether Reaktörü` (Okyanos-Abyssus sıçraması için tek anahtar), `Malken Kahramanı` unvanı.
+
+---
+
+### FİNAL #19 → #20: "OKYANOS-ABYSSUS VE CAHELON İLE HESAPLAŞMA"
+* **TETİKLENME NOKTASI:** `görevler.txt` *Final #19* sonrası *Final #20* (Büyük Final).
+1. **SESLİ SAHNE & DİYALOG:**
+   - *3D Ses:* `Okyanos-Abyssus` gezegeninin sonsuz okyanusunda dev girdap uğultusu, su altından yükselen ve gemi gövdesini titreten balina benzeri infrasonik çığlık.
+   - **Valen Lazeria (Telsizden):** *"Kaptan, Cahelon uyanıyor! Arin'den getirdiğin Girdap Anahtarı'nı kalkan rezonatörüne tak. Bu sadece Tonoflenya'nın değil, Aethelis-IV'ün de kader savaşı!"*
+2. **3 FAZLI BÜYÜK FİNAL BOSS SAVAŞI (`Cahelon` — T5):**
+   - *Faz 1 (%100–%66 — Yüzey Girdabı):* Dev yüzgeç darbeleri ve su altı sonik dalgaları. `Cahelon Girdap Anahtarı` ile kalkan dengelenir, `Hisar` bataryaları/torpidolarla saldırılır.
+   - *Faz 2 (%66–%33 — Derin İnfrasonik):* Cahelon suya dalar, gözden kaybolur; yalnızca 3D kulaklıktaki kalın infrasonik nabzından yeri kestirilir. Etrafa *Alt-Evren Su Yaratıkları* çağırır.
+   - *Faz 3 (%33–%0 — Dünya Çivisi Yankısı):* Cahelon su yüzüne fırlayıp göğsündeki kadim mühür çatlağını açar. Uyarı penceresi `1,5 sn`'ye düşer; oyuncu son **frekans eşlemesini** yapıp **Zhaor Işık Mızrağı / Aether Bataryası** ile son darbeyi vurur!
+3. **BÜYÜK KAPANIŞ VE OYUN SONU (SERBEST KEŞİF):**
+   - Cahelon ebediyen su mezarına kilitlenir. Altı yıldız gökyüzünde yeniden sabit bir uyum akoru çalar.
+   - Oyuncu **`Evrenin Muhafızı`** unvanını alır; Aethelis-IV (Galaktik Başkent) ile Tonoflenya arasındaki köprü kalıcı barış dönemine geçer ve kalan yan görevler, melez zanaatlar ve gezegen keşifleri için **Serbest Keşif Modu** devam eder.

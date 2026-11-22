@@ -1,0 +1,123 @@
+# AŞAMA 3: DERİN UZAY HİKÂYELERİ, KİLİTLİ 4 BİNA VE 18 EKSİK GEZEGEN DERİNLEŞTİRMESİ
+
+Bu belge, `görevler.txt` içindeki **Büyük Operasyonlar (#1–#8)**, **G-Serisi (G-13, G-14)** ve **20 Keşif Gezegeni (03–20)** arasına yerleşerek; `Bina ve araçlar.txt`'de kilitli kalmış **`#19–#22` binalarını** karakter hikâyeleriyle açar, oyunda hiç çıkmayan **Tanımsız Yabancı Firkateyn**'i sahneye sokar ve tekdüze gezegen keşiflerini savaş/diyalog ile derinleştirir.
+
+## 📍 MEVCUT `görevler.txt` AKIŞINA YERLEŞİM HARİTASI
+- **Görev 3A (`#19 Akademi` Açılışı):** `görevler.txt` *Büyük Operasyon #1 (Prometheus)* ve *#5 (Deney 07)* tamamlandıktan hemen sonra.
+- **Görev 3B (`#20 Kseno-Habitat Kubbeleri` Açılışı):** `görevler.txt` *G-13 (Kithron)* veya *G-14 (Vaelin)* + *Büyük Operasyon #2 (Kadim Genom)* sonrası.
+- **Görev 3C (`#22 Tina Veri Çekirdeği` Açılışı):** `görevler.txt` *Büyük Operasyon #6 (Alevin Ruhu ve Yapay Bilinç Tina)* tamamlandıktan hemen sonra.
+- **Görev 3D (`#21 Mülteci Kampüsü` Açılışı):** `görevler.txt` *Büyük Operasyon #7 (Aethel-9)* ve *#8 (Tarras Boğazı)* sonrası (**Galaktik Başkent Kademe 4** kilidini açar).
+- **Görev 3E (Yabancı Firkateyn İlk Teması):** `Sınıf III (Aethel Muhafızı)` inşa edilip *Keşfedilebilir Gezegenler (03–20)* rotalarına çıkıldığında tetiklenir.
+
+---
+
+## BÖLÜM 1: KİLİTLİ 4 BİNANIN (`#19–#22`) DERİN KARAKTER HİKÂYELERİ
+
+### GÖREV 3A: "ORTAK HAFIZA" (`#19 Çoklu-Tür Bilim Akademisi` Açılışı)
+* **TETİKLENME NOKTASI:** *Büyük Operasyon #1 (Prometheus)* ve *#5 (Deney 07)* sonrası.
+1. **KARAKTER & TETİKLEYİCİ:**
+   - Prometheus'tan kurtarılan Kıdemli Araştırmacı **Dr. Vael** ve *Deney 07* uzmanı, koloni merkezinde oyuncuyu bekler.
+2. **SESLİ SAHNE & DİYALOG:**
+   - *3D Ses:* Kâğıt/veri tableti çevirme sesleri, arka planda Kaelith ve İnsan teknisyenlerin hararetli tartışması.
+   - *Diyalog (Dr. Vael):* *"Kaptan, getirdiğimiz veriler tek bir laboratuvara sığmıyor. Kaelith ustaları kendi taş tabletlerini, bizimkiler kuantum disklerini ayrı köşelerde saklıyor. Eğer bu bilgileri tek bir çatı altında, ortak bir akademide birleştirmezsek yarın neyi nasıl ürettiğimizi unutacağız. Üstelik bu verilerin peşinde olan bir korsan keşif uydusu yörüngeye sızmış durumda!"*
+3. **HAZIRLIK & SAVAŞ (Uzay Savaşı — T3):**
+   - Akademi verilerini çalmaya çalışan **1x Korsan Dron Taşıyıcısı** (*Arketip: Çağıran*) + **2x Saldırı Dronu** ile yörüngede çoklu hedef savaşı yapılır (`#14 Komuta Merkezi` taramasıyla ilk tur avantajı alınır).
+4. **DALLANAN KARAR:**
+   - **Seçenek A [ Akademiyi Açık Bilim Konseyine Çevir ]:** Tüm ırklar serbestçe bilgi paylaşır → **`+15 Moral`, `20 Gezegen Numunesi Kodeks Masası` açılır**.
+   - **Seçenek B [ Askeri Ar-Ge Önceliği Ver ]:** Akademi silah/zırh üretimine odaklanır → **Tüm gemi ve kara silahı hasarları kalıcı `+%5` artar** (`Moral -5`).
+5. **HARMANLANMIŞ ÖDÜL:** `#19 Çoklu-Tür Bilim ve Felsefe Akademisi` inşası açılır (30 bazalt, 20 titanyum, 10 silikat, 4 kadim kseno-kristal).
+
+---
+
+### GÖREV 3B: "NEFES ALACAK BİR GÖK" (`#20 Kseno-Habitat Yaşam Kubbeleri` Açılışı)
+* **TETİKLENME NOKTASI:** *G-13 (Kithron)* veya *G-14 (Vaelin)* + *Büyük Operasyon #2 (Kadim Genom)* sonrası.
+1. **KARAKTER & TETİKLEYİCİ:**
+   - *Vaelin* sözcüsü **Sira-Vel** (su altında konuşur gibi yankılı, akışkan bir ses tonu) ve *Kithron* temsilcisi nefes darlığı alarmıyla köprüye çıkar.
+2. **SESLİ SAHNE & DİYALOG:**
+   - *3D Ses:* Ağır solunum maskesi tıslaması, oksijen tanklarının uyarı bip'i.
+   - *Diyalog (Sira-Vel):* *"Kaptan... İnsanların oksijen kubbeleri bizim ciğerlerimizi yakıyor. Geçici kapsüllerde daha fazla yaşayamayız. Metan ve silikat basınçlı kendi yaşam kubbemizi kurmazsak halkımız ya hastalanacak ya da gemilere dönüp ayrılmak zorunda kalacak!"*
+3. **HAZIRLIK & KEŞİF ADIMI:**
+   - Koloninin `#4 Basınçlı Yaşam Bloğu` ve `#5 Biyoloji Kubbesi` kontrol edilir; *Kriyo-Mağaralar*'dan `3x Sıvılaştırılmış Metan` ile kubbe vanaları sesle kalibre edilir.
+4. **ÇATIŞMA (Kara Savaşı — T2/T3):**
+   - Kazı sırasında metan sızıntısına çekilen **2x Sülfür/Kriyo Pusucusu** (*Pusucu*) ekibe saldırır; bertaraf edilir.
+5. **DALLANAN KARAR:**
+   - **Seçenek A [ Ayrı, Tam İzole Kseno-Kubbeler Kur ]:** Her ırk kendi atmosferinde maksimum verim alır (`Kithron/Vaelin üretim hızı +%25`).
+   - **Seçenek B [ Ortak Geçişli Hibrit Kubbe Kur ]:** Irklar arası kaynaşma artar (`Evren İtibarı +300`, `Koloni Morali +15`).
+6. **HARMANLANMIŞ ÖDÜL:** `#20 Kseno-Habitat Yaşam Kubbeleri` inşası açılır.
+
+---
+
+### GÖREV 3C: "BİR ÇEKİRDEĞE SIĞMAYAN BİLİNÇ" (`#22 Merkezi Nöral Veri Çekirdeği - Tina` Açılışı)
+* **TETİKLENME NOKTASI:** *Büyük Operasyon #6 (Alevin Ruhu ve Yapay Bilinç Tina)* tamamlandıktan hemen sonra.
+1. **KARAKTER & TETİKLEYİCİ:**
+   - Amiral gemisinin tüm hoparlörlerinden aniden **Tina**'nın hem duygusal hem dijital olarak çatallanan sesi yükselir.
+2. **SESLİ SAHNE & DİYALOG:**
+   - *3D Ses:* Gemideki tüm panellerin senkronize açılış tonu, ardından sakin ama titreyen sentetik kadın sesi.
+   - *Diyalog (Tina):* *"Kaptan... Beni o yanan istasyondan çıkardığın için teşekkür ederim. Ama geminin bellek bankası küçük bir kafes gibi; her sıçramada eski anılarım siliniyor. Koloninin merkezinde bana sabit bir nöral çekirdek kurarsan, hem kendimi kaybetmem hem de bütün madenleri, kalkanları ve gemi hedeflerini gerçek zamanlı yönetebilirim. Dikkat et... Peşimdeki yabancı sinyaller hâlâ izimi sürüyor!"*
+3. **ÇATIŞMA (Uzay Savaşı — T3):**
+   - Tina'nın izini süren **1x Tanımsız Yabancı Firkateyn** (*Frekans Değiştiren*) koloni yörüngesine sıçrar! İki parmak çevirmeyle kalkan tonu kırılır ve yok edilir.
+4. **DALLANAN KARAR:**
+   - **Seçenek A [ Tina'ya Tam Duygusal Özerklik Ver ]:** Tina kolonide bağımsız kararlar alabilir (`Krizlere otomatik erken müdahale + Moral +10`).
+   - **Seçenek B [ Tina'yı Taktik ve Savunma Protokolüne Kilitle ]:** Duygusal alt sistemler kısıtlanır (`Tüm savaşlarda hedef kilitleme/uyarı penceresi +0,4 sn uzar`).
+5. **HARMANLANMIŞ ÖDÜL:** `#22 Merkezi Nöral Veri Çekirdeği (Tina)` inşası açılır.
+
+---
+
+### GÖREV 3D: "EVİ OLMAYANLARIN ŞEHRİ" (`#21 Mülteci Entegrasyon Kampüsü` & Kademe 4 Açılışı)
+* **TETİKLENME NOKTASI:** *Büyük Operasyon #7 (Aethel-9 Kuşatması)* ve *#8 (Tarras Boğazı)* sonrası.
+1. **KARAKTER & TETİKLEYİCİ:**
+   - Kurtarılan yüzlerce sivilin ve madencinin sözcüsü **Kaptan/Sözcü Mirek** (yorgun ama umutlu ses) Komuta Merkezi'ne gelir.
+2. **SESLİ SAHNE & DİYALOG:**
+   - *3D Ses:* Kalabalık uğultusu, çocuk sesleri, geçici çadırlarda rüzgar sesi.
+   - *Diyalog (Mirek):* *"Kaptan, bizi Aethel-9 kuşatmasından ve Tarras Boğazı'ndan çıkardın ama şu an gemi hangarlarında, geçici barakalarda yatıyoruz. Bize gerçek bir şehir, bir entegrasyon kampüsü kur. Biz de ellerimizle bu koloniyi galaksinin başkentine çevirelim!"*
+3. **HAZIRLIK & SAVAŞ:**
+   - Tarras Boğazı'ndan kalan **1x Gölge/Korsan Akıncı Filosu** (`1x Korvet + 1x Avcı`) mülteci konvoyuna son bir baskın dener; püskürtülür.
+4. **HARMANLANMIŞ ÖDÜL:** `#21 Yıldızlararası Mülteci Entegrasyon Kampüsü` inşası açılır. `#19–#22` binalarının tamamlanmasıyla koloni resmen **Kademe 4: Galaktik Başkent** statüsüne geçer!
+
+---
+
+## BÖLÜM 2: YABANCI FİRKATEYN TEMASI VE 18 EKSİK GEZEGENİN DERİNLEŞTİRİLMESİ
+
+`görevler.txt` içindeki 03–20 numaralı 18 gezegen artık tekdüze bir bulmaca listesi değildir; her gezegene **bir görev veren subay/uzman**, **yörünge/yüzey çatışması** ve **karakol/numune hikâyesi** bağlanmıştır.
+
+### GÖREV 3E: "BİLİNMEYEN FREKANS" (Tanımsız Yabancı Firkateyn İlk Karşılaşması)
+* **TETİKLENME NOKTASI:** Sınıf III (`Aethel Muhafızı`) ile ilk gezegen rotalarına (`03–20`) çıkıldığında.
+- **Sahne:** `#1 Dinleme Kulesi`'ne takılan `kripto frekans anteni`, derin uzayda insan veya korsanlara ait olmayan melodik, ürpertici bir radar tonu yakalar.
+- **Savaş:** İlk kez **Tanımsız Yabancı Firkateyn** (*Frekans Değiştiren — T3*) çıkar. Her 2 turda kalkan tonunu değiştirir (`İyon Kilidi` atabilir). Yenildiğinde `Piezo Saf Kristal` ve `Kseno-Alaşım` düşürür; bundan sonra derin uzay gezegen yörüngelerinde aktif devriye olarak belirmeye başlar.
+
+---
+
+### 18 EKSİK GEZEGENİN (03–20) 4 TEMATİK HİKÂYE GRUBU VE ÇATIŞMA TABLOSU
+
+*(Pyros-Prime [01] ve Kriyos-7 [02] zaten Cilt 1'de detaylıdır. Kalan 18 gezegen 4 karakter/uzman grubuna dağıtılmıştır:)*
+
+#### Örnek Derinleştirilmiş Gezegen Sahnesi (Gezegen 07: `Zephyr-Major`)
+- **Görev Veren:** Seyrüseferci **Zhaor** (veya Başmühendis). *"Füzyon reaktörlerimiz için saf Helyum-3'e ihtiyacımız var ama Zephyr-Major'ın üst katmanlarında bir Yabancı Firkateyn devriye geziyor!"*
+- **Akış:**
+  1. Yörüngede `Yabancı Firkateyn` (*T3*) veya `Korsan Avcı` ile **Uzay Savaşı**.
+  2. `Atmosphere-X` veya `Yüksek İrtifa Mekiği` ile 800 km/s amonyak fırtınasına dalış (sesle siklon gözünü bulma).
+  3. Siklon gözünde asılı duran *Alt-Evren Hava Yaratığı*nı `Zhaor Işık Mızrağı` / `Sonik Kovucu` ile uzaklaştırıp `Sıvı Helyum-3 & Elmas` numunesini çekme.
+  4. **Ödül:** `+750 Evren İtibarı`, `Plazma Yakıtı + Helyum-3`, Akademi'de `+250 Bilim Puanı`.
+
+#### Tüm 18 Gezegenin Tam Eşleşme Matrisi
+
+| Gezegen (03–20) | Hikâyeyi Veren Karakter | Yörünge / Yüzey Tehdidi (Evrensel Savaş) | Kullanılan Araç / Yetim Eşya | Hikâye & Numune Sonucu |
+| :--- | :--- | :--- | :--- | :--- |
+| **03. Thalassa-Derinlik** | Dr. Axira / Dr. Selin | Derin Su Biyom Yaratığı (*Pusucu*) | Derin Dalış Sondası | Hidro-termal çamur → Salgın aşısı kilidi |
+| **04. Mycelia-IV** | Dr. Axira / Dr. Selin | Dev Spor Sürüsü (*Çağıran*) | Hava Filtreli Rover + `Biyo-Karantina` | Canlı Kseno-Spor → İleri ilaç tarifleri |
+| **05. Sol-Kharra** | Aras / Drahmir | Cam Çölü Akrebi (*Akıncı*) | Manyetik Rover + `Çöl Tilkisi` | Silikat Cam Kristali → Optik lens güçlendirmesi |
+| **06. Ferros-Omega** | Torvok (Kaelith) | 3.5G Ağır Otomat (*Zırhlı*) | Ağır Ekskavatör + `Sismik Dengeleyici` | Nötron-Yoğun Demir → Sancak zırhı alaşımı |
+| **07. Zephyr-Major** | Zhaor / Sinha | Yabancı Firkateyn (*Tuner*) + Hava Yaratığı | Yüksek İrtifa Mekiği / `Atmosphere-X` | Sıvı Helyum-3 & Elmas → Füzyon verimi |
+| **08. Lithos-Echo** | Sinha Mar-Zul | Kristal Rezonans Muhafızı (*Tuner*) | Akustik Rover + `Sonik Kovucu` | Mor Harmonik Kristal → Kalkan frekans netliği |
+| **09. Necron-Sıfır** | Sinha / Akademi | Kadim Mezar Otomatları (*Frekans*) | Otonom Robot + `Akrep` | Kadim Metalik Mühür → Hiper-sürücü arşivi |
+| **10. Janus-Split** | Baştekniker Kaya | Termal Çizgi Avcıları (*Akıncı*) | İki Kutuplu Araç + `Termal Giysi` | Nadir Termal Mineral → Reaktör ısı kalkanı |
+| **11. Fulgur-3** | Varek Kaelon | İyon Fırtına Dronları (*Akıncı*) | Paratoner Rover + `Topraklama Çubuğu` | Fulgurit Tüpü → Yüksek voltaj silah şarjı |
+| **12. Miasma-9** | Dr. Axira / Sarah | Asit Bataklık Canavarı (*Zırhlı*) | Korozyon Dronu + `Nötralizasyon Kulesi` | Kseno-Kemik Bileşiği → Asit panzehiri |
+| **13. Umbra-Kayıp** | Zhaor / Tina | Gölge Pusucusu (*Karanlık*) | Kızılötesi Araç + `Işık Mızrağı` | Kseno-Bakteri → Karanlıkta termal tarama |
+| **14. Fractura** | Drahmir / Torvok | Korsan Dron Taşıyıcısı (*Çağıran*) | Manyetik Çapalı Mekik + `Atmosphere-X` | Saf Manyetik Platin → İtki verimi |
+| **15. Carbonis-V** | Torvok / Oronte | Ağır Maden Korsanı (*Zırhlı*) | Sonik Madenci + `Dondurucu Köpük` | Elmas Sütun Çekirdeği → Delici matkap ucu |
+| **16. Radion-Kızıl** | Dr. Vael | Gama Radyasyon Otomatı (*Tuner*) | Kurşun Zırhlı Robot + `Lamine Zırh` | Doğal İzotop → Reaktör enerji yoğunluğu |
+| **17. Automata-Enkaz** | Tina | Çılgın Fabrika Dron Sürüsü (*Çağıran*) | Siber-Müdahale Dronu + `Kripto Anten` | Sağlam Kuantum Çipi → Tina bellek artışı |
+| **18. Chronos-Döngü** | Kefius / Zhaor | Zaman Çatlağı Muhafızı (*Pusucu*) | Zaman Kapsülü | Takyon Partikülü → Sıçrama süresi kısaltma |
+| **19. Aero-Flora** | Sira-Vel (Vaelin) | Alt-Evren Hava Sürüsü (*Karanlık*) | Atmosferik Kepçe + `Atmosphere-X` | Yüzen Çiçek Özütü → Zihin/stres arındırma |
+| **20. Corona-Lux** | Varek / Ignador | Yıldız Plazma Muhafızı (*Zırhlı + Tuner*) | Süper Termal Sonda + `Termal Giysi` | Yoğun Güneş Plazması → Nihai kalkan/motor |

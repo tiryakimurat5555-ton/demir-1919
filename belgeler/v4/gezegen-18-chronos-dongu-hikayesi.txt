@@ -1,0 +1,46 @@
+# GEZEGEN 18: CHRONOS-DÖNGÜ — "PATLAMADAN ÖNCEKİ SON YANKI"
+
+Bu belge, **Gezegen 18: Chronos-Döngü**'yü (Zaman Anomalisi Dünyası) seslerin önce yankılanıp sonra duyulduğu, şarapnellerin havada asılı kaldığı bir **tersine ses bulmacası** ve **zaman döngüsünde donmuş Pilot Elara'yı kurtarma** bilimkurgu hikâyesine dönüştürür.
+
+* **TETİKLENME NOKTASI:** `görevler.txt` *Derin Uzay Sınıf III+* dönemi (`Zaman-Yalıtımlı Kapsül` üretildikten sonra — Halka 4).
+* **YEREL GERİ PLAN:** Kuantum çöküntüsü içindeki bu gezegenin *Donmuş Patlama Sahası*'nda, gemisi havaya uçmak üzereyken zaman donmasına yakalanmış bağımsız bir keşif pilotu (**Pilot Elara**) asılı kalmıştır. Elara'nın gemisi patlamanın tam milisaniyesinde donmuş, çevresindeki *Hızlı Zaman Çemberi* ise bitkileri saniyeler içinde büyütüp çürütmektedir.
+
+---
+
+## SAHNE 1: TERSTEN GELEN SESLER (`DONMUŞ PATLAMA SAHASI`)
+
+### 1.1. Sesli Sahne ve Tersine Kayıt Bulmacası
+* **3D Ses Ortamı:** Sağda henüz düşmemiş şarapnellerin havadaki ince titreşimi; solda ise dakikalar önce yaşanmış volkanik bir patlamanın ağır çekimde ve tersten gelen uğultusu. Her 15 saniyede bir bozuk bir telsiz kaydı önce yankılanır, sonra Elara'nın sesi tersten duyulur.
+* **Gözlem Adımı:** Oyuncu iki parmak çevirmeyle zaman kırılmasının ses frekansını tersine çevirip düzeltir (`Zaman Çapası Dengeleyicisi` varsa otomatik hizalanır).
+* **Düzeltilmiş Telsiz Kaydı (`Pilot Elara` — ağır çekimde yankılanan, çaresiz ses):**
+  > *"...motor patladı... zaman duruyor... eğer bu kaydı düz duyabiliyorsan döngünün dışındasın demektir! Ben tam patlamanın ortasında asılı kaldım. Kapsülün yanına gelirsen beni çekebilirsin... ama dikkat et, çemberin kenarında zamandan beslenen bir şey var!"*
+
+---
+
+## SAHNE 2: HIZLI ZAMAN ÇEMBERİ — ELARA MI, TAKYON HASADI MI?
+
+### 2.1. Evrensel Savaş (T4)
+* **Düşman:** Döngünün kenarında beslenen **1x Zaman Çatlağı Muhafızı** (*Arketip: Pusucu + Karanlık*).
+* **Özel Ritim:** Zaman dalgalanması yüzünden muhafızın saldırı uyarıları bazen ağır çekimde (`3,0 sn`), bazen hızlanmış (`1,5 sn`) gelir; oyuncu kulaklıkla hız değişimini takip ederek savunur (`Takonik Frekans Çözücü` varsa uyarı süresi sabitlenir).
+
+### 2.2. Takyon Yakalama ve Büyük Seçim
+Muhafız yenildikten sonra *Hızlı Zaman Çemberi*nin kontrolü oyuncuya geçer ve önünde iki farklı zaman ayarı vardır:
+
+### YOL A: Döngüyü Dondur, Elara'yı Çek ve Takyon Teknolojisini Al *(Kurtarma & Sıfır Bekleme Yolu)*
+* **Ne Yapılır:** `Zaman-Yalıtımlı Kapsül` ile patlama anı tamamen dondurulup Elara gemiye çekilir; ardından tüpe saf **Takyon Partikülleri** yakalanır.
+* **Ödül:**
+  * **`+1.000 Evren İtibarı`** ve **Alt-Uzay Atlama Motorlarının Bekleme Süresini Sıfırlayan Teknoloji** (derin uzay ve Tonoflenya sıçramaları arasında motor şarj beklemesi kalıcı olarak sıfırlanır!).
+  * **Pilot Elara** Aethelis'e katılır (seferlerde kaçınma ve rota hızına destek verir).
+
+### YOL B: Döngüyü Hızlandır ve Saniyeler İçinde Nadir Hasat Yap *(Kaynak & Hızlandırma Yolu)*
+* **Ne Yapılır:** Zaman çemberi tersine hızlandırılarak *Zaman Tozu Ağacı* ve *Takyon* yoğunluğu maksimuma çekilir. Ancak hızlanan patlama Elara'nın gemisini başka bir zaman dilimine savurur.
+* **Ödül:**
+  * **`+1.000 Evren İtibarı`**, anında **`3x Takyon Partikülü`**, normalde 10 döngüde büyüyen **`5x Zaman Tozu Meyvesi`** (savaşlarda refleks süresini uzatan iksir malzemesi!) ve atlamanın bekleme süresinde **`%50` kısalma**.
+
+---
+
+## SAHNE 3: ATIL KALMAMA — ZAMAN ÇEMBERİ DÖNGÜSÜ
+
+- **Mor İkindi (`Elyndra`) Nöbeti Penceresi:**
+  - *Yol A*'da *Hızlı Zaman Çemberi* güvenli bir araştırma halkasına dönüşür; her `Elyndra` nöbetinde oyuncu dönüp **`Takyon Partikülü`** ve **`Zaman Tozu Meyvesi`** toplayabilir.
+  - *Yol B*'de ise kararsız zaman halkasından yalnızca `Zaman-Yalıtımlı Kapsül` ile hızlıca **`Takyon Partikülü`** vakumlanır.

@@ -486,6 +486,24 @@ Demir 1919 oyunu silindi; geçmişi git kaydında (son sürüm 1.06, commit 556f
 - SÜRÜM 2.14 (22 Kasım, Murat ses dosyası ekledi: "lithos echo"): Lithos-Echo'nun doğru kaydı (md5 173380f6…); assets/ses/
   gezegen/ortam_gez_p08.mp3 aynı işlemle (ilk 183 sn, 180 sn döngü, I=-24, 96k). 2.13'teki ortak dosya Zephyr-Major'da (p07) kaldı.
   Telefonda denenmedi.
+- SÜRÜM 3.0 (22 Kasım, Murat v4 paketini gönderdi: Yeni_Icerikler_Paketi.zip, 39 belge → belgeler/v4/; okuma rehberi
+  00-YAPAY-ZEKA-UYGULAMA-VE-OKUMA-REHBERI.txt beş faz): Faz 1, evrensel savaş motoru. Telefonda denenmedi.
+  - uzay/savas.js yeniden: d.savas.ortam 'uzay' | 'kara'; dusmanlar [birim] + hedef dizini, s.dusman etkin hedefe bağ
+    (bagla: JSON'dan dönünce ve eski tek düşmanlı kayıtlar için). TEHDIT T1-T5, oyuncuKademesi, tehditKademesi (en çok
+    bir geride), oyuncuGucu (gemi sınıfı). MODULLER 8 (frekans, pusucu, cagiran, karanlik, isi, iyon, zehir, kacis);
+    sahip(d, id) karşılık denetimi. SILAHLAR 12 (p pencere çarpanı, karsi, delici, ozel), UYARI_SESI. DUSMANLAR: 8 uzay
+    (agir_maden_korsani, dron_tasiyici yeni), 5 kara, 5 yardımcı (kucuk), bosslar xarathia/lord_sharon/cahelon
+    (fazlar: esik, soz, kalkan, moduller, pencere, zayif, olumsuz, sahte, frek, kilit, cagir). GELISLER 6, CEVRELER 3,
+    karsilasmaUret(d, {ortam, bolge, no}) (T2+ ikincil modül). SARF (dondurucu köpük, sonik kovucu, kseno-panzehir,
+    vaha şurubu, detoks) yetenek listesinde. DESTEK (filo destek yuvası d.destekNo, sınıfa göre), d.refakatci (kara).
+    Kara: s.can/maxCan, sistem itici/kalkan/kask, s.stres, yenilgide kapsüle tahliye (Tonoflenya'da yerinde).
+    Taktik harp dairesi (komuta_merkezi) ve dinleme kulesi (sinyal_kulesi) bildirimleri; nöbet sinerjileri.
+  - sefer.js korsan karşılaşması → karsilasmaUret (yakın/derin). gorevler.js: kenetlen'de gezegen yörüngesi firkateyn
+    devriyesi (T3, kule; d.savasBekle + d.opBekle), zamanIlerle savasBekle önce (kara savaşta gemi gerekmez),
+    baskinIlerle (BASKIN_SN 900, Aethelis dış mekânda, seviye 2+, karakolu kurulu bölge hariç; spec.giris).
+  - Yuzey: savaşta her düşmana konumlu kaynak savas_dusman_<no> (etkin hedef önde), uyarı sesi o.ses2, karada mekân
+    ortamı; kokpit terminalinde "Savaşta destek yuvası" ve "Kara çatışmasında refakatçi".
+  - testler/savas2.test.js (12 senaryo).
 - Sıradaki: Tonoflenya belgelerinin hepsi işlendi; KAPSAM.md'de [~] notları (Bahtiyar'a sorulacaklar) ve telefonda deneme.
 
 ## Sesler

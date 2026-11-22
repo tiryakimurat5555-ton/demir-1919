@@ -1,0 +1,43 @@
+# GEZEGEN 15: CARBONIS-V — "SÜRTÜNMESİZ LABİRENT VE ELMAS ÇEKİRDEĞİ"
+
+Bu belge, **Gezegen 15: Carbonis-V**'i (Grafit ve Elmas Basınç Dünyası) sürtünmesiz, kapkara yağlı grafit duvarlar arasında kayarak ilerlenen bir **labirent kurtarma** ve **arızalı maden otomatlarına karşı hassas kesim** hikâyesine dönüştürür.
+
+* **TETİKLENME NOKTASI:** `görevler.txt` *Derin Uzay Sınıf III+* dönemi (`Sonik Kesicili Madenci` üretildikten sonra — Halka 4).
+* **YEREL GERİ PLAN:** Tamamen karbondan oluşan bu ultra sert dünyada, *Katı Grafit Kanyonu*'na inen iki bağımsız madenci (**Bram** ve Kaelith ortağı **Sera-K**) araçlarının frenleri sürtünmesiz grafit zeminde tutmadığı için kanyonun dibine kayıp mahsur kalmıştır. Üstelik elmas tozundan devreleri bozulan kendi maden otomatları, ikiliyi tehdit olarak algılayıp ovadaki elmas sütunların arasında ateş açmaya başlamıştır.
+
+---
+
+## SAHNE 1: SÜRTÜNMESİZ KARANLIK LABİRENT (`KATI GRAFİT KANYONU`)
+
+### 1.1. Sesli Sahne ve Kayma Mekaniği
+* **3D Ses Ortamı:** Kuru grafit rüzgarının ıslığı, havadaki mikro elmas tozlarının metal zırha çarpıp ince ince çınlaması ve kanyonun kapkara yağlı duvarları arasında derin, sürtünmesiz bir kayma sesi.
+* **Labirent Oynanışı:** Grafit zemin üzerinde araç durduğunda bile hafifçe kayar. Oyuncu duvarlardan dönen ses yankısını dinleyip sağa-sola ters itki vererek duvarlara çarpmadan Bram ve Sera-K'nın sinyal verdiği çukura iner.
+* **Telsiz Diyaloğu (`Bram` — soğuktan ve panikten titreyen ses):**
+  > *"Frenlere basma Kaptan! Grafit buzdan bile kaygandır, ters itkiyle yavaşla! Ben Bram, yanımda Sera-K var. Robotlarımız elmas tozundan çıldırdı, bizi kanyonun dibine kıstırdılar. Bizi yukarı çıkarırsan ovadaki dev şeffaf sütunların en saf çekirdeğini nasıl keseceğini gösteririz!"*
+
+---
+
+## SAHNE 2: ŞEFFAF MONOLİTLER ARASINDA KESİM (`ELMAS SÜTUNLAR OVASI`)
+
+### 2.1. Gözlem ve Çatışma / Devre Dışı Bırakma
+* **3D Ses Ortamı:** Işık ışınlarının dev şeffaf elmas monolitlerin içinden geçerken çıkardığı yüksek frekanslı cam/kristal kırılma tınıları.
+* **Düşmanlar:** Sütunların etrafında devriye gezen arızalı **2x Ağır Maden Otomatı** (*Arketip: Zırhlı + Frekans Değiştiren*, *T4*).
+* **İki Çözüm Yolu:**
+  * *Savaş Yolu:* Evrensel Kara Savaşı ile iki otomatı indir (`Sonik Kesici` veya `T-06 Plazma` çok etkilidir).
+  * *Teknik / Savaşsız Yol:* Eğer yanında `Kripto Anten` veya `T-05 Sonik Tüfek` varsa otomatların elmas tozundan şaşmış frekansını uzaktan sıfırlayıp savaşsız kapatabilirsin!
+
+### 2.2. Kesim İşlemi ve İki Farklı Son
+Otomatlar susturulduğunda **Elmas Sütun Çekirdeği** kesilecektir (`Gezegen 06: Ferros-Omega`dan gelen **Sertleştirilmiş Matkap Ucu Formülü** varsa kesim sıçramasız ve yarı sürede biter; yoksa `Dondurucu Köpük` veya dikkatli ısı kontrolü gerekir):
+
+* **YOL A [ Hassas Sonik Kesimle Yalnızca Tek Saf Çekirdek Al ve Işık Kırılmasını Koru ]:**
+  * *Ödül:* **`+750 Evren İtibarı`**, Aethelis için **Aşınmaz Lazer Odaklama Lensleri & Matkap Uçları Teknolojisi** (tüm gemi/kara lazer silahlarının ısınması kalıcı **`%30` azalır** ve gezegenlerdeki madencilik hızı artar!).
+  * Bram ve Sera-K Aethelis'e veya istasyona dönüp hassas lens üretimine destek olur.
+* **YOL B [ Tüm Gücü Verip Birden Fazla Elmas Sütunu Parçalayarak Yükle ]:**
+  * *Ödül:* Anında **`+1.200 GK` değerinde Ham Elmas Kargosu`**, **`+100 Piezo/Saf Kristal`**, **`+750 Evren İtibarı`**.
+  * *Sonuç:* Elmas sütunlar parçalanıp kırılma tınısı bozulduğu için kalıcı lazer odaklama lensi bonusu yerine yalnızca tek seferlik sertleştirilmiş matkap ucu elde edilir.
+
+---
+
+## SAHNE 3: ATIL KALMAMA — ELMAS DAMARI DÖNGÜSÜ
+
+- **Kızıl Kuşluk (`Varek`) Nöbeti Penceresi:** Kuru grafit rüzgarı her `Varek` nöbetinde yeni elmas damarlarının üzerindeki tozu süpürür; oyuncu `Sonik Kesicili Madenci` ile dönüp düzenli **`Elmas Kristali`** ve **`Saf Kristal`** kesebilir.

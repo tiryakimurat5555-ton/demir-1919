@@ -1,0 +1,63 @@
+# GEZEGEN 09: NECRON-SIFIR — "TAŞLAŞMIŞ SESSİZLİK VE GÖMÜLÜ ARŞİV"
+
+Bu belge, **Gezegen 09: Necron-Sıfır**'ı (Taşlaşmış Kadim Mezar Dünyası); **Gezegen 08 (`Lithos-Echo`)**'dan gelen `Kadim Yankı Anahtarı` ile açılan akustik kilitli bir arkeoloji/ihanet dramına dönüştürür ve buradan çıkan kadim şifreyle **Gezegen 17 (`Automata-Enkaz`)**'e ve Aethelis hiper-sürücü rotalarına katmanlı bağlar.
+
+* **TETİKLENME NOKTASI:** `görevler.txt` *Derin Uzay Sınıf II+ / III+* dönemi (`Otonom Keşif Robotu` üretildikten sonra).
+* **YEREL GERİ PLAN:** Milyonlarca yıl önce taşlaşmış bu ölü dünyada kimse yaşamaz sanılırken, gizlice yüzeye inen iki kişilik bir kazı ekibi (*Kseno-Tarihçi **Kael-Or*** ile açgözlü ortağı ***Vexis***) birbirine düşmüştür. Vexis, *Gömülü Arşiv*'deki kadim hiper-sürücü şemalarını tek başına çalmak için Kael-Or'u tuzaklı bir lahit odasına kilitleyip kaçmıştır.
+
+---
+
+## AŞAMA 1: TAŞLAŞMIŞ SESSİZLİKTEKİ TUZAK (`KSENO-NEKROPOL MEYDANI`)
+
+### 1.1. Sesli Sahne ve Telsiz Çağrısı
+* **3D Ses Ortamı:** Mutlak, tüyler ürperten bir sessizlik; rüzgarın terk edilmiş piramidal yapılardan geçerken çıkardığı uzun inilti, soğuyan taş blokların genleşme çatırtıları ve bir lahitin içinden gelen boğuk metal vurma sesleri.
+* **Telsiz Diyaloğu (`Arkeolog Kael-Or` — kapalı taş oda akustiğiyle gelen panik dolu ses):**
+  > *"Sesimi duyan var mı?! Ben Kael-Or! Vexis lahitin üstündeki denge taşını kaydırıp beni buraya mühürledi! Dışarıdaki eski mezar otomatları uyandı ama o dehliz kapısına gitti. Eğer arşivi patlatarak açarsa milyon yıllık bütün hiper-sürücü haritaları çökecek!"*
+
+### 1.2. Hazırlık, Gözlem ve İlk İkilem
+* **Araç & Eşya:** `Otonom Keşif Robotu` (veya `Akrep`). Varsa `Sismik Dengeleyici` ve `Lithos-Echo`'dan gelen `Kadim Yankı Anahtarı`.
+* **Gözlem Adımı:** Lahitlerin üzerindeki kabartma hiyerogliflerin ses profili taranarak tuzağın mekanik kilit noktası bulunur.
+* **DALLANAN KARAR 1 (Kael-Or'u Kurtarmak Mı, Vexis'i Yakalamak Mı?):**
+  * **Seçenek A [ Önce Tuzaklı Lahiti Açıp Kael-Or'u Kurtar ]:**
+    * *Mekanik:* Sismik denge sesle çözülür (`Sismik Dengeleyici` varsa anında açılır). **`Kael-Or Güveni +20`** kazanılır ve Kael-Or dehlizdeki gizli yan yolu gösterir. Ancak Vexis dehlizde savunma kurmaya vakit bulur.
+  * **Seçenek B [ Doğrudan Gömülü Arşiv Girişine Koşup Vexis'i Bas ]:**
+    * *Mekanik:* Vexis hazırlıksız yakalanır (`+40 Kadim Kseno-Kristal` düşer), ancak Kael-Or havasız odada ağır yaralanır ve arşivin giriş tabletlerinden bazıları kırılır.
+
+---
+
+## AŞAMA 2: GÖMÜLÜ ARŞİV GİRİŞİ VE AKUSTİK KİLİT
+
+### 2.1. Akustik Kilit Bulmacası (`Lithos-Echo` Etkisi)
+* **Çapraz Bağlantı (`Gezegen 08: Lithos-Echo` Sonucu):**
+  * Eğer `Lithos-Echo`da Lirael'den **`Kadim Yankı Anahtarı`**nı aldıysan, yeraltı dehlizinin akustik kapısı tek dokunuşta berrak bir çan sesiyle açılır.
+  * Eğer anahtarın yoksa (veya `Lithos-Echo`'yu yağmaladıysan), 6 notalı taş blok rezonans dizisini kulaklıkla sırayla çalman gerekir (yanlış notada taş bloklardan darbe hasarı gelir).
+
+### 2.2. Evrensel Kara Savaşı (T3 — Yeraltı Dehlizi)
+* **3D Ses Ortamı:** Yeraltı dehlizinde yankılanan ağır metalik adımlar ve kadim robotların soğuk lazer şarj bip'leri.
+* **Düşmanlar:** **1x Vexis (Paralı Yağmacı)** (*Arketip: Pusucu*) + uyanan **2x Kadim Mezar Otomatı** (*Arketip: Frekans Değiştiren + Zırhlı*).
+* **Taktik & Serbestlik:**
+  * *Serbest Oyun:* İki parmak çevirmeyle otomatların enerji frekansını kırıp, Vexis'in yer değiştirme sesini takip ederek indirmek (Vexis %25 canda teslim olabilir).
+  * *Eşya Kısayolu:* `T-05 Sonik Tüfek` veya `T-06 Plazma Namlusu` otomat zırhlarını hızla deler.
+
+### 2.3. Kseno-Metalik Mühür ve Büyük İkilem
+Arşivin kalbine ulaşıldığında yıkık anıtın kaidesinde **Kseno-Metalik Mühür Tableti** ve kadim uygarlığın dev **Hiper-Sürücü & Otomasyon Arşivi** durmaktadır:
+
+* **DALLANAN KARAR 2 (Arşivi Kopyalamak Mı, Mührü ve Duvarları Sökmek Mi?):**
+  * **Seçenek A [ Arşivi Korumaya Al, Mührü ve Rota Şemalarını Dikkatle Kopyala ]:**
+    * *Doğrudan Ödül:* **`+900 Evren İtibarı`**, Aethelis için **Kadim Hiper-Sürücü Rota Şemaları** (tüm derin uzay seferlerinin süresi kalıcı **`%15` kısalır**) ve `2x Kadim Kseno-Kristal`.
+    * *Katmanlı Etki (`Gezegen 17: Automata-Enkaz` & YGK):* Kael-Or (kurtarıldıysa) arşivden **`Otomat Kontrol Şifresi`**ni çözer ve sana verir. Bu şifre, **Gezegen 17 (`Automata-Enkaz`)**'deki kontrolden çıkmış fabrika çekirdeğini çok daha kolay durdurmanı veya ele geçirmeni sağlar! İleride YGK 4. Kat Kütüphanesi'nde *Profesör Püskül* bu arşiv kopyası için ekstra takdir ve `+500 Bilim Puanı` sunar.
+  * **Seçenek B [ Patlayıcıyla Duvardaki Tüm Mühürleri ve Kristalleri Zorla Sök ]:**
+    * *Doğrudan Ödül:* Anında **`6x Kadim Kseno-Kristal`**, **`+1.000 GK` değerinde antik kalıntı** ve **`+900 Evren İtibarı`**.
+    * *Ceza (Katmanlı Sonuç):* Dehlizin tavanı çöker! Kalıcı `%15` sefer süresi kısaltması ve **`Automata-Enkaz` Kontrol Şifresi** enkaz altında kalıp yok olur (`Gezegen 17`'de tüm fabrika savunması tam güçle üzerine gelir).
+
+---
+
+## AŞAMA 3: KALICI DÖNÜŞÜM VE ATIL KALMAMA DÖNGÜSÜ
+
+### 3.1. Gezegenin Kalıcı Sonu
+* **İyi Son ("Korunmuş Kadim Arşiv"):** Kael-Or dehliz girişinde bilimsel bir inceleme kampı kurar; piramitlerin sessizliği korunur.
+* **Karanlık Son ("Çökmüş Nekropol"):** Arşiv girişi taş yığınlarıyla kapanmıştır.
+
+### 3.2. Atıl Kalmama: Yıldız Nöbeti Tekrar Ziyaret Döngüsü
+* **Altın Gece (`Uma`) Nöbeti Penceresi:** İyi son yaşandıysa her `Uma` nöbetinde rüzgar tamamen durur ve dehliz içi akustik taramaya açılır; oyuncu geri dönüp düzenli **`Kadim Kseno-Kristal`** ve **`Fosforlu Damar Likeni`** toplayabilir.
+* **Karanlık Son Alternatifi:** Yüzeydeki yıkık anıtlardan `Bazalt` ve `Otomat Hurdası` toplanabilir.

@@ -1,0 +1,43 @@
+# İTEM DEĞER GARANTİSİ VE "NİYE YAPAYIM Kİ?" ENGELİ (TASARIM KURALI)
+
+Bu belge, oyundaki **hiçbir eşyanın** (silah, zırh, modül, sarf malzemesi, araç veya tarım ürünü) oyuncuya *"Bunu niye yapayım ki?"* dedirtmemesi için **zorunlu değer ve arayüz kuralını** tanımlar.
+
+---
+
+## 1. HER İTEMİN 4 SOMUT GEREKÇESİNDEN EN AZ BİRİ OLMALIDIR
+
+Oyundaki her üretilebilir eşya, aşağıdaki 4 somut faydadan en az birini —tercihen ikisini— doğrudan sağlamalıdır:
+
+1. **Zorlu Düşmanı Kısayoldan Kırma (Savaşta Güç):**
+   - Eşya olmadan da refleksle yenilebilen bir düşmanı (örn. *Frekans Kalkanlı Firkateyn* veya *Karanlık Gölge*), doğru eşyayla (`T-05 Sonik Tüfek`, `Zhaor Işık Mızrağı`, `Dondurucu Köpük`) **yarı sürede ve sıfır stresle** geçersin.
+2. **Bölge / Görev Cezasını Sıfırlama (Keşifte Tasarruf):**
+   - `Termal Giysi`, `Nötralizasyon Kulesi`, `Topraklama Çubuğu`, `Mormon Pusulası` gibi eşyalar olmadan girilen tehlikeli bölgelerde gemi gövde/yakıt/stres kaybı yaşanır. Eşya yapıldığında **hasarsız geçiş + tam ganimet** sağlanır.
+3. **Ekonomi ve Zaman Kazancı (Koloni / Lojistik):**
+   - `Otomatik İkmal Karakolu`, `Sismik Dengeleyici`, `T-03 Cep-Ambar`, `T-04 Rezonans Halkası` gibi eşyalar sefer yakıtını, tamir masrafını veya mekik bekleme süresini kalıcı olarak düşürür.
+4. **Üst Kademeye Basamak Olma (Çöp Olmamanın Garantisi):**
+   - Erken oyunda yapılan hiçbir eşya tamamen çöpe gitmez: Ya üst seviye bir gemi/modülün **inşa parçası** olur, ya **yedek filo/karakol** slotuna takılır, ya da Tonoflenya pazarlarında **Malken Lirası / Fenrir Işık Tozu** karşılığı satılarak yüksek kâr bırakır.
+
+---
+
+## 2. SESLİ ARAYÜZ (TALKBACK) "NİYE YAPAYIM?" TESTİ
+
+Oyuncu üretim tezgâhında veya envanterde bir eşyanın üstüne geldiğinde, oyun **sadece eşyanın adını ve maliyetini okumamalı**; tek cümlede **"Ne zaman, nerede ve ne kazandıracağını"** söylemelidir.
+
+* **Yanlış (Eksik) Anons:**
+  > *"2 Tüp Dondurucu Köpük. Maliyet: 10 polimer levha, 10 helyum-3."* → *(Oyuncu: "Bu ne işime yarayacak?")*
+* **Doğru (Değer Gösteren) Anons:**
+  > *"2 Tüp Dondurucu Köpük. Savaşta aşırı ısınan kalkanını anında soğutur; ayrıca sıcak maden ve lav kapılarını hasarsız açar. Maliyet: 10 polimer levha, 10 helyum-3."*
+
+* **Diğer Örnek Anonslar:**
+  * `3 Topraklama Çubuğu`: *"İyon fırtınasında ve Yabancı Firkateyn savaşlarında sistemlerinin donmasını engeller."*
+  * `2 Sonik Kovucu`: *"Kara savaşlarında sürü düşmanları 1 tur sersemletir ve yeraltı yaratıklarını uzak tutar."*
+  * `Otomatik İkmal Karakolu`: *"Güvenli bölgelere kurulduğunda sefer sırasında ücretsiz yakıt ve gövde tamiri sağlar."*
+
+---
+
+## 3. HIZLI KONTROL KURALI (GELİŞTİRİCİ İÇİN)
+
+Oyuna eklenen veya mevcut `Bina ve araçlar.txt`'de yer alan her eşya için şu 3 soru geçilmeden ürün oyuna konmaz:
+1. **Oyuncu bunu üretince savaşta, keşifte veya ekonomide neyi daha kolay/ucuz yapacak?**
+2. **Hangi düşman modülünü (1–8) veya hangi tehlikeli bölgeyi doğrudan rahatlatıyor?**
+3. **Üretim ekranında TalkBack oyuncuya bunu tek cümlede net söylüyor mu?**

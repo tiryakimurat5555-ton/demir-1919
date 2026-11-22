@@ -1,0 +1,63 @@
+# GEZEGEN 05: SOL-KHARRA — "KIRILAN MERCEKLER VE ÇÖLÜN ŞARKISI"
+
+Bu belge, **Gezegen 05: Sol-Kharra**'yı doğrudan Tonoflenya'ya bağlamak yerine; **kendi yerel kervan/madenci dramı** üzerine kuran, buradaki sonuçları ise **Aethelis-IV kokpit teknolojisi → Gezegen 08 (`Lithos-Echo`) → oradan da dolaylı yoldan doğu ticaret/gözlem dengelerine** uzanan katmanlı bir hikâyeye dönüştürür.
+
+* **TETİKLENME NOKTASI:** `görevler.txt` *Derin Uzay Sınıf II+* dönemi (`Manyetik Süspansiyonlu Rover` üretildikten sonra).
+* **YEREL GERİ PLAN:** Güneş patlamalarıyla eriyip camlaşmış bu hiper-kurak çölde, bağımsız bir hurdacı/madenci gemisi olan *"Kum-Yelkeni 4"* ekibi ikiye bölünmüştür. Yaralı **Kaptan Daro** ekibiyle *Güneş Fırını Çukuru*'nun gölgesinde mahsur kalmışken, eski ortağı **Haris** ekibi terk edip *Kristalize Kum Tepeleri*'ndeki en saf yeşil cam damarını dinamitleyerek kaçmaya hazırlanmaktadır.
+
+---
+
+## AŞAMA 1: RÜZGARIN ALTINDAKİ İHANET (`KRİSTALİZE KUM TEPELERİ`)
+
+### 1.1. Sesli Sahne ve Telsiz Çatışması
+* **3D Ses Ortamı:** Kabin dışını zımparalayan kum fırtınasının tiz cızırtısı, rüzgar estikçe devasa kumul tepelerinin org/flüt gibi çıkardığı armonik ötme sesleri ve manyetik kızakların cam üstündeki çıtırtısı.
+* **Telsiz Diyaloğu:**
+  * **Kaptan Daro (kısık, susuzluktan çatlamış ses):** *"Haris, dur! O kumulun altını patlatırsan bütün cam duvar gölge sığınağımızın üstüne çökecek! Su tanklarımız delindi, güneş tepedeyken bizi burada pişireceksin!"*
+  * **Haris (sert, telaşlı):** *"Sizinle birlikte bu fırında ölmeyeceğim Daro! Bu yeşil silikat damarı beni tek seferde zengin eder. Kimse yoluma çıkmasın!"*
+
+### 1.2. Hazırlık, Bulmaca ve İlk İkilem
+* **Araç & Eşya:** `Manyetik Süspansiyonlu Rover` (veya `Çöl Tilkisi`). Varsa `Termal Giysi` ve `Su/Vaha Şurubu` büyük avantaj sağlar.
+* **Yüzey Bulmacası:** Kum fırtınasında radar kördür; kumul tepelerinin çıkardığı armonik ötüşü Lidar ile tarayarak gölgeli geçidin sessiz koridorunu bulma.
+* **DALLANAN KARAR 1 (Kimi Önceleyeceksin?):**
+  * **Seçenek A [ Önce Daro'nun Sığınağına Su ve Soğutma Götür ]:**
+    * *Mekanik:* Zaman kaybedildiği için Haris kraterin derinliğine kaçar; ancak Daro ve 4 kişilik ekibi kurtulur (`+10 Koloni Morali`, Daro gizli gölge rotasını paylaşır → Aşama 2'de ısı/fırtına hasarı `0`).
+  * **Seçenek B [ Doğrudan Haris'in Kazı Alanına Basıp Damarı Durdur ]:**
+    * *Mekanik:* Haris'i patlama öncesi yakalarsın (`+40 Silikat Kristali`), ancak Daro'nun sığınağı kısmen hasar görür (`Daro` kırgın kalır, Aşama 2'de güneş ısısı sondaya/araca ekstra hasar verir).
+
+---
+
+## AŞAMA 2: YEŞİL KRATERDEKİ ÇARPIŞMA (`GÜNEŞ FIRINI ÇUKURU`)
+
+### 2.1. Sesli Sahne ve Evrensel Kara Savaşı (T2/T3)
+* **3D Ses Ortamı:** Göktaşının kumu eritmesiyle oluşmuş yeşil, pürüzsüz cam kraterin içindeki keskin akustik yankılar ve patlamaya tepki veren çöl yaratıklarının tıkırtısı.
+* **Düşmanlar:** Kazı gürültüsüyle uyanan **2x Cam Çölü Akrebi** (*Arketip: Akıncı + Pusucu*) ve Haris'in bölgeyi korumak için kurduğu **1x Hurda Lazer Kulesi** (*Arketip: Frekans Değiştiren*).
+* **Taktik & Serbestlik:**
+  * *Serbest Oyun:* Lazer kulesinin frekansını iki parmak çevirmeyle kırıp, ardından akreplerin cam üstündeki kayma sesini dinleyerek indirmek.
+  * *Eşya Kısayolu:* `Termal Giysi` aşırı güneş ısısını emer; `2 Sonik Kovucu` akrepleri cam kraterin dışına dağıtır.
+
+### 2.2. Haris ile Yüzleşme ve Katmanlı İkilem
+Çatışma bitince Haris köşeye sıkışır ve yeşil cam damarının ortasında iki seçenek doğar:
+
+* **DALLANAN KARAR 2 (Kaliteli Teknoloji Mi, Hızlı Yağma Mı?):**
+  * **Seçenek A [ Haris'i Durdur, Damarı Daro Ekibiyle Kontrollü İşlemeye Aç ]:**
+    * *Doğrudan Ödül:* **`+500 Evren İtibarı`**, Aethelis tersaneleri için **Kırılmaz Optik Cam Teknolojisi** (uzay savaşlarında kalkan kırılsa bile kokpit/sensör hasarı alınmaz).
+    * *Katmanlı / Dolaylı Etki:* Daro ekibi kraterden çıkardığı kusursuz yeşil camdan **`İşlenmiş Sol-Kharra Merceği`** üretir. Bu mercek doğrudan Tonoflenya için değildir; **Gezegen 08 (`Lithos-Echo`)**'daki ses-ışık rezonans bulmacasını ve optik kule ayarını yarı yarıya kolaylaştırır (oradan elde edilen gelişmiş mercek ise ileride doğudaki gözlem/çöl loncalarında değerlenir).
+  * **Seçenek B [ Haris'le Anlaş, Damarı Köküne Kadar Söküp Ganimeti Bölüş ]:**
+    * *Doğrudan Ödül:* Anında **`+120 Silikat Kristali`**, **`+80 Kusursuz Plazma Camı`**, **`+600 GK` değerinde ticari kargo** ve **`+500 Evren İtibarı`**.
+    * *Ceza (Katmanlı Sonuç):* Aşırı kazı yüzünden *Güneş Fırını Çukuru* çatlar ve kraterdeki doğal mercek yapısı bozulur. Daro ekibi koloniye katılmadan ayrılır; **`Lithos-Echo` (Gezegen 08)**'daki akustik-optik kalibrasyon için ekstra kristal harcamak zorunda kalırsın.
+
+---
+
+## AŞAMA 3: KALICI DÖNÜŞÜM VE ATIL KALMAMA DÖNGÜSÜ
+
+### 3.1. Gezegenin Kalıcı Sonu
+* **İyi Son ("Güneş Fırını Optik Atölyesi"):** Daro ve ekibi krater gölgesinde kalıcı bir optik cam kesim karakolu kurar.
+* **Karanlık Son ("Çatlamış Cam Çölü"):** Krater çökmüş, rüzgar keskin cam tozlarını sürekli savurmaktadır (`Lamine Zırh` veya `Dondurucu Köpük` olmadan inmek yüzey aracını yıpratır).
+
+### 3.2. Atıl Kalmama: Yıldız Nöbeti Tekrar Ziyaret Döngüsü
+* **Kızıl Kuşluk (`Varek`) Nöbeti Penceresi:** Güneş açısı kraterdeki fırınlamayı tamamladığında her `Varek` nöbetinde taze **Saf Silikat Cam Kristali** kesilebilir; Daro hayattaysa takas/ek işçi desteği sunar.
+* **Karanlık Son Alternatifi:** Çökmüş vadideki enkazlardan rüzgarın açığa çıkardığı `Hurda Metal` ve `Piezo Kristali` toplanabilir.
+
+### 3.3. Katmanlı Etki Zinciri Özeti
+- **Aethelis-IV:** Kokpit ve sensörler için kalıcı kırılmaz optik cam koruması.
+- **Gezegen 08 (`Lithos-Echo`):** Burada verilen karar `Lithos-Echo`'daki rezonans/optik ayarının zorluğunu veya kolaylığını belirler (dolaylı olarak doğudaki gözlem teknolojilerine yansır).

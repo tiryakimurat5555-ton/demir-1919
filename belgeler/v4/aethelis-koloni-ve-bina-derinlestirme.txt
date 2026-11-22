@@ -1,0 +1,198 @@
+# AETHELİS-IV KOLONİ ALTYAPISI, BİNA KADEMELERİ VE İÇ MEKAN DERİNLEŞTİRME (TAMAMLANMIŞ NİHAİ TASARIM)
+
+Bu belge, `Yeniler/aethelis-koloni-derinlestirme-ve-bina-kademeleri.md` taslağındaki eksikleri tamamlamak ve sistemi oyunda hâlihazırda kurulu olan **Yıldız Zamanı**, **Tonoflenya Köprüsü** ve **Savaş/İlerleme** çekirdeğiyle birebir uyumlu hâle getirmek için hazırlanmıştır.
+
+---
+
+## 1. YILDIZ ZAMANI VE KOLONİ İLERLEME DÖNGÜSÜ
+
+Oyunda zaman "Yıldız Zamanı" ile akar. Bir oyun günü **6 nöbetten** oluşur (her nöbet gerçek zamanda 20 dakika, bir tam gün toplam 2 saat). Zaman her yerde aynı akar; oyuncu seferdeyken binalar inşa olur, tarlalar büyür ve üretim devam eder.
+
+### 1.1. Altı Nöbetin Koloni Binalarına Doğrudan Etkisi
+1. **Gümüş Şafak (Zhaor):** Dinleme Kulesi sinyal menzili x1,1. Sabah pazarı ve takas verimi artar.
+2. **Kızıl Kuşluk (Varek):** Tersane, Dökümhane ve sanayi üretimi x1,15 hızlanır.
+3. **Yeşil Öğle (Axira):** Tarım Terasları ve Seralar x1,25 hızlı büyür.
+4. **Mor İkindi (Elyndra):** Kseno-Enstitü ve Tohum Hibritleme/Melezleme işlemleri x1,5 kolaylaşır.
+5. **Mavi Akşam (Sinha - Gece Başlangıcı):** Seralar 8 derece soğur, ısıtıcı açılmazsa verim düşer. Liman/seyrüsefer hızı x1,1.
+6. **Altın Gece (Uma - Gece):** Seralar soğuk kalmaya devam eder. Nüfus artışı ve mülteci morali x1,2.
+
+### 1.2. Koloni Gelişim Evreleri
+- **Faz 1 (Gün 1-10): Acil Hayatta Kalma.** Tier 1 binalar, temel su arıtma, patates/yosun serası, yakın yörünge taraması.
+- **Faz 2 (Gün 11-30): Sanayileşme ve Çok Irklı Entegrasyon.** Tier 2 binalar, Korvet inşası, ilk kurtarılan toplulukların (`Kaelith`, `Kithron`, `Vaelin`, `Aethel-9`) yerleşimi, ilk 10 derin uzay operasyonu.
+- **Faz 3 (Gün 31-60): Derin Uzay ve Tonoflenya Köprüsü.** Tier 3 binalar, Sınıf III+ gemi (`Aethel Muhafızı`), Sinyal Kulesi üzerinden YGK Feneri'nin kilitlenmesi ve Tonoflenya'ya ilk sıçrama.
+- **Faz 4 (Gün 61+): Aether Çağı ve Tier 4 Kademesi.** Tonoflenya'dan getirilen **Aether Kristalleri** ve **Yıldız Tozu** ile Aethelis-IV binalarının Tier 4'e (Kuantum/Yıldızlararası seviye) yükseltilmesi.
+
+---
+
+## 2. MERKEZİ BİNALAR, ENERJİ (kW) DENGESİ VE 4 KADEME (TIER 1-4)
+
+Kolonide 6 merkezi bina bulunur. Her binanın **enerji (kW) tüketimi/üretimi**, **depolama/kapasite katkısı** ve **4 adet iç mekan mikro-odası** vardır.
+- **Enerji Kuralı:** Nexus ana dağıtım ve temel jeneratördür; Jeotermal Hatlar (Tier 2+) ve Güneş/Yedek Çekirdek (Nexus çatısı) ek kW üretir. Toplam tüketim üretimi aşarsa önce Tersane, ardından Enstitü düşük güç moduna geçer.
+
+### 2.1. Komuta Çekirdeği ve Enerji Şebekesi (The Nexus)
+- **Tier 1 (Acil Durum Modülü):** Üretim: `+30 kW` | Tüketim: `0 kW` | Depo: `500 birim`. Güneş panelli yedek batarya içerir.
+  - *Mikro-Oda 1:* Merkez Konsol Odası.
+- **Tier 2 (Betonarme Karargah ve Jeotermal Türbin):** Üretim: `+90 kW` | Depo: `2.500 birim`. Yerel nükleer acil çekirdeği barındırır.
+  - *Mikro-Oda 2:* Koloni Telsiz ve İletişim Kabini.
+- **Tier 3 (Merkezi İdare Biyo-Kubbesi):** Üretim: `+220 kW` | Depo: `10.000 birim`. Koloni konseyi kurulur.
+  - *Mikro-Oda 3:* Taktik Harp Dairesi ve Lojistik Masası.
+- **Tier 4 (Kuantum-Rezonans Kulesi - Tonoflenya Aether Gerektirir):** Üretim: `+550 kW` | Depo: `50.000 birim`. Gezegen çapında radar ve köprü stabilizasyonu.
+  - *Mikro-Oda 4:* Kuantum Boyut Röle Odası (Tonoflenya Yükleme ve Kalibrasyon Merkezi).
+
+### 2.2. Jeotermal Tarım Terasları ve Su Arıtma (Sera)
+Hem rasyon/biyo-ilaç hem de koloninin **arıtılmış su** ihtiyacını karşılar (Her 100 nüfus günlük 10 rasyon + 5 litre su tüketir).
+- **Tier 1 (İlkel Çadır Seralar):** Tüketim: `-5 kW` | Üretim: Günlük `20 rasyon`, `15 L arıtılmış su`.
+  - *Mikro-Oda 1:* Toprak, Su ve Tohum Masası.
+- **Tier 2 (Jeotermal Isıtmalı Cam Kubbe):** Tüketim: `-15 kW` | Üretim: Günlük `60 rasyon`, `40 L su`, `5 biyo-ilaç`. Gece ısıtma otomasyonu açılır.
+  - *Mikro-Oda 2:* Tohum Hibritleme ve Genetik Aşılama Laboratuvarı.
+- **Tier 3 (Otomatik Hidro-Teras Kompleksi):** Tüketim: `-35 kW` | Üretim: Günlük `180 rasyon`, `100 L su`, `20 biyo-ilaç`, `15 L Graviton/Biyo-yakıt`.
+  - *Mikro-Oda 3:* Biyo-Dökümhane ve Organik Yakıt Rafinerisi.
+- **Tier 4 (Atmosferik Kseno-Biyosfer Kubbesi):** Tüketim: `-70 kW` | Üretim: Günlük `450 rasyon`, `250 L su`, `50 biyo-ilaç`, `45 L Graviton yakıtı`.
+  - *Mikro-Oda 4:* Kadim Yaşam Kasası ve Stasis Tohum Bankası.
+
+### 2.3. Tersane, İtki Hangarı ve Ağır Dökümhane
+- **Tier 1 (Açık Hava Tamir İskelesi):** Tüketim: `-10 kW` | İşlev: Keşif kapsülü (`Kıvılcım`) ve hafif yüzey araçları tamiri.
+  - *Mikro-Oda 1:* Manuel Metal Tezgâhı.
+- **Tier 2 (Kapalı İtki Hangarı):** Tüketim: `-25 kW` | İşlev: Sınıf II (`Rüzgarkıran`) inşası ve gövde zırhı güçlendirme.
+  - *Mikro-Oda 2:* Motor Test ve Rölanti Tüneli.
+- **Tier 3 (Ağır Dökümhane ve Montaj Kızağı):** Tüketim: `-60 kW` | İşlev: Sınıf III (`Aethel Muhafızı`) inşası ve K3 savaş modifikasyonları. (Tonoflenya sıçraması için gereken minimum gemi sınıfını üretir).
+  - *Mikro-Oda 3:* Plazma Kalıplama ve Alaşım Laboratuvarı.
+- **Tier 4 (Orbital Asansörlü Yıldız Kuru Havuzu):** Tüketim: `-140 kW` | İşlev: Sınıf IV (`Gökdelen`) ve Sınıf V (`Hisar-ı Kadim`) inşası, K4-K5 modifikasyonları.
+  - *Mikro-Oda 4:* Yıldız Gemisi Köprüüstü Simülatörü ve Test İstasyonu.
+
+### 2.4. Kseno-Biyoloji, Genom ve İlaç Enstitüsü
+- **Tier 1 (Revir Çadırı):** Tüketim: `-5 kW` | İşlev: Temel bandaj, radyasyon iğnesi, mürettebat stres/yaralanma tedavisi.
+  - *Mikro-Oda 1:* Muayene ve Dinlenme Alanı.
+- **Tier 2 (Steril Kseno-Laboratuvar):** Tüketim: `-15 kW` | İşlev: Salgın önleme, mutasyon aşısı, derin uzay doku analizi.
+  - *Mikro-Oda 2:* Kriyojenik İzolasyon Hücresi.
+- **Tier 3 (Hücresel Genom Enstitüsü):** Tüketim: `-40 kW` | İşlev: Doku rejenerasyonu, mürettebat kalıcı dayanıklılık bonusları.
+  - *Mikro-Oda 3:* DNA Sentez Santrifüjü ve Biyo-Çip Odası.
+- **Tier 4 (Astral Şifa ve Yaşam Reaktörü):** Tüketim: `-85 kW` | İşlev: Tonoflenya Aether tozuyla ölümcül uzay lanetlerini ve zihinsel parazitleri temizleme.
+  - *Mikro-Oda 4:* Ruhsal Rezonans ve Bilinç Arındırma Odası.
+
+### 2.5. Derin Uzay Dinleme İstasyonu ve Sinyal Kulesi
+- **Tier 1 (Derme Çatma Anten Direği):** Tüketim: `-5 kW` | İşlev: Yörünge ve yakın ay taraması.
+  - *Mikro-Oda 1:* Analog Telsiz Masası.
+- **Tier 2 (Parabolik Derin Uzay Çanağı):** Tüketim: `-15 kW` | İşlev: Yakın yıldız sistemleri, korsan frekansları ve ilk 10 operasyon koordinatı.
+  - *Mikro-Oda 2:* Kripto ve Şifre Çözme Kabini.
+- **Tier 3 (Akustik Dizi ve YGK Frekans Kilidi):** Tüketim: `-40 kW` | İşlev: **YGK Feneri frekansını arayıp kilitleme**, Tonoflenya köprüsünü başlatma (Ön şartlar: Sınıf III+ gemi, 2+ kurtarılmış topluluk, 10+ derin uzay operasyonu).
+  - *Mikro-Oda 3:* Yıldız Haritası Projeksiyon Odası.
+- **Tier 4 (Sub-Uzay Taşikronik Dinleme Matrisi):** Tüketim: `-90 kW` | İşlev: Çift yönlü Tonoflenya telsiz senkronizasyonu ve Alt-Evren anomali erken uyarısı.
+  - *Mikro-Oda 4:* Kozmik Sessizlik ve Frekans Yalıtım Odası.
+
+### 2.6. Kseno-Mülteci Mahalleleri ve Yaşam Kubbeleri
+- **Tier 1 (Acil Durum Prefabrik Barınakları):** Tüketim: `-5 kW` | Kapasite: `50 kişi`.
+  - *Mikro-Oda 1:* Ortak Yemekhane ve Ranzalar.
+- **Tier 2 (Modüler Yaşam Blokları):** Tüketim: `-15 kW` | Kapasite: `200 kişi`.
+  - *Mikro-Oda 2:* Koloni Pazarı ve Takas Meydanı.
+- **Tier 3 (Atmosfer Ayarlı Kseno-Kubbeler):** Tüketim: `-40 kW` | Kapasite: `800 kişi`. `Kaelith`, `Vaelin`, `Kithron` ve `Aethel-9` toplulukları için çoklu atmosfer bölmeleri.
+  - *Mikro-Oda 3:* Kültürel Entegrasyon ve Diplomasi Salonu.
+- **Tier 4 (Yıldızlararası Metropol Çekirdeği):** Tüketim: `-90 kW` | Kapasite: `3.000 kişi`. Tam entegre kentsel yaşam, özel zanaat atölyeleri.
+  - *Mikro-Oda 4:* Galaktik Birlik ve Mülteci Konsey Meclisi.
+
+---
+
+## 3. BİNA YÜKSELTME MALİYETLERİ VE YILDIZ ZAMANI SÜRELERİ
+
+İnşaat süreleri **Yıldız Nöbeti** cinsinden tanımlanmıştır (1 nöbet = 20 gerçek dakika; 6 nöbet = 1 oyun günü).
+
+| Bina | Geçiş | Maliyet | Süre (Nöbet / Gerçek) | Enerji Etkisi |
+| :--- | :--- | :--- | :--- | :--- |
+| **Nexus** | T1 -> T2 | 250 Metal, 100 Kristal, 50 Helyum | 2 Nöbet (40 dk) | +60 kW net artış |
+| **Nexus** | T2 -> T3 | 800 Metal, 400 Kristal, 150 Graviton | 6 Nöbet (1 Gün / 2 sa) | +130 kW net artış |
+| **Nexus** | T3 -> T4 | 2.500 Metal, 1.200 Kristal, 500 Graviton, 100 Aether/Yıldız Tozu | 12 Nöbet (2 Gün) | +330 kW net artış |
+| **Sera** | T1 -> T2 | 180 Metal, 80 Kristal, 40 Helyum | 1.5 Nöbet (30 dk) | -10 kW ek tüketim |
+| **Sera** | T2 -> T3 | 600 Metal, 300 Kristal, 100 Graviton | 4 Nöbet (80 dk) | -20 kW ek tüketim |
+| **Sera** | T3 -> T4 | 1.800 Metal, 900 Kristal, 350 Graviton, 80 Aether/Yıldız Tozu | 9 Nöbet (1.5 Gün) | -35 kW ek tüketim |
+| **Tersane** | T1 -> T2 | 300 Metal, 120 Kristal, 80 Helyum | 3 Nöbet (60 dk) | -15 kW ek tüketim |
+| **Tersane** | T2 -> T3 | 1.200 Metal, 500 Kristal, 200 Graviton | 6 Nöbet (1 Gün) | -35 kW ek tüketim |
+| **Tersane** | T3 -> T4 | 3.500 Metal, 1.500 Kristal, 700 Graviton, 200 Aether/Yıldız Tozu | 18 Nöbet (3 Gün) | -80 kW ek tüketim |
+| **Enstitü** | T1 -> T2 | 150 Metal, 150 Kristal, 60 Helyum | 2 Nöbet (40 dk) | -10 kW ek tüketim |
+| **Enstitü** | T2 -> T3 | 500 Metal, 450 Kristal, 120 Graviton | 5 Nöbet (100 dk) | -25 kW ek tüketim |
+| **Enstitü** | T3 -> T4 | 1.500 Metal, 1.000 Kristal, 400 Graviton, 150 Aether/Yıldız Tozu | 12 Nöbet (2 Gün) | -45 kW ek tüketim |
+| **Dinleme** | T1 -> T2 | 200 Metal, 180 Kristal, 40 Helyum | 2 Nöbet (40 dk) | -10 kW ek tüketim |
+| **Dinleme** | T2 -> T3 | 700 Metal, 600 Kristal, 150 Graviton | 6 Nöbet (1 Gün) | -25 kW ek tüketim |
+| **Dinleme** | T3 -> T4 | 2.000 Metal, 1.400 Kristal, 500 Graviton, 120 Aether/Yıldız Tozu | 12 Nöbet (2 Gün) | -50 kW ek tüketim |
+| **Kubbeler** | T1 -> T2 | 220 Metal, 70 Kristal, 50 Helyum | 2 Nöbet (40 dk) | -10 kW ek tüketim |
+| **Kubbeler** | T2 -> T3 | 850 Metal, 300 Kristal, 120 Graviton | 6 Nöbet (1 Gün) | -25 kW ek tüketim |
+| **Kubbeler** | T3 -> T4 | 2.200 Metal, 800 Kristal, 400 Graviton, 90 Aether/Yıldız Tozu | 12 Nöbet (2 Gün) | -50 kW ek tüketim |
+
+*Not: `Helyum` derin uzay gaz/buz operasyonlarından ve keşif gezegenlerinden (`Zephyr-Major` vb.), `Yıldız Tozu` ve `Aether Kristalleri` ise geç oyun operasyonları ile Tonoflenya'dan temin edilir.*
+
+---
+
+## 4. TÜM 24 MİKRO-ODANIN 3D SES VE ETKİLEŞİM TABLOSU
+
+Oyuncu bir binayı seçip girdiğinde dikey katmanlar halinde açılan tüm 24 odanın ses kimliği ve oynanış işlevi aşağıdadır:
+
+### A. Komuta Çekirdeği (Nexus)
+1. **Merkez Konsol Odası (T1 - Zemin):** Hafif bilgisayar fanı, kesik röle tıkırtısı. *İşlev:* Genel kaynak, enerji ve gün/nöbet durumu okuma.
+2. **Koloni Telsiz Kabini (T2 - 2. Kat Doğu):** Solda mors tıkırtısı, sağda telsiz paraziti. *İşlev:* Sefer raporlarını onaylama, acil kriz mesajlarını yanıtlama.
+3. **Taktik Harp Dairesi (T3 - 3. Kat):** Derin harita projeksiyon vızıltısı, metalik kalibrasyon klikleri. *İşlev:* Filo atama, operasyon öncesi rota risk analizi.
+4. **Kuantum Boyut Röle Odası (T4 - Yeraltı -1. Kat):** 40 Hz derin bas uğultusu ve kristal rezonans çınlaması. *İşlev:* Tonoflenya köprüsü şarj hızlandırma ve kargo transfer takibi.
+
+### B. Tarım Terasları ve Su Arıtma (Sera)
+5. **Toprak, Su ve Tohum Masası (T1 - Giriş):** Su damlaması, toprak hışırtısı, basit pompa sesi. *İşlev:* Günlük su/rasyon tahsisi, temel ekim.
+6. **Tohum Hibritleme Laboratuvarı (T2 - Batı Kanadı):** Cam pipet tıkırtıları, hafif fıskiye fısıltısı. *İşlev:* 2 tohumu çaprazlayıp dayanıklı hibrit bitki üretme (Mor İkindi'de x1,5 kolay).
+7. **Biyo-Dökümhane ve Yakıt Rafinerisi (T3 - Arka Kanat):** Kaynayan kazan, boru akışı, buhar tıslaması. *İşlev:* Fazla mahsulü Graviton yakıtına ve biyo-ilaca çevirme.
+8. **Kadim Yaşam Kasası (T4 - Yeraltı Soğuk Oda):** Çok hafif kriyo-uğultu, mühürlü cam kapak sesi. *İşlev:* Nadir Tonoflenya ve derin uzay tohumlarını bozulmadan saklama, otomatik hasat ayarı.
+
+### C. Tersane ve Ağır Dökümhane
+9. **Manuel Metal Tezgâhı (T1 - Açık İskele):** Rüzgar uğultusu, kaynak cızırtısı, çekiç darbesi. *İşlev:* Hızlı gemi gövde onarımı ve yüzey aracı bakımı.
+10. **Motor Test Tüneli (T2 - Hangar Altı):** Yankılanan itki kükremesi, rüzgar tüneli emişi. *İşlev:* İnce ayar mini-oyunu ile gemi yakıt tüketimini %15 azaltma.
+11. **Plazma Kalıplama Laboratuvarı (T3 - Dökümhane):** 2400°C fırın uğultusu, kızgın metal soğuma cızırtısı. *İşlev:* Madenlerden ağır zırh plakası ve K3 silah modifikasyonu basma.
+12. **Köprüüstü Simülatörü (T4 - Orbital Asansör Üstü):** Sıfır yerçekimi sessizliği, sonar bip sesleri, yüksek gerilim vızıltısı. *İşlev:* K4-K5 modifikasyon testi ve kaptan taktik simülasyon talimi (+tecrübe).
+
+### D. Kseno-Biyoloji ve İlaç Enstitüsü
+13. **Muayene ve Dinlenme Alanı (T1 - Zemin):** Kalp monitörü bip sesi, bez/bandaj hışırtısı. *İşlev:* Yaralı ve stresli mürettebatı tedavi etme.
+14. **Kriyojenik İzolasyon Hücresi (T2 - Yeraltı):** Buz çıtırtısı, sıvı nitrojen tıslaması, yavaş nabız. *İşlev:* Yabancı dokuları güvenli parçalayıp aşı geliştirme.
+15. **DNA Sentez Santrifüjü (T3 - 2. Kat):** Yüksek devirli santrifüj vınlaması, dijital tarama tonu. *İşlev:* Mürettebata kalıcı +dayanıklılık/stres direnci kazandırma.
+16. **Ruhsal Rezonans Arındırma Odası (T4 - Kubbe Zirvesi):** Yumuşak harmonik çanlar, nefes ritmi, düşük frekans titreşim. *İşlev:* Tonoflenya kaynaklı Alt-Evren lanetlerini ve zihinsel parazitleri temizleme.
+
+### E. Derin Uzay Dinleme İstasyonu
+17. **Analog Telsiz Masası (T1 - Kabin):** Statik radyo cızırtısı, mekanik frekans kadranı tıkırtısı. *İşlev:* Yakın yörünge sinyallerini tarama.
+18. **Kripto ve Şifre Çözme Kabini (T2 - Kule):** Teyp dönme tıkırtısı, algoritmik bip dizileri. *İşlev:* Korsan telsizlerinden gizli maden/enkaz koordinatı çıkarma.
+19. **Yıldız Haritası Projeksiyon Odası (T3 - Merkez):** 3D uzamsal uğultu, altı yıldızın uzaktan gelen nota yankısı. *İşlev:* YGK Feneri'ni kilitleme ve derin uzay operasyonlarını başlatma.
+20. **Kozmik Sessizlik Odası (T4 - İzole Çekirdek):** Tam ses yalıtımlı boşluk, yalnızca Alt-Evren dalga kırılmaları. *İşlev:* Düşman pusu ve korsan saldırılarını sefer başlamadan tespit etme.
+
+### F. Kseno-Mülteci Mahalleleri
+21. **Ortak Yemekhane ve Ranzalar (T1 - Blok A):** Kaşık/tabak tıkırtısı, hafif insan uğultusu. *İşlev:* Temel nüfus morali ve erzak durumu kontrolü.
+22. **Koloni Pazarı ve Takas Meydanı (T2 - Meydan):** Çoklu sesler, dijital kasa tınısı, sandık sesleri. *İşlev:* Fazla hammaddeyi rasyon, kristal veya krediye dönüştürme.
+23. **Kültürel Entegrasyon ve Diplomasi Salonu (T3 - Orta Kubbe):** Farklı türlerin nefes/rezonans sesleri (Kaelith fokurtusu, Vaelin su tınısı). *İşlev:* 6 topluluğun iş gücü atamalarını ve moral bonuslarını yönetme.
+24. **Galaktik Birlik Konsey Meclisi (T4 - Merkez Kubbe):** Geniş salon akustiği, resmi tokmak ve çan sesi. *İşlev:* Koloni yasaları çıkarma (örn. Üretim Seferberliği veya Bilim Önceliği), Evren İtibarı bonusu.
+
+---
+
+## 5. KURTARILAN TOPLULUKLAR VE İŞ GÜCÜ ATAMA MATRİSİ
+
+Oyunda köprü ön şartlarında ve seferlerde yer alan tüm topluluklar atama sistemine tam entegre edilmiştir:
+
+1. **İnsan Koloniciler:** *Nexus* (%15 inşaat süresi kısaltma) ve *Sera* (%25 patates verimi). Gereksinim: Standart Oksijen, su, rasyon.
+2. **Kaelith Irkı:** *Tersane Dökümhanesi* (-%30 metal maliyeti) ve *Nexus Jeotermal Türbin* (+40 kW güç). Gereksinim: Tier 3 Kseno-Kubbe (yoksa günlük -%5 moral).
+3. **Kithron Topluluğu:** *Dinleme Kulesi* (şifre çözme hızı +%35) ve *Nexus Telsiz* (kriz erken uyarısı). Gereksinim: Düşük ışık, mineral takviyesi.
+4. **Vaelin Su Irkı:** *Kseno-Enstitü* (+%40 ilaç hızı) ve *Sera Su Arıtma* (+%30 su üretimi). Gereksinim: Nemli kriyo-bölme (Tier 3 Kubbe).
+5. **Aethel-9 Madencileri:** *Tersane / Maden İşleme* (+%25 hammadde çıkarımı) ve *Kriz Tamiri* (-%20 tamir maliyeti). Gereksinim: Yüksek proteinli rasyon.
+6. **Malken Kazazedeleri (Tonoflenya Bağlantılı):** *Dinleme Kulesi* (2x menzil) ve *Sera Hibritleme* (yarı sürede büyüme). Gereksinim: Aether tozu katkılı rasyon.
+
+---
+
+## 6. KOLONİ KRİZLERİ (TUTARLI VE YILDIZ ZAMANI UYUMLU)
+
+1. **Kükürt Çatlakları Basınç Artışı:**
+   - *A (Türbine Boşalt):* +100 kW anlık güç, ancak Nexus T2 tamir masrafı (150 Metal).
+   - *B (Kalkanları Kilitle):* Hasar yok, ancak dış madenler 6 Nöbet (1 Oyun Günü) kapalı.
+2. **Mülteci Bölmesinde Kseno-Parazit Şüphesi:**
+   - *A (Enstitü Karantinası & Plazma Aşısı):* 40 Biyo-İlaç harcanır; 2 Nöbet içinde temizlenir, Moral +%15.
+   - *B (Kubbe Mühürleme):* İlaç harcanmaz; 12 Nöbet (2 Gün) izole kalır, 15 nüfus kaybı, Moral -%20.
+3. **Asit Fırtınası ve Yedek Güç Geçişi:**
+   - *A (Bakım Dronlarıyla Zırhlama):* 200 Metal harcanır; Nexus çatı güneş panelleri kurtarılır, kesinti olmaz.
+   - *B (Yerel Nükleer Çekirdeğe Geç):* Metal harcanmaz; Tersane ve Dökümhane 3 Nöbet (1 saat) devre dışı kalır.
+
+---
+
+## 7. ERİŞİLEBİLİRLİK (TALKBACK / VOICEOVER) STANDARTLARI
+
+`gelistirici-entegrasyon-rehberi-ve-yol-haritasi.md` ile uyumlu olarak sistem jestleriyle çakışmayan yapı:
+- **Dikey Odak Gezinmesi:** Klasik tek parmak sağa/sola kaydırma (TalkBack/VoiceOver varsayılan odak gezintisi) bina ve mikro-oda listelerinde sorunsuz çalışır.
+- **Oda İçi Özel Dokunsal Mod:** Bir mikro-odaya çift dokunularak girildiğinde oyun "Oda Etkileşim Modu"na geçer; sol kulakta onay tıkırtısı, sağ kulakta makinenin 3D sesi duyulur.
+- **Durum Özeti:** Ekran üstündeki durum çubuğuna dokunulduğunda tek cümlede özet okunur: *"Aethelis-IV, Gün 18, Kızıl Kuşluk nöbeti. Nüfus: 340. Moral: Yüksek. Enerji: 145 tüketim, 220 üretim. Su ve rasyon 15 günlük."*

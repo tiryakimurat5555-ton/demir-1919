@@ -1,0 +1,129 @@
+# SOMUT DÜŞMAN KATALOĞU, TAKTİKLER VE AŞAMALI BOSSLAR
+
+Bu belge, **Evrensel Savaş Sistemi** (`evrensel-savas-sistemi-uzay-ve-kara.txt`) üzerinde çalışacak somut **uzay düşmanlarını**, **kara/yüzey düşmanlarını** ve **aşamalı bossları** tanımlar. `Kısa bilgilendirme.txt` içinde tespit edilen *düşmanların güçlenmemesi, benzer davranış göstermesi, yabancı firkateynin hiç çıkmaması, kara düşmanı olmaması ve bossların tek aşamalı kalması* eksiklerini tamamen kapatır.
+
+---
+
+## 1. DİNAMİK GÜÇLENME (ÖLÇEKLEME) KURALI
+
+Oyuncunun 50. saatinde de ilk korsanla birebir aynı güçte karşılaşmaması için her düşman karşılaşıldığı andaki **Tehdit Kademesine (T1–T5)** göre otomatik ölçeklenir:
+
+- **T1 (Başlangıç):** Taban Can/Gövde `x1,0` | Hasar `x1,0` | Uyarı Penceresi `3,0 sn`
+- **T2 (Orta-Erken):** Taban Can `x1,5` | Hasar `x1,3` | Uyarı Penceresi `2,5 sn`
+- **T3 (Derin Uzay / Sınıf III+):** Taban Can `x2,2` | Hasar `x1,7` | Uyarı Penceresi `2,0 sn`
+- **T4 (Tonoflenya / Alt-Evren):** Taban Can `x3,0` | Hasar `x2,2` | Uyarı Penceresi `1,8 sn`
+- **T5 (Boss / Final):** Özel çok fazlı can ve `1,5 sn` pencere.
+
+*Kural:* Eski bölgelerdeki rastgele düşmanlar bile oyuncunun mevcut gemi/koloni kademesinin en fazla 1 adım gerisinde kalır (`Min Kademe = Oyuncu Kademesi - 1`).
+
+---
+
+## 2. UZAY DÜŞMANLARI KATALOĞU (8 SOMUT TÜR)
+
+### 1. Korsan Avcı Gemisi *(Arketip: Akıncı / Rusher)*
+- **Ses Kimliği:** Yüksek devirli, hızlı yaklaşan ince türbin ıslığı.
+- **Yapabilecekleri & Taktik:** Zırhı zayıftır ama çok hızlı saldırır; uyarı penceresi her zaman diğerlerinden `0,5 sn` daha kısadır. Her 2 turda bir seri iyon yaylımı atar.
+- **Zayıf Noktası:** Kaçınma sonrası açılan kısa sürede birincil silahla yüksek hasar alır.
+- **Çıkış Yerleri:** Seferde "rotada kal" kararı, yakın/derin uzay pusu olayları.
+
+### 2. Korsan Korveti *(Arketip: Kaçak / Pusucu)*
+- **Ses Kimliği:** Tok, çift pistonlu motor homurtusu; darbe aldıkça sağdan sola kayar.
+- **Yapabilecekleri & Taktik:** Her isabet aldığında pozisyon değiştirir (yeniden kilitleme ister). Gövdesi `%30`'un altına indiğinde motorlarını ısıtıp **2 tur içinde kaçmaya** çalışır (kaçarsa ganimet yarıya düşer; `%25`'te ateşkes teklif edebilir).
+- **Zayıf Noktası:** `Torpido` veya `T-07 Bordalama Pençesi` kaçış motorlarını kilitler.
+- **Çıkış Yerleri:** Rastgele sefer saldırıları (2 operasyondan sonra başlar).
+
+### 3. Ağır Maden Korsanı *(Yeni Tür — Arketip: Zırhlı)*
+- **Ses Kimliği:** Ağır hidrolik gıcırtı ve düşük frekanslı plazma şarjı.
+- **Yapabilecekleri & Taktik:** Kalın hurda zırhı vardır; normal atışlardan `%40` az hasar alır. 3 turda bir **Kalkan Delici Ağır Plazma** yükler (yalnızca *kaçınma* veya *taktik ışınlanma* ile atlatılır, kalkanı kırar).
+- **Zayıf Noktası:** İki parmak çevirmeyle zırh frekansı tutturulursa zırhı parçalanır ve tam hasar yer.
+- **Çıkış Yerleri:** Maden operasyonları ve T2+ asteroit sektörleri.
+
+### 4. Tanımsız Yabancı Firkateyn *(Mevcut Eksik Giderildi — Arketip: Frekans Değiştiren)*
+- **Ses Kimliği:** Metalik olmayan, melodik ve ürpertici rezonans vızıltısı.
+- **Yapabilecekleri & Taktik:** Güçlü bir uyum kalkanına sahiptir. Her 2 turda bir kalkan tonunu (kalın/orta/tiz) değiştirir. Oyuncu iki parmak çevirmeyle yeni tonu bulmadan hasar veremez. Ayrıca **İyon Kilidi** atarak gemi iticilerini 1 tur dondurabilir.
+- **Zayıf Noktası:** `T-05 Sonik Tüfek` veya frekans eşlemesi kalkanını 2 tur tamamen indirir.
+- **Çıkış Yerleri (Yeni Bağlantı):** Dinleme Kulesi T2+ aktifken derin uzay anomali sinyallerinde, `Derin Uzay T3+` operasyonlarında ve *Keşfedilebilir Gezegenler* yörüngelerinde devriye olarak çıkar.
+
+### 5. Korsan Dron Taşıyıcısı *(Yeni Tür — Arketip: Çağıran)*
+- **Ses Kimliği:** Kalın ana gemi uğultusu yanında ince arı vızıltısı şeklinde dron sesleri.
+- **Yapabilecekleri & Taktik:** Kendi silahı zayıftır ama 3 turda bir yanına **1 Saldırı Dronu** bırakır. Dronlar temizlenmezse her tur üst üste ek hasar vurur (çoklu hedef değiştirme ile önce dronlar vurulmalıdır).
+- **Zayıf Noktası:** `Akrep` dronu veya alan/çoklu atış modülleri dronları hızla süpürür.
+- **Çıkış Yerleri:** T3+ korsan kaleleri ve enkaz kuşakları.
+
+### 6. Alt-Evren Hava/Uzay Yaratıkları Sürüsü *(Arketip: Karanlık + Çağıran)*
+- **Ses Kimliği:** Uzayda yankılanan, organik çığlık ve kanat/gaz çırpınışı karışımı.
+- **Yapabilecekleri & Taktik:** Çoklu sürü olarak gelir; kinetik silahlara `%50` dirençlidir. Saldırıları gemi kalkanını değil, doğrudan **mürettebat stresini** yükseltir (stres `%100` olursa atış isabeti düşer).
+- **Zayıf Noktası:** **Zhaor Işık Mızrağı** veya Aether silahları `2x` hasar vurur.
+- **Çıkış Yerleri:** Final Görevi 9, Tonoflenya yüksek irtifa/boşluk çatlakları, Alt-Evren anomalileri.
+
+### 7. Gölge Korsan Gemisi *(Arketip: Karanlık + Pusucu)*
+- **Ses Kimliği:** Fısıltılı, kesik kesik kaybolup beliren karanlık motor sesi.
+- **Yapabilecekleri & Taktik:** Karanlık sınıftır (`Işık Mızrağı 2x`). Her saldırıdan sonra kısa süreliğine radardan kaybolup farklı bir yönden (sağ/sol) pusu kurar; sahte uyarı sesi verebilir.
+- **Zayıf Noktası:** `Sinha Akustik Sonarı` veya `T-08 Söğüt Nişangâhı` sahte sesleri eler.
+- **Çıkış Yerleri:** Final Görevi 12, Tonoflenya kör sektörü ve Kara Aether taşıyan kargolara pusu.
+
+### 8. Kahergonat Öncü Zırhlısı *(2 Aşamalı Mini-Boss — Arketip: Karanlık + Frekans Değiştiren)*
+- **Ses Kimliği:** Ağır savaş davulu gibi atan 40 Hz reaktör nabzı.
+- **Yapabilecekleri & Taktik:**
+  - *Aşama 1 (%100–%50 Gövde):* Kalkan frekansını değiştirir ve ağır plazma/iyon atar.
+  - *Aşama 2 (%50–%0 Gövde):* Kalkanını patlatıp **2 adet Gölge Dronu** çağırır, uyarı penceresi `1,5 sn`'ye iner; ancak zırhı açıldığı için `Işık Mızrağı` ve torpidolardan `2x` hasar alır.
+- **Çıkış Yerleri:** Final Görevi 16 ve geç oyun Kahergonat kuşatmaları.
+
+---
+
+## 3. KARA / YÜZEY DÜŞMANLARI KATALOĞU (5 SOMUT TÜR)
+
+Kara savaşlarında kaptan + refakatçi subay (veya yüzey aracı) bu düşmanlarla çarpışır:
+
+### 1. Aethelis Sülfür Akrebi / Kseno-Avcı *(Arketip: Akıncı)*
+- **Ses Kimliği:** Taş üzerinde hızla tırmanan kitin/bacak tıkırtıları ve keskin tıslama.
+- **Yapabilecekleri:** Koloni maden baskınlarında ve Aethelis yüzeyinde sürü halinde saldırır. Zehirli asit tükürüğü **zırh eritme (2 tur sürekli hasar)** bırakır (*T-09 Kseno-Panzehir* ile temizlenir).
+- **Çıkış Yerleri:** Aethelis-IV koloni krizleri ve vahşi sektör keşifleri.
+
+### 2. Kadim Otomat / Harabe Muhafız Dronu *(Arketip: Frekans Değiştiren)*
+- **Ses Kimliği:** Soğuk metalik servo sesleri ve lazer şarj bip'leri.
+- **Yapabilecekleri:** Harabelerde (`Necron-Sıfır`, `Automata-Enkaz`, `YGK alt katları`) kapıları korur. Enerji kalkanı frekansını değiştirir; siper kıran lazer atar.
+- **Çıkış Yerleri:** 20 keşif gezegeni harabeleri ve kadim tesisler.
+
+### 3. Gezegen Biyom Yaratıkları *(Arketip: Çağıran / Pusucu)*
+- **Ses Kimliği:** Bulunduğu gezegene göre değişir (lav hırıltısı, buz çatırtısı, spor patlaması).
+- **Yapabilecekleri:** 20 keşif gezegeninin yüzey görevlerinde çıkar. Yavru/spor çağırabilir veya sis/fırtına içinde yön değiştirir.
+- **Yüzey Aracı Etkisi:** `Mammoth` zırhıyla ezilir, `Çöl Tilkisi` hızıyla pusularından kaçılır.
+
+### 4. Tonoflenya Haydut / Kaçakçı Çetesi *(Arketip: Pusucu)*
+- **Ses Kimliği:** Çizme sesleri, tüfek kurma mekanizması, kısa telsiz/ıslık komutları.
+- **Yapabilecekleri:** 30 yan görevin suçlu/kaçakçı vakalarında (`Filtra`, `Fleeplee`, `Zorah Çölü`, `Loran`) ortaya çıkar. %25 canda teslim olup bilgi/harita verebilirler.
+
+### 5. Kahergonat Tarikat Muhafızı / Gölge Büyücüsü *(Arketip: Karanlık)*
+- **Ses Kimliği:** Alçak sesli ayin fısıltıları ve kristal çatırtısı.
+- **Yapabilecekleri:** Doğrudan ekibin stresini ve zihnini hedef alır; siperleri yok sayan gölge okları atar. `Zhaor Işık Mızrağı` ve `Baş-Büyücü Cübbesi` ile hızla kırılır.
+
+---
+
+## 4. AŞAMALI BÜYÜK BOSSLAR (3 FAZLI TASARIM)
+
+### Boss 1: Xarathia / Magma Muhafızı *(Pyros-Prime Yüzey/Yörünge — 2 Faz)*
+- **Faz 1 (%100–%50):** Aşırı ısı dalgalarıyla her 2 turda oyuncunun siper/kalkanını ısıtır (kaçınma önceliklidir).
+- **Faz 2 (%50–%0):** Lav sütunu çekirdeğini açar; yüksek hasar vurur ama `Kriyos` buz silahlarına veya soğutma modüllerine `2x` zayıftır. (İttifak yolunda savaşılmaz).
+
+### Boss 2: Lord Sharon (Gölge Formu) *(Final Görev 18 / YGK -5. Kat — 3 Faz)*
+- **Faz 1 (%100–%66):** Çifte gölge kılıcı ve siper kıran karanlık patlamalar (Karanlık arketip).
+- **Faz 2 (%66–%33):** YGK odasını karartır, 2 adet Gölge Muhafızı çağırır; sahte yönlerden saldırır (*Sinha* veya akustik ekipmanla gerçek Sharon bulunur).
+- **Faz 3 (%33–%0):** **Tyzrakhel Mızrağı Kilidi:** Ölümsüz gölge zırhına bürünür; normal silahlar çok az işler. Oyuncunun Final 11 ve 15'te topladığı *Tyzrakhel Işık Mızrağı* darbesiyle mühür kırılır ve Sharon düşer.
+
+### Boss 3: Cahelon (Okyanos-Abyssus Leviathan'ı) *(Final Görev 20 — 3 Faz)*
+- **Faz 1 (%100–%66 — Yüzey Girdabı):** Dev yüzgeç darbeleri ve su altı sonik dalgaları. Kalkanı `Cahelon Girdap Anahtarı` ile dengelenir.
+- **Faz 2 (%66–%33 — Derin İnfrasonik):** Canavar suyun altına dalar; yalnızca düşük frekanslı infrasonik uğultusundan yeri tespit edilir. Çevresine *Alt-Evren Su Yaratıkları* çağırır.
+- **Faz 3 (%33–%0 — Dünya Çivisi Yankısı):** Göğsündeki kadim Runahar/Runashar çatlağı parlar. Uyarı penceresi `1,5 sn`'dir; her başarılı frekans eşlemesi + `Işık Mızrağı / Hisar Bataryası` vuruşu devasa kritik hasar verir ve finali tamamlar.
+
+---
+
+## 5. GELECEKTE YENİ DÜŞMAN EKLEME ŞABLONU
+
+Yeni bir düşman veya boss eklendiğinde yalnızca şu **6 satır** doldurulur:
+1. **Adı ve Ortamı:** *(Uzay / Kara / Boss)*
+2. **Arketipi ve Zayıf Noktası:** *(Akıncı / Frekans / Pusucu / Çağıran / Karanlık — Işık Mızrağı, Buz vb.)*
+3. **Ses Kimliği:** *(Kulaklıkta hangi sesle tanınır?)*
+4. **Özel Hamlesi:** *(2–3 turda bir yaptığı ayırt edici saldırı nedir?)*
+5. **Teslim / Kaçış Durumu:** *(%25'te teslim olur mu, kaçar mı, sonuna kadar savaşır mı?)*
+6. **Ganimet / Çıkış Yeri:** *(Hangi gezegen, yan görev veya olayda çıkar?)*

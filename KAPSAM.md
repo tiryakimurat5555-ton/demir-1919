@@ -1,7 +1,7 @@
 # Belge kapsamı: Bahtiyar'ın 17 belgesinin her bölümü ve durumu
 
 Murat'ın isteği (20 Kasım 2026): "Belgedeki hiçbir şeyi atlama." Bu liste belgeler/ klasöründeki dokuz belgenin
-bütün bölümlerini sırayla sayar (21 Kasım: v3 paketiyle sekiz belge daha geldi, bölüm 10-17). Her sürümde güncellenir; bir bölüm burada "yapıldı" olmadan atlanmış sayılmaz.
+bütün bölümlerini sırayla sayar (21 Kasım: v3 paketiyle sekiz belge daha geldi, bölüm 10-17; 22 Kasım: v4 paketiyle 39 belge, bölüm 18 ve sonrası). Her sürümde güncellenir; bir bölüm burada "yapıldı" olmadan atlanmış sayılmaz.
 
 İşaretler: [x] yapıldı · [~] kısmen (ne eksik yazılı) · [ ] yapılmadı (planlanan sıra yazılı).
 "Telefonda denenmedi" uyarısı bütün maddeler için geçerlidir; ancak Murat Expo Go'da denediğinde doğrulanır.
@@ -417,9 +417,77 @@ bütün bölümlerini sırayla sayar (21 Kasım: v3 paketiyle sekiz belge daha g
       (topçu droidi, göçmen kuşlar, bataklık canavarı). [~] Belgedeki Drive ambiyans dosya adları Drive'da yok; bölge
       ortamları 2.1-2.3'ten.
 
+## 18. v4 paketi (22 Kasım, belgeler/v4/, 39 belge): okuma rehberi
+00-YAPAY-ZEKA-UYGULAMA-VE-OKUMA-REHBERI.txt beş fazlık sırayı verir; aşağıdaki bölümler o sırayla işlenir.
+- [x] 0 Değişmez kurallar: mevcut binalar, tarifler, görevler silinmez; 25 bina belgesi esas; ses ve jest odaklı; zaman
+      Yıldız Nöbeti, savaş içi etkiler tur; kilitler hikâye ve görevle açılır.
+- [~] 1 Faz 1 [x] (3.0) · Faz 2 [ ] · Faz 3 [ ] · Faz 4 [ ] · Faz 5 [ ].
+
+## 19. v4 / evrensel-savas-sistemi-uzay-ve-kara.txt (3.0, uzay/savas.js)
+- [x] 1 Tek çekirdek: dinle, kilitle (sağa-sola), dokun birincil, yukarı kaydır ağır saldırı (iki tur dolum), iki parmakla
+      çevir frekans/zırh kırıcı, aşağı kaydır + çift dokun yetenek; savunmada iki parmak kalkan/siper, ters kaydırma
+      kaçınma, çift dokun karşı ateş (torpido ve mermi), aşağı kaydır sahte gürültü (D-1), üç parmak ışınlanma (Mor 4).
+- [x] 2 Uzay ve kara karşılaştırması: d.savas.ortam; karada kaptan + refakatçi subay (kokpit terminalinde seçilir) ya da
+      yüzey aracı; zırh bütünlüğü (kademe, oksit zırhı ×1,35, Mammoth ×1,5) ve siper; arızalar hareket (kaçınma yok),
+      siper (parçalanır), kask (stres iki kat). Kişisel silahlar karada doğrudan el silahı, zırh hasarı azaltır.
+      Yenilgide ekip tahliye edilir (Aethelis'te kapsül). [~] Devreye girdiği yerler: koloni krizleri (koloni baskını,
+      3.0) var; gezegen yüzeyleri Faz 4, yan görevler Faz 5, final kara çatışmaları Faz 4 ile bağlanacak.
+- [x] 3 Tehdit ölçeği T1-T5 (can ×1/1,5/2,2/3/3,5, hasar ×1/1,3/1,7/2,2/2,5, pencere 3,0/2,5/2,0/1,8/1,5 sn);
+      oyuncuKademesi (gemi sınıfı, koloni seviyesi, operasyon sayısı, Tonoflenya); en çok bir kademe geride kalma
+      kuralı; oyuncunun kendi vuruşu da gemi sınıfıyla büyür.
+- [x] 4 Beş arketip (akıncı pencere −0,5 sn; frekans değiştiren; pusucu; çağıran; karanlık) ve zırhlı.
+- [x] 5.1 Çoklu düşman: bütün sesler kendi yönünden; pruva hangi sesin karşısındaysa hedef o, öteki sesler geride;
+      uyarılar sırayla. 5.2 Filo destek yuvası (kokpit terminali; sınıfa göre yan ateş, kalkan şemsiyesi, onarım, yaylım,
+      iz sürme) ve kara araç desteği (Çöl Tilkisi pencere ve kilit, Mammoth zırh ve ağır atış, Akrep yardımcıları avlar).
+      5.3 Aşamalı bosslar (kahergonat 2 aşama; Xarathia 2, Lord Sharon 3, Cahelon 3).
+- [x] 6 Sonuçlar: zafer (kademeyle büyüyen ganimet, tecrübe 80 + 20 × kademe, ekol, itibar), ateşkes/teslim (yarı),
+      kaçtı, yenilgi. Taktik harp dairesi (komuta merkezi) arketipi ve modülleri söyler, ilk uyarıya +0,5 sn; dinleme
+      kulesi tuzakları ve yabancı firkateyni önceden bildirir; sera ve enstitü bonusları mevcut erzak etkileriyle.
+
+## 20. v4 / dusman-davranis-modulleri-ve-item-karsiliklari.txt (3.0)
+- [x] 1 Eşya zorunlu değil: her modül serbest refleksle yenilir; karşılıklar sahip() ile (eşya, parça, modül, araç,
+      bayrak) denetlenir, yeni eşya için yalnız kimliği eklemek yeter. MODULLER tablosu serbest yolu ve karşılıkları yazar.
+- [x] 2 Sekiz modül: frekans kalkanı (iki turda üç tondan birine geçer, yanlış ton ×0,3; sonik tüfek iki tur kilit,
+      geometrik namlu tonu yok sayar, K3 bobin ve Mammoth ×0,65), pusucu ve sahte sinyal (her isabette yer değiştirir;
+      sahte uyarı sesi yüzde otuz beş; Sinha sonarı, parazit sensörü, söğüt nişangâhı eler), çağıran (üç turda bir,
+      en çok üç yardımcı; yardımcılar her tur ek hasar; sonik kovucu sarf, gölge yayıcı alan hasarı, Hisar yaylımı, Akrep),
+      karanlık (kinetik ×0,5, ışık ×2; stres +15, kalkanda +5; yüzde yüz streste kilit ×0,6 ve pencere ×0,8; cübbe
+      bağışıklık, biyo-kubbe ve iklim kubbesi ×0,7, panzehir ve vaha şurubu sıfırlar), ısı (darbeler ısıtır, kalkan ×1,5
+      ısınır; dondurucu köpük, termal giysi/karartma ×0,5, kara buz hançeri üç tur dondurur), iyon kilidi (itici bir tur;
+      topraklama çubuğu emer, EMP topu düşmanı kilitler), zehir (iki tur erime; panzehir ×0,5, asit zırhı ×0,2, detoks
+      üç tur bağışıklık), kaçış ve teslim (yüzde otuzda iki tur içinde kaçar, çekici kiriş/pençe kilitler, iyon
+      iticileri üç tur; yüzde yirmi beşte teslim teklifi: iki parmakla yukarı kaydır).
+      [~] T-05 … T-09 eşyaları (sonik tüfek, geometrik namlu, plazma pençesi, söğüt nişangâhı, kseno-panzehir) Faz 2'de
+      zanaata eklenecek; savaş tarafı hazır.
+- [x] 3 Esnek sinerjiler: Varek nöbetinde termal/plazma ×1,1, Elyndra'da ışık/aether ×1,1, Sinha'da akustik ekipmanla
+      pencere +0,2 (gizli).
+- [x] 4.1 Altı geliş biçimi: kıskaç, öncü + destek (destekçi yaşarken öncüye hasar ×0,5), kaçan konvoy (dört tur), çevresel
+      tehlike (iyon fırtınası, ısı, asit), sessiz sızma (ilk atış ×2, ıska alarm ve takviye), sahte yardım tuzağı (dinleme
+      kulesi yoksa ilk saldırı hemen). 4.2 T2 ve üstünde ana düşmana bir ikincil modül. karsilasmaUret seferde ve
+      koloni baskınlarında kullanılır.
+
+## 21. v4 / somut-dusman-katalogu-ve-bosslar.txt (3.0)
+- [x] 1 Ölçekleme kuralı (bölüm 19.3).
+- [x] 2 Sekiz uzay düşmanı: avcı (akıncı, iyon), korvet (pusucu, kaçış, teslim), ağır maden korsanı (zırhlı, üç turda bir
+      kalkan delici ağır plazma: yalnız kaçınma ya da ışınlanma), tanımsız yabancı firkateyn (frekans + iyon; derin uzay
+      karşılaşmalarında T2+ ve dinleme kulesiyle, T3'te gezegen yörüngesi devriyesi), dron taşıyıcısı (çağıran),
+      Alt Evren sürüsü, gölge korsanı (sahte uyarı), Kahergonat zırhlısı (2 aşama: kalkan patlar, iki gölge dronu,
+      pencere 1,5, ışık ve torpido ×2).
+- [x] 3 Beş kara düşmanı: sülfür akrebi (zehir; koloni baskınları), kadim otomat (frekans), gezegen biyom yaratığı
+      (çağıran + pusucu), Tonoflenya kaçakçı çetesi (teslimde saklı geçit bilgisi), tarikat muhafızı (karanlık).
+- [x] 4 Bosslar: Xarathia (2 aşama, ısı; ikinci aşamada buz ×2), Lord Sharon (3 aşama: muhafızlar ve sahte yönler,
+      ölümsüz gölge zırhı: yalnız Tyzrakhel ×3, öteki ×0,1), Cahelon (3 aşama: dalış, infrasonik ton, Alt Evren
+      yaratıkları; Dünya Çivisi çatlağında frekans ×3, ışık ×2). [~] Savaş verileri hazır; Lord Sharon (final 18),
+      Cahelon (final 20) ve Xarathia (Pyros-Prime) çatışmaları Faz 4'te görevlere bağlanacak.
+- [x] 5 Yeni düşman şablonu: DUSMANLAR satırı (ad, ortam, arketip, ses, özel hamle, teslim, ganimet) yeter.
+
+## 22-57. v4 paketinin öteki belgeleri: [ ] Faz 2-5 (rehber bölüm 1'deki sırayla).
+
 ## Sıradaki adımlar (sırayla)
 0. Tonoflenya genişlemesi, yönergedeki sırayla: [2.1: Malken (12); 2.2: tarihçe (13); 2.3: atlas (14); 2.4: eşya,
    zanaat, mürettebat (15), Ekol Kıdemi ve rastgele karşılaşmalar; 2.5: yirmi final görevi (16); 2.6: otuz yan görev
    ve itibar matrisi (17)]. Tonoflenya belgelerinin hepsi işlendi.
+0b. v4 paketi: Faz 2 (binalar, gemiler, araçlar, eşyalar, dinamik yakıt), Faz 3 (karakterler, komuta paneli), Faz 4
+   (ana hikâye, 18 gezegen hikâyesi, bosslar), Faz 5 (YGK Akademi, yan görevler, ambargo).
 1. Telefonda deneme: seslendirilmiş telsizlerin düzeyi ve anlaşılırlığı (Murat ve Bahtiyar), ses dengeleme ve
    erişilebilirlik testleri. İstenirse koloni bilgisayarı için ayrı bir ses.

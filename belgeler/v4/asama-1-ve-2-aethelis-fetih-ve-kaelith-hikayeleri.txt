@@ -1,0 +1,141 @@
+# AŞAMA 1 VE 2: MEVCUT GÖREVLERİN ARASINA YERLEŞEN HİKÂYE VE SAVAŞLAR
+
+Bu belge, `görevler.txt` dosyasındaki mevcut görevleri **değiştirmeden veya silmeden**, onların aralarındaki boşlukları karakter hikâyeleri, bölge genişletme ve **Evrensel Savaş** ile doldurur.
+
+## 📍 MEVCUT `görevler.txt` AKIŞINA YERLEŞİM HARİTASI (GELİŞTİRİCİ İÇİN)
+- **Görev 1A (Güney Lav Çatlakları):** `görevler.txt` **Ana Görev 2 (Jeotermal Sondaj)** *tamamlandıktan sonra*, `#16 Jeotermal Santral` kurulmadan *önce* tetiklenir.
+- **Görev 1B (Batı Harabeler / Vanguard):** `görevler.txt` **Ana Görev 3 (Antik Kseno-Lab)** *sonrası* ve **Yerel Operasyon #8 (Vanguard Enkazında Yağmacı Tuzağı)** ile *doğrudan birleşik* çalışır (o görevi silmez, içine savaş ve karar derinliği ekler).
+- **Görev 1C (Doğu Manyetik Sis):** `görevler.txt` **Ana Görev 3** ile **Ana Görev 4** *arasında*, Doğu cıva şelaleleri keşfedilirken tetiklenir (`#17 Kalkan Jeneratörü` ön hikâyesi).
+- **Görev 1D (Kuzey Asit Platosu):** `görevler.txt` **Ana Görev 5 (Kıvılcım ve İlk Uçuş)** *sonrası*, **Ana Görev 6** *öncesinde* plato genişletilirken tetiklenir.
+- **Görev 2A (Yörünge Ablukası):** `görevler.txt` **Derin Uzay G-02** *tamamlandıktan sonra* (ilk uçuşların hemen ardından) tetiklenir.
+- **Görev 2B (Kaelith Kurtarma):** `görevler.txt` **G-14 (Vaelin)** *sonrası* (Sınıf 2+ dönemi), **Bölüm 6 (Tonoflenya Köprüsü)** *öncesinde* derin uzay arasına yerleşir.
+
+---
+
+## BÖLÜM 1: AŞAMA 1 — AETHELİS-IV SEKTÖRLERİNİN FETHİ
+
+### GÖREV 1A: "KIZGIN BORULARIN GÖLGESİNDE" (Güney Kükürt ve Lav Çatlakları)
+* **TETİKLENME NOKTASI:** `görevler.txt` -> *Ana Görev 2 (Jeotermal Sondaj)* sonrası, `#16 Jeotermal Santral` öncesi.
+1. **KARAKTER & TETİKLEYİCİ:**
+   - Koloni Başteknikeri **Kaya** (Aethelis prosedürel/yerleşik mühendisi), `#2 Dökümhane` kurulduktan hemen sonra telsizden nefes nefese bağlanır.
+2. **SESLİ SAHNE & DİYALOG:**
+   - *3D Ses:* Sağda yüksek basınçlı buhar tıslaması, altta fokurdayan lav ve taşların üstünde hızla gezen kitin ayak tıkırtıları.
+   - *Diyalog (Kaya):* *"Kaptan! 4 numaralı jeotermal hattın basıncı sıfıra düşüyor. İlk başta boru çatladı sandık ama keşif ekibi geri dönemedi. Lavın içinden çıkan dev sülfür akrepleri sıcak boruların etrafına yuva örmüş. Orayı temizlemezsek ne santral kurabiliriz ne de kışın seraları ısıtabiliriz!"*
+3. **HAZIRLIK & KEŞİF ADIMI:**
+   - *Önerilen Hazırlık:* `#12 Kriyo-Atölye` varsa **`termal giysi`**, `#6 Araç Hangarı` varsa **`Çöl Tilkisi`** veya **`Mammoth`** alınır.
+   - *Sesli Bulmaca:* Lav çatlakları arasında sağ-sol kaydırarak 3 adet patlamak üzere olan basınç vanasının sesini merkezleyip çift dokunuşla kapatma.
+4. **ÇATIŞMA / SAVAŞ ENTEGRASYONU (Kara Savaşı — T1):**
+   - *Düşmanlar:* 2x **Aethelis Sülfür Akrebi** (*Arketip: Akıncı*) + 1x **Yuva Ana Akrebi** (*Arketip: Çağıran*).
+   - *Mekanik:* Asit tükürüğü 2 tur zırh eritme bırakır; `sonik kovucu` varsa 1 tur sürüyü sersemletir.
+5. **DALLANAN KARAR:**
+   - **Seçenek A [ Yuva Çekirdeğini Patlat ]:** Çatlak tamamen mühürlenir. Bölge kalıcı olarak güvenli olur, baskın riski sıfırlanır.
+   - **Seçenek B [ Yumurtaları Canlı İzolasyona Al (`#5 Biyoloji Kubbesi` gerekir) ]:** Ekstra `6x Asit-Direnç Polimeri` ve `4x Sakinleştirici Spor` kazanılır; ancak sonraki 3 oyun gününde Güney Sektörü'ne küçük akrep baskınları gelebilir.
+6. **HARMANLANMIŞ ÖDÜL:**
+   - Güney Sektörü **Güvenli** olur; `#16 Jeotermal Santral` ve `Otomatik İkmal Karakolu` kurulumuna açılır.
+
+---
+
+### GÖREV 1B: "VANGUARD'IN HAYALETLERİ" (Batı Harabeler ve Çökük Tüneller)
+* **TETİKLENME NOKTASI:** `görevler.txt` -> *Ana Görev 3* sonrası, *Yerel Operasyon #8 (Vanguard Enkazında Yağmacı Tuzağı)* olayının genişletilmiş devamı.
+1. **KARAKTER & TETİKLEYİCİ:**
+   - Koloni Telsiz Subayı, Batı tünellerinden gelen kesik bir Eski Dünya Mors sinyali yakalar.
+2. **SESLİ SAHNE & DİYALOG:**
+   - *3D Ses:* Derin taş mağara yankısı, uzaktan gelen metal kesme testeresi ve eski bir gemi bilgisayarının bozuk açılış bip'i.
+   - *Diyalog (Telsiz Subayı):* *"Kaptan, bu sinyal yıllar önce düşen ilk koloni gemisi Vanguard-01'in enkazından geliyor. Ama yalnız değiliz; enkazdaki eski savunma otomatları yeniden uyanmış ve dışarıdan gelen silahlı bir yağmacı grubu tohum kasalarımızı söküyor!"*
+3. **HAZIRLIK & KEŞİF ADIMI:**
+   - *Önerilen Hazırlık:* `#6 Araç Hangarı`'ndan **`Mammoth`** (enkaz kapısını kırmak için) veya **`Akrep`** dronu.
+   - *Sesli Bulmaca:* Karanlık tünelde el feneri/sonar taramasıyla enkaz kapısındaki 4 notalı güvenlik kilidini çözme.
+4. **ÇATIŞMA / SAVAŞ ENTEGRASYONU (Kara Savaşı — T1/T2):**
+   - *Düşmanlar:* 1x **Yağmacı Öncüsü** (*Arketip: Pusucu*) + 1x **Kadim Vanguard Otomatı** (*Arketip: Frekans Değiştiren*).
+   - *Mekanik:* Otomat her 2 turda enerji kalkanı tonunu değiştirir (iki parmak çevirme ile kırılır). Yağmacı %25 canda teslim olabilir.
+5. **DALLANAN KARAR:**
+   - **Seçenek A [ Teslim Olan Yağmacıları Koloniye Affet ]:** `+15 İnsan İş Gücü` kazanılır (ancak koloni morali geçici `-5` düşer).
+   - **Seçenek B [ Onları Sür ve Tohum/Veri Kasalarını Kurtar ]:** `#18 Sera` için *Soya-Kazein, Nöro-Kahve, Aloe-Silika* tohum kasaları + `#19 Akademi` için ön veri diski alınır (`Moral +10`).
+6. **HARMANLANMIŞ ÖDÜL:**
+   - Batı Sektörü **Güvenli** olur; `Vanguard-01` enkazından düzenli `Titanyum` ve `Mikro-Çip` ikmal hattı açılır.
+
+---
+
+### GÖREV 1C: "SİSİN İÇİNDEKİ FISILTI" (Doğu Manyetik Sis ve Kristal Bataklıkları)
+* **TETİKLENME NOKTASI:** `görevler.txt` -> *Ana Görev 3* ile *Ana Görev 4* arası (`#17 Kalkan Jeneratörü` açılış hikâyesi).
+1. **KARAKTER & TETİKLEYİCİ:**
+   - Kseno-Biyoloji ve Malzeme Araştırmacısı **Dr. Selin** (veya Başhekim), Doğu bataklıklarına giden 3 kişilik keşif ekibinin 2 nöbettir dönmediğini bildirir.
+2. **SESLİ SAHNE & DİYALOG:**
+   - *3D Ses:* Kulaklıkta sürekli sağdan sola kayan elektrikli cıva uğultusu, bataklık baloncukları ve çok uzaktan gelen imdat düdüğü.
+   - *Diyalog (Dr. Selin):* *"Manyetik sis pusulaları tamamen kör etti. Cıva şelalelerinin orada bir şeyler ekibin etrafını sarmış durumda. Sesleri bile manyetik dalga yüzünden parçalanıyor!"*
+3. **HAZIRLIK & KEŞİF ADIMI:**
+   - *Önerilen Hazırlık:* **`Çöl Tilkisi`** (bataklık üstünden kaymak için) veya `#1 Sinyal Kulesi` taraması.
+   - *Sesli Bulmaca:* Parazitlenen imdat sinyalini iki parmakla çevirip netleştirerek kayıp ekibin yönünü bulma.
+4. **ÇATIŞMA / SAVAŞ ENTEGRASYONU (Kara Savaşı — T1):**
+   - *Düşman:* 2x **Kristal Bataklık Pusucusu** (*Arketip: Pusucu*). Her darbede sisin içinde sağdan sola yer değiştirirler.
+5. **DALLANAN KARAR:**
+   - **Seçenek A [ Önce Yaralı Ekibi Tahliye Et ]:** 3 uzman sağ salim döner (`Enstitü/Sera hızı +%10`), cıva tortusu daha az toplanır.
+   - **Seçenek B [ Tortu Havuzunu da Mühürle ]:** Ek `5x Manyetik Cıva Tortusu` ve `4x Silikat Kristali` alınır, ancak 1 ekip üyesi yaralanır (Revir'de tedavi gerektirir).
+6. **HARMANLANMIŞ ÖDÜL:**
+   - Doğu Sektörü **Güvenli** olur; `#17 Koloni Kalkan Jeneratörü` inşası için gereken `Manyetik Cıva Tortusu` hattı açılır.
+
+---
+
+### GÖREV 1D: "ASİT YAĞMURU ALTINDA" (Kuzey Asit Platosu)
+* **TETİKLENME NOKTASI:** `görevler.txt` -> *Ana Görev 5 (Kıvılcım ve İlk Uçuş)* sonrası, *Ana Görev 6* öncesi.
+1. **KARAKTER & TETİKLEYİCİ:**
+   - Tersane / Hangar Sorumlusu, fırtına platosundaki fırlatma kızaklarının asit ve yaratık saldırısı altında olduğunu raporlar.
+2. **SESLİ SAHNE & DİYALOG:**
+   - *3D Ses:* Metal çatıya çarpan yakıcı asit yağmuru, şiddetli rüzgar ve gökten pike yapan kanatlı kseno-avcı çığlıkları.
+   - *Diyalog:* *"Kaptan, Tersane'yi tam kapasiteye almadan önce kuzey sırtlarındaki rüzgar kulelerini temizlemeliyiz. Asit fırtınasında görüş sıfır, üstelik havadan saldıran kseno-avcılar vinç kablolarını kemiriyor!"*
+3. **HAZIRLIK & KEŞİF ADIMI:**
+   - *Önerilen Hazırlık:* **`nötralizasyon kulesi`** (varsa asit hasarını sıfırlar) veya **`Demir Kervan`** / **`Atmosphere-X`**.
+4. **ÇATIŞMA / SAVAŞ ENTEGRASYONU (Kara Savaşı — T2):**
+   - *Düşman:* 2x **Asit Platosu Kseno-Avcısı** (*Arketip: Akıncı*). Uyarı penceresi kısadır, hızlı kaçınma ister.
+5. **DALLANAN KARAR:**
+   - **Seçenek A [ Rüzgar Kulelerini Savunma Ağına Bağla ]:** Kuzey platosu için kalıcı erken uyarı açılır.
+   - **Seçenek B [ Polimer Toplama Bacalarını Kur ]:** Düzenli `Asit-Direnç Polimeri` akışı başlar.
+6. **HARMANLANMIŞ ÖDÜL:**
+   - Aethelis-IV'ün 4 ana sektörü de güvenli hâle gelir; **Aşama 2 (Yörünge ve Yakın Uzay)** sekmesi açılır.
+
+---
+
+## BÖLÜM 2: AŞAMA 2 — YÖRÜNGE ABLUKASI VE KAELİTH KURTARMA HİKÂYESİ
+
+### GÖREV 2A: "KIRIK ÇEMBER" (Aethelis Yörünge Ablukası)
+* **TETİKLENME NOKTASI:** `görevler.txt` -> *Derin Uzay G-02* tamamlandıktan hemen sonra.
+1. **KARAKTER & TETİKLEYİCİ:**
+   - `#1 Dinleme Kulesi` T2 kurulduğunda veya yüzeydeki 4 sektör temizlendiğinde, yörüngedeki ikmal uyduları bir anda susar.
+2. **SESLİ SAHNE & DİYALOG:**
+   - *3D Ses:* Yörünge sessizliğini yırtan çift motorlu korsan taraması ve kesilen uydu telemetri sinyali.
+   - *Diyalog (Taktik Subay):* *"Kaptan, Aethelis'in alçak yörüngesine iki korsan gemisi çökmüş. Uzaya açılan tek ikmal kapımızı tutuyorlar. Motorları ateşlemeden önce onları temizlemeliyiz!"*
+3. **HAZIRLIK & KEŞİF ADIMI:**
+   - `Kıvılcım` veya `Rüzgarkıran` gemisi hazırlanır; varsa `K1/K2` modülleri ve `Mutfak` seferi rasyonu yüklenir.
+4. **ÇATIŞMA / SAVAŞ ENTEGRASYONU (Çoklu Uzay Savaşı — T2):**
+   - *Düşmanlar (1v2):* 1x **Korsan Avcı Gemisi** (*Akıncı*) + 1x **Korsan Korveti** (*Pusucu*).
+   - *Taktik:* Önce hızlı saldıran Avcı'yı indir, sonra %30'da kaçmaya çalışan Korveti torpidoyla durdur.
+5. **HARMANLANMIŞ ÖDÜL:**
+   - Aethelis Yörüngesi **Güvenli** olur; **Yedek Filo Devriyesi** açılır ve hemen ardından **Görev 2B** sinyali yakalanır.
+
+---
+
+### GÖREV 2B: "KÜL VE ÇEKİÇ: KAELİTH'İN SON OCAĞI" (Eksik Kaelith Kurtarma Görevi)
+* **TETİKLENME NOKTASI:** `görevler.txt` -> *Derin Uzay G-14 (Vaelin)* sonrası (Sınıf 2+), *Bölüm 6 (Tonoflenya Köprüsü)* öncesi.
+1. **KARAKTER & TETİKLEYİCİ:**
+   - Yörünge ablukası kırıldığı anda Dinleme Kulesi'ne yakın asteroit kuşağındaki volkanik bir maden istasyonundan boğuk, derin bir yardım çağrısı düşer.
+   - *Konuşan:* Kaelith Ustabaşı **Torvok** (kalın, taşları titreten bas ses tonu).
+2. **SESLİ SAHNE & DİYALOG:**
+   - *3D Ses:* Aşırı ısınmış metal gıcırtısı, arka planda patlayan maden ocakları ve Torvok'un ağır nefes alıp verişi.
+   - *Diyalog (Torvok):* *"Burada bizi duyan var mı? Ben Kaelith ocağından Torvok! Dışarıda bir korsan zırhlısı çıkış kapımızı kilitledi, içeride ise sıcak galerilerden uyanan yaratıklar işçilerimizi köşeye sıkıştırdı. Soğutma çekirdeğimiz patlamak üzere, kimse gelmezse hepimiz eriyeceğiz!"*
+3. **HAZIRLIK & KEŞİF ADIMI:**
+   - *Önerilen Hazırlık:* Gemide `Termal Plazma Kesici` veya `#12 Kriyo-Atölye`'den **`2 tüp dondurucu köpük`** + **`termal giysi`**.
+   - *Adım 1 (Uzay Savaşı — T2):* Maden istasyonunun dış kapısını tutan **1x Ağır Maden Korsanı** (*Arketip: Zırhlı*) ile uzay savaşı. İki parmak çevirmeyle zırh frekansı kırılır.
+   - *Adım 2 (İçeri Giriş Bulmacası):* Aşırı ısınmış hava kilidi (`dondurucu köpük` varsa anında açılır; yoksa 3 aşamalı basınç tahliye vanası sesle dengelenir).
+4. **ÇATIŞMA / SAVAŞ ENTEGRASYONU (Kara Savaşı — T2):**
+   - İstasyon içinde Torvok'un ekibini koruyarak **2x Magma Sülfür Akrebi** (*Akıncı*) + **1x Galeri Çağıranı** (*Çağıran*) ile kara savaşı yapılır.
+5. **DALLANAN KARAR (İKİLEM):**
+   - Savaş bitiminde istasyon çökmeye başlar; iki iş için aynı anda vakit yoktur:
+   - **Seçenek A [ Tüm Kaelith Ailelerini ve Ustaları Tahliye Et ]:**
+     - Korsan cephaneliği lavın altında kalır ama herkes kurtulur.
+     - *Sonuç:* **`+25 Kaelith Nüfusu`**, *Kaelith İtibarı +30*, Torvok koloni Dökümhanesi'ne geçerek metal ergitme maliyetini kalıcı `%30` düşürür.
+   - **Seçenek B [ Önce Korsan Zırh Deposunu Sök, Kalanları Son Anda Al ]:**
+     - Ganimet olarak `+400 Titanyum-Karbon`, `+150 Şasi Çeliği` ve `2x Gemi Zırh Modülü` alınır; ancak 5 Kaelith işçisi geride kalır.
+     - *Sonuç:* **`+15 Kaelith Nüfusu`**, Torvok Kaptan'a mesafeli olur (yalnızca `%15` dökümhane indirimi verir).
+6. **HARMANLANMIŞ ÖDÜL:**
+   - **Kaelith Topluluğu** resmen Aethelis-IV'e yerleşir (`görevler.txt` içindeki Tonoflenya Köprüsü kurtarılmış topluluk şartlarından biri artık gerçekten tamamlanabilir!).
+   - Yakın Asteroit Sektörü **Güvenli** olur ve **Aşama 3 (Derin Uzay & 20 Gezegen Hatları)** kilidi açılır.

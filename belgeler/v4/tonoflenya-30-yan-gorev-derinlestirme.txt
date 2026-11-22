@@ -1,0 +1,143 @@
+# TONOFLENYA 30 YAN GÖREVİ: ÇATIŞMA, DİNAMİK VE ÖN ŞART DERİNLEŞTİRMESİ
+
+Bu belge, `görevler.txt` Bölüm 8'deki **30 Tonoflenya Yan Görevini** (`MAG-SQ`, `WST-SQ`, `EST-SQ`, `NTH-SQ`, `STH-SQ`) bozmadan; oyunda olmayan ön şartları gerçek envanter/ekipmanlara bağlar, 10 çatışmalı göreve **Evrensel Savaş** ekler, karışan Seçenek A/B ödüllerini düzeltir ve görevleri **Tonoflenya dinamikleriyle** (5 ana güç itibarı, Yıldız Nöbetleri, melez zanaat) uyumlu hâle getirir.
+
+---
+
+## 1. GENEL DÜZELTMELER (TÜM 30 YAN GÖREV İÇİN)
+
+### 1.1. Olmayan Ön Şartların Gerçek Oyuna Eşlenmesi
+- *"Karakter Seviyesi 12+" / "Savaş Seviyesi 15+"* → İlgili Yıldız Ekolünde **Seyrüsefer Uzmanı** (100+ puan) veya **Yıldız Muhafızı** (300+ puan) kıdemi.
+- *"Manta-01" / "Nomad-01"* → **`Çöl Tilkisi`** (hızlı skimmer) veya **`Mammoth`** (ağır arazi).
+- *"Gürültü Engelleyici Pelerin" / "Zihin Koruma Tılsımı"* → **`Fenrir Işık Pelerini`** veya **`YGK Baş-Büyücü Cübbesi`**.
+- *"Plazma Söndürücü" / "Aether Akort Anahtarı"* → **`2 Tüp Dondurucu Köpük`** / **`T-05 Sonik Tüfek`** veya **`Sinha Akustik Çipi`**.
+- *"Şok Mızrağı" / "Zırh Seviyesi 2+"* → **`Zhaor Işık Mızrağı`** (veya `Filtra Tüfeği`) ve **`Filtra Oksit Ağır Zırhı` / `Lamine Titanyum Zırh`**.
+
+### 1.2. İtibar Standardı (5 Ana Güç)
+30 görevdeki tüm mikro-fraksiyon ödülleri (`Uma Aristokrasisi`, `Safran Göçebeleri` vb.) ana itibar panelinde **5 Ana Tonoflenya Gücü**ne yazar:
+1. **YGK Akademi** (`MAG-SQ` görevleri)
+2. **Batı / Filtra Sendikası** (`WST-SQ` görevleri)
+3. **Doğu / Zorah Çöl Loncası** (`EST-SQ` görevleri)
+4. **Kuzey / Zeris-Mormon** (`NTH-SQ` görevleri)
+5. **Güney / Fleeplee-Veradon** (`STH-SQ` görevleri)
+
+*(Tüm yan görevler için ortak tetikleme: Tonoflenya Köprüsü kurulup Final #1'de **YGK Kayıt Mührü** alındıktan sonra ilgili bölgeye gidildiğinde veya Yıldız Nöbeti uyduğunda açılır.)*
+
+---
+
+## 2. BÖLGE 1: MAGENTOR YARIMADASI (`MAG-SQ-01` – `MAG-SQ-06`)
+
+1. **`MAG-SQ-01` (Zhaor Gece Pazarında Kaçak Kristal İzi):**
+   - *Dinamik:* Yalnızca **Altın Gece (`Uma`)** veya **Gümüş Şafak (`Zhaor`)** nöbetinde pazar kurulurken tetiklenir.
+   - *Seçenek A (Kaçakçıyı İhbar Et):* `+20 YGK Akademi İtibarı`, `800 ML`.
+   - *Seçenek B (Karaborsacıyla Anlaş):* `Karaborsa %10 İndirim`, `50g Fenrir Işık Tozu`, `-10 YGK İtibarı`.
+2. **`MAG-SQ-02` (Saray Altı Teleport Şebekesinde Sızıntı):**
+   - *Dinamik:* Tenohris Sarayı yeraltı hattında frekans eşleme bulmacası.
+   - *Seçenek A (Hattı Kapat & Onar):* `+25 YGK İtibarı`, `Magentor Acil Işınlanma Protokolü` (savaşta kaçış kolaylığı).
+   - *Seçenek B (Sızan Aether'i Topla):* `80x Saf Aether`, `1.200 ML`.
+3. **`MAG-SQ-03` (Elyndra Halkasında Kayıp Simyacının Notları):**
+   - *Dinamik:* **Mor İkindi (`Elyndra`)** nöbetinde notlardaki gizli yazı okunur.
+   - *Ödül:* `YGK Araştırma İlerlemesi %5` (`+1.500 Bilim Puanı`) + `#19 Akademi` / YGK 5. Kat Lab'da melez üretim süresi kalıcı `%10` kısalır.
+4. **`MAG-SQ-04` (Varek Kışlasında Silah Testi Kazası) — ⚔️ SAVAŞ ENTEGRASYONU:**
+   - *Kara Savaşı (T3):* Arızalanan **1x Kadim/Varek Savaş Otomatı** (*Frekans Değiştiren*). İki parmak çevirmeyle kalkan tonu kırılır.
+   - *Ödül:* `Varek Aşırı Yüklü Plazma Bataryası` (gemi birincil silah hasarı `+%15`), `+20 YGK İtibarı`.
+5. **`MAG-SQ-05` (Axira Tapınağında Kadim İlahilerin Sırrı):**
+   - *Dinamik:* Axira yeşil halkasında akustik koro bulmacası (Kronik #5 ile bağlantılı).
+   - *Ödül:* `+25 YGK İtibarı`, `2x Astral Odak İksiri`, şehirde moral artışı.
+6. **`MAG-SQ-06` (Uma Sanatçılar Sokağında Akustik Şantaj):**
+   - *Ödül:* `1.500 ML` + `Sinha Akustik Çipi` veya gizli şantaj kaydı (`+20 YGK İtibarı`).
+
+---
+
+## 3. BÖLGE 2: BATI KUŞAĞI (`WST-SQ-01` – `WST-SQ-06`)
+
+7. **`WST-SQ-01` (Zinas Denizi'nde Hayalet Ticaret Kalyonu):**
+   - *Dinamik:* Gemi sınıfı II+ gerekir; sis içinde yön bulma.
+   - *Ödül:* `1.800 ML`, `100x Titanyum`, `+20 Batı/Filtra İtibarı`.
+8. **`WST-SQ-02` (Loran Vadisi'nde Batık Laboratuvarın Uyanışı):**
+   - *Bağlantı:* **Sarah** (*T-09 Kseno-Panzehir* taslağı) ve *Loran Kripto Tableti* hikâyesine bağlanır.
+   - *Ödül:* `Loran Su Yosunu` damarı açılır + `+1.500 Bilim Puanı`.
+9. **`WST-SQ-03` (Julithan Senatosunda Suikast Alarmı):**
+   - *Seçenek A (Suikastçıyı Yakala):* `+30 Batı İtibarı`, `2.000 ML`.
+   - *Seçenek B (Senato Sırrını Sakla):* `150g Fenrir Işık Tozu`, politik koruma.
+10. **`WST-SQ-04` (Anitor Sınırında Firari Şövalye) — ⚔️ SAVAŞ ENTEGRASYONU:**
+    - *Ön Şart Düzeltmesi:* `Filtra Tüfeği` veya `Zhaor Işık Mızrağı` + zırh kuşanılı.
+    - *Kara Savaşı (T3):* **2x Kraliyet Sınır Muhafızı** (*Zırhlı + Akıncı*) ile düello.
+    - *Seçenek A (Anitor'a Teslim Et):* `+30 Batı/Anitor İtibarı`, `2.200 ML`.
+    - *Seçenek B (Sir Gareth'i Kurtar & Ekibe Al):* Özel Mürettebat **`Sir Gareth`** (alınan savaş hasarı `x0,87`) katılır; Batı itibarı `-10` düşer. *(Önceki tablodaki karışık ödül düzeltildi.)*
+11. **`WST-SQ-05` (Filtra Oksit Dağlarında Madenci İsyanı):**
+    - *Bağlantı:* **Oronte** ve **Cüretkar Cüce** ile doğrudan bağlantılı; `Filtra Madenci Şartnamesi` kullanılır.
+    - *Ödül:* `+25 Batı/Filtra İtibarı`, `150x Kızılkaya Titanyumu`, `Filtra Oksit Demiri` fiyatı `%20` düşer.
+12. **`WST-SQ-06` (Safran Sıradağlarında Kayıp Kervanın Çanları):**
+    - *Ödül:* `+100 ML/Gün` kalıcı ticaret hissesi, `40x Safran Kükürt Cevheri`.
+
+---
+
+## 4. BÖLGE 3: DOĞU KUŞAĞI (`EST-SQ-01` – `EST-SQ-06`)
+
+13. **`EST-SQ-01` (Ajmero Kulesi'nde Fırtına Sığınağı) — ⚔️ SAVAŞ ENTEGRASYONU:**
+    - *Kara Savaşı (T3):* Kuleyi basan **2x Zorah Kum Kertenkelesi** (*Akıncı*).
+    - *Ödül:* `Ajmero Çöl Güneş Küresi`, `+20 Doğu/Zorah İtibarı`, fırtınalarda sığınma hakkı.
+14. **`EST-SQ-02` (Cam Düzlüklerinde Işık Yankısı Avı) — ⚔️ SAVAŞ ENTEGRASYONU:**
+    - *Kara Savaşı (T3):* **1x Kristal Çöl Akrebi** (*Pusucu + Zırhlı*). `Sonik Kovucu` ilk turda zırhını sarsar.
+    - *Seçenek A (Lonca'ya Teslim Et):* `+25 Doğu İtibarı`, `1.600 ML`.
+    - *Seçenek B (Akrep Kabuğunu İşle):* `20x Rezonans Camı`, `+15 Doğu İtibarı`.
+15. **`EST-SQ-03` (Nirdol Boynunda Haydut Pususu) — ⚔️ SAVAŞ ENTEGRASYONU:**
+    - *Kara Savaşı (T3):* **3x Tonoflenya Haydut Çetesi** (*Pusucu*). %25 canda teslim olabilirler.
+    - *Ödül:* `1.500 ML`, `+25 Doğu İtibarı`, `Silahşör Zeno` ile güven bağı.
+16. **`EST-SQ-04` (Morluk Kapısı'nda Mavi Kristal Uğultusu):**
+    - *Ödül:* `Hardrin Manyetik Bariyeri` (sonraki 3 çatışmada yarı hasar), `30x Mavi Aether Tozu`.
+17. **`EST-SQ-05` (Doğu Kırık Vadisi'nde Çökmüş Güneş Tapınağı):**
+    - *Ödül:* `2.000 Bilim Puanı`, `100x Saf Aether Kristali`.
+18. **`EST-SQ-06` (Kahergonat Sınırında Firari Tarikatçı):**
+    - *Seçenek A (Tarikatçıyı Dinle & Haritayı Al):* **`Kahergonat Gizli Geçit Haritası`** (Final #16'da düşman kalkanını `%-25` başlatır!).
+    - *Seçenek B (Sınır Muhafızlarına Teslim Et):* `+25 Doğu İtibarı`, `2.000 ML`. *(Önceki karışık ödül düzeltildi.)*
+
+---
+
+## 5. BÖLGE 4: KUZEY KUŞAĞI (`NTH-SQ-01` – `NTH-SQ-06`)
+
+19. **`NTH-SQ-01` (Halyon Sürgün Adasında Kaçak Simyacı) — ⚔️ SAVAŞ ENTEGRASYONU:**
+    - *Ön Şart Düzeltmesi:* Sınıf II (`Rüzgarkıran`) veya üstü gemi.
+    - *Kara Savaşı (T3/T4):* Simyacıya saldırılırsa **1x Çılgın Simya Muhafızı** (*Karanlık*).
+    - *Seçenek A (Akademi/Muhafızlara Teslim Et):* `+25 Kuzey/Mormon İtibarı`, `1.800 ML`.
+    - *Seçenek B (Deli Simyacı Malakor'u Gemine Al):* Özel Mürettebat **`Malakor`** (torpido hasarı `x1,2`) katılır; `-15 Kuzey İtibarı`. *(Karışık ödül düzeltildi.)*
+20. **`NTH-SQ-02` (Gümüş Tüy Takımadalarında Göçmen Kuşların Çığlığı):**
+    - *Ödül:* `Mormon Denizi Girdap Bağışıklığı` (Kuzey seyrüseferinde yakıt/hasar sıfırlanır), `+20 Kuzey İtibarı`.
+21. **`NTH-SQ-03` (Zeris Kulesi Tepesinde Yıldız Parazitleri) — ⚔️ SAVAŞ ENTEGRASYONU:**
+    - *Bağlantı:* **Mirelza** ve **Baş Gözlemci Valerius** aynı kule hattında birleşir.
+    - *Hava/Kara Savaşı (T4):* **2x Etobur Alt-Evren Yıldız Paraziti** (*Karanlık + Akıncı* — `Işık Mızrağı 2x`).
+    - *Ödül:* **`Kozmik Parazit Sensörü`** (gizli pusuları önceden görür), `+30 Kuzey İtibarı`.
+22. **`NTH-SQ-04` (Norvask Buz Krallığında Donmuş Mamut Mezarı):**
+    - *Ödül:* `50x Norvask Kara Buzu`, `1x Antik Buz Çekirdeği`, `+20 Kuzey İtibarı`.
+23. **`NTH-SQ-05` (Helgar Kara Buz Dükalığında Kaçakçılık Ağı):**
+    - *Ödül:* `2.400 ML` veya Helgar madenlerine serbest erişim (`+25 Kuzey İtibarı`).
+24. **`NTH-SQ-06` (Drahmir Sınırında Donmuş Gözcü Kulesi) — ⚔️ SAVAŞ ENTEGRASYONU:**
+    - *Kara Savaşı (T4):* **2x Buzul Biyom Yaratığı** (*Çağıran*).
+    - *Seçenek A (Kuleyi Drahmir'e Teslim Et):* `+35 Kuzey/Drahmir İtibarı`, `2.000 ML`.
+    - *Seçenek B (3 Sınır Muhafızını Ekibe Al):* Koloni/Gemi kara savunmasına **`+3 Sınır Askeri`** eklenir (`+15 Kuzey İtibarı`). *(Karışık ödül düzeltildi.)*
+
+---
+
+## 6. BÖLGE 5: GÜNEY KUŞAĞI (`STH-SQ-01` – `STH-SQ-06`)
+
+25. **`STH-SQ-01` (Fleeplee Sahilinde Işık Tozu Fırtınası):**
+    - *Dinamik:* **Mavi Akşam (`Sinha`)** nöbetinde dalga en yoğundur.
+    - *Ödül:* `250g Fenrir Işık Tozu`, `+20 Güney İtibarı`.
+26. **`STH-SQ-02` (Tentran Platformunda Graviton Sapması):**
+    - *Ödül:* **`Tentran Çift Graviton İtkisi`** (gemi hızı `+%25`), `Ücretsiz Gemi Bakımı` (Veradon/Tentran rıhtımlarında).
+27. **`STH-SQ-03` (Uçan Arin Adası'nda Kanatlı Elçinin Mektubu):**
+    - *Bağlantı:* Resmi Arin Elçisi *Aethelgard* ile sürgün mucit *Nyxara Vel'din* arasındaki ayrım korunur.
+    - *Ödül:* `20x Arin Kuş Tüyü`, `30x Arin Girdap Reçinesi`, `+25 Güney/Arin İtibarı`.
+28. **`STH-SQ-04` (Veradon Limanında Bataklık Korsanları Ablukası) — ⚔️ SAVAŞ ENTEGRASYONU:**
+    - *Ön Şart Düzeltmesi:* Sınıf III (`Aethel Muhafızı`) veya üstü gemi.
+    - *Uzay/Deniz Savaşı (T4):* **1x Korsan Korveti + 1x Korsan Dron Taşıyıcısı** (*Pusucu + Çağıran*).
+    - *Seçenek A (Veradon Ticaret Filosunu Koru):* `+35 Güney/Veradon İtibarı`, `3.200 ML`.
+    - *Seçenek B (Korsan Gemisini Ele Geçir):* Filoya **`Zırhlı Korsan Korveti`** katılır; `-15 Güney İtibarı`. *(Karışık ödül düzeltildi.)*
+29. **`STH-SQ-05` (Tharal Krallığında Antik Işık Tozu Değirmeni):**
+    - *Seçenek A (Değirmeni Halka Aç):* `+25 Güney İtibarı`, `Moral +15`.
+    - *Seçenek B (Üretim Payı Al):* **Haftalık `50g` (veya 50x) Saf Aether/Işık Tozu** pasif geliri. *(Karışık ödül düzeltildi.)*
+30. **`STH-SQ-06` (Keralon Bataklıklarında Sis Feneri Canavarı) — ⚔️ SAVAŞ ENTEGRASYONU:**
+    - *Kara/Bölge Savaşı (T4):* **1x Sis Feneri Bataklık Canavarı** (*Pusucu + Karanlık*).
+    - *Seçenek A (Canavarı Yok Et & Kristali Al):* **`Bataklık Feneri Kristali`** (Keralon sis bağışıklığı + kalkan/sensör bonusu), `+20 Güney İtibarı`.
+    - *Seçenek B (Bataklık Halkına Hediye Et):* `+40 Güney İtibarı`, `2.500 ML`. *(Karışık ödül düzeltildi.)*

@@ -1,0 +1,82 @@
+# KOLONİ YEREL OPERASYONLARI (1-8) VE 9 YÜZEY BÖLGESİNİN DERİNLEŞTİRİLMESİ
+
+Bu belge, `görevler.txt` içindeki **8 Yerel Operasyon** ile **9 Yüzey Bölgesi**ni (`doğu, cıva, lav, mantar ormanı, kriyo, obsidyen, kuleler, tüneller, vaha`) bozmadan; her birini **karakter hikâyeleri, sesli sahneler, bina/eşya bağlantıları, Evrensel Kara Savaşı ve dallanan kararlarla** derinleştirir.
+
+---
+
+## BÖLÜM 1: 8 YEREL OPERASYONUN DERİNLEŞTİRİLMİŞ VERSİYONLARI
+
+*(Her operasyon `görevler.txt` Bölüm 2'deki mevcut sırayla telsizden gelir; buradaki ek katmanlar mevcut bulmacanın üstüne biner.)*
+
+### 1. Fotonik Mantar Hasadı *(Derinleştirilmiş)*
+- **Karakter:** Kseno-Biyolog **Dr. Selin** (`#5 Biyoloji Kubbesi`).
+- **Genişletilmiş Sahne:** Olgunlaşan 3 fotonik kristal sesle toplanırken spor bulutu yoğunlaşır; çürümüş mantara basılırsa **2x Mantar Sporu Pusucusu** (*Kara Savaşı — T1*) uyanır.
+- **Bina/Eşya Bağlantısı:** `#5 Biyoloji Kubbesi` veya `biyo-karantina bölmesi` varsa spor zehri hiç işlemez.
+- **Dallanan Karar:**
+  - *Seçenek A (Aydınlatma Hatlarına İşle):* Mevcut ödül (`Foton reçinesi +4`, `Moral +5`) + gece nöbetlerinde (`Sinha/Uma`) koloni verimi artar.
+  - *Seçenek B (Dr. Selin'in İksir Deneyine Ver):* `2x Sakinleştirici İlaç` + `#25 Eczane` üretim hızı geçici artar (`Moral +2`).
+
+### 2. Kriyojenik Vana Donması *(Derinleştirilmiş)*
+- **Karakter:** Baştekniker **Kaya** (`#12 Kriyo-Atölye`).
+- **Genişletilmiş Sahne:** Kaya, 4 vanadan sızan gazı dinlerken elindeki basınç göstergesinin donduğunu söyler. Doğru vana termal meşale + 5 polimer levha ile mühürlenir.
+- **Ek Risk & Savaş:** Yanlış vanaya dokunulursa buhar patlaması sesiyle 1x **Kriyo-Yüzey Yaratığı** (*Akıncı, T1*) borudan fırlar.
+- **Ödül:** `Sıvı metan +3`, `İtibar +10`, ayrıca `#12 Kriyo-Atölye` varsa `1x Tüp Dondurucu Köpük` hediye edilir.
+
+### 3. Obsidyen Çölünde Kayıp Keşif Aracı *(Derinleştirilmiş)*
+- **Karakter:** Keşif Ekibi Lideri **Aras** (telsiz ve korna).
+- **Genişletilmiş Sahne:** `Çöl Tilkisi` veya `Mammoth` ile camlaşmış yarığa yaklaşılır. Ekip yarığın dibinde sıkışmışken etraflarını **2x Kristal Çöl Akrebi** (*Akıncı, T1*) sarmıştır.
+- **Bina/Eşya Bağlantısı:** `#6 Araç Hangarı`'ndan `sonik kovucu` getirildiyse akrepler savaşmadan kaçar; yoksa **Kara Savaşı** ile ekip kurtarılır.
+- **Ödül:** `Nüfus +3`, `Moral +5`, `Aras` ekibiyle birlikte `2x Kusursuz Plazma Camı` getirir.
+
+### 4. Vaha Su Kanalı Tıkanması *(Derinleştirilmiş)*
+- **Karakter:** Tarım Sorumlusu **Lina** (`#18 Sera Hubu` / `#24 Mutfak`).
+- **Genişletilmiş Sahne:** Kayanın rezonansına sonik patlatıcı ayarlanıp bent açılır. Ancak suyun kesilmesine sebep olan heyelanın arkasından **1x Vaha Kaya Solucanı** (*Zırhlı, T1*) çıkar.
+- **Bina/Eşya Bağlantısı:** `sismik dengeleyici` varsa vadi çökmeden solucan durdurulur.
+- **Dallanan Karar:** *Suyu doğrudan Seralara yönlendir (`+20 Rasyon, Moral +5`)* vs. *Vahanın vahşi tohum havuzunu sula (`2x Gece Açan Vaha Hurması tohumu`, `Moral +5`)*.
+
+### 5. Akademi Kütüphanesinde Çeviri Krizi *(Sabit Ceza Düzeltildi)*
+- **Karakter:** Kütüphane Çevirmeni **Malken Bilgini** ile **Kaelith Tarihçisi**.
+- **Sorun Çözümü:** Önceki sürümde oyuncu ne yaparsa yapsın `Moral -5` cezası alıyordu. Artık oyuncunun seçimi sonucu belirler:
+- **Dallanan Karar:**
+  - *Seçenek A (Ortak Uzlaşma Sentezi — `#19 Akademi` veya Yüksek İtibar ile):* İki metnin farklı çağları anlattığını kanıtla → **`Moral +10`, `İtibar +10`, `+100 Bilim Puanı`**.
+  - *Seçenek B (Bir Tarafı Haklı Çıkar):* Kütüphane hızlı açılır ama kaybeden taraf küser → `Moral -5`, kazanan taraftan `1x Antik Veri Parçası`.
+
+### 6. Metan Kubbesinde Basınç Düşüşü *(Derinleştirilmiş)*
+- **Karakter:** Kubbe Teknisyeni ve içerideki **Kseno-Topluluk Sözcüsü** (`Vaelin/Kithron`).
+- **Genişletilmiş Sahne:** Güneydeki 3 yedek kompresörü sesle dinleyip tam basınç anında açarken, sızıntıdan faydalanan içerideki zehirli küf **stres/zehir** yayar.
+- **Bina/Eşya Bağlantısı:** `#25 Kseno-Eczane` hazırlandıysa içerideki kimse hastalanmaz; tam başarıda **`İtibar +15`, `Moral +10`** ve kseno-sözcüden `1x Kseno-Alaşım` teşekkürü gelir.
+
+### 7. Kör Solucan Göç Dalgası *(Sabit Ceza Düzeltildi + Savaş Eklendi)*
+- **Karakter:** Maden Şefi **Torvok** (veya Başmühendis Kaya).
+- **Sorun Çözümü:** Önceki sürümde sürü her hâlükârda ocakları çökertip `Moral -5` veriyordu.
+- **Yeni Akış:**
+  - 2,5 dakikalık sürede 3 kayaya frekans kazığı dikilir.
+  - Eğer **`sismik dengeleyici`** kurulmuşsa veya oyuncu **Dev Kör Solucan Öncüsü**nü (*Kara Savaşı — T2*) durdurursa sürü yön değiştirir → **Ocaklar kurtulur (`Moral +10`, `+15 Titanyum`, `+10 Bazalt`)**!
+  - Yalnızca süre biterse veya savaştan kaçılırsa eski sonuç (galeri çökmesi, `Moral -5`) gerçekleşir.
+
+### 8. Vanguard Enkazında Yağmacı Tuzağı *(Sabit Ceza Düzeltildi + Birleşik Savaş)*
+- **Bağlantı:** `asama-1-ve-2` dosyasındaki **Görev 1B** ile doğrudan birleşir.
+- **Yeni Akış:** Sessizce sızıp plazma kesiciyle nöbetçiyi sersemleten oyuncu artık korsanları elinden kaçırmak zorunda değildir.
+- **Dallanan Karar & Savaş:**
+  - *Tam Başarı / Çatışma:* Yağmacı lideri ve **Kadim Vanguard Otomatı**na karşı **Kara Savaşı (T1/T2)** kazanılırsa yağmacılar yakalanır → **Kayıp olmaz, `İtibar +15`, `+100 Şasi Çeliği`, tohum kasaları kurtarılır**.
+  - *Yalnızca Gürültü Yapılırsa:* Eski sonuç (alarm verip kaçarlar, `İtibar -5`) yaşanır.
+
+---
+
+## BÖLÜM 2: 9 YÜZEY BÖLGESİNİN GENİŞLETME DÖNGÜSÜ (`keşif → izole → stabil → karakol`)
+
+`görevler.txt` satır 48–49'da yalnızca isimleri geçen 9 yüzey bölgesi, **Komuta ve Genişleme Paneli** üzerinden şu standart 4 adımlı döngüyle fethedilir:
+
+| Yüzey Bölgesi | Tehlike & Kara Düşmanı | Önerilen Araç / Yetim Eşya | Karakol Kurulunca Gelen Sürekli Kazanç |
+| :--- | :--- | :--- | :--- |
+| **1. Doğu (Manyetik Sis)** | Sis pusucuları + pusula sapması | `Çöl Tilkisi` + `Kripto Anten` | Düzenli `Piezo/Silikat Kristali` |
+| **2. Cıva Şelaleleri** | Sıvı metal buharı + cıva akıntısı | `Demir Kervan` + `Sıvı Metal Kabı` | `Sıvı Metal İletkeni` + `Manyetik Cıva Tortusu` |
+| **3. Lav Koridorları** | Sülfür Akrepleri + aşırı ısı | `Mammoth` + `Termal Giysi` | `Ağır İzotop` + `#16 Jeotermal` güç |
+| **4. Mantar Ormanı** | Spor bulutu + Mantar Pusucusu | `Biyo-Karantina` + `Sonik Kovucu` | `Organik Foton Reçinesi` + `Sakinleştirici Spor` |
+| **5. Kriyo-Mağaralar** | Donma hasarı + Kriyo-Yaratık | `Dondurucu Köpük` + `Termal Giysi` | `Süperiletken Kriyolit` + `Sıvı Metan` |
+| **6. Obsidyen Ovası** | Cam kırığı fırtınası + Çöl Akrebi | `Çöl Tilkisi` + `Lamine Zırh` | `Plazma Camı` + `Obsidyen Tabaka` |
+| **7. Bazalt Kuleleri** | Yüksek irtifa + Antigravitasyon rüzgarı | `Atmosphere-X` + `Topraklama Çubuğu` | `Antigravitasyon Tozu ve Çekirdek Jeot` |
+| **8. Kadim Tüneller** | Karanlık + Kadim Otomatlar | `Akrep` Dron + `Sismik Dengeleyici` | `Kadim Kseno-Kristal` + `Fosforlu Liken` |
+| **9. Saklı Vaha** | Heyelan + Vaha Kaya Solucanı | `Nötralizasyon Kulesi` + `Sismik Dengeleyici` | `Vaha Hurması` + `Kükürt Sarmaşığı` + `Bazalt Kökü` |
+
+*(Her bölgede `keşif` aşamasında araçla girilir, `izole` aşamasında tehlike/savaş temizlenir, `stabil` aşamasında kaynak damarı açılır ve `karakol` aşamasında `otomatik ikmal karakolu` kurularak bölge güvenli pasif gelire bağlanır.)*

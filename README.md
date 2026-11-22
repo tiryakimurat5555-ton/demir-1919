@@ -6,6 +6,11 @@ tesis kurar, ileride gemini parça parça inşa edip uzaya açılırsın.
 
 Yapımcı: Bahtiyar Cankurt (tasarım belgeleri belgeler/ içinde). Expo Go ile iPhone ve Android'de çalışır.
 
+## Bu sürümde (3.0)
+- Bahtiyar'ın v4 paketi (39 belge, belgeler/v4/) işlenmeye başladı; Faz 1: evrensel savaş motoru.
+- Kara (yüzey) savaşı, birden çok düşman, T1-T5 tehdit ölçeği, sekiz düşman davranış modülü, altı geliş biçimi,
+  aşamalı bosslar, filo destek yuvası ve kara refakatçisi; koloni baskınları ve yabancı firkateyn devriyeleri.
+
 ## Bu sürümde (2.14)
 - Lithos-Echo gezegeninin kendi ortam sesi geldi (önceden Zephyr-Major ile aynı sesi çalıyordu).
 

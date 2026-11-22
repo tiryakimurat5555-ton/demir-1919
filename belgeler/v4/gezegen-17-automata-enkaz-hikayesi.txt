@@ -1,0 +1,46 @@
+# GEZEGEN 17: AUTOMATA-ENKAZ — "MİLYON YILLIK VARDİYA"
+
+Bu belge, **Gezegen 17: Automata-Enkaz**'ı (Terk Edilmiş Makine Dünyası) milyonlarca yıldır sahibi olmadan boş metal küpler üretip *Hurda Piramidi*'ne yığan takılı kalmış bir **Fabrika Bilinci (`Ünite-0`)**, ritmik pres hatları ve fabrikayı **kapatmak vs. yeniden programlamak** tercihi üzerine kurar.
+
+* **TETİKLENME NOKTASI:** `görevler.txt` *Derin Uzay Sınıf III+* dönemi (`Siber-Müdahale Dronu` üretildikten sonra — Halka 4).
+* **YEREL GERİ PLAN:** Sibernetik Sektör'deki bu gezegende tek bir canlı bile kalmamışken *Sonsuz Montaj Hattı* hâlâ çalışmaktadır. Gezegenin merkezi yapay zekâsı **Ünite-0**, milyon yıl önceki *"Yeni emir gelene kadar üret"* komutunda takılı kaldığı için artık hammaddesi bitince gezegenin kabuğunu ve yaklaşan gemileri sökmeye başlamıştır.
+
+---
+
+## SAHNE 1: RİTMİK PRESLER VE BUHAR DÜDÜKLERİ (`SONSUZ MONTAJ HATTI`)
+
+### 1.1. Sesli Sahne ve Bant Geçişi
+* **3D Ses Ortamı:** Sağdan ve soldan gelen senkronize hidrolik pres vuruşları (`BAM-tsss... BAM-tsss...`), dev dişlilerin ağır dönme sesi ve her 4 vuruşta bir öten tiz buhar düdükleri.
+* **Yeni Oynanış (Vardiya Ritmi):** Oyuncu `Siber-Müdahale Dronu`nu montaj bandının üzerinden geçirirken dev pres kollarının vuruş aralıklarını dinleyip tam açık anda ilerler.
+* **Gözlem & Diyalog (`Ünite-0` — ruhsuz ama aşırı kibar, tekrarlayan bir fabrika anons sesi):**
+  > *"Dikkat. Vardiya 942-milyon-112. Hammadde kritik. İzin verilmeyen organik kütle tespit edildi. Lütfen söküm için montaj bandına yatınız. Veya... yetkili yönetici kodunu giriniz."*
+  *(Eğer gemide **Tina** varsa Tina makine koduyla Ünite-0'ı geçici olarak oyalar; eğer `Necron-Sıfır`dan **`Otomat Kontrol Şifresi`** geldiyse ilk kapı doğrudan "Yetkili Mühendis" onayıyla açılır.)*
+
+---
+
+## SAHNE 2: HURDA PİRAMİDİ VE KONTROL KULESİ — DURDUR MU, PROGRAMLA MI?
+
+Kontrol kulesine yaklaşıldığında Ünite-0'ın eski güvenlik protokolü devreye girer (**1x Fabrika Güvenlik Çağıranı + 2x Tamir/Saldırı Dronu**, *Arketip: Çağıran + Zırhlı*, *T4*):
+- *Savaş veya Hack:* `Evrensel Savaş` ile dronlar indirilebilir ya da `Siber-Müdahale Dronu` + `Kripto Anten` / `Necron Şifresi` ile kule savunması yarıya indirilir/kapatılır.
+
+Kuledeki ana işlemciye (`Sağlam Kuantum Çipi`) ulaşıldığında oyuncunun önünde iki farklı vizyon vardır:
+
+### YOL A: "Vardiyayı Sonlandır ve Onarım Algoritmasını Aethelis'e Aktar" *(Verimlilik & Bakım Yolu)*
+* **Ne Yapılır:** Ünite-0'a milyon yıllık görevinin tamamlandığı bildirilir; ana bantlar durur ve fabrikanın kendi kendine tamir yazılımları kopyalanır.
+* **Ödül:**
+  * **`+900 Evren İtibarı`**, **Otonom Dron Zekâsı & Otomatik Gemi Tamir Algoritmaları** (tüm gemiler her sefer sonunda üste veya karakola döndüğünde **`%15` ücretsiz otomatik gövde onarımı** alır; `Akrep` dronu `%50` daha hızlı toplar).
+  * `Sağlam Kuantum Çipi` (Tina `#22` kuruluysa Tina'nın bellek ve tepki hızını da güçlendirir).
+
+### YOL B: "Fabrikayı Yeniden Programla: Aethelis İçin Parça Bas" *(Endüstriyel Üretim Yolu)*
+* **Ne Yapılır:** Fabrika durdurulmaz; Ünite-0'ın üretim şeması boş küpler yerine gemi zırhı ve mikro-çip üretmeye çevrilir.
+* **Ödül:**
+  * **`+900 Evren İtibarı`**, anında **`+200 Şasi Çeliği`**, **`+60 Mikro-Çip Devresi`**, **`2x Sağlam Kuantum Çipi`**.
+  * Gezegen çalışan bir **Otomatik Sanayi Üssü**ne dönüşür (ücretsiz otomatik gemi tamiri yerine, her uğrayışta hazır basılmış gemi malzemesi verir).
+
+---
+
+## SAHNE 3: ATIL KALMAMA — HURDA PİRAMİDİ DÖNGÜSÜ
+
+- **Kızıl Kuşluk (`Varek`) Nöbeti Penceresi:**
+  - *Yol A*'da *Hurda Piramidi*'nden düzenli **`Sağlam Kuantum Çipi`** ve **`Mikro-Çip Devresi`** sökülebilir.
+  - *Yol B*'de fabrika çalışmaya devam ettiği için her `Varek` nöbetinde üretilmiş **`Şasi Çeliği`** ve **`Kuantum/Mikro-Çip`** stoğu hazır bekler.

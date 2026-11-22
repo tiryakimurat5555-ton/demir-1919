@@ -41,6 +41,7 @@ import { ALANLAR, KAPILAR, MEKANLAR, NOKTALAR } from '../oyun/yuzey/harita';
 import { monolitEtkisi } from '../oyun/yuzey/kesifler';
 import { FENOMENLER, ITIBAR_KADEMELERI } from '../oyun/veri/gozlem';
 import { OPERASYONLAR } from '../oyun/veri/uzayGorevleri';
+import { DESTEK as SAVAS_DESTEK } from '../oyun/uzay/savas';
 import { harcanabilir, yetenekAc, yetenekListesi } from '../oyun/veri/yetenek';
 import { fenerBirak, cevreMetni, durumMetni, esyaMetni, etkiles, firtinaIlerle, maruziyetAdi, ilerle, kisiAdi, otoBaslat, radar, yerlerListesi, zehirIlerle } from '../oyun/yuzey/dunya';
 import {
@@ -1956,6 +1957,36 @@ export default function Yuzey({ onGeri, baslangic, yeniOyunUret }) {
         });
       ogeler.push({ id: 'ata', etiket: 'Mürettebat ata', sec: () => (atamaGoster(), 'sessiz') });
       ogeler.push({ id: 'yetenek', etiket: 'Kaptan yetenekleri', ipucu: 'Sefer tecrübesiyle dört dalda yetenek aç.', sec: () => (yetenekGoster(), 'sessiz') });
+      // Evrensel savaş: filo destek yuvası ve kara refakatçisi (seçtikçe sıradakine geçer)
+      if ((d.filo || []).length)
+        ogeler.push({
+          id: 'destek',
+          etiket: 'Savaşta destek yuvası',
+          ipucu: 'Seçince sıradaki yedek gemiye geçer.',
+          sec: () => {
+            d.destekNo = ((d.destekNo == null ? 0 : d.destekNo) + 1) % d.filo.length;
+            const g = d.filo[d.destekNo];
+            const x = SAVAS_DESTEK[g.sinif];
+            kaydet();
+            soyle('Destek yuvası: ' + g.ad + '. ' + (x ? x.ad + ': ' + x.tarif : ''), 'istek', true);
+            return 'sessiz';
+          },
+        });
+      const refler = Object.values(d.istasyonlar || {}).filter(Boolean);
+      if (refler.length)
+        ogeler.push({
+          id: 'refakat',
+          etiket: 'Kara çatışmasında refakatçi',
+          ipucu: 'Seçince sıradaki subaya geçer; yeteneğiyle yanında savaşır.',
+          sec: () => {
+            const i = refler.findIndex((x) => (x.anahtar || x.id) === d.refakatci);
+            const y = refler[(i + 1) % refler.length];
+            d.refakatci = y.anahtar || y.id;
+            kaydet();
+            soyle('Refakatçi: ' + y.ad + '.', 'istek', true);
+            return 'sessiz';
+          },
+        });
       if (!d.uzay)
         ogeler.push({
           id: 'in',
@@ -2297,16 +2328,21 @@ export default function Yuzey({ onGeri, baslangic, yeniOyunUret }) {
       s.dinleyici({ x: 0, y: 0, yon: 0 });
       s.boguk(false);
     }
-    ortamCal('ortam_uzay', 0.25); // dolaşım sesleri geri plana
-    savasRef.current = { acik: true, dusman: false };
+    // Uzayda dolaşım sesleri geri plana; karada bulunulan yerin ortamı kısılarak sürer
+    const ds = dunya.current.savas;
+    if (ds && ds.ortam === 'kara') {
+      const mk = MEKANLAR[dunya.current.mekan];
+      if (mk && mk.ortam) ortamCal(mk.ortam, 0.3);
+    } else ortamCal('ortam_uzay', 0.25);
+    savasRef.current = { acik: true, dusman: false, kaynaklar: {} };
     setSavasAcik(true);
     Haptics.notificationAsync(Haptics.NotificationFeedbackType.Warning).catch(() => {});
     savasOlaylari(olaylar);
   };
   const savasKapat = () => {
     const s = m();
-    if (s && savasRef.current.dusman) s.sil('savas_dusman');
-    savasRef.current = { acik: false, dusman: false };
+    if (s) for (const id of Object.keys(savasRef.current.kaynaklar || {})) s.sil(id);
+    savasRef.current = { acik: false, dusman: false, kaynaklar: {} };
     setSavasAcik(false);
     kaydet();
     sesleriEsitle(true);
@@ -2337,7 +2373,7 @@ export default function Yuzey({ onGeri, baslangic, yeniOyunUret }) {
         // Uyarı sesi (telegraph): silahın kendi sesi, düşmanın yanından
         const yan = { x: o.yon === 'sag' ? 8 : -8, y: 3 };
         // ElevenLabs uyarı sesleri; konumlu ek: düşmanın yanından kısa notalar
-        cal(o.uyari === 'plazma' ? 'el_plazma_sarj' : o.uyari === 'torpido' ? 'el_torpido' : 'el_iyon', 1);
+        cal(o.ses2 || (o.uyari === 'plazma' ? 'el_plazma_sarj' : o.uyari === 'torpido' ? 'el_torpido' : 'el_iyon'), 1);
         [660, 880].forEach((f, i) => setTimeout(() => m() && m().nota(f, yan, 0.4, 0.3), i * 300));
         Haptics.notificationAsync(Haptics.NotificationFeedbackType.Warning).catch(() => {});
       }
@@ -2356,10 +2392,21 @@ export default function Yuzey({ onGeri, baslangic, yeniOyunUret }) {
     const s = m();
     if (!s || !d.savas) return;
     const x = savasSes(d);
-    if (x.dusman) {
-      s.kaynak('savas_dusman', 'fener', { x: x.dusman.x, y: x.dusman.y }, null, x.dusman.frek);
-      savasRef.current.dusman = true;
+    // Her düşmanın konumlu motor ya da adım sesi; etkin hedef önde, ötekiler arka planda
+    const ref = savasRef.current;
+    if (!ref.kaynaklar) ref.kaynaklar = {};
+    const simdi = {};
+    for (const b of x.dusmanlar || []) {
+      const id = 'savas_dusman_' + b.id;
+      simdi[id] = true;
+      s.kaynak(id, 'fener', { x: b.x, y: b.y }, null, b.frek);
+      ref.kaynaklar[id] = true;
     }
+    for (const id of Object.keys(ref.kaynaklar)) if (!simdi[id]) {
+      s.sil(id);
+      delete ref.kaynaklar[id];
+    }
+    ref.dusman = !!x.dusman;
   };
   const savasVer = (g) => {
     const d = dunya.current;

@@ -1,0 +1,64 @@
+# TONOFLENYA BÖLGESEL GÖREVLER (12 GÖREV), SEYAHAT KURALLARI VE BÜYÜK AMBARGO
+
+Bu belge; `tonoflenya-bolgesel-gorevler-ve-itibar-matrisi.md` ve `tonoflenya-buyuk-cografi-atlasi.md` içindeki bölgesel dinamikleri **Yeni_Icerikler** omurgasına entegre eder. Tonoflenya'da bölgeler arası geçiş kurallarını, 4 bölgenin 3 aşamalı 12 görevini ve **Büyük Tonoflenya Ambargosu**nun final görevlerine etkisini netleştirir.
+
+---
+
+## 1. TONOFLENYA SEYAHAT VE GEÇİT KURALLARI (SERBEST GEÇİŞ YOK)
+
+Tonoflenya'da haritadan istenilen yere anında geçilmez. Her bölgenin kapısı, süresi ve şartı vardır:
+
+| Hedef Bölge | Giriş Yolu & Süre | Zorunlu Geçiş Şartı / Kısıtı |
+| :--- | :--- | :--- |
+| **Magentor / Malkenia (Merkez)** | YGK 5. Kat İskelesinden yarım gün (`1.5 Nöbet`) | **Final #1 (`YGK Kayıt Mührü`)** alınmış olmalı. |
+| **Batı Kuşağı (Filtra, Loran, Anitor)** | Zinas Okyanusu / Batı Kapısı (`2-3 Nöbet`) | Standart karayolu/gemi; fırtınada `Çöl Tilkisi` veya `Sınıf II+` gemi avantaj sağlar. |
+| **Güney Kuşağı (Fleeplee, Tentran, Veradon, Arin)** | Fenrir Caddesi / Güneygeçit (`2 Nöbet`) | **Tentran:** `Tentran Işınlanma İzni` + `Fenrir Tozu` harcı. **Arin Adası:** `Atmosphere-X` (veya hava izni). |
+| **Doğu Kuşağı (Zorah Çölü, Mavi Hardrin, Kahergonat)** | Zorah Kapıları Yolu / Nirdol Boynu (`3 Nöbet`) | **Zorah:** `Ajmero Küresi` yoksa fırtına hasarı. **Kahergonat Yolu:** Yalnızca **`Sinha` (Mavi Akşam)** nöbetinde açılır! |
+| **Kuzey Kuşağı (Mormon, Zeris, Norvask, Drahmir)** | Kuzeyboğaz (`2-4 Nöbet`) | **Mormon Denizi:** `Sınıf II+` gemi + `Mormon Pusulası / Bağışıklığı` (`NTH-SQ-02`) yoksa girdap hasarı. |
+
+---
+
+## 2. 4 BÖLGE × 3 AŞAMALI 12 BÖLGESEL GÖREV (`görevler.txt` ZAMANLAMASI)
+
+Bu 12 görev, `görevler.txt`'deki 30 yan görevden **farklıdır**; her bölgenin ana lideriyle (`Oronte`, `Barracuda`, `Zeno`, `Mirelza`) kurulan **3 aşamalı stratejik ittifak zinciridir**.
+
+### Açılma Zamanlaması:
+- **Görev 1 (Saha İmtihanı):** `Final #1 (YGK Kayıt Mührü)` alındıktan sonra ilgili bölgeye ilk gidildiğinde açılır.
+- **Görev 2 (Çatışan Çıkarlar):** `Final #6 (Malazar / Kadim Körükler)` tamamlandıktan sonra açılır.
+- **Görev 3 (Bölgesel Kırılma & Tether-Key):** `Final #10` sonrası (veya Aethelis Komuta Merkezi / Röle hazırsa) açılır; tamamlanınca lider **Tether-Key Mekik** ile Aethelis'e gelebilir!
+
+---
+
+### A. BATI KUŞAĞI — ORONTE (Filtra Maden Sendikası)
+1. **Görev 1 (Filtra Çarklarının Yağlanması):** Galeri 4'teki maden vagonu sıkışmasını sesle dinleyip basıncı dengele; içerideki **1x Maden Otomatı**nı (*Zırhlı, T3*) indir. → *Ödül:* `+20 Batı İtibarı`, `50x Kızılkaya Titanyumu`.
+2. **Görev 2 (Julithan Ambargosu):** Şifreli kargo konvoyunu *Julithan* gemilerine karşı koru (**1x Korsan/Julithan Korveti** — Uzay Savaşı, T3). → *Seçim:* Sendikaya ver (`+30 Batı İtibarı`) veya Başkente bildir (`+25 YGK İtibarı`, Oronte küser).
+3. **Görev 3 (Demir ve Cıva İttifakı):** Filtra barikatını kıran **2x Ağır Maden Korsanı**nı (*T4*) temizle. → *Ödül:* `T-02 Akışkan Cıva Plakası` taslağı + **Oronte Tether-Key Mekik Erişimi** (`Aethelis zırh/araç maliyeti -%50`).
+
+### B. GÜNEY KUŞAĞI — KAPTAN BARRACUDA (Fleeplee Toz Sahili)
+1. **Görev 1 (Parlayan Sığlıkların Baskını):** `Sinha` nöbetinde parlayan toz sığlıklarında Veradon devriye botunu sesle atlat veya **1x Avcı Botu**nu (*Akıncı, T3*) etkisizleştir. → *Ödül:* `+20 Güney İtibarı`, `100g Fenrir Işık Tozu`.
+2. **Görev 2 (Arin Göksel Ambargosu):** Arin elçisi *Aethelgard*'ın korsan iskelesini sabote etme teklifi vs. Barracuda'yı koruma. *(Not: Barracuda seçilirse Arin hava sahası kapanır ama sürgün mucit **Nyxara Vel'din** Fleeplee'de olduğu için Tether-Key yine üretilebilir.)*
+3. **Görev 3 (Fenrir Hayalet Filosu):** Fleeplee açıklarında pusuya yatan **1x Gölge Korsanı + 1x Dron Taşıyıcısı** (*T4*) ile Uzay Savaşı. → *Ödül:* `T-07 Plazma Pençeli Kesici` taslağı + **Barracuda Tether-Key Mekik Erişimi** (`Kargo kaybı %0 + Maden ambarı 2x`).
+
+### C. DOĞU KUŞAĞI — SİLAHŞÖR ZENO (Zorah Çölü & Kervan Yolu)
+1. **Görev 1 (Cam Kumların Fırtınası):** Çöl fırtınasında kaybolan kervanı sesli pusulayla bul ve **2x Kum Akrebi/Haydut** (*Pusucu, T3*) ile Kara Savaşı yap. → *Ödül:* `+20 Doğu İtibarı`, `30x Rezonans Camı`.
+2. **Görev 2 (Vaha Kuşatması):** Doğu vahasını kuşatan paralı askerlere karşı **Kara Savaşı (T3/T4)**. → *Seçim:* Vahayı Çöl Loncası'na bırak veya Başkent/Anitor vergi hattına bağla.
+3. **Görev 3 (Mavi Hardrin Kanunsuzları):** Nirdol Boynu'ndaki haydut lideri ve **1x Tarikat Muhafızı** (*Karanlık, T4*) ile düello. → *Ödül:* `+35 Doğu İtibarı` + **Zeno Tether-Key Mekik Erişimi** (`Koloni savunması +%40 + Aethelis pusu riski 0`).
+
+### D. KUZEY KUŞAĞI — MİRELZA (Zeris Dış Kulesi & Halyon Hattı)
+1. **Görev 1 (Donmuş Frekansların Kaydı):** Zeris kulesi eteklerindeki donmuş rezonans kristallerini sesle akort et. → *Ödül:* `+20 Kuzey İtibarı`, `30x Norvask Kara Buzu`.
+2. **Görev 2 (Norvask Lordlarının Kazısı):** Buz altından çıkan **2x Kadim Otomat** (*Frekans Değiştiren, T4*) ile savaşarak kazıyı durdur veya ele geçir.
+3. **Görev 3 (Zeris'in Göksel Şarkısı):** Kule tepesindeki sonik paraziti temizle (**1x Alt-Evren Sürüsü**, *Karanlık, T4*). → *Ödül:* `T-05 Sonik Çığlık Tüfeği` taslağı + **Mirelza Tether-Key Mekik Erişimi** (`Radar menzili 2x + Sera büyüme +%30`).
+
+---
+
+## 3. BÜYÜK TONOFLENYA AMBARGOSU (FİNAL ÖNCESİ POLİTİK KIRILMA)
+
+* **TETİKLENME NOKTASI:** `görevler.txt` *Final #12 (Veradon Limanı)* tamamlandıktan hemen sonra, *Final #16 (Kahergonat)* öncesinde tetiklenir.
+- **Sahne:** Başkent/YGK Yönetimi (**Valen Lazeria**, veya Valen zindandaysa **Morvenna Kael**), taşradaki isyanları ve kaçakçılığı bahane ederek **"Büyük Tonoflenya Ambargosu"** ilan eder: Dış kuşakların başkente vergi/malzeme aktarmasını emreder.
+- **Büyük Karar (Oyuncunun Dengesi):**
+  1. **Seçenek A [ Başkent ve YGK Merkezini Destekle ]:**
+     - *Etki:* Magentor ve YGK Akademi kapıları sonuna kadar açık kalır; Final #17–#18'de **YGK Büyücü Takviyesi ve tam Aether ikmali** gelir.
+     - *Bedel (Permalost Riski):* İtibarı düşük olan dış bölge liderlerinden biri (`Oronte` veya `Barracuda`) yollarını keser; o bölgenin mekik hakkı final sonrasına kadar askıya alınır.
+  2. **Seçenek B [ Taşra İttifakını (4 Bölgeyi) Destekle ]:**
+     - *Etki:* Batı, Güney, Doğu ve Kuzey'deki tüm mekik hatları, pazarlar ve *Tether-Key* ikmalleri %100 açık kalır; Final #17'de **4 Bölge Gönüllü Filosu** başkent kuşatmasını dışarıdan kırar.
+     - *Bedel:* Magentor merkez kapıları geçici olarak kapanır; YGK Akademi'ye yalnızca **-1. Kat Kör Rıhtım** üzerinden gizlice girilebilir (ancak Final #18'de *Lord Sharon* kapıyı zaten kırdığı için ana hikâye asla kilitlenmez!).

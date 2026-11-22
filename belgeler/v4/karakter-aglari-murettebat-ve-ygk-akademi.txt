@@ -1,0 +1,84 @@
+# KARAKTER AĞLARI, MÜRETTEBAT, YGK AKADEMİ VE MEKİK PROTOKOLÜ (KANONİK YAPI)
+
+Bu belge; `Yeniler` klasöründeki `ygk-akademi-derinlestirme-ve-karakter-rehberi.md`, `ygk-akademi-dort-kilit-figur-ve-rpg-etkilesimleri.md`, `tonoflenya-karakter-aglari-ve-mekik-protokolu.md`, `tonoflenya-esya-zanaat-ve-murettebat-rehberi.md` ve `tonoflenya-bolgesel-gorevler-ve-itibar-matrisi.md` dosyalarındaki **kimlik, konum, kat ve rol çelişkilerini** çözerek tek bir tutarlı karakter ve akademi sistemi kurar.
+
+---
+
+## 1. MÜRETTEBAT SİSTEMİ: AETHELİS PROSEDÜREL EKİBİ + YGK ÇEKİRDEK KADROSU
+
+Oyundaki iki farklı mürettebat sisteminin çakışmaması için **iki aşamalı tek mürettebat yapısı** uygulanır:
+
+1. **Aşama 1 — Aethelis Prosedürel Ekibi (Erken ve Orta Oyun):**
+   - Tonoflenya köprüsü kurulana kadar gemiyi Aethelis-IV nüfus havuzundan atanan 5 istasyon uzmanı yönetir: *Başçarkçı*, *Telsiz Subayı*, *Taktik Nişancı*, *Başhekim*, *İkmal Subayı*.
+2. **Aşama 2 — YGK Seçkin Subay Kadrosu (Tonoflenya Sonrası Kıdemli Subaylar):**
+   - Tonoflenya'ya geçilip Sınıf III (`Aethel Muhafızı`, 8 kişilik koğuş) veya üstü gemiye ulaşıldığında **6 Seçkin Subay** geminin komuta kademesine katılır (prosedürel personel yardımcı/yedek ekibe geçer).
+   - *İsim Geleneği:* YGK subayları mezun oldukları Yıldız Ekolü'nün onursal adını taşır.
+
+### Geminin 6 Seçkin Subayı (Kaptan + 6 Subay = 7 Çekirdek Kişi)
+1. **Elyndra Val-Tarek** *(Mor Ekol / Reaktör & Aether Mühendisi):* Kuantum sıçrama şarjını hızlandırır, aether kalkanı açar.
+2. **Varek Kaelon** *(Kızıl Ekol / Taktik Silah Subayı):* Savaş hasarını artırır, *Kızıl Odak* yeteneğini kullanır.
+3. **Dr. Axira Nerys** *(Yeşil Ekol / Başhekim & Kseno-Biyolog):* Mürettebat stresini ve kseno-travmaları temizler.
+4. **Zhaor** *(Gümüş Ekol / Seyrüsefer ve Dümen Subayı — Önceki taslakta eksik olan subay):*
+   - *İstasyonu:* Köprüüstü Seyrüsefer Konsolu.
+   - *İşlevi:* Derin uzay rota süresini kısaltır, pusularda kaçınma penceresini `+0,3 sn` uzatır; aktif yeteneği *Taktik Işınlanma / Acil Rota Kırılması*dır.
+5. **Sinha Mar-Zul** *(Mavi Ekol / Akustik ve İstihbarat Subayı):* Düşman silah türünü önceden bildirir, Kara Aether kargo bozulmasını sıfırlar.
+6. **Başçavuş Drahmir Oksid** *(Altın/Demir Disiplin / Hangar ve Kara Operasyon Subayı):* Yüzey araçlarını ve kara savaşı ekibini yönetir; kara savaşında zırh/siper bonusu verir.
+
+---
+
+## 2. YGK AKADEMİ TEK KANONİK YAPISI (11 KAT)
+
+Resmi Adı: **Yıldız Gözlem ve Keşif Akademisi (YGK)** — Magentor/Malkenia'ya yarım günlük mesafede, Zinas-Mormon boğazındaki 80.000 nüfuslu bağımsız bilim-büyü metropolü.
+
+- **Zemin Üstü Katlar (+1 ile +6):**
+  - **1. Kat (Varış Avlusu & Dış Muhafız Amfisi):** Ağır Plazma Talimgahı. Eğitmen: **Ignador**.
+  - **2. Kat (Yıldız Ekolleri Amfileri & Cep-Park):** Altı yıldız ekolünün temel dersleri. Gizli alan/havalandırma sakini: **Tixie**.
+  - **3. Kat (Kristal İhtisas, Kinetik Savaş & Zanaat):** Dökümhane/kristal işleme eğitimi (*Forges*, *Korvinus Vael*).
+  - **4. Kat (Kartografya, Kütüphane ve Saat Mahzeni):** Büyük arşiv ve boyut haritaları (*Kefius Arateon* çalışma odası, *Profesör Püskül*).
+  - **5. Kat (Aether Simya Laboratuvarı, Kseno-Seralar & Yerçekimi İskelesi):** Aethelis gemisinin kenetlendiği rıhtım ve Melez Zanaat Lab'ı (*Trellis-7*, *Seraphine Rael*).
+  - **6. Kat (Yüksek Konsey Salonu ve Akademi Gözlemevi):** Akademi yönetimi (**Valen Lazeria**). *(Not: Kuzey Kuşağı'ndaki kule ayrı olarak "Zeris Dış Gözlem Kulesi"dir).*
+- **Yeraltı Katları (-1 ile -5):**
+  - **-1. Kat:** Kuantum-Aether Rölesi, Mekik İskelesi ve Kargo Rıhtımı (*Maelis*).
+  - **-2. Kat:** Sessiz Arşivler ve Disiplin Hücreleri (*Silas Vex*).
+  - **-3. Kat:** Doğal Malazar Aether Çatlağı ve Karantina.
+  - **-4. Kat:** Stasis Hücreleri (yalnızca suçlu/tehlikeli tutsaklar; dış dünyadaki bölge liderleri burada değildir).
+  - **-5. Kat:** Sıfırıncı Karanlık ve Dünya Çivisi (Runahar/Runashar ana mühür sütunu — *Kefius Arateon* yasaklı kürsüsü).
+
+---
+
+## 3. ÇELİŞKİLERİ ÇÖZÜLEN KİLİT NPC VE BÖLGE LİDERLERİ
+
+Aşağıdaki 8 karakterin farklı dosyalara dağılmış çelişkili kimlikleri tek bir kanonik profile sabitlenmiştir:
+
+1. **Valen Lazeria:** YGK 6. Kat Yüksek Konsey Rektörü. Oyuncu onunla iş birliği yaparsa diplomatik/akademik destek alır; Konsey darbesinde Valen'i -4. Kat Stasis'e kapatırsa Tonoflenya Ambargosu kararını onun yerine Konsey Vekili **Morvenna Kael** yürütür (hikaye kilitlenmez).
+2. **Kefius Arateon:** YGK 4. Kat Kartografya ve -5. Kat Alt-Evren Kürsüsü Kıdemli Arkanisti. Aethelis köprüsünün ilk sinyallerini destekler.
+3. **Ignador:** YGK 1. Kat Ağır Plazma Talimgahı Eğitmeni (eski Zeris Kulesi muhafızı). Konuşkan, Konsey karşıtı ağır taktik ustasıdır. *T-06 Geometrik Plazma Namlusu* taslağını ve kara/uzay ağır silah eğitimini verir. (Tier 4 Dökümhane kilidi yalnızca `Aethelis Tersane Tier 4`'e bağlıdır; Ignador'un kilidi sadece kendi silahı ve taktik eğitimidir).
+4. **Tixie:** YGK 2. Kat Cep-Park ile 1. Kat havalandırma şebekesi arasında yaşayan Zefiryum kökenli teknopati kaçağı. Oculon cep-boyut bilgisine sahiptir; 5. Kattan *Boyut Sabitleyici Çip* görevini verir. Ödülü: *T-03 Katlanmış Cep-Ambar* (3x kargo kapasitesi + korsan taramasına karşı gizli cep).
+5. **Oronte:** **Batı Kuşağı (Filtra Madenleri / Loran sınırı)** lideri. Yarı-sentetik Filtra Maden Sendikası önderidir (YGK mahkumu değildir). *T-02 Akışkan Cıva Plakası* taslağını verir. Mekikle Aethelis'e geldiğinde: **Ağır zırh ve araç üretim/bakım maliyetini `%50` düşürür**.
+6. **Kaptan Barracuda:** **Güney Kuşağı (Fleeplee Toz Sahili)** korsan/kaçakçı kaptanı. Veradon Donanması'na açıkça düşmandır (Veradon Limanı'nda oturmaz). *T-07 Plazma Pençeli Kesici* taslağını verir. Mekikle Aethelis'e geldiğinde: **Sefer kargo kaybını `%0` yapar ve maden ambarlarını korur**.
+7. **Nyxara Vel'din:** Arin Adası'ndan sürgün edilmiş eski baş mucit; Fleeplee/Tentran kıyısında bağımsız çalışır (resmi Arin elçisi değildir — resmi elçi *Aethelgard*'dır). Bu sayede oyuncu Barracuda'yı seçip Arin'i karşısına alsa bile **Tether-Key** ve *T-04 Rezonans Halkası* teknolojisine erişebilir.
+8. **Mirelza:** **Kuzey Kuşağı (Zeris Dış Kulesi / Halyon Adası hattı)** sonik sürgünü (YGK mahkumu değildir). *T-05 Sonik Çığlık Tüfeği* taslağını verir. Mekikle Aethelis'e geldiğinde: **Radar/rezonans tarama menzilini `2x` yapar ve sera bitki büyümesini `%30` hızlandırır**.
+9. **Silahşör Zeno:** **Doğu Kuşağı (Zorah Çölü / Kervan Yolu)** muhafızı (Magentor doğu-güneydoğu kervan hattında *Yolboyu Hanı*'nda bulunur). Mekikle Aethelis'e geldiğinde: **Koloni savunma gücünü `+%40` artırır ve dış sektörlerde kseno-yaratık pusu riskini sıfırlar**.
+10. **Xarathia:** Yalnızca **Pyros-Prime** gezegeni 3 aşamalı görevinin ateş figürüdür (YGK mahkumu veya Malazar doğal afeti değildir).
+
+---
+
+## 4. TETHER-KEY MEKİK PROTOKOLÜ (STANDART KURALLAR)
+
+- **Açılma Şartı:** Aethelis-IV ile Tonoflenya arasındaki Kuantum Köprüsü açılmış olmalıdır (Sınıf III+ gemi, Dinleme Kulesi T3, 2+ topluluk, 10+ operasyon).
+- **Mekik Maliyeti:** 1 Saf Malazar Kristal Odaklayıcısı, 50g Fenrir Işık Tozu, 25L Aethelis Jeotermal Soğutucu.
+- **Görev Süresi:** Çağrılan bölge lideri (`Oronte`, `Barracuda`, `Zeno`, `Mirelza` veya melez gözetmenlerden biri) Aethelis-IV'te **2 Yıldız Nöbeti** kalır.
+- **Bekleme Süresi:** Görev bitiminde karakter Tonoflenya'ya döner; standart bekleme **6 Yıldız Nöbeti**dir (`T-04 Rezonans Halkası` üretilirse **2 Nöbet**e düşer).
+- **Aynı Anda Sınır:** Koloni mekik rıhtımında aynı anda en fazla **1 misafir lider/gözetmen** ağırlanabilir.
+
+---
+
+## 5. İTİBAR SİSTEMİ SADELEŞTİRMESİ VE EVREN İTİBARI KARŞILIKLARI
+
+Karmaşık 20+ mikro-fraksiyon yerine iki net itibar katmanı tutulur:
+1. **Evren İtibarı (Global Kalıcı Prestij — Harcanmaz, Eşik Açtıkça Güçlendirir):**
+   - **Kademe 1 (`0 – 999`: Bilinmeyen Kazazede):** Standart başlangıç; ek bonus yok.
+   - **Kademe 2 (`1.000 – 4.999`: Tanınan Kâşif):** Akademi/Dinleme taramaları `+%15` hızlanır; tüm pazarlarda alım-satım `%10` avantajlı olur; koloni taban morali `+5` artar.
+   - **Kademe 3 (`5.000 – 11.999`: Galaktik Öncü):** Bilim/araştırma hızı `+%25`, pazar indirimi `%15` olur. Korsanlar adını tanır: rastgele korsan karşılaşmalarında **savaşmadan korkutup kaçırma** veya **`%35` canda erken teslim alma** seçeneği açılır. Tonoflenya'daki 5 Ana Güç başlangıçta `+10` saygınlık tanır.
+   - **Kademe 4 (`12.000+`: Evrenin Muhafızı):** `%25` pazar avantajı, `+%35` araştırma hızı ve koloni yüksek morali sayesinde tüm savaşlarda `+%10` ek savunma direnci sağlar. YGK Konseyi ve *Büyük Tonoflenya Ambargosu* gibi kritik diplomatik ikna testlerinde sözün ağırlık taşır.
+2. **Tonoflenya Bölge İtibarı (-100 ile +100 arası 5 Kademe):** Yalnızca 5 ana güç üzerinden takip edilir: *YGK Akademi*, *Batı/Filtra Sendikası*, *Güney/Fleeplee-Veradon*, *Doğu/Zorah Çöl Loncası*, *Kuzey/Zeris-Mormon*.

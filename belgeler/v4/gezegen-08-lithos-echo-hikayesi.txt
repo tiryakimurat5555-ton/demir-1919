@@ -1,0 +1,60 @@
+# GEZEGEN 08: LITHOS-ECHO — "ÇAN KULESİNİN YANKISI VE MOR MONOLİTLER"
+
+Bu belge, **Gezegen 08: Lithos-Echo**'yu (Rezonans ve Kristal Çan Dünyası); **Gezegen 05 (`Sol-Kharra`)**'daki kararın doğrudan etkilediği, kendi içinde akustik keşiş **Lirael-9** ile korsan sinyal avcıları arasındaki çatışmayı işleyen ve buradan elde edilen akustik anahtarla **Gezegen 09 (`Necron-Sıfır`)**'a katmanlı bağlanan dallı budaklı bir hikâyeye dönüştürür.
+
+* **TETİKLENME NOKTASI:** `görevler.txt` *Derin Uzay Sınıf II+ / III+* dönemi (`Akustik Denge Roverı` üretildikten sonra).
+* **YEREL GERİ PLAN:** Rüzgar estikçe 100 metrelik kuvars ve mor kristal sütunlarından çan kulesi melodilerinin yayıldığı bu gezegende, kör seyyah-akustikçi **Lirael-9** kadim ses kayıtlarını arşivlemektedir. Ancak bir grup korsan sinyal avcısı, mor monolitleri kökünden dinamitleyip karaborsaya satmak üzere gezegene inmiştir.
+
+---
+
+## AŞAMA 1: BİN KAT BÜYÜYEN YANKI (`REZONANS AMFİTİYATROSU`)
+
+### 1.1. Sesli Sahne ve `Sol-Kharra` Etkisi
+* **3D Ses Ortamı:** Yüzeye inildiğinde lastiklerin/ayakların altında çıngıraklı kristal yüzeyi çınlar; rüzgar estikçe her yönden org ve çan kulesi melodileri yükselir. *Rezonans Amfitiyatrosu*'nda en ufak bir ses bin kat büyüyerek geri döner.
+* **Çapraz Bağlantı (`Gezegen 05: Sol-Kharra` Sonucu):**
+  * Eğer elinde `Sol-Kharra`dan gelen **`İşlenmiş Sol-Kharra Merceği`** varsa, amfitiyatronun ses-ışık odaklama bulmacası otomatik olarak hizalanır.
+  * Eğer `Sol-Kharra`da yağma yaptıysan ve mercek yoksa, odaklama için ekstra `10x Silikat/Piezo Kristali` harcamak veya zorlu 4 notalı sonik darbe bulmacasını elle çözmek gerekir.
+* **Telsiz Diyaloğu (`Lirael-9` — sakin, yankılı, müzik tonunda konuşan bir ses):**
+  > *"Sessiz ol yabancı... Amfitiyatroda yüksek ses çıkarırsan yankı bin kat büyür ve kristal sütunları başımıza yıkar! Ben Lirael. Aşağıdaki Monolit Ormanı'nda korsanlar mor kristalleri kesiyor. Eğer köklerini patlatırlarsa bu gezegenin şarkısı sonsuza dek susacak!"*
+
+### 1.2. Hazırlık ve İlk İkilem
+* **Araç & Eşya:** `Akustik Denge Roverı` (veya `Çöl Tilkisi`). Varsa `Sinha Akustik Çipi` veya `Sonik Kovucu`.
+* **DALLANAN KARAR 1 (Akustik Tuzak Mı, Sessiz Baskın Mı?):**
+  * **Seçenek A [ Amfitiyatroyu Akort Edip Korsanlara Odaklanmış Ses Dalgası Gönder ]:**
+    * *Mekanik:* Sonik darbe doğru frekansta yansıtılırsa aşağıdaki korsanların telsiz ve sensörleri bozulur → Aşama 2'de düşmanlar sersemlemiş başlar (`Lirael Güveni +15`).
+  * **Seçenek B [ Amfitiyatroya Dokunmadan Monolit Ormanı'na Gizlice Sız ]:**
+    * *Mekanik:* Yolda korsanların bıraktığı `30x Piezo Saf Kristal` kasasını alırsın, ancak düşmanlar Aşama 2'de tam güçle karşılık verir.
+
+---
+
+## AŞAMA 2: 100 METRELİK MOR KRİSTALLER ARASINDA ÇATIŞMA (`MONOLİT ORMANI`)
+
+### 2.1. Sesli Sahne ve Evrensel Kara Savaşı (T3)
+* **3D Ses Ortamı:** 100 metrelik tek parça mor kristallerin arasında rüzgarla titreşen derin org borusu sesleri ve lazer kesicilerin tiz vızıltısı.
+* **Düşmanlar:** **1x Korsan Sinyal Avcısı** (*Arketip: Pusucu + İyon Kilidi*) + yüksek sesten uyanan **1x Kristal Rezonans Muhafızı** (*Arketip: Frekans Değiştiren*).
+* **Taktik & Serbestlik:**
+  * *Serbest Oyun:* Muhafızın kristal zırhının tonunu iki parmak çevirmeyle yakalayıp kırmak, pusucu korsanı ses yönünden takip etmek.
+  * *Eşya Kısayolu:* `2 Sonik Kovucu` veya `T-05 Sonik Tüfek` muhafızın kalkanını tek seferde çatlatır; `Topraklama Çubuğu` iyon kilidini önler.
+
+### 2.2. Mor Harmonik Kristal ve Büyük İkilem
+Çatışma bittiğinde numune olarak bir mor kristal ucu alınacaktır:
+
+* **DALLANAN KARAR 2 (Tek Uç ve Bilgi Mi, Ormanı Sökmek Mi?):**
+  * **Seçenek A [ Lazerle Yalnızca Tek Bir Monolitin Ucunu Çatlat, Ormanı Koru ]:**
+    * *Doğrudan Ödül:* **`+700 Evren İtibarı`**, Aethelis gemileri için **Gelişmiş Kalkan Frekans Modülatörleri & Akustik Radar Netliği** (uzay savaşlarında *Pusucu* sahte seslerini zayıflatır ve frekans kırmayı kolaylaştırır).
+    * *Katmanlı Etki (`Gezegen 09: Necron-Sıfır` Bağı):* Lirael minnettarlık olarak sana **`Kadim Yankı Anahtarı`**nı (ses şifresi) ve **`1x Saf Mor Harmonik Kristal`** verir. Bu anahtar, **Gezegen 09 (`Necron-Sıfır`)**'daki akustik kilitli mezar dehlizlerinin kapısını ilk denemede açmanı sağlar!
+  * **Seçenek B [ Korsanların Ağır Lazerini Çalıştırıp 3 Büyük Monoliti Kökünden Kes ]:**
+    * *Doğrudan Ödül:* Anında **`+120 Piezo Saf Kristal`**, **`+60 Kseno-Alaşım`** ve **`+700 Evren İtibarı`**.
+    * *Ceza (Katmanlı Sonuç):* Dev mor sütunlar gürültüyle devrilir, gezegenin çan melodileri sonsuza dek susar. Lirael büyük bir hayal kırıklığıyla ayrılır; kalıcı kalkan modülatörü bonusu açılmaz ve **Gezegen 09 (`Necron-Sıfır`)**'daki akustik kilitleri kırmak çok daha zor hâle gelir.
+
+---
+
+## AŞAMA 3: KALICI DÖNÜŞÜM VE ATIL KALMAMA DÖNGÜSÜ
+
+### 3.1. Gezegenin Kalıcı Sonu
+* **İyi Son ("Çan Kulesi Akustik İstasyonu"):** Lirael burada kalır; gezegen rüzgarlarıyla şarkı söylemeye ve gemi sensörlerini kalibre etmeye devam eder.
+* **Karanlık Son ("Sessiz Kırık Orman"):** Sütunlar devrilmiştir; rüzgarda yalnızca kırık kristal parçaları şıngırdar.
+
+### 3.2. Atıl Kalmama: Yıldız Nöbeti Tekrar Ziyaret Döngüsü
+* **Mavi Akşam (`Sinha`) Nöbeti Penceresi:** İyi son yaşandıysa her `Sinha` nöbetinde amfitiyatro en temiz tonuna ulaşır; oyuncu geri dönüp düzenli **`Piezo Saf Kristal`** ve **`Mor Harmonik Kristal`** toplayabilir.
+* **Karanlık Son Alternatifi:** Kırık ormanda kalan enkaz ve parçalanmış `Silikat / Piezo` kırıkları toplanabilir.

@@ -1,0 +1,45 @@
+# GEZEGEN 19: AERO-FLORA — "GÖKYÜZÜNÜN BALİNA ŞARKISI"
+
+Bu belge, **Gezegen 19: Aero-Flora**'yı (Yüzen Canlı Gaz Dünyası) hidrojen atmosferinde süzülen kilometrelerce büyüklükteki canlı gaz keseleriyle **hidrofon üzerinden iletişim kurulan**, parazitlere karşı **hidrojen patlatmadan hassas atış yapılan** ve canlı ekosistemle dostluk veya sömürü seçimi sunan eşsiz bir atmosfere taşır.
+
+* **TETİKLENME NOKTASI:** `görevler.txt` *Derin Uzay Sınıf III+* dönemi (`Atmosferik Kepçeli Mekik` veya `Atmosphere-X` üretildikten sonra — Halka 5).
+* **YEREL GERİ PLAN:** Katı yüzeyi olmayan bu gezegende, gökyüzündeki dev organik resifler ve balina benzeri canlı gaz keseleri (*"Ana Kese"*) barış içinde süzülür. Ancak son zamanlarda boşluktan düşen **Alt-Evren Hava Parazitleri**, Ana Kese'nin sırtına yapışıp anti-yerçekimi gazını emmeye başlamıştır.
+
+---
+
+## SAHNE 1: BİYOLOJİK İTKİ AKINTISI VE HİDROFON ŞARKISI
+
+### 1.1. Sesli Sahne ve Rüzgar Koridoru
+* **3D Ses Ortamı:** Hidrojen dolu atmosferde yüzen dev keselerin derin, hüzünlü balina iniltileri, yükselen büyük gaz baloncuklarının tok patlamaları ve canlının gaz tahliyesiyle oluşturduğu hızlı rüzgar koridorları.
+* **Gözlem Adımı:** Mekiğin hidrofonu açılır; Ana Kese'nin acı ve yardım isteyen 4 notalı şarkısı kaydedilir (`Zephyr-Major`dan gelen *İyon-Hava Akustik Haritası* varsa notalar kulaklıkta net vurgulanır).
+
+---
+
+## SAHNE 2: CANLI GAZ KOLONİSİ — HASSAS KORUMA VE HASAT
+
+### 2.1. Evrensel Hava Savaşı (T4 — Dikkatli Nişan!)
+* **Düşmanlar:** Ana Kese'nin sırtındaki organik resiflere yapışmış **2x Alt-Evren Hava Paraziti + 1x Ana Parazit Çağıranı** (*Arketip: Karanlık + Çağıran*).
+* **Özel Çevre Kuralı (Hidrojen Atmosferi):** Ortam yanıcı hidrojen doludur! Aşırı termal/patlayıcı alan silahları yerine **keskin nişanlı atışlar**, `Zhaor Işık Mızrağı` (`2x` hasar!), `Sonik Kovucu` veya `T-08 Söğüt Nişangâhı` kullanmak hem parazitleri hızla temizler hem de Ana Kese'ye zarar vermez.
+
+### 2.2. Anti-Yerçekimi Gazı ve İki Farklı Yaklaşım
+Parazitler temizlendikten sonra mekiğin dış emiş valfiyle **Uçucu Anti-Yerçekimi Gazı** alınacaktır:
+
+### YOL A: Hidrofonla Şarkıya Eşlik Et ve Gönüllü Gazı Al *(Barışçıl Ortaklık)*
+* **Ne Yapılır:** Ana Kese'nin kaydettiğin 4 notalı şarkısını iki parmakla doğru tonda geri çalarsın. Canlı seni kurtarıcısı olarak tanır, sakinleşir ve gövdesindeki valfleri kendi rızasıyla açar.
+* **Ödül:**
+  * **`+750 Evren İtibarı`**, **Gemiler İçin Hafif Yerçekimsiz Kargo Ambarları Teknolojisi** (tüm gemilerin kargo kapasitesi kalıcı **`+%35` artar** ve ağır yük yakıt cezası yarıya düşer!).
+  * **`Canlı Resif Tohumu`** (Aethelis `#18 Sera` veya `#20 Kubbe` için özel oksijen/moral bitkisi).
+
+### YOL B: Şarkısız Dış Emiş Valfini Saplayıp Zorla Gaz Çek *(Agresif Sömürü)*
+* **Ne Yapılır:** İletişim kurmakla uğraşmadan valfi doğrudan canlının kesesine saplayıp maksimum basınçla gaz çekilir.
+* **Ödül:**
+  * **`+750 Evren İtibarı`**, anında **`+100 Antigravitasyon Gazı/Tozu`**, **`+60 L Plazma Yakıtı`** ve **`+%20` Kargo Kapasitesi**.
+  * *Sonuç:* Ana Kese korkuyla derin hidrojen bulutlarına kaçar; sonraki ziyaretlerde sürü sana karşı ürkek/saldırgan davranır.
+
+---
+
+## SAHNE 3: ATIL KALMAMA — GÖKYÜZÜ DİNLENME VE GAZ İKMALİ
+
+- **Yeşil Öğle (`Axira`) ve Altın Gece (`Uma`) Penceresi:**
+  - *Yol A*'da *Canlı Gaz Kolonisi* bu nöbetlerde üst katmana yükselir. Oyuncu geri dönüp şarkıyla ücretsiz **`Uçucu Anti-Yerçekimi Gazı`**, **`Yüzen Çiçek Özütü`** ve **mürettebat stresini sıfırlayan ücretsiz şarkı terapisi** (Revir'e dönmeden yolda stres temizleme!) alabilir.
+  - *Yol B*'de ise yalnızca hızlı dalışla kısıtlı gaz vakumlanabilir.

@@ -1,0 +1,41 @@
+# GEZEGEN 14: FRACTURA — "KIRILAN KITANIN HALATI"
+
+Bu belge, **Gezegen 14: Fractura**'yı (Yerçekimsel Parçalanmış Harabe Dünya) yakındaki bir gaz devinin çekimiyle parçalanmakta olan bir kıta üzerinde geçen; **manyetik halat bağlama, savrulan kaya bloklarından kaçma ve inatçı maden kaptanı Oskar'ı kurtarma** odaklı yüksek tempolu bir kurtarma/aksiyon hikâyesine dönüştürür.
+
+* **TETİKLENME NOKTASI:** `görevler.txt` *Derin Uzay Sınıf III+* dönemi (`Manyetik İtki Çapalı Mekik` veya `Atmosphere-X` + `Dron` ile — Halka 4).
+* **YEREL GERİ PLAN:** Gaz devinin gelgit kuvvetiyle parçalanan bu ön-gezegende, *Havada Asılı Plaka* üzerinde **Kaptan Oskar**'ın küçük maden istasyonu ("Çapa-3") durmaktadır. Plakayı çekirdeğe tutan üç dev manyetik halattan ikisi kopmuştur. Plaka gaz devine sürüklenirken, fırsattan yararlanan bir **Korsan Dron Taşıyıcısı** da açıkta kalan magmadan *Saf Manyetik Platin* çalmaya çalışmaktadır.
+
+---
+
+## SAHNE 1: SAVRULAN KAYALAR VE KOPAN HALAT (`HAVADA ASILI PLAKA`)
+
+### 1.1. Sesli Sahne ve Enkaz Kaçışı
+* **3D Ses Ortamı:** Yerçekimi kuvvetinin kayaları bükerken çıkardığı derin metalik inilti, sağdan sola doğru hızla fırlayan dev kaya bloklarının çarpışma gümbürtüleri ve kopan manyetik halatların gerilim çığlıkları.
+* **Telsiz Diyaloğu (`Kaptan Oskar` — yaşlı, inatçı, kalın bir ses):**
+  > *"Tahliye falan etmiyorum! Kırk yıllık platin konteynerlerimi o korsan leş kargalarına bırakıp gitmem! Son halat da kopmak üzere — eğer mekiğinde çekici kiriş veya çapa varsa şu plakanın ucundan tut!"*
+* **Gözlem Adımı:** Kıtalar savrulurken çıkan sonik yerçekimi dalgaları kaydedilir; kaya çarpışmalarının yönü dinlenerek mekikle istasyon iskelesine yaklaşılır.
+
+---
+
+## SAHNE 2: ÇEKİRDEK KIRIĞI — PLAKAYI KURTAR MI, YÜKÜ ALIP KAÇ MI?
+
+### YOL A: Plakayı Çekirdeğe Yeniden Bağla ve Korsanları Püskürt *(Kurtarma & Çatışma Yolu)*
+* **Ne Yapılır:**
+  1. **Evrensel Uzay Savaşı (T4):** Önce platin konteynerlerine kanca atan **1x Korsan Dron Taşıyıcısı** (*Arketip: Çağıran*) + **2x Saldırı Dronu** püskürtülür (`Dron/Hisar` desteği veya hızlı hedef değiştirme gerekir).
+  2. **Halat Sabitleme:** Savaş sonrası mekiğin manyetik çapaları (`Manyetik Çekici Kiriş` varsa tek hamlede) *Açığa Çıkmış Çekirdek Kırığı*'na fırlatılır ve yerçekimi dalgası iki parmakla merkezlenerek plaka yeniden sabitlenir.
+* **Ödül:**
+  * **`+800 Evren İtibarı`**, **Yerçekimi Sönümleme & İtki Çapası Teknolojisi** (gemilerin çarpışma, yerçekimi ve çekici kiriş hasarı kalıcı **`%30` azalır**).
+  * Oskar istasyonunu kurtardığı için her nöbette koloniye düzenli **`Saf Manyetik Platin`** tedarikçisi olur.
+
+### YOL B: Plakayı Bırak, Oskar'ı Zorla Tahliye Edip Magmadan Platin Çek *(Hızlı Tahliye Yolu)*
+* **Ne Yapılır:** Halatları bağlamakla uğraşılmaz; Oskar'ın kapsülü çekici kirişle zorla gemiye çekilir. Plaka gaz devine doğru düşmeye başlarken oyuncu `Akrep` / toplama dronuyla *Açığa Çıkmış Çekirdek Kırığı*'ndan hızla maden vakumlar (korsanlar da düşen kayalardan kaçtığı için uzun savaş çıkmaz).
+* **Ödül:**
+  * **`+800 Evren İtibarı`** ve **Yerçekimi Sönümleme Teknolojisi** yine kazanılır.
+  * Düşen kırık kabuktan anında **`+150 Saf Manyetik Platin / Titanyum`** ve **`2x İtki/Mekanik Parça`** alınır; ancak *Çapa-3 İstasyonu* gaz devinin içinde yok olur.
+
+---
+
+## SAHNE 3: ATIL KALMAMA — PLATİN VE ENKAZ DÖNGÜSÜ
+
+- **Yol A (Sabitlenmiş Plaka):** Her **Mavi Akşam (`Sinha`)** nöbetinde yerçekimi dalgaları durulunca istasyona uğranıp **`Saf Manyetik Platin`** ve **`Antigravitasyon Tozu`** toplanabilir.
+- **Yol B (Enkaz Halkası):** Gezegenin yörüngesinde kalan kaya halkasından `Akrep` dronuyla serbest maden ve hurda çekilmeye devam edilir.

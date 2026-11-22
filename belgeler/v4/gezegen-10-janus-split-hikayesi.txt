@@ -1,0 +1,51 @@
+# GEZEGEN 10: JANUS-SPLIT — "ALACAKARANLIK ÇİZGİSİNDE İKİ KARDEŞ"
+
+Bu belge, **Gezegen 10: Janus-Split**'i önceki kalıpların ("iyi/kötü seçim", "bunu alırsan sonraki gezegen kolaylaşır") tamamen dışına çıkarır. Burada **korsan yok, gizli tarikat yok**; 10 kilometrelik incecik alacakaranlık şeridinde hayatta kalmaya çalışan **iki kardeşin zıt felsefeleri**, **sürekli ısı/soğuk dengesi tutma** oynanışı ve **oyun tarzına göre farklılaşan 3 eşit değerde son** vardır.
+
+* **TETİKLENME NOKTASI:** `görevler.txt` *Derin Uzay Sınıf II+ / III+* dönemi (`İki Kutuplu Keşif Aracı` üretildikten sonra).
+* **YEREL GERİ PLAN:** Bir yüzü +500°C güneş denizi, diğer yüzü -200°C ebedi buz olan bu gezegenin tam ortasındaki 10 km'lik *Alacakaranlık Çizgisi*'nde yıllar önce buraya sığınmış küçük bir araştırma ekibinden geriye **ikiz kardeşler Soren ve Nadia** kalmıştır. Gezegenin termal hortumları şiddetlenince iki kardeş kurtuluş yolu konusunda düşmana dönüşmüştür.
+
+---
+
+## SAHNE 1: ATEŞ VE BUZUN ORTASINDAKİ İP (`TERMAL ŞERİT VADİSİ`)
+
+### 1.1. Sesli Sahne ve Yeni Mekanik (Termal Çizgi Dengesi)
+* **3D Ses Ortamı:** Sağ kulakta fokurdayan, rüzgarı yakan +500°C güneş fırtınasının kükremesi; sol kulakta kemikleri donduran -200°C buz fırtınasının tiz ıslığı. Tam ortada ise iki havanın çarpışıp oluşturduğu kalıcı hortumların derin uğultusu.
+* **Benzersiz Oynanış (Savaş Değil, Denge Yarışı):**
+  * `İki Kutuplu Keşif Aracı` ile ilerlerken oyuncu sürekli sıcak ve soğuk rüzgarın **tam ortasındaki ince sessiz çizgiyi** tutmalıdır (sağa kayarsa aşırı ısınma uyarısı, sola kayarsa donma uyarısı çalar).
+  * Yukarıda sürekli dalgalanan kalıcı **Aurora Kuşağı**'nın elektrikli cızırtısı Lidar ile fotoğraflanır.
+
+### 1.2. İki Kardeşin Telsiz Tartışması
+* **Soren (Güneş Tarafı — heyecanlı, hızlı konuşan ses):**
+  > *"Kaptan! Dinleme şu kadını! Güneş duvarına son dev aynayı da dikersem buzulların bir kısmını eritip bize geniş, sıcak bir vadi açacağım! Karanlıkta donarak ölmektense ışığı içeri almalıyız!"*
+* **Nadia (Buz Tarafı — soğuk, keskin, ölçülü ses):**
+  > *"Delirmişsin Soren! Aynaları açtığın an sıcak ve soğuk hava çarpışıp 500 km'lik hortumlar doğuracak — yaşadığımız şu dar şerit bile parçalanacak! Kaptan, benim yanıma gel; onun güç kablosunu kesip bu gezegeni soğuk ama sabit bir sığınağa çevirelim."*
+
+---
+
+## SAHNE 2: GÖLGE DUVARI VE 3 FARKLI YOL
+
+Oyuncu *Gölge Duvarı*'na (donmuş dağların aniden alevli çöle dönüştüğü keskin sırta) ulaştığında, burada "doğru vs. yanlış" yoktur; **3 farklı felsefe ve 3 farklı ödül dalı** vardır:
+
+### YOL A: Soren'in Güneş Aynalarını Aç *(Termal / Saldırı Odaklı Yol)*
+* **Ne Yapılır:** Güneş tarafındaki 3 dev odak aynası sesle güneşe çevrilir (aşırı ısı altında `Termal Giysi` varsa hasar alınmaz). Nadia bunu durdurmak için buz tarafındaki savunma dronlarını gönderirse kısa bir **çatışma (`2x Koruyucu Dron`, *T3*)** yaşanır (diplomasiyle ikna edilirse savaşsız geçilir).
+* **Gezegenin Dönüşümü:** Buzullar geriler, vadi sıcak ve gürültülü bir **Termal Enerji Krateri**ne dönüşür.
+* **Ödül:** **`+650 Evren İtibarı`**, Aethelis için **Aşırı Isı & Plazma Zırh Kaplaması** (sıcak gezegenlerde ve termal saldırılarda `+%30` direnç + silah soğutma hızı). Nadia kırgın şekilde kuzey kutbuna çekilir; Soren ise her **Kızıl Kuşluk (`Varek`)** nöbetinde gezegenden **`Nadir Termal Mineral`** ve **`Plazma Yakıtı`** çıkarır.
+
+### YOL B: Nadia'nın Buz Kilidini İndir *(Kriyo / Savunma Odaklı Yol)*
+* **Ne Yapılır:** Gölge Duvarı'ndaki ana ısı transfer kablosu `Dondurucu Köpük` veya buz kesiciyle mühürlenir. Soren'in otomatik tamir kuleleri direnirse kısa bir **çatışma (`1x Tamir Otomatı`, *Zırhlı, T3*)** yaşanır.
+* **Gezegenin Dönüşümü:** Alev duvarı geri itilir, Alacakaranlık Şeridi sakin, sessiz ve karlı bir **Kriyo-Vadi**ye dönüşür.
+* **Ödül:** **`+650 Evren İtibarı`**, Aethelis için **Kriyojenik Yalıtım & İyon Savunma Kaplaması** (soğuk gezegenlerde ve dondurucu/iyon saldırılarında `+%30` direnç + kalkan kapasitesi). Soren üzgün ama kabullenmiş biçimde geri çekilir; Nadia ise her **Mavi Akşam (`Sinha`)** nöbetinde gezegenden **`Süperiletken Kriyolit`** ve **`Termal Mineral`** sağlar.
+
+### YOL C (GİZLİ / HİBRİT YOL): Hortumları Aurora Türbinine Bağla *(Barış & Çift Kutuplu Zırh)*
+* **Açılma Şartı:** Bu yol doğrudan açık değildir. Oyuncu hem **`Termal Giysi` (veya `Dondurucu Köpük`)** taşıyor hem de iki kardeşle tek tek konuşup ortak geçmişlerini dinlediyse *"İkinizin de ihtiyacı olan şey sıcaklık ya da soğuk değil, bu hortumun gücünü auroraya boşaltmak!"* seçeneği açılır.
+* **Ne Yapılır:** Hortumun tam merkezine inilip sesle 2 zıt frekans aynı anda aurora türbinine kilitlenir (hiç savaş çıkmaz, tamamen yüksek gerilimli zamanlama bulmacasıdır).
+* **Gezegenin Dönüşümü:** Sıcak ve soğuk arasındaki çatışma elektrik üreten bir **Aurora Çizgi İstasyonu**na dönüşür; iki kardeş barışır.
+* **Ödül:** **`+650 Evren İtibarı`** + Aethelis için **Dengesiz Çevre Uyumlu Çift-Kutuplu Zırh Kaplaması** (hem aşırı sıcağa hem aşırı soğuğa karşı dengeli **`+%20` direnç** ve `Aurora Enerji Şarjı`). Soren ve Nadia her nöbette düzenli **`Nadir Termal Mineral`** üretir.
+
+---
+
+## SAHNE 3: ATIL KALMAMA ÖZETİ
+
+- *Janus-Split*, hangi yolu seçersen seç kapanmaz; seçtiğin kardeşin kurduğu istasyon üzerinden ilgili **Yıldız Nöbeti**nde geri dönülüp **Nadir Termal Mineral** (ve seçime göre yakıt/kriyolit) alınmaya devam edilir.
+- Hiçbir yol diğer bir gezegeni zorlaştırmaz veya cezalandırmaz; tamamen **oyuncunun kendi oyun tarzını (Saldırı/Termal vs. Savunma/Kriyo vs. Hibrit Denge)** seçtiği bir hikâye sunar.

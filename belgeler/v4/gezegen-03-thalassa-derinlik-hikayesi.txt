@@ -1,0 +1,75 @@
+# GEZEGEN 03: THALASSA-DERİNLİK — "DERİNLERİN MÜHRÜ VE SİREN-0"
+
+Bu belge, `kesfedilebilir-gezegenler-rehberi.md` ve `görevler.txt` içinde yalnızca tek seferlik numune noktası olarak kalan **Gezegen 03: Thalassa-Derinlik**'i; **Tonoflenya, YGK Akademi, Vaelin topluluğu, Gezegen 04 (Mycelia-IV) ve Final #20 (Cahelon)** ile organik olarak bağlayan, uzun ve dallı budaklı bir hikâye paketine dönüştürür.
+
+* **TETİKLENME NOKTASI:** `görevler.txt` *Derin Uzay Sınıf II+ / III+* dönemi (`Derin Dalış Sondası` üretildikten sonra).
+* **GİZLİ GERİ PLAN (LORE BAĞI):** Thalassa-Derinlik'in 4.000 metre altındaki *Abisal Kara Baca Tarlası*, aslında Tonoflenya'daki **Okyanos-Abyssus (Cahelon'un su mezarı)** ile aynı kadim Alt-Evren su frekansına bağlı bir "akustik yankı havzası"dır. Yıllar önce YGK Akademi 5. Katından (Trellis-7 ve Seraphine'in eski öğrencisi **Dr. Nerissa Tide**) bu frekansı incelemek için buraya **"Siren-0"** adlı bir araştırma kapsülüyle gönderilmiş, ancak kapsül derinlikte kaybolmuştur.
+
+---
+
+## AŞAMA 1: YÜZEYDEKİ HARMONİNİN ALTINDAKİ ÇIĞLIK
+
+### 1.1. Sesli Sahne ve İlk Temas
+* **3D Ses Ortamı:** Gemi yörüngeye oturduğunda kabin dışını saran derin, rahatlatıcı bir sualtı bas uğultusu ve yüzeydeki biyo-ışıldayan planktonların harmonik çan tınısı duyulur. Ancak *Rezonans Kamerası*yla kayıt alındığı anda, harmoninin altından kesik kesik bir **YGK acil feneri** sinyali patlar.
+* **Telsiz Diyaloğu (`Dr. Nerissa Tide` — boğuk, basınçlı su altı mikrofonundan gelen titrek ses):**
+  > *"Burada... biri var mı? Ben YGK Biyo-Akustik ekibinden Dr. Nerissa. Kapsülüm 4.000 metrede, kara bacaların dibine sıkıştı! Yukarıdaki yüzen yosun adaları... onlar sıradan bitki değil, aşağıdaki zehirli abis akıntısını tutan canlı bir mühür! Ama yüzeyde dolaşan otomatik korsan toplayıcıları o jeli kesip parçalıyor. Eğer mühür tamamen yırtılırsa bu okyanusun zehri komşu sistemlere kadar taşacak!"*
+
+### 1.2. Hazırlık ve İlk İkilem
+* **Araç & Eşya:** `Derin Dalış Sondası` (zorunlu iniş aracı). Varsa `Biyo-Karantina` veya `Nötralizasyon Kulesi` büyük avantaj sağlar.
+* **Yüzey Bulmacası:** Yüzen yosun adalarının altından geçebilecek doğal bir yarık bulmak için sağ-sol kaydırarak biyo-ışıldayan planktonların en yoğun harmonik tınısını yakalama.
+* **DALLANAN KARAR 1 (Mühür Mü, Hızlı Kazanç Mı?):**
+  * **Seçenek A [ Yosun Mührüne Dokunmadan Dar Yarıktan Sız ve Toplayıcı Dronları Durdur ]:**
+    * *Mekanik:* İnce manevra ve `1x Korsan Toplama Dronu`na karşı hızlı bir yüzey çarpışması gerekir.
+    * *Sonuç:* Yosun mührü sağlam kalır. **`Nerissa Güveni +20`**, **`Vaelin İtibarı +15`**. Aşama 2'ye temiz ve sakin sularla inilir.
+  * **Seçenek B [ Yosun Tabakasını Termal Kesiciyle Yar, Bacalardan Hızlı Çamur ve Hurda Çek ]:**
+    * *Mekanik:* Hemen **`+150 Titanyum`**, **`+80 Kseno-Alaşım`** ve ekstra `Hidro-Termal Çamur` kazanılır.
+    * *Ceza (Dallanma Etkisi):* Mühür çatlar! Aşama 2'de sondanın gövdesi sürekli asit/basınç hasarı yer ve zehirli sporlar uzaya sızdığı için **Gezegen 04 (`Mycelia-IV`)**'te daha zorlu, mutasyonlu bir salgın başlar!
+
+---
+
+## AŞAMA 2: 4.000 METREDEKİ KARA BACA VE SİREN-0 ENKAZI
+
+### 2.1. Sesli Sahne ve Basınç İnişi
+* **3D Ses Ortamı:** Sonda 4.000 metreye indikçe metal gövdenin gıcırtısı artar; sol kulakta kaynayan kükürt bacalarının fokurtusu, sağ kulakta ise uzaktan gelen ve tüyleri diken diken eden **devasa bir infrasonik balina/abis uğultusu** (Tonoflenya'daki *Cahelon* ile birebir aynı frekans!) yankılanır.
+* **Sonda Kontrolü (Sesli Bulmaca):** Basınç alarmı çaldığında tam eşikte çift dokunarak denge valflerini açma (Seçenek B seçildiyse valfler daha sık tıkanır).
+
+### 2.2. Evrensel Savaş (T3 — Derin Denizaltı / Sonda Çatışması)
+*Siren-0* kapsülünün enkazı, bacalardan çıkan ısı ve sese çekilen yaratıklar tarafından sarılmıştır:
+* **Düşmanlar:** **1x Abisal Baca Muhafızı** (*Arketip: Pusucu + Zırhlı*) + **2x Biyo-Işıldayan Parazit Sürüsü** (*Arketip: Çağıran*).
+* **Taktik & Serbestlik:**
+  * *Serbest Oyun:* Basınçlı karanlıkta kulaklıktaki fokurtu ve ıslık yönünü takip edip önce çağıran sürüleri, ardından zırhlı muhafızı sondanın madencilik/savunma atışlarıyla indirmek.
+  * *Eşya Kısayolu:* `2 Sonik Kovucu` veya `T-05 Sonik Çığlık Tüfeği` su altında `2x` yankılanarak sürüleri ilk turda dağıtır; `Filtra Basınçlı Zırh` varsa gövde ezilmez.
+
+### 2.3. Siren-0 Sırrı ve Büyük İkilem
+Enkaza ulaşıldığında **Dr. Nerissa** kurtarılır; ancak kapsülün çekirdeğinde iki şey vardır:
+1. YGK Akademi mühürlü **Kadim Abis Veri Çekirdeği** (*Okyanos-Abyssus* ve *Cahelon* infrasonik haritası).
+2. Kararsız bir **Saf Aether & Biyo-Reaktör Çekirdeği** (sökülürse kapsül anında patlayacak ve Nerissa'nın tıbbi verileri yanacaktır).
+
+* **DALLANAN KARAR 2 (İnsanlık/Bilim Mi, Ham Güç Mü?):**
+  * **Seçenek A [ Nerissa'yı ve Abis Veri Çekirdeğini Kurtar, Reaktörü Bırak ]:**
+    * *Ödül:* **Dr. Nerissa Tide** Aethelis-IV'e (`#5 Biyoloji Kubbesi` / `#23 Hastane`) katılır → **Kalıcı Antikor Sentezi** (tüm salgın ve zehir direnci `+%20`) ve sınırsız organik filtreleme çözümü açılır.
+    * *Tonoflenya / Final Bağı:* Nerissa'nın kurtardığı **Abis Veri Çekirdeği**, YGK 5. Katta *Trellis-7* ve *Seraphine Rael* ile itibarını `+25` artırır; ayrıca **Final #20 (`Cahelon`)** savaşının 2. fazında (*Derin İnfrasonik*) Cahelon'un su altı konumunu anında gösteren **gizli sonar kilidi** açılır!
+  * **Seçenek B [ Reaktördeki Saf Aether'i Zorla Sök, Veriyi ve Nerissa'nın Ekipmanını Feda Et ]:**
+    * *Ödül:* Anında **`3x Saf Aether`**, **`2x Kuantum/Reaktör Parçası`** ve **`+1.200 ML / GK`** değerinde nadir enkaz ganimeti.
+    * *Ceza (Ağır Bedel):* Nerissa ağır yaralı/kırgın şekilde yalnızca ilk mekikle YGK'ya kaçar (Aethelis'e gelmez). `YGK Akademi (Seraphine & Trellis-7)` itibarı **`-25`** düşer; Aethelis'teki `Vaelin` topluluğu tepki gösterip `3 Nöbet` üretim yavaşlatır; Final #20'de Cahelon'un infrasonik fazı kör oynanır.
+
+---
+
+## AŞAMA 3: KALICI DÖNÜŞÜM, ÖDÜL-CEZA VE ATIL KALMAMA DÖNGÜSÜ
+
+### 3.1. Gezegenin Kalıcı Sonu
+* **İyi / Dengeli Son ("Yaşayan Biyo-İstasyon"):** Seçenek 1A + 2A izlendiyse Thalassa-Derinlik güvenli ve dengeli bir araştırma noktasına dönüşür. Koloni Biyo-Kubbeleri için kalıcı organik filtreleme ve `+700 Evren İtibarı` kazanılır.
+* **Karanlık / Zehirli Son ("Toksik Abis"):** Seçenek 1B veya 2B seçildiyse okyanus kararmış ve toksik hâle gelmiştir (`+700 Evren İtibarı` yine alınır ama sonraki her ziyarette sonda sürekli asit hasarı alır; `Nötralizasyon Kulesi` veya `T-09 Kseno-Panzehir` olmadan dalış yapılamaz).
+
+### 3.2. Atıl Kalmama: Yıldız Nöbeti Tekrar Ziyaret Döngüsü
+Hikâye tamamlandıktan sonra Thalassa-Derinlik haritadan silinmez:
+* **Mavi Akşam (`Sinha`) Nöbeti Penceresi:** Her `Sinha` nöbetinde gezegendeki akıntılar durulur ve *Abisal Kara Bacalar* güvenle açılır.
+* **Tekrar Ziyaret Kazancı:** Oyuncu `Sinha` nöbetinde geri dönüp:
+  1. Düzenli **`Hidro-Termal Mineral Çamuru`** (Enstitü/Eczane için antikor ve panzehir hammaddesi) hasat edebilir.
+  2. Eğer Nerissa Aethelis'teyse, Thalassa'dan getirilen taze örneklerle **özel mutasyon karşıtı şuruplar** ürettirir.
+  3. Toksik son yaşandıysa, `T-09 Kseno-Panzehir` ile dalan oyuncu normalde çıkmayan **mutasyonlu nadir kseno-dokuları** (yüksek kredi/bilim puanı) toplayabilir.
+
+### 3.3. Çapraz Bağlantı Özeti
+- **Gezegen 04 (`Mycelia-IV`):** Thalassa Aşama 1'de mühür kırıldıysa (Seçenek 1B), Mycelia-IV'e zehirli spor sızması olarak yansır.
+- **YGK Akademi (5. Kat):** `Trellis-7` ve `Seraphine Rael` ile doğrudan diyalog/itibar bağı kurar.
+- **Final #20 (`Cahelon`):** *Abis Veri Çekirdeği* kurtarıldıysa son boss savaşının 2. fazında büyük tespit avantajı sağlar.

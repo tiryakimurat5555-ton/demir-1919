@@ -1,0 +1,112 @@
+# EVRENSEL GEMİ, YÜZEY ARACI VE FİLO SİSTEMİ
+
+Bu belge, `araclar-ve-gemi-filosu.md` içindeki 5 gemi sınıfını ve 5 yüzey aracını; oyunda yeni kurulan **Evrensel Savaş Sistemi** (uzay + kara + filo desteği) ve **Evrensel Bina Sistemi** ile tam uyumlu hâle getirir, hangar/kapasite çelişkilerini çözer ve ileride eklenecek yeni gemi/araçlar için evrensel bir şablon kurar.
+
+---
+
+## 1. TEMEL FİLO VE İNİŞ MANTIĞI (HANGAR ÇELİŞKİSİNİN ÇÖZÜMÜ)
+
+Oyundaki gemiler boyutlarına göre **iki farklı operasyon mantığıyla** çalışır:
+
+1. **Atmosfer İçi / Modüler Gemiler (Sınıf I - III: `Kıvılcım`, `Rüzgarkıran`, `Aethel Muhafızı`):**
+   - Bu gemiler doğrudan gezegen yüzeyine inebilir veya alçak irtifada asılı kalabilir.
+   - İçlerinde büyük bir "araç hangarı" yoktur; bunun yerine gövde dışındaki **1 adet Modüler Alt Kızağa** (1 kompakt yüzey aracı veya `Akrep` dronu) sahiptirler.
+2. **Yörünge Devleri (Sınıf IV - V: `Gökdelen`, `Hisar-ı Kadim`):**
+   - Kütleleri nedeniyle katı gezegen yüzeyine doğrudan inmezler; yörüngede kalırlar.
+   - Yüzeye inişleri kendi **dahili araç hangarları** (2–4 araç kapasitesi) ve **`Atmosphere-X` keşif mekiği** üzerinden yaparlar.
+
+### Filo Yönetimi Kuralı (Aktif Amiral Gemisi + Yedek Filo)
+- Oyuncu aynı anda **1 gemiyi "Aktif Amiral Gemisi"** olarak yönetir.
+- Tersanede inşa edilen veya görevlerden kazanılan diğer gemiler boşta yatmaz; **2 şekilde** kullanılır:
+  1. **Otomatik Koloni Görevi:** Pasif olarak yakın sistemlerden maden/hurda taşır veya ticaret yolunu korur.
+  2. **Savaşta Destek Yuvası:** Oyuncu sefere çıkarken filosundan 1 yedek gemiyi **"Destek Gemisi"** olarak işaretler; uzay savaşlarında her 3 turda bir o geminin sınıfına özel destek hamlesi devreye girer.
+
+---
+
+## 2. 5 KADEMELİ UZAY GEMİSİ SINIFLARI VE GENİŞLETİLMİŞ İŞLEVLERİ
+
+### Sınıf I: "KIVILCIM" (Hafif İzcilik Korveti)
+* **Rol:** Hızlı keşif, sinyal takibi, tekil kurtarma, acil kurye.
+* **Kapasite:** 2 Oda (*Kokpit*, *Kompakt Yaşam/Kargo*) | **2 Kişi** (Kaptan + 1 Subay) | Harici Kızağa **1x `Akrep` Dronu**.
+* **Uzay Savaşı Özelliği:** Küçük gövde nedeniyle düşman isabet oranı düşüktür; kaçınma manevrası çok hızlıdır. Silah gücü zayıftır (1 birincil atış + 1 torpido).
+* **Destek Gemisi Olarak Seçilirse:** Her 3 turda bir düşman pozisyonunu işaretleyerek kaptanın **kilitlenme ve kaçınma penceresini `+0,4 sn`** uzatır.
+* **Üretim Şartı:** Tersane Tier 1 | 150 Titanyum-Karbon Plaka, 40 Bakır-Optik Kablo, 25 L Standart İtki Yakıtı, 1 Minyatür İyon Reaktörü.
+
+### Sınıf II: "RÜZGARKIRAN" (Ağır Keşif ve Madencilik Gemisi)
+* **Rol:** Asteroit madenciliği, enkaz sökümü, yakın/orta derin uzay operasyonları.
+* **Kapasite:** 4 Oda (*Pilotaj*, *Makine/Soğutma*, *Ağır Maden Ambarı*, *Yaşam/Karantina*) | **4 Kişi** (Kaptan + 3 Subay) | Harici Kızağa **1x Kompakt Araç (`Çöl Tilkisi` veya `Akrep`)**.
+* **Uzay Savaşı Özelliği:** Gövde zırhı yüksektir ama yavaştır. Çift madencilik/plazma lazeri yakındaki zırhları iyi eritir.
+* **Destek Gemisi Olarak Seçilirse:** Savaş kazanıldığında enkazdan toplanan **metal/kristal ganimetini `+%35`** artırır.
+* **Üretim Şartı:** Tersane Tier 2 | 350 Titanyum-Karbon Alaşımı, 120 Şasi Çeliği, 80 Saf Kristal, 60 L Plazma Yakıtı, 1 Plazma Füzyon Reaktörü.
+
+### Sınıf III: "AETHEL MUHAFIZI" (Taktik Fırkateyn ve Bilim Kruvazörü)
+* **Rol:** Sınır devriyesi, korsan/firkateyn önleme, kseno-biyoloji araştırmaları ve **Tonoflenya köprüsüne sıçrama için minimum zorunlu gemi**.
+* **Kapasite:** 6 Oda (*Merkezi Köprüüstü*, *Reaktif Güç Çekirdeği*, *Biyo-Karantina Lab*, *Torpido Dairesi*, *Mürettebat Koğuşu/Revir*, *Basınçlı Kargo*) | **8 Kişi** (Kaptan + 6 Subay çekirdek kadroyu tam barındırır) | Alt Kızağa **1x Yüzey Aracı veya `Atmosphere-X` Mekik**.
+* **Uzay Savaşı Özelliği:** Dengeli hız, güçlü kalkan projektörü, EMP/torpido yuvaları ve K3 savaş modifikasyonlarına tam uyum.
+* **Destek Gemisi Olarak Seçilirse:** Her 3 turda bir aktif geminin **kalkan enerjisini `%25` yeniler** ve frekans eşlemeyi kolaylaştırır.
+* **Üretim Şartı:** Tersane Tier 3 | 700 Zırhlı Şasi Metali, 250 Kseno-Alaşım/Kristal, 40 L Graviton Yakıtı, 120 Helyum Tüpü, 1 Ağır Kalkan Projektörü.
+
+### Sınıf IV: "GÖKDELEN" (Ağır Nakliye ve Lojistik Kruvazörü)
+* **Rol:** Kitlesel mülteci tahliyesi, yüzey aracı filosu nakliyesi, gezegenler arası üs inşaatı.
+* **Kapasite:** 8 Oda (*Yüksek Köprü*, *Çift Çekirdekli Reaktör*, *Lojistik Ambarı*, *Dahili Araç Hangarı*, *Revir ve Kriyo-Koğuş*, *Kseno-Adaptasyon*, *Bakım Koridoru*, *Karadutu/Veri Arşivi*) | **16+ Kişi** | Dahili Hangarda **2x Ağır Yüzey Aracı + 1x `Atmosphere-X`**.
+* **Uzay Savaşı Özelliği:** Çok yüksek gövde canı ve çoklu hedefe dayanıklılık; ancak kaçınma manevrası zayıftır (kalkan ve karşı ateşe dayanır).
+* **Destek Gemisi Olarak Seçilirse:** Savaş sırasında gövde hasar aldığında her 3 turda bir **otomatik `%10` gövde onarımı** ve cephane ikmali yapar.
+* **Üretim Şartı:** Tersane Tier 4 | 1.500 Ağır Titanyum-Kompozit Blok, 450 Nötron-Yoğun Çelik/Kristal, 80 L Graviton Yakıtı, 300 Helyum Bloğu, 2 Çift Hatlı Hiper-Sürücü Bobini.
+
+### Sınıf V: "HİSAR-I KADİM" (Süper Ağır Sancak Zırhlısı / Filo Karargâhı)
+* **Rol:** Topyekûn sistem savunması, Tonoflenya/Alt-Evren cephe harekâtı, aşamalı boss savaşları.
+* **Kapasite:** 12+ Oda (*Amiral Köprüsü*, *Hisar Ağır Batarya*, *Kuantum Graviton Çekirdeği*, *Uçuş Güvertesi*, *Kseno-Bilim Enstitüsü*, *Cerrahi Revir*, *Mülteci Sektörü*, *Güvenlik Hücreleri*, *Stratejik Harekât*, *İç Makine Otoyolu*, *Hidroponik Kubbe*, *Üç Katmanlı Kalkan Odası*) | **50+ Kişi** | Uçuş Güvertesinde **4x Yüzey Aracı + 2x `Atmosphere-X` + Dron Filosu**.
+* **Uzay Savaşı Özelliği:** Üç katmanlı kalkan, ağır hisar bataryaları, çoklu düşmana eşzamanlı yüksek hasar. K4-K5 tam modifikasyon desteği.
+* **Destek Gemisi Olarak Seçilirse:** Her 3 turda bir düşmana **ağır plazma yaylım ateşi** açar (düşman kalkanını kırar ve yüksek gövde hasarı verir).
+* **Üretim Şartı:** Tersane Tier 4 | 3.500 Nötron Süper Alaşım, 1.200 Kadim Kseno-Kristal, 250 L Saf Graviton, 800 Endüstriyel Helyum Tüpü, 4 Kuantum Rezonans Çekirdeği.
+
+---
+
+## 3. YÜZEY VE DESTEK ARAÇLARI (KEŞİF + KARA SAVAŞI İŞLEVLERİ)
+
+Yüzey araçları artık yalnızca harita açma veya maden kazma aracı değil; **Evrensel Kara Savaşı'nda** kaptana eşlik eden zırh/ateş gücü birimleridir:
+
+### 1. "ÇÖL TİLKİSİ" (Hafif Keşif Skimmer'ı / Hover-Rover)
+- **Arazi & Keşif İşlevi:** Manyetik yastıkla engebeli arazi, lav çatlağı ve bataklık üstünden hızlı geçer; haritayı hızla açar.
+- **Kara Savaşı İşlevi:** Kaptanın **kaçınma manevrası hızını artırır** (uyarı penceresi `+0,5 sn`), *Akıncı* ve *Pusucu* düşmanların yer değiştirmesini anında takip eder.
+- **Maliyet:** 80 Titanyum Plaka, 20 İletken Kristal, 15 L Standart Yakıt.
+
+### 2. "MAMMOTH" (Ağır Kaya Kırıcı ve Sondaj Tankı)
+- **Arazi & Keşif İşlevi:** Obsidyen, bazalt ve donmuş metan kabuklarını deler; yüksek ısı ve aside aşırı dayanıklıdır.
+- **Kara Savaşı İşlevi:** Ağır paletli zırhı sayesinde ekibin aldığı kara hasarını **`%40` azaltır**. Ön tareti/matkabı ile 2 turda bir ağır zırh kırıcı darbe vurur (*Frekans/Zırhlı* düşmanlara karşı çok etkilidir).
+- **Maliyet:** 250 Şasi Çeliği, 60 Ağır Karbon Plaka, 30 L Plazma Yakıtı, 1 Hidrolik Sondaj Çekirdeği.
+
+### 3. "DEMİR KERVAN" (Manyetik Asit Taşıyıcısı / Zırhlı Konvoy)
+- **Arazi & Keşif İşlevi:** Aethelis-IV madenleri ile koloni arasında veya gezegen yüzeyinde çoklu personel ve tonlarca cevher taşır; asit fırtınalarından etkilenmez.
+- **Kara Savaşı İşlevi:** Çoklu düşman baskınlarında **mobil siper** görevi görür (ekip siperi ısınmadan arka arkaya savunma yapabilir) ve savaş arasında mürettebat cephane/ilaç ikmali sağlar.
+- **Maliyet:** 400 Titanyum-Çelik Kompoziti, 90 Asit-Direnç Polimeri, 45 L Motor Yakıtı.
+
+### 4. "ATMOSPHERE-X" (VTOL Atmosferik Keşif Mekiği)
+- **Arazi & Keşif İşlevi:** Karadan gidilemeyen **gaz devleri** (`Zephyr-Major` gibi), **yüzen kıtalar** (`Fractura`), dikey kuleler ve derin kanyon yarıklarına iner; yörünge gemisiyle yüzey arasında köprü kurar.
+- **Kara / Hava Savaşı İşlevi:** Çatışma sıkıştığında havadan **taktik tahliye veya hava desteği** (düşman çağıran birimleri yukarıdan tarama) sağlar.
+- **Maliyet:** 180 Hafif Titanyum Alaşımı, 50 Saf Kristal Bobin, 35 L Yüksek Saflıkta İtki Yakıtı.
+
+### 5. "AKREP" (Otonom Maden ve Destek Dronu)
+- **Arazi & Keşif İşlevi:** Tehlikeli asit havuzlarından, radyasyonlu yarıklardan ve uzay enkazlarından uzaktan numune/veri toplar.
+- **Kara & Uzay Savaşı İşlevi:** Savaş sırasında **sahte ses sinyali yayarak** düşman füzelerini/atışlarını şaşırtır (1 ücretsiz şaşırtma hakkı) ve savaş sonunda ganimeti otomatik toplar.
+- **Maliyet:** 30 Hafif Alaşım, 15 Mikro-Çip Devresi, 5 L Yakıt Pili.
+
+---
+
+## 4. GEMİ VE ARAÇ YENİLEME / GELECEK EKLEME ŞABLONU
+
+Senaryodan kazanılan ödül gemileri (`Prometheus`, `Malken Prototip Gemisi`, `Akademi Bilim Gemisi`, `Kadim Koruyucu Gemisi` vb.) veya gelecekte eklenecek yeni araçlar için yalnızca şu **6 satırlık evrensel kart** doldurulur:
+
+1. **Adı ve Sınıfı / Tipi:** *(Uzay Gemisi Sınıf I-V veya Yüzey Aracı)*
+2. **İniş ve Hangar Tipi:** *(Yüzeye inebilir mi, yörüngede mi kalır, kaç araç/kişi alır)*
+3. **Akustik İmzası:** *(Motor ve iç mekan ses profili)*
+4. **Aktif Savaş Rolü:** *(Hız/kaçınma, kalkan, ağır ateş veya zırh odaklılık)*
+5. **Pasif / Destek Yuvası Bonusu:** *(Filo veya kara desteğinde seçilirse ne katkı verir)*
+6. **Üretim veya Kazanım Şartı:** *(Tersane Tier / malzeme maliyeti veya görev ödülü)*
+
+---
+
+## 5. SESLİ VE DOKUNSAL İÇ GEZİNTİ (ERİŞİLEBİLİRLİK)
+
+- **Gemi İçi Oda Geçişi:** Oda içi özel modda iki parmakla sağa/sola kaydırma gemi bölmeleri arasında geçirir; her odanın kendi ortam sesi (Köprüüstü telsizleri, Reaktör uğultusu, Revir monitörü) çalar.
+- **Tek Dokunma / Basılı Tutma:** Oda içinde tek dokunma o odanın terminalini (örn. Reaktör güç dağılımı, Araç hangarı seçimi), basılı tutma ise odadaki mürettebatla telsiz konuşmasını başlatır.

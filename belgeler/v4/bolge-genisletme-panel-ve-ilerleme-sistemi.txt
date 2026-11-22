@@ -1,0 +1,92 @@
+# BÖLGE GENİŞLETME PANELİ, SALDIRI-SAVUNMA VE DERİN İLERLEME GÖREVLERİ
+
+Bu belge; koloniden başlayıp Aethelis-IV sektörlerine, yakın/derin uzaya ve Tonoflenya'ya doğru **saldırı, savunma ve bölge genişletme** mantığıyla ilerleyen yapıyı; tamamen **grafiksiz, metin + 3D ses + dokunma** odaklı tek bir **Komuta ve Genişleme Paneli** üzerinden kurgular.
+
+---
+
+## 1. GRAFİKSİZ "KOMUTA VE GENİŞLEME PANELİ" TASARIMI
+
+Görsel bir harita yerine, ekran okuyucu (TalkBack/VoiceOver) ve özel sesli gezinmeyle tam uyumlu **3 Sekmeli Tek Panel** kullanılır. İki parmakla sağa/sola kaydırma sekmeler arasında geçirir; tek parmakla yukarı/aşağı gezinme ise listedeki bölgeleri okutur.
+
+### Sekme 1: Bölge Haritası (Genişletme Durumu)
+Bölgeler halka halka listelenir (önce Aethelis sektörleri, sonra Yörünge, ardından Derin Uzay koridorları ve en son Tonoflenya kuşakları). Her bölgenin yanında kısa bir **durum sesi** çalar:
+- **Keşfedilmemiş (Sisli):** Rüzgar/statik parazit sesi. *(Eylem: Dinleme Kulesi veya Keşif Aracı ile Tara)*
+- **Düşman Kontrolünde (Saldırı Hedefi):** Alçak frekanslı kırmızı alarm nabzı. *(Eylem: Saldırı Başlat — Uzay veya Kara Savaşı)*
+- **Baskın Altında (Savunma Gerekli):** Kesik kesik telsiz uyarı bip'i. *(Eylem: Bizzat Savun veya Filo/Karakol Gönder)*
+- **Güvenli & Üretimde:** Sakin, düzenli makine uğultusu. *(Eylem: İkmal Karakolu Kur / Maden Topla)*
+
+*Örnek Ekran Okuyucu Anonsu:*
+> *"Güney Kükürt Çatlakları. Durum: Düşman Kontrolünde — Sülfür Akrebi Yuvası. Tehdit: Kademe 1. Saldırı başlatmak veya araç seçmek için çift dokunun."*
+
+### Sekme 2: Savunma Hattı (Aktif Tehditler ve Uzaktan Müdahale)
+Güvenli hâle getirilen bölgelere zamanla (Yıldız Nöbetleri ilerledikçe) baskınlar gelir. Oyuncu her yere bizzat koşmak zorunda değildir; iki seçeneği vardır:
+1. **Bizzat Müdahale Et:** Evrensel Savaş ekranına geçer (tam ödül, Kaptan Tecrübesi ve yüksek moral).
+2. **Otomatik Savunma Ata:** Kolonide kurulu `#17 Kalkan Jeneratörü`, `Otomatik İkmal Karakolu` veya yedek filodaki bir gemiyi bölgeye atayarak saldırıyı uzaktan püskürtür.
+
+### Sekme 3: İleri Karakol ve Genişleme (Fetih Kazancı)
+Bir bölge temizlendiğinde boş kalmaz; oyuncu oraya **İleri Karakol** (`otomatik ikmal karakolu`, `sinyal rölesi` veya `maden sondajı`) kurar:
+- Bölge **Güvenli** statüye geçer ve her 6 nöbette (1 gün) koloniye pasif hammadde/yakıt aktarır.
+- Bir halkanın tüm kilit bölgeleri güvenli olduğunda **bir sonraki uzay/gezegen halkasının yolu açılır**.
+
+---
+
+## 2. KOLONİDEN UZAYA 4 AŞAMALI DERİN İLERLEME ZİNCİRİ
+
+İlerleme, karakterlerin verdiği hikâyeli görevlerle şu 4 büyük aşamada yürür:
+
+### AŞAMA 1: Aethelis-IV Sektörlerinin Fethi (Kara Savaşı & Savunma)
+Koloni ilk kurulduğunda yalnızca merkez vadi güvenlidir. Diğer 4 ana sektör düşman/yaratık tehdidi altındadır:
+- **Karakter Çağrısı:** Koloni savunma sorumlusu veya *İnsan/Kaelith* sözcüsü telsizden sektörlerdeki tehlikeyi bildirir (*"Güney lav hatlarında akrep yuvaları boruları eritiyor; Batı harabelerinde eski Vanguard yağmacıları pusuda"*).
+- **Saldırı & Genişletme Döngüsü:**
+  1. Oyuncu panelden hedef sektörü seçer, yanına uygun yüzey aracını (`Çöl Tilkisi` veya `Mammoth`) ve varsa `#12 Kriyo-Atölye` / `#24 Mutfak` hazırlığını alır.
+  2. Sektöre girince sesli yön bulma + **Kara Savaşı** (Sülfür Akrebi / Yağmacı / Kadim Otomat) yaşanır.
+  3. Zafer sonrası sektöre karakol kurulur → **#16 Jeotermal Santral**, **#17 Kalkan Jeneratörü** ve yeni hammadde damarları kalıcı olarak açılır.
+
+### AŞAMA 2: Yörünge Ablukası ve Kaelith Kurtarma Operasyonu (İlk Uzay Genişlemesi)
+Yüzeydeki 4 sektör kontrol altına alındığında Korsan Avcı/Korvet filoları Aethelis yörüngesini abluka altına alır:
+- **Karakter Çağrısı:** Dinleme Kulesi'nden acil bir sinyal düşer: Hem yörüngedeki ikmal hattı kesilmiştir hem de yakın asteroit kuşağındaki **Kaelith Maden Kolonisi** korsan kuşatması altındadır (eksik olan *Kaelith* kurtarma hikâyesi).
+- **Saldırı & Savunma Döngüsü:**
+  1. Oyuncu `Kıvılcım` veya `Rüzgarkıran` ile yörünge abluka hattına saldırır (*Korsan Avcı* + *Korsan Korveti*).
+  2. Yol açılınca **Kaelith** madenine iner; içeride hem *Ağır Maden Korsanı* hem yüzey yaratıklarıyla çatışır.
+  3. *Karar Anı:* Tüm Kaelith madencilerini tahliye etmek (yüksek iş gücü/moral) veya korsan zırh deposunu da ele geçirmek (yüksek metal + ek çatışma).
+  4. **Genişleme Sonucu:** Yakın uzay koridoru açılır; yedek gemiler yörünge devriyesine atanabilir.
+
+### AŞAMA 3: Derin Uzay Koridorları ve 20 Gezegen Hatları (İleri Üs Kurma)
+`Aethel Muhafızı (Sınıf III)` inşa edildiğinde panelde **Derin Uzay Koridorları** sekmesi açılır:
+- **Karakter Çağrısı:** `Varek Kaelon` ve `Sinha Mar-Zul`, 20 keşif gezegeninin bulunduğu sektörlerin **Tanımsız Yabancı Firkateyn** ve **Korsan Dron Taşıyıcısı** tarafından tutulduğunu raporlar.
+- **Saldırı, Bulmaca & Genişletme Döngüsü:**
+  1. Bir gezegen sektörü seçildiğinde önce yörüngede **Uzay Savaşı** (Firkateyn veya Dron Taşıyıcısı) ile hat kırılır.
+  2. Yüzeye inilince hem o gezegenin sesli bulmacası hem de **Biyom Yaratığı / Kadim Otomat** kara savaşı çözülür.
+  3. Gezegenden alınan benzersiz numune karakterlere (Dr. Axira, Varek, Zhaor) götürülür ve gezegen yörüngesine *Otomatik İkmal Karakolu* kurularak derin uzay yakıt menzili genişletilir.
+  4. Bu aşamadaki Büyük Operasyonlar (`#1 Prometheus`, `#2 Kadim Genom`, `#6 Tina`, `#7 Aethel-9`) tamamlandıkça kilitli 4 bina (`#19–#22`) karakter hikâyeleriyle açılır ve koloni **Galaktik Başkent** olur.
+
+### AŞAMA 4: Tonoflenya Kuşakları ve Cephe Savunması (Son Genişleme)
+YGK Feneri kilitlenip Tonoflenya'ya sıçrandığında panelin son katmanı açılır: **5 Tonoflenya Kuşağı** (`Magentor`, `Batı/Filtra`, `Doğu/Zorah`, `Kuzey/Mormon`, `Güney/Fleeplee`).
+- **Saldırı & Savunma Döngüsü:**
+  - *Kahergonat* sızmaları, *Alt-Evren Sürüleri* ve *Haydut Barikatları* bu kuşakları tehdit eder.
+  - Oyuncu yan görevleri (`MAG-SQ`, `WST-SQ`, `EST-SQ`, `NTH-SQ`, `STH-SQ`) ve bölge savunmalarını tamamladıkça her kuşak **Güvenli Müttefik Bölgesi**ne dönüşür.
+  - Kuşaklar güvenli hâle gelmeden (en az 3 kuşakta itibar ve kontrol sağlanmadan) `Kahergonat (#16)`, `Tenohris Kuşatması (#17)` ve `Lord Sharon (#18)` final cephesi savunmasız kalır; güvenli kuşaklardan ise final savaşında **müttefik takviyesi ve ikmal** gelir.
+
+---
+
+## 3. DOKUNSAL KONTROL ÖZETİ (PANEL İÇİ)
+
+- **İki Parmak Sağa / Sola Kaydırma:** Sekmeler arası geçiş (*Bölge Haritası ↔ Savunma Hattı ↔ İleri Karakollar*).
+- **Tek Parmak Yukarı / Aşağı (veya TalkBack Odak):** Bölgeler listesinde dolaşma; her bölgenin arka planında durumuna göre 3D ses tonu çalar.
+- **Çift Dokunma:** Seçili bölgenin eylem menüsünü açar (*Tara / Saldır / Savun / Karakol Kur / Bilgi Oku*).
+- **Üç Parmakla Dokunma (Kısayol):** Hangi sekmede olunursa olunsun **en acil saldırı/baskın altındaki bölgeyi** tek cümlede seslendirir.
+
+---
+
+## 4. DÖNGÜSEL TEHDİT VE BASKIN AZALMA MANTIĞI (SINIRSIZ ANGARİYA YOK)
+
+Kolonide ve diğer bölgelerde **sonsuz, bitmeyen ve oyuncuyu boğan rastgele düşman dalgaları yoktur**. Saldırılar, haritadaki **Komşu Halka Baskısı** kuralına göre azalır ve sıfırlanır:
+
+1. **Tehdit Kaynağı Komşu Halkadır:**
+   - Bir bölge temizlendiğinde, saldırı yalnızca o bölgenin **henüz ele geçirilmemiş komşu halkasından** gelebilir (ör. Aethelis yüzeyi temizlendi ama Yörünge Ablukası henüz kırılmadıysa yörüngeden sızıntı baskını gelir).
+2. **Bölgeler Ele Geçirildikçe Baskı 3 Adımda Sıfırlanır:**
+   - *Adım 1 (Yeni Fethedilmiş Bölge):* Komşusu hâlâ düşman elindeyse ara sıra (`6–12 Yıldız Nöbeti` aralığında) baskın sinyali düşer.
+   - *Adım 2 (Karakol + Kalkan/Devriye Kurulu):* Bölgeye `otomatik ikmal karakolu`, `#17 Kalkan Jeneratörü` veya yedek gemi devriyesi bağlandığında baskılar **otomatik püskürtülür**; oyuncu angaryayla uğraşmaz.
+   - *Adım 3 (Komşu Halka da Fethedildiğinde — Tam Güvence):* Aethelis'in 4 sektörü + Yörüngesi tamamen ele geçirildiğinde koloni **Tam Güvence** statüsüne geçer ve **rutin baskınlar tamamen durur**.
+3. **Nadir Hikâye Tetiklemeleri:** Tam Güvence'den sonra yalnızca oyunda büyük yeni bir kapı açıldığında (ör. *Tanımsız Yabancı Firkateyn* izimizi sürdüğünde veya Tonoflenya'da *Kahergonat* uyandığında) tekil, hikâyeli bir savunma olayı gelir; sıradan tekrar baskını çıkmaz.
+
