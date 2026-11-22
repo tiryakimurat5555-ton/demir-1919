@@ -194,10 +194,11 @@ TESISLER.sera = {
 import { IRK_YAPILARI } from '../terraform';
 const opBitti = (d, id) => (d.tamamlananOp || []).includes(id);
 export const IRK_KOSULLARI = {
-  akademi: { kosul: (d) => opBitti(d, 'sektor15') && opBitti(d, 'xerad'), metin: 'Büyük operasyon Prometheus Derinliği (Sektör 15) ve Deney 07 tamamlanınca açılır.' },
-  kseno_habitat: { kosul: (d) => (opBitti(d, 'g13') || opBitti(d, 'g14')) && opBitti(d, 'moloz_kusagi'), metin: 'G-13 (Kithron) ya da G-14 (Vaelin) ile Kadim Genom (Moloz Kuşağı) tamamlanınca açılır.' },
-  multeci_kampusu: { kosul: (d) => opBitti(d, 'aethel9') && opBitti(d, 'tarras'), metin: 'Aethel-9 Gezegen Kuşatması ve Tarras Boğazı Donanma Mahşeri tamamlanınca açılır.' },
-  tina_cekirdegi: { kosul: (d) => opBitti(d, 'yanan_gemi') || !!d.bayrak.vaka6_tina, metin: 'Alevin Ruhu ve Yapay Bilinç Tina operasyonu tamamlanınca açılır.' },
+  // v4 Aşama 3: operasyonlardan sonra karakter hikâyesi (hikayeKoloni.js 3A-3D) bitince açılır
+  akademi: { kosul: (d) => !!d.bayrak.hk_akademi, metin: 'Prometheus Derinliği (Sektör 15) ve Deney 07 tamamlanınca Dr. Vael\'in "Ortak Hafıza" çağrısı gelir; o hikâye bitince açılır.' },
+  kseno_habitat: { kosul: (d) => !!d.bayrak.hk_kseno_habitat, metin: 'G-13 ya da G-14 ile Kadim Genom tamamlanınca Sira-Vel\'in "Nefes Alacak Bir Gök" çağrısı gelir; o hikâye bitince açılır.' },
+  multeci_kampusu: { kosul: (d) => !!d.bayrak.hk_multeci_kampusu, metin: 'Aethel-9 ve Tarras Boğazı tamamlanınca Mirek\'in "Evi Olmayanların Şehri" çağrısı gelir; o hikâye bitince açılır.' },
+  tina_cekirdegi: { kosul: (d) => !!d.bayrak.hk_tina_cekirdegi, metin: 'Alevin Ruhu ve Yapay Bilinç Tina tamamlanınca Tina\'nın çağrısı gelir; o hikâye bitince açılır.' },
 };
 for (const id of Object.keys(IRK_YAPILARI)) {
   const y = IRK_YAPILARI[id];

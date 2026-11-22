@@ -121,6 +121,7 @@ PARCALAR.lazer_sogutucu = { ad: 'termal lazer soğutucu', tarif: 'Gemi ve kara l
 PARCALAR.itki_yaglayici = { ad: 'sürtünmesiz itki yağlayıcısı', tarif: 'Kaçınma manevrasını kolaylaştırır.' };
 TARIFLER.askeri_tersane.push({ id: 'lazer_sogutucu', ad: 'Termal lazer soğutucu', girdi: { lav_orkidesi: 2, helyum: 5 }, cikti: { lazer_sogutucu: 1 }, sure: 60 });
 // Karakter ağı belgesi bölüm 4: Tether-Key mekiğinin bedeli (25 litre)
+PARCALAR.antik_veri = { ad: 'antik veri parçası', tarif: 'Akademi kütüphanesinden; kadim kayıtların bir parçası. Ar-Ge masasında bilim puanına çevrilir.' };
 PARCALAR.jeotermal_sogutucu = { ad: 'jeotermal soğutucu (litre)', tarif: 'Aethelis\'in jeotermal hattından süzülmüş soğutucu; Tether-Key mekiğinin aether rölesini soğutur.' };
 TARIFLER.dokumhane.push({ id: 'jeotermal_sogutucu', ad: '25 litre jeotermal soğutucu', girdi: { izotop: 1, polimer: 1 }, cikti: { jeotermal_sogutucu: 25 }, sure: 60 });
 TARIFLER.dokumhane.push({ id: 'lazer_sogutucu', ad: 'Termal lazer soğutucu', girdi: { lav_orkidesi: 2, helyum: 5 }, cikti: { lazer_sogutucu: 1 }, sure: 75 });

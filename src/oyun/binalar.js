@@ -75,10 +75,16 @@ export function rolCarpani(d, tesis) {
   if (roller.includes(2) && t.vaelin) c *= 1.25; // su, tıp, doğa uyumlu
   if (roller.includes(4) && (t.malken || t.kithron)) c *= 1.25; // bilim, sinyal, aether uyumlu
   if (roller.includes(1)) c *= 1.1; // insan koloniciler yönetimi hızlandırır
+  // Ayrı, izole kseno-kubbeler (3B): Kithron ve Vaelin kendi atmosferlerinde yüzde yirmi beş verimli
+  if (d.bayrak && d.bayrak.ksenoIzole && ((roller.includes(2) && t.vaelin) || (roller.includes(4) && t.kithron))) c *= 1.25;
   // Evren itibarı: araştırma hızı (Galaktik Öncü yüzde yirmi beş, Evrenin Muhafızı yüzde otuz beş)
   if (roller.includes(4)) c *= 1 + evrenEtki(d).bilim;
   // Doğu bataklığından sağ dönen uzmanlar: enstitü ve sera yüzde on hızlı (v4 Görev 1C)
   if (roller.includes(2) && d.bayrak && d.bayrak.doguUzmanlari) c *= 1.1;
+  // Fotonik kristaller aydınlatma hatlarında (yerel operasyon 1A): gece nöbetlerinde (Sinha, Uma) verim yüzde on
+  if (d.bayrak && d.bayrak.fotonHat && d.zaman && ['Sinha', 'Uma'].includes(nobet(d).yildiz)) c *= 1.1;
+  // Dr. Selin'in iksir deneyi: eczane bir gün hızlı
+  if (tesis === 'kseno_eczane' && d.bayrak && d.zaman && (d.bayrak.eczaneHizBitis || 0) > d.zaman.sn) c *= 1.5;
   // Günün nöbeti tesisin işiyle uyuşuyorsa
   if (d.zaman) {
     const y = nobet(d).yildiz;

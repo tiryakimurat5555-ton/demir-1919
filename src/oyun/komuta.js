@@ -177,7 +177,7 @@ function ekle(d, k, n) {
   if (!ZN.miktar(d, k)) d.koloni.parcalar[k] = (d.koloni.parcalar[k] || 0) + n; // bilinmeyen malzeme parça olarak
 }
 function tohumKasasi(d) {
-  if (!d.tarim) return;
+  if (!d.tarim) d.tarim = { kademe: 1, yataklar: [], vaha: [], tohumlar: {}, urun: {}, erzak: {}, besin: {}, besli: {}, kulucka: null, verilen: [], toplandi: {} };
   for (const t of ['soya', 'noro_kahve', 'aloe']) d.tarim.tohumlar[t] = (d.tarim.tohumlar[t] || 0) + 2;
 }
 
@@ -323,9 +323,9 @@ export function komutaIlerle(d) {
     if (l.length && !misafir(d, 'zeno')) {
       const id = l[Math.floor(zar(d, k.no) * l.length)];
       const bl = BOLGELER[id];
-      if (bagli(d, id)) {
+      if (bagli(d, id) || (b(d).tinaOzerk && bina(d, 'tina_cekirdegi'))) {
         const s = sek(d, id);
-        const kim = s.karakol === 'ikmal' ? 'otomatik ikmal karakolu' : s.devriye ? 'yedek filo devriyesi' : s.erkenUyari ? 'rüzgâr kulelerinin erken uyarı ağı' : 'koloni kalkan jeneratörü';
+        const kim = !bagli(d, id) ? 'Tina\'nın nöral çekirdeği' : s.karakol === 'ikmal' ? 'otomatik ikmal karakolu' : s.devriye ? 'yedek filo devriyesi' : s.erkenUyari ? 'rüzgâr kulelerinin erken uyarı ağı' : 'koloni kalkan jeneratörü';
         olaylar.push(bl.ad + ' üzerine bir baskın geldi; ' + kim + ' saldırıyı uzaktan püskürttü.');
       } else if (!k.baskinlar.some((x) => x.id === id)) {
         k.baskinlar.push({ id, bitis: t + NOBET_SN });

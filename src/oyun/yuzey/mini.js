@@ -14,6 +14,12 @@
 //   8.3.2 Vanguard enkazında yağmacı tuzağı: korsanlara sessizce yaklaş (yavaş yürü), kesiciyle sersemlet;
 //         hızlı yürürsen dikkatleri artar, alarm verirlerse kaçarlar.
 import { KAPILAR, NOKTALAR } from './harita';
+import { ZAFER_KANCALARI } from '../kancalar';
+import { tarim } from '../tarim/tarim';
+//
+// v4 derinleştirme (belgeler/v4/koloni-yerel-operasyonlar-ve-yuzey-derinlestirme.txt bölüm 1): her operasyona karakter,
+// evrensel kara savaşı ve karar; #5, #7, #8'deki sabit cezalar seçime bağlandı. Operasyon içindeki çatışma
+// m.savasta ile izlenir: zaferde sahne mini_savas kaldığı yerden sürdürür; yenilgi ya da kaçış eski sonucu getirir.
 
 export const MINI_BEKLEME = 150; // bir operasyon bitince sıradakine kadar (sn)
 export const SPOR_HIZI = 1.4; // mantar ormanında, operasyon sürerken (yüzde/sn)
@@ -32,7 +38,8 @@ export const MINI = {
     cagri: () =>
       'Kaptan, mantar ormanı spor dökme dönemine girdi. Fotonik kristaller olgunlaşıyor; olgun olanlar ince ince çınlar. Spor yoğunluğu artmadan üç olgun kristal topla, laboratuvara getir. Olmamışı koparma, çürümüşe dokunma.',
     ipucu: (d) => (d.mini.toplanan >= 3 ? 'Üç kristal elinde: kapsül terminalinden laboratuvara teslim et.' : 'Mantar ormanında çınlayan olgun kristalleri topla: ' + (d.mini.toplanan || 0) + ' / 3. Spor yüzde ' + Math.round(d.mini.spor || 0) + '.'),
-    tamam: () => ['Kristaller laboratuvarda. Biyologlar onları kubbenin aydınlatma hatlarına işliyor; koridorlarda yumuşak, yeşil bir ışık.', 'Foton reçinesi +4, moral +5.'],
+    karakter: 'Kseno-biyolog Dr. Selin',
+    tamam: (d) => (d.mini.karar === 'iksir' ? ['Dr. Selin kristalleri iksir deneyine alıyor; eczanenin kazanları bir gün boyunca hızlı kaynayacak.', 'İki doz sakinleştirici, moral +2.'] : ['Kristaller laboratuvarda. Biyologlar onları kubbenin aydınlatma hatlarına işliyor; koridorlarda yumuşak, yeşil bir ışık. Gece nöbetlerinde koloni daha verimli.', 'Foton reçinesi +4, moral +5.']),
   },
   vana_donmasi: {
     ad: 'Kriyojenik Vana Donması',
@@ -41,7 +48,8 @@ export const MINI = {
     cagri: () =>
       'Kaptan, metan mağarasındaki ana yakıt hattı soğuktan çatladı! Dört bağlantıdan biri kaçırıyor. Tıslamayı dinle, doğru bağlantıyı bul ve termal meşaleyle mühürle. Beş polimer levha yeter.',
     ipucu: () => 'Metan mağarasında kaçak tıslamasını bul; termal meşaleyle mühürle (5 polimer levha).',
-    tamam: () => ['Meşalenin mavi alevi çatlağı kapatıyor; tıslama kesiliyor. Hat yeniden basınç tutuyor.', 'Sıvı metan +3, itibar +10.'],
+    karakter: 'Baştekniker Kaya',
+    tamam: (d) => ['Meşalenin mavi alevi çatlağı kapatıyor; tıslama kesiliyor. Kaya: "Gösterge yeniden oynuyor!" Hat basınç tutuyor.', 'Sıvı metan +3, itibar +10.' + (d.koloni.binalar.includes('kriyo_atolye') ? ' Kriyo atölyesinden bir tüp dondurucu köpük hediye.' : '')],
   },
   kayip_ekip: {
     ad: 'Obsidyen Çölünde Kayıp Keşif Aracı',
@@ -50,7 +58,8 @@ export const MINI = {
     cagri: () =>
       'Kaptan, obsidyen ovasındaki keşif ekibinden haber alamıyoruz! Manyetik parazit rotalarını şaşırtmış; radar orada işe yaramıyor. Araçlarının kornasını çalıyorlar. Camın yankıları arasından kornayı izle.',
     ipucu: () => 'Obsidyen ovasında kayıp ekibin korna sesini izle. Radar parazitte kör.',
-    tamam: () => ['Kornanın sahibi üç kişilik bir ekip; araçları camlaşmış bir yarığa saplanmış. Onları yola çıkarıyorsun.', 'Ekip koloniye katıldı: nüfus +2, moral +5.'],
+    karakter: 'Keşif ekibi lideri Aras',
+    tamam: () => ['Kornanın sahibi Aras\'ın üç kişilik ekibi; araçları camlaşmış bir yarığa saplanmış. Onları yola çıkarıyorsun. Aras yarığın dibinden iki kusursuz plazma camı getirdi.', 'Nüfus +3, moral +5, plazma camı +2.'],
   },
   vaha_kanali: {
     ad: 'Vaha Su Kanalı Tıkanması',
@@ -59,7 +68,8 @@ export const MINI = {
     cagri: () =>
       'Kaptan, vahanın kaynağı kaya kaymasıyla tıkandı; su kesildi! Bentteki kayayı sonik patlatıcıyla parçalamak gerek, ama vadiye zarar vermeden: patlatıcının frekansını kayanın kendi rezonansına ayarla.',
     ipucu: () => 'Vahadaki bentte sonik patlatıcının frekansını kayanın rezonansına ayarla.',
-    tamam: () => ['Kaya kendi frekansında ince bir çatırtıyla dağılıyor; su yeniden şırıldıyor. Otlar bir gecede kendine geliyor.', 'Moral +5; vahanın tohumları yeniden olgun.'],
+    karakter: 'Tarım sorumlusu Lina',
+    tamam: (d) => ['Kaya kendi frekansında ince bir çatırtıyla dağılıyor; su yeniden şırıldıyor.', d.mini.karar === 'yabani' ? 'Lina vahanın yabani tohum havuzunu suluyor: iki gece açan vaha hurması tohumu, moral +5.' : 'Lina suyu seralara yönlendiriyor: yirmi günlük rasyon (beş paket peksimet), moral +5.'],
   },
   ceviri_krizi: {
     ad: 'Akademi Kütüphanesinde Çeviri Krizi',
@@ -68,7 +78,8 @@ export const MINI = {
     cagri: () =>
       'Kaptan, akademide gergin bir tartışma var. Tapınaktan getirilen metinlerle Kaelith tarihi çelişiyor; iki taraf da birbirini sahtekârlıkla suçluyor. Terminalden kütüphaneye bağlan, ikisini de dinle.',
     ipucu: () => 'Kapsül terminalinden akademideki çeviri tartışmasını dinle.',
-    tamam: (d) => (d.mini.sonuc === 'dogru' ? ['İki taraf da sentezi kabul ediyor. Akademinin ortak tarihi yazılıyor.', 'İtibar +15, moral +5.'] : ['Sentez taraflardan birini haksız çıkardı; tartışma kapanmadı ama kütüphane yeniden çalışıyor.', 'Moral -5.']),
+    karakter: 'Malken bilgini ve Kaelith tarihçisi',
+    tamam: (d) => (d.mini.sonuc === 'dogru' ? ['İki metnin farklı çağları anlattığını kanıtladın; iki taraf da sentezi kabul ediyor. Akademinin ortak tarihi yazılıyor.', 'Moral +10, itibar +10, yüz bilim puanı.'] : ['Bir taraf haklı çıktı; kütüphane hızlı açıldı ama kaybeden taraf küstü. Kazanan taraf bir antik veri parçası bağışladı.', 'Moral -5, antik veri parçası +1.']),
   },
   basinc_dususu: {
     ad: 'Metan Kubbesinde Basınç Düşüşü',
@@ -77,7 +88,8 @@ export const MINI = {
     cagri: () =>
       'Kaptan, kseno-habitat kubbesinde basınç düşüyor! İçerideki canlılar boğuluyor. Kapsülün güneyindeki üç yedek kompresörü elle çalıştır; her birinde basıncı dinle, tam zamanında aç.',
     ipucu: (d) => 'Vadinin güneyindeki üç yedek kompresörü çalıştır: ' + (d.mini.bitenler || []).length + ' / 3.',
-    tamam: () => ['Üç kompresör uğulduyor; kubbenin iç atmosferi dengede. İçeriden tuhaf, minnettar bir ıslık.', 'İtibar +10, moral +5.'],
+    karakter: 'Kubbe teknisyeni ve kseno-topluluk sözcüsü',
+    tamam: (d) => (d.koloni.binalar.includes('kseno_eczane') ? ['Üç kompresör uğulduyor; kubbe dengede. Eczanenin hazırladığı ilaçlarla küf kimseyi hasta etmedi. Kseno-sözcü teşekkür olarak bir kseno-alaşım bıraktı.', 'İtibar +15, moral +10, kseno-alaşım +1.'] : ['Üç kompresör uğulduyor; kubbe dengede. Ama sızıntıdan yayılan zehirli küf ekibi yordu; kseno-eczane olsaydı kimse hastalanmazdı.', 'İtibar +10, moral +5; mürettebatın stresi arttı.']),
   },
   solucan_gocu: {
     ad: 'Kör Solucan Göç Dalgası',
@@ -86,7 +98,8 @@ export const MINI = {
     cagri: () =>
       'Kaptan, sismograflar çıldırıyor! Bir kör solucan sürüsü sırtların maden ocaklarına doğru geliyor. Sırtlardaki üç kayaya frekans kazığı dik; sürü boş kanyonlara sapsın. Her kazığa bir kristal. İki buçuk dakikamız var!',
     ipucu: (d) => 'Sırtlarda üç frekans kazığı dik (her biri bir kristal): ' + (d.mini.bitenler || []).length + ' / 3. Kalan süre ' + Math.max(0, Math.round(d.mini.kalan || 0)) + ' saniye.',
-    tamam: (d) => (d.mini.sonuc === 'dogru' ? ['Kazıkların uğultusu sürüyü döndürüyor; yer altındaki gümbürtü batıya, boş kanyonlara kayıyor.', 'Kabuk döken solucanlardan kseno-kabuk +2, itibar +10.'] : ['Sürü ocakların altından geçti; galeriler çöktü. Sırtların yatakları bir süre boş.', 'Moral -5.']),
+    karakter: 'Maden şefi Torvok ya da Başmühendis Kaya',
+    tamam: (d) => (d.mini.sonuc === 'dogru' ? ['Sürü yön değiştirdi; yer altındaki gümbürtü batıya, boş kanyonlara kayıyor. Ocaklar kurtuldu!', 'Moral +10, titanyum +15, bazalt +10, kseno-kabuk +2, itibar +10.'] : ['Sürü ocakların altından geçti; galeriler çöktü. Sırtların yatakları bir süre boş.', 'Moral -5.']),
   },
   yagmaci_tuzagi: {
     ad: 'Vanguard Enkazında Yağmacı Tuzağı',
@@ -95,7 +108,8 @@ export const MINI = {
     cagri: () =>
       'Kaptan, Vanguard enkazında yabancı telsiz cızırtıları! Kaçak korsan kalıntıları enkazı yağmalıyor. Sessizce sız: yavaş yürü, cızırtıya yaklaş, plazma kesiciyle sersemlet. Hızlı yürürsen seni duyarlar.',
     ipucu: (d) => 'Vanguard enkazındaki korsanları sessizce etkisiz hale getir: ' + (d.mini.bitenler || []).length + ' / 3. Dikkat yüzde ' + Math.round(d.mini.dikkat || 0) + '.',
-    tamam: (d) => (d.mini.sonuc === 'dogru' ? ['Üç korsan bağlı. Çaldıkları ses günlükleri ve parçalar geri geldi; tarihi miras korundu.', 'İtibar +15, şasi çeliği +20.'] : ['Korsanlar alarm verip kaçtı; enkazdan bir miktar parça götürdüler.', 'İtibar -5.']),
+    karakter: 'Koloni telsiz subayı',
+    tamam: (d) => (d.mini.sonuc === 'dogru' ? ['Yağmacılar yakalandı, kayıp yok. Çaldıkları ses günlükleri, parçalar ve tohum kasaları geri geldi.', 'İtibar +15, şasi çeliği +100, tohum kasaları.'] : ['Korsanlar alarm verip kaçtı; enkazdan bir miktar parça götürdüler.', 'İtibar -5.']),
   },
 };
 export const MINI_SIRASI = Object.keys(MINI);
@@ -147,11 +161,95 @@ function bitir(d, sonuc) {
 }
 const moral = (d, x) => (d.koloni.moral = Math.max(0, Math.min(100, d.koloni.moral + x)));
 const kaynakEkle = (d, k, x) => (d.koloni.kaynaklar[k] = (d.koloni.kaynaklar[k] || 0) + x);
+const parcaEkle = (d, k, x) => (d.koloni.parcalar[k] = (d.koloni.parcalar[k] || 0) + x);
+const parca = (d, k) => d.koloni.parcalar[k] || 0;
+
+// --- Operasyon içi çatışmalar ---
+const SAVASLAR = {
+  mantar_pusu: { dusmanlar: ['mantar_pusucusu', 'mantar_pusucusu'], giris: 'Çürümüş mantarın içinden iki spor pusucusu uyandı!' },
+  kriyo: { dusmanlar: ['kriyo_yaratigi'], giris: 'Buhar patlaması! Borudan bir kriyo yaratığı fırladı.' },
+  akrep: { dusmanlar: ['kristal_akrep', 'kristal_akrep'], giris: 'Yarığın çevresini iki kristal çöl akrebi sarmış; ekibi koru!' },
+  solucan_vaha: { dusmanlar: ['vaha_solucani'], giris: 'Heyelanın arkasından bir vaha kaya solucanı çıktı; zırhlı.' },
+  solucan_dev: { dusmanlar: ['dev_kor_solucan'], giris: 'Sürünün başında dev bir kör solucan öncüsü! Onu durdurursan sürü yön değiştirir.', tier: 2 },
+  yagmaci: { dusmanlar: ['yagmaci_lideri', 'vanguard_otomati'], gelis: 'oncu', giris: 'Alarm! Yağmacı lideri ve uyandırdığı Vanguard otomatı üstüne geliyor.', tier: 2 },
+};
+function miniSavas(d, ne, ek = {}) {
+  const sp = SAVASLAR[ne];
+  d.mini.savasta = ne;
+  d.savasBekle = { dusmanlar: sp.dusmanlar.slice(), ortam: 'kara', tier: sp.tier || 1, gelis: sp.gelis || (sp.dusmanlar.length > 1 ? 'kiskac' : 'tek'), giris: sp.giris, ...ek };
+  d.savasSonraSahne = 'mini_savas';
+}
+// Zaferden sonra operasyon kaldığı yerden sürer
+function savasZafer(d) {
+  const m = d.mini;
+  const ne = m && m.savasta;
+  if (!ne) return ['Çatışma bitti.'];
+  m.savasta = null;
+  if (ne === 'akrep') {
+    kayipEkipKurtar(d);
+    return ['Akrepler dağıldı; ekip yarıktan çıkıyor.'];
+  }
+  if (ne === 'solucan_vaha') {
+    d.sahne = 'mini_vaha_karar';
+    return ['Solucan kayaların arasına çekildi; bent açık.'];
+  }
+  if (ne === 'solucan_dev') {
+    solucanBasari(d);
+    return ['Dev öncü yere yığıldı; sürü onun titreşimini kaybedip batıya döndü.'];
+  }
+  if (ne === 'yagmaci') {
+    yagmaciBasari(d);
+    return ['Yağmacı lideri teslim oldu; otomat sustu.'];
+  }
+  return ['Çatışma bitti; işine dön.'];
+}
+// Çatışmadan yenik ya da kaçarak dönülürse eski sonuç
+function savasYenilgi(d, ne) {
+  const m = d.mini;
+  m.savasta = null;
+  if (ne === 'solucan_dev') {
+    for (const id of Object.keys(NOKTALAR)) if (NOKTALAR[id].mekan === 'sirtlar' && NOKTALAR[id].kaynak) d.stok[id] = 0;
+    moral(d, -5);
+    bitir(d, 'yanlis');
+  } else if (ne === 'yagmaci') {
+    d.itibar = Math.max(0, d.itibar - 5);
+    bitir(d, 'yanlis');
+  }
+}
+function kayipEkipKurtar(d) {
+  d.koloni.nufus.toplam += 3;
+  d.koloni.nufus.barinma = (d.koloni.nufus.barinma || 0) + 1;
+  moral(d, 5);
+  kaynakEkle(d, 'plazma_cami', 2);
+  bitir(d, 'dogru');
+}
+function solucanBasari(d) {
+  moral(d, 10);
+  kaynakEkle(d, 'titanyum', 15);
+  kaynakEkle(d, 'bazalt', 10);
+  kaynakEkle(d, 'kseno_kabuk', 2);
+  d.itibar += 10;
+  bitir(d, 'dogru');
+}
+function yagmaciBasari(d) {
+  d.itibar += 15;
+  parcaEkle(d, 'sasi_celigi', 100);
+  for (const t of ['soya', 'noro_kahve', 'aloe']) tarim(d).tohumlar[t] = (d.tarim.tohumlar[t] || 0) + 1;
+  d.bayrak.yagmaciYakalandi = true;
+  bitir(d, 'dogru');
+}
 
 // Her karede (gorevler.js zamanIlerle). olaylar: { tur: 'mini', metin, acil }
 export function miniIlerle(d, dt) {
   const m = miniDurum(d);
   const olaylar = [];
+  if (m.aktif && m.savasta && !d.savas && !d.savasBekle && !d.sahne) {
+    const ne = m.savasta;
+    savasYenilgi(d, ne);
+    if (m.aktif) olaylar.push({ tur: 'mini', metin: 'Çatışmadan çekildin; operasyon sürüyor.', acil: true });
+    return olaylar;
+  }
+  if (m.savasta) return olaylar;
   if (!m.aktif) {
     m.bekle = (m.bekle || 0) + dt;
     if (m.bekle >= MINI_BEKLEME) {
@@ -195,9 +293,18 @@ export function miniIlerle(d, dt) {
     m.kalan -= dt;
     for (const e of [90, 60, 30]) if (once > e && m.kalan <= e) olaylar.push({ tur: 'mini', metin: 'Sürü yaklaşıyor: ' + e + ' saniye.', acil: true });
     if (m.kalan <= 0) {
-      for (const id of Object.keys(NOKTALAR)) if (NOKTALAR[id].mekan === 'sirtlar' && NOKTALAR[id].kaynak) d.stok[id] = 0;
-      moral(d, -5);
-      bitir(d, 'yanlis');
+      // Sismik dengeleyici sürüyü saptırır; yoksa dev öncüyle çatışma (yalnız kaybedilirse galeriler çöker)
+      if (parca(d, 'sismik_dengeleyici') > 0) {
+        d.koloni.parcalar.sismik_dengeleyici -= 1;
+        olaylar.push({ tur: 'mini', metin: 'Sismik dengeleyici zemini titreştirdi; sürü yön değiştiriyor!', acil: true });
+        solucanBasari(d);
+      } else if (!d.uzay && !d.gemide && !d.bayrak.tonoflenyada && !d.savas && !d.op) miniSavas(d, 'solucan_dev');
+      else {
+        // Koloniden uzaktayken sürüye karşı çıkacak kimse yok: eski sonuç
+        for (const id of Object.keys(NOKTALAR)) if (NOKTALAR[id].mekan === 'sirtlar' && NOKTALAR[id].kaynak) d.stok[id] = 0;
+        moral(d, -5);
+        bitir(d, 'yanlis');
+      }
     }
   }
   if (m.aktif === 'yagmaci_tuzagi') {
@@ -215,9 +322,10 @@ export function miniIlerle(d, dt) {
     m.dikkat = Math.max(0, once + (artis - (artis ? 0 : 6)) * dt);
     for (const e of [40, 70]) if (once < e && m.dikkat >= e) olaylar.push({ tur: 'mini', metin: e >= 70 ? 'Cızırtılar kesildi; biri "Kim var orada?" diye fısıldıyor. Dur!' : 'Bir korsan durdu, dinliyor. Yavaşla.', acil: true });
     if (m.dikkat >= DIKKAT_ESIK) {
-      kaynakEkle(d, 'titanyum', 0);
-      d.itibar = Math.max(0, d.itibar - 5);
-      bitir(d, 'yanlis');
+      // Alarm: kaçmalarına izin verme, lideri ve otomatı kara savaşında yakala (asama-1-ve-2 Görev 1B ile birleşik)
+      m.dikkat = 0;
+      olaylar.push({ tur: 'mini', metin: 'Alarm verildi! Yağmacılar silahlanıyor.', acil: true });
+      miniSavas(d, 'yagmaci');
     }
   }
   return olaylar;
@@ -226,9 +334,10 @@ export function miniIlerle(d, dt) {
 // Ayar ve valf kancaları (gorev1.js, gorev2.js)
 export function miniKilitlendi(d, amac) {
   if (amac === 'mini_bent' && d.mini && d.mini.aktif === 'vaha_kanali') {
-    moral(d, 5);
     d.stok.tohum_1 = NOKTALAR.tohum_1.stok;
-    bitir(d, 'dogru');
+    // Sismik dengeleyici vadiyi çökertmeden solucanı durdurur; yoksa heyelanın arkasından çıkan solucanla çatışma
+    if (parca(d, 'sismik_dengeleyici') > 0) d.sahne = 'mini_vaha_karar';
+    else miniSavas(d, 'solucan_vaha');
   }
 }
 export function miniValfBitti(d, id) {
@@ -237,8 +346,16 @@ export function miniValfBitti(d, id) {
   if (!m.bitenler.includes(id)) m.bitenler.push(id);
   d.valf = null;
   if (m.bitenler.length >= 3) {
-    d.itibar += 10;
-    moral(d, 5);
+    // Kseno-eczane hazırsa içerideki küf kimseyi hasta etmez
+    if (d.koloni.binalar.includes('kseno_eczane')) {
+      d.itibar += 15;
+      moral(d, 10);
+      parcaEkle(d, 'kseno_alasim', 1);
+    } else {
+      d.itibar += 10;
+      moral(d, 5);
+      for (const u of d.murettebat) u.stres = Math.min(100, (u.stres || 0) + 15);
+    }
     bitir(d, 'dogru');
     return { sonuc: 'bitti', metin: 'Son kompresör de devrede.' };
   }
@@ -291,9 +408,7 @@ export function eylemUygula(d, id, eylemId) {
   if (n && n.mini && !miniGorunur(d, id)) return { metin: 'Burada artık bir şey yok.' };
   if ((eylemId === 'm_teslim' && !(m.aktif === 'mantar_hasadi' && m.toplanan >= 3)) || (eylemId === 'm_ceviri' && m.aktif !== 'ceviri_krizi')) return { metin: '' };
   if (eylemId === 'm_teslim') {
-    kaynakEkle(d, 'foton_recinesi', 4);
-    moral(d, 5);
-    bitir(d, 'dogru');
+    d.sahne = 'mini_mantar_karar';
     return { metin: '' };
   }
   if (eylemId === 'm_ceviri') {
@@ -310,6 +425,12 @@ export function eylemUygula(d, id, eylemId) {
     if (o > 1) {
       m.spor = Math.min(100, (m.spor || 0) + 15);
       m.olgunluk[id] = 0.1;
+      // Çürümüş mantara basınca spor pusucuları uyanır (bir kez); biyo-kubbe ya da biyo-karantina zehri işletmez
+      if (!m.pusuDendi) {
+        m.pusuDendi = true;
+        miniSavas(d, 'mantar_pusu', d.koloni.binalar.includes('biyo_kubbe') || parca(d, 'biyo_karantina') > 0 ? { bagisik: true } : {});
+        return { metin: 'Dokunur dokunmaz çatladı! Spor bulutunun içinden bir şey kıpırdıyor.', ses: 'red' };
+      }
       return { metin: 'Dokunur dokunmaz çatladı! Yüzüne bir spor bulutu. Spor yüzde ' + Math.round(m.spor) + '.', ses: 'red' };
     }
     m.bitenler.push(id);
@@ -317,19 +438,32 @@ export function eylemUygula(d, id, eylemId) {
     return { metin: 'Kristal elinde ılık ılık çınlıyor. ' + m.toplanan + ' / 3.' + (m.toplanan >= 3 ? ' Yeter; laboratuvara götür (kapsül terminali).' : ''), ses: 'kristal' };
   }
   if (eylemId === 'm_muhurle') {
-    if (n.secenek !== m.secim) return { metin: 'Bu bağlantı sağlam; buz tutmuş ama kaçırmıyor. Tıslama başka yerden geliyor.', ses: 'red' };
+    if (n.secenek !== m.secim) {
+      // Yanlış vana: buhar patlamasıyla bir kriyo yaratığı borudan fırlar (bir kez)
+      if (!m.yaratikDendi) {
+        m.yaratikDendi = true;
+        miniSavas(d, 'kriyo');
+        return { metin: 'Bu bağlantı sağlam ama meşale buzu çatlattı; buhar patlıyor!', ses: 'red' };
+      }
+      return { metin: 'Bu bağlantı sağlam; buz tutmuş ama kaçırmıyor. Tıslama başka yerden geliyor.', ses: 'red' };
+    }
     if ((d.koloni.parcalar.polimer_levha || 0) < 5) return { metin: 'Kaçak burada! Mühürlemek için 5 polimer levha gerek; dökümhaneden.', ses: 'red' };
     d.koloni.parcalar.polimer_levha -= 5;
     kaynakEkle(d, 'metan', 3);
     d.itibar += 10;
+    if (d.koloni.binalar.includes('kriyo_atolye')) parcaEkle(d, 'dondurucu_kopuk', 1);
     bitir(d, 'dogru');
     return { metin: '', ses: 'kaynak' };
   }
   if (eylemId === 'm_kurtar') {
-    d.koloni.nufus.toplam += 2;
-    moral(d, 5);
-    bitir(d, 'dogru');
-    return { metin: '' };
+    // Sonik kovucu akrepleri savaşmadan kaçırır; yoksa ekibi kara savaşıyla kurtar
+    if (parca(d, 'sonik_kovucu') > 0) {
+      d.koloni.parcalar.sonik_kovucu -= 1;
+      kayipEkipKurtar(d);
+      return { metin: 'Sonik kovucunun çığlığı yarığı doldurdu; akrepler kumun altına kaçtı.', ses: 'sonar' };
+    }
+    miniSavas(d, 'akrep');
+    return { metin: 'Ekip yarığın dibinde, ama etrafları sarılmış!', ses: 'red' };
   }
   if (eylemId === 'm_patlat') return { ayar: true, amac: 'mini_bent' };
   if (eylemId === 'm_kompresor') return { valf: true, amac: 'mini_kompresor' };
@@ -338,9 +472,7 @@ export function eylemUygula(d, id, eylemId) {
     d.koloni.kaynaklar.kristal -= 1;
     m.bitenler.push(id);
     if (m.bitenler.length >= 3) {
-      kaynakEkle(d, 'kseno_kabuk', 2);
-      d.itibar += 10;
-      bitir(d, 'dogru');
+      solucanBasari(d);
       return { metin: '', ses: 'kur' };
     }
     return { metin: 'Kazık toprağa gömüldü; tepesinde pes bir uğultu başladı. ' + m.bitenler.length + ' / 3.', ses: 'kur' };
@@ -349,9 +481,7 @@ export function eylemUygula(d, id, eylemId) {
     if (!d.envanter.includes('kesici')) return { metin: 'Elinde kesici yok; kapsüldeki dolaptan al.', ses: 'red' };
     m.bitenler.push(id);
     if (m.bitenler.length >= 3) {
-      d.itibar += 15;
-      d.koloni.parcalar.sasi_celigi = (d.koloni.parcalar.sasi_celigi || 0) + 20;
-      bitir(d, 'dogru');
+      yagmaciBasari(d);
       return { metin: '', ses: 'kes' };
     }
     m.dikkat = Math.max(0, (m.dikkat || 0) - 10);
@@ -362,14 +492,41 @@ export function eylemUygula(d, id, eylemId) {
 
 // Çeviri krizi seçimi ve bitiş sahnesi
 function ceviriSec(d, dogru) {
+  // Ortak uzlaşma sentezi: moral +10, itibar +10, yüz bilim puanı; bir tarafı haklı çıkarmak: moral -5, antik veri
   if (dogru) {
-    d.itibar += 15;
-    moral(d, 5);
-  } else moral(d, -5);
+    d.itibar += 10;
+    moral(d, 10);
+    if (!d.yan) d.yan = { aktif: null, biten: [], karar: {}, itibar: {}, bilim: 0, ozel: [] };
+    d.yan.bilim = (d.yan.bilim || 0) + 100;
+  } else {
+    moral(d, -5);
+    parcaEkle(d, 'antik_veri', 1);
+  }
   bitir(d, dogru ? 'dogru' : 'yanlis');
   return 'mini_tamam';
 }
 export const SAHNELER = {
+  mini_savas: {
+    baslik: 'Çatışma bitti',
+    metin: (d) => d.miniSavasMetin || ['Çatışma bitti.'],
+    secenekler: (d) => [{ etiket: 'Devam', sonra: d.miniSavasSonra || null }],
+  },
+  mini_mantar_karar: {
+    baslik: 'Fotonik kristaller',
+    metin: () => ['Dr. Selin: "Üç kristal elimizde. Onları kubbenin aydınlatma hatlarına mı işleyelim, yoksa iksir deneyime mi vereyim?"'],
+    secenekler: (d) => [
+      { etiket: 'Aydınlatma hatlarına işle', yap: () => { kaynakEkle(d, 'foton_recinesi', 4); moral(d, 5); d.bayrak.fotonHat = true; d.mini.karar = 'hat'; bitir(d, 'dogru'); }, sonra: 'mini_tamam' },
+      { etiket: 'Dr. Selin\'in iksir deneyine ver', yap: () => { parcaEkle(d, 'yatistirici', 2); moral(d, 2); d.bayrak.eczaneHizBitis = ((d.zaman && d.zaman.sn) || 0) + 7200; d.mini.karar = 'iksir'; bitir(d, 'dogru'); }, sonra: 'mini_tamam' },
+    ],
+  },
+  mini_vaha_karar: {
+    baslik: 'Vahanın suyu',
+    metin: () => ['Lina: "Su geri geldi, Kaptan. Doğrudan seralara mı yönlendirelim, yoksa vahanın yabani tohum havuzunu mu sulayalım?"'],
+    secenekler: (d) => [
+      { etiket: 'Suyu doğrudan seralara yönlendir', yap: () => { moral(d, 5); tarim(d).erzak.peksimet = (d.tarim.erzak.peksimet || 0) + 5; d.mini.karar = 'sera'; bitir(d, 'dogru'); }, sonra: 'mini_tamam' },
+      { etiket: 'Vahanın yabani tohum havuzunu sula', yap: () => { moral(d, 5); tarim(d).tohumlar.vaha_hurmasi = (d.tarim.tohumlar.vaha_hurmasi || 0) + 2; d.mini.karar = 'yabani'; bitir(d, 'dogru'); }, sonra: 'mini_tamam' },
+    ],
+  },
   mini_tamam: {
     baslik: 'Yerel operasyon',
     efekt: ['sinyal'],
@@ -389,4 +546,11 @@ export const SAHNELER = {
       { etiket: 'Kaelith kayıtları doğru; yazıt mecazi bir dua', sonra: 'mini_tamam', yap: () => ceviriSec(d, false) },
     ],
   },
+};
+
+// Zaferde (savas.js): operasyon kaldığı yerden sürer; bitirdiyse sonraki sahne tamam ya da karar
+ZAFER_KANCALARI.mini_savas = (d) => {
+  d.miniSavasMetin = savasZafer(d);
+  d.miniSavasSonra = d.sahne === 'mini_savas' ? null : d.sahne;
+  d.sahne = 'mini_savas';
 };

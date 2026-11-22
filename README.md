@@ -6,6 +6,11 @@ tesis kurar, ileride gemini parça parça inşa edip uzaya açılırsın.
 
 Yapımcı: Bahtiyar Cankurt (tasarım belgeleri belgeler/ içinde). Expo Go ile iPhone ve Android'de çalışır.
 
+## Bu sürümde (3.3)
+- v4 Faz 4, birinci kısım: karakter merkezli hikâye motoru ("Hikâye çağrıları"), kilitli dört binayı açan karakter
+  hikâyeleri (Dr. Vael, Sira-Vel, Tina, Mirek) ve yabancı firkateynin ilk teması; sekiz yerel operasyon karakter, kara
+  savaşı ve kararla derinleşti (sabit cezalar kalktı); dokuz yüzey bölgesinin arındırma döngüsü ve karakol kazançları.
+
 ## Bu sürümde (3.2)
 - v4 Faz 3: kanonik karakter ağı (Valen, Morvenna, Kefius, Ignador, Tixie, Lyra, Nyxara, Oronte, Barracuda, Zeno, Mirelza,
   Sarah, Kaelan, Cüretkâr Cüce), Tether-Key mekiği, gözetmenler, iki aşamalı mürettebat, evren itibarı ve beş güçlü

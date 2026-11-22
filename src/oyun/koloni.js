@@ -17,7 +17,7 @@ import { HAMMADDELER } from './veri/tesisler';
 import { PARCALAR, TARIFLER } from './veri/uretim';
 import { montajIlerle } from './gemi/gemi';
 import { UZMANLIKLAR, uretec, uyeUret } from './veri/murettebat';
-import { ARINDIRMA, guvenliMi } from './yuzey/arindirma';
+import { ARINDIRMA, BOLGE_DETAY, guvenliMi } from './yuzey/arindirma';
 import { KATMANLAR, katmanTamamMi, seviye4Eksikleri } from './terraform';
 
 export const YENILENME_SN = 120; // bir yatağa bir birim dönmesi (sanayi 0'da)
@@ -285,6 +285,15 @@ export function koloniIlerle(d, dt) {
         if (!id) continue;
         d.stok[id] -= 1;
         k.kaynaklar[NOKTALAR[id].kaynak] = (k.kaynaklar[NOKTALAR[id].kaynak] || 0) + 1;
+      }
+      // Dokuz bölgenin karakol kazancı (v4 koloni-yerel-operasyonlar bölüm 2)
+      for (const m of guvenli) {
+        const det = BOLGE_DETAY[m];
+        if (!det) continue;
+        for (const r of Object.keys(det.kazanc)) {
+          if (PARCALAR[r]) d.koloni.parcalar[r] = (d.koloni.parcalar[r] || 0) + det.kazanc[r];
+          else k.kaynaklar[r] = (k.kaynaklar[r] || 0) + det.kazanc[r];
+        }
       }
     }
   }

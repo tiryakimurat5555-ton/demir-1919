@@ -603,7 +603,47 @@ bütün bölümlerini sırayla sayar (21 Kasım: v3 paketiyle sekiz belge daha g
 - [~] Tetiklenme anları belgedeki görev sırasına bağlandı (sondaj, kazı, ilk uçuş, G-02/kule); G-14 sonrası şartı yerine
       Sınıf 2 gemi.
 
-## 31-57. v4 paketinin öteki belgeleri: [ ] Faz 4-5 (rehber bölüm 1'deki sırayla).
+## 31. v4 / gorev-ve-hikaye-harmanlama-mimarisi.txt (3.3, hikaye.js)
+- [x] 1 Beş adımlı harman döngüsü ve 4 altı bölümlü şablon: hikâye motoru (karakter çağrısı telsizden, hazırlık bedeli,
+      operasyon ve/veya evrensel savaş adımları, ara ve son kararlar, kalıcı iz; "Sonra" bir nöbet erteler; yarım kalan
+      hikâye bekleyenlere döner). Menüde "Hikâye çağrıları".
+- [x] 2.1 Kilitli dört bina karakter hikâyeleriyle (bölüm 32'de).
+- [ ] 2.2 Yirmi gezegen numunesinin karakter zincirleri: gezegen hikâyeleriyle (sonraki sürüm).
+- [x] 2.3 Kaelith kurtarma (3.2, Görev 2B).
+- [ ] 3.1 On yan görevin çatışmaları: Faz 5 (tonoflenya-30-yan-gorev-derinlestirme).
+- [ ] 3.2 Final #1, #16, #18, #20: Aşama 4 belgesiyle.
+
+## 32. v4 / koloni-yerel-operasyonlar-ve-yuzey-derinlestirme.txt (3.3, mini.js, arindirma.js)
+- [x] 1 Fotonik hasat: Dr. Selin; çürümüşe dokununca iki spor pusucusu (biyo-kubbe ya da karantina zehri işletmez); karar
+      aydınlatma hatları (gece nöbetlerinde verim) / iksir deneyi (iki sakinleştirici, eczane bir gün hızlı).
+- [x] 2 Kriyojenik vana: Kaya; yanlış vanada kriyo yaratığı; kriyo atölyesi varsa dondurucu köpük hediye.
+- [x] 3 Kayıp ekip: Aras; iki kristal akrep (sonik kovucu savaşmadan kaçırır); nüfus +3, moral +5, iki plazma camı.
+- [x] 4 Vaha kanalı: Lina; vaha kaya solucanı (sismik dengeleyici durdurur); karar seralar (beş peksimet) / yabani havuz
+      (iki vaha hurması tohumu).
+- [x] 5 Çeviri krizi: sabit ceza kalktı. Sentez: moral +10, itibar +10, yüz bilim puanı; taraf tutmak: moral -5, antik veri.
+- [x] 6 Metan kubbesi: kseno-eczane varsa kimse hastalanmaz (itibar +15, moral +10, kseno-alaşım); yoksa stres.
+- [x] 7 Solucan göçü: sabit ceza kalktı. Sismik dengeleyici ya da dev kör solucan öncüsüyle kara savaşı (T2) ocakları
+      kurtarır (moral +10, titanyum +15, bazalt +10); yalnız süre biter ve çatışma kaybedilirse eski sonuç. Koloniden
+      uzaktayken eski sonuç.
+- [x] 8 Yağmacı tuzağı: alarmda kaçmazlar; yağmacı lideri ve Vanguard otomatıyla kara savaşı; kazanılırsa itibar +15,
+      yüz şasi çeliği, tohum kasaları; kaçılırsa eski sonuç.
+- [x] Bölüm 2 dokuz yüzey bölgesi: eksik beşi (kriyo, obsidyen, kuleler, tüneller, vaha) karakol yerleriyle eklendi;
+      izolasyonda bölgenin kara düşmanı (cıva ve kuleler düşmansız), keşifte önerilen araç ve eşya, karakol kurulunca
+      tablodaki sürekli kazanç (üç dakikada bir).
+
+## 33. v4 / asama-3-derin-uzay-ve-kilitli-binalar-hikayeleri.txt (3.3 bölüm 1 ve 3E; hikayeKoloni.js)
+- [x] 3A Ortak Hafıza (Dr. Vael; dron taşıyıcı + iki dron, T3; açık konsey moral +15 / askerî Ar-Ge silah hasarı +%5)
+      → Akademi. [~] "Numune kodeks masası" Ar-Ge masası olarak zaten açıktı.
+- [x] 3B Nefes Alacak Bir Gök (Sira-Vel; 3 metan; vana kalibrasyonu; iki kriyo pusucusu; izole +%25 / hibrit itibar +300,
+      moral +15) → Kseno-Habitat.
+- [x] 3C Bir Çekirdeğe Sığmayan Bilinç (Tina; yabancı firkateyn T3; özerklik: baskınlara Tina müdahale eder, moral +10 /
+      taktik protokol: uyarı penceresi +0,4) → Tina Çekirdeği.
+- [x] 3D Evi Olmayanların Şehri (Mirek; korvet + avcı) → Mülteci Kampüsü; dört bina ile Kademe 4.
+- [x] 3E Bilinmeyen Frekans: Sınıf III ve gezegen rotası; firkateyn T3; piezo ve kseno-alaşım; gezegen yörünge devriyeleri
+      artık bu temastan sonra.
+- [ ] Bölüm 2 gezegen matrisi ve 18 gezegen hikâyesi: sonraki sürüm.
+
+## 34-57. v4 paketinin öteki belgeleri: [ ] Faz 4 kalanı (18 gezegen hikâyesi, Aşama 4) ve Faz 5.
 
 ## Sıradaki adımlar (sırayla)
 0. Tonoflenya genişlemesi, yönergedeki sırayla: [2.1: Malken (12); 2.2: tarihçe (13); 2.3: atlas (14); 2.4: eşya,

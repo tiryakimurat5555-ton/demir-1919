@@ -37,6 +37,7 @@ import * as ZN from '../oyun/tonoflenya/zanaat';
 import * as YN from '../oyun/tonoflenya/yan';
 import * as KR from '../oyun/tonoflenya/karakter';
 import * as KM from '../oyun/komuta';
+import * as HK from '../oyun/hikaye';
 import { RENK, UST_BOSLUK } from '../arayuz/tema';
 import KonumsalSes from '../ses/konumsal';
 import { ALANLAR, KAPILAR, MEKANLAR, NOKTALAR } from '../oyun/yuzey/harita';
@@ -1034,6 +1035,7 @@ export default function Yuzey({ onGeri, baslangic, yeniOyunUret }) {
         ...(dunya.current.gemi ? [{ id: 'zanaat', etiket: 'Zanaat tezgâhları', ipucu: 'Gemideki dökümhane masası, aether laboratuvarı ve imbik ünitesi.', sec: () => (agacGoster((x) => ZN.zanaatMenu(x), () => menuyuAc()), 'sessiz') }] : []),
         ...(dunya.current.bayrak.tonoflenyaGoruldu ? [{ id: 'subaylar', etiket: 'Subaylar ve istasyonlar', sec: () => (agacGoster((x) => ZN.subayMenu(x), () => menuyuAc()), 'sessiz') }] : []),
         { id: 'komuta', etiket: 'Komuta ve Genişleme Paneli', ipucu: 'Bölge haritası, savunma hattı, ileri karakollar. İki parmakla sağa sola: sekme; üç parmakla dokun: en acil bölge.', sec: () => (agacGoster((x) => KM.panel(x, 'harita'), () => menuyuAc()), 'sessiz') },
+        { id: 'hikaye', etiket: 'Hikâye çağrıları', ipucu: 'Karakterlerin telsiz çağrıları: bekleyenler ve bitenler.', sec: () => (agacGoster((x) => HK.hikayeMenu(x), () => menuyuAc()), 'sessiz') },
         { id: 'karakter', etiket: 'Karakter ağı, mekik ve itibar', ipucu: 'Kilit karakterler, Tether-Key mekiği, beş ana güç ve evren itibarı.', sec: () => (agacGoster((x) => KR.karakterMenu(x), () => menuyuAc()), 'sessiz') },
         ...(dunya.current.bayrak.tonoflenyaGoruldu ? [{ id: 'yan', etiket: 'Yan görevler ve itibar', ipucu: 'Otuz yan görev, bölgesel itibar, özel mürettebat.', sec: () => (agacGoster((x) => YN.yanMenu(x), () => menuyuAc()), 'sessiz') }] : []),
         { id: 'ekol', etiket: 'Yıldız Ekolü kıdemi', ipucu: 'Altı ekolde kıdem ve açılan kabiliyetler.', sec: () => (agacGoster((x) => ZN.ekolMenu(x), () => menuyuAc()), 'sessiz') },

@@ -38,20 +38,16 @@ describe('Evrensel bina sistemi', () => {
     expect(d.hazirlik.ziyafet).toBeFalsy();
   });
 
-  test('kilitli dört bina büyük operasyonlarla açılır', () => {
+  test('kilitli dört bina karakter hikâyeleri bitince açılır', () => {
     const d = yeniOyun(43);
     expect(TESISLER.akademi.kosul(d)).toBe(false);
-    d.tamamlananOp = ['sektor15', 'xerad'];
+    d.bayrak.hk_akademi = true;
     expect(TESISLER.akademi.kosul(d)).toBe(true);
-    expect(TESISLER.kseno_habitat.kosul(d)).toBe(false);
-    d.tamamlananOp.push('g14', 'moloz_kusagi');
-    expect(TESISLER.kseno_habitat.kosul(d)).toBe(true);
-    d.tamamlananOp.push('aethel9');
-    expect(TESISLER.multeci_kampusu.kosul(d)).toBe(false);
-    d.tamamlananOp.push('tarras');
-    expect(TESISLER.multeci_kampusu.kosul(d)).toBe(true);
-    d.tamamlananOp.push('yanan_gemi');
-    expect(TESISLER.tina_cekirdegi.kosul(d)).toBe(true);
+    for (const id of ['kseno_habitat', 'multeci_kampusu', 'tina_cekirdegi']) {
+      expect(TESISLER[id].kosul(d)).toBe(false);
+      d.bayrak['hk_' + id] = true;
+      expect(TESISLER[id].kosul(d)).toBe(true);
+    }
   });
 
   test('Ar-Ge masası: numune teslimi bilim puanı ve eşik bonusları verir', () => {

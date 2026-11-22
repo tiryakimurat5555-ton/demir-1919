@@ -209,6 +209,8 @@ describe('Sinyal Arayışı', () => {
     expect(gorevIpucu(d)).toContain('mühendis');
     // Kayıt JSON'a sorunsuz döner
     expect(gecerliMi(JSON.parse(JSON.stringify(d)))).toBe(true);
+    // Yerel operasyonların kendi testleri var; ana akışta zamanlı çatışma çıkarmasınlar (v4: süre dolunca savaş)
+    d.mini = { aktif: null, bekle: 0, bitenGorevler: ['solucan_gocu', 'yagmaci_tuzagi'] };
     ikinciGorev(d);
   });
 });
@@ -1222,7 +1224,11 @@ describe('Yerel mini görevler', () => {
     expect(d.mini.toplanan).toBe(3);
     expect(noktaEylemleri(d, 'terminal').some((e) => e.id === 'm_teslim')).toBe(true);
     eylemUygula(d, 'terminal', 'm_teslim');
+    // v4: Dr. Selin'in kararı (aydınlatma hatları ya da iksir deneyi)
+    expect(d.sahne).toBe('mini_mantar_karar');
+    sahneSec(d, 'mini_mantar_karar', 0);
     expect(d.koloni.kaynaklar.foton_recinesi).toBe(4);
+    expect(d.bayrak.fotonHat).toBe(true);
     expect(d.sahne).toBe('mini_tamam');
     // Spor yüzde yüze çıkarsa dışarı taşınır
     d.sahne = null;
@@ -1238,6 +1244,11 @@ describe('Yerel mini görevler', () => {
     M.miniBaslat(d, 'vana_donmasi');
     const dogru = ['boru_1', 'boru_2', 'boru_3', 'boru_4'][d.mini.secim];
     const yanlis = ['boru_1', 'boru_2', 'boru_3', 'boru_4'].find((x) => x !== dogru);
+    // v4: yanlış vanada ilk kez buhar patlar, bir kriyo yaratığı fırlar; ikincisinde yalnız uyarı
+    eylemUygula(d, yanlis, 'm_muhurle');
+    expect(d.savasBekle.dusmanlar).toContain('kriyo_yaratigi');
+    d.savasBekle = null;
+    d.mini.savasta = null;
     expect(eylemUygula(d, yanlis, 'm_muhurle').metin).toContain('sağlam');
     d.koloni.parcalar.polimer_levha = 5;
     eylemUygula(d, dogru, 'm_muhurle');
@@ -1250,8 +1261,16 @@ describe('Yerel mini görevler', () => {
     expect(radar(d).pingler.some((p) => p.id === ek)).toBe(false);
     expect(cevreMetni(d)).toContain('Kayıp keşif aracı');
     const n = d.koloni.nufus.toplam;
+    // v4: akrepler ekibi sarmış; sonik kovucu yoksa kara savaşı
     eylemUygula(d, ek, 'm_kurtar');
-    expect(d.koloni.nufus.toplam).toBe(n + 2);
+    expect(d.savasBekle.dusmanlar).toEqual(['kristal_akrep', 'kristal_akrep']);
+    d.savasBekle = null;
+    d.mini.savasta = null;
+    d.koloni.parcalar.sonik_kovucu = 1;
+    eylemUygula(d, ek, 'm_kurtar');
+    expect(d.koloni.nufus.toplam).toBe(n + 3);
+    expect(d.koloni.kaynaklar.plazma_cami).toBe(2);
+    d.sahne = null;
     // Görev bitince nokta yok olur
     expect(cevreMetni(d)).not.toContain('Kayıp keşif aracı');
     // Vaha bendi: frekans ayarı
@@ -1260,6 +1279,15 @@ describe('Yerel mini görevler', () => {
     ayarBaslat1(d, 'mini_bent');
     d.ayar.frekans = d.ayar.hedef;
     for (let i = 0; i < 40 && d.ayar; i++) ayarIlerle1(d, 0.1);
+    // v4: heyelanın arkasından vaha kaya solucanı; zaferden sonra Lina'nın kararı
+    expect(d.savasBekle.dusmanlar).toContain('vaha_solucani');
+    d.savasBekle = null;
+    const { ZAFER_KANCALARI } = await import('../src/oyun/kancalar');
+    d.sahne = 'mini_savas';
+    ZAFER_KANCALARI.mini_savas(d);
+    expect(d.miniSavasSonra).toBe('mini_vaha_karar');
+    sahneSec(d, 'mini_vaha_karar', 1);
+    expect(d.tarim.tohumlar.vaha_hurmasi).toBe(2);
     expect(d.mini.bitenGorevler).toContain('vaha_kanali');
     expect(d.sahne).toBe('mini_tamam');
   });
@@ -1270,7 +1298,8 @@ describe('Yerel mini görevler', () => {
     expect(d.sahne).toBe('ceviri_krizi');
     const it = d.itibar;
     sahneSec(d, 'ceviri_krizi', 0);
-    expect(d.itibar).toBe(it + 15);
+    expect(d.itibar).toBe(it + 10);
+    expect(d.yan.bilim).toBe(100);
     expect(d.sahne).toBe('mini_tamam');
     // Kompresörler: valf dengeleme
     M.miniBaslat(d, 'basinc_dususu');
@@ -1296,16 +1325,29 @@ describe('Yerel mini görevler', () => {
     d.mini.bitenGorevler = d.mini.bitenGorevler.filter((x) => x !== 'solucan_gocu');
     M.miniBaslat(d, 'solucan_gocu');
     bekle(d, 160);
+    // v4: süre dolunca dev öncüyle çatışma; yalnız kaybedilirse (ya da kaçılırsa) galeriler çöker
+    expect(d.mini.savasta).toBe('solucan_dev');
+    d.savas = null;
+    d.savasBekle = null;
+    d.sahne = null;
+    zamanIlerle(d, 0.1);
     expect(d.stok.bazalt_4).toBe(0);
+    expect(d.miniSon.sonuc).toBe('yanlis');
     // Yağmacılar: hızlı yürürsen alarm
     d.sahne = null;
     M.miniBaslat(d, 'yagmaci_tuzagi');
     d.mekan = 'vanguard';
     d.oyuncu = { x: 2512, y: 18, yon: 0 };
-    for (let i = 0; i < 120 && d.mini.aktif; i++) {
+    for (let i = 0; i < 120 && !d.mini.savasta; i++) {
       d.oyuncu.x += i % 2 ? 0.26 : -0.26;
       zamanIlerle(d, 0.1);
     }
+    // v4: alarm kara savaşı başlatır; kaçılırsa eski sonuç
+    expect(d.mini.savasta).toBe('yagmaci');
+    d.savas = null;
+    d.savasBekle = null;
+    d.sahne = null;
+    zamanIlerle(d, 0.1);
     expect(d.mini.aktif).toBe(null);
     expect(d.miniSon.sonuc).toBe('yanlis');
     // Sessizce: yavaş yaklaş ve sersemlet
@@ -1318,6 +1360,7 @@ describe('Yerel mini görevler', () => {
       eylemUygula(d, k, 'm_etkisiz');
     }
     expect(d.miniSon.sonuc).toBe('dogru');
+    expect(d.koloni.parcalar.sasi_celigi).toBeGreaterThanOrEqual(100);
   });
 });
 

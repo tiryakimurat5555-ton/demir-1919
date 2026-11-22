@@ -454,6 +454,11 @@ export const NOKTALAR = {
   karakol_plato: { mekan: 'plato', x: 1160, y: 20, ad: 'Platonun karakol yeri', yaricap: 2.4, karakol: 'plato' },
   karakol_civa: { mekan: 'civa', x: 1530, y: 30, ad: 'Cıva vadisinin karakol yeri', yaricap: 2.4, karakol: 'civa' },
   karakol_mantar: { mekan: 'mantar', x: 1730, y: 40, ad: 'Mağaranın karakol yeri', yaricap: 2.4, karakol: 'mantar' },
+  karakol_kriyo: { mekan: 'kriyo', x: 1930, y: 30, ad: 'Kriyo-mağaranın karakol yeri', yaricap: 2.4, karakol: 'kriyo' },
+  karakol_obsidyen: { mekan: 'obsidyen', x: 2150, y: 40, ad: 'Obsidyen ovasının karakol yeri', yaricap: 2.4, karakol: 'obsidyen' },
+  karakol_kuleler: { mekan: 'kuleler', x: 2340, y: 40, ad: 'Bazalt kulelerinin karakol yeri', yaricap: 2.4, karakol: 'kuleler' },
+  karakol_tuneller: { mekan: 'tuneller', x: 2650, y: 20, ad: 'Kadim tünellerin karakol yeri', yaricap: 2.4, karakol: 'tuneller' },
+  karakol_vaha: { mekan: 'vaha', x: 2825, y: 20, ad: 'Vahanın karakol yeri', yaricap: 2.4, karakol: 'vaha' },
   // Uğultulu Plato: tersane kızağının dört hidrolik ayağı, dağıtım kutusu, kaynaklar
   ayak_1: { mekan: 'plato', x: 1125, y: 30, ad: 'Güneybatı ayağı', yaricap: 2.4, ayak: true, tarif: 'Kızağın güneybatı köşesindeki hidrolik ayak. Altındaki bazalt gevşek; topuk taşın içine gömülmüş.' },
   ayak_2: { mekan: 'plato', x: 1155, y: 30, ad: 'Güneydoğu ayağı', yaricap: 2.4, ayak: true, tarif: 'Kızağın güneydoğu köşesindeki hidrolik ayak. Rüzgâr çelik gövdesinde uğulduyor.' },

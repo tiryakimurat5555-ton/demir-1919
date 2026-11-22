@@ -548,7 +548,27 @@ Demir 1919 oyunu silindi; geçmişi git kaydında (son sürüm 1.06, commit 556f
   - Yuzey: menüde Komuta ve Genişleme Paneli, Karakter ağı; agacGoster öğe ses (onOdak), ucParmak, r.kapat. SesliListe
     onUcParmak (üç parmak dokunuş).
   - testler/komuta.test.js (14); savas2 baskın testi komşu halkaya çevrildi.
-- Sıradaki: v4 Faz 4 (görev harmanlama, koloni yerel operasyonlar, Aşama 3 ve 18 gezegen hikâyesi, Aşama 4 bosslar), Faz 5; KAPSAM.md'de [~] notları (Bahtiyar'a sorulacaklar) ve telefonda deneme.
+- SÜRÜM 3.3 (22 Kasım, Murat: "Devam"): v4 Faz 4 birinci kısım. Telefonda denenmedi.
+  - hikaye.js: hikâye motoru. hikayeEkle(id, { kod, ad, veren, ortam, tetik, giris, hazirlik, gerek, adimlar [op | savas |
+    karar, atla/atlaMetni, giris, bitis], kararSoru, kararlar, odul, bitince }); op adımları OPERASYONLAR hk_<id>_<i>
+    (yuzey, final, sahne hk_ara); savaş adımı savasSonraSahne hk_ara. d.hikaye {biten {id: karar}, aktif, adim, evre,
+    bekleyen, ertele, son, notlar, secim}; hikayeIlerle (gorevler.zamanIlerle): tetik → bekleyen + telsiz haberi, boşta
+    olunca hk_giris; "Sonra" ve yarım kalma bir nöbet erteler. Sahneler hk_giris/hk_ara/hk_karar/hk_sonuc; seçeneklerin
+    sonra'sı planla()/planlaSonra() ile saf hesaplanır. hikayeMenu (menüde "Hikâye çağrıları"). karari, secimi, bittiMi.
+  - hikayeKoloni.js: 3A akademi, 3B kseno_habitat, 3C tina_cekirdegi, 3D multeci_kampusu, 3E firkateyn; bitince bayrak
+    hk_<id> (tesisler.js IRK_KOSULLARI artık bunu okur). Etkiler: akademiAskeri (savas dusmanaHasar ×1,05), tinaTaktik
+    (pencere +0,4, tina_cekirdegi kuruluysa), tinaOzerk (komuta baskınları Tina püskürtür), ksenoIzole (binalar rolCarpani
+    Kithron/Vaelin ×1,25), firkateynTemas (gorevler.kenetlen gezegen devriyesi bunu ister).
+  - kancalar.js: ZAFER_KANCALARI[sahne](d) — savas.js bitir zaferde savasSonraSahne için çağırır (mini_savas, bolge_izole).
+  - mini.js: SAVASLAR (mantar_pusu, kriyo, akrep, solucan_vaha, solucan_dev, yagmaci), miniSavas/m.savasta, yenilgi
+    miniIlerle başında (sahne/savaş yokken), sahneler mini_savas, mini_mantar_karar, mini_vaha_karar; bayrak fotonHat
+    (Sinha/Uma nöbetinde ×1,1), eczaneHizBitis (eczane ×1,5), yagmaciYakalandi. Parça antik_veri. savas.js spec.bagisik.
+  - arindirma.js: ARINDIRMA'ya kriyo, obsidyen, kuleler, tuneller, vaha; BOLGE_DETAY (dusman, arac, esya, kazanc); a_izole
+    düşmanı varsa kara savaşı (d.izoleMekan, sahne bolge_izole, zaferde malzeme ve adım). koloni.js karakolda kazanc.
+    harita.js karakol_kriyo/obsidyen/kuleler/tuneller/vaha.
+  - Yeni kara düşmanları: mantar_pusucusu, kriyo_yaratigi, kriyo_pusucusu, kristal_akrep, vaha_solucani, dev_kor_solucan,
+    yagmaci_lideri. testler/hikaye.test.js; yuzey.test.js mini testleri yeni akışa göre, ana akışta solucan/yağmacı kapalı.
+- Sıradaki: v4 Faz 4 kalanı (18 gezegen hikâyesi ve numune karakter zincirleri, Aşama 4 bosslar), Faz 5; KAPSAM.md'de [~] notları (Bahtiyar'a sorulacaklar) ve telefonda deneme.
 
 ## Sesler
 - Drive'daki Efektler/Ambians dosyaları 14 MB; Drive bağlayıcısı 10 MB'tan büyük dosyayı indiremiyor. Bu yüzden

@@ -27,6 +27,7 @@ import * as SB from '../tonoflenya/subay';
 import { savasHazirligi } from '../binalar';
 import { evrenEtki, misafir, gucItibari } from '../tonoflenya/kisiler';
 import { TONOFLENYA_HAMMADDELERI } from '../tonoflenya/zanaat';
+import { ZAFER_KANCALARI } from '../kancalar';
 
 // --- Ortak yardımcılar ---
 const kusan = (d, id) => !!(d.kusanilan && (d.kusanilan.silah === id || d.kusanilan.zirh === id));
@@ -157,6 +158,14 @@ export const DUSMANLAR = {
   kseno_avci: { ad: 'asit platosu kseno-avcısı', ortam: 'kara', tier: 2, arketip: 'akinci', moduller: ['zehir'], govde: 45, kalkan: 0.2, silahlar: ['pence', 'tukuruk'], frek: 420, ses: 'Gökten pike yapan bir çığlık ve deri kanat şaklaması.', zayif: 'Uyarı penceresi kısa; hızlı kaçın. Nötralizasyon kulesi asidi siler.', ganimet: { polimer: 2 } },
   magma_akrebi: { ad: 'magma sülfür akrebi', ortam: 'kara', tier: 2, arketip: 'akinci', moduller: ['isi'], govde: 45, kalkan: 0.25, silahlar: ['pence', 'isi_dalgasi'], frek: 300, ses: 'Kızgın taşta cızırdayan kitin ve lav fokurtusu.', zayif: 'Dondurucu köpük ve termal giysi ısısını keser.', ganimet: { kseno_kabuk: 1, izotop: 1 } },
   galeri_cagirani: { ad: 'galeri çağıranı', ortam: 'kara', tier: 2, arketip: 'cagiran', moduller: ['cagiran'], cagri: 'yavru', govde: 60, kalkan: 0.3, silahlar: ['sonik_dalga', 'pence'], frek: 130, ses: 'Sıcak galerilerin dibinden yankılanan uzun, boğuk bir çağrı.', zayif: 'Her üç turda yavru çağırır; önce küçükleri indir.', ganimet: { kseno_spor: 1, titanyum: 2 } },
+  // Yerel operasyonlar ve Aşama 3 (v4 koloni-yerel-operasyonlar, asama-3)
+  mantar_pusucusu: { ad: 'mantar sporu pusucusu', ortam: 'kara', tier: 1, arketip: 'pusucu', moduller: ['pusucu', 'zehir'], govde: 30, kalkan: 0.1, silahlar: ['tukuruk', 'pence'], frek: 280, ses: 'Spor bulutunun içinde ıslak bir hışırtı; yer değiştirdikçe kesecikler patlıyor.', zayif: 'Biyo-kubbe ya da biyo-karantina zehrini işletmez.', ganimet: { kseno_spor: 1 } },
+  kriyo_yaratigi: { ad: 'kriyo yüzey yaratığı', ortam: 'kara', tier: 1, arketip: 'akinci', moduller: [], govde: 35, kalkan: 0.15, silahlar: ['pence', 'pence'], frek: 360, ses: 'Buz kırığı gibi çatırdayan eklemler ve soğuk bir tıslama.', zayif: 'Hızlı; termal giysi ve plazma ısısı onu yavaşlatır.', ganimet: { kriyolit: 1 } },
+  kriyo_pusucusu: { ad: 'sülfür ve kriyo pusucusu', ortam: 'kara', tier: 2, arketip: 'pusucu', moduller: ['pusucu'], govde: 45, kalkan: 0.2, silahlar: ['pence', 'tukuruk'], frek: 310, ses: 'Metan buharının içinden gelen kesik bir hırıltı.', zayif: 'Her darbede yer değiştirir; sesi izle.', ganimet: { metan: 1, kriyolit: 1 } },
+  kristal_akrep: { ad: 'kristal çöl akrebi', ortam: 'kara', tier: 1, arketip: 'akinci', moduller: [], govde: 32, kalkan: 0.2, silahlar: ['pence', 'tukuruk'], frek: 390, ses: 'Cam üstünde kayan kristal bacakların tınlaması.', zayif: 'Sonik kovucu savaşmadan kaçırır.', ganimet: { plazma_cami: 1 } },
+  vaha_solucani: { ad: 'vaha kaya solucanı', ortam: 'kara', tier: 1, arketip: 'zirhli', moduller: [], govde: 60, kalkan: 0.5, silahlar: ['sonik_dalga', 'pence'], frek: 110, ses: 'Taşları ezen, derin, sürtünmeli bir gümbürtü.', zayif: 'Zırhlı; sismik dengeleyici vadiyi çökertmeden onu durdurur.', ganimet: { bazalt: 4 } },
+  dev_kor_solucan: { ad: 'dev kör solucan öncüsü', ortam: 'kara', tier: 2, arketip: 'zirhli', moduller: [], govde: 80, kalkan: 0.5, silahlar: ['sonik_dalga', 'sonik_dalga', 'pence'], frek: 70, ses: 'Yerin altından yükselen, kemikleri titreten bir gürleme.', zayif: 'Onu durdurursan sürü yön değiştirir; sismik dengeleyici de saptırır.', ganimet: { kseno_kabuk: 2 } },
+  yagmaci_lideri: { ad: 'yağmacı lideri', ortam: 'kara', tier: 2, arketip: 'pusucu', moduller: ['pusucu', 'kacis'], teslim: true, govde: 55, kalkan: 0.3, silahlar: ['mermi', 'mermi', 'lazer'], frek: 190, ses: 'Kalın bir ses komut veriyor; tüfek kurma şakırtısı.', zayif: 'Yüzde yirmi beşte teslim olur.', ganimet: { sasi_celigi: 20 } },
   // Çağrılan yardımcılar (küçük birimler: her tur üst üste ek hasar)
   saldiri_dronu: { ad: 'saldırı dronu', ortam: 'uzay', tier: 1, kucuk: true, moduller: [], govde: 14, kalkan: 0, silahlar: ['iyon'], frek: 880, ganimet: {} },
   golge_dronu: { ad: 'gölge dronu', ortam: 'uzay', tier: 1, kucuk: true, moduller: ['karanlik'], karanlik: true, govde: 16, kalkan: 0, silahlar: ['plazma'], frek: 660, ganimet: {} },
@@ -559,6 +568,7 @@ export function savasBaslat(d, spec) {
     s.sonraki = 9;
   }
   if (s.gelis === 'tuzak') s.tuzak = true;
+  if (spec.bagisik) s.bagisiklik = 99; // biyo-kubbe ya da karantina: zehir işlemez
   // Evrensel bina sistemi: sefer öncesi yapılan hazırlıklar bu çatışmada harcanır
   const hz = savasHazirligi(d);
   if (hz.tarama) s.taramaEk = 0.5;
@@ -647,7 +657,7 @@ function dusmanaHasar(d, x, olaylar, tur, hedef) {
   const dm = hedef || s.dusman;
   if (!dm || dm.govde <= 0) return;
   const T = DUSMANLAR[dm.tur];
-  let h = x * oyuncuGucu(d, s);
+  let h = x * oyuncuGucu(d, s) * (d.bayrak && d.bayrak.akademiAskeri ? 1.05 : 1); // akademinin askerî Ar-Ge'si (3A)
   // Kuşanılan silah: karada doğrudan el silahı, uzayda kaptanın bataryasına odak
   if (tur === 'birincil') {
     if (kusan(d, 'plazma_tufegi')) h *= 1.8;
@@ -931,7 +941,10 @@ function bitir(d, sonuc, olaylar) {
   // Doku rejenerasyon merhemi: revirde yaralılar iyileşir, stres yarıya
   if (E.etkiVar(d, 'merhem')) for (const u of d.murettebat) u.stres = Math.round((u.stres || 0) / 2);
   // Final görevlerindeki çatışma: zaferde görevin sonraki sahnesi
-  if ((sonuc === 'zafer' || sonuc === 'ateskes') && sonraSahne) d.sahne = sonraSahne;
+  if ((sonuc === 'zafer' || sonuc === 'ateskes') && sonraSahne) {
+    d.sahne = sonraSahne;
+    if (ZAFER_KANCALARI[sonraSahne]) ZAFER_KANCALARI[sonraSahne](d);
+  }
   d.savas = null;
   olaylar.push({ bitti: true });
 }
@@ -1100,6 +1113,7 @@ function pencere(d, x, silah) {
   }
   if (s.isaret > 0) p += 0.4; // Kıvılcım destek gemisi düşmanı işaretledi
   if (s.cephe) p += s.cephe;
+  if (d.bayrak && d.bayrak.tinaTaktik && bina(d, 'tina_cekirdegi')) p += 0.4; // Tina'nın taktik protokolü (3C)
   if (!kara(s) && d.istasyonlar && d.istasyonlar.dumen && d.istasyonlar.dumen.anahtar === 'zhaor') p += 0.3; // Zhaor dümende: kaçınma penceresi
   if (s.yavas) {
     p += s.yavas;

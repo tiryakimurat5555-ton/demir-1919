@@ -37,6 +37,8 @@ import * as FN from '../tonoflenya/final';
 import * as YN from '../tonoflenya/yan';
 import * as KR from '../tonoflenya/karakter';
 import * as KM from '../komuta';
+import * as HK from '../hikaye';
+import '../hikayeKoloni';
 import { MEKANLAR } from './harita';
 
 export const { ESYALAR, HAREKET_KISA, ayarBaslat, ayarDegis, ayarIlerle, ayarMetni, ayarYakinlik, koloniMetni, insaListesi } = G1;
@@ -45,7 +47,7 @@ export const { NOTALAR, kapiDizisi, rezonansBaslat, rezonansSecimDegis, rezonans
 
 export const { AYAKLAR, ayakSayisi, ayakFrek, teraziBaslat, teraziPompa, teraziIlerle, teraziMetni, DENGE_ESIGI } = G4;
 
-export const SAHNELER = { ...G1.SAHNELER, ...G2.SAHNELER, ...G3.SAHNELER, ...G4.SAHNELER, ...G5.SAHNELER, ...G6.SAHNELER, ...B.SAHNELER, ...K.SAHNELER, ...A.SAHNELER, ...M.SAHNELER, ...O.SAHNELER, ...SV.SAHNELER, ...SF.SAHNELER, ...TM.SAHNELER, ...AT.SAHNELER, ...FN.SAHNELER, ...YN.SAHNELER, ...KM.SAHNELER };
+export const SAHNELER = { ...G1.SAHNELER, ...G2.SAHNELER, ...G3.SAHNELER, ...G4.SAHNELER, ...G5.SAHNELER, ...G6.SAHNELER, ...B.SAHNELER, ...K.SAHNELER, ...A.SAHNELER, ...M.SAHNELER, ...O.SAHNELER, ...SV.SAHNELER, ...SF.SAHNELER, ...TM.SAHNELER, ...AT.SAHNELER, ...FN.SAHNELER, ...YN.SAHNELER, ...KM.SAHNELER, ...HK.SAHNELER };
 
 // Telsiz bildirimleri (belgeler/savas-yetenek-ve-murettebat-mekanikleri.md 4.3): koşulu sağlanınca bir kez kuyruğa
 // girer. gorev alanı varsa yalnız o görev sürerken.
@@ -263,6 +265,7 @@ export function zamanIlerle(d, dt) {
   // Karakter ağı (mekik, gözetmen, seçkin kadro) ve komuta paneli (komşu halka baskısı, karakol aktarımı)
   KR.karakterIlerle(d);
   KM.komutaIlerle(d);
+  HK.hikayeIlerle(d);
   // Final görevleri: sahne kapanınca bekleyen operasyon ya da çatışma başlar (tonoflenya/final.js)
   if (!d.sahne && !d.op && !d.savas) {
     // Bekleyen çatışma önce (ör. yörüngedeki devriye), ardından bekleyen operasyon
@@ -398,7 +401,7 @@ export function kenetlen(d) {
   if (r.id && !r.kilitli && O.opVarMi(r.id) && !O.opTamamMi(d, r.id)) {
     // Keşfedilebilir gezegen yörüngelerinde tanımsız yabancı firkateyn devriyesi (T3+, dinleme kulesi): önce çatışma
     const gez = GEZEGENLER[r.id];
-    if (gez && SV.oyuncuKademesi(d) >= 3 && d.koloni.binalar.includes('sinyal_kulesi') && !d.bayrak['devriye_' + r.id] && ((d.tohum || 1) * 7 + r.id.charCodeAt(2)) % 3 === 0) {
+    if (gez && d.bayrak.firkateynTemas && SV.oyuncuKademesi(d) >= 3 && d.koloni.binalar.includes('sinyal_kulesi') && !d.bayrak['devriye_' + r.id] && ((d.tohum || 1) * 7 + r.id.charCodeAt(2)) % 3 === 0) {
       d.bayrak['devriye_' + r.id] = true;
       d.uzay.hiz = 0;
       d.savasBekle = 'yabanci_firkateyn';
