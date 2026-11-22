@@ -95,6 +95,8 @@ function adimBitti(d, ses) {
 function hasar(d, x, soz) {
   if (d.bayrak && d.bayrak.gz_yercekimi) x = Math.round(x * 0.7); // Fractura yerçekimi sönümleme
   // Zeva'nın denge testi: gezegen inişlerinde araç ve mekik hasarı yüzde otuz az
+  // Büyük Ambargo: taşra ittifakı Final 17'de kuşatmayı dışarıdan kırar
+  if (d.bayrak && d.bayrak.ambargo === 'tasra' && d.op && d.op.id === 'tf17') x = Math.round(x * 0.5);
   if (d.bayrak && d.bayrak.ak_zeva && op(d) && OPERASYONLAR[d.op.id] && OPERASYONLAR[d.op.id].gezegen) x = Math.round(x * 0.7);
   // Yüzey operasyonları (final görevleri): gemi değil kaptanın dayanıklılığı; biterse geri çekilinir
   if (op(d) && op(d).yuzey) {

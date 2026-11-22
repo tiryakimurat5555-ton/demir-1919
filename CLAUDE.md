@@ -608,7 +608,16 @@ Demir 1919 oyunu silindi; geçmişi git kaydında (son sürüm 1.06, commit 556f
     simya_muhafizi, yildiz_paraziti, sis_canavari), Varek bataryası ×1,15, sinirAskeri ×0,9. zanaat.js yan_melezHiz,
     fiyat(…, mal) yan_filtra_fiyat, Julithan oksit_celik satışı.
   - testler/yan.test.js yeni koşullar ve çatışma testi.
-- Sıradaki: v4 Faz 5 kalanı (tonoflenya-bolgesel-gorevler-ve-ambargo-entegrasyonu); KAPSAM.md'de [~] notları (Bahtiyar'a sorulacaklar) ve telefonda deneme.
+- SÜRÜM 3.8 (22 Kasım): v4 Faz 5 son belge, bölgesel görevler ve ambargo. Telefonda denenmedi.
+  - tonoflenya/gecitler.js (bağımlılıksız; atlas.js döngüsü yüzünden ayrı): seyahatKurali(d, y, hedef, BOLGELER, finalMekani)
+    (Final 1, ambargo Magentor, Tentran harcı, Arin, Zorah, Mormon), magentorKapali, zinasAvantaji. atlas.js seyahatEt çağırır,
+    MAG_FINAL [2, 13, 14, 15, 17], ambargoda ygk → ygk_m1 Kör Rıhtım; TEHLIKELER zinas_firtina/kum. harita.js ygk_kuzeybati kosul.
+  - tonoflenya/bolgesel.js: ZINCIR (oronte, barracuda, zeno, mirelza) → hikâye bl_<lider>_<1-3> (tetik d.tBolge kuşağı / Final 6 /
+    Final 10 ya da komuta_merkezi); 3. aşama bayrak mekik_<lider>, taslak_<id> (civa_plakasi, plazma_pencesi, sonik_tufek
+    TARIFLER.kosul); mekikKilidi (karakter.js mekikKosulu); bl_ambargo (bayrak ambargo merkez|tasra, ambargoAski);
+    ambargoCephesi (savas.js final cephesi, ambargoIkmal). operasyon.js tf17 taşrada hasar ×0,5. gorevler.js bolgeleriTanit.
+  - Bayraklar: oronteKus, arinDostu, arinKapali. testler/bolgesel.test.js; tonoflenya/komuta/binalar testleri yeni şartlara göre.
+- Sıradaki: v4 paketinin bütün belgeleri işlendi; KAPSAM.md'de [~] notları (Bahtiyar'a sorulacaklar) ve telefonda deneme.
 
 ## Sesler
 - Drive'daki Efektler/Ambians dosyaları 14 MB; Drive bağlayıcısı 10 MB'tan büyük dosyayı indiremiyor. Bu yüzden

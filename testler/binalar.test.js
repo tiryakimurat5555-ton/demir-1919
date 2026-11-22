@@ -162,6 +162,8 @@ describe('Melez zanaat, değer anonsu ve araçlar', () => {
     Object.assign(d.koloni.kaynaklar, { rezonans_cami: 30, oksit_celik: 20 });
     Object.assign(d.koloni.parcalar, { polimer_levha: 30, mikrocip: 10 });
     d.zaman = { sn: 0 };
+    expect(ZN.zanaatEt(d, 'sonik_tufek').metin).toContain('ittifak zincirinin');
+    d.bayrak.taslak_sonik_tufek = true;
     const r = ZN.zanaatEt(d, 'sonik_tufek');
     expect(r.metin).toContain('3 Yıldız Nöbeti');
     expect(ZN.miktar(d, 'sonik_tufek')).toBe(0);

@@ -11,6 +11,7 @@
 //   Bayraklar: d.bayrak.zerisIzni (Zeris'in üst katları), d.tBolge (son bölge; bilgi).
 import { nobet, kalanSn } from '../zaman';
 import * as SB from './subay';
+import * as BL from './gecitler';
 
 export const GUN = 7200; // bir oyun günü (altı nöbet)
 const dis = (ad, tarif, bati, ortam, ek = {}) => ({ ad, tarif, alan: { bati, dogu: bati + 60, guney: 0, kuzey: 60 }, ortam, zemin: 'tas', dis: true, tonoflenya: true, ...ek });
@@ -211,9 +212,11 @@ export const ROTALAR = [
   r('ygk', 'norvask', 2, 'deniz_mormon', 'Mormon\'un kuzey kıyıları', 'mormon'),
 ];
 
+// Büyük Ambargo'da Magentor'da geçen final görevleri (halkalar, Kara Göl, Tenohris)
+const MAG_FINAL = [2, 13, 14, 15, 17];
 export const TEHLIKELER = {
   denetim: (d) => (d.bayrak.ygkKayit ? 'Elit muhafızlar YGK kaydını görünce yolu açıyor.' : ek(d, 0.25, 'Bürokratik denetimler: kayıtsız bir yolcu olarak çeyrek gün bekletildin.')),
-  zinas_firtina: (d) => stres(d, 8, 'Sert bir batı fırtınası kalyonu dövdü; yüksek falezlerin dibinden geçtiniz. Mürettebat yorgun.'),
+  zinas_firtina: (d) => (BL.zinasAvantaji(d) ? 'Zinas fırtınası; ama Çöl Tilkisi ya da Sınıf II geminin dengesiyle dalgaları rahat aştınız.' : null) || stres(d, 8, 'Sert bir batı fırtınası kalyonu dövdü; yüksek falezlerin dibinden geçtiniz. Mürettebat yorgun.'),
   korsan: (d) => {
     if ((d.koloni.kaynaklar.kristal || 0) > 0 && zar(d) < 0.5) {
       d.koloni.kaynaklar.kristal -= 1;
@@ -221,7 +224,7 @@ export const TEHLIKELER = {
     }
     return 'Ufukta korsan yelkenleri; değişken dip akıntıları bu kez sizden yanaydı.';
   },
-  kum: (d) => stres(d, 5, 'Kuru bir kum fırtınası, su kıtlığı; kervan dişini sıkarak yürüdü.'),
+  kum: (d) => (d.esya && d.esya.ajmero_kuresi ? 'Ajmero küresi kum fırtınasını yardı; kervan sığınaktan sığınağa güvenle geçti.' : null) || stres(d, 9, 'Kuru bir kum fırtınası, su kıtlığı; kervan dişini sıkarak yürüdü.'),
   serap: (d) => ek(d, 0.5, 'Hareketli kumullar ve büyü serapları: kervan yarım gün yanlış bir vahaya yürüdü.'),
   cam: (d) => stres(d, 6, 'Cam düzlüklerinin kenarı ayna gibi kaygan; binekler kaydı, herkes sarsıldı.'),
   anomali: (d) => stres(d, 6, 'Hardrin\'in manyetik anomalisi: pusulalar saptı, bir an gerçeklik katlandı; yön duygusu karıştı.'),
@@ -317,8 +320,13 @@ export function seyahatEt(d, hedef) {
   if (d.yan && d.yan.nirdolKapali > simdi && y.ayaklar.some((a) => a.ad.indexOf('Nirdol') >= 0)) {
     return { metin: 'Nirdol Boynu kapalı: patlatılan kanyonun molozu temizleniyor; ' + Math.ceil((d.yan.nirdolKapali - simdi) / GUN) + ' gün daha.', ses: 'red' };
   }
+  // Bölgesel geçit kuralları ve Büyük Ambargo (bolgesel.js)
+  let sira = 1;
+  while (sira <= 20 && d.tf && d.tf.biten && d.tf.biten.includes(sira)) sira++;
+  const kural = BL.seyahatKurali(d, y, hedef, BOLGELER, MAG_FINAL.includes(sira) ? 'tenohris' : null);
+  if (kural.red) return { metin: kural.red, ses: 'red' };
   d.seyahatEk = 0;
-  const notlar = [];
+  const notlar = [...kural.notlar];
   const muaf = d.bayrak.tehlikeMuaf || {};
   for (const a of y.ayaklar) {
     notlar.push(a.ad + '.');
@@ -330,6 +338,12 @@ export function seyahatEt(d, hedef) {
   const g = BOLGELER[hedef];
   d.mekan = g.giris;
   d.oyuncu = { x: g.x, y: g.y, yon: 0 };
+  // Ambargoda taşra seçildiyse Akademiye yalnız eksi birinci kattaki Kör Rıhtım'dan girilir
+  if (hedef === 'ygk' && BL.magentorKapali(d)) {
+    d.mekan = 'ygk_m1';
+    d.oyuncu = { x: 8200 + 6 * 40 + 10, y: 16, yon: 0 };
+    notlar.push('Ambargo: Akademiye eksi birinci kattaki Kör Rıhtım\'dan gizlice girdin.');
+  }
   d.oto = null;
   if (!d.gorulenMekanlar) d.gorulenMekanlar = [];
   if (!d.gorulenMekanlar.includes(g.giris)) d.gorulenMekanlar.push(g.giris);

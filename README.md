@@ -6,6 +6,10 @@ tesis kurar, ileride gemini parça parça inşa edip uzaya açılırsın.
 
 Yapımcı: Bahtiyar Cankurt (tasarım belgeleri belgeler/ içinde). Expo Go ile iPhone ve Android'de çalışır.
 
+## Bu sürümde (3.8)
+- Tonoflenya'da bölgeler arası geçiş kuralları; Oronte, Barracuda, Zeno ve Mirelza ile üçer aşamalı bölgesel ittifak
+  zincirleri (taslaklar ve Tether-Key mekik hakları bunlarla açılır); Final 12'den sonra Büyük Tonoflenya Ambargosu kararı.
+
 ## Bu sürümde (3.7)
 - Otuz Tonoflenya yan görevi derinleşti: gerçek ön koşullar, Yıldız Nöbeti şartları, on görevde çatışma, belgedeki
   A/B ödülleri; ödüller beş ana güce yazar ve yan görevler Final 1'den sonra açılır.

@@ -13,6 +13,8 @@ function hazir() {
   Object.assign(d.bayrak, { kule: true, sondaj: true });
   gemiOlustur(d, 3);
   d.tamamlananOp = ['kadim_mezar', 'g13', 'g01', 'g02', 'g03', 'g04', 'g05', 'g06', 'g07', 'g08'];
+  // Bölgesel geçit kuralları (3.8): başkent ve kuşaklar Final 1'den sonra
+  d.tf = { aktif: null, evre: null, biten: [1], karar: {}, rez: [], catlak: 0, unvan: [], guven: { kefius: 0, valen: 0, halk: 0 } };
   return d;
 }
 function kilitle(d) {

@@ -73,6 +73,8 @@ describe('Karakter ağı ve mekik', () => {
     expect(KR.mekikKosulu(d, 'zeno')).toContain('tanış');
     KR.konus(d, 'zeno');
     KR.konus(d, 'mirelza');
+    expect(KR.mekikKosulu(d, 'zeno')).toContain('ittifak zinciri');
+    Object.assign(d.bayrak, { mekik_zeno: true, mekik_mirelza: true });
     expect(KR.mekikKosulu(d, 'zeno')).toContain('bedel');
     ZN.ekle(d, 'malazar_odagi', 2);
     d.koloni.kaynaklar.isik_tozu = 100;

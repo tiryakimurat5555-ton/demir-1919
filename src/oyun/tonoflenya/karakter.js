@@ -9,6 +9,7 @@
 import { NOBET_SN } from '../zaman';
 import * as ZN from './zanaat';
 import * as SB from './subay';
+import * as BL from './bolgesel';
 import { KARAKTERLER, KARAKTER_SIRASI, karakterDurumu, misafir, GUCLER, GUC_SIRASI, gucItibari, gucBasamagi, gucEkle, evrenEtki, EVREN_ESIKLERI, XARATHIA_NOTU } from './kisiler';
 import { K_NOKTALAR, MEKAN } from './karakterHarita';
 
@@ -67,6 +68,8 @@ export function mekikKosulu(d, id) {
   if (!k.mekik) return k.ad + ' akademiden ayrılmaz.';
   if (!d.bayrak.tonoflenyaGoruldu) return 'Kuantum köprüsü henüz açılmadı: önce Tonoflenya\'ya sıçra.';
   if (!kd.tanis[id]) return 'Önce ' + k.ad + ' ile tanış.';
+  const bl = BL.mekikKilidi(d, id);
+  if (bl) return bl;
   if (kd.misafir === id) return k.ad + ' zaten kolonide.';
   if (kd.misafir) return 'Mekik rıhtımında yer yok: ' + KARAKTERLER[kd.misafir].ad + ' kolonide.';
   const b = kd.bekleme[id] || 0;

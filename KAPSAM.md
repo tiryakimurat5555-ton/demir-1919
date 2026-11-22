@@ -822,7 +822,29 @@ bütün bölümlerini sırayla sayar (21 Kasım: v3 paketiyle sekiz belge daha g
       [~] Bazı eski ödüller (gümüş rozet, liman nişanı, yadigârlar) belgeyle çelişmediği için korundu. STH-03'teki
       Aethelgard / Nyxara ayrımı ödül metninde söyleniyor; ayrı karakter olarak eklenmedi.
 
-## 56-57. v4 paketinin öteki belgeleri: [ ] tonoflenya-bolgesel-gorevler-ve-ambargo-entegrasyonu.
+## 56. v4 / tonoflenya-bolgesel-gorevler-ve-ambargo-entegrasyonu.txt (3.8; gecitler.js, bolgesel.js)
+- [x] 1 Seyahat ve geçit kuralları: başkent ve bütün kuşaklar Final 1'den (YGK Kayıt Mührü) sonra (Yıldız Yolu kapısı
+      da); Zinas fırtınasında Çöl Tilkisi ya da Sınıf II gemi avantajı; Tentran kapısında ışık tozu harcı (izinle on gram,
+      izinsiz kırk); Arin'e Atmosphere-X ya da YGK hava izni (Barracuda korunduysa yalnız Atmosphere-X); Zorah fırtınası
+      Ajmero küresi yoksa ağır, varsa zararsız; Kahergonat Yolu yalnız Mavi Akşam (önceden vardı); Mormon Denizi Sınıf II
+      gemi ve Mormon pusulası ya da girdap bağışıklığı yoksa gövdeye yüzde on hasar.
+      [~] Belgedeki süreler (ör. YGK'dan Magentor'a "yarım gün, 1,5 nöbet") atlasın mevcut sürelerinde bırakıldı: oyunda
+      bir gün altı nöbet, yarım gün üç nöbet ediyor; belgedeki iki değer birbirini tutmuyor. Tentran harcının miktarı ve
+      Arin'in YGK hava izni benim kararım.
+- [x] 2 Dört bölge × üç aşama (hikâye motoru, telsiz çağrısı): Oronte (galeri basıncı + zırhlı maden otomatı; Julithan
+      korveti, kargo kararı; iki ağır maden korsanı), Barracuda (sığlıklarda kaçış + avcı botu; Aethelgard ya da Barracuda;
+      gölge korsanı ve dron taşıyıcı), Zeno (sesli pusula + kum akrebi ve haydut; paralı askerler, vaha kararı; haydut
+      lideri ve tarikat muhafızı), Mirelza (iki donmuş kristal akordu; iki kadim otomat, kazı kararı; Alt Evren sürüsü).
+      Açılış: 1. aşama Final 1 ve o kuşağa ilk gidiş, 2. aşama Final 6, 3. aşama Final 10 ya da komuta merkezi. Üçüncü
+      aşama liderin taslağını (T-02, T-07, T-05) ve Tether-Key mekik hakkını açar; mekik etkileri önceki sürümdeki gibi.
+      [~] Bir kuşağa geçidi yürüyerek (seyahat menüsü yerine kapıdan) geçince ilk aşama çağrısı gelmeyebilir.
+- [x] 3 Büyük Ambargo (Final 12'den sonra, Final 16'dan önce; Valen ya da stasisteyse Morvenna duyurur): A başkent → Final
+      17-18 çatışmalarında YGK büyücü takviyesi (işaretleme) ve tam yakıt ikmali; itibarı düşük olan Oronte ya da Barracuda
+      mekik hakkını final sonrasına kadar askıya alır. B taşra → dört kuşak +10, YGK -20; Final 17'de dört bölge gönüllü
+      filosu (işaretleme, operasyon hasarı yarı); Magentor kapıları kapalı (sıradaki final görevi oradaysa geçilir),
+      Akademiye eksi birinci kattaki Kör Rıhtım'dan girilir; Final 18'den sonra kapılar açılır.
+
+## 57. v4 paketinin bütün belgeleri işlendi. Kalanlar: yukarıdaki [~] notları (Bahtiyar'a sorulacaklar) ve telefonda deneme.
 
 ## Sıradaki adımlar (sırayla)
 0. Tonoflenya genişlemesi, yönergedeki sırayla: [2.1: Malken (12); 2.2: tarihçe (13); 2.3: atlas (14); 2.4: eşya,

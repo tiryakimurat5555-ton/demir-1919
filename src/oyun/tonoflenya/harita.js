@@ -55,7 +55,11 @@ const u = (mekan, x, y, yon, ad) => ({ mekan, x, y, yon, ad });
 const b = (d) => d.bayrak;
 
 export const T_KAPILAR = {
-  ygk_kuzeybati: kapi('Yıldız Yolu ve Kuzeyboğaz Köprüsü', u('ygk_1', katX('ygk_1') + 10, 1.5, Math.PI, 'Malkenia\'ya inen yol'), u('halka_zhaor', 7008, 58.5, 0, 'Kuzeybatı kapısı: YGK Akademi')),
+  ygk_kuzeybati: kapi('Yıldız Yolu ve Kuzeyboğaz Köprüsü', u('ygk_1', katX('ygk_1') + 10, 1.5, Math.PI, 'Malkenia\'ya inen yol'), u('halka_zhaor', 7008, 58.5, 0, 'Kuzeybatı kapısı: YGK Akademi'), {
+    // Bölgesel geçit kuralları: başkent Final 1'den (YGK Kayıt Mührü) sonra; Büyük Ambargo'da taşra seçildiyse kapalı
+    kosul: (d) => !!(d.tf && d.tf.biten && d.tf.biten.includes(1)) && !(d.bayrak.ambargo === 'tasra' && !d.tf.biten.includes(18) && !(d.tf.biten.includes(16) && !d.tf.biten.includes(17))),
+    kilitMetni: 'Kapı muhafızı: "Başkente iniş YGK Kayıt Mührü ister; ambargo sürerken kapı taşra ittifakına kapalı."',
+  }),
   zhaor_varek: kapi('Varek halkasının kapısı', u('halka_zhaor', 7030, 30, 0, 'İç kapı: Varek halkası'), u('halka_varek', 7130, 1.5, Math.PI, 'Dış kapı: Zhaor halkası')),
   varek_axira: kapi('Axira halkasının kapısı', u('halka_varek', 7130, 58.5, 0, 'İç kapı: Axira halkası'), u('halka_axira', 7230, 1.5, Math.PI, 'Dış kapı: Varek halkası')),
   axira_sinha: kapi('Sinha halkasının kapısı', u('halka_axira', 7230, 58.5, 0, 'İç kapı: Sinha halkası'), u('halka_sinha', 7330, 1.5, Math.PI, 'Dış kapı: Axira halkası')),

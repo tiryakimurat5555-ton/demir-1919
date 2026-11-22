@@ -18,6 +18,7 @@
 //   can/maxCan (kara), zehir, bagisiklik, tohum, sayac, bekleme, yetenekNo, cevre, sizma, tuzak, kacanlar, olenler }
 // birim = { no, tur, ad, tier, govde, max, kalkan, kalkanFrek, delik, aci, mesafe, moduller [], kucuk, faz, kaciyor,
 //   donma, kalkanKilit, teslim }
+import { ambargoCephesi } from '../tonoflenya/bolgesel';
 import * as E from '../tarim/etki';
 import { nobet, yildizCarpani } from '../zaman';
 import { kayitBul } from '../veri/seslendirme';
@@ -642,7 +643,15 @@ export function savasBaslat(d, spec) {
     giris.push('Korsanlar adını tanıdı. İlk sırada iki parmakla yukarı kaydır: savaşmadan korkutup kaçır.');
   }
   // Tonoflenya final cephesi (16-18): en az üç kuşak güvenliyse müttefik takviyesi, değilse cephe savunmasız
-  if (d.tf && [16, 17, 18].includes(d.tf.aktif)) {
+  const amb = ambargoCephesi(d);
+  if (amb) {
+    s.isaret = amb.isaret;
+    giris.push('Büyük Ambargo kararın: ' + amb.soz);
+    if (d.bayrak.ambargo === 'merkez' && d.gemi && !d.bayrak.ambargoIkmal) {
+      d.bayrak.ambargoIkmal = true;
+      d.gemi.yakit = d.gemi.maxYakit || d.gemi.yakit;
+    }
+  } else if (d.tf && [16, 17, 18].includes(d.tf.aktif)) {
     const g = ['ygk', 'bati', 'guney', 'dogu', 'kuzey'].filter((k) => kusakGuvenli(d, k)).length;
     if (g >= 3) {
       s.isaret = 3;
