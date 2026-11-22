@@ -484,6 +484,7 @@ export function zehirIlerle(d, dt, ek, olaylar) {
     }
     if (mk.soguk && d.envanter.includes('termal_giysi')) hiz *= 0.25;
     if (d.bayrak.g_panzehir) hiz *= 0.7; // Viridion botanikçilerinin panzehirleri (G-20)
+    if (d.bayrak.ak_trellis) hiz *= 0.75; // Trellis-7'nin Zehirli Nefes testi
     if ((d.biyoKalkanBitis || 0) > ((d.zaman && d.zaman.sn) || 0)) hiz = 0; // Axira'nın biyo-kalkanı
     d.zehir = Math.min(100, once + (hiz + (ek || 0)) * aracCarpani(d, 'zehir') * dt);
   } else if (once > 0) d.zehir = Math.max(0, once - 3 * dt);

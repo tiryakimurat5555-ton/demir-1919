@@ -36,6 +36,7 @@ import * as SB from '../tonoflenya/subay';
 import * as FN from '../tonoflenya/final';
 import * as YN from '../tonoflenya/yan';
 import * as KR from '../tonoflenya/karakter';
+import * as AK from '../tonoflenya/akademi';
 import * as KM from '../komuta';
 import * as HK from '../hikaye';
 import '../hikayeKoloni';
@@ -97,7 +98,7 @@ export function gorevIpucu(d) {
 }
 
 export function noktaEylemleri(d, id) {
-  const ek = [...G6.ekEylemler(d, id), ...K.ekEylemler(d, id), ...M.ekEylemler(d, id), ...TA.ekEylemler(d, id), ...(id === 'tepe' ? TM.tepeEylemi(d) : []), ...ZN.ekEylemler(d, id), ...FN.ekEylemler(d, id)];
+  const ek = [...G6.ekEylemler(d, id), ...K.ekEylemler(d, id), ...M.ekEylemler(d, id), ...TA.ekEylemler(d, id), ...(id === 'tepe' ? TM.tepeEylemi(d) : []), ...ZN.ekEylemler(d, id), ...FN.ekEylemler(d, id), ...AK.ekEylemler(d, id)];
   if (G6.noktaMi(id)) return [...ek, { id: 'incele', etiket: 'Sütunu incele' }];
   const temel = temelEylemler(d, id);
   if (!ek.length) return temel;
@@ -106,6 +107,7 @@ export function noktaEylemleri(d, id) {
   return i < 0 ? [...temel, ...ek] : [...temel.slice(0, i), ...ek, ...temel.slice(i)];
 }
 function temelEylemler(d, id) {
+  if (AK.noktaMi(id)) return AK.noktaEylemleri(d, id);
   if (KR.noktaMi(id)) return KR.noktaEylemleri(d, id);
   if (FN.noktaMi(id)) return [{ id: 'incele', etiket: 'İncele' }];
   if (YN.noktaMi(id)) return YN.noktaEylemleri(d, id);
@@ -126,6 +128,8 @@ function temelEylemler(d, id) {
 
 export function eylemUygula(d, id, eylemId) {
   if (eylemId === 'y_ygk') return TM.ygkAra(d);
+  if (AK.ekEylemMi(eylemId)) return AK.ekEylemUygula(d, id, eylemId);
+  if (AK.noktaMi(id)) return AK.eylemUygula(d, id, eylemId);
   if (KR.noktaMi(id) && !FN.ekEylemMi(eylemId)) return KR.eylemUygula(d, id, eylemId);
   if (FN.ekEylemMi(eylemId) || FN.noktaMi(id)) return FN.eylemUygula(d, id, eylemId);
   if (YN.noktaMi(id)) return YN.eylemUygula(d, id, eylemId);

@@ -246,7 +246,10 @@ function eksikMetni(d, g) {
 export function tarifGirdisi(d, id) {
   const t = TARIFLER[id];
   const g = { ...t.girdi };
-  if (t.gozetmen && d.gozetmen && d.gozetmen[t.gozetmen]) for (const k of Object.keys(g)) g[k] = Math.max(1, Math.round(g[k] * 0.75));
+  // YGK iç dengesi: Valen korunduysa Ignador başında dursa da ağır talim indirimi yapmaz
+  if (t.gozetmen && d.gozetmen && d.gozetmen[t.gozetmen] && !(t.gozetmen === 'ignador' && d.bayrak.ignadorKirgin)) for (const k of Object.keys(g)) g[k] = Math.max(1, Math.round(g[k] * 0.75));
+  // Forges'in Çelik Damar testi: zırh üretimi yüzde on ucuz
+  if (d.bayrak.ak_forges && ESYA[id] && ESYA[id].yuva === 'zirh') for (const k of Object.keys(g)) g[k] = Math.max(1, Math.ceil(g[k] * 0.9));
   // Oronte kolonideyken ağır zırh üretimi yarı fiyat (karakter ağı belgesi bölüm 3)
   if (misafir(d, 'oronte') && ESYA[id] && ESYA[id].yuva === 'zirh') for (const k of Object.keys(g)) g[k] = Math.max(1, Math.ceil(g[k] * 0.5));
   // Morluk kristali ve buzul aether, aether laboratuvarında saf aetherin yerine yüksek saflıkta alternatif girdi (v4 25 bina 4.2)
@@ -548,7 +551,7 @@ export function kargoDenetle(d) {
 export const SICRAMA_YAKITI = 10;
 export const SARJ_SN = 2 * 7200;
 export function sicramaSuresi(d) {
-  return SICRAMA_SN / (SB.kabiliyet(d, 'zhaor', 4) ? 2 : 1);
+  return (SICRAMA_SN / (SB.kabiliyet(d, 'zhaor', 4) ? 2 : 1)) * (d.bayrak && d.bayrak.ak_caelum ? 0.8 : 1); // Caelum'un Kör Uçuş testi
 }
 export function sarjSuresi(d) {
   // Chronos-Döngü takyon teknolojisi: şarj beklemesi sıfır (döngü hızlandırıldıysa yarı)

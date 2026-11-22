@@ -959,6 +959,7 @@ export default function Yuzey({ onGeri, baslangic, yeniOyunUret }) {
 
   // --- Menü ---
   // dogrudan: menüden değil, iki parmakla yukarı kaydırarak açıldı; geri dönünce oyuna döner
+  const katGezNo = useRef(null);
   const yerlerGoster = (dogrudan = false) => {
     const d = dunya.current;
     const liste = yerlerListesi(d);
@@ -2955,6 +2956,21 @@ export default function Yuzey({ onGeri, baslangic, yeniOyunUret }) {
         else if (parmak >= 2 && yon === 'yukari') {
           cal('el_secim', 0.7);
           yerlerGoster(true);
+        }
+        // YGK Akademi katlarında iki parmakla sağa ya da sola: kattaki kişiler ve odalar arasında sırayla yürü (akademi belgesi bölüm 1)
+        else if (parmak >= 2 && (yon === 'sag' || yon === 'sol')) {
+          const d = dunya.current;
+          if (!d.mekan || d.mekan.indexOf('ygk_') !== 0) return;
+          const liste = yerlerListesi(d).filter((y) => y.tur !== 'kapi' && y.mekan === d.mekan);
+          if (!liste.length) {
+            soyle('Bu katta bildiğin bir yer yok. Radarla ara.', 'istek', true);
+            return;
+          }
+          katGezNo.current = (((katGezNo.current == null ? -1 : katGezNo.current) + (yon === 'sag' ? 1 : -1)) % liste.length + liste.length) % liste.length;
+          const y = liste[katGezNo.current];
+          cal('el_secim', 0.6);
+          const r = otoBaslat(d, y);
+          soyle(y.ad + '. ' + (r.metin || ''), 'istek', true);
         }
       },
       onUzunBas: () => {

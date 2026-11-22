@@ -6,6 +6,10 @@ tesis kurar, ileride gemini parça parça inşa edip uzaya açılırsın.
 
 Yapımcı: Bahtiyar Cankurt (tasarım belgeleri belgeler/ içinde). Expo Go ile iPhone ve Android'de çalışır.
 
+## Bu sürümde (3.6)
+- YGK Akademi gezilebilir: on bir kat ana görevlerle açılır, katta iki parmakla sağa sola kişiler arasında gezilir;
+  on kürsü eğitmeninin testleri kalıcı yetenekler verir; Ignador'un darbesi, Tixie'nin çipi, stasis tutsakları Zephyra ve Morwenna.
+
 ## Bu sürümde (3.5)
 - v4 Aşama 4: Tonoflenya ana ekseni. Varışta Valen ve Kefius karşılar; Final 1'in ödülü tamamlandı; Final 3'ten sonra
   Zirve İğnesi hizalanır ve Okyanos-Abyssus görünür. Final 16'ya sızma ve iki aşamalı zırhlı; Final 17'nin kararı Final

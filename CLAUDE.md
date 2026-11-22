@@ -589,7 +589,17 @@ Demir 1919 oyunu silindi; geçmişi git kaydında (son sürüm 1.06, commit 556f
     xarathiaIttifak ısı ×0,8.
   - gezegenHikayeleri.js gz_p01 Xarathia (taslak). hikaye.js planlaSonra(d, secilen): ara karar seçimi atla'ya yansır.
   - testler/asama4.test.js; final.test.js 4B adımı.
-- Sıradaki: v4 Faz 5 (ygk-akademi-gezilebilir-sistem-ve-10-kursu, tonoflenya-30-yan-gorev-derinlestirme, tonoflenya-bolgesel-gorevler-ve-ambargo-entegrasyonu); KAPSAM.md'de [~] notları (Bahtiyar'a sorulacaklar) ve telefonda deneme.
+- SÜRÜM 3.6 (22 Kasım, Murat: "Devam"): v4 Faz 5, YGK Akademi. Telefonda denenmedi.
+  - tonoflenya/akademi.js: katKilidi(d, kat) (malken.js asansörü), AK_KISILER/AK_NOKTALAR ak_<id> (+ ak_cip), TESTLER → hikâye
+    ak_<id> (tetik yok, HK.baslat noktadan), ak_darbe (valenKapali/morvennaYonetim | ignadorKirgin), ak_zephyra (zephyraSerbest,
+    firtina_kalkani), ak_morwenna (morwennaYanda); ekEylemler k_ignador/k_tixie (tixieCip | tixieIhbar). gorevler.js AK önce.
+  - Etkiler: savas.js (ak_korvinus, ak_silas, ak_jolkar, ak_faelan s.glitch, ak_trellis, ak_seraphine, ak_kaelis bekleme -1,
+    ak_zeva, fırtına kalkanı, morwennaYanda, Kefius güveni ≥ 30 Sharon kalkanı ×0,8, ses_illuzyonu); zanaat.js (ak_forges zırh,
+    ignadorKirgin, ak_caelum sıçrama, cep_ambar kosul tixieCip); koloni.js (ak_forges dökümhane); atlas.js (ak_caelum,
+    zephyraSerbest); operasyon.js (ak_zeva gezegen); dunya.js (ak_trellis); karakter.js (Tixie kaçtı, Valen stasiste).
+  - harita.js YGK kat adları belgedeki gibi. Yuzey: YGK katında iki parmak sağ/sol katGezNo ile sıradaki yere yürür.
+  - testler/akademi.test.js.
+- Sıradaki: v4 Faz 5 kalanı (tonoflenya-30-yan-gorev-derinlestirme, tonoflenya-bolgesel-gorevler-ve-ambargo-entegrasyonu); KAPSAM.md'de [~] notları (Bahtiyar'a sorulacaklar) ve telefonda deneme.
 
 ## Sesler
 - Drive'daki Efektler/Ambians dosyaları 14 MB; Drive bağlayıcısı 10 MB'tan büyük dosyayı indiremiyor. Bu yüzden

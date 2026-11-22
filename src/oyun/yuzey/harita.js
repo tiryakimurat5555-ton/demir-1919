@@ -528,3 +528,6 @@ Object.assign(NOKTALAR, YAN_NOKTALARI);
 
 import { K_NOKTALAR } from '../tonoflenya/karakterHarita';
 Object.assign(NOKTALAR, K_NOKTALAR);
+// YGK Akademi kürsü eğitmenleri ve stasis tutsakları (tonoflenya/akademi.js, 3.6)
+import { AK_NOKTALAR } from '../tonoflenya/akademi';
+Object.assign(NOKTALAR, AK_NOKTALAR);

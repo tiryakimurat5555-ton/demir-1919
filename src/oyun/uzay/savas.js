@@ -166,6 +166,8 @@ export const DUSMANLAR = {
   vaha_solucani: { ad: 'vaha kaya solucanı', ortam: 'kara', tier: 1, arketip: 'zirhli', moduller: [], govde: 60, kalkan: 0.5, silahlar: ['sonik_dalga', 'pence'], frek: 110, ses: 'Taşları ezen, derin, sürtünmeli bir gümbürtü.', zayif: 'Zırhlı; sismik dengeleyici vadiyi çökertmeden onu durdurur.', ganimet: { bazalt: 4 } },
   dev_kor_solucan: { ad: 'dev kör solucan öncüsü', ortam: 'kara', tier: 2, arketip: 'zirhli', moduller: [], govde: 80, kalkan: 0.5, silahlar: ['sonik_dalga', 'sonik_dalga', 'pence'], frek: 70, ses: 'Yerin altından yükselen, kemikleri titreten bir gürleme.', zayif: 'Onu durdurursan sürü yön değiştirir; sismik dengeleyici de saptırır.', ganimet: { kseno_kabuk: 2 } },
   yagmaci_lideri: { ad: 'yağmacı lideri', ortam: 'kara', tier: 2, arketip: 'pusucu', moduller: ['pusucu', 'kacis'], teslim: true, govde: 55, kalkan: 0.3, silahlar: ['mermi', 'mermi', 'lazer'], frek: 190, ses: 'Kalın bir ses komut veriyor; tüfek kurma şakırtısı.', zayif: 'Yüzde yirmi beşte teslim olur.', ganimet: { sasi_celigi: 20 } },
+  // YGK Akademi kürsü testi (Kaelis 'Echo' Duman): oyuncunun kendi saldırı sesini taklit eden pusucu
+  ses_illuzyonu: { ad: 'ses illüzyonu', ortam: 'kara', tier: 3, arketip: 'pusucu', moduller: ['pusucu'], sahte: true, govde: 55, kalkan: 0.3, silahlar: ['sonik_dalga', 'mermi'], frek: 210, ses: 'Senin kendi atış sesin, bir sağdan bir soldan; arkasında ince bir nefes.', zayif: 'Sahte yönleri ele; gerçek nefese kilitlen.', ganimet: {} },
   // Çağrılan yardımcılar (küçük birimler: her tur üst üste ek hasar)
   saldiri_dronu: { ad: 'saldırı dronu', ortam: 'uzay', tier: 1, kucuk: true, moduller: [], govde: 14, kalkan: 0, silahlar: ['iyon'], frek: 880, ganimet: {} },
   golge_dronu: { ad: 'gölge dronu', ortam: 'uzay', tier: 1, kucuk: true, moduller: ['karanlik'], karanlik: true, govde: 16, kalkan: 0, silahlar: ['plazma'], frek: 660, ganimet: {} },
@@ -286,7 +288,7 @@ export function yetenekler(d) {
   return l;
 }
 function beklemeSuresi(d, y) {
-  return Math.max(1, y.bekleme * 0.9 - (kusan(d, 'bas_buyucu_cubbesi') ? 1 : 0));
+  return Math.max(1, y.bekleme * 0.9 - (kusan(d, 'bas_buyucu_cubbesi') ? 1 : 0) - (d.bayrak && d.bayrak.ak_kaelis ? 1 : 0));
 }
 function yetenekSec(d) {
   const s = d.savas;
@@ -435,6 +437,9 @@ function stresEkle(d, x) {
   const s = d.savas;
   if (kusan(d, 'bas_buyucu_cubbesi') && x > 0) return;
   let k = x * (bina(d, 'biyo_kubbe') ? 0.7 : 1) * (sahip(d, 'iklim_kubbesi') ? 0.7 : 1) * (d.hazirlik && d.hazirlik.ilac ? 0.5 : 1);
+  // YGK Akademi: Jolkar'ın Konuşan Taş testi (karanlığa zihin direnci), Morwenna Sharon'un fısıltısını büker
+  if (d.bayrak.ak_jolkar && s.dusmanlar && s.dusmanlar.some((x0) => x0.karanlik)) k *= 0.8;
+  if (d.bayrak.morwennaYanda && s.dusmanlar && s.dusmanlar.some((x0) => x0.tur === 'lord_sharon')) k *= 0.75;
   if (kara(s)) {
     if (s.sistem.kask > 0) k *= 2; // kask hasarlı: solunum bozuk, stres hızlanır
     s.stres = Math.min(100, (s.stres || 0) + k);
@@ -592,6 +597,9 @@ export function savasBaslat(d, spec) {
   if (gizliGecit) h0.kalkan = Math.round(h0.kalkan * 0.75 * 100) / 100;
   // Final #18: Final #17'de saray korunduysa Mareşal Elyon Vane ilk üç tur yanında (zırh yüzde yirmi, ek atış)
   if (h0.tur === 'lord_sharon' && d.bayrak.tfElyon) s.elyon = 3;
+  // Kefius'un güveni yüksekse Dünya Çivisi'nin zayıf noktasını paylaşır: Sharon'un kalkanı yüzde yirmi zayıf başlar
+  const kefiusSirri = h0.tur === 'lord_sharon' && d.tf && d.tf.guven && d.tf.guven.kefius >= 30;
+  if (kefiusSirri) h0.kalkan = Math.round(h0.kalkan * 0.8 * 100) / 100;
   const ek = [];
   if (h0.karanlik || h0.tur === 'yabanci_firkateyn') {
     const k = SB.kriz(d, 'sinha');
@@ -600,16 +608,20 @@ export function savasBaslat(d, spec) {
   const g = GELISLER[s.gelis];
   const giris = spec.giris ? [spec.giris] : [];
   if (gizliGecit) giris.push('Gizli geçit haritasıyla arka kanyondan sızdın: zırhlının kalkanı yüzde yirmi beş kırık, ilk vuruş senin.');
+  if (kefiusSirri) giris.push('Kefius Dünya Çivisi\'nin zayıf noktasını paylaşmıştı: Sharon\'un gölge kalkanı yüzde yirmi zayıf.');
   if (s.elyon) giris.push('Mareşal Elyon Vane yanında: ilk üç tur zırhın yüzde yirmi güçlü ve o da ateş ediyor.');
   if (h0.tur === 'cahelon' && esya(d, 'cahelon_anahtari') > 0) giris.push('Girdap Anahtarı kalkan rezonatöründe: yüzey girdabının darbeleri dengeleniyor.');
   // Dinleme kulesi pusuları ve yabancı firkateyni önceden bildirir; tuzakta ilk saldırı erken gelir
   if (s.tuzak) {
-    if (bina(d, 'sinyal_kulesi') || sahip(d, 'parazit_sensoru')) giris.push('Dinleme kulesi uyarmıştı: sinyal bir tuzak. Hazırsın.');
+    if (d.bayrak.ak_silas) giris.push('Silas Vex\'in gölge dersi: pusuyu önceden sezdin. Hazırsın.');
+    else if (bina(d, 'sinyal_kulesi') || sahip(d, 'parazit_sensoru')) giris.push('Dinleme kulesi uyarmıştı: sinyal bir tuzak. Hazırsın.');
     else {
       giris.push(g.soz);
       s.sonraki = 0.8;
     }
   } else if (g.soz) giris.push(g.soz);
+  // Silas Vex: ilk uyarıdan önce bir nefes payı (pusu önleme)
+  if (d.bayrak.ak_silas && !s.sizma) s.sonraki = Math.max(s.sonraki || 0, s.t + 4);
   if (h0.tur === 'yabanci_firkateyn' && bina(d, 'sinyal_kulesi')) giris.push('Dinleme kulesi bu imzayı tanıyor: tanımsız yabancı firkateyn.');
   if (s.cevre) giris.push(CEVRELER[s.cevre].soz);
   // Komuta merkezinin taktik harp dairesi düşmanın arketipini ve davranışlarını söyler; ilk uyarıya yarım saniye
@@ -730,6 +742,13 @@ function dusmanaHasar(d, x, olaylar, tur, hedef) {
     if (dm.zayif.isik && isikliMi(d, tur)) h *= dm.zayif.isik;
     if (dm.zayif.buz && (tur === 'buz' || kusan(d, 'kara_buz_hancer') || E.etkiVar(d, 'super_iletken'))) h *= dm.zayif.buz;
     if (dm.zayif.frekans && dm.delik) h *= dm.zayif.frekans;
+  }
+  // YGK Akademi: Korvinus'un Kusursuz Hata testi (kırılan frekans kalkanına ek kritik), Faelan'ın Glitch Atışı
+  if (d.bayrak.ak_korvinus && dm.delik && dm.moduller.includes('frekans')) h *= 1.25;
+  if (s.glitch > 0 && (tur === 'birincil' || tur === 'torpido')) {
+    s.glitch = 0;
+    h *= 1.5;
+    olaylar.push({ soz: 'Glitch atışı: kızgın namludan kritik vuruş!' });
   }
   if (dm.olumsuz) {
     if (kusan(d, 'tyzrakhel_mizragi') || (tur === 'birincil' && esya(d, 'tyzrakhel_parcasi') > 0)) {
@@ -886,6 +905,8 @@ function bitir(d, sonuc, olaylar) {
   if (d.yan && d.yan.hardrinBariyer > 0) d.yan.hardrinBariyer -= 1;
   d.savasSonraSahne = null;
   if (sonuc === 'zafer') SB.ekolKazan(d, 'varek', 30);
+  // Seraphine'in Acıyı Paylaş testi: savaştan sonra stres ve yaralar yarı sürede iyileşir
+  if (d.bayrak.ak_seraphine) for (const u of d.murettebat || []) if (u.stres) u.stres = Math.round(u.stres / 2);
   const kat = (t) => 1 + 0.3 * ((t || 1) - 1);
   if (sonuc === 'kacis') {
     d.sahne = 'savas_son';
@@ -1205,7 +1226,7 @@ function turSonu(d, o) {
   // Zehir ve asit her tur zırhı eritir
   if (s.zehir > 0) {
     s.zehir -= 1;
-    const h = Math.round(4 * TEHDIT[s.dusman.tier].hasar * (d.bayrak.g_panzehir ? 0.5 : 1) * (kusan(d, 'asit_zirhi') ? 0.2 : 1));
+    const h = Math.round(4 * TEHDIT[s.dusman.tier].hasar * (d.bayrak.g_panzehir ? 0.5 : 1) * (kusan(d, 'asit_zirhi') ? 0.2 : 1) * (d.bayrak.ak_trellis ? 0.75 : 1));
     canEkle(d, -h);
     o.push({ soz: 'Asit zırhı eritiyor.', hasar: true });
   }
@@ -1389,6 +1410,9 @@ function darbe(d) {
   }
   // Aşama 4: Elyon'un zırh desteği, Kırmızı Mühür Parçası (Sharon'un karanlık darbesi), Cahelon Girdap Anahtarı (birinci aşama)
   if (s.elyon > 0) h *= 0.8;
+  if (kara(s) && s.arac && d.bayrak.ak_zeva) h *= 0.7; // Zeva: araçla engebeli arazide
+  if (sil === SILAHLAR.iyon && esya(d, 'firtina_kalkani') > 0) h *= 0.8; // Zephyra'nın Fırtına Kalkanı
+  if (x.tur === 'lord_sharon' && d.bayrak.morwennaYanda) h *= 0.75; // Morwenna Sharon'un zihin saldırılarını büker
   if (x.tur === 'lord_sharon' && esya(d, 'kirmizi_muhur') > 0) h *= 0.8;
   if (x.tur === 'cahelon' && !x.faz && esya(d, 'cahelon_anahtari') > 0) h *= 0.75;
   const kalkanli = u.savunma === 'kalkan' && !sil.delici;
@@ -1406,7 +1430,8 @@ function darbe(d) {
     if (s.isi >= 100) {
       s.isi = 0;
       s.sistem.kalkan = 2;
-      o.push({ soz: kara(s) ? 'Siper parçalandı!' : 'Kalkan kondansatörü aşırı ısındı!' });
+      if (d.bayrak.ak_faelan) s.glitch = 1;
+      o.push({ soz: (kara(s) ? 'Siper parçalandı!' : 'Kalkan kondansatörü aşırı ısındı!') + (d.bayrak.ak_faelan ? ' Faelan\'ın hata büyüsü: sıradaki atışın kritik.' : '') });
     }
     o.push({ ses: 'valf', soz: kara(s) ? 'Siper darbeyi karşıladı.' : 'Kalkan darbeyi sönümledi.' });
   }
@@ -1476,7 +1501,8 @@ function darbe(d) {
       s.isi = 0;
       s.sistem.kalkan = 2;
       s.torpidoBekle = Math.max(s.torpidoBekle || 0, 1);
-      o.push({ soz: kara(s) ? 'Isı siperini ve silahını kızdırdı!' : 'Isı kalkan kondansatörünü ve torpido tüpünü kızdırdı!' });
+      if (d.bayrak.ak_faelan) s.glitch = 1;
+      o.push({ soz: (kara(s) ? 'Isı siperini ve silahını kızdırdı!' : 'Isı kalkan kondansatörünü ve torpido tüpünü kızdırdı!') + (d.bayrak.ak_faelan ? ' Glitch: sıradaki atışın kritik.' : '') });
     }
   }
   const g = d.gemi;

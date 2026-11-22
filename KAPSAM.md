@@ -774,8 +774,32 @@ bütün bölümlerini sırayla sayar (21 Kasım: v3 paketiyle sekiz belge daha g
       yok; adımlar, armağan ve ödüller benim taslağım, Bahtiyar'a sorulacak.
 - [x] Düzeltme: hikâye motorunda ara karardan sonraki adımın atlanıp atlanmayacağı artık seçilen seçeneğe göre hesaplanıyor.
 
-## 54-57. v4 paketinin öteki belgeleri: [ ] Faz 5 (ygk-akademi-gezilebilir-sistem-ve-10-kursu, tonoflenya-30-yan-gorev-derinlestirme,
-   tonoflenya-bolgesel-gorevler-ve-ambargo-entegrasyonu).
+## 54. v4 / ygk-akademi-gezilebilir-sistem-ve-10-kursu.txt (3.6; akademi.js, harita.js, malken.js)
+- [x] 1 On bir katın adları ve sesleri belgedeki gibi (varış avlusu ve talimgâh, amfiler ve cep-park, kristal ihtisas ve
+      zanaat, kartografya ve kütüphane, iskele ve simya laboratuvarı, konsey ve gözlemevi; röle ve mekik, sessiz arşivler,
+      Malazar çatlağı, stasis hücreleri, Sıfırıncı Karanlık). Açılış: Faz A Final 1, Faz B Final 3, eksi dört Final 13, eksi
+      beş Final 15 ya da Başmüfettiş mührü. [~] Kabul masası (kat 1), Final 1 için Konsey (kat 6, kayıttan sonra) ve sıradaki
+      final görevinin katı (Final 3 için eksi üç) her zaman açık; yoksa oyun ilerlemezdi.
+- [x] Dokunsal gezinme: asansörde katlar listesi (kapalı katlar "kapalı" diye okunur); kat içinde iki parmakla sağa/sola
+      kaydırma kattaki kişi ve odalara sırayla yürütür. [~] Asansörde kat seçimi mevcut sesli liste hareketleriyle
+      (tek parmak sağ/sol gezinme, çift dokunma) yapılıyor; belgede tek parmak yukarı/aşağı yazıyor.
+- [x] Kişiler: Ignador, Faelan, Kaelis, Tixie, Forges, Zeva, Kefius, Profesör Püskül, Trellis-7, Seraphine, Valen, Maelis,
+      Silas Vex, Jolkar Tectus, Caelum Nokturnus; eksi dörtte Zephyra ve Morwenna. (Trellis-7, Seraphine ve Püskül 3.4'teki
+      [~] notundaki karakterlerdir; artık konuşulabilir.)
+- [x] 2 On kürsü testi (hikâye motoru, noktadan başlar; her biri belgedeki görevden sonra açılır, +50 ilgili ekol kıdemi):
+      Korvinus frekans kalkanı kırıkken +%25; Silas pusu önleme ve ilk uyarı öncesi pay; Forges zırh ve gövde malzemesi
+      %10 ucuz; Jolkar ritim + T4 kara savaşı, karanlığa stres direnci %20; Faelan aşırı ısınmada Glitch Atışı; Trellis-7
+      zehir/asit %25 direnç ve iki nadir tohum; Seraphine savaştan sonra stres yarıya; Caelum sıçrama ve seyahat %20 kısa;
+      Kaelis T3 ses illüzyonuyla düello, yetenekler bir tur hızlı dolar; Zeva araç ve gezegen inişi hasarı %30 az.
+      [~] Kaelis'in ödülü bütün yetenek beklemelerine uygulandı (belgede yalnız sahte gürültü/şaşırtma).
+- [x] 3.1 Dört kilit figür: Ignador'un reformu (darbe → Valen eksi dörde, Morvenna Kael yönetir, YGK -20; Valen korunursa
+      YGK +15, Ignador gözetmen indirimi düşer); Kefius güveni 30'u geçince Final 18'de Sharon'un kalkanı %20 zayıf; Tixie
+      beşinci kattaki çiple T-03'ü açar, ihbar edilirse kaçar (YGK +15, T-03 yok).
+- [x] 3.2 Stasis: Zephyra serbest → Fırtına Kalkanı (iyon/yıldırım %20 direnç, Arin ve Güney rotalarında tehlike yok) ya da
+      hücrede (YGK +10); Morwenna serbest ya da ikna → Final 18'de Sharon'un zihin saldırıları %25 zayıf; hücrede bırakılırsa
+      kara aether verisi. [~] İkna için Kefius'un güveni ya da Silas'ın dersi şartı benim eklemem.
+
+## 55-57. v4 paketinin öteki belgeleri: [ ] tonoflenya-30-yan-gorev-derinlestirme, tonoflenya-bolgesel-gorevler-ve-ambargo-entegrasyonu.
 
 ## Sıradaki adımlar (sırayla)
 0. Tonoflenya genişlemesi, yönergedeki sırayla: [2.1: Malken (12); 2.2: tarihçe (13); 2.3: atlas (14); 2.4: eşya,

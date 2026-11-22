@@ -7,6 +7,7 @@
 //   Malken'ler (bölüm 2) nokta olarak konuşulur (malken alanı): kabul, lonca, meclis, iskele, keşiş, gümrük.
 //   Bayraklar: ygkFrekansi, tonoflenyada, ygkKayit, karaGolIzni, malazarIzni, aetherKayigi, malken_ciraklari,
 //   ygk_simulasyon, ygk_kripto, ygk_biyodepo, ygk_harita, malken_muhur, t_hamam_<gün>.
+import * as AK from './akademi';
 import { T_NOKTALAR, YGK_KATLARI, T_MEKANLAR } from './harita';
 import { NOBETLER, nobet } from '../zaman';
 import * as KR from './kronik';
@@ -145,7 +146,7 @@ export function noktaEylemleri(d, id) {
   if (n.malken) e.push({ id: 'konus', etiket: 'Konuş' });
   const t = n.tonEylem;
   if (t === 'asansor') {
-    for (const k of YGK_KATLARI) if (k !== n.mekan) e.push({ id: 'kat_' + k, etiket: KATLAR_ADI(k), ipucu: T_MEKANLAR[k].ad.split(': ')[1] });
+    for (const k of YGK_KATLARI) if (k !== n.mekan) e.push({ id: 'kat_' + k, etiket: KATLAR_ADI(k) + (AK.katKilidi(d, k) ? ', kapalı' : ''), ipucu: T_MEKANLAR[k].ad.split(': ')[1] });
     return e;
   }
   if (t === 'iskele') {
@@ -183,7 +184,8 @@ export function eylemUygula(d, id, eid) {
   if (eid.indexOf('kr_') === 0) return KR.kronikAc(d, Number(eid.slice(3)));
   if (eid.indexOf('kat_') === 0) {
     const k = eid.slice(4);
-    if (k === 'ygk_m5' && !b(d).basmufettis) return { metin: 'Asansör kat eksi beşte durmuyor: "Yasaklı tonozlar. Başmüfettiş mührü gerekir."', ses: 'red' };
+    const kilit = AK.katKilidi(d, k);
+    if (kilit) return { metin: kilit, ses: 'red' };
     d.mekan = k;
     const a = T_NOKTALAR['asansor_' + k];
     d.oyuncu = { x: a.x + 2, y: a.y, yon: Math.PI / 2 };

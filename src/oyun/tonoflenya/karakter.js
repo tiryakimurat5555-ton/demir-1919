@@ -26,6 +26,8 @@ export function noktaMi(id) {
 }
 export function noktaEylemleri(d, id) {
   const k = KARAKTERLER[K_NOKTALAR[id].karakter];
+  // YGK iç dengesi (akademi.js): ihbar edilen Tixie kaçtı
+  if (K_NOKTALAR[id].karakter === 'tixie' && d.bayrak.tixieIhbar) return [{ id: 'incele', etiket: 'İncele' }];
   const e = [{ id: 'konus', etiket: 'Konuş' }];
   if (k.mekik && karakterDurumu(d).tanis[K_NOKTALAR[id].karakter]) e.push({ id: 'mekik', etiket: 'Mekikle koloniye davet et', ipucu: mekikIpucu(d, K_NOKTALAR[id].karakter) });
   e.push({ id: 'incele', etiket: 'İncele' });
@@ -33,7 +35,7 @@ export function noktaEylemleri(d, id) {
 }
 export function eylemUygula(d, id, eid) {
   const kid = K_NOKTALAR[id].karakter;
-  if (eid === 'incele') return { metin: KARAKTERLER[kid].tarif };
+  if (eid === 'incele') return { metin: kid === 'tixie' && d.bayrak.tixieIhbar ? 'Havalandırma ızgarası boş; borulardan yalnız rüzgâr geçiyor. Tixie bir daha görünmedi.' : KARAKTERLER[kid].tarif };
   if (eid === 'mekik') return mekikCagir(d, kid);
   return konus(d, kid);
 }
@@ -54,6 +56,7 @@ export function konus(d, id) {
     if (k.taslak && ZN.TARIFLER[k.taslak]) ek += ' Taslak: ' + ZN.adi(k.taslak) + '. Başında ' + k.ad + ' olursa yüzde yirmi beş ucuz ve usta işi.';
     if (k.mekik) ek += ' Köprü açıksa mekikle koloniye davet edebilirsin.';
   }
+  if (id === 'valen' && d.bayrak.valenKapali) return { metin: 'Valen Lazeria\'nın yeri boş. Konsey Vekili Morvenna Kael\'in sesi salonda: "Rektör eksi dördüncü kattaki stasis hücresinde, Kaptan. Akademi artık benim tutanaklarımla yönetiliyor; işlerin aksamayacak."' };
   return { metin: k.soz + ek, ses: ilk ? 'sinyal' : undefined };
 }
 

@@ -182,6 +182,8 @@ export function koloniGirdisi(d, tesis, t) {
   if (tesis === 'arac_hangari' && misafir(d, 'oronte')) c *= 0.5;
   if (tesis === 'dokumhane' && d.komuta && d.komuta.torvok) c *= 1 - d.komuta.torvok;
   if (tesis === 'dokumhane' && d.bayrak.gz_brom) c *= 0.9; // Ferros-Omega'dan usta Brom
+  // Forges'in Çelik Damar testi: zırh ve gemi gövdesi malzemesi (plaka, zırhlı plaka, gövde zırhı) yüzde on ucuz
+  if (d.bayrak.ak_forges && tesis === 'dokumhane' && t.cikti && Object.keys(t.cikti).some((k) => /plaka|govde|alasim/.test(k))) for (const k of Object.keys(g)) g[k] = Math.max(1, Math.ceil(g[k] * 0.9));
   if (c < 1) for (const k of Object.keys(g)) if (['titanyum', 'bazalt', 'sasi_celigi', 'agir_metal', 'kizilkaya_titanyumu', 'oksit_celik'].includes(k) || tesis === 'arac_hangari') g[k] = Math.max(1, Math.ceil(g[k] * c));
   return g;
 }

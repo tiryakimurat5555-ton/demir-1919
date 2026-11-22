@@ -322,7 +322,9 @@ export function seyahatEt(d, hedef) {
   const muaf = d.bayrak.tehlikeMuaf || {};
   for (const a of y.ayaklar) {
     notlar.push(a.ad + '.');
-    if (a.tehlike && TEHLIKELER[a.tehlike] && !muaf[a.tehlike]) notlar.push(TEHLIKELER[a.tehlike](d));
+    // Zephyra'nın Fırtına Kalkanı: Arin ve Güney rotalarında rüzgâr senden yana
+    if (a.tehlike && d.bayrak.zephyraSerbest && /Arin|Güney|güney/.test(a.ad + ' ' + (BOLGELER[hedef] && BOLGELER[hedef].ad))) notlar.push('Zephyra\'nın rüzgârı yolu açtı; tehlike seni teğet geçti.');
+    else if (a.tehlike && TEHLIKELER[a.tehlike] && !muaf[a.tehlike]) notlar.push(TEHLIKELER[a.tehlike](d));
     else if (a.tehlike && muaf[a.tehlike]) notlar.push('Yanındakiler sayesinde yolun tehlikesi seni teğet geçti.');
   }
   const g = BOLGELER[hedef];
@@ -341,7 +343,7 @@ export function seyahatEt(d, hedef) {
   SB.ekolKazan(d, 'zhaor', 5);
   if (y.ayaklar.some((a) => a.mod === 'deniz_mormon')) SB.ekolKazan(d, 'sinha', 40);
   if (y.ayaklar.some((a) => a.mod === 'col')) SB.ekolKazan(d, 'uma', 10);
-  return { metin: '', sn: Math.round(gun * GUN * SB.seyahatCarpani(d) * (d.bayrak.tf_deniz_haritasi && y.ayaklar.some((a) => String(a.mod).indexOf('deniz') === 0) ? 0.8 : 1)), sahne: d.sahne };
+  return { metin: '', sn: Math.round(gun * GUN * SB.seyahatCarpani(d) * (d.bayrak.ak_caelum ? 0.8 : 1) * (d.bayrak.tf_deniz_haritasi && y.ayaklar.some((a) => String(a.mod).indexOf('deniz') === 0) ? 0.8 : 1)), sahne: d.sahne };
 }
 
 // İstasyonlar ve öbür atlas noktaları
