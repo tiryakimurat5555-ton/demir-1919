@@ -483,6 +483,9 @@ Demir 1919 oyunu silindi; geçmişi git kaydında (son sürüm 1.06, commit 556f
   calanOrtamAdi(). uzayGorevleri.js gezegen op'larında ortam ve ortamAdim (kenetle adımından sonraki adım); Yuzey opSesEsitle
   inişten sonra ortamCal(ortam, 0,8), opKapat sesleriEsitle ile oda sesine döner. Zip'teki Zephyr-Major ve Lithos-Echo dosyaları
   bayt bayt aynı (md5 99353bce…): ikisi de aynı sesi çalıyor, Bahtiyar'a soruldu. testler/gezegen.test.js. Telefonda denenmedi.
+- SÜRÜM 2.14 (22 Kasım, Murat ses dosyası ekledi: "lithos echo"): Lithos-Echo'nun doğru kaydı (md5 173380f6…); assets/ses/
+  gezegen/ortam_gez_p08.mp3 aynı işlemle (ilk 183 sn, 180 sn döngü, I=-24, 96k). 2.13'teki ortak dosya Zephyr-Major'da (p07) kaldı.
+  Telefonda denenmedi.
 - Sıradaki: Tonoflenya belgelerinin hepsi işlendi; KAPSAM.md'de [~] notları (Bahtiyar'a sorulacaklar) ve telefonda deneme.
 
 ## Sesler
