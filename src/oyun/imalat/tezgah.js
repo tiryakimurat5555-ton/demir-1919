@@ -22,6 +22,9 @@ import { tarim } from '../tarim/tarim';
 import { GUNLUK, SEKMELER, REZONANS_NOTU, rezonansMi, sekmesi } from './esya';
 
 const BALIK = ['sazan', 'gol_baligi', 'yilan_baligi'];
+// 4.5 kancaları: hobi.js (aşçılık ritmi, beste, zar) tarif ve tezgâh menülerine öğe ekler
+export const TARIF_EKLERI = [];
+export const TEZGAH_EKLERI = [];
 const UN = ['urun_arpa', 'urun_akifer'];
 export const TEZGAHLAR = {
   kamp: { ates: { ad: 'Ateş başı', ses: 'el_tz_ocak', tarif: 'Taşların üstünde bir kazan ve ızgara: basit kamp yemeği, sıcak su kaynatma.' } },
@@ -69,6 +72,11 @@ export const TARIFLER = {
   balik_konservesi: T('ashane', 'ocak', [[BALIK, 2], [['deniz_tuzu'], 1], [['cam'], 1]], { balik_konservesi: 2 }),
   baharat: T('ashane', 'ocak', [[['deniz_tuzu'], 2], [['urun_kristal_cicek'], 1], [['urun_tatli_kok'], 1]], { baharat: 3 }),
   vaha_tabagi: T('ashane', 'ocak', [[['urun_vaha_hurmasi'], 2], [['bal'], 1], [['baharat'], 1]], { vaha_tabagi: 1 }, { kisi: ['sorya'] }),
+  // 4.5: hayvan ürünleri (v5 Paket 15 bölüm 3) ve göl avı (Paket 3B hobi 1)
+  peynir: T('ashane', 'ocak', [[['xeno_sut', 'sifali_sut'], 2]], { peynir: 1 }),
+  sutlu_cay: T('ashane', 'ocak', [[['dunya_cayi'], 1], [['xeno_sut'], 1]], { sutlu_cay: 2 }),
+  kahvalti: T('ashane', 'firin', [[['bal', 'aether_bali'], 1], [['ekmek', 'borek'], 1], [['peynir', 'xeno_yumurta'], 1]], { kahvalti: 1 }),
+  kseno_guvec: T('ashane', 'ocak', [[['kseno_eti'], 1], [['urun_tatli_kok', 'urun_don_kiran'], 1], [['baharat', 'deniz_tuzu'], 1]], { kseno_guvec: 2 }),
   sakin_cay: T(['ashane', 'hamam'], 'ocak', [[['urun_kristal_cicek'], 1], [['bal'], 1]], { sakin_cay: 2 }, { tezgahlar: { hamam: 'lab' } }),
   // Atölye: fırın
   tugla: T('atolye', 'firin', [[['ham_kil'], 2], [['komur'], 1]], { tugla: 4 }),
@@ -91,7 +99,8 @@ export const TARIFLER = {
   halat: T('atolye', 'dokuma', [[['bitkisel_lif'], 3]], { halat: 2 }),
   is_eldiveni: T('atolye', 'dokuma', [[['bitkisel_lif'], 1], [['urun_pamuk_keten'], 1]], { is_eldiveni: 2 }),
   saha_cantasi: T('atolye', 'dokuma', [[['urun_pamuk_keten'], 2], [['halat'], 1], [['bakir'], 1]], { saha_cantasi: 1 }),
-  yun_battaniye: T('atolye', 'dokuma', [[['xeno_yun'], 3]], { yun_battaniye: 1 }, { hayvan: true }),
+  yun_battaniye: T('atolye', 'dokuma', [[['xeno_yun', 'isildayan_yun'], 3]], { yun_battaniye: 1 }, { hayvan: true }),
+  festival_kiyafeti: T('atolye', 'dokuma', [[['malken_ipegi'], 2], [['isildayan_yun', 'xeno_yun'], 1]], { festival_kiyafeti: 1 }, { hayvan: true }),
   // Tapınak
   huzur_tutsusu: T('tapinak', 'tutsu', [[['urun_kristal_cicek'], 1], [['recine'], 1]], { huzur_tutsusu: 2 }),
   bag_tilsimi: T('tapinak', 'tutsu', [[['saf_aether'], 1], [['urun_kristal_cicek'], 1], [['gumus_tozu'], 1]], { bag_tilsimi: 1 }),
@@ -104,11 +113,12 @@ export const TARIFLER = {
   kristal_can: T('gozlem', 'can', [[['bakir'], 2], [['piezo'], 1]], { kristal_can: 1 }),
   ruzgar_cani: T('gozlem', 'can', [[['kereste'], 1], [['kristal_can'], 1]], { ruzgar_cani: 1 }, { kisi: ['julian'] }),
   rezonans_lambasi: T('gozlem', 'can', [[['cam'], 1], [['urun_fosforlu_liken'], 1], [['bakir'], 1]], { rezonans_lambasi: 1 }),
-  fener_yagi: T('gozlem', 'can', [[['urun_isik_otu'], 1], [['recine'], 1]], { fener_yagi: 2 }),
+  fener_yagi: T('gozlem', 'can', [[['urun_isik_otu', 'isi_yagi'], 1], [['recine'], 1]], { fener_yagi: 2 }),
   kristal_pusula: T('gozlem', 'can', [[['bakir'], 1], [['piezo'], 1], [['cam'], 1]], { kristal_pusula: 1 }),
   // Termal şifa hamamı ve şifa labı
   sabun: T('hamam', 'lab', [[['recine'], 1], [['deniz_tuzu'], 1]], { sabun: 3 }),
   aroma_yagi: T('hamam', 'lab', [[['urun_kristal_cicek'], 1], [['urun_isik_otu'], 1]], { aroma_yagi: 1 }),
+  aether_surubu: T('hamam', 'lab', [[['aether_bali'], 1], [['saf_su'], 1]], { vaha_surubu: 1 }, { ad: 'Aether balından şifa şurubu' }),
   antikor_iksiri: T('hamam', 'lab', [[['sifali_mantar'], 2], [['hamam_minerali'], 1]], { antikor_iksiri: 1 }),
 };
 
@@ -152,7 +162,7 @@ function ciktiMetni(t, kat = 1) {
 }
 export function kisiEngeli(d, id) {
   const t = TARIFLER[id];
-  if (t.hayvan) return 'Yün hayvan barınağından gelir; ilk bölgede bilinen hayvan yok. Xeno-fauna planı açılınca dokunur.';
+  if (t.hayvan && !d.bayrak.barinak) return 'Bu iş hayvan ürünleri ister; ilk bölgede bilinen hayvan yok. Biyo-kubbede kuluçka ve barınak kurulunca açılır.';
   const yok = (t.kisi || []).filter((k) => !YR.katildiMi(d, k));
   return yok.length ? 'Bu iş ' + yok.map(YR.kisaAdi).join(' ve ') + ' kolonideyken yapılabilir.' : null;
 }
@@ -277,6 +287,7 @@ export function tarifMenu(d, id, bina) {
       { id: 'bir', etiket: 'Bir kez üret', yap: (x) => uret(x, id, 1, bina) },
       { id: 'bes', etiket: 'Beş kez üret', yap: (x) => uret(x, id, 5, bina) },
       ...(ist > 0 ? [{ id: 'istek', etiket: 'İlan panosundaki eksik istekler için gereken kadar üret: ' + ist + ' kez', yap: (x) => uret(x, id, ist, bina) }] : []),
+      ...TARIF_EKLERI.flatMap((f) => f(d, id, bina)),
     ],
   };
 }
@@ -302,11 +313,12 @@ export function binaTezgahlari(d, bina) {
   const b = YERLESIM_BINALARI[bina];
   if (!tz) return { baslik: b ? b.ad : 'Bina', giris: 'Bu binada üretim yok; yönetim ve buluşma yeri.', ogeler: [] };
   const ids = Object.keys(tz);
-  if (ids.length === 1) return tezgahMenu(d, bina, ids[0]);
+  const ek = TEZGAH_EKLERI.flatMap((f) => f(d, bina));
+  if (ids.length === 1 && !ek.length) return tezgahMenu(d, bina, ids[0]);
   return {
     baslik: 'Üretim ve işlev tezgâhları',
-    giris: b.ad + ': ' + ids.length + ' tezgâh.',
-    ogeler: ids.map((k) => ({ id: 'tz_' + k, etiket: tz[k].ad, ipucu: tz[k].tarif, alt: (x) => tezgahMenu(x, bina, k) })),
+    giris: b.ad + ': ' + (ids.length + ek.length) + ' tezgâh.',
+    ogeler: [...ids.map((k) => ({ id: 'tz_' + k, etiket: tz[k].ad, ipucu: tz[k].tarif, alt: (x) => tezgahMenu(x, bina, k) })), ...ek],
   };
 }
 // Bina durumu ve yükseltme (Paket 12 bölüm 5 üçüncü başlık)
@@ -364,7 +376,7 @@ function kalemTarifi(k) {
   const t = e ? e.tarif : HAMMADDELER[k] ? HAMMADDELER[k].tarif : PARCALAR[k] ? PARCALAR[k].tarif : k.indexOf('urun_') === 0 && BITKILER[k.slice(5)] ? BITKILER[k.slice(5)].ad + ' hasadı.' : '';
   return (t || '') + (rezonansMi(k) ? ' ' + REZONANS_NOTU : '');
 }
-const KULLAN_ETIKETI = { ye: 'Ye', ic: 'İç', yak: 'Yak', sefer: 'Sefer erzağına koy', fener: 'Fenere doldur', onar: 'Aletleri onar', dekor: 'Kamaranın rafına koy', yikan: 'Hamamda kullan', ilac: 'İç: zehre karşı korun' };
+const KULLAN_ETIKETI = { tuy: 'Kamaranın yatağına koy', ye: 'Ye', ic: 'İç', yak: 'Yak', sefer: 'Sefer erzağına koy', fener: 'Fenere doldur', onar: 'Aletleri onar', dekor: 'Kamaranın rafına koy', yikan: 'Hamamda kullan', ilac: 'İç: zehre karşı korun' };
 function kalemMenu(d, k, sekme) {
   const e = GUNLUK[k];
   const ogeler = [];
@@ -385,6 +397,11 @@ const YEMEK = {
   dunya_cayi: { moral: 1, stres: -10 },
   kavrulmus_kahve: { yorgunluk: -40 },
   sakin_cay: { stres: -25 },
+  peynir: { moral: 2, yorgunluk: -20 },
+  sutlu_cay: { moral: 1, stres: -12 },
+  kahvalti: { moral: 6, yorgunluk: -50 },
+  kseno_guvec: { moral: 7, yorgunluk: -100 },
+  sifali_sut: { stres: -30 },
 };
 export function kullan(d, k) {
   const e = GUNLUK[k];
@@ -397,6 +414,13 @@ export function kullan(d, k) {
     ekle(d, k, -1);
     d.yer.dekorlar.push(k);
     return sonra(adi(k) + ' kamaranın rafına yerleştirildi. ' + DEKORLAR[k].tarif, 'kur');
+  }
+  if (tur === 'tuy') {
+    if (d.bayrak.kamaraTuy) return { metin: 'Yatağın zaten kaz tüyü yastıklı.' };
+    if (!YR.yerVar(d, 'kamara')) return { metin: 'Önce Kaptanın Kamarası kurulmalı.', ses: 'red' };
+    ekle(d, k, -1);
+    d.bayrak.kamaraTuy = true;
+    return sonra('Kamaranın yatağına yumuşak tüy yastık kondu: uyanınca moral iki fazla artar.');
   }
   if (tur === 'fener') {
     SH.hazirla(d);
@@ -451,7 +475,7 @@ export function kullan(d, k) {
 }
 // Aşhanede "Sıcak bir yemek ye": önce pişmiş gündelik yemekler, sonra erzak, sonra ham ürün (yerlesim.js çağırır)
 export function enIyiYemek(d) {
-  return ['balik_corbasi', 'vaha_tabagi', 'borek', 'ekmek', 'kamp_yemegi', 'kuru_meyve'].find((k) => varlik(d, k) > 0) || null;
+  return ['kseno_guvec', 'balik_corbasi', 'kahvalti', 'vaha_tabagi', 'borek', 'peynir', 'ekmek', 'kamp_yemegi', 'kuru_meyve'].find((k) => varlik(d, k) > 0) || null;
 }
 
 // --- Gündelik tohumlar: binalar kurulunca yerleşimciler getirir (Paket 5 bölüm 3.1) ---
@@ -481,10 +505,10 @@ export function uretilebilir(d, k, derinlik = 0) {
   if (derinlik > 3) return false;
   return Object.keys(TARIFLER).some((id) => {
     const t = TARIFLER[id];
-    if (!t.cikti[k] || t.hayvan || id === 'malazar_buyu_tozu') return false;
+    if (!t.cikti[k] || (t.hayvan && !d.bayrak.barinak) || id === 'malazar_buyu_tozu') return false;
     if (!t.bina.some((b) => yerVar(d, b)) || kisiEngeli(d, id)) return false;
     return t.girdi.every(([s]) => s.some((x) => varlik(d, x) > 0 || (x !== k && (uretilenMi(x) ? uretilebilir(d, x, derinlik + 1) : PZ.ulasilabilir(d, x)))));
   });
 }
 const uretilenMi = (k) => Object.keys(TARIFLER).some((id) => TARIFLER[id].cikti[k]);
-PZ.ULASIM_EKLERI.push((d, k) => !(GUNLUK[k] && GUNLUK[k].hayvan) && uretilenMi(k) && uretilebilir(d, k));
+PZ.ULASIM_EKLERI.push((d, k) => !(GUNLUK[k] && GUNLUK[k].hayvan && !d.bayrak.barinak) && uretilenMi(k) && uretilebilir(d, k));

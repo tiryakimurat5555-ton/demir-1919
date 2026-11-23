@@ -6,6 +6,20 @@ tesis kurar, ileride gemini parça parça inşa edip uzaya açılırsın.
 
 Yapımcı: Bahtiyar Cankurt (tasarım belgeleri belgeler/ içinde). Expo Go ile iPhone ve Android'de çalışır.
 
+## Bu sürümde (4.5)
+- Hayvanlar: biyo-kubbede iki genom kapsülünü birleştir (merkez terminali ya da barınaktaki kuluçka makinesi). Kapsüller ve
+  dondurulmuş yumurtalar Kaptan Orin'in gemisinde çıkar. Bir gün sonra çatlama sesi: elli türden biri; aynı iki gen bile
+  her seferinde başka tür verebilir. Hayvan Barınağı (vadinin batısı, sera binasının yanında) altı, on iki, yirmi hayvan.
+- Bakım: hayvanlara odaklanınca durum sesi çalar. Tıslama aç (yem ver), mırıltı mutlu, hırıltı hasta (ilaç ver). Mutlu
+  hayvan, modülü kuruluysa (kovan, kümes, ağıl, teraryum, havuz) her gün ürün verir: yumurta, süt, yün, bal, ipek, tüy.
+  Peynir, sütlü çay, kahvaltı, yün battaniye, festival kıyafeti artık yapılabiliyor.
+- Özel hayvanlar: köpek yoldaşın pusuyu havlayarak bildirir, mırıl-kedi stres alır, kuşlar akşamları moral verir, şafak
+  horozu günü müjdeler, porsuk ve armadillo eşelenip mantar ve kil bulur.
+- Koloni Arşivi (okulun arka kapısı): dört set; bağışla, kalıcı ödüller kazan.
+- Jeotermal Göl Kıyısı (vadinin güneyinden merdiven; jeotermal santral gerekir): olta at, kseno-et de çıkar.
+- Aşhanede "Ritimle pişir": tavanın sustuğu vuruşa dokun; hatasız pişirirsen altın kalite.
+- Gözlem tepesinde Julian'la beste yap; kamarada ve festivalde çal. Tavernada Altı Yıldız Zarı.
+
 ## Bu sürümde (4.4)
 - Yerleşim binalarında üretim tezgâhları. Bir binanın köşesine gidip çift dokununca sıra hep aynı: Üretim ve işlev
   tezgâhları, Şu an binadaki yerleşimciler, Bina durumu ve yükseltme. Her tarifte "Bir kez üret", "Beş kez üret" ve

@@ -1014,22 +1014,58 @@ bütün bölümlerini sırayla sayar (21 Kasım: v3 paketiyle sekiz belge daha g
 ### Paket 12: yerleşim binaları, tezgâhlar ve işlevler (4.4)
 - [x] 2.1 kamp ateşi: kamp yemeği, sıcak su. [x] 2.2 meydan: üretim yok (pano 4.2). [x] 2.3 kamara: atölyede yapılan müzik
       kutusu, akvaryum, rüzgâr çanı rafa konur. [x] 2.4 aşhane: ekmek, çay, kahve, çorba, konserve, börek, baharat, ziyafet
-      tabağı, kuru meyve; sıcak yemek önce pişmiş yemeği yer. [~] Aşçılık ritim mini oyunu Paket 3B ile (4.5).
+      tabağı, kuru meyve; sıcak yemek önce pişmiş yemeği yer. [x] Aşçılık ritim mini oyunu (4.5).
       [x] 2.5 atölye dört tezgâh: fırın, marangoz, örs (aletler + tamir kiti, çivi, düğün yüzüğü), dokuma.
       [x] 2.6-2.7 konut ve kubbe: ev içi dinlenme. [~] Aile evi/aile kubbesi yükseltmesi Paket 4 ile (4.6).
       [x] 2.8 tapınak: tütsü, bağ tılsımı, takı; rezonans sunağı. [x] 2.9 taverna ikram servisi (Julian sahnedeyse iki kat).
-      [~] Taverna zar oyunu festivalde var; akşam masa oyunu Paket 3B ile. [x] 2.10 okul: ders defteri, arşiv mühür kutusu.
-      [~] Okul eğitimi ve arşiv bağış setleri Paket 3B/4 ile. [x] 2.11 hamam ve şifa labı: sabun, aroma yağı (yıkanırken
+      [x] Akşam masa oyunu Altı Yıldız Zarı (4.5). [x] 2.10 okul: ders defteri, arşiv mühür kutusu.
+      [x] Arşiv bağış setleri (4.5). [~] Okul eğitimi Paket 4 ile. [x] 2.11 hamam ve şifa labı: sabun, aroma yağı (yıkanırken
       stresi siler), sakinleştirici çay, antikor iksiri. [x] 2.12 gözlem: kristal çan, rüzgâr çanı, rezonans lambası, fener
-      yağı (fenere doldurulur), kristal pusula. [~] Çan döküm mini oyunu Paket 3B ile.
-- [x] 3.1 iskele ve tezgâh (4.2). [~] 3.2 hayvan barınağı kilitli (Paket 14/15, 4.5). [x] 3.3 karakollar (4.3; bedel tuğla).
+      yağı (fenere doldurulur), kristal pusula. [x] Çan atölyesi bestesi (4.5).
+- [x] 3.1 iskele ve tezgâh (4.2). [x] 3.2 hayvan barınağı (4.5). [x] 3.3 karakollar (4.3; bedel tuğla).
 - [x] 4.1 tapınak ve okul sunağı Malazar tozuyla açılır; tılsımlar: koruma (7 gün fırtına morali düşmez), hızlı büyüme (3 gün
       ×1,3), maden şansı (3 gün düğüm başına +1). [x] 4.2 gözlem tepesi harmonik yankı odası kilitli notu. [~] Yankı odası
       üretimi ileride.
 - [x] 5 bina köşesinde standart sıra: tezgâhlar, şu an binadaki yerleşimciler, bina durumu ve yükseltme; "bir kez", "beş kez",
       "ilan panosundaki eksik istekler için gereken kadar" üret. Tezgâh sesleri ElevenLabs (9).
+### Paket 3B: koloni arşivi ve hobiler (4.5)
+- [x] 2.1 Koloni Arşivi Salonu (okulun arka kapısından; sessiz müze ortamı). [x] 2.2 Jeotermal Göl Kıyısı (jeotermal santral +
+      güney sektörü; vadinin güneyinden merdiven; su ve buhar ortamı). [x] 2.3 maden kuyusu (4.3). [x] 2.4 hobi köşeleri
+      (aşhane, gözlem tepesi, barınak, taverna kendi ortamlarıyla).
+- [x] 3 dört set: fosil (fosil, Miasma kalsiyumu, kovan kabuğu [G-13 ya da Mycelia], Vanguard plakası [enkaz görülünce]) →
+      zırh geliştirme −%15; kristal (silikat, piezo, mor harmonik, elmas, saf aether) → dökümhane +%20 ve Orin saf kristal;
+      kayıt (Necron mührü, Vanguard veri diski, Siren-0 [Thalassa ya da Nerissa K3], kronik parçası) → mekik bedeli yarı,
+      Defne +10 moral; ses (dört fenomen kaydı) → kamarada Kozmik Müzik Kutusu (günde bir stres sıfır). Dördü: itibar
+      +%15, pazar indirimi +%15. [~] "Tersane zırh geliştirme" çıktısında zırh/kabuk adı geçen tariflere uygulanır.
+- [x] 4.1 göl avı (olta mekaniği; kseno-et). [x] 4.2 maden (4.3). [x] 4.3 aşçılık ritmi (boşluk ritmi; hatasız altın kalite =
+      sonraki yemek hediyesi ×2, en çok iki hata bir porsiyon fazla). [x] 4.4 çan atölyesi: altı yıldız notasıyla sekiz vuruşluk
+      beste, kaydet, kamarada ve festivalde çal; Julian +15 güven. [~] Belgedeki yukarı/aşağı/sağ/sol hareketi yerine menü
+      (vuruş → nota; seçince çalar). [x] 4.5 hayvan bakımı (Paket 14/15 ile). [x] 4.6 Altı Yıldız Zarı: üç zar, üç tur, tekrar at
+      ya da dur, bahis 50/100/200, +10 güven.
+- [x] 5 pano ve hediye bağı (balık, kristal, hayvan ürünleri), altın kalite yemek. [~] "Sefer öncesi altın kalite rasyon"
+      ayrı etkisi yok; altın kalite hediye ve porsiyonda.
+### Paket 14: xeno-fauna, genom ve melezleme (4.5)
+- [x] 2.1 Orin her hafta bir iki genom kapsülü ya da dondurulmuş yumurta (150-250 kredi). Sekiz gen.
+- [x] 2.2 biyo-kubbe (terminal ve barınaktaki kuluçka makinesi): iki kapsül + saf su ya da aether, bir oyun günü; %60 yaygın,
+      %30 nadir, %10 mutasyon (dörtte biri efsanevi); keşfedilmemiş türler öncelikli. Kaya bıldırcını kuluçkayı yarıya indirir.
+- [x] 3 elli tür (15 Dünya, 15 Malken, 20 melez), her birinin ürünü ya da rolü. [~] Mutasyonlar için gen çiftleri belgedeki
+      açıklamalardan seçildi; Anka için termal + kristal ve önce Tavus.
+- [x] 4 barınak 6 → 12 → 20 (bedeller seçildi), fazlalar çiftliklere/Orin'e (kredi). Ansiklopedi 15/30/50 dönüm noktaları
+      (ödüller seçildi: 300 kredi; 800 kredi ve bedelsiz genişleme; 2000 kredi ve +20 moral). Hayvanlar gemi ve savaş üretmez.
+- [x] 5 barınakta her türün konumlu sesi (14 ses ailesi, ElevenLabs), çatlama sesi ve nadirlik okunur.
+### Paket 15: hayvan üretim hatları ve özel roller (4.5)
+- [x] 2 beş modül (kovan, kümes, ağıl, teraryum, havuz); plan, o modülü isteyen ilk tür keşfedilince açılır; modülsüz üretim yok.
+- [x] 3 hatlar: bal → kahvaltı ve sakinleştirici çay; aether balı → şifa şurubu; süt → peynir, börek, sütlü çay; şifalı süt →
+      stres; yün/ipek → battaniye, festival kıyafeti; yumurta → börek, kahvaltı; piezo yumurta koleksiyon/sipariş; tüy →
+      kamara yastığı (+2 moral); ısı yağı → fener yağı yerine. Ayazda ağıl verimi yarı (ren ve sis keçisi tam, kar-lalesi ×2).
+- [x] 4.1 köpek yoldaş (kıyıda ve madenin 1-10. katlarında pusuyu bildirir), yankı kazı ve zırhlı keçi (baskın uyarısı ×1,5).
+      [~] Köpeğin "kayıp düğümleri koklama"sı yok. [x] 4.2 porsuklar, armadillo, yengeç-kuşu, buzul tilkisi eşeler; yıldız güvesi
+      kristal çiçek ve ışık otu +%15; yonca arısı sera +%5. [x] 4.3 mırıl-kedi (barınak, kamara ya da hamam; günde bir −10
+      stres), akşam kuşları (+1 moral, en çok 3), şafak horozu (Gümüş Şafak'ta takvim), tavus (+5 festival), hindi (+3),
+      kuğu, anka (+10 bir kez, her gün +1, hastalık yok).
+- [x] 5 modül eksikliği uyarısı, yoldaş ve kamara seçeneği.
 ### Sıradaki v5 belgeleri
-- [ ] Paket 3B, Paket 4, Paket 7, Paket 14, Paket 15, Paket 16.
+- [ ] Paket 4, Paket 7, Paket 16.
 - [~] Bahtiyar'a: Paket 7'deki yerleşimci adları (Selim, Nadia, Tarik, Lira, Vaelis, Ayla, Ozan-7, çiftçi Elara ...)
       Paket 1/8'deki on altı kişiyle uyuşmuyor; görev mimarisinde on altı kişiye eşlenecek.
 

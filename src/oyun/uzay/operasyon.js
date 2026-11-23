@@ -333,6 +333,7 @@ export function opGirdi(d, g) {
       if (s.n >= (a.n || 3)) return adimBitti(d, 'kilit');
       return [{ nota: { frek: 880, sure: 0.15 }, soz: s.n + ' / ' + (a.n || 3) + '.' }];
     }
+    s.hata = (s.hata || 0) + 1; // 4.5: aşçılık ritmi kaliteyi hatalardan ölçer
     return [{ soz: 'Orada boşluk yok.', ses: 'red' }];
   }
   return [];

@@ -337,7 +337,7 @@ export function komutaIlerle(d) {
         const kim = !bagli(d, id) ? 'Tina\'nın nöral çekirdeği' : s.karakol === 'ikmal' ? 'otomatik ikmal karakolu' : s.devriye ? 'yedek filo devriyesi' : s.erkenUyari ? 'rüzgâr kulelerinin erken uyarı ağı' : 'koloni kalkan jeneratörü';
         olaylar.push(bl.ad + ' üzerine bir baskın geldi; ' + kim + ' saldırıyı uzaktan püskürttü.');
       } else if (!k.baskinlar.some((x) => x.id === id)) {
-        k.baskinlar.push({ id, bitis: t + NOBET_SN });
+        k.baskinlar.push({ id, bitis: t + NOBET_SN * (d.bayrak.hayvan_alarm ? 1.5 : 1) }); // 4.5: Yankı Kazı ve Zırhlı Keçi alarmı (v5 Paket 15 4.1)
         olaylar.push('Koloni bilgisayarı: ' + bl.ad + ' baskın altında! Komuta panelinin savunma hattından bizzat savun ya da otomatik savunma ata. Bir nöbet içinde.');
       }
     } else if (l.length && misafir(d, 'zeno')) olaylar.push('Silahşör Zeno sektörlerde nöbette; yaratıklar pusu kuramadı.');

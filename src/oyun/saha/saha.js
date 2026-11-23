@@ -272,9 +272,10 @@ function galeriyeGiris(d, kat) {
   if (s.karakollar.includes('kat' + kat)) p *= 0.3;
   if (b === 'derin' && s.alet.fener >= 3 && s.yag > 0) p *= 0.5;
   if (s.eslik === 'col_tilkisi' && b === 'ust') p = 0;
-  const uyarici = s.eslik === 'akrep' || (s.alet.fener >= 2 && s.yag > 0 && b !== 'ust');
+  const kopek = !!(d.hayvan && d.hayvan.yoldas) && kat <= 10; // 4.5: Kaptan'ın xeno-köpeği (v5 Paket 15 4.1)
+  const uyarici = s.eslik === 'akrep' || kopek || (s.alet.fener >= 2 && s.yag > 0 && b !== 'ust');
   if (s.tehlike[kat] === 'var' && uyarici) {
-    notlar.push((s.eslik === 'akrep' ? 'Akrep önden döndü ve tıkırdadı: ' : 'Fenerin akustik lambası bir yankı yakaladı: ') + 'İleride taşların arasında hareket var, ' + tehlike.ad + '. Savaşmak için ona yürü; kaçınmak için uzak dur.');
+    notlar.push((s.eslik === 'akrep' ? 'Akrep önden döndü ve tıkırdadı: ' : kopek ? 'Köpeğin kulaklarını dikip havladı: ' : 'Fenerin akustik lambası bir yankı yakaladı: ') + 'İleride taşların arasında hareket var, ' + tehlike.ad + '. Savaşmak için ona yürü; kaçınmak için uzak dur.');
   } else if (s.tehlike[kat] !== 'temiz' && zar(d) < p) {
     const sp = tehlike || { dusmanlar: ['kaya_bocegi'], giris: 'Taşların arasından kaya böcekleri fırladı!' };
     d.savasBekle = { dusmanlar: sp.dusmanlar.slice(), ortam: 'kara', tier: b === 'derin' ? 2 : 1, gelis: sp.dusmanlar.length > 1 ? 'kiskac' : 'pusu', giris: 'Pusu! ' + sp.giris, arac: s.eslik || null };
@@ -477,7 +478,8 @@ export function sahaIlerle(d, dt) {
       let p = aksam ? 0.3 : 0;
       if (s.karakollar.includes('kiyi')) p *= 0.3;
       if (p && zar(d) < p) {
-        d.savasBekle = { dusmanlar: ['kiyi_yengec_surusu'], ortam: 'kara', tier: 1, gelis: 'kiskac', giris: 'Akşam karanlığında kıyı mağaralarından bir yengeç sürüsü çıktı!', arac: s.eslik || null };
+        const kopek = !!(d.hayvan && d.hayvan.yoldas);
+        d.savasBekle = { dusmanlar: ['kiyi_yengec_surusu'], ortam: 'kara', tier: 1, gelis: kopek ? 'sizma' : 'kiskac', giris: (kopek ? 'Köpeğin bir tur önce havladı; hazırsın. ' : '') + 'Akşam karanlığında kıyı mağaralarından bir yengeç sürüsü çıktı!', arac: s.eslik || null };
         d.savasSonraSahne = 'saha_zafer';
       } else if (aksam) olaylar.push({ tur: 'haber', metin: 'Akşam oldu; kıyı mağaralarından tıkırtılar geliyor.' });
     }

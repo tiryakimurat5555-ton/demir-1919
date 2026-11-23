@@ -16,6 +16,12 @@ import { K_NOKTALAR, MEKAN } from './karakterHarita';
 export { KARAKTERLER, misafir, K_NOKTALAR };
 
 export const MEKIK_BEDELI = { malazar_odagi: 1, isik_tozu: 50, jeotermal_sogutucu: 25 };
+// 4.5: Koloni Arşivi kadim kayıt seti tamamlanınca mekik bedeli yarıya iner (v5 Paket 3B 3.3)
+export function mekikBedeli(d) {
+  const b = { ...MEKIK_BEDELI };
+  if (d && d.bayrak && d.bayrak.arsiv_kayit) for (const k of Object.keys(b)) b[k] = Math.max(1, Math.ceil(b[k] / 2));
+  return b;
+}
 export const MEKIK_KALIS = 2; // nöbet
 export const MEKIK_BEKLEME = 6;
 export const MEKIK_BEKLEME_HALKA = 2;
@@ -74,8 +80,9 @@ export function mekikKosulu(d, id) {
   if (kd.misafir) return 'Mekik rıhtımında yer yok: ' + KARAKTERLER[kd.misafir].ad + ' kolonide.';
   const b = kd.bekleme[id] || 0;
   if (b > simdi(d)) return k.ad + ' Tonoflenya\'da işlerine döndü; ' + Math.ceil((b - simdi(d)) / NOBET_SN) + ' nöbet sonra yeniden çağrılabilir.';
-  const eksik = Object.keys(MEKIK_BEDELI).filter((x) => ZN.miktar(d, x) < MEKIK_BEDELI[x]);
-  if (eksik.length) return 'Mekik bedeli eksik: ' + eksik.map((x) => MEKIK_BEDELI[x] + ' ' + ZN.adi(x)).join(', ') + '.';
+  const mb = mekikBedeli(d);
+  const eksik = Object.keys(mb).filter((x) => ZN.miktar(d, x) < mb[x]);
+  if (eksik.length) return 'Mekik bedeli eksik: ' + eksik.map((x) => mb[x] + ' ' + ZN.adi(x)).join(', ') + '.';
   return null;
 }
 function mekikIpucu(d, id) {
@@ -85,7 +92,8 @@ function mekikIpucu(d, id) {
 export function mekikCagir(d, id) {
   const k = mekikKosulu(d, id);
   if (k) return { metin: k, ses: 'red' };
-  for (const x of Object.keys(MEKIK_BEDELI)) ZN.ekle(d, x, -MEKIK_BEDELI[x]);
+  const mb = mekikBedeli(d);
+  for (const x of Object.keys(mb)) ZN.ekle(d, x, -mb[x]);
   const kd = karakterDurumu(d);
   kd.misafir = id;
   kd.bitis = simdi(d) + MEKIK_KALIS * NOBET_SN;

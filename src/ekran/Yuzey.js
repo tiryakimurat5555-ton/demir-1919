@@ -168,6 +168,7 @@ import {
 import { BITKILER, ISLEME_TESISI } from '../oyun/tarim/bitkiler';
 import { nobetNo } from '../oyun/zaman';
 import { MADEN_DUGUMLERI, KIYI_DUGUMLERI } from '../oyun/saha/veri';
+import { HAYVANLAR as HV_HAYVANLAR } from '../oyun/hayvan/veri';
 import { UZMANLIKLAR, subayIstihdam, SEKTORLER, bosta, girdiMetni, harca, yeterMi, ilacDagit, isGucuDegis, moralMetni, moralSesi, parcaMetni, uretimBaslat, uretimListesi } from '../oyun/koloni';
 import {
   VINC_ESIGI,
@@ -269,6 +270,21 @@ const DOSYALAR = {
   pano_gunduz: require('../../assets/ses/konumsal/pano_gunduz.wav'),
   pano_gece: require('../../assets/ses/konumsal/pano_gece.wav'),
   y_orin: require('../../assets/ses/konumsal/y_orin.wav'),
+  // 4.5: barınaktaki hayvan aileleri (ElevenLabs)
+  h_tavuk: require('../../assets/ses/konumsal/h_tavuk.wav'),
+  h_su_kusu: require('../../assets/ses/konumsal/h_su_kusu.wav'),
+  h_keci: require('../../assets/ses/konumsal/h_keci.wav'),
+  h_inek: require('../../assets/ses/konumsal/h_inek.wav'),
+  h_ari: require('../../assets/ses/konumsal/h_ari.wav'),
+  h_kus: require('../../assets/ses/konumsal/h_kus.wav'),
+  h_surungen: require('../../assets/ses/konumsal/h_surungen.wav'),
+  h_tavsan: require('../../assets/ses/konumsal/h_tavsan.wav'),
+  h_kedi: require('../../assets/ses/konumsal/h_kedi.wav'),
+  h_kopek: require('../../assets/ses/konumsal/h_kopek.wav'),
+  h_kaplumbaga: require('../../assets/ses/konumsal/h_kaplumbaga.wav'),
+  h_kazici: require('../../assets/ses/konumsal/h_kazici.wav'),
+  h_tilki: require('../../assets/ses/konumsal/h_tilki.wav'),
+  h_efsane: require('../../assets/ses/konumsal/h_efsane.wav'),
 };
 
 // Eylem sesleri: gorev1.js'teki ses adlarını çalınacak efekte çevirir
@@ -382,6 +398,29 @@ export default function Yuzey({ onGeri, baslangic, yeniOyunUret }) {
       if (!calanlar.current[id] && yuklu.current[id.indexOf('ys_') === 0 ? 'y_' + id.split('_')[1] : 'kamp_atesi']) {
         calanlar.current[id] = true;
         istenen[id]();
+      }
+  };
+
+  // 4.5: barınaktaki hayvanlar kendi bölmelerinden, ara ara (v5 Paket 14 bölüm 5); mırıl-kedi kamarada ya da hamamda
+  const hayvanSesleri = (d, s) => {
+    const istenen = {};
+    const h = d.hayvan;
+    if (h && d.mekan === 'barinak')
+      h.barinak.forEach((x, i) => {
+        const t = HV_HAYVANLAR[x.tur];
+        const kid = 'hv_' + x.no;
+        const yer = { x: 5003 + (i % 5) * 6, y: 4 + Math.floor(i / 5) * 4 };
+        istenen[kid] = { dosya: 'h_' + t.ses, f: () => s.dosyaKaynak(kid, 'h_' + t.ses, yer, 8000 + (i % 7) * 900) };
+      });
+    if (h && h.kedi && h.barinak.some((x) => HV_HAYVANLAR[x.tur].rol === 'kedi')) {
+      const n = h.kedi.yer === 'kamara' && d.mekan === 'kamara' ? NOKTALAR.kamara_yatak : h.kedi.yer === 'hamam' && d.mekan === 'hamam' ? NOKTALAR.yb_hamam : null;
+      if (n) istenen.hv_kedi = { dosya: 'h_kedi', f: () => s.dosyaKaynak('hv_kedi', 'h_kedi', n, 12000) };
+    }
+    for (const id of Object.keys(calanlar.current)) if (id.indexOf('hv_') === 0 && !istenen[id]) kaynakKapat(id);
+    for (const id of Object.keys(istenen))
+      if (!calanlar.current[id] && yuklu.current[istenen[id].dosya]) {
+        calanlar.current[id] = true;
+        istenen[id].f();
       }
   };
 
@@ -541,6 +580,7 @@ export default function Yuzey({ onGeri, baslangic, yeniOyunUret }) {
     });
     yerlesimSesleri(d, s);
     sahaSesleri(d, s);
+    hayvanSesleri(d, s);
     if (ortamDa && !(terminalAcik.current && durakli.current)) {
       s.boguk(d.mekan === 'kapsul' || !!d.gemide);
       const oda = odaSu(d);
@@ -863,6 +903,7 @@ export default function Yuzey({ onGeri, baslangic, yeniOyunUret }) {
             const r = eylemUygula(d, id, e.id);
             kaydet();
             if (r.ses) cal(EYLEM_SESI[r.ses] || r.ses, 0.9);
+            if (r.notalar && r.notalar.length && m()) r.notalar.forEach((f, k) => setTimeout(() => m() && m().nota(f, null, 0.5, 1.4), 300 + k * 420));
             if (r.nota != null && m()) m().nota(NOTALAR[r.nota].frek, NOKTALAR[id], 0.9, 4);
             // 4.3: kazma, balta vuruşu titreşir; olta atılınca balıkçılık katmanı açılır
             if (r.titresim) Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Medium).catch(() => {});
@@ -992,6 +1033,8 @@ export default function Yuzey({ onGeri, baslangic, yeniOyunUret }) {
           }
           if (r.ses) cal(EYLEM_SESI[r.ses] || r.ses, 0.8);
           if (r.efekt) setTimeout(() => cal(r.efekt, 0.8), 400);
+          // 4.5: beste ve kozmik müzik kutusu: yıldız notaları sırayla
+          if (r.notalar && r.notalar.length && m()) r.notalar.forEach((f, j) => setTimeout(() => m() && m().nota(f, null, 0.5, 1.4), 300 + j * 420));
           // 4.2: festival başladı: altı yıldızın çan akoru, dış mekânın ortamı festival müziğine döner
           if (r.festival) {
             if (m()) NOBETLER.forEach((n, j) => setTimeout(() => m() && m().nota(n.akor[0], null, 0.5, 6), j * 260));
@@ -1676,6 +1719,14 @@ export default function Yuzey({ onGeri, baslangic, yeniOyunUret }) {
     // 4.2: Orin'in kargo gemisi iner (liman kornası ve iniş motoru); festival biter (dış ortam eski sesine döner)
     if (olaylar.some((x) => x.tur === 'orin')) cal('orin_inis', 0.85);
     if (olaylar.some((x) => x.tur === 'festivalBitti')) sesleriEsitle(true);
+    // 4.5: kuluçka makinesinde çatlama sesi ve yeni tür (v5 Paket 14 bölüm 5)
+    const ct = olaylar.find((x) => x.tur === 'catlama');
+    if (ct) {
+      cal('el_catlama', 0.9);
+      Haptics.notificationAsync(Haptics.NotificationFeedbackType.Success).catch(() => {});
+      setTimeout(() => soyle(ct.metin, 'istek', true), 1600);
+      setTimeout(() => sesleriEsitle(false), 400);
+    }
     if (olaylar.some((x) => x.hazir)) cal('tarim_hazir', 0.8);
     if (olaylar.some((x) => x.melez)) cal('tarim_melez', 0.8);
     // Yerel operasyonlar: acil uyarılar hemen söylenir, yeni operasyon telsiz çağrısıdır

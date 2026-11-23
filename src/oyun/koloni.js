@@ -186,6 +186,8 @@ export function koloniGirdisi(d, tesis, t) {
   if ((tesis === 'dokumhane' || tesis === 'tersane') && etkiVar(d, 'dokumIndirim')) c *= 0.85;
   // Forges'in Çelik Damar testi: zırh ve gemi gövdesi malzemesi (plaka, zırhlı plaka, gövde zırhı) yüzde on ucuz
   if (d.bayrak.ak_forges && tesis === 'dokumhane' && t.cikti && Object.keys(t.cikti).some((k) => /plaka|govde|alasim/.test(k))) for (const k of Object.keys(g)) g[k] = Math.max(1, Math.ceil(g[k] * 0.9));
+  // 4.5: Koloni Arşivi fosil seti — araç hangarı ve tersanelerde zırh geliştirme yüzde on beş ucuz (v5 Paket 3B 3.1)
+  if (d.bayrak.arsiv_fosil && ['arac_hangari', 'tersane', 'tersane_2', 'tersane_3', 'askeri_tersane'].includes(tesis) && t.cikti && Object.keys(t.cikti).some((k) => /zirh|kabuk/.test(k))) for (const k of Object.keys(g)) g[k] = Math.max(1, Math.ceil(g[k] * 0.85));
   if (c < 1) for (const k of Object.keys(g)) if (['titanyum', 'bazalt', 'sasi_celigi', 'agir_metal', 'kizilkaya_titanyumu', 'oksit_celik'].includes(k) || tesis === 'arac_hangari') g[k] = Math.max(1, Math.ceil(g[k] * c));
   return g;
 }
@@ -199,7 +201,7 @@ export function uretimBaslat(d, tesis, tarifId) {
   if (!yeterMi(d, girdi)) return { metin: 'Girdi yetmiyor: ' + girdiMetni(girdi) + '.', ses: 'red' };
   harca(d, girdi);
   // Vaelin topluluğu tokken metandan gaz yakıtı yüzde elli hızlı (tarim-ve-kseno-botanik bölüm 6)
-  const kalan = t.sure / uretimHizi(d) / yildizCarpani(d, 'uretim') / (t.girdi.metan && d.tarim && d.tarim.besli.vaelin ? 1.5 : 1) / rolCarpani(d, tesis) / (tesis === 'dokumhane' ? mevsimCarpani(d, 'dokum') : 1) / (d.bayrak.yk_tina_10 ? 1.1 : 1) / etkiCarpani(d, 'uretim'); // evrensel bina rolü: topluluk ve nöbet
+  const kalan = t.sure / uretimHizi(d) / yildizCarpani(d, 'uretim') / (t.girdi.metan && d.tarim && d.tarim.besli.vaelin ? 1.5 : 1) / rolCarpani(d, tesis) / (tesis === 'dokumhane' ? mevsimCarpani(d, 'dokum') : 1) / (d.bayrak.yk_tina_10 ? 1.1 : 1) / etkiCarpani(d, 'uretim') / (tesis === 'dokumhane' && d.bayrak.arsiv_kristal ? 1.2 : 1); // 4.5 arşiv kristal seti // evrensel bina rolü: topluluk ve nöbet
   d.koloni.uretimler.push({ tesis, tarif: t.id, kalan });
   return { metin: t.ad + ': iş başladı. Yaklaşık ' + Math.ceil(kalan) + ' saniye.', ses: 'dugme' };
 }

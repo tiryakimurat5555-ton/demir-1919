@@ -332,7 +332,10 @@ export function hediyeVer(d, id, k) {
   // Dünya Işığı festivalinin çekilişi (v5 3A): talihlinin bir sonraki sevdiği hediyesi iki kat
   const cekilis = tur === 'sever' && r.cekilis;
   if (cekilis) r.cekilis = false;
-  const carpan = tur === 'sever' && (ozelGunMu(d, id) || cekilis) ? 2 : 1;
+  // 4.5: aşçılık ritminden altın kalite yemek (v5 Paket 3B hobi 3): sıradaki yemek hediyesi iki kat
+  const altin = tur !== 'sevmez' && yiyecekMi(k) && (d.yer.altinHediye || 0) > 0;
+  if (altin) d.yer.altinHediye -= 1;
+  const carpan = (tur === 'sever' && (ozelGunMu(d, id) || cekilis)) || altin ? 2 : 1;
   const sonuc = puanEkle(d, id, PUAN[tur] * carpan);
   const soz = tur === 'sever' ? y.imza.tesekkur : tur === 'sevmez' ? y.imza.kizgin : 'Teşekkürler Kaptan, işime yarar.';
   const metin = y.kisa + ': "' + soz + '" ' + (carpan > 1 ? 'Özel bir günde sevdiği hediye: iki kat sevindi. ' : '') + 'İlişki ' + (sonuc.kazanc >= 0 ? sonuc.kazanc + ' puan arttı.' : -sonuc.kazanc + ' puan azaldı.') + (sonuc.metin ? ' ' + sonuc.metin : '');
@@ -664,7 +667,7 @@ export function dekorKoy(d, k) {
 }
 // Uykudan uyanınca: moral (dekor başına ek; Veysel K10 iki kat), mürettebatın stresi sıfırlanır
 export function uyandin(d) {
-  const ek = 3 + 2 * d.yer.dekorlar.length;
+  const ek = 3 + 2 * d.yer.dekorlar.length + (d.bayrak.kamaraTuy ? 2 : 0); // 4.5: kaz tüyü yastık
   const moral = ek * (d.bayrak.yk_veysel_10 ? 2 : 1);
   d.koloni.moral = Math.min(100, d.koloni.moral + moral);
   for (const u of d.murettebat || []) u.stres = 0;

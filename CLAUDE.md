@@ -796,7 +796,36 @@ Demir 1919 oyunu silindi; geçmişi git kaydında (son sürüm 1.06, commit 556f
   - Yuzey: menüde "Koloni çantası" (Envanter'in altında). Sesler ElevenLabs (9 × 17; araclar/oturumlar-4.4.txt):
     assets/ses/el_tz_firin/ocak/marangoz/ors/dokuma/tutsu/can/lab/yazi.wav (en çok 3,5 sn, I=-18, 22 kHz tek kanal).
   - testler/imalat.test.js (17).
-- Sıradaki (v5, sırayla): 4.5 Paket 3B arşiv ve hobiler + Paket 14/15 hayvanlar; 4.6 Paket 4
+- SÜRÜM 4.5 (23 Kasım, Murat: "Devam"): Paket 3B + Paket 14 + Paket 15. Telefonda denenmedi.
+  - hayvan/veri.js (bağımlılıksız): GENLER 8, HAYVANLAR 50 (no, koken, nadir yaygin|nadir|mutasyon|efsanevi, genler, modul,
+    urun {k: adet; <1 ihtimal}, ses ailesi, rol, esele, ayaz), MODULLER 5 (bedel), BARINAK [6, 12, 20], YEMLER, ILACLAR, DONUM.
+  - hayvan/harita.js (veri): H_MEKANLAR barinak (5000-5030), jeotermal_gol (4800-4840, saha 'gol'), arsiv (5100-5120);
+    H_KAPILAR barinak_kapi (vadi -40,-16; bayrak.barinak), gol_yolu (vadi 20,-43; jeotermal_santral + sektor_guney), arsiv_kapi
+    (okulun doğu duvarı); H_NOKTALAR bakim_panosu, kulucka_odasi, gol_iskelesi (balik jeotermal_gol), arsiv_vitrinleri.
+  - hayvan/hayvan.js: HAYVAN_ESYALARI (gen_<8>, donmus_yumurta, ürünler, peynir, sutlu_cay, kahvalti, kseno_guvec,
+    festival_kiyafeti; ZN.ESYA + GUNLUK), d.hayvan {kesif, barinak [{no, tur, durum}], moduller, kademe, kulucka, bekleyen,
+    yoldas, kedi, donum}; barinakKur/Yukselt, modulKur (plan: tür keşfedilince), kuluckaBaslat/yumurtaKulucka (GUN_SN; Kaya
+    Bıldırcını yarı), sonucSec (60/30/10, mutasyonun dörtte biri efsanevi; keşfedilmemiş %75), catla (olay 'catlama'), gunBasi
+    (mutlu + modül → ürün; ayaz ağıl; eşeleme; kuğu/anka moral; acıkma %35, hastalık %10), bakim (yem/ilac/sev), kediSev/
+    kediTasi, yoldasYap, sat, hayvanIlerle (gorevler.zamanIlerle; horoz nöbet 0, akşam kuşları nöbet 4, festival tavus/hindi),
+    bayraklar (hayvan_yonca, hayvan_guve, hayvan_alarm), menüler. Kancalar PZ.ULASIM_EKLERI (üreten hayvan), PZ.ORIN_STOK_EKLERI.
+  - hobi/hobi.js: SETLER 4 (parça harca | kosul), bagisla (bayrak arsiv_<set>, arsiv_hepsi), kozmikDinle (notalar), OPERASYONLAR
+    hb_asci (bosluk n 3; operasyon.js s.hata) + SAHNELER hb_asci_son, asciBaslat (IM.TARIF_EKLERI aşhanede "Ritimle pişir"),
+    besteMenu/besteKaydet (YILDIZ_NOTALARI = NOBETLER akor[0], 8 vuruş, en çok 6 beste), festivaldeCal, zar (3 zar, 3 tur,
+    tekrar ≤2, üçü aynı ×2, bahis 50/100/200, günde 3), IM.TEZGAH_EKLERI (gözlem beste, taverna zar), ekEylemler (kamara_raf
+    kozmik, kamara_yatak/festival_alani besteler).
+  - Etkiler: koloni.js arsiv_fosil zırh ×0,85, arsiv_kristal dökümhane ×1,2; karakter.js mekikBedeli (arsiv_kayit yarı); pazar.js
+    indirim arsiv_hepsi +0,15; tarim.js hayvan_yonca ×1,05, hayvan_guve kristal çiçek/ışık otu ×1,15; komuta.js baskın süresi
+    hayvan_alarm ×1,5; saha.js köpek yoldaş uyarı (kat ≤ 10) ve kıyıda gelis 'sizma'; yerlesim.js uyandin kamaraTuy +2, hediye
+    altinHediye ×2. tezgah.js: TARIF_EKLERI, TEZGAH_EKLERI, yeni tarifler (peynir, sutlu_cay, kahvalti, kseno_guvec, aether_surubu,
+    festival_kiyafeti), hayvan kilidi bayrak.barinak ile açılır, kullan 'tuy'. saha/veri.js kseno_eti, BALIK jeotermal_gol.
+  - Yuzey: hayvanSesleri (barınakta h_<aile> dosyaKaynak; kedi kamarada/hamamda), olay catlama (el_catlama + titreşim + söz),
+    agacGoster ve noktaGoster r.notalar (yıldız notaları sırayla).
+  - Sesler ElevenLabs (22 × 17; araclar/oturumlar-4.5.txt): konumsal/h_tavuk/su_kusu/keci/inek/ari/kus/surungen/tavsan/kedi/kopek/
+    kaplumbaga/kazici/tilki/efsane.wav (24 kHz tek kanal I=-20), hayvan/el_hayvan_ac/mutlu/hasta, el_catlama, el_zar (I=-18),
+    hayvan/ortam_barinak/gol/arsiv.mp3 (araclar/dongu.py, 2,5 sn çapraz geçiş, I=-24).
+  - testler/hayvan.test.js (15).
+- Sıradaki (v5, sırayla): 4.6 Paket 4
   aile; 4.7 Paket 7 görev mimarisi + Paket 16. KAPSAM.md bölüm 62.
 
 ## Sesler

@@ -36,7 +36,7 @@ function avSec(d) {
   const s = hazirla(d);
   const n = BALIK_NOKTALARI[d.olta.nokta];
   // Nadir olanlar: Sira-Vel K6 +%25, usta olta batık fosil ve gümüşü iki kat
-  const nadirler = ['gol_baligi', 'hamam_minerali', 'nadir'];
+  const nadirler = ['gol_baligi', 'hamam_minerali', 'nadir', 'kseno_eti'];
   const agirlik = n.av.map(([k, p]) => [k, p * (nadirler.includes(k) ? (kademeOf(d, 'siravel') >= 6 ? 1.25 : 1) * (k === 'nadir' && s.alet.olta >= 3 ? 2 : 1) : 1)]);
   const top = agirlik.reduce((a, x) => a + x[1], 0);
   let r = zar(d) * top;

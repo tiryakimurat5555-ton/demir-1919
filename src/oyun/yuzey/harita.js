@@ -550,3 +550,8 @@ import { S_MEKANLAR, S_KAPILAR, S_NOKTALAR } from '../saha/harita';
 Object.assign(MEKANLAR, S_MEKANLAR);
 Object.assign(KAPILAR, S_KAPILAR);
 Object.assign(NOKTALAR, S_NOKTALAR);
+// 4.5 (v5 Paket 3B, 14, 15): Hayvan Barınağı, Jeotermal Göl Kıyısı, Koloni Arşivi Salonu
+import { H_MEKANLAR, H_KAPILAR, H_NOKTALAR } from '../hayvan/harita';
+Object.assign(MEKANLAR, H_MEKANLAR);
+Object.assign(KAPILAR, H_KAPILAR);
+Object.assign(NOKTALAR, H_NOKTALAR);

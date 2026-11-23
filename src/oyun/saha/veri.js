@@ -25,6 +25,7 @@ export const SAHA_HAMMADDELERI = {
   yilan_baligi: { ad: 'termal yılan balığı', tarif: 'Sıcak akıntılarda yaşar. Yüksek enerjili sefer güveci, şifa yağı.' },
   yengec: { ad: 'kristal kabuklu yengeç', tarif: 'Kayalık koyun canlısı. Festival ziyafeti; kabuğu seramik sırrı.' },
   gol_baligi: { ad: 'küçük göl balığı', tarif: 'Rengârenk minik balık; akvaryumda yaşar.' },
+  kseno_eti: { ad: 'kseno-et', tarif: 'Jeotermal gölün sıcak sularında yaşayan iri bir kseno-canlının eti; aşhanede yüksek moralli yemeklere girer.' }, // 4.5
   hamam_minerali: { ad: 'şifa ve hamam minerali', tarif: 'Termal akıntının dibinden. Hamam tuzu, şifa yağı.' },
   batik_gumus: { ad: 'batık gümüş parçası', tarif: 'Kayalık koyun dibinden; eski bir gemiden mi?' },
 };
@@ -108,6 +109,7 @@ export const KIYI_DUGUMLERI = {
 export const BALIK_NOKTALARI = {
   sig_kiyi: { ad: 'sığ göl kıyısı', av: [['sazan', 0.75], ['hurda', 0.15], ['gol_baligi', 0.1]] },
   termal: { ad: 'sıcak termal akıntı', av: [['yilan_baligi', 0.5], ['sazan', 0.35], ['hamam_minerali', 0.15]] },
+  jeotermal_gol: { ad: 'jeotermal göl', av: [['gol_baligi', 0.4], ['sazan', 0.25], ['yilan_baligi', 0.2], ['kseno_eti', 0.15]] }, // 4.5 (Paket 3B hobi 1)
   kayalik: { ad: 'kayalık koy ve açık iskele', av: [['yengec', 0.45], ['yilan_baligi', 0.3], ['deniz_tuzu', 0.15], ['nadir', 0.1]] },
 };
 // Olta kademeleri (4.3): ısırma penceresi sn, gerginlik çarpanı

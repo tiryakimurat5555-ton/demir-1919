@@ -411,8 +411,11 @@ export function carpanlar(d, hafta) {
 }
 function indirim(d) {
   const k = itibarKademesi(d);
-  return k >= 3 ? 0.25 : k === 2 ? 0.15 : k === 1 ? 0.1 : 0;
+  // 4.5: Koloni Arşivi'nin dört seti tamamlanınca pazar bonusu yüzde on beş (v5 Paket 3B 3)
+  return Math.min(0.4, (k >= 3 ? 0.25 : k === 2 ? 0.15 : k === 1 ? 0.1 : 0) + (d.bayrak && d.bayrak.arsiv_hepsi ? 0.15 : 0));
 }
+// 4.5: hayvan ve arşiv modülleri Orin'in stoğuna mal ekler (döngüsel içe aktarma olmasın)
+export const ORIN_STOK_EKLERI = [];
 function orinStokUret(d, h) {
   const st = [];
   const tohumlar = Object.keys(BITKILER).filter((b) => !HIBRITLER.some((x) => x.id === b) && !BITKILER[b].gorev);
@@ -443,6 +446,7 @@ function orinStokUret(d, h) {
     if (r01(d, h * 11 + 5) < 0.4) st.push({ id: 'malazar_asasi', ad: 'Malazar Asası', esya: 'malazar_asasi', gk: 400, kupon: 3, adet: 1 });
     else st.push({ id: 'malazar_kristali', ad: 'Malazar Büyü Kristali', esya: 'malazar_kristali', gk: 250, kupon: 2, adet: 1 });
   }
+  for (const f of ORIN_STOK_EKLERI) st.push(...f(d, h, (k) => r01(d, k)));
   return st;
 }
 function orinTakasUret(d, h) {
