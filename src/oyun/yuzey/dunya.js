@@ -13,7 +13,7 @@ import * as SB from '../tonoflenya/subay';
 import { misafir } from '../tonoflenya/kisiler';
 
 // Arındırılmış (güvenli) bölgede tehlikeler kalkar (arindirma.js)
-const TEHLIKELER = ['zehirli', 'soguk', 'statik', 'magma', 'yarasa', 'firtinali'];
+export const TEHLIKELER = ['zehirli', 'soguk', 'statik', 'magma', 'yarasa', 'firtinali'];
 export function tehlikeMekani(d) {
   const mk = MEKANLAR[d.mekan];
   if (!mk) return mk;

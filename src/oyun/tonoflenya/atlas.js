@@ -4,16 +4,16 @@
 //   krallıkları), batı (Loran, Julithan, Anitor, Filtra, Safran), doğu (Zorah'ın beş katmanı, Hardrin, Kahergonat),
 //   güney (Fleeplee, Tentran, Fenrir, Arin, Veradon, güney iç krallıkları). Her bölge bir ya da birkaç mekân.
 //   Uzak yolculuk "Tonoflenya haritası"ndan (final-gorevleri 1.2: makro harita → bölge): ROTALAR atlasın 7.2 tablosu
-//   ve 7.3 büyük çemberi; süre oyun günü (7200 sn) olarak Yıldız Zamanı'nı ileri sarar, her ayağın tehlikesi işler.
+//   ve 7.3 büyük çemberi; süre oyun günü (zaman.js GUN_SN) olarak Yıldız Zamanı'nı ileri sarar, her ayağın tehlikesi işler.
 //   Kahergonat Yolu yalnız Mavi Akşam (Sinha) nöbetinde açıktır (4.2: "belirli yıldız hizalanmalarında").
 //   Şehir içi ışınlanma istasyonları (2.4): Merkez İstasyon (yetkili araştırmacılar: Kara Göl izni), Fenrir Kapısı,
 //   Zorah Kapıları.
 //   Bayraklar: d.bayrak.zerisIzni (Zeris'in üst katları), d.tBolge (son bölge; bilgi).
-import { nobet, kalanSn } from '../zaman';
+import { nobet, kalanSn, NOBET_SN, GUN_SN } from '../zaman';
 import * as SB from './subay';
 import * as BL from './gecitler';
 
-export const GUN = 7200; // bir oyun günü (altı nöbet)
+export const GUN = GUN_SN; // bir oyun günü (altı nöbet)
 const dis = (ad, tarif, bati, ortam, ek = {}) => ({ ad, tarif, alan: { bati, dogu: bati + 60, guney: 0, kuzey: 60 }, ortam, zemin: 'tas', dis: true, tonoflenya: true, ...ek });
 const X = (i) => 10000 + i * 100;
 
@@ -418,7 +418,7 @@ export function eylemUygula(d, id, eid) {
     return { metin: 'Teraslardan gökyüzü tek bir ses gibi duyuluyor: altı yıldızın hizalanması ve aralarında incecik çatlaklar. Gözlemci fısıldıyor: "En büyük yırtık komşu gezegenin üstünde, Kaptan." Kodekse işlendi.', ses: 'sinyal' };
   }
   if (eid === 'topla') {
-    const g = Math.floor(((d.zaman && d.zaman.sn) || 0) / 1200);
+    const g = Math.floor(((d.zaman && d.zaman.sn) || 0) / NOBET_SN);
     if (d.bayrak.t_iskele === g) return { metin: 'Bu nöbetin tozu toplandı.', ses: 'red' };
     d.bayrak.t_iskele = g;
     d.koloni.kaynaklar.foton_recinesi = (d.koloni.kaynaklar.foton_recinesi || 0) + 1;

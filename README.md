@@ -6,6 +6,13 @@ tesis kurar, ileride gemini parça parça inşa edip uzaya açılırsın.
 
 Yapımcı: Bahtiyar Cankurt (tasarım belgeleri belgeler/ içinde). Expo Go ile iPhone ve Android'de çalışır.
 
+## Bu sürümde (3.16)
+- Oyun günü kısaldı: altı nöbet × 10 dakika (gün 1 saat). Yolculuk, sıçrama ve şarj süreleri de yarıya indi.
+- Menüde "Dinlen ve bekle": her yerden (yüzey, Tonoflenya, kızaktaki gemi; tehlikeli bölge ve açık uzay hariç) bir sonraki
+  nöbete ya da seçilen nöbete kadar zaman ilerler. Baskın, çatışma, sahne ya da telsiz çağrısı gelirse dinlenme kesilir.
+- Zaman ileri sarılırken (yolculuk, şarj, dinlenme) yerel operasyonlar donar; süresi dolan baskınlara eldeki kalkan,
+  ikmal karakolu ya da yedek gemi kendiliğinden atanır. Dönüşte "Yokluğunda" özeti telsizden okunur.
+
 ## Bu sürümde (3.15)
 - Savaş eğitimi artık menüde ayrı bir başlık: kara eğitimi baştan, uzay eğitimi ilk geminle açılır. Bir ortamın eğitimi
   tamamlanmadan o ortamdaki çatışmalara girilemez (bekleyen çatışma eğitimi bekler); savaştan önce kendiliğinden açılmaz.

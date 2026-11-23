@@ -53,6 +53,7 @@ import { TESISLER } from '../oyun/veri/tesisler';
 import { harcanabilir, yetenekAc, yetenekListesi } from '../oyun/veri/yetenek';
 import { fenerBirak, cevreMetni, durumMetni, esyaMetni, etkiles, firtinaIlerle, maruziyetAdi, ilerle, kisiAdi, otoBaslat, radar, yerlerListesi, zehirIlerle } from '../oyun/yuzey/dunya';
 import {
+  dinlenMenu,
   terraformListesi,
   terraformTeslim,
   savasGirdi,
@@ -836,6 +837,11 @@ export default function Yuzey({ onGeri, baslangic, yeniOyunUret }) {
           }
           const r = (o.yap && o.yap(dunya.current)) || {};
           kaydet();
+          // 3.16: dinlenme bir çatışma ya da operasyon başlatarak kesildiyse menü kapanınca açılır
+          if (r.arayuz && r.arayuz.length) {
+            const ay = r.arayuz;
+            setTimeout(() => koloniOlaylari(ay), 400);
+          }
           if (r.ses) cal(EYLEM_SESI[r.ses] || r.ses, 0.8);
           if (r.efekt) setTimeout(() => cal(r.efekt, 0.8), 400);
           if (dunya.current.sahne) {
@@ -1077,6 +1083,7 @@ export default function Yuzey({ onGeri, baslangic, yeniOyunUret }) {
             ]
           : []),
         { id: 'zaman', etiket: 'Yıldız Zamanı', ipucu: 'Gün ve nöbet. Yürürken ekranın sağ üst köşesine çift dokun.', sec: () => (soyle(zamanMetni(dunya.current, zamanNotu(dunya.current)), 'istek', true), 'sessiz') },
+        { id: 'dinlen', etiket: 'Dinlen ve bekle', ipucu: 'Bir sonraki nöbete ya da seçtiğin nöbete kadar zamanı ilerletir; her yerde, güvenli olduğun sürece.', sec: () => (agacGoster((x) => dinlenMenu(x), () => menuyuAc()), 'sessiz') },
         ...(dunya.current.bayrak.tonoflenyaGoruldu || (dunya.current.kronik || []).length ? [{ id: 'kronik', etiket: 'Tonoflenya kronikleri', ipucu: 'Kadim tarihçenin bulduğun bölümleri ve çağlar.', sec: () => (kronikGoster(), 'sessiz') }] : []),
         { id: 'kodeks', etiket: 'Evren Kütüphanesi', ipucu: 'Kodeks: buluntular, gözlemler, itibar kademesi.', sec: () => (kodeksGoster(), 'sessiz') },
         { id: 'telsiz', etiket: 'Telsiz kayıtları', ipucu: 'Dinlediğin ve ertelediğin telsiz çağrıları.', sec: () => (telsizGoster(), 'sessiz') },

@@ -1,5 +1,6 @@
 // Eşya, zanaat ve mürettebat (2.4): subaylar, istasyonlar, envanter, zanaat, ticaret, kargo, ekol kıdemi,
 // savaşta subay yetenekleri ve teçhizat, rastgele seyir karşılaşmaları
+import { NOBET_SN as ZN_NOBET, GUN_SN as ZN_GUN, SAAT_SN as ZN_SAAT } from '../src/oyun/zaman';
 import { describe, expect, test } from 'bun:test';
 import { yeniOyun } from '../src/oyun/durum';
 import { MEKANLAR, NOKTALAR } from '../src/oyun/yuzey/harita';
@@ -156,7 +157,7 @@ describe('Eşya, zanaat ve mürettebat', () => {
     d.esya.tentran_modulatoru = 1;
     ZN.kusan(d, 'tentran_modulatoru');
     ZN.sarjBaslat(d);
-    expect(ZN.sarjKalan(d)).toBe(7200);
+    expect(ZN.sarjKalan(d)).toBe(ZN_GUN);
   });
 
   test('ekol kıdemi: kademe atlayınca kabiliyet açılır, haber düşer; türetilen puanlar', () => {

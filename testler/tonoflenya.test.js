@@ -1,4 +1,5 @@
 // Tonoflenya ve Malken medeniyeti (2.1): YGK frekansı, hiper-sıçrama, harita, asansör, izinler, dönüş
+import { NOBET_SN as ZN_NOBET, GUN_SN as ZN_GUN, SAAT_SN as ZN_SAAT } from '../src/oyun/zaman';
 import { describe, expect, test } from 'bun:test';
 import { yeniOyun } from '../src/oyun/durum';
 import { MEKANLAR, KAPILAR, NOKTALAR } from '../src/oyun/yuzey/harita';
@@ -68,7 +69,7 @@ describe('Tonoflenya', () => {
     expect(r.tonoflenya).toBe(true);
     expect(d.mekan).toBe('ygk_5');
     expect(d.sahne).toBe('tonoflenya_varis');
-    expect(d.zaman.sn - once).toBeGreaterThanOrEqual(8 * 300);
+    expect(d.zaman.sn - once).toBeGreaterThanOrEqual(8 * ZN_SAAT);
     expect(d.kodeks.some((k) => k.id === 'hekzat')).toBe(true);
     // Sıçrama motoru iki gün şarj olur; iskelede beklenir
     const red = eylemUygula(d, 'ygk_iskelesi', 'donus');
@@ -185,7 +186,7 @@ describe('Coğrafi atlas', () => {
     d.mekan = 'halka_zhaor';
     d.zaman = { sn: 0 };
     const r = seyahat(d, 'julithan');
-    expect(r.sn).toBeGreaterThanOrEqual(5.5 * 7200);
+    expect(r.sn).toBeGreaterThanOrEqual(5.5 * ZN_GUN);
     expect(d.mekan).toBe('julithan');
     expect(d.sahne.indexOf('seyahat_')).toBe(0);
     d.mekan = 'hardrin';

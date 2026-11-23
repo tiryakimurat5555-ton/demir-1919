@@ -874,6 +874,11 @@ bütün bölümlerini sırayla sayar (21 Kasım: v3 paketiyle sekiz belge daha g
       saldırısı ve bizzat savunma reddedilir (otomatik savunma serbest), uzayda rastgele korsan çıkmaz. Yinelenebilir.
       [~] Telefonda denenmedi; adımların okunma hızı ve uyarı süresi Bahtiyar'ın denemesine göre ayarlanabilir.
 
+## 61. Gün uzunluğu ve dinlenme (3.16, Murat; analiz 23 Kasım): nöbet 20 → 10 dakika (zaman.js NOBET_SN 600, GUN_SN,
+      SAAT_SN; atlas/malken/zanaat/yan/mini'deki sabit 7200/1200/300 bunlara bağlandı). Evrensel zaman sarma
+      (gorevler.zamanSar) ve "Dinlen ve bekle" menüsü; sarmada mini donar, baskına otomatik savunma, özet haberi.
+- [x] testler/zaman.test.js. [~] Telefonda denenmedi; yönergedeki "20 dakikalık nöbet" ölçeğinden Murat'ın kararıyla sapıldı.
+
 ## Sıradaki adımlar (sırayla)
 0. Tonoflenya genişlemesi, yönergedeki sırayla: [2.1: Malken (12); 2.2: tarihçe (13); 2.3: atlas (14); 2.4: eşya,
    zanaat, mürettebat (15), Ekol Kıdemi ve rastgele karşılaşmalar; 2.5: yirmi final görevi (16); 2.6: otuz yan görev

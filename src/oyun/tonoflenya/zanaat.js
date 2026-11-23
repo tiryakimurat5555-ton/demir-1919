@@ -13,9 +13,10 @@ import { OPERASYONLAR } from '../veri/uzayGorevleri';
 import { BITKILER } from '../tarim/bitkiler';
 import { Z_NOKTALAR } from './zanaatHarita';
 import * as SB from './subay';
+import { NOBET_SN, GUN_SN, SAAT_SN } from '../zaman';
 import { DEGER } from '../veri/deger';
 import { evrenEtki, misafir } from './kisiler';
-const SICRAMA_SN = 8 * 300; // malken.js ile aynı: sekiz oyun saati (döngüsel içe aktarma olmasın diye)
+const SICRAMA_SN = 8 * SAAT_SN; // malken.js ile aynı: sekiz oyun saati (döngüsel içe aktarma olmasın diye)
 
 // Pyros-7 ve Glies-9b operasyonlarının ganimetine özütler eklenir (bölüm 2.3, 3.4)
 if (OPERASYONLAR.g17) OPERASYONLAR.g17.odul.kaynak = { ...OPERASYONLAR.g17.odul.kaynak, lav_orkidesi: 3 };
@@ -290,7 +291,7 @@ export function zanaatEt(d, id) {
     if (!d.zanaatKuyrugu) d.zanaatKuyrugu = [];
     const sn = (d.zaman && d.zaman.sn) || 0;
     const usta = !!(t.gozetmen && d.gozetmen && d.gozetmen[t.gozetmen]);
-    d.zanaatKuyrugu.push({ id, n, bitis: sn + t.nobet * 1200 * (d.bayrak.yan_melezHiz ? 0.9 : 1), usta }); // yan görev 3: melez süresi yüzde on kısa
+    d.zanaatKuyrugu.push({ id, n, bitis: sn + t.nobet * NOBET_SN * (d.bayrak.yan_melezHiz ? 0.9 : 1), usta }); // yan görev 3: melez süresi yüzde on kısa
     return { metin: ISTASYONLAR[t.ist].ad + ': ' + adi(id) + ' tezgâhta; ' + t.nobet + ' Yıldız Nöbeti sürecek.' + (usta ? ' Gözetmen başında: usta işi olacak.' : ''), ses: ISTASYONLAR[t.ist].ses };
   }
   ekle(d, id, n);
@@ -549,14 +550,14 @@ export function kargoDenetle(d) {
 // bekler; Tentran ışınlanma modülatörü bu beklemeyi bir güne indirir (bölüm 3.3). Yakıt on litre; ambar taşarsa
 // yarısı kadar fazlası (bölüm 5.2).
 export const SICRAMA_YAKITI = 10;
-export const SARJ_SN = 2 * 7200;
+export const SARJ_SN = 2 * GUN_SN;
 export function sicramaSuresi(d) {
   return (SICRAMA_SN / (SB.kabiliyet(d, 'zhaor', 4) ? 2 : 1)) * (d.bayrak && d.bayrak.ak_caelum ? 0.8 : 1); // Caelum'un Kör Uçuş testi
 }
 export function sarjSuresi(d) {
   // Chronos-Döngü takyon teknolojisi: şarj beklemesi sıfır (döngü hızlandırıldıysa yarı)
   if (d.bayrak && d.bayrak.gz_takyon) return 0;
-  return (d.gemi && d.gemi.moduller.tentran_modulatoru ? 7200 : SARJ_SN) * (d.bayrak && d.bayrak.gz_yarimSarj ? 0.5 : 1);
+  return (d.gemi && d.gemi.moduller.tentran_modulatoru ? GUN_SN : SARJ_SN) * (d.bayrak && d.bayrak.gz_yarimSarj ? 0.5 : 1);
 }
 const simdi = (d) => (d.zaman && d.zaman.sn) || 0;
 export function sarjKalan(d) {
@@ -586,8 +587,8 @@ export function sicramaYakiti(d) {
   return SICRAMA_YAKITI * (kargo(d).asim ? 1.5 : 1);
 }
 export function sureMetni(sn) {
-  const gun = Math.floor(sn / 7200);
-  const saat = Math.round((sn % 7200) / 300);
+  const gun = Math.floor(sn / GUN_SN);
+  const saat = Math.round((sn % GUN_SN) / SAAT_SN);
   return [gun ? gun + ' gün' : '', saat ? saat + ' saat' : ''].filter(Boolean).join(' ') || 'bir an';
 }
 
@@ -749,7 +750,7 @@ function zar(d, i) {
 }
 // Limandaki iki aday her gün değişir
 export function adaylar(d, pz) {
-  const gun = Math.floor(((d.zaman && d.zaman.sn) || 0) / 7200);
+  const gun = Math.floor(((d.zaman && d.zaman.sn) || 0) / GUN_SN);
   const l = [];
   for (let i = 0; i < 2; i++) {
     const t = gun * 13 + i * 7 + pz.length * 31;
@@ -843,7 +844,7 @@ export function subayMenu(d) {
 // Revirdeki subayın biyo-kalkanı yüzeyde (bir oyun saati, günde bir kez)
 export function biyoKalkan(d) {
   const sn = (d.zaman && d.zaman.sn) || 0;
-  const gun = Math.floor(sn / 7200);
+  const gun = Math.floor(sn / GUN_SN);
   if (d.biyoKalkanGun === gun) return { metin: 'Spor kültürleri bugün tükendi; yarın yeniden.', ses: 'red' };
   d.biyoKalkanGun = gun;
   d.biyoKalkanBitis = sn + 300 * (0.5 + 0.5 * SB.guc(d, 'revir'));

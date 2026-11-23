@@ -1,11 +1,12 @@
 // Yıldız Zamanı: altı nöbetli gün döngüsü (belgeler/tonoflenya-ve-yeni-sistemler-gelistirici-yonergesi.md bölüm 4).
-// Bir oyun günü altı nöbet; her nöbet hızlandırılmış ölçekte 20 dakika. Zaman her modda akar (yüzeyde, gemide,
+// Bir oyun günü altı nöbet; her nöbet hızlandırılmış ölçekte 10 dakika (3.16'ya kadar 20; Murat: gün kısalsın). Zaman her modda akar (yüzeyde, gemide,
 // uzayda): seferden dönünce tarlalar büyümüş, atölyeler bitmiş olur. Saf JavaScript.
 //
 // d.zaman = { sn }  oyunun başından beri geçen oyun süresi. Gün 1, Gümüş Şafak nöbetinde başlar.
 
-export const NOBET_SN = 1200;
+export const NOBET_SN = 600;
 export const GUN_SN = NOBET_SN * 6;
+export const SAAT_SN = GUN_SN / 24; // bir oyun saati
 
 // akor: nöbet değişiminde çalan rezonans çanı (Hz, üç nota; konumsal motorun çan tınısı)
 export const NOBETLER = [

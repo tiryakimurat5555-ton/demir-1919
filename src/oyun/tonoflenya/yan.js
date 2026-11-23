@@ -13,7 +13,7 @@ import * as ZN from './zanaat';
 import * as SB from './subay';
 import { T_MEKANLAR } from './harita';
 import { A_MEKANLAR } from './atlas';
-import { nobet } from '../zaman';
+import { nobet, GUN_SN } from '../zaman';
 
 const A = (tur, ad, giris, bitis, ek) => ({ tur, ad, giris, bitis, ...(ek || {}) });
 const ml = (d, n) => {
@@ -302,7 +302,7 @@ export const YAN = [
     op: [A('nisan', 'Kanyonda yankı savaşı', 'Yankılanan silah sesinin asıl kaynağına dön; önündeyken çift dokun: sonik topla kaya yuvarla. Üç kez.', 'Haydutların mevzileri çöktü.', { n: 3 })],
     kararlar: [
       K('Haydut liderini düelloya çağır', 'Lideri yendin; çete dağıldı.', { kervan_loncasi: 20 }, (d) => ml(d, 1800) + ', ' + esya(d, 'haydut_tabancasi')),
-      K('Kanyonu patlatıp geçidi kapat', 'Haydutlar gömüldü; ticaret yolu bir hafta kapalı.', {}, (d) => { d.yan.nirdolKapali = ((d.zaman && d.zaman.sn) || 0) + 7 * 7200; return ml(d, 2200) + ' (yağmalanan sandıklardan), geçici ticaret kesintisi'; }),
+      K('Kanyonu patlatıp geçidi kapat', 'Haydutlar gömüldü; ticaret yolu bir hafta kapalı.', {}, (d) => { d.yan.nirdolKapali = ((d.zaman && d.zaman.sn) || 0) + 7 * GUN_SN; return ml(d, 2200) + ' (yağmalanan sandıklardan), geçici ticaret kesintisi'; }),
     ],
   },
   {
@@ -672,7 +672,7 @@ export const SAHNELER = {
 // Pasif gelirler ve süreli etkiler (gorevler.zamanIlerle)
 export function yanIlerle(d) {
   if (!d.yan) return;
-  const gun = Math.floor(((d.zaman && d.zaman.sn) || 0) / 7200);
+  const gun = Math.floor(((d.zaman && d.zaman.sn) || 0) / GUN_SN);
   if (d.yan.gun == null) d.yan.gun = gun;
   while (d.yan.gun < gun) {
     d.yan.gun += 1;

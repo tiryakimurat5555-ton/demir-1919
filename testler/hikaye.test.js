@@ -1,4 +1,5 @@
 // v4 Faz 4: hikâye motoru, kilitli dört binanın karakter hikâyeleri, yabancı firkateyn teması; yüzey bölgeleri
+import { NOBET_SN as ZN_NOBET, GUN_SN as ZN_GUN, SAAT_SN as ZN_SAAT } from '../src/oyun/zaman';
 import { describe, expect, test } from 'bun:test';
 import { yeniOyun } from '../src/oyun/durum';
 import * as G from '../src/oyun/gemi/gemi';
@@ -194,7 +195,7 @@ describe('On sekiz gezegen hikâyesi', () => {
     expect(d.bayrak.gz_takyon).toBe(true);
     expect(d.bayrak.lazer_sogutucu).toBe(true);
     // Hasat: Thalassa Sinha nöbetinde
-    d.zaman.sn = 4 * 1200;
+    d.zaman.sn = 4 * ZN_NOBET;
     const once = d.koloni.parcalar.hidro_camur || 0;
     expect(GZ.gezegenHasat(d, 'p03').ses).toBe('sinyal');
     expect(d.koloni.parcalar.hidro_camur).toBe(once + 2);

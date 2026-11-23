@@ -47,6 +47,7 @@ import '../hikayeKoloni';
 import '../tonoflenya/asama4';
 import * as GZ from '../gezegenHikayeleri';
 import { MEKANLAR } from './harita';
+import { tehlikeMekani, TEHLIKELER } from './dunya';
 
 export const { ESYALAR, HAREKET_KISA, ayarBaslat, ayarDegis, ayarIlerle, ayarMetni, ayarYakinlik, koloniMetni, insaListesi } = G1;
 export const { valfBaslat, valfIlerle, valfBirak, valfMetni, ALARM_ESIGI, bacaSayisi } = G2;
@@ -471,7 +472,7 @@ export const { zamanMetni, nobet, NOBETLER } = Z;
 // Hiper-sıçrama: sekiz saat geçer; koloni, tarlalar ve atölyeler o sürede kendi başına ilerler (yönerge 4.B)
 export function sicramaZamani(d, sn = TM.SICRAMA_SN) {
   const once = d.koloni.nufus.toplam;
-  for (let t = 0; t < sn; t += 60) zamanIlerle(d, 60);
+  zamanSar(d, sn);
   d.sicramaNotu = 'Yolculuk ' + ZN.sureMetni(sn) + ' sürdü. ' + Z.zamanMetni(d) + (d.koloni.nufus.toplam > once ? ' Koloninin nüfusu ' + d.koloni.nufus.toplam + '.' : '');
 }
 export const { seferKosullari } = TM;
@@ -479,7 +480,7 @@ export const { seferKosullari } = TM;
 function beklemeyiUygula(d, r) {
   if (r && r.bekle) {
     const sn = r.bekle;
-    for (let t = 0; t < sn; t += 60) zamanIlerle(d, 60);
+    zamanSar(d, sn);
     r.metin = ZN.sureMetni(sn) + ' bekledin. Sıçrama motoru şarjlı. ' + Z.zamanMetni(d);
     r.ses = 'sinyal';
     delete r.bekle;
@@ -492,6 +493,94 @@ export { kronikListesi, caglarListesi, kronikAc, KRONIKLER } from '../tonoflenya
 export const { haritaListesi, bolgeSu, BOLGELER, KUSAKLAR, yolBul } = AT;
 export function seyahat(d, hedef) {
   const r = AT.seyahatEt(d, hedef);
-  if (r.sn) for (let t = 0; t < r.sn; t += 60) zamanIlerle(d, 60);
+  if (r.sn) zamanSar(d, r.sn);
   return r;
+}
+
+// --- 3.16 Evrensel zaman sarma ve dinlenme ---
+// Yolculuk, sıçrama, şarj beklemesi ve dinlenme hep buradan geçer: zaman 60 sn adımlarla akar, d.zamanSariliyor
+// açıkken yerel operasyonlar donar ve süresi dolan baskınlara eldeki savunma kendiliğinden atanır (komuta.js).
+// Zorunlu sarmada (yolculuk) olanlar "Yokluğunda koloni" özeti olarak telsiz haberine düşer; dinlenme kesilebilir:
+// sahne, çatışma, operasyon, yeni baskın, yerel operasyon ya da yeni hikâye çağrısı gelince durur.
+function sarmaOzeti(metinler, d, nuf0, moral0) {
+  const tek = [];
+  for (const m of metinler) if (m && !tek.includes(m)) tek.push(m);
+  const ek = [];
+  if (d.koloni.nufus.toplam !== nuf0) ek.push('nüfus ' + d.koloni.nufus.toplam);
+  const dm = Math.round(d.koloni.moral - moral0);
+  if (dm) ek.push('moral ' + (dm > 0 ? dm + ' arttı' : -dm + ' düştü'));
+  const gos = tek.slice(0, 6);
+  return (ek.length ? 'Koloni: ' + ek.join(', ') + '. ' : '') + gos.join(' ') + (tek.length > gos.length ? ' Ve ' + (tek.length - gos.length) + ' haber daha; menüde telsiz kayıtları ve koloni.' : '');
+}
+export function zamanSar(d, sn, kesilir = false) {
+  const nuf0 = d.koloni.nufus.toplam;
+  const moral0 = d.koloni.moral;
+  const baskin0 = (d.komuta && d.komuta.baskinlar && d.komuta.baskinlar.length) || 0;
+  const hikaye0 = (d.hikaye && d.hikaye.bekleyen && d.hikaye.bekleyen.length) || 0;
+  const metinler = [];
+  const arayuz = [];
+  let gecen = 0;
+  let kesen = null;
+  d.zamanSariliyor = true;
+  try {
+    while (gecen < sn) {
+      const adim = Math.min(60, sn - gecen);
+      const o = zamanIlerle(d, adim);
+      gecen += adim;
+      for (const x of o) {
+        if (x.tur === 'savas' || x.tur === 'op') arayuz.push(x);
+        if (x.tur !== 'nobet' && x.metin) metinler.push(x.metin);
+      }
+      if (!kesilir) continue;
+      if (d.savas || d.op || arayuz.length) kesen = 'Bir çatışma ya da operasyon başladı.';
+      else if (d.sahne) kesen = 'Seni bekleyen bir gelişme var.';
+      else if (((d.komuta && d.komuta.baskinlar && d.komuta.baskinlar.length) || 0) > baskin0) kesen = 'Koloni baskın altında!';
+      else if (d.mini && d.mini.aktif) kesen = 'Telsizden yerel operasyon çağrısı geldi.';
+      else if (((d.hikaye && d.hikaye.bekleyen && d.hikaye.bekleyen.length) || 0) > hikaye0) kesen = 'Telsizden yeni bir hikâye çağrısı geldi.';
+      if (kesen) break;
+    }
+  } finally {
+    d.zamanSariliyor = false;
+  }
+  const ozet = sarmaOzeti(metinler, d, nuf0, moral0);
+  if (!kesilir && ozet) SB.haber(d, 'Yokluğunda: ' + ozet);
+  return { gecen, ozet, arayuz, kesen };
+}
+// Dinlenme: oyuncunun bulunduğu yerden (yüzey, Tonoflenya, kızaktaki gemi) zamanı bir nöbetin başına sarar
+export function dinlenmeEngeli(d) {
+  if (d.savas || d.op || d.sahne) return 'Önce süren çatışma, operasyon ya da sahne bitsin.';
+  if (d.ayar || d.valf || d.rezonans || d.terazi || d.melez || d.tarla || d.vinc) return 'Elindeki işi bitir ya da bırak.';
+  if (d.uzay) return 'Açık uzayda dinlenemezsin; koloniye in ya da Tonoflenya\'ya var.';
+  if (d.mini && d.mini.aktif) return 'Yerel operasyon sürüyor; önce onu bitir.';
+  if (d.savasBekle || d.opBekle || d.egitimBekle) return 'Bekleyen bir çatışma ya da operasyon var.';
+  if ((d.zehir || 0) > 0) return 'Burada dinlenemezsin: maruziyet sürüyor. Güvenli bir yere çekil.';
+  const mk = tehlikeMekani(d);
+  if (mk && TEHLIKELER.some((t) => mk[t])) return 'Burası dinlenmek için tehlikeli. Güvenli bir yere ya da iç mekâna çekil.';
+  return null;
+}
+export function dinlen(d, hedefNobet) {
+  const e = dinlenmeEngeli(d);
+  if (e) return { metin: e, ses: 'red' };
+  const simdi = Z.nobetNo(d);
+  const ileri = hedefNobet == null ? 1 : ((hedefNobet - simdi + 6) % 6) || 6;
+  const sn = Z.kalanSn(d) + (ileri - 1) * Z.NOBET_SN + 1;
+  const r = zamanSar(d, sn, true);
+  const dk = Math.round(r.gecen / 60);
+  const bas = r.kesen ? 'Dinlenmen ' + dk + ' dakika sonra yarıda kesildi. ' + r.kesen + ' ' : dk + ' dakika dinlendin. ';
+  return { metin: bas + Z.zamanMetni(d) + (r.ozet ? ' Bu arada: ' + r.ozet : ''), ses: r.kesen ? 'telsiz_zil' : 'sinyal', arayuz: r.arayuz, kapat: true };
+}
+export function dinlenMenu(d) {
+  const e = dinlenmeEngeli(d);
+  const simdi = Z.nobetNo(d);
+  const ogeler = [{ etiket: 'Bir sonraki nöbete kadar (' + Z.NOBETLER[(simdi + 1) % 6].ad + ', ' + Math.ceil(Z.kalanSn(d) / 60) + ' dakika)', yap: (x) => dinlen(x, null) }];
+  for (let i = 2; i <= 6; i++) {
+    const n = (simdi + i) % 6;
+    const nb = Z.NOBETLER[n];
+    ogeler.push({ etiket: nb.ad + ' başlayana kadar (' + nb.yildiz + '; ' + Math.round((Z.kalanSn(d) + (i - 1) * Z.NOBET_SN) / 60) + ' dakika)', yap: (x) => dinlen(x, n) });
+  }
+  return {
+    baslik: 'Dinlen ve bekle',
+    giris: (e ? 'Şu an dinlenemezsin: ' + e + ' ' : '') + Z.zamanMetni(d) + ' Dinlenirken koloni çalışır; baskın, çatışma, sahne ya da telsiz çağrısı gelirse dinlenme kesilir.',
+    ogeler,
+  };
 }

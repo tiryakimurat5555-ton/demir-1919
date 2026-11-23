@@ -1,5 +1,6 @@
 // v4 paketi Faz 2: evrensel bina rolleri, hazırlıklar, kilitli dört bina, Ar-Ge masası, dinamik yakıt, ikmal karakolu,
 // yedek filo, melez zanaat, değer anonsu, alt kızak ve sınıf destekleri
+import { NOBET_SN as ZN_NOBET, GUN_SN as ZN_GUN, SAAT_SN as ZN_SAAT } from '../src/oyun/zaman';
 import { describe, expect, test } from 'bun:test';
 import { yeniOyun } from '../src/oyun/durum';
 import * as G from '../src/oyun/gemi/gemi';
@@ -21,7 +22,7 @@ describe('Evrensel bina sistemi', () => {
     const c0 = BN.rolCarpani(d, 'dokumhane');
     d.tamamlananOp = ['aethel9'];
     expect(BN.rolCarpani(d, 'dokumhane')).toBeCloseTo(c0 * 1.25, 5);
-    d.zaman = { sn: 1200 }; // Kızıl Kuşluk: Varek, sanayi
+    d.zaman = { sn: ZN_NOBET }; // Kızıl Kuşluk: Varek, sanayi
     expect(BN.rolCarpani(d, 'dokumhane')).toBeCloseTo(1.25 * 1.15, 5);
   });
 
@@ -92,7 +93,7 @@ describe('Dinamik yakıt ve ikmal', () => {
     d.uzay.halka = 4;
     expect(S.rotaYakiti(d, 'p14')).toBe(5); // aynı halkada komşu 1 birim
     expect(S.rotaYakiti(d, 'p14', 0.9)).toBe(6.3); // ağır ambar +%25 (yuvarlanmış)
-    d.zaman.sn = 4 * 1200; // Mavi Akşam
+    d.zaman.sn = 4 * ZN_NOBET; // Mavi Akşam
     expect(S.rotaYakiti(d, 'p14')).toBe(4.5);
     d.bayrak.gz_helyum = true; // Zephyr-Major hikâyesi, akustik kepçe
     expect(S.rotaYakiti(d, 'p14')).toBeCloseTo(3.8, 1);
@@ -167,7 +168,7 @@ describe('Melez zanaat, değer anonsu ve araçlar', () => {
     const r = ZN.zanaatEt(d, 'sonik_tufek');
     expect(r.metin).toContain('3 Yıldız Nöbeti');
     expect(ZN.miktar(d, 'sonik_tufek')).toBe(0);
-    d.zaman.sn = 3 * 1200;
+    d.zaman.sn = 3 * ZN_NOBET;
     const s = ZN.zanaatIlerle(d);
     expect(s[0]).toContain('usta işi');
     expect(ZN.miktar(d, 'sonik_tufek')).toBe(1);

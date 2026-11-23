@@ -16,6 +16,7 @@
 import { KAPILAR, NOKTALAR } from './harita';
 import { ZAFER_KANCALARI } from '../kancalar';
 import { tarim } from '../tarim/tarim';
+import { GUN_SN } from '../zaman';
 //
 // v4 derinleştirme (belgeler/v4/koloni-yerel-operasyonlar-ve-yuzey-derinlestirme.txt bölüm 1): her operasyona karakter,
 // evrensel kara savaşı ve karar; #5, #7, #8'deki sabit cezalar seçime bağlandı. Operasyon içindeki çatışma
@@ -243,6 +244,8 @@ function yagmaciBasari(d) {
 export function miniIlerle(d, dt) {
   const m = miniDurum(d);
   const olaylar = [];
+  // 3.16: zaman ileri sarılırken (yolculuk, şarj, dinlenme) yerel operasyonlar donar: yeni operasyon başlamaz, süren olan işlemez
+  if (d.zamanSariliyor) return olaylar;
   if (m.aktif && m.savasta && !d.savas && !d.savasBekle && !d.sahne) {
     const ne = m.savasta;
     savasYenilgi(d, ne);
@@ -516,7 +519,7 @@ export const SAHNELER = {
     metin: () => ['Dr. Selin: "Üç kristal elimizde. Onları kubbenin aydınlatma hatlarına mı işleyelim, yoksa iksir deneyime mi vereyim?"'],
     secenekler: (d) => [
       { etiket: 'Aydınlatma hatlarına işle', yap: () => { kaynakEkle(d, 'foton_recinesi', 4); moral(d, 5); d.bayrak.fotonHat = true; d.mini.karar = 'hat'; bitir(d, 'dogru'); }, sonra: 'mini_tamam' },
-      { etiket: 'Dr. Selin\'in iksir deneyine ver', yap: () => { parcaEkle(d, 'yatistirici', 2); moral(d, 2); d.bayrak.eczaneHizBitis = ((d.zaman && d.zaman.sn) || 0) + 7200; d.mini.karar = 'iksir'; bitir(d, 'dogru'); }, sonra: 'mini_tamam' },
+      { etiket: 'Dr. Selin\'in iksir deneyine ver', yap: () => { parcaEkle(d, 'yatistirici', 2); moral(d, 2); d.bayrak.eczaneHizBitis = ((d.zaman && d.zaman.sn) || 0) + GUN_SN; d.mini.karar = 'iksir'; bitir(d, 'dogru'); }, sonra: 'mini_tamam' },
     ],
   },
   mini_vaha_karar: {

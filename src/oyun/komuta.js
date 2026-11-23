@@ -305,6 +305,14 @@ export function komutaIlerle(d) {
     if (t < x.bitis) continue;
     k.baskinlar = k.baskinlar.filter((y) => y !== x);
     const bl = BOLGELER[x.id];
+    // 3.16: zaman ileri sarılırken (yolculuk, şarj, dinlenme) oyuncu karşılık veremez: eldeki savunma kendiliğinden atanır
+    if (d.zamanSariliyor) {
+      const r = otomatikSavun(d, x.id);
+      if (r.ses !== 'red') {
+        olaylar.push('Sen uzaktayken ' + bl.ad + ' baskını geldi. ' + r.metin);
+        continue;
+      }
+    }
     if (misafir(d, 'barracuda')) olaylar.push('Baskıncılar ' + bl.ad + ' üzerinden geçti; Barracuda\'nın adamları ambarları korudu, kayıp yok.');
     else {
       for (const r of Object.keys(bl.aktarim)) ZN.ekle(d, r, -Math.min(ZN.miktar(d, r), bl.aktarim[r] * 2));

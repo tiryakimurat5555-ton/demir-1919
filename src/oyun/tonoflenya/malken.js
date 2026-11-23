@@ -9,13 +9,13 @@
 //   ygk_simulasyon, ygk_kripto, ygk_biyodepo, ygk_harita, malken_muhur, t_hamam_<gün>.
 import * as AK from './akademi';
 import { T_NOKTALAR, YGK_KATLARI, T_MEKANLAR } from './harita';
-import { NOBETLER, nobet } from '../zaman';
+import { NOBETLER, nobet, NOBET_SN, GUN_SN, SAAT_SN } from '../zaman';
 import * as KR from './kronik';
 import * as ZN from './zanaat';
 
-// Hiper-sıçrama süresi: sekiz saat Yıldız Zamanı (yönerge 4.B örneği 08:00:00; bir oyun saati 300 sn, gün 7200 sn).
+// Hiper-sıçrama süresi: sekiz saat Yıldız Zamanı (yönerge 4.B örneği 08:00:00; bir oyun saati SAAT_SN, gün GUN_SN).
 // 2.4'e kadar yanlışlıkla 8 × 3600 sn (dört oyun günü) ileri sarıyordu.
-export const SICRAMA_SN = 8 * 300;
+export const SICRAMA_SN = 8 * SAAT_SN;
 export const GEREKEN_OP = 10;
 const b = (d) => d.bayrak;
 const ilk = (d, rol) => (d.murettebat[rol] ? d.murettebat[rol].ad.split(' ')[0] : '');
@@ -250,7 +250,7 @@ export function eylemUygula(d, id, eid) {
     case 'dinle':
       return dinle(d, n);
     case 'yikan': {
-      const gun = Math.floor(((d.zaman && d.zaman.sn) || 0) / 7200);
+      const gun = Math.floor(((d.zaman && d.zaman.sn) || 0) / GUN_SN);
       if (b(d)['t_hamam_' + gun]) return { metin: 'Hamam bugünlük kapandı; yarın yine gel.', ses: 'red' };
       b(d)['t_hamam_' + gun] = true;
       for (const u of d.murettebat) u.stres = 0;
@@ -259,7 +259,7 @@ export function eylemUygula(d, id, eid) {
     case 'izle':
       return { metin: 'Kızakta yarım bir yıldız kadırgası: kristal sinir ağları kablo yerine döşeniyor, gövdeye mühürler kazınıyor. Fenrir\'in manyetik kaldırma gücü dev iskeleti sudan hafifçe yukarıda tutuyor.', ses: 'kaynak' };
     case 'topla': {
-      const g = Math.floor(((d.zaman && d.zaman.sn) || 0) / 1200);
+      const g = Math.floor(((d.zaman && d.zaman.sn) || 0) / NOBET_SN);
       if (b(d).t_toz === g) return { metin: 'Kova dolu; toz bu nöbet yeniden dalgalanacak.', ses: 'red' };
       b(d).t_toz = g;
       d.koloni.kaynaklar.foton_recinesi = (d.koloni.kaynaklar.foton_recinesi || 0) + 2;

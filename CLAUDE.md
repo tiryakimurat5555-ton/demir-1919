@@ -666,6 +666,16 @@ Demir 1919 oyunu silindi; geçmişi git kaydında (son sürüm 1.06, commit 556f
   kez haber; opBekle de bekler). sefer.js: eğitimsiz uzayda korsan çıkmaz, olaySavas savasBekle'ye düşer. komuta.js
   saldiriKosulu ve bizzatSavun egitimEngeli. Yuzey menüsünde Görev'in altında "Savaş eğitimi" (eksikse ", zorunlu,
   tamamlanmadı"). Telefonda denenmedi.
+- SÜRÜM 3.16 (23 Kasım, Murat analizden sonra: "ikisi birden; dinlenme yalnız terminalden olursa Tonoflenya'da sorun,
+  evrensel çöz"): zaman.js NOBET_SN 1200 → 600 (gün 3600 sn), SAAT_SN = GUN_SN/24; atlas GUN, malken/zanaat SICRAMA_SN
+  8 × SAAT_SN, SARJ_SN 2 × GUN_SN, sureMetni, adaylar, biyoKalkan, hamam, toz, yan.js günlük gelir ve Nirdol, mini eczane
+  hızı artık zaman.js sabitlerinden. gorevler.js zamanSar(d, sn, kesilir) (60 sn adım; d.zamanSariliyor; arayuz olayları
+  savas/op; kesilir: savaş/op/sahne/yeni baskın/mini/yeni hikâye çağrısı; zorunluda SB.haber "Yokluğunda: …" özeti);
+  seyahat, sicramaZamani, şarj beklemesi bunu kullanır. dinlenmeEngeli (savaş/op/sahne, ayar/valf/… katmanları, açık uzay,
+  mini, bekleyen çatışma/op/eğitim, zehir > 0, dunya.tehlikeMekani + TEHLIKELER), dinlen(d, hedefNobet), dinlenMenu (6
+  seçenek). mini.js miniIlerle sarmada donar. komuta.js süresi dolan baskında sarma sürüyorsa otomatikSavun. Yuzey ana
+  menüde "Dinlen ve bekle" (Yıldız Zamanı'nın altında); agacGoster r.arayuz → koloniOlaylari. Testler sabit süreleri
+  zaman.js'ten alır (ZN_NOBET/ZN_GUN/ZN_SAAT); testler/zaman.test.js. Telefonda denenmedi.
 - Sıradaki: v4 paketinin bütün belgeleri işlendi; KAPSAM.md'de [~] notları (Bahtiyar'a sorulacaklar) ve telefonda deneme.
 
 ## Sesler

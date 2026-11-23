@@ -1,4 +1,5 @@
 // Tonoflenya yan görevleri (2.6): otuz görev, ön koşullar, kararlar, ödüller, itibar matrisi
+import { NOBET_SN as ZN_NOBET, GUN_SN as ZN_GUN, SAAT_SN as ZN_SAAT } from '../src/oyun/zaman';
 import { describe, expect, test } from 'bun:test';
 import { yeniOyun } from '../src/oyun/durum';
 import { MEKANLAR, NOKTALAR } from '../src/oyun/yuzey/harita';
@@ -139,7 +140,7 @@ describe('Tonoflenya yan görevleri', () => {
     for (const g of YN.YAN) {
       const id = 'yan_' + g.no;
       if (g.nobet && !d.zaman) d.zaman = { sn: 0 };
-      if (g.nobet) d.zaman.sn = ['Zhaor', 'Varek', 'Axira', 'Elyndra', 'Sinha', 'Uma'].indexOf(g.nobet[0]) * 1200 + 600 + Math.floor((d.zaman.sn || 0) / 7200) * 7200;
+      if (g.nobet) d.zaman.sn = ['Zhaor', 'Varek', 'Axira', 'Elyndra', 'Sinha', 'Uma'].indexOf(g.nobet[0]) * ZN_NOBET + ZN_NOBET / 2 + Math.floor((d.zaman.sn || 0) / 7200) * 7200;
       const e = noktaEylemleri(d, id).find((x) => x.id === 'yn_bas_' + g.no);
       expect(e).toBeTruthy();
       eylemUygula(d, id, e.id);
@@ -178,7 +179,7 @@ describe('Tonoflenya yan görevleri', () => {
     YN.yan(d);
     d.esya.maden_hissesi = 1;
     const ml = d.para.ml;
-    for (let i = 0; i < 7200 * 2 + 10; i += 60) zamanIlerle(d, 60);
+    for (let i = 0; i < ZN_GUN * 2 + 10; i += 60) zamanIlerle(d, 60);
     expect(d.para.ml).toBe(ml + 200);
     d.esya.hayat_muskasi = 1;
     savasBaslat(d, 'korsan_korvet');
@@ -195,7 +196,7 @@ describe('Otuz yan görev derinleştirmesi (3.7)', () => {
     d.tf.biten = [];
     expect(eylemUygula(d, 'yan_2', 'yn_bas_2').metin).toContain('Kayıt Mührü');
     d.tf.biten = [1];
-    d.zaman = { sn: 1200 + 10 }; // Kızıl Kuşluk
+    d.zaman = { sn: ZN_NOBET + 10 }; // Kızıl Kuşluk
     expect(eylemUygula(d, 'yan_1', 'yn_bas_1').metin).toContain('Gümüş Şafak');
     expect(YN.YAN_GOREV[8].onkosul.some(([a]) => a.indexOf('Çöl Tilkisi') >= 0)).toBe(true);
     expect(YN.YAN_GOREV[30].onkosul.some(([a, f]) => a.indexOf('Işık Mızrağı') >= 0 && f)).toBe(true);
