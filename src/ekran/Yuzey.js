@@ -162,6 +162,7 @@ import {
   FS,
   PZ,
   SH,
+  IM,
   BK,
 } from '../oyun/yuzey/gorevler';
 import { BITKILER, ISLEME_TESISI } from '../oyun/tarim/bitkiler';
@@ -1211,6 +1212,7 @@ export default function Yuzey({ onGeri, baslangic, yeniOyunUret }) {
         { id: 'koloni', etiket: 'Koloni', sec: () => (soyle(koloniMetni(dunya.current), 'istek', true), 'sessiz') },
         { id: 'murettebat', etiket: 'Mürettebat', sec: () => (murettebatGoster(), 'sessiz') },
         { id: 'envanter', etiket: 'Envanter', ipucu: 'Beş kategori; iki parmakla sağa kaydır: sonraki kategori. Çift dokun: eylem menüsü.', sec: () => (agacGoster((x) => ZN.envanterMenu(x, 0), () => menuyuAc()), 'sessiz') },
+        { id: 'canta', etiket: 'Koloni çantası', ipucu: 'Beş bölme: hammaddeler, yiyecek ve içecek, giyim ve zanaat, Malken ve tören, özel ve evlilik. İki parmakla sağa kaydır: sonraki bölme.', sec: () => (agacGoster((x) => IM.cantaMenu(x, 0), () => menuyuAc()), 'sessiz') },
         ...(dunya.current.gemi ? [{ id: 'zanaat', etiket: 'Zanaat tezgâhları', ipucu: 'Gemideki dökümhane masası, aether laboratuvarı ve imbik ünitesi.', sec: () => (agacGoster((x) => ZN.zanaatMenu(x), () => menuyuAc()), 'sessiz') }] : []),
         ...(dunya.current.bayrak.tonoflenyaGoruldu ? [{ id: 'subaylar', etiket: 'Subaylar ve istasyonlar', sec: () => (agacGoster((x) => ZN.subayMenu(x), () => menuyuAc()), 'sessiz') }] : []),
         { id: 'komuta', etiket: 'Komuta ve Genişleme Paneli', ipucu: 'Bölge haritası, savunma hattı, ileri karakollar. İki parmakla sağa sola: sekme; üç parmakla dokun: en acil bölge.', sec: () => (agacGoster((x) => KM.panel(x, 'harita'), () => menuyuAc()), 'sessiz') },

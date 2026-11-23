@@ -51,6 +51,8 @@ import * as FS from '../yerlesim/festival';
 import * as PZ from '../yerlesim/pazar';
 import * as SH from '../saha/saha';
 import * as BK from '../saha/balik';
+import '../imalat/esya';
+import * as IM from '../imalat/tezgah';
 import { MEKANLAR } from './harita';
 import { tehlikeMekani, TEHLIKELER } from './dunya';
 
@@ -303,6 +305,8 @@ export function zamanIlerle(d, dt) {
   if (fb) olaylar.push({ tur: 'festivalBitti', id: fb.festivalBitti });
   olaylar.push(...PZ.pazarIlerle(d));
   olaylar.push(...SH.sahaIlerle(d, dt));
+  // Gündelik tohumlar: aşhane, atölye ve vaha (v5 Paket 5 bölüm 3.1)
+  IM.gunlukIlerle(d);
   // Final görevleri: sahne kapanınca bekleyen operasyon ya da çatışma başlar (tonoflenya/final.js)
   // 3.15: uzay savaş eğitimi ilk gemiyle açılır (bir kez haber)
   if (SV.egitimAcik(d, 'uzay') && SV.egitimGerekli(d, 'uzay') && !d.bayrak.uzayEgitimHaber) {
@@ -642,4 +646,4 @@ export function dinlenMenu(d) {
 }
 
 // Yerleşim (v5) ekran için
-export { YR, FS, PZ, SH, BK };
+export { YR, FS, PZ, SH, BK, IM };

@@ -54,9 +54,12 @@ export function bilinir(k) {
   if (k.indexOf('urun_') === 0) return !!BITKILER[k.slice(5)];
   return !!(HAMMADDELER[k] || PARCALAR[k] || ZN.ESYA[k]);
 }
+// 4.4: yerleşim binalarının tezgâhları (imalat/tezgah.js) gündelik eşyaları buraya bağlar
+export const ULASIM_EKLERI = [];
 export function ulasilabilir(d, k) {
   if (!bilinir(k)) return false;
   if (YR.varlik(d, k) > 0) return true;
+  if (ULASIM_EKLERI.some((f) => f(d, k))) return true;
   if (k.indexOf('urun_') === 0) return bitkiBiliniyor(d, k.slice(5));
   if (k.indexOf('erzak_') === 0) {
     const i = ISLEME.find((x) => x.id === k.slice(6));
@@ -76,6 +79,7 @@ export function grup(k) {
   if (k.indexOf('urun_') === 0) return 'tarim';
   if (k.indexOf('erzak_') === 0) return 'mutfak';
   if (HAMMADDELER[k]) return 'maden';
+  if (ZN.ESYA[k] && ZN.ESYA[k].yiyecek) return 'mutfak';
   return 'zanaat';
 }
 export const GRUP_ADI = { tarim: 'hasat ürünleri', mutfak: 'mutfak ve eczane ürünleri', maden: 'maden ve hammadde', zanaat: 'zanaat ve imalat' };
@@ -84,6 +88,7 @@ export function taban(k) {
   if (k.indexOf('erzak_') === 0) return 18;
   if (HAMMADDELER[k]) return TABAN_HAM[k] || 9;
   if (PARCALAR[k]) return TABAN_PARCA[k] || 6;
+  if (ZN.ESYA[k] && ZN.ESYA[k].gk) return ZN.ESYA[k].gk;
   if (ZN.ESYA[k] && ZN.ESYA[k].deger) return Math.max(1, Math.round(ZN.ESYA[k].deger / ZN.GK_ML));
   return 8;
 }
@@ -91,6 +96,7 @@ export function taban(k) {
 export function satilir(k) {
   if (k.indexOf('urun_') === 0 || k.indexOf('erzak_') === 0) return true;
   if (HAMMADDELER[k]) return HAMMADDE_SIRASI.includes(k) && k !== 'tohum';
+  if (ZN.ESYA[k] && ZN.ESYA[k].gunluk) return !['malazar_buyu_tozu', 'dugun_yuzugu', 'bag_tilsimi'].includes(k);
   return k === 'cam' || !!(ZN.ESYA[k] && ['bal', 'saf_su', 'deri_astar', 'zhaor_ipegi', 'mor_cicek'].includes(k));
 }
 function satilabilirler(d) {
@@ -103,6 +109,7 @@ function satilabilirler(d) {
   for (const h of HAMMADDE_SIRASI) if (h !== 'tohum' && (d.koloni.kaynaklar[h] || 0) >= 1) l.push(h);
   if ((d.koloni.parcalar.cam || 0) > 0) l.push('cam');
   for (const e of ['bal', 'saf_su', 'deri_astar', 'zhaor_ipegi', 'mor_cicek']) if (d.esya && d.esya[e] > 0) l.push(e);
+  for (const e of Object.keys(d.esya || {})) if (d.esya[e] > 0 && ZN.ESYA[e] && ZN.ESYA[e].gunluk && satilir(e)) l.push(e);
   return l;
 }
 
@@ -138,8 +145,8 @@ export const SABLONLAR = [
   S(17, 'Hamam Günü', ['siravel'], [['aroma_yagi', 1, 4]], 'B'),
   S(18, 'Vaha Şöleni', ['sorya'], [['erzak_ziyafet', 2, 4], ['urun_vaha_hurmasi', 4, 10]], 'B'),
   S(19, 'Derin Maden Koruması', ['nerissa'], [['antikor_iksiri', 1, 4]], 'B'),
-  S(20, 'Tatlı Kök Hasadı', ['sorya'], [['tatli_kok', 5, 12]], 'B'),
-  S(21, 'Çiçek Kurutma', ['lyris'], [['kristal_cicek', 4, 10]], 'B'),
+  S(20, 'Tatlı Kök Hasadı', ['sorya'], [['urun_tatli_kok', 5, 12]], 'B'),
+  S(21, 'Çiçek Kurutma', ['lyris'], [['urun_kristal_cicek', 4, 10]], 'B'),
   S(22, 'Liken Mürekkebi', ['zarek', 'defne'], [['urun_fosforlu_liken', 3, 8]], 'B'),
   S(23, 'Aether Lambası', ['lyris'], [['aether', 1, 3], ['bakir', 3, 6]], 'B'),
   S(24, 'Kökten Şifa', ['siravel'], [['sifali_mantar', 3, 8], ['saf_su', 3, 6]], 'B'),
@@ -157,7 +164,7 @@ export const SABLONLAR = [
   S(35, 'Gümüş Lehim', ['brom', 'kaelon'], [['gumus_tozu', 2, 6], ['piezo', 2, 5]], 'C', { tur: 'onarim' }),
   S(36, 'Çekirdek Ölçümü', ['halvar', 'tina'], [['cekirdek_tasi', 1, 3], ['kuvars_kumu', 4, 8]], 'C'),
   // D. Mevsimlik ve festival (mevsim: 0 Filiz, 1 Kor, 2 Sis, 3 Ayaz)
-  S(37, 'Bahar Temizliği', ['sorya'], [['pamuk_keten', 4, 10], ['aroma_yagi', 1, 2]], 'D', { mevsim: 0 }),
+  S(37, 'Bahar Temizliği', ['sorya'], [['urun_pamuk_keten', 4, 10], ['aroma_yagi', 1, 2]], 'D', { mevsim: 0 }),
   S(38, 'Sıcak Gün İçecekleri', ['julian'], [['urun_vaha_hurmasi', 4, 10], ['deniz_tuzu', 3, 6]], 'D', { mevsim: 1 }),
   S(39, 'Sis Lambası', ['zarek', 'marcus'], [['fener_yagi', 2, 5], ['rezonans_lambasi', 1, 2]], 'D', { mevsim: 2 }),
   S(40, 'Kış Isınması', ['veysel', 'defne'], [['komur', 8, 20], ['yun_battaniye', 2, 4]], 'D', { mevsim: 3 }),
@@ -181,9 +188,9 @@ export const SABLONLAR = [
   // F. Acil ve sürpriz
   S(57, 'Kaptanın Kamarası Sürprizi', ['veysel'], [['muzik_kutusu', 1, 1]], 'F', { moral: 6 }),
   S(58, 'Kayıp Akvaryum Merakı', ['siravel'], [['akvaryum', 1, 1], ['gol_baligi', 3, 3]], 'F'),
-  S(59, 'Acil Yara Bakımı', ['lyris'], [['pamuk_keten', 4, 4], ['sifali_mantar', 3, 3], ['bal', 2, 2]], 'F'),
+  S(59, 'Acil Yara Bakımı', ['lyris'], [['urun_pamuk_keten', 4, 4], ['sifali_mantar', 3, 3], ['bal', 2, 2]], 'F'),
   S(60, 'Orin\'in Acil Siparişi', ['mateo'], [], 'F', { orin: true }),
-  S(61, 'Evcil Kseno-Hayvan Bakımı', ['sorya'], [['gol_baligi', 4, 4], ['tatli_kok', 4, 4], ['bitkisel_lif', 5, 5]], 'F'),
+  S(61, 'Evcil Kseno-Hayvan Bakımı', ['sorya'], [['gol_baligi', 4, 4], ['urun_tatli_kok', 4, 4], ['bitkisel_lif', 5, 5]], 'F'),
   S(62, 'Brom\'un Özel Dövüm İsteği', ['brom'], [['gumus_tozu', 3, 3], ['demir_cevheri', 10, 10], ['komur', 10, 10]], 'F'),
   S(63, 'Nerissa\'nın Abis Testi', ['nerissa'], [['deniz_tuzu', 6, 6], ['cam', 3, 3], ['sifali_mantar', 4, 4]], 'F'),
   S(64, 'Evlilik Hazırlığı Dedikodusu', ['julian'], [['dugun_yuzugu', 1, 1], ['borek', 3, 3]], 'F', { kosul: (d) => !!(d.aile && d.aile.yakinEvlilik) }),

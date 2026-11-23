@@ -152,6 +152,7 @@ describe('Derin Maden Ocağı', () => {
     madendeKat(d, 10);
     d.savasBekle = null;
     Object.assign(d.koloni.kaynaklar, { kiyi_kerestesi: 20, demir_cevheri: 10 });
+    d.esya = { ...(d.esya || {}), tugla: 10 };
     const r = eylemUygula(d, 'maden_karakol_10', 'sh_karakol');
     expect(r.metin).toMatch(/kuruldu/);
     expect(d.saha.karakollar).toContain('kat10');

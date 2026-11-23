@@ -265,7 +265,7 @@ export function sohbetYanitla(d, id, ton, miz) {
 }
 
 // --- Hediye (Paket 8 5.2; günde 1, haftada 2) ---
-export const yiyecekMi = (k) => k.indexOf('urun_') === 0 || k.indexOf('erzak_') === 0;
+export const yiyecekMi = (k) => k.indexOf('urun_') === 0 || k.indexOf('erzak_') === 0 || !!(ZN.ESYA[k] && ZN.ESYA[k].yiyecek);
 export function varlik(d, k) {
   if (k.indexOf('erzak_') === 0) return (d.tarim && d.tarim.erzak && d.tarim.erzak[k.slice(6)]) || 0;
   return ZN.miktar(d, k);
@@ -301,7 +301,7 @@ export function hediyeAdaylari(d) {
   }
   for (const h of Object.keys(d.koloni.kaynaklar || {})) if (HAMMADDELER[h] && d.koloni.kaynaklar[h] > 0) ham.push(h);
   for (const p of Object.keys(d.koloni.parcalar || {})) if (PARCALAR[p] && d.koloni.parcalar[p] > 0) par.push(p);
-  for (const e of Object.keys(d.esya || {})) if (d.esya[e] > 0) par.push(e);
+  for (const e of Object.keys(d.esya || {})) if (d.esya[e] > 0) (yiyecekMi(e) ? yiy : par).push(e);
   return { yiy, ham, par };
 }
 function haftaNo(g) {
@@ -637,11 +637,11 @@ export function dekorMenusu(d) {
   return {
     baslik: 'Dekor rafı',
     giris: d.yer.dekorlar.length ? 'Rafta: ' + d.yer.dekorlar.map((k) => DEKORLAR[k].ad).join(', ') + '.' : 'Raf boş.',
-    ogeler: acik
+    ogeler: acik || Object.keys(DEKORLAR).some((k) => ZN.miktar(d, k) > 0)
       ? Object.keys(DEKORLAR).map((k) => {
           const x = DEKORLAR[k];
           const var_ = d.yer.dekorlar.includes(k);
-          return { id: 'd_' + k, etiket: x.ad + (var_ ? ', rafta' : ', ' + malzemeMetni(x.bedel)), ipucu: x.tarif, yap: (z) => dekorKoy(z, k) };
+          return { id: 'd_' + k, etiket: x.ad + (var_ ? ', rafta' : ZN.miktar(d, k) > 0 ? ', elinde hazır' : acik ? ', ' + malzemeMetni(x.bedel) : ', atölyede yapılır'), ipucu: x.tarif, yap: (z) => dekorKoy(z, k) };
         })
       : [{ id: 'kapali', etiket: 'Dekor dükkânı kapalı', yap: () => ({ metin: 'Usta Veysel ile Kademe 6\'ya ulaşınca sesli dekor dükkânını açar.' }) }],
   };
@@ -649,6 +649,13 @@ export function dekorMenusu(d) {
 export function dekorKoy(d, k) {
   const x = DEKORLAR[k];
   if (d.yer.dekorlar.includes(k)) return { metin: x.ad + ' zaten rafta. ' + x.tarif };
+  // 4.4: atölyede yapılmış dekor (Paket 10 3.5) elde varsa onu koy
+  if (ZN.miktar(d, k) > 0) {
+    ZN.ekle(d, k, -1);
+    d.yer.dekorlar.push(k);
+    return { metin: x.ad + ' rafa yerleştirildi. ' + x.tarif, ses: 'kur' };
+  }
+  if (!d.bayrak.yk_veysel_6) return { metin: x.ad + ' atölyede yapılır; Veysel\'in dekor dükkânı altıncı kademede açılır.', ses: 'red' };
   const e = eksikler(d, x.bedel);
   if (e.length) return { metin: 'Usta Veysel: "Bunun için ' + e.join(', ') + ' daha lazım evlat."', ses: 'red' };
   for (const m of Object.keys(x.bedel)) ZN.ekle(d, m, -x.bedel[m]);
@@ -674,7 +681,17 @@ export function kamaraEylemleri(d, id) {
 export function noktaMi(id) {
   return id === 'kamp_atesi' || id === 'meydan_terminali' || id === 'kamara_yatak' || id === 'kamara_raf' || (id && id.indexOf('yb_') === 0);
 }
+// 4.4 (Paket 12 bölüm 5): bina köşesinde standart sıra — tezgâhlar, buradakiler, bina durumu; sonra binaya özgü
+// eylemler. Tezgâh menüsü imalat/tezgah.js'ten bu kancayla gelir (döngüsel içe aktarma olmasın).
+export const TEZGAH = { menu: null, durum: null, yemek: null, kullan: null };
+const BINA_STANDART = [{ id: 'tezgah', etiket: 'Üretim ve işlev tezgâhları' }, { id: 'kimler', etiket: 'Şu an binadaki yerleşimciler' }, { id: 'durum', etiket: 'Bina durumu ve yükseltme' }];
 export function noktaEylemleri(d, id) {
+  const l = noktaEylemleriTemel(d, id);
+  if (!TEZGAH.menu || !(id === 'kamp_atesi' || (id && id.indexOf('yb_') === 0))) return l;
+  const ozel = l.filter((e) => e.id !== 'kimler' && e.id !== 'incele');
+  return [...BINA_STANDART, ...ozel, { id: 'incele', etiket: 'İncele' }];
+}
+function noktaEylemleriTemel(d, id) {
   if (id === 'meydan_terminali') return [{ id: 'yerlesim', etiket: 'Yerleşim' }, { id: 'incele', etiket: 'İncele' }];
   if (id === 'kamara_yatak' || id === 'kamara_raf') return [...kamaraEylemleri(d, id), { id: 'incele', etiket: 'İncele' }];
   if (id === 'yb_hamam') return [{ id: 'yikan', etiket: 'Sıcak suya gir' }, { id: 'incele', etiket: 'İncele' }];
@@ -692,6 +709,9 @@ function buradakiler(d) {
 export function eylemUygula(d, id, eylemId) {
   hazirla(d);
   if (eylemId === 'yerlesim') return { agac: (x) => panel(x) };
+  const binaId = id === 'kamp_atesi' ? 'kamp' : (id || '').replace('yb_', '');
+  if (eylemId === 'tezgah' && TEZGAH.menu) return { agac: (x) => TEZGAH.menu(x, binaId) };
+  if (eylemId === 'durum' && TEZGAH.durum) return TEZGAH.durum(d, binaId);
   if (eylemId === 'uyu') return { uyku: true };
   if (eylemId === 'takvim') return { agac: (x) => takvimMenusu(x) };
   if (eylemId === 'dekor') return { agac: (x) => dekorMenusu(x) };
@@ -703,11 +723,14 @@ export function eylemUygula(d, id, eylemId) {
     const g = bugun(d);
     if (d.yer.hamamGun === g) return { metin: 'Bugün zaten yıkandın; su seni bekler, yarın yine gel.' };
     d.yer.hamamGun = g;
-    const sifir = !!(d.bayrak.yk_siravel_10 || d.bayrak.sin_lyris_siravel);
+    // 4.4: hamam aroma yağı tam arınma bonusu (Paket 10 3.4)
+    const aroma = ZN.miktar(d, 'aroma_yagi') > 0;
+    if (aroma) ZN.ekle(d, 'aroma_yagi', -1);
+    const sifir = !!(d.bayrak.yk_siravel_10 || d.bayrak.sin_lyris_siravel || aroma);
     for (const u of d.murettebat || []) u.stres = sifir ? 0 : Math.max(0, (u.stres || 0) - 20);
     if (d.saha) d.saha.yorgunluk = 0;
     d.koloni.moral = Math.min(100, d.koloni.moral + 2);
-    return { metin: 'Sıcak, mineralli su omuzlarındaki yükü alıyor. ' + (sifir ? 'Sira-Vel\'in şifasıyla mürettebatın stresi tamamen silindi.' : 'Mürettebatın stresi yirmi azaldı.') + ' Moral iki arttı.', ses: 'tislama' };
+    return { metin: 'Sıcak, mineralli su omuzlarındaki yükü alıyor. ' + (aroma ? 'Aroma yağının kokusu buharla yayılıyor; mürettebatın stresi tamamen silindi.' : sifir ? 'Sira-Vel\'in şifasıyla mürettebatın stresi tamamen silindi.' : 'Mürettebatın stresi yirmi azaldı.') + ' Moral iki arttı.', ses: 'tislama' };
   }
   if (eylemId === 'otur') {
     const g = bugun(d);
@@ -719,6 +742,12 @@ export function eylemUygula(d, id, eylemId) {
     return { metin: 'Bir masaya oturuyorsun. ' + (b.length ? b.map(kisaAdi).join(', ') + ' da burada. ' : '') + 'Müzik, kahkaha, zar sesi. Koloninin morali ' + m + ' arttı.' };
   }
   if (eylemId === 'yemek') {
+    const pis = TEZGAH.yemek && TEZGAH.yemek(d);
+    if (pis) {
+      const r = TEZGAH.kullan(d, pis);
+      if (d.saha) d.saha.yorgunluk = 0;
+      return { metin: 'Sorya önüne sıcak bir tabak koydu. ' + r.metin + ' Sıcak yemekle yorgunluğun tamamen geçti.' };
+    }
     const l = [];
     const t = d.tarim;
     if (t) for (const k of Object.keys(t.erzak || {})) if (t.erzak[k] > 0) l.push('erzak_' + k);

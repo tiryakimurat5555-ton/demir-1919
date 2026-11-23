@@ -193,6 +193,16 @@ const KAYNAKLAR = {
   orin_inis: require('../../assets/ses/orin_inis.wav'),
   el_kasa: require('../../assets/ses/el_kasa.wav'),
   el_bas_ton: require('../../assets/ses/el_bas_ton.wav'),
+  // 4.4 yerleşim tezgâhları (ElevenLabs)
+  el_tz_firin: require('../../assets/ses/el_tz_firin.wav'),
+  el_tz_ocak: require('../../assets/ses/el_tz_ocak.wav'),
+  el_tz_marangoz: require('../../assets/ses/el_tz_marangoz.wav'),
+  el_tz_ors: require('../../assets/ses/el_tz_ors.wav'),
+  el_tz_dokuma: require('../../assets/ses/el_tz_dokuma.wav'),
+  el_tz_tutsu: require('../../assets/ses/el_tz_tutsu.wav'),
+  el_tz_can: require('../../assets/ses/el_tz_can.wav'),
+  el_tz_lab: require('../../assets/ses/el_tz_lab.wav'),
+  el_tz_yazi: require('../../assets/ses/el_tz_yazi.wav'),
   el_cark: require('../../assets/ses/el_cark.wav'),
   el_illuzyon: require('../../assets/ses/el_illuzyon.wav'),
   // 4.3: Derin Maden Ocağı ve İç Deniz Kıyı Koruluğu (v5 Paket 5, 6, 13; ElevenLabs)

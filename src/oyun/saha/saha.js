@@ -229,6 +229,7 @@ function dugumBitti(d, id, n, t, mammoth, ek) {
   const k = liste[Math.floor(zar(d) * liste.length)];
   let adet = ara(d, lo, hi);
   if (s.eslik === 'akrep') adet += 1; // Akrep kırılan taşları toplar
+  if (Z.etkiVar(d, 'madenSansi')) adet += 1; // 4.4: sunaktaki maden şansı tılsımı (Paket 12 bölüm 4)
   if (n.dugum === 'kuvars_gumus' && s.alet.kazma >= 2 && zar(d) < 0.3) adet += 1; // demir kazma yüzde otuz verimli
   dolu = !koy(k, adet);
   for (const [ek2, a, b] of t.ek || []) if (!dolu) dolu = !koy(ek2, ara(d, a, b));
@@ -365,7 +366,7 @@ ZAFER_KANCALARI.saha_zafer = (d) => {
 
 // --- İleri karakollar (Paket 6 4.2) ---
 // Belgede: kıyı odunu + tuğla + demir + fener/kalkan. Tuğla Paket 10 ile gelene kadar bazalt.
-export const KARAKOL_BEDELI = { kiyi_kerestesi: 12, bazalt: 10, demir_cevheri: 6, kristal: 1 };
+export const KARAKOL_BEDELI = { kiyi_kerestesi: 12, tugla: 10, demir_cevheri: 6, kristal: 1 }; // 4.4: tuğla atölyenin fırınından
 const KARAKOL_AKISI = { kat10: { bazalt: 3, komur: 2, ham_kil: 2 }, kat20: { demir_cevheri: 2, bakir: 1, komur: 2 }, kat30: { gumus_tozu: 1, piezo: 1 }, kiyi: { kiyi_kerestesi: 3, deniz_tuzu: 2, bitkisel_lif: 1 } };
 export function karakolKur(d, yer) {
   const s = hazirla(d);

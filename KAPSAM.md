@@ -974,9 +974,12 @@ bütün bölümlerini sırayla sayar (21 Kasım: v3 paketiyle sekiz belge daha g
       her galeri bir kat bandını temsil eder; merdivenle bir sonraki durağa inilir.
 - [x] 2 Bölge 2 Kıyı Koruluğu: açılış (Zarek, sırtlar görülünce), iki şerit, ağaç/kaya/lif/tuz düğümleri, 30-60 sn yenilenme,
       ortam ve belirme sesi.
-- [ ] 3 Sera ve vahaya gündelik bitkiler ve imalat zinciri (4.4, Paket 10/12 ile).
+- [x] 3.1 sera ve vahaya altı gündelik ekim (4.4): arpa, pamuk ve keten, çay yaprağı (teras); ışık otu, kristal çiçek,
+      tatlı yıldız kökü (vaha ve teras). Tohumlar aşhane, atölye kurulunca ve vaha görülünce bir kez; Orin de satar.
+- [x] 3.2 gündelik imalat zinciri (4.4): odun → kereste ve kömür, kil → tuğla ve çanak, demir → çivi/menteşe, keten → giysi,
+      buğday ve tuz → ekmek, kristal çiçek ve gümüş → tütsü ve takı (imalat/tezgah.js TARIFLER).
 - [x] 4 günlük yorgunluk (vuruş başına; aşhanede yemek, hamam, uyku giderir; karakolda yarıya iner); dış gezegen sınırı.
-- [~] 5 ilan panosu bağı: hammaddeler artık oyunda; işlenmiş ürünler 4.4. Çıraklar Paket 4 ile.
+- [x] 5 ilan panosu bağı: hammaddeler ve işlenmiş ürünler (4.4) oyunda. [~] Çıraklar Paket 4 ile.
 - [x] 6 3B hedef bulma (düğüm sesleri sağdan soldan), çift dokunuşla vuruş, asansör menüsü. [~] Zemine göre kum/ahşap/ray ayak
       sesi yok (taş).
 ### Paket 6: aletler, kara araçları, karakol, düşmanlar (4.3)
@@ -988,7 +991,7 @@ bütün bölümlerini sırayla sayar (21 Kasım: v3 paketiyle sekiz belge daha g
       toplar). [~] Kervan'ın "baskında siper" rolü savaş motorunda zaten var (3.1).
 - [x] 4.1 düşmanlar: kaya böceği, kristal akrep, tünel pusucusu, kör solucan yavrusu, karanlık gaz pusucusu, akşam kıyı yengeç
       sürüsü; savaş ya da kaçınma (gaz cebinden geçme). [x] 4.2 karakollar: pusu −%70, dinlenme, pasif akış (Demir Kervan).
-      [~] Karakol bedelinde tuğla yerine bazalt (tuğla 4.4'te). Çırakların akışı Paket 4 ile.
+      [x] Karakol bedeli tuğlayla (4.4). [~] Çırakların akışı Paket 4 ile.
 - [x] 6 giriş menüsünde eşlik sorusu, tehlike uyarısı.
 ### Paket 13: maden, koru, balıkçılık mekanikleri (4.3)
 - [x] 2.1 durak seçimi, 4-6 düğümlü galeri (yön adlı), düğüm sesleri, istenen an asansörle dönüş. [x] 2.2 vuruş tablosu
@@ -996,8 +999,37 @@ bütün bölümlerini sırayla sayar (21 Kasım: v3 paketiyle sekiz belge daha g
 - [x] 3 koru: düğüm türleri, vuruş ve ürünler, devrilme sesi, %25 kalas.
 - [x] 4.1 üç av noktası ve tabloları (termal: Kat 10 ya da kıyı kampı; kayalık: T2 olta ya da Atmosphere-X). [x] 4.2 dört
       adımlı mekanik. [x] 4.3 olta kademeleri, Sira-Vel K6 nadir +%25. [x] 5 kademe uyarısı, Basit Balıkçılık Modu.
+### Paket 10: eşya kataloğu ve büyü altyapısı (4.4)
+- [x] 2.1 rezonans maddeleri yalnız aydınlatma, çan, tütsü, şifa, hediye için; aktif büyü yok. [x] 2.2 Ham Rezonans etiketi
+      (çantada ve tarif menüsünde açıklamasıyla okunur). [x] 2.3 Malazar asası + iki büyü kristali → Malazar büyü tozu
+      (tapınak ya da okul sunağında) → akademi ve tapınaktaki büyü ve rezonans bölümü açılır.
+- [x] 3.1 doğa, maden, kıyı hammaddeleri (4.3'te; tablo kullanımları tariflerde). [x] 3.2 tarım ürünleri; Xeno-süt, yün,
+      yumurta kilitli (hayvan yok; ne üretilir ne istekte çıkar), bal Uma pazarından. [x] 3.3 Dünya gündelik eşyaları (17).
+      [x] 3.4 Malken eşyaları (8). [x] 3.5 sosyal, evlilik, kamara dekoru ve özel talep eşyaları (10).
+      [~] Peynirli börekte süt/yumurta yerine soya-kazein baklası da olur (hayvan yokken); Hidro çamur yerine hamam minerali;
+      kalın cam = mevcut "kalın cam levha"; kereste kalası = 4.3'teki kereste.
+- [x] 4 gündelik eşyalar gemi ambarına girmez (koloni deposu), gezegen numunesi yerine geçmez.
+- [x] 5 kategorili çanta (menüde "Koloni çantası": Hammaddeler, Yiyecek ve İçecek, Giyim ve Zanaat, Malken ve Tören, Özel ve
+      Evlilik; iki parmakla sağa sola), rezonans etiketi sesli.
+### Paket 12: yerleşim binaları, tezgâhlar ve işlevler (4.4)
+- [x] 2.1 kamp ateşi: kamp yemeği, sıcak su. [x] 2.2 meydan: üretim yok (pano 4.2). [x] 2.3 kamara: atölyede yapılan müzik
+      kutusu, akvaryum, rüzgâr çanı rafa konur. [x] 2.4 aşhane: ekmek, çay, kahve, çorba, konserve, börek, baharat, ziyafet
+      tabağı, kuru meyve; sıcak yemek önce pişmiş yemeği yer. [~] Aşçılık ritim mini oyunu Paket 3B ile (4.5).
+      [x] 2.5 atölye dört tezgâh: fırın, marangoz, örs (aletler + tamir kiti, çivi, düğün yüzüğü), dokuma.
+      [x] 2.6-2.7 konut ve kubbe: ev içi dinlenme. [~] Aile evi/aile kubbesi yükseltmesi Paket 4 ile (4.6).
+      [x] 2.8 tapınak: tütsü, bağ tılsımı, takı; rezonans sunağı. [x] 2.9 taverna ikram servisi (Julian sahnedeyse iki kat).
+      [~] Taverna zar oyunu festivalde var; akşam masa oyunu Paket 3B ile. [x] 2.10 okul: ders defteri, arşiv mühür kutusu.
+      [~] Okul eğitimi ve arşiv bağış setleri Paket 3B/4 ile. [x] 2.11 hamam ve şifa labı: sabun, aroma yağı (yıkanırken
+      stresi siler), sakinleştirici çay, antikor iksiri. [x] 2.12 gözlem: kristal çan, rüzgâr çanı, rezonans lambası, fener
+      yağı (fenere doldurulur), kristal pusula. [~] Çan döküm mini oyunu Paket 3B ile.
+- [x] 3.1 iskele ve tezgâh (4.2). [~] 3.2 hayvan barınağı kilitli (Paket 14/15, 4.5). [x] 3.3 karakollar (4.3; bedel tuğla).
+- [x] 4.1 tapınak ve okul sunağı Malazar tozuyla açılır; tılsımlar: koruma (7 gün fırtına morali düşmez), hızlı büyüme (3 gün
+      ×1,3), maden şansı (3 gün düğüm başına +1). [x] 4.2 gözlem tepesi harmonik yankı odası kilitli notu. [~] Yankı odası
+      üretimi ileride.
+- [x] 5 bina köşesinde standart sıra: tezgâhlar, şu an binadaki yerleşimciler, bina durumu ve yükseltme; "bir kez", "beş kez",
+      "ilan panosundaki eksik istekler için gereken kadar" üret. Tezgâh sesleri ElevenLabs (9).
 ### Sıradaki v5 belgeleri
-- [ ] Paket 3B, Paket 4, Paket 7, Paket 10, Paket 11, Paket 12, Paket 13, Paket 14, Paket 15, Paket 16.
+- [ ] Paket 3B, Paket 4, Paket 7, Paket 14, Paket 15, Paket 16.
 - [~] Bahtiyar'a: Paket 7'deki yerleşimci adları (Selim, Nadia, Tarik, Lira, Vaelis, Ayla, Ozan-7, çiftçi Elara ...)
       Paket 1/8'deki on altı kişiyle uyuşmuyor; görev mimarisinde on altı kişiye eşlenecek.
 

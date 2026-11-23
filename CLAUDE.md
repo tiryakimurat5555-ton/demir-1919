@@ -779,8 +779,24 @@ Demir 1919 oyunu silindi; geçmişi git kaydında (son sürüm 1.06, commit 556f
     (konumsal dugum_*; kristal damar 'kristal' kaynağı; belirme sesi), noktaGoster r.titresim / r.olta, agacGoster r.tasindi.
   - Sesler ElevenLabs (24 × 17; araclar/oturumlar-4.3.txt): assets/ses/saha/*.wav ve ortam_*.mp3, konumsal/dugum_*.wav.
   - testler/saha.test.js (12).
-- Sıradaki (v5, sırayla): 4.4 Paket 10 eşya kataloğu + Paket 12 bina tezgâhları + Paket 5 bölüm 3 yeni bitkiler (tuğla,
-  ekmek, çay ... kimlikler Paket 11 şablonlarındaki gibi); 4.5 Paket 3B arşiv ve hobiler + Paket 14/15 hayvanlar; 4.6 Paket 4
+- SÜRÜM 4.4 (23 Kasım, Murat: "Devam"): Paket 10 + Paket 12 + Paket 5 bölüm 3. Telefonda denenmedi.
+  - imalat/esya.js: GUNLUK (46 eşya; ZN.ESYA'ya kat 6, gunluk: true; sekme 0-4, gk, yiyecek, rezonans, hayvan [kilitli],
+    kullan), REZONANS/rezonansMi, SEKMELER, sekmesi; BITKILER'e arpa, pamuk_keten, cay_yapragi (A, teras), isik_otu,
+    kristal_cicek, tatli_kok (M, vaha+teras). ZN.kargo gunluk'u saymaz. pazar.js şablonlarında urun_tatli_kok/
+    urun_kristal_cicek/urun_pamuk_keten; ULASIM_EKLERI kancası; taban gk, grup, satilir gündelik eşyalar.
+  - imalat/tezgah.js: TEZGAHLAR (bina → tezgâh, ses el_tz_*), TARIFLER (girdi [[seçenekler], adet] ilk yeten seçenek;
+    kisi şartı; hayvan kilidi), girdiCoz, uret(d, id, kat, bina), istekIcinKat (pano eksikleri), tarifMenu (1 / 5 / istek
+    kadar), tezgahMenu, binaTezgahlari, binaDurumu, ikramVer, evdeDinlen, sunak (malazar_buyu_tozu → bayrak.rezonansSunagi;
+    TILSIMLAR koruma/bereket→tarimHiz/maden→madenSansi etkiKoy), cantaMenu (5 bölme, ikiParmak), kullan (ye/iç/yak/sefer
+    peksimet/fener yag 100/onar yip 0/dekor/ilac zehir 0), enIyiYemek, gunlukIlerle (tohum_ashane/atolye/vaha), uretilebilir.
+    Kancalar YR.TEZGAH (menu, durum, yemek, kullan), PZ.ULASIM_EKLERI.
+  - yerlesim.js: yb_* ve kamp ateşinde standart sıra (tezgah, kimler, durum, özel, incele); yemek önce pişmiş yemek; hamamda
+    aroma_yagi stresi siler; dekor rafına atölye yapımı dekor; yiyecekMi gündelik yemek. veri.js sever: çay (Veysel, Marcus,
+    Halvar), kahve (Kaelon, Marcus, Halvar). koloni.js fırtınada etki koruma; saha.js madenSansi +1, KARAKOL_BEDELI tugla 10.
+  - Yuzey: menüde "Koloni çantası" (Envanter'in altında). Sesler ElevenLabs (9 × 17; araclar/oturumlar-4.4.txt):
+    assets/ses/el_tz_firin/ocak/marangoz/ors/dokuma/tutsu/can/lab/yazi.wav (en çok 3,5 sn, I=-18, 22 kHz tek kanal).
+  - testler/imalat.test.js (17).
+- Sıradaki (v5, sırayla): 4.5 Paket 3B arşiv ve hobiler + Paket 14/15 hayvanlar; 4.6 Paket 4
   aile; 4.7 Paket 7 görev mimarisi + Paket 16. KAPSAM.md bölüm 62.
 
 ## Sesler

@@ -328,7 +328,7 @@ export function koloniIlerle(d, dt) {
   k.firtina = (k.firtina || 0) + dt;
   if (k.firtina >= FIRTINA_SN) {
     k.firtina = 0;
-    if ((k.kalkan || 1) < 2 && n.toplam >= 8) {
+    if ((k.kalkan || 1) < 2 && n.toplam >= 8 && !etkiVar(d, 'koruma')) { // 4.4: sunaktaki koruma tılsımı
       SB.moralKaybi(d, 5);
       olaylar.push({ tur: 'moral', metin: 'Radyasyon fırtınası koloniyi dövdü; insanlar sığınaklarda. Moral düştü. Bir kalkan jeneratörü bunu önler.' });
     }

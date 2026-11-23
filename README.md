@@ -6,6 +6,23 @@ tesis kurar, ileride gemini parça parça inşa edip uzaya açılırsın.
 
 Yapımcı: Bahtiyar Cankurt (tasarım belgeleri belgeler/ içinde). Expo Go ile iPhone ve Android'de çalışır.
 
+## Bu sürümde (4.4)
+- Yerleşim binalarında üretim tezgâhları. Bir binanın köşesine gidip çift dokununca sıra hep aynı: Üretim ve işlev
+  tezgâhları, Şu an binadaki yerleşimciler, Bina durumu ve yükseltme. Her tarifte "Bir kez üret", "Beş kez üret" ve
+  ilan panosunda eksik istek varsa "gereken kadar üret".
+- Aşhane (taş fırın, ocak): ekmek, börek, kuru meyve, çay, kahve, balık çorbası, konserve, baharat, Sorya'nın ziyafet
+  tabağı. Atölye (fırın, marangoz, örs, dokuma): tuğla, çanak, cam, kereste, kömür, oyuncak, müzik kutusu, akvaryum,
+  tamir kiti, çivi ve menteşe, düğün yüzüğü, gömlek, şal, halat, eldiven, saha çantası. Tapınak: tütsü, bağ tılsımı, takı.
+  Okul: ders defteri, mühür kutusu. Gözlem tepesi: kristal çan, rüzgâr çanı, rezonans lambası, fener yağı, pusula.
+  Hamam: sabun, aroma yağı, sakinleştirici çay, antikor iksiri. Kamp ateşi: ızgara balık ve sıcak su. Taverna ikramı,
+  evde dinlenme.
+- Altı yeni ekim: arpa, pamuk ve keten, çay (sera); ışık otu, kristal çiçek, tatlı yıldız kökü (vaha ve sera).
+- Menüde "Koloni çantası": beş bölme; yiyecekleri ye, iç; fener yağını fenere doldur, tamir kitiyle aletleri onar, dekoru
+  kamaraya koy. Ham Rezonans etiketli eşyalar söylenir.
+- Malazar büyü tozu (Orin'den gelen asa ve kristallerle) tapınak ve okuldaki rezonans sunağını açar: koruma, hızlı büyüme
+  ve maden şansı tılsımları.
+- İleri karakollar artık tuğlayla kurulur.
+
 ## Bu sürümde (4.3)
 - Derin Maden Ocağı: Kaelon ya da Torvok'la konuşup "Maden kuyusunu aç" de; maden ağzı vadinin güneybatısında. Asansörle
   Kat 1, 5, 10 ... 40 duraklarına inilir. Her durak küçük bir galeri: önünde soldan sağa damarlar sesleriyle duyulur

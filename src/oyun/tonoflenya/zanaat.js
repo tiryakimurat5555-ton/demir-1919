@@ -527,7 +527,7 @@ export function kargo(d) {
   hazirla(d);
   let h = 0;
   for (const k of TONOFLENYA_HAMMADDELERI) h += miktar(d, k) * HACIM(k);
-  for (const k of Object.keys(d.esya)) if (!(d.gemi && d.gemi.moduller[k])) h += (d.esya[k] || 0) * HACIM(k);
+  for (const k of Object.keys(d.esya)) if (!(d.gemi && d.gemi.moduller[k]) && !(ESYA[k] && ESYA[k].gunluk)) h += (d.esya[k] || 0) * HACIM(k); // 4.4: gündelik eşyalar koloni deposunda
   const siniflar = Object.keys(GEMI_SINIFLARI);
   const s = d.gemi ? Math.max(0, siniflar.indexOf(d.gemi.sinif)) : 0;
   const kapasite = Math.round((60 + 30 * s) * (SB.kabiliyet(d, 'uma', 3) ? 1.5 : 1)) + (d.gemi && d.gemi.moduller.cep_ambar ? 500 : 0); // T-03 cep-ambar

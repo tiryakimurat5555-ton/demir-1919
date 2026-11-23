@@ -42,7 +42,7 @@ describe('İlan panosu ve istekler', () => {
     expect(p.length).toBeGreaterThan(0);
     expect(p.length).toBeLessThanOrEqual(3);
     for (const x of p) for (const k of Object.keys(x.istenen)) expect(PZ.ulasilabilir(d, k)).toBe(true);
-    // gelecekteki Paket 10 eşyaları (ekmek, tuğla) istenmez
+    // aşhane ve atölye kurulmadan ekmek ve tuğla istenmez (4.4 tezgâhları)
     expect(PZ.ulasilabilir(d, 'ekmek')).toBe(false);
     expect(PZ.ulasilabilir(d, 'tugla')).toBe(false);
     expect(yakindakiler({ ...d, mekan: 'meydan' }).some((n) => n.id === 'ilan_panosu')).toBe(true);
