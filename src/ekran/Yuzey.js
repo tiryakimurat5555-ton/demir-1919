@@ -2568,7 +2568,8 @@ export default function Yuzey({ onGeri, baslangic, yeniOyunUret }) {
 
 
   // --- Tarım: ekim yatakları (tarim-ve-kseno-botanik bölüm 4) ---
-  const tarlaOrtami = (y) => (y.ortam === 'vaha' ? 'ortam_vaha' : y.ortam === 'kubbe' ? 'ortam_kubbe' : 'ortam_tarim');
+  // 3.10 (Bahtiyar): vahanın parselleri tarım müziğini, sera binasının yatakları binanın ortamını çalar
+  const tarlaOrtami = (y) => (y.ortam === 'vaha' ? 'ortam_tarim' : 'ortam_kubbe');
   const yatakDinlet = (y) => {
     const ses = yatakSesi(y);
     if (ses === 'olgun') {

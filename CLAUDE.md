@@ -635,6 +635,10 @@ Demir 1919 oyunu silindi; geçmişi git kaydında (son sürüm 1.06, commit 556f
   - efektler.js TEMBEL: savaş sesleri açılışta değil ilk çalışta / onYukle ile açılır, bosalt bırakır (oynatıcı sayısı).
     TAKMA_ADLAR { ortam_krater: 'ortam_tarim' }: tarım alanında ses gelmiyordu (Bahtiyar); iki oynatıcı aynı dosyayı
     açıyordu, artık tek. testler/savasSesleri.test.js.
+- SÜRÜM 3.10 (23 Kasım, Bahtiyar): tarım müziği (ortam_tarim) asıl yerinde, sırtlardan girilen Saklı Jeotermal Kseno-Vaha'da
+  (MEKANLAR.vaha.ortam; vaha parsellerinin tarla katmanı da). Kolonideki iç mekân "Koloni Sera Binası" (eski adı Jeotermal Tarım
+  Alanı; kapı "Sera binasının kapısı", binayı anlatan tarif) ve Bahtiyar kendi efektini verene kadar ortam_kubbe çalar
+  (yatakları da). Krater müziği aynı dosya (TAKMA_ADLAR). Telefonda denenmedi.
 - Sıradaki: v4 paketinin bütün belgeleri işlendi; KAPSAM.md'de [~] notları (Bahtiyar'a sorulacaklar) ve telefonda deneme.
 
 ## Sesler

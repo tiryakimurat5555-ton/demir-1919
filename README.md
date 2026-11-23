@@ -6,6 +6,9 @@ tesis kurar, ileride gemini parça parça inşa edip uzaya açılırsın.
 
 Yapımcı: Bahtiyar Cankurt (tasarım belgeleri belgeler/ içinde). Expo Go ile iPhone ve Android'de çalışır.
 
+## Bu sürümde (3.10)
+- Tarım müziği artık Saklı Kseno-Vaha'da çalıyor; kolonideki ekim yeri "Koloni Sera Binası" oldu (bina ortam sesi).
+
 ## Bu sürümde (3.9)
 - Savaşın bütün sesleri: her düşman ailesinin (korsanlar, yabancı gemi, dronlar, gölge sürüsü ve gemisi, akrepler,
   otomatlar, haydutlar, tarikat, canavarlar, mantar, kriyo, solucan, uçan avcılar, sürüngen, ses illüzyonu, yavrular,

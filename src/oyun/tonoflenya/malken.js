@@ -215,7 +215,7 @@ export function eylemUygula(d, id, eid) {
       if (!b(d).ygkKayit) return { metin: 'Çırak: "Önce kabul masasına kendini bildir, Kaptan."', ses: 'red' };
       b(d).malken_ciraklari = true;
       d.koloni.nufus.toplam += 2;
-      return { metin: 'İki Malken çırağı Aethelis-IV\'e gelmeye gönüllü oluyor. Dönüşte koloninin nüfusuna katılırlar; tarım alanında yataklara atanabilirler (aether aşılaması: erzaklar bir sefer fazla sürer).', ses: 'topla' };
+      return { metin: 'İki Malken çırağı Aethelis-IV\'e gelmeye gönüllü oluyor. Dönüşte koloninin nüfusuna katılırlar; sera binasında yataklara atanabilirler (aether aşılaması: erzaklar bir sefer fazla sürer).', ses: 'topla' };
     case 'muhur':
       if ((d.koloni.kaynaklar.aether || 0) < 2) return { metin: 'Mühürleri beslemek için iki aether kristali gerekir; Malazar\'ın ocaklarından.', ses: 'red' };
       d.koloni.kaynaklar.aether -= 2;
@@ -235,7 +235,7 @@ export function eylemUygula(d, id, eid) {
       b(d).ygk_biyodepo = true;
       if (!d.tarim) return { metin: 'Bekçi: "Önce kendi tarlan olsun, Kaptan."', ses: 'red' };
       for (const t of ['don_kiran', 'akifer', 'soya', 'noro_kahve', 'aloe']) d.tarim.tohumlar[t] = (d.tarim.tohumlar[t] || 0) + 2;
-      return { metin: 'Depo bekçisi buzlu çekmeceleri açıyor: beş Eski Dünya ürününden ikişer tohum. Aethelis\'in tarım alanında ekebilirsin.', ses: 'topla' };
+      return { metin: 'Depo bekçisi buzlu çekmeceleri açıyor: beş Eski Dünya ürününden ikişer tohum. Aethelis\'in sera binasında ya da vahada ekebilirsin.', ses: 'topla' };
     case 'isle':
       if ((d.koloni.kaynaklar.aether || 0) < 1) return { metin: 'Potaya atacak aether kristali yok.', ses: 'red' };
       d.koloni.kaynaklar.aether -= 1;

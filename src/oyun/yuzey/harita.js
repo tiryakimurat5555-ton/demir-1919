@@ -152,7 +152,7 @@ export const MEKANLAR = {
     ad: 'Saklı Jeotermal Kseno-Vaha',
     tarif: 'Kükürt fırtınasının tam kalbinde, doğal kalsit duvarlarla çevrili küçük bir vadi. Yer altı buharı havayı süzüyor: taze toprak ve çiçek kokusu, su şırıltıları, kuş cıvıltıları. Maskeni çıkarabilirsin.',
     alan: { bati: 2800, dogu: 2850, guney: 0, kuzey: 40 },
-    ortam: 'ortam_vaha',
+    ortam: 'ortam_tarim', // Bahtiyar (3.10): kendi gönderdiği tarım müziği asıl vahada çalar
     zemin: 'tas',
     dis: true,
   },
@@ -166,12 +166,13 @@ export const MEKANLAR = {
     dis: false,
     disariKonum: { x: 740, y: 35 },
   },
-  // Murat (1.15): ana gezegendeki jeotermal tarım alanı; içine girince kendi ortam sesi döner. Senaryosu Bahtiyar'da.
+  // Murat (1.15): koloninin ekim binası. Bahtiyar (3.10): bina olduğu hissedilsin; kendi efektini verecek,
+  // o gelene kadar biyo-kubbe sera ortamı çalar. Asıl tarım müziği Saklı Kseno-Vaha'da.
   tarim: {
-    ad: 'Jeotermal Tarım Alanı',
-    tarif: 'Sırtların ısısıyla ısıtılan, kayaya oyulmuş geniş bir sera. Hava ılık ve nemli; borularda sıcak su akıyor.',
+    ad: 'Koloni Sera Binası',
+    tarif: 'Koloninin kapalı ekim binası: çelik çatılı, camlı bölmeli bir hidroponik sera. Hava ılık ve nemli; havalandırma fanları uğulduyor, tavandaki borulardan jeotermal sıcak su akıyor.',
     alan: { bati: 3000, dogu: 3020, guney: 0, kuzey: 20 },
-    ortam: 'ortam_tarim',
+    ortam: 'ortam_kubbe',
     zemin: 'tas',
     dis: false,
     disariKonum: { x: -35, y: -25 },
@@ -212,15 +213,15 @@ export const KAPILAR = {
     ],
   },
   tarim_kapi: {
-    ad: 'Jeotermal tarım alanının kapısı',
+    ad: 'Sera binasının kapısı',
     uclar: [
-      { mekan: 'vadi', x: -35, y: -25, yon: Math.PI, ad: 'Jeotermal tarım alanının kapısı' },
+      { mekan: 'vadi', x: -35, y: -25, yon: Math.PI, ad: 'Sera binasının kapısı' },
       { mekan: 'tarim', x: 3010, y: 1.5, yon: 0, ad: 'Vadiye çıkış' },
     ],
     // Bacalar dengelenip jeotermal ısı vadiye ulaşınca açılır
     kosul: (d) => !!d.bayrak.sondaj,
     kilitMetni: 'Kayaya oyulmuş ağır bir kapı; ardı karanlık ve soğuk. Isıtma boruları boş. Önce sırtlardaki bacalar dengelenmeli, jeotermal ısı buraya ulaşmalı.',
-    gecisMetni: ['Kapı açılınca yüzüne ılık, nemli bir hava çarpıyor. Jeotermal tarım alanındasın.', 'Vadinin serin havasına çıkıyorsun.'],
+    gecisMetni: ['Kapı açılınca yüzüne ılık, nemli bir hava çarpıyor. Koloni Sera Binası\'nın içindesin.', 'Vadinin serin havasına çıkıyorsun.'],
   },
   dogu_gecit: {
     ad: 'Doğu geçidi',

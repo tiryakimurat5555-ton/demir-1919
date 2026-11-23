@@ -238,7 +238,7 @@ TESISLER.koloni_mutfagi = {
   acar: 'Sefer erzakları.',
   maliyet: { bazalt: 6, titanyum: 2, kristal: 1 },
   kosul: (d) => !!d.bayrak.sondaj,
-  kosulMetni: 'Önce jeotermal tarım alanı açılmalı (sondaj).',
+  kosulMetni: 'Önce koloni sera binası açılmalı (sondaj).',
 };
 TESISLER.kseno_eczane = {
   ad: 'Revir ve Kseno-Eczane',
