@@ -215,7 +215,7 @@ describe('Yerleşim', () => {
     expect(noktaEylemleri(d, 'terminal').some((e) => e.id === 'yerlesim')).toBe(true);
     const r = eylemUygula(d, 'terminal', 'yerlesim');
     const p = r.agac(d);
-    expect(p.ogeler.map((o) => o.id)).toEqual(['binalar', 'kisiler', 'takvim', 'festivaller']);
+    expect(p.ogeler.map((o) => o.id)).toEqual(['binalar', 'kisiler', 'takvim', 'festivaller', 'aile']);
     expect(YR.binaMenusu(d).ogeler.length).toBe(11);
     expect(YR.yerlesimciMenusu(d).ogeler.length).toBe(16);
     expect(YR.profilMetni(d, 'veysel')).toContain('Kademe 1');

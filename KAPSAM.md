@@ -1064,8 +1064,34 @@ bütün bölümlerini sırayla sayar (21 Kasım: v3 paketiyle sekiz belge daha g
       stres), akşam kuşları (+1 moral, en çok 3), şafak horozu (Gümüş Şafak'ta takvim), tavus (+5 festival), hindi (+3),
       kuğu, anka (+10 bir kez, her gün +1, hastalık yok).
 - [x] 5 modül eksikliği uyarısı, yoldaş ve kamara seçeneği.
+### Paket 4: koloni nesilleri, evlilik, çocuklar ve ekonomi sınırları (4.6)
+- [x] 1 amaç: koloni kendi içinden büyür (evlilik, doğum, çırak); tüccar ve tezgâh sınırlı.
+- [x] 2 mekânlar: Dünya konutu ve Malken kubbesi aile evine çevrilir (AILE_EVI_BEDELI); evde çocuk ve bebek konumlu sesleri
+      (ElevenLabs), okulda çocuk sesleri. Tören meydanda/tapınakta kutlama sahnesi (aile_dugun, el_dugun). [~] Ayrı tören
+      müziği yok; düğün efekti ve sahne metni.
+- [x] 3.1 kaptanın evliliği: Kademe 8, Veysel ve Tina romantik değil; kamara genişletme ya da aile evi; sembol (Dünya kökenli
+      düğün yüzüğü, Malken/dış kökenli Altı Yıldız bağ tılsımı); +10 moral; öteki adaylarda teklif kapanır; üç gün tebrik,
+      eşin dostlarına +25, zıtlarından esprili söz; eş akşam kamarada (konum.js), sabah destek (yemek, çay ya da alet bakımı);
+      Kademe 5+ adaylar NPC evliliğinden korunur; NPC çiftleri yalnız kaptan evliyse ya da arabuluculuk onayıyla (aile evi
+      kapasitesiyle). Evlenen çift sayısı artınca Yerleşim'e konut ihtiyacı düşer.
+- [x] 3.2 çocuk: evlilikten üç gün sonra ve çocuk yatağıyla eşin akşam sorusu (Evet / Şimdilik bekleyelim); 14 gün sonra
+      doğum (Lyris kontrolleri, takvime mevsim + gün, sevinç anonsu, el_dogum); en çok 2 çocuk, ikincisi ilki öğrenciyken.
+- [x] 3.3 evreler: bebek 14 gün (+5 moral), öğrenci 28 gün (okul; festivalde çocuk korosu), 42. günden sonra çırak (anne-baba
+      mesleği ya da eksik alan: çiftçi, madenci, teknisyen, şifacı, izci; nüfusa kalıcı işçi). Doğum günü 56 günde bir (+15
+      moral, oyuncak/börek hediyesi). Yerleşimci doğum günleri 4.0'dan beri.
+- [x] 4.1 çekirdek uzay teknolojileri Orin'de satılmaz (4.2'den beri: yalnız temel/ara malzeme). [x] 4.2 kısıtlı stok ve
+      fiyat: menüde "kısıtlı acil stok: normalin N katı" uyarısı. [x] 4.3 tezgâh günlük tavanı 400 kredi. [x] 4.4 hobiler
+      küçük getirir (saha ve hayvan miktarları).
+- [x] 5 Yerleşim panelinde "Aile ve nesiller"; festival çocuk korosu ek moral. [x] 6 çocukların adı, evresi, mesleği okunur.
+### Paket 16: ana hikâye ile koloni köprüsü (4.6)
+- [x] Neden 1: aşhane ve sefer rasyonu (Sorya + Veysel sinerjisi, kalkışta peksimet); hamam stresi ve artık zehri de sıfırlar,
+      kedi ve şifa labı (4.5); Marcus ya da Elara Kademe 6: kaçınma penceresi +0,2 sn (her biri) ve seyir hızı ×1,05 (sefer
+      -%5); Zarek + Elara yakıt ×0,92 (4.1); Kaelon ya da Brom Kademe 6: tamir ×0,85; Nerissa Kademe 6: Cahelon'un dalışından
+      önce sonar uyarısı; Lyris ya da Nerissa Kademe 6: maruziyet ×0,85 (antikor).
+- [x] Neden 2-5: maden, kıyı, balık, kuluçka, pano, Orin, ansiklopedi, arşiv önceki sürümlerde; final sonrası oyun sürer.
+- [x] 3 denge: zorunlu kilit yok; yaşam bloğu kurulunca Veysel'in tanıtım anonsu (bir kez).
 ### Sıradaki v5 belgeleri
-- [ ] Paket 4, Paket 7, Paket 16.
+- [ ] Paket 7 (4.7).
 - [~] Bahtiyar'a: Paket 7'deki yerleşimci adları (Selim, Nadia, Tarik, Lira, Vaelis, Ayla, Ozan-7, çiftçi Elara ...)
       Paket 1/8'deki on altı kişiyle uyuşmuyor; görev mimarisinde on altı kişiye eşlenecek.
 

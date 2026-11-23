@@ -551,6 +551,14 @@ function stokFiyati(d, s) {
   const ind = indirim(d);
   return { gk: Math.round(s.gk * (1 - ind)), kupon: s.kupon || 0, ml: s.ml ? Math.round(s.ml * (1 - ind)) : 0 };
 }
+// Paket 4 bölüm 6: kısıtlı acil stokta "normalin N katı" uyarısı
+function katMetni(s) {
+  const k = s.esya || s.ham || s.parca;
+  if (!k || !s.gk) return '';
+  const t = taban(k) * (s.n || 1);
+  const kat = Math.round(s.gk / Math.max(1, t));
+  return kat >= 2 ? ', kısıtlı acil stok: normalin ' + kat + ' katı' : '';
+}
 function orinAlMenu(d) {
   const o = d.pazar.orin;
   return {
@@ -559,7 +567,7 @@ function orinAlMenu(d) {
     ogeler: o.stok.map((s) => {
       const f = stokFiyati(d, s);
       const kalan = s.adet - (o.alinan[s.id] || 0);
-      const fm = [f.gk ? f.gk + ' kredi' : '', f.kupon ? f.kupon + ' kupon' : ''].filter(Boolean).join(' ve ') + (f.ml ? ' (ya da ' + f.ml + ' Malken Lirası)' : '');
+      const fm = [f.gk ? f.gk + ' kredi' : '', f.kupon ? f.kupon + ' kupon' : ''].filter(Boolean).join(' ve ') + (f.ml ? ' (ya da ' + f.ml + ' Malken Lirası)' : '') + katMetni(s);
       return { id: s.id, etiket: s.ad + ': ' + fm + '. ' + (kalan > 0 ? kalan + ' tane kaldı.' : 'Tükendi.'), yap: (x) => orinAl(x, s.id) };
     }),
   };
@@ -618,6 +626,8 @@ export function orinTakas(d, tid) {
 
 // --- Koloni tezgâhı ---
 export const TEZGAH_CESIT = 4;
+// Paket 4 bölüm 4.3: tezgâhın pasif geliri günde en çok 400 kredi
+export const TEZGAH_GUNLUK_TAVAN = 400;
 function tezgahFiyati(d, k) {
   const c = carpanlar(d, Z.hafta(d))[grup(k)];
   return Math.round(taban(k) * c * 0.9 * (YR.kademe(d, 'mateo') >= 2 ? 1.1 : 1) * 10) / 10;
@@ -650,8 +660,16 @@ export function tezgahIlerle(d) {
   if (!iskeleAcik(d)) return 0;
   const alici = 1 + Math.floor(((d.koloni.nufus && d.koloni.nufus.toplam) || 0) / 8) + Math.floor((d.yer ? d.yer.katilan.length : 0) / 4);
   let gelir = 0;
+  const g = Z.gun(d);
+  if (p.tezgahGun !== g) {
+    p.tezgahGun = g;
+    p.tezgahBugun = 0;
+  }
   for (const k of Object.keys(p.tezgah)) {
-    const n = Math.min(p.tezgah[k], alici);
+    const kalan = TEZGAH_GUNLUK_TAVAN - p.tezgahBugun - gelir;
+    if (kalan <= 0) break;
+    const n = Math.min(p.tezgah[k], alici, Math.floor(kalan / Math.max(1, tezgahFiyati(d, k))));
+    if (n <= 0) continue;
     gelir += n * tezgahFiyati(d, k);
     p.tezgah[k] -= n;
     if (p.tezgah[k] <= 0) delete p.tezgah[k];
@@ -660,6 +678,7 @@ export function tezgahIlerle(d) {
     ZN.hazirla(d);
     gelir = Math.round(gelir * 10) / 10;
     d.para.gk += gelir;
+    p.tezgahBugun = (p.tezgahBugun || 0) + gelir;
     p.tezgahGelir = Math.round(((p.tezgahGelir || 0) + gelir) * 10) / 10;
   }
   return gelir;

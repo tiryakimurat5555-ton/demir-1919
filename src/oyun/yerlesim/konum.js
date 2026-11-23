@@ -2,7 +2,7 @@
 // (veri.js, yerlesim/harita.js, zaman.js) ki yuzey/dunya.js ile döngü olmasın.
 import { PROGRAM_YERI, YERLESIMCILER, YERLESIMCI_SIRASI, YERLESIM_BINALARI } from './veri';
 import { icMerkez } from './harita';
-import { nobet } from '../zaman';
+import { nobet, nobetNo } from '../zaman';
 
 export const yerVar = (d, id) => !!(d.yer && d.yer.binalar && d.yer.binalar.includes(id));
 export const katildiMi = (d, id) => !!(d.yer && d.yer.katilan && d.yer.katilan.includes(id));
@@ -55,6 +55,11 @@ export function kisiKonumu(d, yid) {
   if (d.festival && d.festival.aktif && yerVar(d, 'meydan')) {
     const a = (i / YERLESIMCI_SIRASI.length) * Math.PI * 2;
     return { mekan: 'meydan', x: 3230 + Math.cos(a) * 7, y: 34 + Math.sin(a) * 4, eylem: 'kutlamada', yer: 'meydan', bina: 'meydan' };
+  }
+  // Paket 4: Kaptan'ın eşi akşamları (Mor İkindi sonrası) kamaraya döner
+  if (d.aile && d.aile.es === yid && yerVar(d, 'kamara') && nobetNo(d) >= 4) {
+    const m = icMerkez('kamara');
+    return { mekan: YERLESIM_BINALARI.kamara.mekan, x: m.x - 3, y: m.y, eylem: 'kamarada, seninle', yer: 'kamara', bina: 'kamara' };
   }
   const dx = ((i % 4) - 1.5) * 3.2;
   const dy = (Math.floor(i / 4) % 4) * 2.2;

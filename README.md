@@ -6,6 +6,15 @@ tesis kurar, ileride gemini parça parça inşa edip uzaya açılırsın.
 
 Yapımcı: Bahtiyar Cankurt (tasarım belgeleri belgeler/ içinde). Expo Go ile iPhone ve Android'de çalışır.
 
+## Bu sürümde (4.6)
+- Koloni nesilleri: Kademe 8'e ulaşan bir yerleşimciyle evlilik (Veysel ve Tina hariç), kültürüne göre yüzük ya da bağ tılsımı,
+  düğün sahnesi, kamara genişletme ve aile evleri; çocuk yatağı ve eşin sorusu, 14 günlük bekleyiş, doğum, bebek, öğrenci ve çırak
+  evreleri, doğum günleri; arabuluculukla yerleşimci çiftleri. Yerleşim panelinde "Aile ve nesiller".
+- Ekonomi sınırları: tezgâh günde en çok 400 kredi getirir; Orin'in kısıtlı stoğunda fiyatın normalin kaç katı olduğu okunur.
+- Koloni ile hikâye köprüsü: Marcus ve Elara savaşta kaçınma süresini uzatır, seferi kısaltır; Kaelon ve Brom tamiri ucuzlatır;
+  hekimler maruziyeti azaltır; Nerissa Cahelon'u önceden haber verir; hamam zehri de temizler. Yaşam bloğunda Veysel'in anonsu.
+- Telefonda denenmedi.
+
 ## Bu sürümde (4.5)
 - Hayvanlar: biyo-kubbede iki genom kapsülünü birleştir (merkez terminali ya da barınaktaki kuluçka makinesi). Kapsüller ve
   dondurulmuş yumurtalar Kaptan Orin'in gemisinde çıkar. Bir gün sonra çatlama sesi: elli türden biri; aynı iki gen bile

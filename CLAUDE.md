@@ -825,8 +825,20 @@ Demir 1919 oyunu silindi; geçmişi git kaydında (son sürüm 1.06, commit 556f
     kaplumbaga/kazici/tilki/efsane.wav (24 kHz tek kanal I=-20), hayvan/el_hayvan_ac/mutlu/hasta, el_catlama, el_zar (I=-18),
     hayvan/ortam_barinak/gol/arsiv.mp3 (araclar/dongu.py, 2,5 sn çapraz geçiş, I=-24).
   - testler/hayvan.test.js (15).
-- Sıradaki (v5, sırayla): 4.6 Paket 4
-  aile; 4.7 Paket 7 görev mimarisi + Paket 16. KAPSAM.md bölüm 62.
+- SÜRÜM 4.6 (23 Kasım, Murat: "Devam dememi bekleme, yap bütün hepsini"): Paket 4 + Paket 16. Telefonda denenmedi.
+  - aile/aile.js: EVLILIK_KADEMESI 8, ROMANTIK_DEGIL veysel/tina, BEKLEME_GUN 3 (soru), doğum 14 gün, EVRE_OGRENCI 14,
+    EVRE_CIRAK 42, EN_COK_COCUK 2, bedeller (aile evi, kamara genişletme, çocuk yatağı), MESLEKLER; d.aile {es, cocuklar [{ad, cinsiyet, dogum, cift, meslek}], ciftler, hamile, aileEvi, onay};
+    evlen
+    (sahne aile_dugun, olay dugun), cocukCevap, dogum (olay dogum, nüfus +1), evre, meslekSec, ciftAday/arabuluculukOnayla,
+    aileIlerle (gorevler.zamanIlerle), aileMenu (Yerleşim paneli "Aile ve nesiller"), YR.KISI_EKLERI evlenme teklifi,
+    ekEylemler ai_ev/ai_kamara/ai_yatak/ai_soru/ai_cocuk, tanitim (yaşam bloğunda Veysel anonsu, Paket 16). konum.js eş
+    akşam (nöbet ≥ 4) kamarada. pazar.js TEZGAH_GUNLUK_TAVAN 400, Orin menüsünde "kısıtlı acil stok: normalin N katı".
+  - Paket 16 etkileri: savas.js yk_marcus_6/yk_elara_6 kaçınma +0,2; seyir hız ×1,05; zanaat tamir ×0,85 (Kaelon/Brom K6);
+    dunya.js maruziyet ×0,85 (Lyris/Nerissa K6); Cahelon'da Nerissa sonar sözü; hamam zehri sıfırlar.
+  - Yuzey: okul/konutta çocuk sesleri (konumsal cocuk/bebek), olay dugun/dogum/gorevTamam (el_dugun/el_dogum/el_gorev).
+  - Sesler ElevenLabs (5 × 17; araclar/oturumlar-4.6.txt): konumsal/cocuk, bebek.wav (I=-20, 24 kHz), aile/el_*.wav (I=-18).
+  - testler/aile.test.js (5).
+- Sıradaki (v5): 4.7 Paket 7 görev mimarisi (görev terminali). KAPSAM.md bölüm 62.
 
 ## Sesler
 - Drive'daki Efektler/Ambians dosyaları 14 MB; Drive bağlayıcısı 10 MB'tan büyük dosyayı indiremiyor. Bu yüzden

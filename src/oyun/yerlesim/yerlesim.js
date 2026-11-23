@@ -732,6 +732,7 @@ export function eylemUygula(d, id, eylemId) {
     const sifir = !!(d.bayrak.yk_siravel_10 || d.bayrak.sin_lyris_siravel || aroma);
     for (const u of d.murettebat || []) u.stres = sifir ? 0 : Math.max(0, (u.stres || 0) - 20);
     if (d.saha) d.saha.yorgunluk = 0;
+    d.zehir = 0; // v5 Paket 16: hamam zehri de tek ziyarette sıfırlar
     d.koloni.moral = Math.min(100, d.koloni.moral + 2);
     return { metin: 'Sıcak, mineralli su omuzlarındaki yükü alıyor. ' + (aroma ? 'Aroma yağının kokusu buharla yayılıyor; mürettebatın stresi tamamen silindi.' : sifir ? 'Sira-Vel\'in şifasıyla mürettebatın stresi tamamen silindi.' : 'Mürettebatın stresi yirmi azaldı.') + ' Moral iki arttı.', ses: 'tislama' };
   }

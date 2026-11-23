@@ -216,6 +216,10 @@ const KAYNAKLAR = {
   el_hayvan_hasta: require('../../assets/ses/hayvan/el_hayvan_hasta.wav'),
   el_catlama: require('../../assets/ses/hayvan/el_catlama.wav'),
   el_zar: require('../../assets/ses/hayvan/el_zar.wav'),
+  // 4.6-4.7: düğün, doğum, görev kilometre taşı
+  el_dugun: require('../../assets/ses/aile/el_dugun.wav'),
+  el_dogum: require('../../assets/ses/aile/el_dogum.wav'),
+  el_gorev: require('../../assets/ses/aile/el_gorev.wav'),
   ortam_maden_orta: require('../../assets/ses/saha/ortam_maden_orta.mp3'),
   ortam_maden_derin: require('../../assets/ses/saha/ortam_maden_derin.mp3'),
   ortam_kiyi: require('../../assets/ses/saha/ortam_kiyi.mp3'),

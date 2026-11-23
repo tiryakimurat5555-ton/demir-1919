@@ -270,7 +270,7 @@ export function uzayIlerle(d, dt) {
     const yakit = 0.25 * u.hiz * YAKIT_TUKETIM * dt * // manevra ve yaşam desteği; asıl yol yakıtı varışta (rotaYakiti)
       (g.moduller.sivi_iletken ? 0.85 : 1) * (b.f_yakit ? 0.9 : 1) * (b.f_saat ? 0.9 : 1) * (b.p_yakit ? 0.9 : 1) * (b.p_tasarruf ? 0.9 : 1) * (b.sin_zarek_elara ? 0.92 : 1) * E.yakitCarpani(d) * SB.yakitCarpani(d) * (1 - (g.aetherVerimi || 0)) * (b.tf_astral ? 0.87 : 1) * (g.moduller.efsanevi_reaktor ? 0.5 : 1) * (b.gz_helyum ? 0.85 : 1) * (b.gz_karanlik && (u.halka || 0) >= 4 ? 0.8 : 1);
     g.yakit = Math.max(0, g.yakit - yakit);
-    const birim = HIZ_BIRIMI * gucDagitimi(d).hiz * E.hizCarpani(d) * yildizCarpani(d, 'hiz') * ((d.surupBitis || 0) > ((d.zaman && d.zaman.sn) || 0) ? 1.25 : 1) * (d.bayrak.yan_cift_graviton ? 1.25 : 1) * (d.bayrak.gz_hiper ? 1.15 : 1) * (d.bayrak.gz_plazmaMotor ? 1.2 : 1);
+    const birim = HIZ_BIRIMI * gucDagitimi(d).hiz * E.hizCarpani(d) * yildizCarpani(d, 'hiz') * ((d.surupBitis || 0) > ((d.zaman && d.zaman.sn) || 0) ? 1.25 : 1) * (d.bayrak.yan_cift_graviton ? 1.25 : 1) * (d.bayrak.gz_hiper ? 1.15 : 1) * (d.bayrak.gz_plazmaMotor ? 1.2 : 1) * (d.bayrak.yk_marcus_6 || d.bayrak.yk_elara_6 ? 1.05 : 1); // Paket 16: sefer süresi -%5
     u.x += Math.sin(u.yon) * u.hiz * birim * dt;
     u.y += Math.cos(u.yon) * u.hiz * birim * dt;
     if (g.yakit <= 0) {

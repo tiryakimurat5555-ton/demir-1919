@@ -895,6 +895,7 @@ function fazDenetle(d, dm, olaylar) {
     const cagri = x.cagir && dm.tur === 'lord_sharon' && d.bayrak.tfKusatma ? x.cagir.slice(0, 1) : x.cagir;
     if (cagri) for (const c of cagri) yardimciCagir(d, dm, c, olaylar, true);
     if (cagri && x.cagir && cagri.length < x.cagir.length) olaylar.push({ soz: 'Gölge ordusu kuşatmada kırılmıştı: Sharon yalnız bir muhafız çağırabildi.' });
+    if (dm.tur === 'cahelon' && d.bayrak.yk_nerissa_6 && !dm.nerissaDedi) { dm.nerissaDedi = true; olaylar.push({ soz: 'Doktor Nerissa\'nın sonar notları: Cahelon dalıştan önce derin bir uğultu bırakıyor. Uğultuyu duyunca hazır ol.' }); }
     if (x.kilit && dm.tur === 'cahelon' && d.bayrak.abisVeri) olaylar.push({ soz: 'Abis veri çekirdeği dalış rotasını biliyor: Cahelon\'un yerini kaçırmıyorsun.' });
     s.uyari = null;
     s.evre = 'oyuncu';
@@ -1209,6 +1210,9 @@ function pencere(d, x, silah) {
   if (s.isaret > 0) p += 0.4; // Kıvılcım destek gemisi düşmanı işaretledi
   if (s.cephe) p += s.cephe;
   if (d.bayrak && d.bayrak.tinaTaktik && bina(d, 'tina_cekirdegi')) p += 0.4; // Tina'nın taktik protokolü (3C)
+  // v5 Paket 16: Kaptan Marcus ve Pilot Elara Kademe 6+ ile kaçınma penceresi +0,2 sn (her biri)
+  if (d.bayrak && d.bayrak.yk_marcus_6) p += 0.2;
+  if (d.bayrak && d.bayrak.yk_elara_6) p += 0.2;
   if (!kara(s) && d.istasyonlar && d.istasyonlar.dumen && d.istasyonlar.dumen.anahtar === 'zhaor') p += 0.3; // Zhaor dümende: kaçınma penceresi
   if (s.yavas) {
     p += s.yavas;

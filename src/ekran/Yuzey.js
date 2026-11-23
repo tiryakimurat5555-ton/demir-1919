@@ -166,7 +166,7 @@ import {
   BK,
 } from '../oyun/yuzey/gorevler';
 import { BITKILER, ISLEME_TESISI } from '../oyun/tarim/bitkiler';
-import { nobetNo } from '../oyun/zaman';
+import { nobetNo, gun as zamanGunu } from '../oyun/zaman';
 import { MADEN_DUGUMLERI, KIYI_DUGUMLERI } from '../oyun/saha/veri';
 import { HAYVANLAR as HV_HAYVANLAR } from '../oyun/hayvan/veri';
 import { UZMANLIKLAR, subayIstihdam, SEKTORLER, bosta, girdiMetni, harca, yeterMi, ilacDagit, isGucuDegis, moralMetni, moralSesi, parcaMetni, uretimBaslat, uretimListesi } from '../oyun/koloni';
@@ -285,6 +285,8 @@ const DOSYALAR = {
   h_kazici: require('../../assets/ses/konumsal/h_kazici.wav'),
   h_tilki: require('../../assets/ses/konumsal/h_tilki.wav'),
   h_efsane: require('../../assets/ses/konumsal/h_efsane.wav'),
+  cocuk: require('../../assets/ses/konumsal/cocuk.wav'),
+  bebek: require('../../assets/ses/konumsal/bebek.wav'),
 };
 
 // Eylem sesleri: gorev1.js'teki ses adlarını çalınacak efekte çevirir
@@ -415,6 +417,16 @@ export default function Yuzey({ onGeri, baslangic, yeniOyunUret }) {
     if (h && h.kedi && h.barinak.some((x) => HV_HAYVANLAR[x.tur].rol === 'kedi')) {
       const n = h.kedi.yer === 'kamara' && d.mekan === 'kamara' ? NOKTALAR.kamara_yatak : h.kedi.yer === 'hamam' && d.mekan === 'hamam' ? NOKTALAR.yb_hamam : null;
       if (n) istenen.hv_kedi = { dosya: 'h_kedi', f: () => s.dosyaKaynak('hv_kedi', 'h_kedi', n, 12000) };
+    }
+    // 4.6: evlerde ve okulda çocuk sesleri (v5 Paket 4 bölüm 6)
+    const cl = (d.aile && d.aile.cocuklar) || [];
+    if (cl.length) {
+      const yas = (c) => zamanGunu(d) - c.dogum;
+      const bebek = cl.some((c) => yas(c) < 14);
+      const buyuk = cl.some((c) => yas(c) >= 14);
+      if (d.mekan === 'okul' && buyuk && NOKTALAR.yb_okul) istenen.hv_cocuk_okul = { dosya: 'cocuk', f: () => s.dosyaKaynak('hv_cocuk_okul', 'cocuk', NOKTALAR.yb_okul, 9000) };
+      for (const b of ['dunya_konut', 'kubbe_ev'])
+        if (d.mekan === b && NOKTALAR['yb_' + b]) istenen['hv_ev_' + b] = { dosya: bebek ? 'bebek' : 'cocuk', f: () => s.dosyaKaynak('hv_ev_' + b, bebek ? 'bebek' : 'cocuk', NOKTALAR['yb_' + b], 11000) };
     }
     for (const id of Object.keys(calanlar.current)) if (id.indexOf('hv_') === 0 && !istenen[id]) kaynakKapat(id);
     for (const id of Object.keys(istenen))
@@ -1720,6 +1732,18 @@ export default function Yuzey({ onGeri, baslangic, yeniOyunUret }) {
     if (olaylar.some((x) => x.tur === 'orin')) cal('orin_inis', 0.85);
     if (olaylar.some((x) => x.tur === 'festivalBitti')) sesleriEsitle(true);
     // 4.5: kuluçka makinesinde çatlama sesi ve yeni tür (v5 Paket 14 bölüm 5)
+    // 4.6: doğum ve NPC düğünleri; 4.7: görev kilometre taşı
+    const dg = olaylar.find((x) => x.tur === 'dogum' || x.tur === 'dugun');
+    if (dg) {
+      cal(dg.tur === 'dogum' ? 'el_dogum' : 'el_dugun', 0.85);
+      setTimeout(() => soyle(dg.metin, 'istek', true), 1500);
+      setTimeout(() => sesleriEsitle(false), 400);
+    }
+    const gk = olaylar.find((x) => x.tur === 'gorevTamam');
+    if (gk) {
+      cal('el_gorev', 0.8);
+      if (!durakli.current) setTimeout(() => soyle(gk.metin, 'istek', false), 900);
+    }
     const ct = olaylar.find((x) => x.tur === 'catlama');
     if (ct) {
       cal('el_catlama', 0.9);

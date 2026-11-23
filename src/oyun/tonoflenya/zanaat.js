@@ -607,7 +607,7 @@ export function veriSat(d) {
   d.para.gk += v.gk;
   return { metin: v.op.length + ' operasyon ve ' + v.kd.length + ' kodeks kaydı Akademiye aktarıldı: ' + v.gk + ' Galaktik Keşif Kredisi. Toplam ' + d.para.gk + '.', ses: 'sinyal' };
 }
-const tamirBirimi = (d) => (d.bayrak.yan_tentran_bakim ? 0 : 0.5 * SB.tamirCarpani(d) * ((d.esya && d.esya.kidemli_brove) ? 0.5 : 1)); // kıdemli kaptan brövesi; Tentran'ın ücretsiz bakımı
+const tamirBirimi = (d) => (d.bayrak.yan_tentran_bakim ? 0 : 0.5 * SB.tamirCarpani(d) * ((d.esya && d.esya.kidemli_brove) ? 0.5 : 1) * (d.bayrak.yk_kaelon_6 || d.bayrak.yk_brom_6 ? 0.85 : 1)); // Paket 16: Kaelon/Brom tamiri // kıdemli kaptan brövesi; Tentran'ın ücretsiz bakımı
 export function bakimMaliyeti(d) {
   const g = d.gemi;
   return g ? Math.ceil((g.maxGovde - g.govde) * tamirBirimi(d) * (misafir(d, 'oronte') ? 0.5 : 1)) : 0;
