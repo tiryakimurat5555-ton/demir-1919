@@ -476,6 +476,7 @@ export function orinIlerle(d) {
   }
   if (hg === 7 && nb < 3 && (!p.orin || p.orin.hafta !== h)) {
     p.orin = { hafta: h, carpan: carpanlar(d, h), stok: orinStokUret(d, h), takas: orinTakasUret(d, h), alinan: {}, selam: false };
+    p.orinGeldi = true; // 4.7: görev ağı (ANA-06)
     olaylar.push({ tur: 'orin', metin: 'İkmal iskelesinden liman kornası: Kaptan Orin\'in kargo gemisi indi. Yeşil Öğle sonuna kadar iskelede.' });
     SB.haber(d, 'İkmal iskelesinden liman kornası: Kaptan Orin\'in kargo gemisi indi. Yeşil Öğle sonuna kadar iskelede.');
   }
@@ -545,6 +546,7 @@ export function orinSat(d, k, hepsi) {
   ZN.hazirla(d);
   const t = Math.round(f * n * 10) / 10;
   d.para.gk += t;
+  d.pazar.orinAlim = (d.pazar.orinAlim || 0) + 1; // 4.7: ilk pazarlık
   return { metin: n + ' ' + YR.varlikAdi(k) + ' sattın: ' + t + ' kredi. Kasada ' + Math.round(d.para.gk) + '.', ses: 'el_kasa' };
 }
 function stokFiyati(d, s) {
@@ -588,6 +590,7 @@ export function orinAl(d, sid) {
   else d.para.gk -= f.gk;
   p.kupon -= f.kupon;
   o.alinan[sid] = (o.alinan[sid] || 0) + 1;
+  p.orinAlim = (p.orinAlim || 0) + 1; // 4.7: görev ağı
   if (s.tohum) {
     if (d.tarim) d.tarim.tohumlar[s.tohum] = (d.tarim.tohumlar[s.tohum] || 0) + 1;
     else d.koloni.kaynaklar.tohum = (d.koloni.kaynaklar.tohum || 0) + 1;

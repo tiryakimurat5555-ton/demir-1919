@@ -55,6 +55,7 @@ import '../imalat/esya';
 import * as IM from '../imalat/tezgah';
 import * as HV from '../hayvan/hayvan';
 import * as HB from '../hobi/hobi';
+import * as GA from '../gorevAgi/gorevAgi';
 import * as AI from '../aile/aile';
 import { MEKANLAR } from './harita';
 import { tehlikeMekani, TEHLIKELER } from './dunya';
@@ -113,7 +114,7 @@ export function gorevIpucu(d) {
 }
 
 export function noktaEylemleri(d, id) {
-  const ek = [...G6.ekEylemler(d, id), ...K.ekEylemler(d, id), ...M.ekEylemler(d, id), ...TA.ekEylemler(d, id), ...(id === 'tepe' ? TM.tepeEylemi(d) : []), ...YR.ekEylemler(d, id), ...FS.ekEylemler(d, id), ...PZ.ekEylemler(d, id), ...SH.ekEylemler(d, id), ...HV.ekEylemler(d, id), ...HB.ekEylemler(d, id), ...AI.ekEylemler(d, id), ...ZN.ekEylemler(d, id), ...FN.ekEylemler(d, id), ...AK.ekEylemler(d, id)];
+  const ek = [...G6.ekEylemler(d, id), ...K.ekEylemler(d, id), ...M.ekEylemler(d, id), ...TA.ekEylemler(d, id), ...(id === 'tepe' ? TM.tepeEylemi(d) : []), ...YR.ekEylemler(d, id), ...FS.ekEylemler(d, id), ...PZ.ekEylemler(d, id), ...SH.ekEylemler(d, id), ...HV.ekEylemler(d, id), ...HB.ekEylemler(d, id), ...AI.ekEylemler(d, id), ...GA.ekEylemler(d, id), ...ZN.ekEylemler(d, id), ...FN.ekEylemler(d, id), ...AK.ekEylemler(d, id)];
   if (G6.noktaMi(id)) return [...ek, { id: 'incele', etiket: 'Sütunu incele' }];
   const temel = temelEylemler(d, id);
   if (!ek.length) return temel;
@@ -152,6 +153,7 @@ export function eylemUygula(d, id, eylemId) {
   if (HV.ekEylemMi(eylemId) || HV.noktaMi(id)) return HV.eylemUygula(d, id, eylemId);
   if (HB.ekEylemMi(eylemId) || HB.noktaMi(id)) return HB.eylemUygula(d, id, eylemId);
   if (AI.ekEylemMi(eylemId)) return AI.eylemUygula(d, id, eylemId);
+  if (GA.ekEylemMi(eylemId)) return GA.eylemUygula(d);
   // 4.2: festivaller, ilan panosu, Kaptan Orin ve tezgâh (v5 Paket 3A, 2, 11)
   if (FS.ekEylemMi(eylemId) || FS.noktaMi(id)) return FS.eylemUygula(d, id, eylemId);
   if (PZ.ekEylemMi(eylemId) || PZ.noktaMi(id)) return PZ.eylemUygula(d, id, eylemId);
@@ -321,6 +323,7 @@ export function zamanIlerle(d, dt) {
   // Koloni nesilleri: evlilik, doğum, büyüme (v5 Paket 4); Paket 16 tanıtım anonsu
   olaylar.push(...AI.aileIlerle(d));
   AI.tanitim(d);
+  olaylar.push(...GA.gorevAgiIlerle(d));
   // Final görevleri: sahne kapanınca bekleyen operasyon ya da çatışma başlar (tonoflenya/final.js)
   // 3.15: uzay savaş eğitimi ilk gemiyle açılır (bir kez haber)
   if (SV.egitimAcik(d, 'uzay') && SV.egitimGerekli(d, 'uzay') && !d.bayrak.uzayEgitimHaber) {
@@ -660,4 +663,4 @@ export function dinlenMenu(d) {
 }
 
 // Yerleşim (v5) ekran için
-export { YR, FS, PZ, SH, BK, IM, HV, HB, AI };
+export { YR, FS, PZ, SH, BK, IM, HV, HB, AI, GA };

@@ -164,6 +164,7 @@ import {
   SH,
   IM,
   BK,
+  GA,
 } from '../oyun/yuzey/gorevler';
 import { BITKILER, ISLEME_TESISI } from '../oyun/tarim/bitkiler';
 import { nobetNo, gun as zamanGunu } from '../oyun/zaman';
@@ -1259,6 +1260,7 @@ export default function Yuzey({ onGeri, baslangic, yeniOyunUret }) {
       ogeler: [
         { id: 'devam', etiket: 'Devam et', sec: () => (katmanKapat('Devam.'), 'sessiz') },
         { id: 'gorev', etiket: 'Görev', ipucu: 'Şu an ne yapabileceğini söyler.', sec: () => (soyle(gorevIpucu(dunya.current), 'istek', true), 'sessiz') },
+        { id: 'gorevagi', etiket: 'Görev terminali, ' + GA.hazirlar(dunya.current).length + ' hazır görev', ipucu: '115 görev: ana, yerleşim ve yan. Her kartta ön şart, açacakları ve uyarı. Hazır görevler filtresi en üstte.', sec: () => (agacGoster((x) => GA.gorevMenu(x), () => menuyuAc()), 'sessiz') },
         { id: 'egitim', etiket: 'Savaş eğitimi' + (egitimEksikMi(dunya.current) ? ', zorunlu, tamamlanmadı' : ''), ipucu: 'Temel kara ve uzay savaşı hareketleri. Tamamlanmadan o ortamdaki çatışmalara girilemez.', sec: () => (agacGoster((x) => egitimMenu(x), () => menuyuAc()), 'sessiz') },
         { id: 'yerler', etiket: 'Yerler', ipucu: 'Bir yer ya da kişi seç; oraya kendin yürürsün.', sec: () => (yerlerGoster(), 'sessiz') },
         ...(MEKANLAR[dunya.current.mekan] && MEKANLAR[dunya.current.mekan].tonoflenya ? [{ id: 'tharita', etiket: 'Tonoflenya haritası', ipucu: 'Beş kuşak; uzak bölgelere yolculuk.', sec: () => (tonoflenyaHaritasi(), 'sessiz') }] : []),

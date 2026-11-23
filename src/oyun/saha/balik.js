@@ -116,6 +116,7 @@ function yakalandi(d) {
   const s = hazirla(d);
   const o = d.olta;
   const av = o.av || avSec(d);
+  (s.avlanan || (s.avlanan = {}))[av] = 1; // 4.7: görev ağı (usta balıkçı)
   const koy = (k, n) => {
     const yer = (s.eslik === 'demir_kervan' ? Infinity : [0, 25, 50, 100][s.alet.canta]) - Object.values(s.canta).reduce((a, b) => a + b, 0);
     const al = Math.max(0, Math.min(n, yer));

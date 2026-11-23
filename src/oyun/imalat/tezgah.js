@@ -190,6 +190,7 @@ export function uret(d, id, kat = 1, bina) {
   if (eksik.length) return { metin: 'Eksik: ' + eksik.join(', ') + '. Tarif: ' + girdiMetni(t) + '.', ses: 'red' };
   for (const x of Object.keys(g)) ekle(d, x, -g[x]);
   for (const x of Object.keys(t.cikti)) ekle(d, x, t.cikti[x] * kat);
+  (d.uretilenTarif || (d.uretilenTarif = {}))[id] = 1; // 4.7: görev ağı
   const tz = TEZGAHLAR[b] && TEZGAHLAR[b][tezgahi(t, b)];
   const son = Object.keys(t.cikti).map((x) => adi(x) + ' ' + varlik(d, x)).join(', ');
   return { metin: ciktiMetni(t, kat) + ' üretildi. Harcanan: ' + Object.keys(g).map((x) => g[x] + ' ' + adi(x)).join(', ') + '. Elinde: ' + son + '.', ses: tz ? tz.ses : 'kur' };

@@ -1090,10 +1090,31 @@ bütün bölümlerini sırayla sayar (21 Kasım: v3 paketiyle sekiz belge daha g
       önce sonar uyarısı; Lyris ya da Nerissa Kademe 6: maruziyet ×0,85 (antikor).
 - [x] Neden 2-5: maden, kıyı, balık, kuluçka, pano, Orin, ansiklopedi, arşiv önceki sürümlerde; final sonrası oyun sürer.
 - [x] 3 denge: zorunlu kilit yok; yaşam bloğu kurulunca Veysel'in tanıtım anonsu (bir kez).
-### Sıradaki v5 belgeleri
-- [ ] Paket 7 (4.7).
-- [~] Bahtiyar'a: Paket 7'deki yerleşimci adları (Selim, Nadia, Tarik, Lira, Vaelis, Ayla, Ozan-7, çiftçi Elara ...)
-      Paket 1/8'deki on altı kişiyle uyuşmuyor; görev mimarisinde on altı kişiye eşlenecek.
+### Paket 7: üç katmanlı görev mimarisi (4.7)
+- [x] Entegrasyon notu: görevler mevcut akışın yerine geçmez; her kart oyunda zaten olan bir adıma bağlanır (gorevAgi.js).
+- [x] 1 amaç ve "şunu yaparsam bu olur": her kartta ön şart, açacakları, uyarı, bekletilebilirlik ve "nasıl yapılır".
+- [x] 2.1 merkez terminali ve meydan terminalinde "Görev terminali" (ana menüde de): Ana, Yerleşim (dört alt filtre), Yan
+      (üç alt filtre) sekmeleri; alt filtreler iki parmakla sağa/sola. [x] 2.2 beş alan; durum Kilitli / Hazır / Aktif
+      (yüzde) / Tamamlandı / Ertelendi (oyuncu kartta erteler, geri alır).
+- [x] 3 115 görev (ANA 20, YER 40, YAN 55), beş evre, ön şartlar belgedeki gibi ("ya da" olanlar dahil).
+      [~] Görevler yeni oynanış eklemez; denetimler oyundaki karşılıklara bağlandı (ör. ANA-01 sinyal kulesi, ANA-02 dökümhane,
+      ANA-03 krater kazısı, ANA-06 Orin'in ilk gelişi, ANA-08 kara ve uzay savaş eğitimi, ANA-13 YGK kaydı, ANA-16 on büyük
+      Tonoflenya görevi, ANA-18/19/20 büyük görev 17/19/20; YER maden/kıyı karakolları, alet kademeleri, binalar, araç
+      eşliği, arşiv; YAN yerleşimci katılımı ve güven kademeleri K1/K2/K3 = Kademe 3/6/10, evlilik, çocuk, festivaller, hobi
+      ustalıkları). Belgede adı geçen ama oyunda karşılığı olmayan kazançlar (ör. Selim ev maliyeti −%15, Defne okul hızı)
+      kartta yazılmadı; kart yalnız oyunda gerçekten olanı söyler.
+      [~] Yerleşimci adları eşlendi: Selim → Torvok, Nadia → Sira-Vel, Tarik → Brom, Lira → Julian, 13. yerleşimci → Tina,
+      Vaelis → Halvar, Ayla → Nerissa, Ozan-7 → Mateo (Bahtiyar'a soruldu). YER-33 şölen salonu: on yerleşim binası.
+      YER-38 ve YER-40 ön şartlarla kendiliğinden; YER-40 kartında "Kitabeyi dinle" (kurucular ve doğan çocuklar).
+- [x] 4.1 sıfır kilitlenme: ertelemek hiçbir sistemi durdurmaz; pano siparişi cezasız. [x] 4.2 uyarılı görevler (YER-11,
+      21, 31, ANA-06, ANA-19) hazır olunca bir kez sesli uyarı okunur ve kartta durur. [~] Görevler "kabul" edilmez;
+      oyunda o adımı yapmak görevi bitirir, uyarı adım öncesinde okunmuş olur. [x] 4.3 paralel kollar. [x] 4.4 sayılar.
+- [x] 5 dış gezegen ve Tonoflenya kuralları değişmedi; görev ödülü yok (ekonomiyi bozmaz).
+- [x] 6 odak sırası kod ve ad, durum, ön şart, açılacaklar, uyarı; "Hazır görevler" filtresi; tamamlanınca el_gorev sesi ve
+      tek cümlelik özet (tamamlanan ve açılan görevler). [~] Kilometre taşı sesi her türde aynı (ayrı kapı/radyo sesi yok).
+### v5 paketi tamam
+- [x] Paket 1-16'nın hepsi işlendi (4.0-4.7).
+- [~] Bahtiyar'a: Paket 7'deki yerleşimci adları Paket 1/8'deki on altı kişiyle uyuşmuyor; 4.7'de eşlendi (yukarıda).
 
 ## Sıradaki adımlar (sırayla)
 0. Tonoflenya genişlemesi, yönergedeki sırayla: [2.1: Malken (12); 2.2: tarihçe (13); 2.3: atlas (14); 2.4: eşya,

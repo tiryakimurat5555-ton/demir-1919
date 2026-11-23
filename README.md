@@ -6,6 +6,13 @@ tesis kurar, ileride gemini parça parça inşa edip uzaya açılırsın.
 
 Yapımcı: Bahtiyar Cankurt (tasarım belgeleri belgeler/ içinde). Expo Go ile iPhone ve Android'de çalışır.
 
+## Bu sürümde (4.7)
+- Görev terminali: 115 görev üç sekmede (ana 20, yerleşim 40, yan 55). Her kartta durum, ön şart, tamamlayınca açılacaklar,
+  varsa uyarı, bekletirsen ne olacağı ve nasıl yapılacağı okunur. En üstte "Hazır görevler" filtresi; yerleşim ve yan
+  sekmelerinde iki parmakla sağa sola alt filtre; istediğin görevi erteleyebilirsin. Bir görev bitince kısa bir ses ve hangi
+  görevlerin açıldığını söyleyen tek cümle. Ana menüde ve merkez terminalinde.
+- Telefonda denenmedi.
+
 ## Bu sürümde (4.6)
 - Koloni nesilleri: Kademe 8'e ulaşan bir yerleşimciyle evlilik (Veysel ve Tina hariç), kültürüne göre yüzük ya da bağ tılsımı,
   düğün sahnesi, kamara genişletme ve aile evleri; çocuk yatağı ve eşin sorusu, 14 günlük bekleyiş, doğum, bebek, öğrenci ve çırak

@@ -302,7 +302,7 @@ export function asansorMenu(d, yuzeyde) {
       giris: 'Yürüyerek mi inilsin, yoksa bir araç eşlik etsin mi?',
       ogeler: [
         { id: 'yuru', etiket: 'Yürüyerek', alt: (x) => { hazirla(x).eslik = null; hazirla(x).eslikSoruldu = true; return asansorMenu(x, true); } },
-        ...araclar.map((a) => ({ id: a, etiket: ARAC_ADI[a] + ' eşlik etsin', ipucu: ARAC_ROLU[a], alt: (x) => { hazirla(x).eslik = a; hazirla(x).eslikSoruldu = true; return asansorMenu(x, true); } })),
+        ...araclar.map((a) => ({ id: a, etiket: ARAC_ADI[a] + ' eşlik etsin', ipucu: ARAC_ROLU[a], alt: (x) => { hazirla(x).eslik = a; hazirla(x).eslikSoruldu = true; (hazirla(x).eslikGecmis || (hazirla(x).eslikGecmis = {}))[a] = 1; return asansorMenu(x, true); } })),
       ],
     };
   }

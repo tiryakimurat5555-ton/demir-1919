@@ -838,7 +838,16 @@ Demir 1919 oyunu silindi; geçmişi git kaydında (son sürüm 1.06, commit 556f
   - Yuzey: okul/konutta çocuk sesleri (konumsal cocuk/bebek), olay dugun/dogum/gorevTamam (el_dugun/el_dogum/el_gorev).
   - Sesler ElevenLabs (5 × 17; araclar/oturumlar-4.6.txt): konumsal/cocuk, bebek.wav (I=-20, 24 kHz), aile/el_*.wav (I=-18).
   - testler/aile.test.js (5).
-- Sıradaki (v5): 4.7 Paket 7 görev mimarisi (görev terminali). KAPSAM.md bölüm 62.
+- SÜRÜM 4.7 (23 Kasım): Paket 7, üç katmanlı görev mimarisi. v5 paketi bitti. Telefonda denenmedi.
+  - gorevAgi/gorevAgi.js: GOREVLER/SIRA 115 (G(kod, ad, on [kod | "A|B"], denetim | null, acar, {kat, uyari, bekle, nasil,
+    ilerleme})), SEKMELER (yer: insa/maden/kiyi/imalat; yan: hikaye/aile/ticaret); d.gorevAgi {biten {kod: gün}, ertelenen,
+    uyarildi, son, sonSn}; gorevAgiIlerle (gorevler.zamanIlerle, 3 yıldız sn'de bir; ilk çalışmada sessiz; olay gorevTamam +
+    uyarı sözleri), durum/durumMetni/kartMetni, ertele, hazirlar, gorevMenu/sekmeMenu (ikiParmak filtre), ekEylemler
+    ga_gorevler (terminal, meydan terminali). Yerleşimci eşlemesi dosya başında. K1/K2/K3 = Kademe 3/6/10.
+  - İzleyiciler: saha.avlanan (balik.js), saha.eslikGecmis (asansör eşliği), d.uretilenTarif (tezgah.js uret), pazar.orinAlim
+    (orinAl/orinSat), pazar.orinGeldi. Yuzey ana menüde "Görev terminali" (Savaş eğitimi'nin üstünde).
+  - testler/gorevAgi.test.js (8).
+- Sıradaki: v5 bitti. Telefonda deneme ve Murat/Bahtiyar'ın geri bildirimi.
 
 ## Sesler
 - Drive'daki Efektler/Ambians dosyaları 14 MB; Drive bağlayıcısı 10 MB'tan büyük dosyayı indiremiyor. Bu yüzden
