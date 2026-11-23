@@ -70,5 +70,9 @@ export function oncuUret(tohum) {
   // Hikâye kişilerinin nitelikleri sabittir: telsizcinin kulağı iyidir
   telsizci.nitelik = 'ses_hassas';
   muhendis.nitelik = 'sogukkanli';
+  // v5 Paket 1: öncü ekip belgedeki adlarıyla (baştekniker, izci-telsizci, hekim)
+  muhendis.ad = 'Kaelon Vex-Tar';
+  telsizci.ad = 'Zarek Sol-Zhaor';
+  hekim.ad = 'Lyris Mar-Axira';
   return [muhendis, telsizci, hekim];
 }

@@ -2,6 +2,8 @@
 // Yürüme, dönme, çarpma, yaklaşınca haber verme, çevre tarifi, radar, etkileşim,
 // kapılardan geçiş ve kendiliğinden yürüme ("Yerler" menüsü).
 import { ALANLAR, KAPILAR, KISILER, MEKANLAR, NOKTALAR } from './harita';
+import { kisiKonumu, yerVar } from '../yerlesim/konum';
+import { YERLESIMCILER } from '../yerlesim/veri';
 import { aciDuzelt, goreliAci, saatYonu, uzaklik } from '../konum';
 import { ESYALAR } from './gorev1';
 import { ARACLAR } from '../veri/gemiler';
@@ -68,6 +70,13 @@ const OTO_HIZ = 2.6;
 export function kisiYeri(d, id) {
   const k = KISILER[id];
   if (!k) return null;
+  // v5 Paket 1: yerleşimciler nöbet programına göre; katılmamışlar görünmez (null). Öncü mürettebat Koloni
+  // Meydanı kurulana dek görevdeki yerinde.
+  if (k.yerlesim) {
+    const y = kisiKonumu(d, k.yerlesim);
+    if (y) return { ...k, ...y };
+    if (k.rol == null) return null;
+  }
   const g = d.bayrak;
   if (id === 'muhendis' && g.jenerator && !g.telemetri) return { ...k, x: 6.5, y: 47.5, eylem: 'anten direğinin dibinde, kablo makarasıyla' };
   return k;
@@ -75,12 +84,14 @@ export function kisiYeri(d, id) {
 
 export function kisiAdi(d, id) {
   const k = KISILER[id];
+  if (k && k.rol == null && k.yerlesim) return YERLESIMCILER[k.yerlesim].ad;
   const m = k && d.murettebat[k.rol];
   return m ? m.ad : id;
 }
 
 export function kisiTarifi(d, id) {
   const k = KISILER[id];
+  if (k && k.rol == null && k.yerlesim) return YERLESIMCILER[k.yerlesim].ad + ', ' + YERLESIMCILER[k.yerlesim].rol.split(';')[0].toLowerCase();
   const m = k && d.murettebat[k.rol];
   return m ? m.rol + ' ' + m.ad : id;
 }
@@ -96,6 +107,7 @@ export function yakindakiler(d) {
     sonuc.push({ tur: 'nokta', id, ad: n.ad, x: n.x, y: n.y, yaricap: n.yaricap || 2, radarsiz: n.radarsiz });
   }
   for (const id of Object.keys(KAPILAR)) {
+    if (KAPILAR[id].gizli && KAPILAR[id].gizli(d)) continue;
     KAPILAR[id].uclar.forEach((u, i) => {
       if (u.mekan === d.mekan) sonuc.push({ tur: 'kapi', id, uc: i, ad: u.ad, x: u.x, y: u.y, yaricap: 1.8 });
     });
@@ -106,7 +118,7 @@ export function yakindakiler(d) {
   });
   for (const id of Object.keys(KISILER)) {
     const k = kisiYeri(d, id);
-    if (k.mekan === d.mekan) sonuc.push({ tur: 'kisi', id, ad: kisiTarifi(d, id), x: k.x, y: k.y, yaricap: 1.8, eylem: k.eylem });
+    if (k && k.mekan === d.mekan) sonuc.push({ tur: 'kisi', id, ad: kisiTarifi(d, id), x: k.x, y: k.y, yaricap: 1.8, eylem: k.eylem });
   }
   return sonuc;
 }
@@ -552,12 +564,18 @@ export function yerlerListesi(d, hepsi = false) {
     const n = NOKTALAR[id];
     if (n.kaynak && (d.stok[id] || 0) <= 0) continue;
     if (n.mini && !miniGorunur(d, id)) continue;
-    const bilinen = d.kesif.includes(id) || n.mekan === 'kapsul' || id === 'kapsul_dis' || id === 'jenerator' || (id === 'tepe' && d.bayrak.jenerator) || (id === 'enkaz' && d.bayrak.kesiciAlindi) || (n.baca && d.bayrak.sondaAlindi) || ((n.ayak || id === 'dagitim_kutusu') && d.bayrak.zeminHazir) || (id === 'kizak' && d.bayrak.zemin) || (id === 'hangar' && d.koloni.binalar.includes('arac_hangari')) || !!(MEKANLAR[n.mekan] && MEKANLAR[n.mekan].tonoflenya);
+    const bilinen = d.kesif.includes(id) || n.mekan === 'kapsul' || id === 'kapsul_dis' || id === 'jenerator' || (id === 'tepe' && d.bayrak.jenerator) || (id === 'enkaz' && d.bayrak.kesiciAlindi) || (n.baca && d.bayrak.sondaAlindi) || ((n.ayak || id === 'dagitim_kutusu') && d.bayrak.zeminHazir) || (id === 'kizak' && d.bayrak.zemin) || (id === 'hangar' && d.koloni.binalar.includes('arac_hangari')) || !!(MEKANLAR[n.mekan] && MEKANLAR[n.mekan].tonoflenya) || (n.yerlesim && (n.yerlesim === 'kamp' || yerVar(d, n.yerlesim)));
     if (bilinen) ekle('nokta', id, n.ad, n.mekan, n.x, n.y);
   }
   for (const id of Object.keys(KISILER)) {
     const k = kisiYeri(d, id);
-    ekle('kisi', id, kisiTarifi(d, id), k.mekan, k.x, k.y);
+    if (k) ekle('kisi', id, kisiTarifi(d, id), k.mekan, k.x, k.y);
+  }
+  // Yerleşim yolları ve bina kapıları (kurulunca)
+  for (const id of Object.keys(KAPILAR)) {
+    const k = KAPILAR[id];
+    if (!k.yerlesim || (k.gizli && k.gizli(d))) continue;
+    for (const u of k.uclar) if (u.mekan === 'vadi' || u.mekan === 'meydan') ekle('kapi', id, u.ad, u.mekan, u.x, u.y);
   }
   (d.fenerler || []).forEach((f, i) => ekle('isaret', 'isaret_' + i, 'Sinyal feneri ' + (i + 1), f.mekan, f.x, f.y));
   // Bilinen geçitler (vadi tarafındaki uçları)

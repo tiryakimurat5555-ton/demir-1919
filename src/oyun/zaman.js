@@ -96,3 +96,50 @@ export function zamanMetni(d, ek) {
   const dk = Math.ceil(gercekSn(kalanSn(d)) / 60);
   return 'Gün ' + gun(d) + ', ' + n.ad + ' nöbeti (' + n.yildiz + ' ışığı, ' + n.isik + '). Bir sonraki nöbete ' + dk + ' dakika var.' + (ek ? ' ' + ek : '');
 }
+
+// --- Takvim (v5 Paket 3A bölüm 2): 7 günlük hafta, 4 yörünge mevsimi × 14 gün, yıl 56 gün ---
+export const HAFTA = 7;
+export const MEVSIM_GUN = 14;
+export const YIL_GUN = 56;
+export const MEVSIMLER = [
+  { id: 'filiz', ad: 'Filiz, Yeşil Yörünge', yildiz: 'Axira', etki: 'Seralarda tarım yüzde yirmi hızlı, taze tohumlar ucuz.' },
+  { id: 'kor', ad: 'Kor, Kızıl Yörünge', yildiz: 'Varek', etki: 'Maden ve dökümhane üretimi yüzde on beş fazla; kurak bitkiler daha çok su ister.' },
+  { id: 'sis', ad: 'Sis, Mor Yörünge', yildiz: 'Elyndra ve Sinha', etki: 'Yıldız sinyalleri güçlü; nadir balık ve mantar verimli, tüccar egzotik mal getirir.' },
+  { id: 'ayaz', ad: 'Ayaz, Gümüş Yörünge', yildiz: 'Zhaor ve Uma', etki: 'Geceler eksi on ikiye iner, ısıtma önemli; madende nadir kristal ve buz bitkileri bol.' },
+];
+export function yilGunu(d) {
+  return ((gun(d) - 1) % YIL_GUN) + 1;
+}
+export function yil(d) {
+  return Math.floor((gun(d) - 1) / YIL_GUN) + 1;
+}
+export function haftaGunu(d) {
+  return ((gun(d) - 1) % HAFTA) + 1;
+}
+export function hafta(d) {
+  return Math.floor((gun(d) - 1) / HAFTA) + 1;
+}
+export function mevsimNo(d) {
+  return Math.floor((yilGunu(d) - 1) / MEVSIM_GUN);
+}
+export function mevsim(d) {
+  return MEVSIMLER[mevsimNo(d)];
+}
+export function mevsimGunu(d) {
+  return ((yilGunu(d) - 1) % MEVSIM_GUN) + 1;
+}
+// Mevsimin işe etkisi: tarla (Filiz ×1,2), dokum (Kor: dökümhane ve maden ×1,15), kesif (Sis fener ×1,1),
+// kristal (Ayaz: kristal yatakları daha çabuk yenilenir ×1,25)
+export function mevsimCarpani(d, is) {
+  if (!d || !d.zaman) return 1;
+  const m = mevsim(d).id;
+  if (is === 'tarla') return m === 'filiz' ? 1.2 : 1;
+  if (is === 'dokum') return m === 'kor' ? 1.15 : 1;
+  if (is === 'kesif') return m === 'sis' ? 1.1 : 1;
+  if (is === 'kristal') return m === 'ayaz' ? 1.25 : 1;
+  return 1;
+}
+export function takvimMetni(d) {
+  const m = mevsim(d);
+  return 'Yıl ' + yil(d) + ', yılın ' + yilGunu(d) + '. günü; haftanın ' + haftaGunu(d) + '. günü. Mevsim: ' + m.ad + ' (' + m.yildiz + '), ' + mevsimGunu(d) + '. gün. ' + m.etki;
+}

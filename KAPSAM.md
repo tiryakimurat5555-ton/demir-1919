@@ -880,6 +880,54 @@ bütün bölümlerini sırayla sayar (21 Kasım: v3 paketiyle sekiz belge daha g
 - [x] 3.17: Ayarlar'da nöbet uzunluğu 10-30 dk (5'er); zaman.js zamanOrani/gercekSn, zamanSar gerçek saniye.
 - [x] testler/zaman.test.js. [~] Telefonda denenmedi; yönergedeki "20 dakikalık nöbet" ölçeğinden Murat'ın kararıyla sapıldı.
 
+## 62. v5 paketi (Yeni_Guncelleme_Paketi.zip, 23 Kasım; belgeler/v5/, okuma sırası 00-OKUMA-SIRASI.md)
+### 00-OKUMA-SIRASI (entegrasyon kuralları)
+- [x] 1.1 mevcut sistemlere saygı: yerleşim ayrı modüller (src/oyun/yerlesim/), mevcut kişiler (öncüler) yerleşimci oldu.
+- [~] 1.2 karakter diyalogları derinleştirme: günlük sohbet sözleri 4.0'da; uzun kademe sahneleri 4.1'de (8A-8C).
+- [x] 1.3 sesler: imza cümleleri (16 × 3) ve yeni ortam/efektler ElevenLabs; Drive'da yerleşime uygun hazır kayıt yoktu.
+      Bina dış döngüleri: aşhane, atölye, taverna, tapınak, hamam, okul [x]; hayvan barınağı [ ] (Paket 14/15 ile).
+      Festival ambiyans kuralı [ ] (4.2).
+- [x] 1.4 kamarada uyku: koloni döngüsü ilerler, üretim kuyruğu ve tersane kaynağı ilerlemez (d.uykuda). [~] Zanaat
+      tezgâhı kuyruğu (zanaat.js) yıldız saatine bağlı, uykuda da ilerler. Envanter, maden kurtarma, evlilik: sonraki sürümler.
+### Paket 1: yerleşimciler ve koloni mekânları (4.0)
+- [x] 1 amaç. [x] 2 Yerleşim sekmesi: 12 mekân (kamp ateşi başlangıçta; 11 kurulabilir), ihtiyaç koşulları, malzemeler
+      (Cam → yeni parça "kalın cam levha", dökümhane; Kil/Silikat → kristal; Vaha Hurması → hasat ürünü), ses tarifleri,
+      kuruluş sahneleri. Meydan ve binalar yürünebilir iç mekânlar; Gözlem Tepesi açık hava.
+      [~] Belgedeki ihtiyaç koşullarında sayı verilmeyenler için nüfus eşikleri seçildi (konut 8, kubbe 6, tapınak ve
+      taverna 10, okul 12 + Defne).
+- [x] 3 yerleşimci kartları (16): kök, rol, kişilik, ses tarifi (imza sesi), nöbet programı (altı yıldız), sevdiği ve
+      sevmediği (oyundaki gerçek eşyalara eşlendi), yakın/çatışma, K1/K2/K3 (kademe 3/6/10).
+      [~] Öncü mürettebatın adları belgedekiyle değişti: mühendis Kaelon Vex-Tar, telsizci Zarek Sol-Zhaor (belgede izci;
+      telsiz görevi korundu), hekim Lyris Mar-Axira. Eski kayıtlarda da değişir.
+      [~] Katılım koşulları belgeden: Defne (Yaşam Bloğu + 15 nüfus), Marcus (kayıp keşif ekibi mini görevi), Torvok
+      (Kaelith kurtarıldı), Sira-Vel (G-14 + kseno-habitat ya da hamam), Mateo (G-02 ya da sinyal kulesi + meydan), Julian
+      (taverna + 150 itibar), Brom/Nerissa/Halvar/Elara (gezegen hikâyelerinde iyi yol), Tina (Tina çekirdeği).
+      [~] K kazançlarından uygulananlar: Sorya 3 ve 10, Veysel 6 ve 10, Sira-Vel 10, Julian 10, Tina 10. Ötekiler (tamir
+      indirimi, yakıt, nadir cevher, balık şansı, pazar geliri, kaçınma penceresi, kalkan şarjı ...) bayrak olarak tutuluyor;
+      ilgili sistemler (maden, balık, pazar) gelince bağlanacak.
+- [x] 4 kurallar: güven puanı Paket 8'in 0-1000 ölçeğiyle (Paket 1'in 0-300'ü yerine; Paket 8 bölüm 6 böyle diyor).
+      Moral bağı: her kademe +2 moral; kurulan bina +5. Kamara: uyku, dekorlar. [~] Nöbet süresi: belgede varsayılan 20 dk
+      (Kısa/Orta/Uzun); Murat'ın 3.17 kararı korundu (10-30 dk, beşer, varsayılan 10).
+- [x] 5 mevcut sistemlerle bağ: hediyeler sera, mutfak ve dökümhane ürünleri. [ ] Tonoflenya diyaloglarına kademe derinliği.
+- [x] 6 sesle oynanış: meydanda iki parmak sağ/sol ile kapılar ve kişiler; mekân girişinde ortam sesi; yerleşimcilerin
+      imza sesleri kendi yerlerinden; çift dokununca Konuş / Hediye ver / Profil kartı. [ ] "Görev al" (Paket 11, 4.2).
+### Paket 8: karakter etkileşim algoritması (4.0)
+- [x] 2 ölçek 0-10 / 0-1000 ve kademe kilitleri (metin). [x] 3 beş mizaç ve ton eşlemesi. [x] 4 sosyal ağ (yakın/çatışma
+      profil kartında; dost halkası). [x] 5.1 sohbet (tam +20, nötr +10, ters -5; bar hızı 8A-8C). [x] 5.2 hediye (+45/+15/-15,
+      özel gün ×2). [x] 5.3 dost halkası +10. [ ] 5.3 arabuluculuk olayları (Paket 9 ile, 4.1). [x] 5.4 küskünlük yok, kademe
+      düşmez. [x] 5.5 sohbet günde 1, hediye günde 1 / haftada 2, kademe günde en çok bir, selam nöbette bir. [ ] eş
+      etkileşimi (Paket 4). [x] 7 profil kartı ses sırası; tonlarda ipucu yok, sıra günden güne değişir.
+### Paket 3A: takvim ve festivaller
+- [x] 2 takvim: 7 gün hafta, 4 mevsim × 14 gün, yıl 56 gün; Filiz tarım ×1,2, Kor dökümhane ×1,15. [~] Sis (nadir balık,
+      egzotik tüccar malı) ve Ayaz (gece -12°C, nadir kristal) etkileri balık, tüccar ve maden sistemleriyle gelecek.
+      Doğum günleri takvimde ve haberde.
+- [ ] 3-6 festivaller (4.2; altı mp3 /home/claude/v5_festival'da).
+### Sıradaki v5 belgeleri
+- [ ] Paket 2 (ilan panosu, Kaptan Orin, Koloni Tezgâhı), Paket 3B, Paket 4, Paket 5, Paket 6, Paket 7, Paket 8A/8B/8C
+      kademe sahneleri, Paket 9, Paket 10, Paket 11, Paket 12, Paket 13, Paket 14, Paket 15, Paket 16.
+- [~] Bahtiyar'a: Paket 7'deki yerleşimci adları (Selim, Nadia, Tarik, Lira, Vaelis, Ayla, Ozan-7, çiftçi Elara ...)
+      Paket 1/8'deki on altı kişiyle uyuşmuyor; görev mimarisinde on altı kişiye eşlenecek.
+
 ## Sıradaki adımlar (sırayla)
 0. Tonoflenya genişlemesi, yönergedeki sırayla: [2.1: Malken (12); 2.2: tarihçe (13); 2.3: atlas (14); 2.4: eşya,
    zanaat, mürettebat (15), Ekol Kıdemi ve rastgele karşılaşmalar; 2.5: yirmi final görevi (16); 2.6: otuz yan görev

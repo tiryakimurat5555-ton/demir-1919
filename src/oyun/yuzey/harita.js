@@ -532,3 +532,16 @@ Object.assign(NOKTALAR, K_NOKTALAR);
 // YGK Akademi kürsü eğitmenleri ve stasis tutsakları (tonoflenya/akademi.js, 3.6)
 import { AK_NOKTALAR } from '../tonoflenya/akademi';
 Object.assign(NOKTALAR, AK_NOKTALAR);
+// Yerleşim (v5 Paket 1): Koloni Meydanı, yerleşim binaları, kamp ateşi ve 16 yerleşimci
+import { Y_MEKANLAR, Y_KAPILAR, Y_NOKTALAR } from '../yerlesim/harita';
+import { YERLESIMCILER } from '../yerlesim/veri';
+Object.assign(MEKANLAR, Y_MEKANLAR);
+Object.assign(KAPILAR, Y_KAPILAR);
+Object.assign(NOKTALAR, Y_NOKTALAR);
+// Öncü mürettebat da birer yerleşimci (Kaelon, Zarek, Lyris); ötekiler y_<kimlik> kişileri. Yerleri dunya.js kisiYeri
+// ile yerlesim/konum.js'ten (nöbet programı) gelir.
+for (const id of Object.keys(YERLESIMCILER)) {
+  const y = YERLESIMCILER[id];
+  if (y.kisi) KISILER[y.kisi].yerlesim = id;
+  else KISILER['y_' + id] = { yerlesim: id, mekan: 'vadi', x: 6, y: -4, eylem: 'kamp ateşinin başında' };
+}

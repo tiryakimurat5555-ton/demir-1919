@@ -11,7 +11,7 @@
 import { rolCarpani } from './binalar';
 import { misafir } from './tonoflenya/kisiler';
 import { NOKTALAR } from './yuzey/harita';
-import { yildizCarpani } from './zaman';
+import { yildizCarpani, mevsimCarpani } from './zaman';
 import * as SB from './tonoflenya/subay';
 import { HAMMADDELER } from './veri/tesisler';
 import { PARCALAR, TARIFLER } from './veri/uretim';
@@ -197,7 +197,7 @@ export function uretimBaslat(d, tesis, tarifId) {
   if (!yeterMi(d, girdi)) return { metin: 'Girdi yetmiyor: ' + girdiMetni(girdi) + '.', ses: 'red' };
   harca(d, girdi);
   // Vaelin topluluğu tokken metandan gaz yakıtı yüzde elli hızlı (tarim-ve-kseno-botanik bölüm 6)
-  const kalan = t.sure / uretimHizi(d) / yildizCarpani(d, 'uretim') / (t.girdi.metan && d.tarim && d.tarim.besli.vaelin ? 1.5 : 1) / rolCarpani(d, tesis); // evrensel bina rolü: topluluk ve nöbet
+  const kalan = t.sure / uretimHizi(d) / yildizCarpani(d, 'uretim') / (t.girdi.metan && d.tarim && d.tarim.besli.vaelin ? 1.5 : 1) / rolCarpani(d, tesis) / (tesis === 'dokumhane' ? mevsimCarpani(d, 'dokum') : 1) / (d.bayrak.yk_tina_10 ? 1.1 : 1); // evrensel bina rolü: topluluk ve nöbet
   d.koloni.uretimler.push({ tesis, tarif: t.id, kalan });
   return { metin: t.ad + ': iş başladı. Yaklaşık ' + Math.ceil(kalan) + ' saniye.', ses: 'dugme' };
 }
@@ -347,7 +347,8 @@ export function koloniIlerle(d, dt) {
   }
   // Üretim kuyruğu
   if (k.uretimler && k.uretimler.length) {
-    for (const u of k.uretimler) u.kalan -= dt; // hız iş başlarken süreye işlendi
+    // v5 (00 1.4): Kaptanın Kamarası'nda uyurken üretim ve inşaat kendi gerçek zamanlayıcısında kalır (ilerlemez)
+    if (!d.uykuda) for (const u of k.uretimler) u.kalan -= dt; // hız iş başlarken süreye işlendi
     const biten = k.uretimler.filter((u) => u.kalan <= 0);
     k.uretimler = k.uretimler.filter((u) => u.kalan > 0);
     for (const u of biten) {
@@ -357,7 +358,7 @@ export function koloniIlerle(d, dt) {
     }
   }
   // Tersane kaynak işi
-  olaylar.push(...montajIlerle(d, dt, 1 + 0.5 * n.tersane));
+  if (!d.uykuda) olaylar.push(...montajIlerle(d, dt, 1 + 0.5 * n.tersane));
   // Nüfus ve moral
   if (n.toplam < n.barinma) {
     const carpan = (d.koloni.binalar.includes('biyo_kubbe') ? 1.5 : 1) * (d.koloni.binalar.includes('sera') ? 1.5 : 1) * (katmanTamamMi(d, 'biyosfer') ? 1.5 : 1) * (d.bayrak.g_tarim ? 1.2 : 1) * (d.bayrak.p_tarim ? 1.3 : 1) * (d.koloni.binalar.includes('hastane') ? 1.2 : 1) * (k.moral >= 50 ? 1 : 0.3) * yildizCarpani(d, 'nufus') * (SB.kabiliyet(d, 'axira', 4) ? 1.2 : 1);

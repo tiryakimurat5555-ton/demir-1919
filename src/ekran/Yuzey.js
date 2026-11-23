@@ -40,7 +40,9 @@ import * as KM from '../oyun/komuta';
 import * as HK from '../oyun/hikaye';
 import { RENK, UST_BOSLUK } from '../arayuz/tema';
 import KonumsalSes from '../ses/konumsal';
-import { ALANLAR, KAPILAR, MEKANLAR, NOKTALAR } from '../oyun/yuzey/harita';
+import { ALANLAR, KAPILAR, KISILER, MEKANLAR, NOKTALAR } from '../oyun/yuzey/harita';
+import { YERLESIMCILER, YERLESIMCI_SIRASI, YERLESIM_BINALARI } from '../oyun/yerlesim/veri';
+import { BINA_KAPILARI } from '../oyun/yerlesim/harita';
 import { monolitEtkisi } from '../oyun/yuzey/kesifler';
 import { FENOMENLER, GEZEGENLER, ITIBAR_KADEMELERI } from '../oyun/veri/gozlem';
 import { OPERASYONLAR } from '../oyun/veri/uzayGorevleri';
@@ -156,6 +158,7 @@ import {
   BOLGELER,
   KUSAKLAR,
   seyahat,
+  YR,
 } from '../oyun/yuzey/gorevler';
 import { BITKILER, ISLEME_TESISI } from '../oyun/tarim/bitkiler';
 import { UZMANLIKLAR, subayIstihdam, SEKTORLER, bosta, girdiMetni, harca, yeterMi, ilacDagit, isGucuDegis, moralMetni, moralSesi, parcaMetni, uretimBaslat, uretimListesi } from '../oyun/koloni';
@@ -217,6 +220,34 @@ const DOSYALAR = {
   adim_cam_3: require('../../assets/ses/konumsal/adim_cam_3.wav'),
   adim_cam_4: require('../../assets/ses/konumsal/adim_cam_4.wav'),
   vaha: require('../../assets/ses/konumsal/vaha.wav'),
+  // Yerleşim (v5 Paket 1, 4.0): yerleşimcilerin imza sesleri, kamp ateşi, bina kapılarından taşan sesler, kamara dekorları
+  y_sorya: require('../../assets/ses/konumsal/y_sorya.wav'),
+  y_kaelon: require('../../assets/ses/konumsal/y_kaelon.wav'),
+  y_lyris: require('../../assets/ses/konumsal/y_lyris.wav'),
+  y_zarek: require('../../assets/ses/konumsal/y_zarek.wav'),
+  y_veysel: require('../../assets/ses/konumsal/y_veysel.wav'),
+  y_defne: require('../../assets/ses/konumsal/y_defne.wav'),
+  y_marcus: require('../../assets/ses/konumsal/y_marcus.wav'),
+  y_torvok: require('../../assets/ses/konumsal/y_torvok.wav'),
+  y_siravel: require('../../assets/ses/konumsal/y_siravel.wav'),
+  y_mateo: require('../../assets/ses/konumsal/y_mateo.wav'),
+  y_julian: require('../../assets/ses/konumsal/y_julian.wav'),
+  y_brom: require('../../assets/ses/konumsal/y_brom.wav'),
+  y_nerissa: require('../../assets/ses/konumsal/y_nerissa.wav'),
+  y_halvar: require('../../assets/ses/konumsal/y_halvar.wav'),
+  y_elara: require('../../assets/ses/konumsal/y_elara.wav'),
+  y_tina: require('../../assets/ses/konumsal/y_tina.wav'),
+  kamp_atesi: require('../../assets/ses/konumsal/kamp_atesi.wav'),
+  dis_ashane: require('../../assets/ses/konumsal/dis_ashane.wav'),
+  dis_atolye: require('../../assets/ses/konumsal/dis_atolye.wav'),
+  dis_taverna: require('../../assets/ses/konumsal/dis_taverna.wav'),
+  dis_tapinak: require('../../assets/ses/konumsal/dis_tapinak.wav'),
+  dis_hamam: require('../../assets/ses/konumsal/dis_hamam.wav'),
+  dis_okul: require('../../assets/ses/konumsal/dis_okul.wav'),
+  dekor_muzik: require('../../assets/ses/konumsal/dekor_muzik.wav'),
+  dekor_akvaryum: require('../../assets/ses/konumsal/dekor_akvaryum.wav'),
+  dekor_kus: require('../../assets/ses/konumsal/dekor_kus.wav'),
+  dekor_can: require('../../assets/ses/konumsal/dekor_can.wav'),
 };
 
 // Eylem sesleri: gorev1.js'teki ses adlarını çalınacak efekte çevirir
@@ -296,6 +327,34 @@ export default function Yuzey({ onGeri, baslangic, yeniOyunUret }) {
     if (!calanlar.current[id]) return;
     delete calanlar.current[id];
     if (m()) m().sil(id);
+  };
+
+  // Yerleşim sesleri (v5 Paket 1 bölüm 5, Paket 00 1.3): bulunulan mekândaki yerleşimcilerin imza sesleri aralıkla
+  // kendi yerlerinden; vadide kamp ateşi; meydanda kurulu binaların kapılarından boğuk iç sesleri; kamarada dekorlar.
+  const yerlesimSesleri = (d, s) => {
+    const istenen = {};
+    if (d.yer) {
+      YERLESIMCI_SIRASI.forEach((id, i) => {
+        const k = YR.kisiKonumu(d, id);
+        if (!k || k.mekan !== d.mekan) return;
+        const kid = 'ys_' + id + '_' + Math.round(k.x) + '_' + Math.round(k.y);
+        istenen[kid] = () => s.dosyaKaynak(kid, 'y_' + id, k, 7000 + i * 650);
+      });
+      if (d.mekan === 'meydan')
+        for (const id of d.yer.binalar) {
+          const b = YERLESIM_BINALARI[id];
+          if (b && b.disSes && BINA_KAPILARI[id]) istenen['yd_' + id] = () => s.dongu('yd_' + id, b.disSes, BINA_KAPILARI[id], 0.55);
+        }
+      if (d.mekan === 'kamara')
+        for (const k of d.yer.dekorlar) istenen['yk_' + k] = () => s.dongu('yk_' + k, 'dekor_' + (k === 'muzik_kutusu' ? 'muzik' : k === 'kafes_kusu' ? 'kus' : k === 'ruzgar_cani' ? 'can' : 'akvaryum'), NOKTALAR.kamara_raf, 0.5);
+    }
+    if (kulakMekani(d) === 'vadi') istenen.kamp_atesi = () => s.dongu('kamp_atesi', 'kamp_atesi', NOKTALAR.kamp_atesi, 0.7);
+    for (const id of Object.keys(calanlar.current)) if ((id.indexOf('ys_') === 0 || id.indexOf('yd_') === 0 || id.indexOf('yk_') === 0 || id === 'kamp_atesi') && !istenen[id]) kaynakKapat(id);
+    for (const id of Object.keys(istenen))
+      if (!calanlar.current[id] && yuklu.current[id.indexOf('ys_') === 0 ? 'y_' + id.split('_')[1] : 'kamp_atesi']) {
+        calanlar.current[id] = true;
+        istenen[id]();
+      }
   };
 
   // Benzetimdeki duruma göre konumlu sesleri kurar ya da kaldırır
@@ -417,6 +476,7 @@ export default function Yuzey({ onGeri, baslangic, yeniOyunUret }) {
         }
       } else kaynakKapat(id);
     });
+    yerlesimSesleri(d, s);
     if (ortamDa && !(terminalAcik.current && durakli.current)) {
       s.boguk(d.mekan === 'kapsul' || !!d.gemide);
       const oda = odaSu(d);
@@ -781,6 +841,11 @@ export default function Yuzey({ onGeri, baslangic, yeniOyunUret }) {
               durakli.current = false;
               sesleriEsitle(true);
               soyle(r.metin, 'istek', true);
+              // Kamarada uyku bir çatışma ya da operasyonla kesildiyse (gorevler.js dinlen)
+              if (r.arayuz && r.arayuz.length) {
+                const ay = r.arayuz;
+                setTimeout(() => koloniOlaylari(ay), 400);
+              }
               return 'sessiz';
             }
             if (d.sahne) {
@@ -832,7 +897,7 @@ export default function Yuzey({ onGeri, baslangic, yeniOyunUret }) {
         sec: () => {
           if (o.efekt) cal(o.efekt, 0.7);
           if (o.alt) {
-            agacGoster(o.alt, () => kendi(i));
+            agacGoster(o.alt, (s2) => kendi(i, s2));
             return 'sessiz';
           }
           const r = (o.yap && o.yap(dunya.current)) || {};
@@ -888,18 +953,34 @@ export default function Yuzey({ onGeri, baslangic, yeniOyunUret }) {
     if (soz) soyle(soz, 'istek', true);
   };
 
+  // Yerleşimci (v5 Paket 1/8): Konuş / Hediye ver / Profil kartı. Selam bir nöbette bir kez, kendi imza sesiyle.
+  const yerlesimciGoster = (yid, geri) => {
+    const d = dunya.current;
+    const selam = YR.selamla(d, yid);
+    if (selam) cal('imza_' + yid + '_selam', 0.9);
+    agacGoster((x) => YR.kisiMenu(x, yid, selam), geri || (() => katmanKapat('Konuşmayı bitirdin.')));
+  };
   const konusmaGoster = (kisiId, onEk) => {
     const d = dunya.current;
+    const kk = KISILER[kisiId];
+    if (kk && kk.rol == null && kk.yerlesim) return yerlesimciGoster(kk.yerlesim);
     const k = konusma(d, kisiId);
     const ad = kisiAdi(d, kisiId);
+    // Öncü mürettebat aynı zamanda yerleşimci: görev konuşmasının yanında sohbet, hediye ve profil
+    const yid = kk && kk.yerlesim && YR.katildiMi(d, kk.yerlesim) ? kk.yerlesim : null;
+    const ekSecenek = yid ? [{ etiket: 'Sohbet, hediye ve profil kartı', yerlesim: true }] : [];
     katmanAc({
       baslik: ad,
       giris: [onEk, onEk ? null : ad + ': ' + k.metin].filter(Boolean).join(' '),
       onGeri: () => katmanKapat('Konuşmayı bitirdin.'),
-      ogeler: k.secenekler.map((s, i) => ({
+      ogeler: [...k.secenekler, ...ekSecenek].map((s, i) => ({
         id: 'k' + i,
         etiket: s.etiket,
         sec: () => {
+          if (s.yerlesim) {
+            yerlesimciGoster(yid, () => konusmaGoster(kisiId));
+            return 'sessiz';
+          }
           const cevap = s.cevap(d);
           if (cevap) konusmaGoster(kisiId, ad + ': ' + cevap);
           else katmanKapat('Konuşmayı bitirdin.');
@@ -1496,6 +1577,8 @@ export default function Yuzey({ onGeri, baslangic, yeniOyunUret }) {
     // Yıldız Zamanı: nöbet değişiminde o nöbetin yıldızının rezonans çanı (yönerge 4.B)
     const nb = olaylar.find((x) => x.tur === 'nobet');
     if (nb) {
+      // Yerleşimciler nöbet programına göre yer değiştirir: imza sesleri yeni yerlerinden
+      sesleriEsitle(false);
       if (m()) nb.akor.forEach((f, i) => setTimeout(() => m() && m().nota(f, null, 0.5, 5), i * 180));
       if (!durakli.current) setTimeout(() => soyle(nb.nobetMetni, 'istek', false), 900);
     }
@@ -2984,8 +3067,12 @@ export default function Yuzey({ onGeri, baslangic, yeniOyunUret }) {
         // YGK Akademi katlarında iki parmakla sağa ya da sola: kattaki kişiler ve odalar arasında sırayla yürü (akademi belgesi bölüm 1)
         else if (parmak >= 2 && (yon === 'sag' || yon === 'sol')) {
           const d = dunya.current;
-          if (!d.mekan || d.mekan.indexOf('ygk_') !== 0) return;
-          const liste = yerlerListesi(d).filter((y) => y.tur !== 'kapi' && y.mekan === d.mekan);
+          // v5 Paket 1 bölüm 6: Koloni Meydanı'nda da sağa sola kaydırarak binaların kapıları ve kişiler arasında geçilir
+          const meydan = d.mekan === 'meydan';
+          if (!d.mekan || (d.mekan.indexOf('ygk_') !== 0 && !meydan)) return;
+          const liste = yerlerListesi(d)
+            .filter((y) => (meydan || y.tur !== 'kapi') && y.mekan === d.mekan)
+            .sort((a, b) => a.x - b.x || a.y - b.y);
           if (!liste.length) {
             soyle('Bu katta bildiğin bir yer yok. Radarla ara.', 'istek', true);
             return;

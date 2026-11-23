@@ -46,6 +46,7 @@ import * as HK from '../hikaye';
 import '../hikayeKoloni';
 import '../tonoflenya/asama4';
 import * as GZ from '../gezegenHikayeleri';
+import * as YR from '../yerlesim/yerlesim';
 import { MEKANLAR } from './harita';
 import { tehlikeMekani, TEHLIKELER } from './dunya';
 
@@ -103,7 +104,7 @@ export function gorevIpucu(d) {
 }
 
 export function noktaEylemleri(d, id) {
-  const ek = [...G6.ekEylemler(d, id), ...K.ekEylemler(d, id), ...M.ekEylemler(d, id), ...TA.ekEylemler(d, id), ...(id === 'tepe' ? TM.tepeEylemi(d) : []), ...ZN.ekEylemler(d, id), ...FN.ekEylemler(d, id), ...AK.ekEylemler(d, id)];
+  const ek = [...G6.ekEylemler(d, id), ...K.ekEylemler(d, id), ...M.ekEylemler(d, id), ...TA.ekEylemler(d, id), ...(id === 'tepe' ? TM.tepeEylemi(d) : []), ...YR.ekEylemler(d, id), ...ZN.ekEylemler(d, id), ...FN.ekEylemler(d, id), ...AK.ekEylemler(d, id)];
   if (G6.noktaMi(id)) return [...ek, { id: 'incele', etiket: 'Sütunu incele' }];
   const temel = temelEylemler(d, id);
   if (!ek.length) return temel;
@@ -112,6 +113,7 @@ export function noktaEylemleri(d, id) {
   return i < 0 ? [...temel, ...ek] : [...temel.slice(0, i), ...ek, ...temel.slice(i)];
 }
 function temelEylemler(d, id) {
+  if (YR.noktaMi(id)) return YR.noktaEylemleri(d, id);
   if (AK.noktaMi(id)) return AK.noktaEylemleri(d, id);
   if (KR.noktaMi(id)) return KR.noktaEylemleri(d, id);
   if (FN.noktaMi(id)) return [{ id: 'incele', etiket: 'İncele' }];
@@ -132,6 +134,10 @@ function temelEylemler(d, id) {
 }
 
 export function eylemUygula(d, id, eylemId) {
+  if (YR.noktaMi(id) || (id === 'terminal' && YR.ekEylemMi(eylemId))) {
+    const r = YR.eylemUygula(d, id, eylemId);
+    return r.uyku ? uyu(d) : r;
+  }
   if (eylemId === 'y_ygk') return TM.ygkAra(d);
   if (AK.ekEylemMi(eylemId)) return AK.ekEylemUygula(d, id, eylemId);
   if (AK.noktaMi(id)) return AK.eylemUygula(d, id, eylemId);
@@ -277,6 +283,8 @@ export function zamanIlerle(d, dt) {
   KR.karakterIlerle(d);
   KM.komutaIlerle(d);
   HK.hikayeIlerle(d);
+  // Yerleşim (v5): bina ihtiyaçları, yerleşimci katılımları, kademeler, doğum günleri
+  YR.yerlesimIlerle(d);
   // Final görevleri: sahne kapanınca bekleyen operasyon ya da çatışma başlar (tonoflenya/final.js)
   // 3.15: uzay savaş eğitimi ilk gemiyle açılır (bir kez haber)
   if (SV.egitimAcik(d, 'uzay') && SV.egitimGerekli(d, 'uzay') && !d.bayrak.uzayEgitimHaber) {
@@ -324,7 +332,14 @@ export function zamanIlerle(d, dt) {
 // Kalkış: hazır sefer erzakları gemiye yüklenir (tarim/tarim.js erzakYukle)
 export function kalkis(d) {
   const r = S.kalkis(d);
-  if (d.gemi && d.gemi.yer === 'uzay') TR.erzakYukle(d);
+  if (d.gemi && d.gemi.yer === 'uzay') {
+    // Sorya Kademe 10: her seferden önce ücretsiz bir peksimet rasyonu (v5 Paket 1)
+    if (d.bayrak.yk_sorya_10) {
+      TR.tarim(d);
+      d.tarim.erzak.peksimet = (d.tarim.erzak.peksimet || 0) + 1;
+    }
+    TR.erzakYukle(d);
+  }
   return r;
 }
 export const { UZAY_NOKTALARI, gorunurNoktalar, itki, burunDondur, uzayRadar, uzayDurumu, onTarama, kalkisOlur, sesYeri, enYakin, fenerMenzili, HIZ_EN_COK } = S;
@@ -573,7 +588,22 @@ export function dinlen(d, hedefNobet) {
   const r = zamanSar(d, sn, true);
   const dk = Math.max(1, Math.round(r.gercek / 60));
   const bas = r.kesen ? 'Dinlenmen ' + dk + ' dakika sonra yarıda kesildi. ' + r.kesen + ' ' : dk + ' dakika dinlendin. ';
-  return { metin: bas + Z.zamanMetni(d) + (r.ozet ? ' Bu arada: ' + r.ozet : ''), ses: r.kesen ? 'telsiz_zil' : 'sinyal', arayuz: r.arayuz, kapat: true };
+  return { metin: bas + Z.zamanMetni(d) + (r.ozet ? ' Bu arada: ' + r.ozet : ''), ses: r.kesen ? 'telsiz_zil' : 'sinyal', arayuz: r.arayuz, kapat: true, kesildi: !!r.kesen };
+}
+// Kaptanın Kamarası'nda uyku (v5 Paket 1 bölüm 4): bir sonraki Gümüş Şafak'a kadar; yarıda kesilmezse dinlenmiş uyanılır
+export function uyu(d) {
+  const e = dinlenmeEngeli(d);
+  if (e) return { metin: e, ses: 'red' };
+  // Uykuda koloni döngüsü (tarım, sohbet, gün) ilerler; üretim kuyruğu ve tersane kaynağı ilerlemez (00-okuma 1.4)
+  d.uykuda = true;
+  let r;
+  try {
+    r = dinlen(d, 0);
+  } finally {
+    d.uykuda = false;
+  }
+  if (r.kesildi) return r;
+  return { ...r, metin: YR.uyandin(d) + ' ' + r.metin };
 }
 export function dinlenMenu(d) {
   const e = dinlenmeEngeli(d);
@@ -590,3 +620,6 @@ export function dinlenMenu(d) {
     ogeler,
   };
 }
+
+// Yerleşim (v5) ekran için
+export { YR };

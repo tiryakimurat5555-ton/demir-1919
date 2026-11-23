@@ -683,7 +683,48 @@ Demir 1919 oyunu silindi; geçmişi git kaydında (son sürüm 1.06, commit 556f
   hedefe kadar gerçek 60 sn adımlarla, r.gercek; dinlen/dinlenMenu dakikaları gerçek. kayit.js VARSAYILAN_AYARLAR.nobetDakika 10;
   App.js okuyunca ve değişince nobetDakikasiAyarla; Ayarlar.js "Nöbet uzunluğu" + Artır/Azalt. Testler varsayılan 10.
   Telefonda denenmedi.
-- Sıradaki: v4 paketinin bütün belgeleri işlendi; KAPSAM.md'de [~] notları (Bahtiyar'a sorulacaklar) ve telefonda deneme.
+- SÜRÜM 4.0 (23 Kasım, Murat v5 paketini gönderdi: Yeni_Guncelleme_Paketi.zip, 20 belge + 6 festival mp3 → belgeler/v5/;
+  "Bana sorma, devam edebilirsin"): Paket 1 + Paket 8 algoritması + Paket 3A takvimi. Telefonda denenmedi.
+  - yerlesim/veri.js (bağımlılıksız): MIZACLAR 5 (tam/ters ton), KADEMELER 0-10, KADEME_KILIDI, YERLESIM_BINALARI 12 (kamp
+    başlangıç; meydan → kamara/aşhane/atölye/konut/kubbe/tapınak/taverna/okul/hamam/gözlem; kosul, veren, ihtiyac, malzeme,
+    mekan, ortam, disSes, kurulus), PROGRAM_YERI, YERLESIMCILER 16 (kisi: öncüler muhendis/telsizci/hekim; hiz(k) bar hızı;
+    program nöbet yıldızı → yer; sever/sevmez gerçek kimlikler, erzak_<ISLEME>, urun_<bitki>, 'yiyecek' Tina; dogum 1-56;
+    imza; kademe 3/6/10 metinleri; katilim), CEKIRDEK 5, DEKORLAR 4, SOHBETLER (mizaç başına 4 söz × A/B/C), MESGUL.
+  - yerlesim/harita.js: Y_MEKANLAR meydan (3200-3260 × 0-50, açık) ve iç mekânlar (x 3300 + 50 × sıra; gözlem 40×40 açık),
+    Y_KAPILAR meydan_kapi (vadi (32,-6)) ve yk_<bina> (meydan kenarları; kosul + gizli: kurulmadan görünmez), Y_NOKTALAR
+    kamp_atesi (vadi 6,-4), meydan_terminali, kamara_yatak/raf, yb_<bina>. yuzey/harita.js birleştirir; KISILER'e öncülere
+    yerlesim alanı, ötekiler y_<id>. dunya.js: kisiYeri (konum.js; katılmamış → null, döngüler null güvenli), kisiAdi/Tarifi,
+    kapı gizli süzgeci, Yerler'de yerleşim kapıları ve kurulu bina noktaları.
+  - yerlesim/konum.js: kisiKonumu (öncüler meydan kurulunca programa geçer; sera → tarim mekânı, revir → kapsül, bina yoksa
+    kamp ateşi halkası), programAktif, yerVar, katildiMi.
+  - yerlesim/yerlesim.js: d.yer {binalar, ihtiyac, katilan, kisi {p, k, sohbetGun, hediyeGun, hediyeler, sahneGun,
+    selamNobet}, dekorlar, dogumDendi, sonGun, hamamGun, tavernaGun}; puanEkle (bar hızı, taban k×100), kademeDenetle (günde
+    bir kademe, bayrak yk_<id>_<k>, moral +2, dost halkası +10); binaKur; yerlesimIlerle (gorevler.zamanIlerle: ihtiyaç
+    haberi, katılım, gün başı kademe ve doğum günü); sohbetMenu/sohbetYanitla; hediyeMenu/hediyeVer (günde 1, haftada 2,
+    ×2 doğum günü/d.festival); profilMetni (Paket 8 bölüm 7); kisiMenu/selamla; panel (terminal "Yerleşim"); dekorlar;
+    uyandin; nokta eylemleri (uyu, yıkan, otur, ısın, kimler); kaydiTamamla (eski kayıtta öncüler yeniden adlandırılır).
+    PARCALAR.cam + dökümhane tarifi (4 cam ← 1 kristal + 2 bazalt).
+  - Uygulanan kazançlar: sorya_3 moral +10, sorya_10 kalkışta peksimet, veysel_6 dekor dükkânı, veysel_10 kamara moral ×2,
+    siravel_10 hamam stresi sıfırlar, julian_10 taverna moral ×2, tina_10 üretim ×1,1. Ötekiler bayrak + metin ([~] KAPSAM 62).
+  - gorevler.js: uyu (d.uykuda: koloni.js üretim kuyruğu ve tersane kaynağı ilerlemez), dinlen kesildi alanı, YR dışa aktarılır.
+    zaman.js takvim (HAFTA 7, MEVSIM_GUN 14, YIL_GUN 56, MEVSIMLER, yilGunu, haftaGunu, mevsim, mevsimCarpani: tarla Filiz ×1,2
+    → tarim.js, dokum Kor ×1,15 → koloni.js dökümhane), takvimMetni. murettebat.js oncuUret adları.
+  - Yuzey: yerleşimci konuşması agacGoster (selam imza sesi nöbette bir kez), öncülerde "Sohbet, hediye ve profil kartı";
+    yerlesimSesleri (imza dosyaKaynak 7-17 sn aralık, yerleri değişince yeniden; kamp ateşi döngüsü; meydanda kapı önü
+    dongu; kamarada dekor döngüleri); nöbet değişiminde sesleriEsitle; meydanda iki parmak sağ/sol (YGK'daki gibi, x'e göre);
+    agacGoster alt menüden geri dönüşte sonuç metni okunur (önceden kayboluyordu).
+  - Sesler ElevenLabs (flow BPWC2OLWbdljIKExgHDq sfx 41 × 17; flow ui4cHVdu6EZCZ5QIbudH eleven_v4 16 × ~130 kredi; oturumlar
+    araclar/oturumlar-4.0.txt): konumsal/y_<id>.wav (imza sesi, 24 kHz tek kanal I=-20), kamp_atesi/dis_*/dekor_* (2 sn çapraz
+    geçişli döngü, I=-22), yerlesim/ortam_* (11, 22 sn, 2,5 sn çapraz geçiş, I=-24, 96k stereo), yerlesim/imza/<id>_<selam|
+    tesekkur|kizgin>.mp3 (üç cümle tek kayıtta [long pause] ile; silencedetect en uzun iki sessizlikten bölündü, I=-16).
+    Sesler: Sorya Mahidevran, Kaelon Emir, Lyris Öykü Arel, Zarek Agit Taşdemir (öncülerin telsiz sesleri), Veysel Ergun Kalbak,
+    Defne Deniz, Marcus Cavit Pancar, Torvok Servet, Sira-Vel Zeyna, Mateo Tayfun, Julian Enes, Brom Sercan Esen, Nerissa Zuhal,
+    Halvar Muhammet Yolcu, Elara Belma, Tina Gizem. /tmp/dongu.py (numpy çapraz geçiş) betiği araclar/dongu.py olarak eklendi.
+  - testler/yerlesim.test.js (12).
+- Sıradaki (v5, sırayla): 4.1 Paket 8A-8C kademe sahneleri + Paket 9 ikili/üçlü olaylar; 4.2 Paket 3A festivaller (6 mp3,
+  /home/claude/v5_festival → assets) + Paket 2 ilan panosu/Kaptan Orin + Paket 11; 4.3 Paket 3B arşiv ve hobiler + Paket 12/13;
+  4.4 Paket 5/6 maden, kıyı, aletler; 4.5 Paket 10 eşya, Paket 14/15 hayvanlar; 4.6 Paket 4 aile; 4.7 Paket 7 görev
+  mimarisi + Paket 16. KAPSAM.md bölüm 62.
 
 ## Sesler
 - Drive'daki Efektler/Ambians dosyaları 14 MB; Drive bağlayıcısı 10 MB'tan büyük dosyayı indiremiyor. Bu yüzden

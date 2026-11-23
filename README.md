@@ -6,6 +6,23 @@ tesis kurar, ileride gemini parça parça inşa edip uzaya açılırsın.
 
 Yapımcı: Bahtiyar Cankurt (tasarım belgeleri belgeler/ içinde). Expo Go ile iPhone ve Android'de çalışır.
 
+## Bu sürümde (4.0)
+- Yerleşim: görev aralarında koloni yaşıyor. Merkez terminalinde (ve meydan terminalinde) "Yerleşim" sekmesi:
+  yerleşim binaları, yerleşimciler ve profil kartları, takvim.
+- On iki sosyal mekân: vadideki kamp ateşi ve vadinin doğusundaki Koloni Meydanı; meydanın kenarlarında Kaptanın Kamarası,
+  aşhane, atölye, Dünya konutları, Malken kubbe evleri, Axelum Tapınağı, taverna, okul, termal hamam ve Gözlem Tepesi.
+  Bir yerleşimci ihtiyaç duyunca telsizden söyler; malzemeyle kurulur. Meydanda iki parmakla sağa sola kaydırınca
+  binaların kapıları ve kişiler arasında yürünür; kurulu binaların kapı önünden içerideki ses boğuk duyulur.
+- On altı yerleşimci; ilk üç öncü artık Kaelon Vex-Tar, Zarek Sol-Zhaor ve Lyris Mar-Axira. Her biri nöbet programına
+  göre bir binada (bina yoksa kamp ateşinde); bulunduğun yerdekilerin imza sesleri kendi yerlerinden duyulur.
+  Ötekiler görevlerle, binalarla ve gezegen kurtarmalarıyla katılır.
+- İlişki: 0-1000 puan, on kademe. Günde bir sohbet (üç yanıt tonu; karakterin düşünce yapısına uyan ton daha çok
+  sevindirir), günde bir ve haftada iki hediye, doğum günlerinde iki kat; kademe asla düşmez. Üçüncü, altıncı ve onuncu
+  kademede kalıcı kazançlar. Her yerleşimcinin selam, teşekkür ve kızgınlık cümlesi kendi sesiyle.
+- Kaptanın Kamarası: yatakta Gümüş Şafak'a kadar uyunur (üretim ve inşaat beklemez, stres atılır, moral artar);
+  Usta Veysel'le altıncı kademeden sonra rafa sesli dekorlar konur.
+- Takvim: yedi günlük hafta, on dörder günlük dört mevsim (Filiz seralar hızlı, Kor dökümhane hızlı).
+
 ## Bu sürümde (3.17)
 - Ayarlar'da "Nöbet uzunluğu": 10-30 dakika arası, beşer dakika (bir oyun günü altı nöbet, 1-3 saat). Oyun ortasında
   değişince gün atlamaz; üretim, bitki ve yatak süreleri gerçek dakikayla aynı kalır.
