@@ -30,6 +30,7 @@ import { evrenEtki, misafir, gucItibari } from '../tonoflenya/kisiler';
 import { TONOFLENYA_HAMMADDELERI } from '../tonoflenya/zanaat';
 import { ZAFER_KANCALARI } from '../kancalar';
 import { ATIS_SESI, dusmanSesi, uyariSesi, hasarAgir } from './savasSesleri';
+import * as EG from './egitim';
 
 // --- Ortak yardımcılar ---
 const kusan = (d, id) => !!(d.kusanilan && (d.kusanilan.silah === id || d.kusanilan.zirh === id));
@@ -177,6 +178,9 @@ export const DUSMANLAR = {
   sis_canavari: { ad: 'sis feneri bataklık canavarı', ortam: 'kara', tier: 4, arketip: 'pusucu', moduller: ['pusucu', 'karanlik'], karanlik: true, sahte: true, govde: 90, kalkan: 0.35, silahlar: ['pence', 'sonik_dalga'], frek: 60, ses: 'Derin bir göğüs hırıltısı; önünde sallanan fenerin sahte çan tınısı.', zayif: 'Fener yanıltır; yalnız hırıltıya kilitlen.', ganimet: {} },
   // YGK Akademi kürsü testi (Kaelis 'Echo' Duman): oyuncunun kendi saldırı sesini taklit eden pusucu
   ses_illuzyonu: { ad: 'ses illüzyonu', ortam: 'kara', tier: 3, arketip: 'pusucu', moduller: ['pusucu'], sahte: true, govde: 55, kalkan: 0.3, silahlar: ['sonik_dalga', 'mermi'], frek: 210, ses: 'Senin kendi atış sesin, bir sağdan bir soldan; arkasında ince bir nefes.', zayif: 'Sahte yönleri ele; gerçek nefese kilitlen.', ganimet: {} },
+  // 3.13 savaş eğitimi hedefleri (egitim.js): hasar almaz sayılır, eğitim kendi adımlarıyla biter
+  egitim_dronu: { ad: 'simülasyon hedef dronu', ortam: 'uzay', tier: 1, arketip: 'akinci', moduller: [], egitim: true, govde: 9999, kalkan: 0.6, silahlar: ['plazma'], frek: 330, ses: 'Taktik simülatörünün tek tonlu hedef dronu.', zayif: 'Eğitim hedefi.', ganimet: {} },
+  egitim_otomati: { ad: 'eğitim otomatı', ortam: 'kara', tier: 1, arketip: 'akinci', moduller: [], egitim: true, govde: 9999, kalkan: 0.6, silahlar: ['mermi'], frek: 240, ses: 'Tatbikat alanının paslı servolu hedef otomatı.', zayif: 'Eğitim hedefi.', ganimet: {} },
   // Çağrılan yardımcılar (küçük birimler: her tur üst üste ek hasar)
   saldiri_dronu: { ad: 'saldırı dronu', ortam: 'uzay', tier: 1, kucuk: true, moduller: [], govde: 14, kalkan: 0, silahlar: ['iyon'], frek: 880, ganimet: {} },
   golge_dronu: { ad: 'gölge dronu', ortam: 'uzay', tier: 1, kucuk: true, moduller: ['karanlik'], karanlik: true, govde: 16, kalkan: 0, silahlar: ['plazma'], frek: 660, ganimet: {} },
@@ -519,6 +523,8 @@ export function savasBaslat(d, spec) {
   if (typeof spec === 'string') spec = { dusmanlar: [spec] };
   const ilk = DUSMANLAR[spec.dusmanlar[0]];
   const ortam = spec.ortam || ilk.ortam || 'uzay';
+  // 3.13: bu ortamda ilk gerçek çatışmadan önce zorunlu eğitim; bitince bekleyen çatışma başlar
+  if (!spec.egitim && egitimGerekli(d, ortam)) return savasBaslat(d, { dusmanlar: [EG.EGITIM_DUSMANI[ortam]], ortam, egitim: true, sonra: spec });
   const r = uretec((d.tohum || 1) * 31 + (d.savasNo = (d.savasNo || 0) + 1));
   const tohum = Math.floor(r() * 1e9);
   const s = {
@@ -583,6 +589,7 @@ export function savasBaslat(d, spec) {
   }
   if (s.gelis === 'tuzak') s.tuzak = true;
   if (spec.bagisik) s.bagisiklik = 99; // biyo-kubbe ya da karantina: zehir işlemez
+  if (spec.egitim) return egitimKur(d, s, spec.sonra || null);
   // Hikâyelerde düşmanlara kendi adları (mekanik aynı katalog birimi)
   if (spec.adlar) s.dusmanlar.forEach((x, i) => { if (spec.adlar[i] && !x.kucuk) x.ad = spec.adlar[i]; else if (spec.adlar[i]) x.ad = spec.adlar[i]; });
   // Fulgur-3 yıldırım şarj istasyonu: sonraki savaşa aşırı şarjlı (iki tur geniş pencere)
@@ -1030,6 +1037,7 @@ export function savasGirdi(d, g) {
   const s = d.savas;
   if (!s) return [];
   bagla(s);
+  if (s.egitim) return egitimGirdi(d, g);
   const o = [];
   const dm = s.dusman;
   if (g.tur === 'kaydir' && (g.yon === 'sag' || g.yon === 'sol') && !s.uyari) {
@@ -1613,6 +1621,7 @@ export function savasIlerle(d, dt) {
   const s = d.savas;
   if (!s) return [];
   bagla(s);
+  if (s.egitim) return egitimIlerle(d, dt);
   s.t += dt;
   // Düşmanlar yavaşça manevra yapar; K5 karadutu modeli çözünce manevra küçülür
   for (const x of etkin(s)) x.aci += Math.sin(s.t * 0.4 + x.no) * 0.05 * dt * (!kara(s) && mod(d, 'k5_karadutu') && s.raunt >= 2 ? 0.3 : 1);
@@ -1655,6 +1664,226 @@ export function durumMetni(d) {
   return dm.ad + ' (' + TEHDIT[dm.tier].ad + '): ' + (kara(s) ? 'can' : 'gövde') + ' yüzde ' + Math.round((100 * dm.govde) / dm.max) + (dm.delik ? ', ' + (kara(s) ? 'zırhı' : 'kalkanı') + ' delik' : '') + (dm.kaciyor > 0 ? ', kaçıyor' : '') + '. ' + (kilitliMi(d) ? 'Kilitli.' : 'Hedef ' + (dm.aci > 0 ? 'solda' : 'sağda') + '.') +
     (ob.length ? ' Öteki düşmanlar: ' + ob.map((x) => x.ad + ' ' + (x.aci > 0 ? 'solda' : 'sağda')).join(', ') + '.' : '') +
     (kara(s) ? ' Zırhın' : ' Gövden') + ' yüzde ' + Math.round((100 * canAl(d)) / canMax(d)) + '.' + (s.zehir > 0 ? ' Asit eritiyor.' : '') + (enYuksekStres(d) >= 70 ? ' Ekip stresi yüksek.' : '') + (ar.length ? ' Arızalı: ' + ar.map((k) => adlar[k]).join(', ') + '.' : '');
+}
+
+// --- 3.13 Savaş eğitimi (egitim.js): her ortamda bir kez zorunlu, menüden yinelenebilir ---
+// Testler eski senaryoları eğitimsiz oynar (testler/hazirlik.js zorunlu: false); oyunda hep açık
+export const EGITIM_AYAR = { zorunlu: true };
+export function egitimGerekli(d, ortam) {
+  return EGITIM_AYAR.zorunlu && !(d.bayrak && d.bayrak['egitim_' + ortam]);
+}
+// Menüdeki "Savaş simülatörü": sonrasında çatışma olmadan eğitimi yineler
+export function egitimBaslat(d, ortam) {
+  if (d.savas) return [];
+  return savasBaslat(d, { dusmanlar: [EG.EGITIM_DUSMANI[ortam]], ortam, egitim: true, sonra: null });
+}
+// Menüdeki "Savaş simülatörü" ağacı (Yuzey agacGoster): bekleyen çatışma gibi kurulur, menü kapanınca başlar
+export function simulatorMenu(d) {
+  const durum = (o) => (d.bayrak && d.bayrak['egitim_' + o] ? 'tamamlandı' : 'henüz yapılmadı; ilk ' + (o === 'kara' ? 'kara çatışmasından' : 'uzay savaşından') + ' önce zorunlu');
+  const kur = (o) => (x) => {
+    if (x.savas || x.savasBekle || x.op || x.opBekle || x.sahne) return { metin: 'Önce süren çatışma, operasyon ya da sahne bitsin.', ses: 'red' };
+    if (o === 'uzay' && !x.gemi) return { metin: 'Uzay simülatörü için bir gemi gerekir.', ses: 'red' };
+    x.savasBekle = { dusmanlar: [EG.EGITIM_DUSMANI[o]], ortam: o, egitim: true, sonra: null };
+    return { metin: 'Simülatör hazırlanıyor.', kapat: true };
+  };
+  return {
+    baslik: 'Savaş simülatörü',
+    giris: 'Savaş hareketlerini hasarsız, adım adım öğretir. Her ortamın eğitimi ilk çatışmadan önce bir kez zorunlu; burada istediğin zaman yinelersin.',
+    ogeler: [
+      { etiket: 'Uzay savaş eğitimi (' + durum('uzay') + ')', yap: kur('uzay') },
+      { etiket: 'Kara çatışması eğitimi (' + durum('kara') + ')', yap: kur('kara') },
+    ],
+  };
+}
+function egitimKur(d, s, sonra) {
+  const dm = s.dusmanlar[0];
+  dm.govde = dm.max = 9999;
+  dm.kalkan = 0.6;
+  dm.kalkanFrek = EG.EGITIM_KALKAN_FREK;
+  dm.aci = -0.9; // sağ kulakta
+  s.sonraki = 1e9; // düşman kendiliğinden saldırmaz; savunma adımlarını eğitim başlatır
+  s.egitim = { adim: 0, sonra, hazir: null, secti: false, deneme: 0 };
+  hedefSec(s);
+  return [{ soz: EG.GIRIS[s.ortam] + ' ' + EG.adimMetni(EG.ADIMLAR[0], s.ortam, 'metin'), ses: s.ortam === 'kara' ? 's_alarm_kara' : 's_alarm_uzay' }];
+}
+function egitimHatirlat(d) {
+  const s = d.savas;
+  return [{ soz: 'Şimdi: ' + EG.adimMetni(EG.ADIMLAR[s.egitim.adim], s.ortam, 'kisa'), ses: 'red' }];
+}
+function egitimIlerlet(d, o) {
+  const s = d.savas;
+  const e = s.egitim;
+  const t = EG.adimMetni(EG.ADIMLAR[e.adim], s.ortam, 'tamam');
+  e.adim += 1;
+  e.secti = false;
+  e.hazir = null;
+  e.deneme = 0;
+  if (e.adim >= EG.ADIMLAR.length) return egitimBitir(d, o, t);
+  const a = EG.ADIMLAR[e.adim];
+  if (a.id === 'agir') s.torpidoBekle = 0;
+  o.push({ soz: (t ? t + ' ' : '') + EG.adimMetni(a, s.ortam, 'metin'), ses: 'sinyal' });
+  return o;
+}
+function egitimBitir(d, o, son) {
+  const s = d.savas;
+  const ortam = s.ortam;
+  const sonra = s.egitim.sonra;
+  d.bayrak['egitim_' + ortam] = true;
+  d.savas = null;
+  const metin = (son ? son + ' ' : '') + EG.BITIS[ortam];
+  if (!sonra) {
+    o.push({ soz: metin, bitti: true, sesler: [{ ad: 's_zafer', gecikme: 600 }] });
+    return o;
+  }
+  o.push({ soz: metin + ' ' + EG.SONRA_GERCEK });
+  const gercek = savasBaslat(d, sonra);
+  o.push({ yeniSavas: true }, ...gercek);
+  return o;
+}
+function egitimDondur(d, g, o) {
+  const s = d.savas;
+  const dm = s.dusman;
+  s.silahFrek = Math.max(0, Math.min(120, s.silahFrek + g.f * 7));
+  if (!dm.delik && Math.abs(s.silahFrek - dm.kalkanFrek) < 3) {
+    dm.delik = true;
+    o.push({ soz: 'Silah frekansı ' + (kara(s) ? 'zırhın tonuyla' : 'kalkanla') + ' eşleşti.', ses: 'sinyal' });
+    return true;
+  }
+  if (Math.abs(s.silahFrek - (s.sonNota || 0)) >= 2) {
+    s.sonNota = s.silahFrek;
+    o.push({ nota: { frek: tonFrek(s.silahFrek), sure: 0.25 } });
+  }
+  return false;
+}
+function egitimGirdi(d, g) {
+  const s = d.savas;
+  const e = s.egitim;
+  const a = EG.ADIMLAR[e.adim];
+  const dm = s.dusman;
+  const o = [];
+  const tek = (g.parmak || 1) < 2;
+  // Savunma adımı: uyarı sürerken yalnız savunma hareketleri
+  if (s.uyari) {
+    const u = s.uyari;
+    if (g.tur === 'dokun' && !tek) {
+      u.savunma = 'kalkan';
+      return [{ ses: kara(s) ? 'valf' : 's_kalkan_acilis', soz: kara(s) ? 'Siper!' : 'Kalkan!' }];
+    }
+    if (g.tur === 'kaydir' && (g.yon === 'sag' || g.yon === 'sol') && tek) {
+      if (g.yon === (u.yon === 'sag' ? 'sol' : 'sag')) {
+        u.savunma = 'kacinma';
+        return [{ ses: 'tislama' }];
+      }
+      return [{ soz: 'Yanlış yöne! Sesin geldiği yanın tersine.', ses: 'red' }];
+    }
+    if (g.tur === 'cift' && tek) {
+      u.savunma = 'karsi';
+      return [{ ses: 'patlama', soz: 'Karşı ateş!' }];
+    }
+    return [];
+  }
+  // Durum her adımda okunur (ama yalnız son adımda adım sayılır)
+  if (g.tur === 'dokun' && !tek) {
+    o.push({ soz: durumMetni(d) });
+    if (a.id === 'durum') return egitimIlerlet(d, o);
+    return o;
+  }
+  // Nişan her adımda serbest (kilit kaçarsa yeniden ortalanır)
+  if (g.tur === 'kaydir' && (g.yon === 'sag' || g.yon === 'sol') && tek) {
+    for (const x of s.dusmanlar) x.aci += g.yon === 'sag' ? 0.26 : -0.26;
+    const k = kilitliMi(d);
+    if (k && !s.kilitDendi) o.push({ ses: 'kilitTonu' });
+    s.kilitDendi = k;
+    if (a.id === 'nisan' && k) return egitimIlerlet(d, o);
+    if (a.id === 'nisan' && Math.abs(dm.aci) > 1.6) o.push({ soz: 'Fazla döndün; ses şimdi ' + (dm.aci > 0 ? 'solunda, sola' : 'sağında, sağa') + ' kaydır.' });
+    return o.length ? o : [{ ses: 'tik' }];
+  }
+  if (g.tur === 'dondur') {
+    const eslesti = egitimDondur(d, g, o);
+    if (a.id === 'frekans' && eslesti) return egitimIlerlet(d, o);
+    return o;
+  }
+  if (a.savunma) {
+    if (g.tur === 'dokun' && tek) {
+      if (e.hazir != null) return [{ soz: 'Bekle; uyarı sesini dinle.' }];
+      e.hazir = s.t + 1.5 + (e.adim % 3) * 0.6;
+      return [{ soz: 'Dinle.', ses: 'tik' }];
+    }
+    return e.hazir != null ? [{ soz: 'Daha erken; uyarı sesini bekle.' }] : egitimHatirlat(d);
+  }
+  if (a.id === 'ates' || a.id === 'ates2') {
+    if (g.tur === 'dokun' && tek) {
+      if (!kilitliMi(d)) return [{ soz: 'Iskaladın; hedef ' + (dm.aci > 0 ? 'solunda' : 'sağında') + '. Sesi yeniden ortala, sonra dokun.', ses: 'red' }];
+      o.push({ ses: kara(s) ? 's_oyuncu_tufek' : 's_oyuncu_lazer' });
+      dusmanaHasar(d, 10, o, 'birincil');
+      if (a.id === 'ates2' && !dm.delik) return o;
+      return egitimIlerlet(d, o);
+    }
+    return egitimHatirlat(d);
+  }
+  if (a.id === 'agir') {
+    if (g.tur === 'kaydir' && g.yon === 'yukari' && tek) {
+      if (!kilitliMi(d)) return [{ soz: 'Tam kilit gerekir; sesi yeniden ortala.', ses: 'red' }];
+      o.push({ ses: kara(s) ? 'hidrolik' : 's_atis_torpido' });
+      dusmanaHasar(d, 30, o, 'torpido');
+      return egitimIlerlet(d, o);
+    }
+    return egitimHatirlat(d);
+  }
+  if (a.id === 'yetenek') {
+    if (g.tur === 'kaydir' && g.yon === 'asagi' && tek) {
+      e.secti = true;
+      return yetenekSec(d);
+    }
+    if (g.tur === 'cift' && tek) {
+      if (!e.secti) return egitimHatirlat(d);
+      // Eğitimde yetenek gerçekten uygulanmaz: sarf harcanmaz, kaçış yetenekleri savaşı bitirmez
+      const l = yetenekler(d);
+      const y = l[(s.yetenekNo || 0) % l.length];
+      o.push({ ses: 'sinyal', soz: y.sahip + ': ' + y.ad + '. Simülatörde yalnız denendi; gerçek savaşta etkisini gösterir.' });
+      return egitimIlerlet(d, o);
+    }
+    return egitimHatirlat(d);
+  }
+  return egitimHatirlat(d);
+}
+function egitimIlerle(d, dt) {
+  const s = d.savas;
+  const e = s.egitim;
+  const a = EG.ADIMLAR[e.adim];
+  s.t += dt;
+  const o = [];
+  const k = kilitliMi(d);
+  if (k && !s.kilitDendi && !s.uyari) o.push({ ses: 'kilitTonu' });
+  s.kilitDendi = k;
+  if (!a || !a.savunma) return o;
+  if (!s.uyari && e.hazir != null && s.t >= e.hazir) {
+    const silah = a.silah[s.ortam];
+    s.uyari = { kim: s.dusman.no, silah, kalan: EG.EGITIM_PENCERE, toplam: EG.EGITIM_PENCERE, yon: a.yon, sesYon: a.yon, savunma: null };
+    s.evre = 'uyari';
+    o.push({ uyari: silah, yon: a.yon, ses2: uyariSesi(s.dusman.tur, silah, UYARI_SESI[silah]) });
+    return o;
+  }
+  if (s.uyari) {
+    const u = s.uyari;
+    u.kalan -= dt;
+    // Doğru savunma gelince pencere beklenmeden çözülür; yanlışsa pencere sonunda
+    if (u.savunma !== a.beklenen && u.kalan > 0) return o;
+    s.uyari = null;
+    s.evre = 'oyuncu';
+    e.hazir = null;
+    const yan = u.yon === 'sag' ? 'sag' : 'sol';
+    if (u.savunma === a.beklenen) {
+      const ss = a.beklenen === 'kalkan' ? (kara(s) ? 's_siper_vurus' : 's_kalkan_vurus') : a.beklenen === 'kacinma' ? 's_iska' : null;
+      o.push({ sesler: [ATIS_SESI[u.silah] && u.silah !== 'torpido' ? { ad: ATIS_SESI[u.silah], yon: yan } : null, ss ? { ad: ss, gecikme: 200 } : null].filter(Boolean) });
+      return egitimIlerlet(d, o);
+    }
+    e.deneme += 1;
+    const ne = !u.savunma ? 'Savunma gelmedi' : 'Bu saldırıya o savunma uymadı';
+    o.push({ soz: ne + '; gerçek savaşta bu darbe ' + (kara(s) ? 'zırhından' : 'gövdenden') + ' giderdi. Bir daha. ' + EG.adimMetni(a, s.ortam, 'kisa') + ' Hazır olunca tek parmakla dokun.', ses: 'red', sesler: [{ ad: kara(s) ? 's_isabet_zirh' : 's_isabet_govde', yon: yan }] });
+    return o;
+  }
+  return o;
 }
 
 export const SAHNELER = {

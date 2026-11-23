@@ -44,7 +44,7 @@ import { ALANLAR, KAPILAR, MEKANLAR, NOKTALAR } from '../oyun/yuzey/harita';
 import { monolitEtkisi } from '../oyun/yuzey/kesifler';
 import { FENOMENLER, GEZEGENLER, ITIBAR_KADEMELERI } from '../oyun/veri/gozlem';
 import { OPERASYONLAR } from '../oyun/veri/uzayGorevleri';
-import { DESTEK as SAVAS_DESTEK } from '../oyun/uzay/savas';
+import { DESTEK as SAVAS_DESTEK, simulatorMenu } from '../oyun/uzay/savas';
 import { savasSesListesi } from '../oyun/uzay/savasSesleri';
 import { binaMenu } from '../oyun/binalar';
 import { aracYukle } from '../oyun/gemi/gemi';
@@ -1037,6 +1037,7 @@ export default function Yuzey({ onGeri, baslangic, yeniOyunUret }) {
         ...(dunya.current.gemi ? [{ id: 'zanaat', etiket: 'Zanaat tezgâhları', ipucu: 'Gemideki dökümhane masası, aether laboratuvarı ve imbik ünitesi.', sec: () => (agacGoster((x) => ZN.zanaatMenu(x), () => menuyuAc()), 'sessiz') }] : []),
         ...(dunya.current.bayrak.tonoflenyaGoruldu ? [{ id: 'subaylar', etiket: 'Subaylar ve istasyonlar', sec: () => (agacGoster((x) => ZN.subayMenu(x), () => menuyuAc()), 'sessiz') }] : []),
         { id: 'komuta', etiket: 'Komuta ve Genişleme Paneli', ipucu: 'Bölge haritası, savunma hattı, ileri karakollar. İki parmakla sağa sola: sekme; üç parmakla dokun: en acil bölge.', sec: () => (agacGoster((x) => KM.panel(x, 'harita'), () => menuyuAc()), 'sessiz') },
+        { id: 'simulator', etiket: 'Savaş simülatörü', ipucu: 'Uzay ve kara savaş eğitimi; hasarsız, adım adım.', sec: () => (agacGoster((x) => simulatorMenu(x), () => menuyuAc()), 'sessiz') },
         { id: 'hikaye', etiket: 'Hikâye çağrıları', ipucu: 'Karakterlerin telsiz çağrıları: bekleyenler ve bitenler.', sec: () => (agacGoster((x) => HK.hikayeMenu(x), () => menuyuAc()), 'sessiz') },
         { id: 'karakter', etiket: 'Karakter ağı, mekik ve itibar', ipucu: 'Kilit karakterler, Tether-Key mekiği, beş ana güç ve evren itibarı.', sec: () => (agacGoster((x) => KR.karakterMenu(x), () => menuyuAc()), 'sessiz') },
         ...(dunya.current.bayrak.tonoflenyaGoruldu ? [{ id: 'yan', etiket: 'Yan görevler ve itibar', ipucu: 'Otuz yan görev, bölgesel itibar, özel mürettebat.', sec: () => (agacGoster((x) => YN.yanMenu(x), () => menuyuAc()), 'sessiz') }] : []),
@@ -2427,6 +2428,8 @@ export default function Yuzey({ onGeri, baslangic, yeniOyunUret }) {
         Haptics.notificationAsync(Haptics.NotificationFeedbackType.Warning).catch(() => {});
       }
       if (o.bitti) bitti = true;
+      // 3.13: eğitim bitti, bekleyen gerçek çatışma başladı; onun seslerini belleğe al
+      if (o.yeniSavas && d.savas) onYukle(savasSesListesi((d.savas.dusmanlar || []).map((x) => x.tur).concat(['yavru', 'saldiri_dronu', 'golge_dronu', 'golge_muhafizi']), d.savas.ortam === 'kara'));
     }
     if (sozler.length) {
       // Telsiz kaydı çalacaksa öteki sözler kayıt bitince okunur (rehber kaydı beklesin diye bir an sonra)

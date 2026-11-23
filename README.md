@@ -6,6 +6,11 @@ tesis kurar, ileride gemini parça parça inşa edip uzaya açılırsın.
 
 Yapımcı: Bahtiyar Cankurt (tasarım belgeleri belgeler/ içinde). Expo Go ile iPhone ve Android'de çalışır.
 
+## Bu sürümde (3.13)
+- Zorunlu savaş eğitimi: uzayda ve karada ilk çatışma başlamak üzereyken önce hasarsız, dokuz adımlı bir simülatör
+  açılır (nişan, ateş, kalkan/zırh frekansı, torpido ya da ağır saldırı, kalkan/siper, kaçınma, karşı ateş, yetenek,
+  durum); bitince bekleyen gerçek çatışma başlar. Menüdeki "Savaş simülatörü" ile istenildiği zaman yinelenir.
+
 ## Bu sürümde (3.12)
 - Vahaya ilk girişte de vahanın müziği çalıyor.
 

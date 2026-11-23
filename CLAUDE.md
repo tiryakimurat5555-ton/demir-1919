@@ -645,6 +645,14 @@ Demir 1919 oyunu silindi; geçmişi git kaydında (son sürüm 1.06, commit 556f
 - SÜRÜM 3.12 (23 Kasım, Murat): vahaya ilk girişteki vaha_bulundu sahnesi de ortam_tarim çalar (önceden kuş sesi
   ortam_vaha). Eşleme Murat'ın istediği gibi: kolonideki eski "Jeotermal Tarım Alanı" (Koloni Sera Binası) ← ortam_sera
   (yeni kayıt); Saklı Jeotermal Kseno-Vaha ← ortam_tarim (eski tarım müziği). Telefonda denenmedi.
+- SÜRÜM 3.13 (23 Kasım, Murat: "ilk müsabakaya girilmeden önce uzay ve kara için ayrı ayrı zorunlu eğitim"):
+  uzay/egitim.js ADIMLAR (nisan, ates, frekans, ates2, agir, kalkan, kacinma, karsi, yetenek, durum; metin/kisa/tamam),
+  GIRIS/BITIS. savas.js: savasBaslat egitimGerekli(d, ortam) (EGITIM_AYAR.zorunlu ve bayrak egitim_<ortam> yok) →
+  { egitim: true, sonra: spec } ile egitim_dronu / egitim_otomati; egitimKur (govde 9999, kalkanFrek 35, aci -0.9,
+  sonraki 1e9), egitimGirdi/egitimIlerle (savunma: tek dokun hazır → 1,5-2,7 sn sonra uyarı, pencere 4,5 sn; yanlışta
+  hasar yok, yineler), egitimBitir (bayrak; sonra varsa savasBaslat, olay yeniSavas → Yuzey onYukle; yoksa bitti).
+  simulatorMenu (menüde "Savaş simülatörü"; d.savasBekle egitim spec'i). Testler: bunfig.toml preload
+  testler/hazirlik.js EGITIM_AYAR.zorunlu = false; testler/egitim.test.js açar. Telefonda denenmedi.
 - Sıradaki: v4 paketinin bütün belgeleri işlendi; KAPSAM.md'de [~] notları (Bahtiyar'a sorulacaklar) ve telefonda deneme.
 
 ## Sesler

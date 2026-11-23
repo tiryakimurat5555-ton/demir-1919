@@ -864,6 +864,14 @@ bütün bölümlerini sırayla sayar (21 Kasım: v3 paketiyle sekiz belge daha g
       3.10 (Bahtiyar): müzik Saklı Kseno-Vaha'ya taşındı; koloninin iç mekânı "Koloni Sera Binası", şimdilik biyo-kubbe
       sera ortamı. 3.11: Bahtiyar'ın sera kaydı geldi (ortam_sera). Kalanlar: yukarıdaki [~] notları (Bahtiyar'a sorulacaklar) ve telefonda deneme.
 
+## 60. Savaş eğitimi (3.13, Murat): uzay ve kara için ilk çatışmadan önce zorunlu eğitim sekansı.
+- [x] uzay/egitim.js (adım ve metin tablosu), savas.js egitimKur/egitimGirdi/egitimIlerle: savasBaslat bir ortamda
+      bayrak egitim_<ortam> yoksa önce eğitimi açar (hedef: simülasyon dronu / eğitim otomatı), bitince bekleyen
+      çatışmayı başlatır; savaş sonrası sahnesi korunur. Dokuz adım; hasar yok, yanlışta adım yinelenir; savunma
+      adımlarında uyarı oyuncu hazır deyince gelir (4,5 sn pencere). Yetenekler simülatörde uygulanmaz (sarf harcanmaz).
+- [x] Menüde "Savaş simülatörü" (uzay için gemi gerekir): istenildiği zaman yineleme.
+      [~] Telefonda denenmedi; adımların okunma hızı ve uyarı süresi Bahtiyar'ın denemesine göre ayarlanabilir.
+
 ## Sıradaki adımlar (sırayla)
 0. Tonoflenya genişlemesi, yönergedeki sırayla: [2.1: Malken (12); 2.2: tarihçe (13); 2.3: atlas (14); 2.4: eşya,
    zanaat, mürettebat (15), Ekol Kıdemi ve rastgele karşılaşmalar; 2.5: yirmi final görevi (16); 2.6: otuz yan görev
