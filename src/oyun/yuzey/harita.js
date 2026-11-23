@@ -166,13 +166,13 @@ export const MEKANLAR = {
     dis: false,
     disariKonum: { x: 740, y: 35 },
   },
-  // Murat (1.15): koloninin ekim binası. Bahtiyar (3.10): bina olduğu hissedilsin; kendi efektini verecek,
-  // o gelene kadar biyo-kubbe sera ortamı çalar. Asıl tarım müziği Saklı Kseno-Vaha'da.
+  // Murat (1.15): koloninin ekim binası. Bahtiyar (3.10): bina olduğu hissedilsin; 3.11'de kendi kaydı (ortam_sera).
+  // Asıl tarım müziği Saklı Kseno-Vaha'da.
   tarim: {
     ad: 'Koloni Sera Binası',
     tarif: 'Koloninin kapalı ekim binası: çelik çatılı, camlı bölmeli bir hidroponik sera. Hava ılık ve nemli; havalandırma fanları uğulduyor, tavandaki borulardan jeotermal sıcak su akıyor.',
     alan: { bati: 3000, dogu: 3020, guney: 0, kuzey: 20 },
-    ortam: 'ortam_kubbe',
+    ortam: 'ortam_sera',
     zemin: 'tas',
     dis: false,
     disariKonum: { x: -35, y: -25 },

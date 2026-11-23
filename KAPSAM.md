@@ -862,7 +862,7 @@ bütün bölümlerini sırayla sayar (21 Kasım: v3 paketiyle sekiz belge daha g
 ## 59. Tarım alanı ortam sesi (3.9, Bahtiyar): tarım alanı ve Kadim Krater aynı dosyayı iki ayrı oynatıcıyla açıyordu;
       artık tek oynatıcı (efektler.js TAKMA_ADLAR). [~] Telefonda doğrulanmadı.
       3.10 (Bahtiyar): müzik Saklı Kseno-Vaha'ya taşındı; koloninin iç mekânı "Koloni Sera Binası", şimdilik biyo-kubbe
-      sera ortamı. [~] Bahtiyar sera binası için ayrı efekt gönderecek. Kalanlar: yukarıdaki [~] notları (Bahtiyar'a sorulacaklar) ve telefonda deneme.
+      sera ortamı. 3.11: Bahtiyar'ın sera kaydı geldi (ortam_sera). Kalanlar: yukarıdaki [~] notları (Bahtiyar'a sorulacaklar) ve telefonda deneme.
 
 ## Sıradaki adımlar (sırayla)
 0. Tonoflenya genişlemesi, yönergedeki sırayla: [2.1: Malken (12); 2.2: tarihçe (13); 2.3: atlas (14); 2.4: eşya,

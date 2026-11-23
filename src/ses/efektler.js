@@ -15,6 +15,8 @@ const KAYNAKLAR = {
   ortam_terminal: require('../../assets/ses/ortam_terminal.mp3'),
   // Jeotermal tarım alanının ortamı (Murat, 21 Kasım: telefondan gönderdiği kayıt; 5 dakikalık döngü)
   ortam_tarim: require('../../assets/ses/ortam_tarim.mp3'),
+  // Koloni Sera Binası'nın ortamı (Bahtiyar'ın kaydı, 23 Kasım; 3.11)
+  ortam_sera: require('../../assets/ses/ortam_sera.mp3'),
   // Kadim Krater'in müziği: Murat'ın gönderdiği kayıt (tarım alanınınkiyle aynı dosya; 21 Kasım 12:58)
   ortam_kapsul: require('../../assets/ses/ortam_kapsul.wav'),
   ortam_harabe: require('../../assets/ses/ortam_harabe.wav'),
@@ -175,6 +177,7 @@ const DONGULER = {
   ortam_vadi: 0.55,
   ortam_terminal: 0.55,
   ortam_tarim: 0.55,
+  ortam_sera: 0.6,
   ortam_kubbe: 0.55,
   ortam_t_ygk: 0.55,
   ortam_t_ygk_alt: 0.55,

@@ -1731,7 +1731,7 @@ describe('Jeotermal Tarım Alanı (1.15)', () => {
     expect(r.kilitli).toBeFalsy();
     expect(d.mekan).toBe('tarim');
     // 3.10: tarım müziği vahada, sera binası kendi ortamında
-    expect(MEKANLAR.tarim.ortam).toBe('ortam_kubbe');
+    expect(MEKANLAR.tarim.ortam).toBe('ortam_sera');
     expect(MEKANLAR.vaha.ortam).toBe('ortam_tarim');
     expect(yerlerListesi(d).some((y) => y.id === 'tarim_kapi' && y.mekan === 'tarim')).toBe(true);
     gec(d, 'tarim_kapi', 1);
