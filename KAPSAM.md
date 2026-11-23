@@ -968,8 +968,36 @@ bütün bölümlerini sırayla sayar (21 Kasım: v3 paketiyle sekiz belge daha g
       oyundaki hasat, erzak, hammadde, cam isteyenler. 64 (evlilik) Paket 4 ile.
 - [x] 4 bağ: isimli istek o kişiye +15..+35 (sohbetten bağımsız). [x] 5 sesle okuma sırası ve tek dokunuşla teslim.
 - [x] Paket 1 bölüm 6 "Görev al" (yerleşimcinin menüsünde).
+### Paket 5: gidilebilir maden, kıyı koruluğu (4.3)
+- [x] 2 Bölge 1 Derin Maden Ocağı: açılış (dökümhane + Torvok ya da Kaelon görevi), asansörlü duraklar (1, 5 ... 40), Kat 10/20/30
+      karakol yerleri, kat bantlarına göre hammaddeler, ortam sesleri (üst/orta/derin). [~] Kırk kat yerine dokuz durak galerisi;
+      her galeri bir kat bandını temsil eder; merdivenle bir sonraki durağa inilir.
+- [x] 2 Bölge 2 Kıyı Koruluğu: açılış (Zarek, sırtlar görülünce), iki şerit, ağaç/kaya/lif/tuz düğümleri, 30-60 sn yenilenme,
+      ortam ve belirme sesi.
+- [ ] 3 Sera ve vahaya gündelik bitkiler ve imalat zinciri (4.4, Paket 10/12 ile).
+- [x] 4 günlük yorgunluk (vuruş başına; aşhanede yemek, hamam, uyku giderir; karakolda yarıya iner); dış gezegen sınırı.
+- [~] 5 ilan panosu bağı: hammaddeler artık oyunda; işlenmiş ürünler 4.4. Çıraklar Paket 4 ile.
+- [x] 6 3B hedef bulma (düğüm sesleri sağdan soldan), çift dokunuşla vuruş, asansör menüsü. [~] Zemine göre kum/ahşap/ray ayak
+      sesi yok (taş).
+### Paket 6: aletler, kara araçları, karakol, düşmanlar (4.3)
+- [x] 2 beş alet × üç kademe (etkileri), yükseltme (bedeller belgede yok, seçildi), otomatik takılma, saha çantası 25/50/100,
+      depoya aktarım, bileme (Kaelon/Veysel K3 ücretsiz). [~] Aletler Tonoflenya envanter menüsünde değil, terminal ve
+      atölyedeki "Aletler"de.
+- [x] 3 araç rolleri: Çöl Tilkisi (üst katlarda pusu yok; kıyıda araçla hız), Mammoth (kaya duvarı tek darbe, savaşta
+      ağır zırh), Demir Kervan (çanta sınırı yok, karakol akışı), Atmosphere-X (kayalık koya erişim), Akrep (önden uyarı, taş
+      toplar). [~] Kervan'ın "baskında siper" rolü savaş motorunda zaten var (3.1).
+- [x] 4.1 düşmanlar: kaya böceği, kristal akrep, tünel pusucusu, kör solucan yavrusu, karanlık gaz pusucusu, akşam kıyı yengeç
+      sürüsü; savaş ya da kaçınma (gaz cebinden geçme). [x] 4.2 karakollar: pusu −%70, dinlenme, pasif akış (Demir Kervan).
+      [~] Karakol bedelinde tuğla yerine bazalt (tuğla 4.4'te). Çırakların akışı Paket 4 ile.
+- [x] 6 giriş menüsünde eşlik sorusu, tehlike uyarısı.
+### Paket 13: maden, koru, balıkçılık mekanikleri (4.3)
+- [x] 2.1 durak seçimi, 4-6 düğümlü galeri (yön adlı), düğüm sesleri, istenen an asansörle dönüş. [x] 2.2 vuruş tablosu
+      (T1/T2/T3), ürünler, Mammoth, Torvok K6 nadir +%20. [x] 2.3 zorluk ve ekipman (fener T2 erken uyarı, T3 pusu yarı).
+- [x] 3 koru: düğüm türleri, vuruş ve ürünler, devrilme sesi, %25 kalas.
+- [x] 4.1 üç av noktası ve tabloları (termal: Kat 10 ya da kıyı kampı; kayalık: T2 olta ya da Atmosphere-X). [x] 4.2 dört
+      adımlı mekanik. [x] 4.3 olta kademeleri, Sira-Vel K6 nadir +%25. [x] 5 kademe uyarısı, Basit Balıkçılık Modu.
 ### Sıradaki v5 belgeleri
-- [ ] Paket 3B, Paket 4, Paket 5, Paket 6, Paket 7, Paket 10, Paket 11, Paket 12, Paket 13, Paket 14, Paket 15, Paket 16.
+- [ ] Paket 3B, Paket 4, Paket 7, Paket 10, Paket 11, Paket 12, Paket 13, Paket 14, Paket 15, Paket 16.
 - [~] Bahtiyar'a: Paket 7'deki yerleşimci adları (Selim, Nadia, Tarik, Lira, Vaelis, Ayla, Ozan-7, çiftçi Elara ...)
       Paket 1/8'deki on altı kişiyle uyuşmuyor; görev mimarisinde on altı kişiye eşlenecek.
 

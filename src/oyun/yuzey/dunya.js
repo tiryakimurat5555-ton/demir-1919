@@ -566,7 +566,7 @@ export function yerlerListesi(d, hepsi = false) {
     if (n.kaynak && (d.stok[id] || 0) <= 0) continue;
     if (n.mini && !miniGorunur(d, id)) continue;
     if (n.gorunur && !n.gorunur(d)) continue;
-    const bilinen = d.kesif.includes(id) || n.mekan === 'kapsul' || id === 'kapsul_dis' || id === 'jenerator' || (id === 'tepe' && d.bayrak.jenerator) || (id === 'enkaz' && d.bayrak.kesiciAlindi) || (n.baca && d.bayrak.sondaAlindi) || ((n.ayak || id === 'dagitim_kutusu') && d.bayrak.zeminHazir) || (id === 'kizak' && d.bayrak.zemin) || (id === 'hangar' && d.koloni.binalar.includes('arac_hangari')) || !!(MEKANLAR[n.mekan] && MEKANLAR[n.mekan].tonoflenya) || (n.yerlesim && (n.yerlesim === 'kamp' || yerVar(d, n.yerlesim)));
+    const bilinen = d.kesif.includes(id) || n.mekan === 'kapsul' || id === 'kapsul_dis' || id === 'jenerator' || (id === 'tepe' && d.bayrak.jenerator) || (id === 'enkaz' && d.bayrak.kesiciAlindi) || (n.baca && d.bayrak.sondaAlindi) || ((n.ayak || id === 'dagitim_kutusu') && d.bayrak.zeminHazir) || (id === 'kizak' && d.bayrak.zemin) || (id === 'hangar' && d.koloni.binalar.includes('arac_hangari')) || !!(MEKANLAR[n.mekan] && MEKANLAR[n.mekan].tonoflenya) || (n.yerlesim && (n.yerlesim === 'kamp' || yerVar(d, n.yerlesim))) || !!n.saha;
     if (bilinen) ekle('nokta', id, n.ad, n.mekan, n.x, n.y);
   }
   for (const id of Object.keys(KISILER)) {

@@ -49,6 +49,8 @@ import * as GZ from '../gezegenHikayeleri';
 import * as YR from '../yerlesim/yerlesim';
 import * as FS from '../yerlesim/festival';
 import * as PZ from '../yerlesim/pazar';
+import * as SH from '../saha/saha';
+import * as BK from '../saha/balik';
 import { MEKANLAR } from './harita';
 import { tehlikeMekani, TEHLIKELER } from './dunya';
 
@@ -58,7 +60,7 @@ export const { NOTALAR, kapiDizisi, rezonansBaslat, rezonansSecimDegis, rezonans
 
 export const { AYAKLAR, ayakSayisi, ayakFrek, teraziBaslat, teraziPompa, teraziIlerle, teraziMetni, DENGE_ESIGI } = G4;
 
-export const SAHNELER = { ...G1.SAHNELER, ...G2.SAHNELER, ...G3.SAHNELER, ...G4.SAHNELER, ...G5.SAHNELER, ...G6.SAHNELER, ...B.SAHNELER, ...K.SAHNELER, ...A.SAHNELER, ...M.SAHNELER, ...O.SAHNELER, ...SV.SAHNELER, ...SF.SAHNELER, ...TM.SAHNELER, ...AT.SAHNELER, ...FN.SAHNELER, ...YN.SAHNELER, ...KM.SAHNELER, ...HK.SAHNELER, ...FS.SAHNELER };
+export const SAHNELER = { ...G1.SAHNELER, ...G2.SAHNELER, ...G3.SAHNELER, ...G4.SAHNELER, ...G5.SAHNELER, ...G6.SAHNELER, ...B.SAHNELER, ...K.SAHNELER, ...A.SAHNELER, ...M.SAHNELER, ...O.SAHNELER, ...SV.SAHNELER, ...SF.SAHNELER, ...TM.SAHNELER, ...AT.SAHNELER, ...FN.SAHNELER, ...YN.SAHNELER, ...KM.SAHNELER, ...HK.SAHNELER, ...FS.SAHNELER, ...SH.SAHNELER };
 
 // Telsiz bildirimleri (belgeler/savas-yetenek-ve-murettebat-mekanikleri.md 4.3): koşulu sağlanınca bir kez kuyruğa
 // girer. gorev alanı varsa yalnız o görev sürerken.
@@ -106,7 +108,7 @@ export function gorevIpucu(d) {
 }
 
 export function noktaEylemleri(d, id) {
-  const ek = [...G6.ekEylemler(d, id), ...K.ekEylemler(d, id), ...M.ekEylemler(d, id), ...TA.ekEylemler(d, id), ...(id === 'tepe' ? TM.tepeEylemi(d) : []), ...YR.ekEylemler(d, id), ...FS.ekEylemler(d, id), ...PZ.ekEylemler(d, id), ...ZN.ekEylemler(d, id), ...FN.ekEylemler(d, id), ...AK.ekEylemler(d, id)];
+  const ek = [...G6.ekEylemler(d, id), ...K.ekEylemler(d, id), ...M.ekEylemler(d, id), ...TA.ekEylemler(d, id), ...(id === 'tepe' ? TM.tepeEylemi(d) : []), ...YR.ekEylemler(d, id), ...FS.ekEylemler(d, id), ...PZ.ekEylemler(d, id), ...SH.ekEylemler(d, id), ...ZN.ekEylemler(d, id), ...FN.ekEylemler(d, id), ...AK.ekEylemler(d, id)];
   if (G6.noktaMi(id)) return [...ek, { id: 'incele', etiket: 'Sütunu incele' }];
   const temel = temelEylemler(d, id);
   if (!ek.length) return temel;
@@ -116,6 +118,7 @@ export function noktaEylemleri(d, id) {
 }
 function temelEylemler(d, id) {
   if (FS.noktaMi(id)) return FS.noktaEylemleri(d, id);
+  if (SH.noktaMi(id)) return SH.noktaEylemleri(d, id);
   if (PZ.noktaMi(id)) return PZ.noktaEylemleri(d, id);
   if (YR.noktaMi(id)) return YR.noktaEylemleri(d, id);
   if (AK.noktaMi(id)) return AK.noktaEylemleri(d, id);
@@ -141,6 +144,9 @@ export function eylemUygula(d, id, eylemId) {
   // 4.2: festivaller, ilan panosu, Kaptan Orin ve tezgâh (v5 Paket 3A, 2, 11)
   if (FS.ekEylemMi(eylemId) || FS.noktaMi(id)) return FS.eylemUygula(d, id, eylemId);
   if (PZ.ekEylemMi(eylemId) || PZ.noktaMi(id)) return PZ.eylemUygula(d, id, eylemId);
+  // 4.3: maden, kıyı, aletler (v5 Paket 5, 6, 13)
+  if (eylemId === 'sh_aletler') return { agac: (x) => SH.aletMenu(x) };
+  if (SH.noktaMi(id)) return SH.eylemUygula(d, id, eylemId);
   if (YR.noktaMi(id) || (id === 'terminal' && YR.ekEylemMi(eylemId))) {
     const r = YR.eylemUygula(d, id, eylemId);
     return r.uyku ? uyu(d) : r;
@@ -296,6 +302,7 @@ export function zamanIlerle(d, dt) {
   const fb = FS.ilerle(d);
   if (fb) olaylar.push({ tur: 'festivalBitti', id: fb.festivalBitti });
   olaylar.push(...PZ.pazarIlerle(d));
+  olaylar.push(...SH.sahaIlerle(d, dt));
   // Final görevleri: sahne kapanınca bekleyen operasyon ya da çatışma başlar (tonoflenya/final.js)
   // 3.15: uzay savaş eğitimi ilk gemiyle açılır (bir kez haber)
   if (SV.egitimAcik(d, 'uzay') && SV.egitimGerekli(d, 'uzay') && !d.bayrak.uzayEgitimHaber) {
@@ -635,4 +642,4 @@ export function dinlenMenu(d) {
 }
 
 // Yerleşim (v5) ekran için
-export { YR, FS, PZ };
+export { YR, FS, PZ, SH, BK };

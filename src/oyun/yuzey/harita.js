@@ -545,3 +545,8 @@ for (const id of Object.keys(YERLESIMCILER)) {
   if (y.kisi) KISILER[y.kisi].yerlesim = id;
   else KISILER['y_' + id] = { yerlesim: id, mekan: 'vadi', x: 6, y: -4, eylem: 'kamp ateşinin başında' };
 }
+// Saha (v5 Paket 5, 13): Derin Maden Ocağı galerileri ve İç Deniz Kıyı Koruluğu
+import { S_MEKANLAR, S_KAPILAR, S_NOKTALAR } from '../saha/harita';
+Object.assign(MEKANLAR, S_MEKANLAR);
+Object.assign(KAPILAR, S_KAPILAR);
+Object.assign(NOKTALAR, S_NOKTALAR);

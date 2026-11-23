@@ -6,6 +6,20 @@ tesis kurar, ileride gemini parça parça inşa edip uzaya açılırsın.
 
 Yapımcı: Bahtiyar Cankurt (tasarım belgeleri belgeler/ içinde). Expo Go ile iPhone ve Android'de çalışır.
 
+## Bu sürümde (4.3)
+- Derin Maden Ocağı: Kaelon ya da Torvok'la konuşup "Maden kuyusunu aç" de; maden ağzı vadinin güneybatısında. Asansörle
+  Kat 1, 5, 10 ... 40 duraklarına inilir. Her durak küçük bir galeri: önünde soldan sağa damarlar sesleriyle duyulur
+  (metal tınısı, kristal çınlaması, tok kaya yankısı, hırıltı). Yürü, çift dokun, kaz. İki damar kazınca aşağı iniş
+  merdiveni açılır. Derinlerde gümüş, piezo, aether, fosil, çekirdek taşı; kalın kaya duvarlarının ardında gizli odalar.
+- İç Deniz Kıyı Koruluğu: Zarek'le konuşup sırtların ötesini keşfet; kıyıya inen yokuş sırtların doğu ucunda. Ağaç kes
+  (son vuruşta devrilme gümbürtüsü), lif topla, kayalık ve tuz kır. Kesilen düğüm yarım dakika ile bir dakika arası
+  sonra yeniden belirir.
+- Balıkçılık: üç av noktası. Olta at, dalgaları dinle; şlap sesi ve titreşimde dokun; parmağını aşağı sürükleyerek çek,
+  ip tizleşince bırak. Ayarlar'da "Basit balıkçılık modu" ile yalnız tek dokunuş.
+- Aletler (merkez terminali ve atölye): kazma, balta, kafa feneri, olta, saha çantası; üç kademe, bileme.
+- Kara araçları eşlik eder: Mammoth kaya duvarını deler, Demir Kervan çanta sınırını kaldırır, Akrep pusuyu haber verir.
+- İleri karakollar (Kat 10, 20, 30 ve kıyı kampı), yeraltı düşmanları, yorgunluk (aşhanede sıcak yemek giderir).
+
 ## Bu sürümde (4.2)
 - Altı festival: Altı Yıldızın Büyük Hizalanması, Varek Ocak ve Çekiç Bayramı, Axira Işık ve Tohum Gecesi, Elyndra ve Uma
   Sessiz Yankı Gecesi, Eski Dünya Ekmek ve Hasat Şükranı, Dünya Işığı ve Yeni Yörünge Gecesi. Meydan terminalinden, kamaradaki

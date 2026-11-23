@@ -161,9 +161,12 @@ import {
   YR,
   FS,
   PZ,
+  SH,
+  BK,
 } from '../oyun/yuzey/gorevler';
 import { BITKILER, ISLEME_TESISI } from '../oyun/tarim/bitkiler';
 import { nobetNo } from '../oyun/zaman';
+import { MADEN_DUGUMLERI, KIYI_DUGUMLERI } from '../oyun/saha/veri';
 import { UZMANLIKLAR, subayIstihdam, SEKTORLER, bosta, girdiMetni, harca, yeterMi, ilacDagit, isGucuDegis, moralMetni, moralSesi, parcaMetni, uretimBaslat, uretimListesi } from '../oyun/koloni';
 import {
   VINC_ESIGI,
@@ -251,6 +254,16 @@ const DOSYALAR = {
   dekor_akvaryum: require('../../assets/ses/konumsal/dekor_akvaryum.wav'),
   dekor_kus: require('../../assets/ses/konumsal/dekor_kus.wav'),
   dekor_can: require('../../assets/ses/konumsal/dekor_can.wav'),
+  // 4.3: maden ve kıyı düğümleri (ElevenLabs)
+  dugum_cevher: require('../../assets/ses/konumsal/dugum_cevher.wav'),
+  dugum_kaya: require('../../assets/ses/konumsal/dugum_kaya.wav'),
+  dugum_duvar: require('../../assets/ses/konumsal/dugum_duvar.wav'),
+  dugum_tehlike: require('../../assets/ses/konumsal/dugum_tehlike.wav'),
+  dugum_merdiven: require('../../assets/ses/konumsal/dugum_merdiven.wav'),
+  dugum_agac: require('../../assets/ses/konumsal/dugum_agac.wav'),
+  dugum_cali: require('../../assets/ses/konumsal/dugum_cali.wav'),
+  dugum_tuz: require('../../assets/ses/konumsal/dugum_tuz.wav'),
+  dugum_balik: require('../../assets/ses/konumsal/dugum_balik.wav'),
   // 4.2: ilan panosu ve Kaptan Orin (ElevenLabs)
   pano_gunduz: require('../../assets/ses/konumsal/pano_gunduz.wav'),
   pano_gece: require('../../assets/ses/konumsal/pano_gece.wav'),
@@ -298,6 +311,7 @@ export default function Yuzey({ onGeri, baslangic, yeniOyunUret }) {
   const [valfAcik, setValfAcik] = useState(false);
   const [rezAcik, setRezAcik] = useState(false);
   const [teraziAcik, setTeraziAcik] = useState(false);
+  const [oltaAcik, setOltaAcik] = useState(false);
   const [tarlaAcik, setTarlaAcik] = useState(false);
   const [melezAcik, setMelezAcik] = useState(false);
   const vanaZamani = useRef(0);
@@ -365,6 +379,41 @@ export default function Yuzey({ onGeri, baslangic, yeniOyunUret }) {
     for (const id of Object.keys(calanlar.current)) if ((id.indexOf('ys_') === 0 || id.indexOf('yd_') === 0 || id.indexOf('yk_') === 0 || id === 'kamp_atesi') && !istenen[id]) kaynakKapat(id);
     for (const id of Object.keys(istenen))
       if (!calanlar.current[id] && yuklu.current[id.indexOf('ys_') === 0 ? 'y_' + id.split('_')[1] : 'kamp_atesi']) {
+        calanlar.current[id] = true;
+        istenen[id]();
+      }
+  };
+
+  // 4.3: maden ve kıyı düğümlerinin konumlu sesleri (damar tınısı, kaya yankısı, tehlike hırıltısı, merdiven
+  // rüzgârı, ağaç hışırtısı, tuz ve dalga, balık suyu). Tükenen düğüm susar; yeniden belirince kısa bir belirme sesi.
+  const sahaGorunen = useRef({ mekan: null, l: {} });
+  const SAHA_SESI = { cevher: 'dugum_cevher', kaya: 'dugum_kaya', duvar: 'dugum_duvar', agac: 'dugum_agac', cali: 'dugum_cali', kiyi_kaya: 'dugum_kaya', tuz: 'dugum_tuz' };
+  const sahaSesleri = (d, s) => {
+    const istenen = {};
+    const gorunen = {};
+    if (SH.sahaMi(d.mekan) || d.mekan === 'vadi') {
+      for (const id of Object.keys(NOKTALAR)) {
+        const n = NOKTALAR[id];
+        if (!n.saha || n.mekan !== d.mekan || (n.gorunur && !n.gorunur(d))) continue;
+        gorunen[id] = true;
+        let ses = null;
+        if (n.saha === 'damar') ses = MADEN_DUGUMLERI[n.dugum].ses;
+        else if (n.saha === 'kiyi') ses = KIYI_DUGUMLERI[n.dugum].ses;
+        else if (n.saha === 'tehlike') ses = 'tehlike';
+        else if (n.saha === 'merdiven') ses = 'merdiven';
+        else if (n.saha === 'balik') ses = 'balik';
+        if (!ses) continue;
+        const kid = 'sh_' + id;
+        if (ses === 'kristal') istenen[kid] = () => s.kaynak(kid, 'kristal', n);
+        else istenen[kid] = () => s.dongu(kid, SAHA_SESI[ses] || 'dugum_' + ses, n, ses === 'tehlike' ? 0.75 : 0.5);
+      }
+    }
+    const g = sahaGorunen.current;
+    if (g.mekan === d.mekan && Object.keys(gorunen).some((id) => !g.l[id] && NOKTALAR[id].saha !== 'tehlike' && NOKTALAR[id].saha !== 'merdiven')) cal('kaynak_belirme', 0.5);
+    sahaGorunen.current = { mekan: d.mekan, l: gorunen };
+    for (const id of Object.keys(calanlar.current)) if (id.indexOf('sh_') === 0 && !istenen[id]) kaynakKapat(id);
+    for (const id of Object.keys(istenen))
+      if (!calanlar.current[id] && yuklu.current.dugum_kaya) {
         calanlar.current[id] = true;
         istenen[id]();
       }
@@ -490,6 +539,7 @@ export default function Yuzey({ onGeri, baslangic, yeniOyunUret }) {
       } else kaynakKapat(id);
     });
     yerlesimSesleri(d, s);
+    sahaSesleri(d, s);
     if (ortamDa && !(terminalAcik.current && durakli.current)) {
       s.boguk(d.mekan === 'kapsul' || !!d.gemide);
       const oda = odaSu(d);
@@ -622,6 +672,10 @@ export default function Yuzey({ onGeri, baslangic, yeniOyunUret }) {
         teraziAdimi();
         return;
       }
+      if (d.olta) {
+        oltaAdimi();
+        return;
+      }
       if (d.melez) {
         melezAdimi();
         return;
@@ -685,6 +739,7 @@ export default function Yuzey({ onGeri, baslangic, yeniOyunUret }) {
     const d = dunya.current;
     ortamCal(FS.mekanOrtami(d, d.mekan), ortamOrani(d));
     if (d.ayar) d.ayar = null;
+    if (d.olta) d.olta = null;
     if (d.valf) d.valf = null;
     if (d.rezonans) d.rezonans = null;
     if (d.terazi) d.terazi = null;
@@ -806,8 +861,15 @@ export default function Yuzey({ onGeri, baslangic, yeniOyunUret }) {
           sec: () => {
             const r = eylemUygula(d, id, e.id);
             kaydet();
-            if (r.ses && EYLEM_SESI[r.ses]) cal(EYLEM_SESI[r.ses], 0.9);
+            if (r.ses) cal(EYLEM_SESI[r.ses] || r.ses, 0.9);
             if (r.nota != null && m()) m().nota(NOTALAR[r.nota].frek, NOKTALAR[id], 0.9, 4);
+            // 4.3: kazma, balta vuruşu titreşir; olta atılınca balıkçılık katmanı açılır
+            if (r.titresim) Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Medium).catch(() => {});
+            if (r.olta) {
+              katmanKapatSessiz();
+              oltaAc(r.olta);
+              return 'sessiz';
+            }
             if (r.ayar) {
               katmanKapatSessiz();
               frekansAc(r.amac);
@@ -942,6 +1004,7 @@ export default function Yuzey({ onGeri, baslangic, yeniOyunUret }) {
           // Harekât ya da savunma başladı: menü kapanır, oyun akar (bekleyen çatışma zamanIlerle'de başlar)
           if (r.kapat) {
             katmanKapat(r.metin || null);
+            if (r.tasindi) setTimeout(() => sesleriEsitle(true), 200);
             return 'sessiz';
           }
           if (o.geri) {
@@ -2665,6 +2728,70 @@ export default function Yuzey({ onGeri, baslangic, yeniOyunUret }) {
     if (olaylar.includes('dengede')) Haptics.selectionAsync().catch(() => {});
     if (olaylar.includes('yakin')) soyle('Tonlar yaklaşıyor; titreşimi dinle.', 'istek', false);
   };
+  // --- 4.3: iç deniz balıkçılığı (v5 Paket 13 bölüm 4) ---
+  const oltaCek = useRef(0);
+  const oltaOlaylari = (ol) => {
+    for (const o of ol) {
+      if (o.ses) cal(o.ses, 0.9);
+      if (o.titresim) Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Heavy).catch(() => {});
+      if (o.cirpinma) Haptics.selectionAsync().catch(() => {});
+      if (o.soz) soyle(o.soz, 'istek', true);
+      if (o.yakalandi) kaydet();
+    }
+  };
+  const oltaAc = (nokta) => {
+    const d = dunya.current;
+    durakli.current = true;
+    oltaOlaylari(BK.oltaBaslat(d, nokta));
+    if (m()) {
+      m().basincKur();
+      m().basincAyar(0, false);
+    }
+    setOltaAcik(true);
+    soyle(
+      (BK.basitModMu() ? 'Basit balıkçılık. ' : '') +
+        'Olta suda. Dalgaları dinle; keskin bir şlap sesi ve titreşim gelince hemen dokun.' +
+        (BK.basitModMu() ? '' : ' Sonra parmağını aşağı sürükleyerek misinayı çek; ip gerilip tizleşince parmağını kaldır, ses yumuşayınca yeniden çek.') +
+        ' Tek dokunuş beklerken durumu söyler. İki parmakla çift dokun: oltayı topla.',
+      'istek',
+      true,
+    );
+  };
+  const oltaKapat = (soz) => {
+    if (m()) m().basincSil();
+    dunya.current.olta = null;
+    setOltaAcik(false);
+    durakli.current = false;
+    kaydet();
+    sesleriEsitle(true);
+    if (soz) soyle(soz, 'istek', true);
+  };
+  const oltaAdimi = () => {
+    const d = dunya.current;
+    const ol = BK.oltaIlerle(d, ADIM_MS / 1000, Date.now() - oltaCek.current < 350);
+    oltaOlaylari(ol);
+    const o = d.olta;
+    if (o && m()) m().basincAyar(o.evre === 'cekme' ? Math.min(1, o.g) : 0, o.evre === 'cekme' && o.g > 0.75);
+  };
+  const oltaJest = useJestler(
+    {
+      onSurukle: (mod) => {
+        if (mod === 'tek') oltaCek.current = Date.now();
+      },
+      onDokun: (parmak) => {
+        if (parmak >= 2) return sustur();
+        const d = dunya.current;
+        const ol = BK.oltaDokun(d);
+        if (ol.length) oltaOlaylari(ol);
+        else soyle(BK.oltaMetni(d) + ' ' + SH.cantaMetni(d), 'istek', true);
+      },
+      onCiftDokun: (parmak) => {
+        if (parmak >= 2) oltaKapat('Oltayı topladın. ' + SH.cantaMetni(dunya.current));
+      },
+    },
+    { dokunmaBekle: false },
+  );
+
   const teraziJest = useJestler(
     {
       onSurukle: (mod, dx, dy) => {
@@ -3130,7 +3257,7 @@ export default function Yuzey({ onGeri, baslangic, yeniOyunUret }) {
 
   return (
     <View style={stiller.dis}>
-      <View style={stiller.kap} {...(katman || ayarAcik || valfAcik || rezAcik || teraziAcik || tarlaAcik || melezAcik || vincAcik || gemiAcik || opAcik || savasAcik ? {} : jest)}>
+      <View style={stiller.kap} {...(katman || ayarAcik || valfAcik || rezAcik || teraziAcik || oltaAcik || tarlaAcik || melezAcik || vincAcik || gemiAcik || opAcik || savasAcik ? {} : jest)}>
         <KonumsalSes
           ref={motor}
           onMesaj={(x) => {
@@ -3185,6 +3312,12 @@ export default function Yuzey({ onGeri, baslangic, yeniOyunUret }) {
         <View style={[StyleSheet.absoluteFill, stiller.ayar]} {...opJest}>
           <Text style={stiller.baslik}>Operasyon</Text>
           <Text style={stiller.yazi}>Dokun: durum. İki parmakla çift dokun: duraklat.</Text>
+        </View>
+      ) : null}
+      {oltaAcik ? (
+        <View style={[StyleSheet.absoluteFill, stiller.ayar]} {...oltaJest}>
+          <Text style={stiller.baslik}>Balık tutma</Text>
+          <Text style={stiller.yazi}>Şlap sesinde dokun; aşağı sürükleyerek çek</Text>
         </View>
       ) : null}
       {teraziAcik ? (

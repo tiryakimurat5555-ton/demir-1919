@@ -13,7 +13,7 @@ const AYARLAR = 'aethelis.ayarlar';
 const ESKI_AYARLAR = 'demir1919.ayarlar';
 
 export const YUVA_SAYISI = 3;
-export const VARSAYILAN_AYARLAR = { konusmaHizi: 1.2, sesKimligi: '', ortamDuzeyi: 0.6, nobetDakika: 10 };
+export const VARSAYILAN_AYARLAR = { konusmaHizi: 1.2, sesKimligi: '', ortamDuzeyi: 0.6, nobetDakika: 10, basitBalik: false };
 
 async function oku(anahtar) {
   try {

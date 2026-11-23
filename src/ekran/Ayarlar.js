@@ -64,6 +64,17 @@ export default function Ayarlar({ ayarlar, ayarDegistir, onGeri }) {
     { id: 'nobetArtir', etiket: 'Artır', sec: () => nobet(nobetDk + 5) },
     { id: 'nobetAzalt', etiket: 'Azalt', sec: () => nobet(nobetDk - 5) },
     {
+      id: 'basitBalik',
+      etiket: 'Basit balıkçılık modu: ' + (ayarlar.basitBalik ? 'açık' : 'kapalı'),
+      ipucu: 'Açıkken balık tutarken çekme ritmi yok; ısırma anında tek dokunuş yeter. Çift dokununca değişir.',
+      sec: () => {
+        const yeni = !ayarlar.basitBalik;
+        ayarDegistir({ basitBalik: yeni });
+        setTimeout(() => soyle('Basit balıkçılık modu ' + (yeni ? 'açık' : 'kapalı'), 'istek', true), 60);
+        return 'sessiz';
+      },
+    },
+    {
       id: 'ses',
       etiket: 'Ses: ' + sesAdi,
       ipucu: sesler.length > 1 ? 'Çift dokununca sıradaki Türkçe sese geçer.' : 'Telefonda başka Türkçe ses yok. iPhone Ayarlar, Erişilebilirlik, Seslendirilen İçerik, Sesler bölümünden yenilerini indirebilirsin.',

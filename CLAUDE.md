@@ -753,9 +753,35 @@ Demir 1919 oyunu silindi; geçmişi git kaydında (son sürüm 1.06, commit 556f
     el_cark, el_illuzyon (I=-18 tek kanal 22 kHz wav), konumsal y_orin, pano_gunduz/gece, yerlesim/ortam_iskele(_gece),
     yerlesim/imza/orin_<selam|tesekkur|kizgin>.mp3.
   - testler/pazar.test.js (13).
-- Sıradaki (v5, sırayla): 4.3 Paket 3B arşiv ve hobiler + Paket 12/13;
-  4.4 Paket 5/6 maden, kıyı, aletler; 4.5 Paket 10 eşya, Paket 14/15 hayvanlar; 4.6 Paket 4 aile; 4.7 Paket 7 görev
-  mimarisi + Paket 16. KAPSAM.md bölüm 62.
+- SÜRÜM 4.3 (23 Kasım): Paket 5, 6, 13 (sıra değişti: önce saha, sonra eşya kataloğu; çünkü Paket 10/12 bu hammaddeleri
+  işler). Telefonda denenmedi.
+  - saha/veri.js: SAHA_HAMMADDELERI 22 (komur, ham_kil, kuvars_kumu, demir_cevheri, bakir, gumus_tozu, sifali_mantar, fosil,
+    cekirdek_tasi, elmas_kirintisi, kiyi_kerestesi, bitkisel_lif, recine, kereste, deniz_tuzu, kirec_tasi, sazan, yilan_baligi,
+    yengec, gol_baligi, hamam_minerali, batik_gumus → HAMMADDELER + HAMMADDE_SIRASI; Paket 11 şablon kimlikleriyle aynı),
+    ALETLER (kazma, balta, fener, olta, canta × 3 kademe), ALET_BEDELI (seçildi), YIPRANMA_ESIGI 60, MADEN_DUGUMLERI (Paket 13
+    2.2 tablosu: gerek, vurus [T1,T2,T3], urun), DURAKLAR, GALERILER (durak başına düğüm dizisi), KARAKOL_DURAKLARI, MADEN_TEHLIKE,
+    PUSU_IHTIMALI, KIYI_DUGUMLERI, BALIK_NOKTALARI, OLTA (pencere, gerginlik).
+  - saha/harita.js: galeriler maden_<kat> (x 4200 + 40 × sıra, 24 × 18; ortam_maden_ust/orta/derin; düğümler yarım dairede,
+    yon adı), maden_asansor_<kat>, maden_karakol_10/20/30, vadi maden_agzi (-20,-30; gorunur madenAcik); kiyi (4600-4680 × 0-50,
+    dis; kapı kiyi_yolu sırtlar (578.5,-20); ky_0..9 düğümler; balik_sig/termal/kayalik; kiyi_kampi).
+  - saha/saha.js: d.saha {alet, yip, duraklar, temiz, kirilan, tukenen, vurus, canta, karakollar, eslik, tehlike, tehlikeGun, yag,
+    yorgunluk, zar}; gorunur (tükenen, tehlike, merdiven: temiz ≥ 2 ya da kırık duvar); vur (kademe, Mammoth tek darbe, körelme +1,
+    yorgunluk), dugumBitti (çanta, Akrep +1, nadir Torvok K6 ×1,2, kalas, T3 reçine; kıyı 30-60 gerçek sn, maden bir nöbet sonra
+    yeniden), asansorMenu (yüzeyde eşlik sorusu; araçlar mammoth/demir_kervan/akrep/col_tilkisi), galeriyeGiris (tehlike, pusu:
+    karakol ×0,3, derin T3 fener ×0,5, Tilki üstte 0; Akrep ya da T2 fener uyarır), tehlikeSaldir / gazdanGec, ZAFER_KANCALARI
+    saha_zafer, karakolKur (KARAKOL_BEDELI; tuğla yerine bazalt), sahaIlerle (sahadan çıkınca çanta depoya, fener yağı, Demir
+    Kervan karakol akışı, kıyı akşam yengeç pusuları), aletMenu/aletYukselt/aletBile (Kaelon/Veysel K3 ücretsiz), madenAc/kiyiAc
+    (YR.KISI_EKLERI: Kaelon/Torvok, Zarek), ekEylemler terminal/yb_atolye "Aletler".
+  - saha/balik.js: oltaBaslat/oltaDokun/oltaIlerle(d, dt, cekiyor)/oltaMetni; basitModAyarla (Ayarlar basitBalik).
+  - savas.js: kaya_bocegi, tunel_pusucusu, kor_solucan_yavrusu, gaz_pusucusu, kiyi_yengec_surusu; spec.arac. yerlesim.js:
+    yb_ashane "Sıcak bir yemek ye", hamam ve uyku yorgunluğu sıfırlar. dunya.js yerlerListesi n.saha bilinir.
+  - Yuzey: olta katmanı (oltaJest: dokun tasma, sürükle çek, iki parmak çift dokun topla; basinc motoru gerginlik), sahaSesleri
+    (konumsal dugum_*; kristal damar 'kristal' kaynağı; belirme sesi), noktaGoster r.titresim / r.olta, agacGoster r.tasindi.
+  - Sesler ElevenLabs (24 × 17; araclar/oturumlar-4.3.txt): assets/ses/saha/*.wav ve ortam_*.mp3, konumsal/dugum_*.wav.
+  - testler/saha.test.js (12).
+- Sıradaki (v5, sırayla): 4.4 Paket 10 eşya kataloğu + Paket 12 bina tezgâhları + Paket 5 bölüm 3 yeni bitkiler (tuğla,
+  ekmek, çay ... kimlikler Paket 11 şablonlarındaki gibi); 4.5 Paket 3B arşiv ve hobiler + Paket 14/15 hayvanlar; 4.6 Paket 4
+  aile; 4.7 Paket 7 görev mimarisi + Paket 16. KAPSAM.md bölüm 62.
 
 ## Sesler
 - Drive'daki Efektler/Ambians dosyaları 14 MB; Drive bağlayıcısı 10 MB'tan büyük dosyayı indiremiyor. Bu yüzden

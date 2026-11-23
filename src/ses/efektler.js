@@ -195,6 +195,22 @@ const KAYNAKLAR = {
   el_bas_ton: require('../../assets/ses/el_bas_ton.wav'),
   el_cark: require('../../assets/ses/el_cark.wav'),
   el_illuzyon: require('../../assets/ses/el_illuzyon.wav'),
+  // 4.3: Derin Maden Ocağı ve İç Deniz Kıyı Koruluğu (v5 Paket 5, 6, 13; ElevenLabs)
+  ortam_maden_ust: require('../../assets/ses/saha/ortam_maden_ust.mp3'),
+  ortam_maden_orta: require('../../assets/ses/saha/ortam_maden_orta.mp3'),
+  ortam_maden_derin: require('../../assets/ses/saha/ortam_maden_derin.mp3'),
+  ortam_kiyi: require('../../assets/ses/saha/ortam_kiyi.mp3'),
+  kazma_vurus: require('../../assets/ses/saha/kazma_vurus.wav'),
+  kaya_kirilma: require('../../assets/ses/saha/kaya_kirilma.wav'),
+  balta_vurus: require('../../assets/ses/saha/balta_vurus.wav'),
+  agac_devrilme: require('../../assets/ses/saha/agac_devrilme.wav'),
+  asansor: require('../../assets/ses/saha/asansor.wav'),
+  olta_atis: require('../../assets/ses/saha/olta_atis.wav'),
+  balik_slap: require('../../assets/ses/saha/balik_slap.wav'),
+  makara: require('../../assets/ses/saha/makara.wav'),
+  balik_yakalandi: require('../../assets/ses/saha/balik_yakalandi.wav'),
+  misina_kop: require('../../assets/ses/saha/misina_kop.wav'),
+  kaynak_belirme: require('../../assets/ses/saha/kaynak_belirme.wav'),
 };
 
 // Ortam döngülerinin kendi düzeyleri (konuşmanın altında kalsınlar diye düşük)
@@ -217,6 +233,10 @@ const DONGULER = {
   festival_ekmek: 0.6,
   festival_dunya_isigi: 0.6,
   ortam_iskele: 0.55,
+  ortam_maden_ust: 0.55,
+  ortam_maden_orta: 0.55,
+  ortam_maden_derin: 0.55,
+  ortam_kiyi: 0.55,
   ortam_iskele_gece: 0.55,
   ortam_yuzey: 0.55,
   ortam_vadi: 0.55,

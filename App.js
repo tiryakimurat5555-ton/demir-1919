@@ -17,13 +17,14 @@ import { rehberAyarla, rehberHazirla, soyle, sustur } from './src/ses/rehber';
 import { RENK } from './src/arayuz/tema';
 import Ayarlar from './src/ekran/Ayarlar';
 import { nobetDakikasiAyarla } from './src/oyun/zaman';
+import { basitModAyarla } from './src/oyun/saha/balik';
 import Yuzey from './src/ekran/Yuzey';
 import { ortamCal, ortamSesiAyarla, sesleriHazirla } from './src/ses/efektler';
 import { ayarlarOku, ayarlarYaz, otoOku, otoSil, tarihMetni, VARSAYILAN_AYARLAR, yuvalariOku } from './src/oyun/kayit';
 import { yeniOyun } from './src/oyun/durum';
 import { durumKisa } from './src/oyun/yuzey/dunya';
 
-const SURUM = '4.2';
+const SURUM = '4.3';
 const OYUN_ADI = 'Aethelis';
 
 const HAKKINDA_METNI = [
@@ -89,6 +90,7 @@ export default function App() {
       await sesleriHazirla();
       ortamSesiAyarla(a.ortamDuzeyi);
       nobetDakikasiAyarla(a.nobetDakika);
+      basitModAyarla(a.basitBalik);
       setKayit(await otoOku());
       setHazir(true);
     })();
@@ -102,6 +104,7 @@ export default function App() {
     rehberAyarla({ konusmaHizi: yeni.konusmaHizi, sesKimligi: yeni.sesKimligi });
     ortamSesiAyarla(yeni.ortamDuzeyi);
     nobetDakikasiAyarla(yeni.nobetDakika);
+    basitModAyarla(yeni.basitBalik);
     ayarlarYaz(yeni);
     setAyarlar(yeni);
   }, []);

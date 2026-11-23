@@ -661,6 +661,7 @@ export function uyandin(d) {
   const moral = ek * (d.bayrak.yk_veysel_10 ? 2 : 1);
   d.koloni.moral = Math.min(100, d.koloni.moral + moral);
   for (const u of d.murettebat || []) u.stres = 0;
+  if (d.saha) d.saha.yorgunluk = 0;
   return 'Gümüş Şafak. Dinlenmiş uyandın; mürettebatın stresi atıldı, koloninin morali ' + moral + ' arttı.';
 }
 export function kamaraEylemleri(d, id) {
@@ -678,6 +679,7 @@ export function noktaEylemleri(d, id) {
   if (id === 'kamara_yatak' || id === 'kamara_raf') return [...kamaraEylemleri(d, id), { id: 'incele', etiket: 'İncele' }];
   if (id === 'yb_hamam') return [{ id: 'yikan', etiket: 'Sıcak suya gir' }, { id: 'incele', etiket: 'İncele' }];
   if (id === 'yb_taverna') return [{ id: 'otur', etiket: 'Bir masaya otur' }, { id: 'incele', etiket: 'İncele' }];
+  if (id === 'yb_ashane') return [{ id: 'yemek', etiket: 'Sıcak bir yemek ye', ipucu: 'Bir yiyecek; yorgunluğu giderir.' }, { id: 'kimler', etiket: 'Burada kimler var?' }, { id: 'incele', etiket: 'İncele' }];
   if (id === 'kamp_atesi') return [{ id: 'isin', etiket: 'Ateşin başında ısın' }, { id: 'incele', etiket: 'İncele' }];
   return [{ id: 'kimler', etiket: 'Burada kimler var?' }, { id: 'incele', etiket: 'İncele' }];
 }
@@ -703,6 +705,7 @@ export function eylemUygula(d, id, eylemId) {
     d.yer.hamamGun = g;
     const sifir = !!(d.bayrak.yk_siravel_10 || d.bayrak.sin_lyris_siravel);
     for (const u of d.murettebat || []) u.stres = sifir ? 0 : Math.max(0, (u.stres || 0) - 20);
+    if (d.saha) d.saha.yorgunluk = 0;
     d.koloni.moral = Math.min(100, d.koloni.moral + 2);
     return { metin: 'Sıcak, mineralli su omuzlarındaki yükü alıyor. ' + (sifir ? 'Sira-Vel\'in şifasıyla mürettebatın stresi tamamen silindi.' : 'Mürettebatın stresi yirmi azaldı.') + ' Moral iki arttı.', ses: 'tislama' };
   }
@@ -714,6 +717,17 @@ export function eylemUygula(d, id, eylemId) {
     d.koloni.moral = Math.min(100, d.koloni.moral + m);
     const b = buradakiler(d);
     return { metin: 'Bir masaya oturuyorsun. ' + (b.length ? b.map(kisaAdi).join(', ') + ' da burada. ' : '') + 'Müzik, kahkaha, zar sesi. Koloninin morali ' + m + ' arttı.' };
+  }
+  if (eylemId === 'yemek') {
+    const l = [];
+    const t = d.tarim;
+    if (t) for (const k of Object.keys(t.erzak || {})) if (t.erzak[k] > 0) l.push('erzak_' + k);
+    if (t) for (const k of Object.keys(t.urun || {})) if (t.urun[k] > 0) l.push('urun_' + k);
+    if (!l.length) return { metin: 'Ambarda yenecek bir şey yok.', ses: 'red' };
+    varlikEkle(d, l[0], -1);
+    if (d.saha) d.saha.yorgunluk = 0;
+    d.koloni.moral = Math.min(100, d.koloni.moral + 1);
+    return { metin: 'Sorya önüne sıcak bir tabak koydu: ' + varlikAdi(l[0]) + '. Yorgunluğun geçti.' };
   }
   if (eylemId === 'isin') {
     const b = buradakiler(d);

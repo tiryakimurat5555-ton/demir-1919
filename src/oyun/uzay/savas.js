@@ -184,6 +184,12 @@ export const DUSMANLAR = {
   // Çağrılan yardımcılar (küçük birimler: her tur üst üste ek hasar)
   saldiri_dronu: { ad: 'saldırı dronu', ortam: 'uzay', tier: 1, kucuk: true, moduller: [], govde: 14, kalkan: 0, silahlar: ['iyon'], frek: 880, ganimet: {} },
   golge_dronu: { ad: 'gölge dronu', ortam: 'uzay', tier: 1, kucuk: true, moduller: ['karanlik'], karanlik: true, govde: 16, kalkan: 0, silahlar: ['plazma'], frek: 660, ganimet: {} },
+  // v5 Paket 6: maden ve kıyı düşmanları (yerel Aethelis yaratıkları)
+  kaya_bocegi: { ad: 'kaya böceği', ortam: 'kara', tier: 1, arketip: 'akinci', moduller: [], govde: 18, kalkan: 0.15, silahlar: ['pence'], frek: 460, ses: 'Taşların arasında tıkırdayan kabuklar.', zayif: 'Zayıf; birkaç atışla dağılır.', ganimet: { bazalt: 2 } },
+  tunel_pusucusu: { ad: 'tünel pusucusu', ortam: 'kara', tier: 2, arketip: 'pusucu', moduller: ['pusucu'], govde: 40, kalkan: 0.2, silahlar: ['pence', 'tukuruk'], frek: 300, ses: 'Duvarın ardında sürtünen bir gövde, kesik nefesler.', zayif: 'Her darbede yer değiştirir; sesini izle. Akrep dron önceden haber verir.', ganimet: { kuvars_kumu: 2 } },
+  kor_solucan_yavrusu: { ad: 'kör solucan yavrusu', ortam: 'kara', tier: 2, arketip: 'zirhli', moduller: ['cagiran'], cagri: 'yavru', govde: 60, kalkan: 0.45, silahlar: ['sonik_dalga', 'pence'], frek: 95, ses: 'Kayayı ezen derin bir sürtünme ve boğuk bir çağrı.', zayif: 'Zırhlı; Mammoth\'un matkabı deler. Çağırdığı yavruları önce indir.', ganimet: { fosil: 1 } },
+  gaz_pusucusu: { ad: 'karanlık gaz pusucusu', ortam: 'kara', tier: 2, arketip: 'karanlik', moduller: ['karanlik', 'zehir'], karanlik: true, govde: 45, kalkan: 0.2, silahlar: ['tukuruk', 'golge_oku'], frek: 240, ses: 'Gaz kabarcıklarının içinden ıslak bir tıslama.', zayif: 'Karanlıkta görünmez; fener yağı ve termal giysi işini kolaylaştırır.', ganimet: { aether: 1 } },
+  kiyi_yengec_surusu: { ad: 'kıyı yengeç sürüsü', ortam: 'kara', tier: 1, arketip: 'cagiran', moduller: ['cagiran'], cagri: 'yavru', govde: 35, kalkan: 0.3, silahlar: ['pence', 'pence'], frek: 420, ses: 'Kumda koşuşan yüzlerce kıskaç tıkırtısı.', zayif: 'Sonik kovucu sürüyü dağıtır.', ganimet: { yengec: 1, deniz_tuzu: 2 } },
   yavru: { ad: 'yavru yaratık', ortam: 'kara', tier: 1, kucuk: true, moduller: [], govde: 12, kalkan: 0, silahlar: ['pence'], frek: 520, ganimet: {} },
   golge_muhafizi: { ad: 'gölge muhafızı', ortam: 'kara', tier: 1, kucuk: true, moduller: ['karanlik'], karanlik: true, govde: 18, kalkan: 0, silahlar: ['golge_oku'], frek: 420, ganimet: {} },
   abyssus_yaratigi: { ad: 'Alt Evren su yaratığı', ortam: 'uzay', tier: 1, kucuk: true, moduller: ['karanlik'], karanlik: true, govde: 18, kalkan: 0, silahlar: ['sonik_dalga'], frek: 300, ganimet: {} },
@@ -566,7 +572,7 @@ export function savasBaslat(d, spec) {
     m *= 1 + ek;
     // Gezegen yüzeyinde geminin alt kızağındaki ya da hangarındaki araç eşlik eder; Aethelis'te bindiğin araç
     const tas = spec.gezegen && d.gemi && d.gemi.tasinan && d.gemi.tasinan.length ? d.gemi.tasinan[0] : null;
-    s.arac = tas || d.arac || ((d.araclar || []).includes('akrep') ? 'akrep' : null);
+    s.arac = tas || spec.arac || d.arac || ((d.araclar || []).includes('akrep') ? 'akrep' : null);
     if (s.arac === 'mammoth') m *= 1.5;
     s.maxCan = Math.round(m);
     s.can = s.maxCan;
