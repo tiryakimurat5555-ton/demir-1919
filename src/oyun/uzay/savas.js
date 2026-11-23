@@ -523,8 +523,6 @@ export function savasBaslat(d, spec) {
   if (typeof spec === 'string') spec = { dusmanlar: [spec] };
   const ilk = DUSMANLAR[spec.dusmanlar[0]];
   const ortam = spec.ortam || ilk.ortam || 'uzay';
-  // 3.13: bu ortamda ilk gerçek çatışmadan önce zorunlu eğitim; bitince bekleyen çatışma başlar
-  if (!spec.egitim && egitimGerekli(d, ortam)) return savasBaslat(d, { dusmanlar: [EG.EGITIM_DUSMANI[ortam]], ortam, egitim: true, sonra: spec });
   const r = uretec((d.tohum || 1) * 31 + (d.savasNo = (d.savasNo || 0) + 1));
   const tohum = Math.floor(r() * 1e9);
   const s = {
@@ -1677,21 +1675,40 @@ export function egitimBaslat(d, ortam) {
   if (d.savas) return [];
   return savasBaslat(d, { dusmanlar: [EG.EGITIM_DUSMANI[ortam]], ortam, egitim: true, sonra: null });
 }
-// Menüdeki "Savaş simülatörü" ağacı (Yuzey agacGoster): bekleyen çatışma gibi kurulur, menü kapanınca başlar
-export function simulatorMenu(d) {
-  const durum = (o) => (d.bayrak && d.bayrak['egitim_' + o] ? 'tamamlandı' : 'henüz yapılmadı; ilk ' + (o === 'kara' ? 'kara çatışmasından' : 'uzay savaşından') + ' önce zorunlu');
+// 3.15 (Murat): eğitim artık savaştan önce kendiliğinden açılmaz; menüdeki "Savaş eğitimi" başlığından yapılır.
+// Kara eğitimi baştan açık, uzay eğitimi ilk gemiyle açılır. Bir ortamın eğitimi bitmeden o ortamdaki çatışmalar
+// başlamaz: bekleyen çatışma (d.savasBekle) eğitim bitene kadar bekler, komuta saldırısı ve savunması reddedilir,
+// uzayda rastgele korsan karşılaşması olmaz.
+export function egitimAcik(d, ortam) {
+  return ortam === 'kara' || !!d.gemi || (d.filo || []).length > 0;
+}
+export function savasOrtami(spec) {
+  if (!spec) return null;
+  if (typeof spec === 'string') return (DUSMANLAR[spec] && DUSMANLAR[spec].ortam) || 'uzay';
+  return spec.ortam || (DUSMANLAR[spec.dusmanlar[0]] && DUSMANLAR[spec.dusmanlar[0]].ortam) || 'uzay';
+}
+export function egitimEngeli(d, ortam) {
+  if (!egitimGerekli(d, ortam)) return null;
+  return (ortam === 'kara' ? 'Kara çatışması eğitimi' : 'Uzay savaş eğitimi') + ' tamamlanmadan bu çatışmaya girilemez. Menüde Savaş eğitimi başlığından yap.';
+}
+export function egitimEksikMi(d) {
+  return ['kara', 'uzay'].some((o) => egitimAcik(d, o) && egitimGerekli(d, o));
+}
+// Menüdeki "Savaş eğitimi" ağacı (Yuzey agacGoster): seçilince d.egitimBekle, menü kapanınca gorevler.zamanIlerle başlatır
+export function egitimMenu(d) {
+  const durum = (o) => (!egitimAcik(d, o) ? 'ilk geminle açılır' : d.bayrak && d.bayrak['egitim_' + o] ? 'tamamlandı, yinelenebilir' : 'zorunlu, tamamlanmadı');
   const kur = (o) => (x) => {
-    if (x.savas || x.savasBekle || x.op || x.opBekle || x.sahne) return { metin: 'Önce süren çatışma, operasyon ya da sahne bitsin.', ses: 'red' };
-    if (o === 'uzay' && !x.gemi) return { metin: 'Uzay simülatörü için bir gemi gerekir.', ses: 'red' };
-    x.savasBekle = { dusmanlar: [EG.EGITIM_DUSMANI[o]], ortam: o, egitim: true, sonra: null };
-    return { metin: 'Simülatör hazırlanıyor.', kapat: true };
+    if (!egitimAcik(x, o)) return { metin: 'Uzay savaş eğitimi ilk geminle açılır.', ses: 'red' };
+    if (x.savas || x.op || x.sahne) return { metin: 'Önce süren çatışma, operasyon ya da sahne bitsin.', ses: 'red' };
+    x.egitimBekle = o;
+    return { metin: 'Eğitim başlıyor.', kapat: true };
   };
   return {
-    baslik: 'Savaş simülatörü',
-    giris: 'Savaş hareketlerini hasarsız, adım adım öğretir. Her ortamın eğitimi ilk çatışmadan önce bir kez zorunlu; burada istediğin zaman yinelersin.',
+    baslik: 'Savaş eğitimi',
+    giris: 'Temel kara ve uzay savaşı hareketleri, hasarsız ve adım adım. Bir ortamın eğitimi tamamlanmadan o ortamdaki çatışmalara girilemez. Kara eğitimi baştan açık, uzay eğitimi ilk geminle açılır.',
     ogeler: [
-      { etiket: 'Uzay savaş eğitimi (' + durum('uzay') + ')', yap: kur('uzay') },
       { etiket: 'Kara çatışması eğitimi (' + durum('kara') + ')', yap: kur('kara') },
+      { etiket: 'Uzay savaş eğitimi (' + durum('uzay') + ')', yap: kur('uzay') },
     ],
   };
 }
@@ -1732,7 +1749,8 @@ function egitimBitir(d, o, son) {
   d.savas = null;
   const metin = (son ? son + ' ' : '') + EG.BITIS[ortam];
   if (!sonra) {
-    o.push({ soz: metin, bitti: true, sesler: [{ ad: 's_zafer', gecikme: 600 }] });
+    const bekleyen = d.savasBekle && savasOrtami(d.savasBekle) === ortam;
+    o.push({ soz: metin + (bekleyen ? ' Bekleyen çatışma şimdi başlıyor.' : ''), bitti: true, sesler: [{ ad: 's_zafer', gecikme: 600 }] });
     return o;
   }
   o.push({ soz: metin + ' ' + EG.SONRA_GERCEK });

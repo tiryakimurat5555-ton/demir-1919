@@ -869,7 +869,9 @@ bütün bölümlerini sırayla sayar (21 Kasım: v3 paketiyle sekiz belge daha g
       bayrak egitim_<ortam> yoksa önce eğitimi açar (hedef: simülasyon dronu / eğitim otomatı), bitince bekleyen
       çatışmayı başlatır; savaş sonrası sahnesi korunur. Dokuz adım; hasar yok, yanlışta adım yinelenir; savunma
       adımlarında uyarı oyuncu hazır deyince gelir (4,5 sn pencere). Yetenekler simülatörde uygulanmaz (sarf harcanmaz).
-- [x] Menüde "Savaş simülatörü" (uzay için gemi gerekir): istenildiği zaman yineleme.
+- [x] 3.15 (Murat): savaştan önce kendiliğinden açılmıyor; menüde "Savaş eğitimi" başlığı (kara baştan, uzay ilk gemiyle;
+      tamamlanmadıysa başlıkta "zorunlu, tamamlanmadı"). Eğitimsiz: bekleyen çatışma bekler ve bir kez hatırlatılır, komuta
+      saldırısı ve bizzat savunma reddedilir (otomatik savunma serbest), uzayda rastgele korsan çıkmaz. Yinelenebilir.
       [~] Telefonda denenmedi; adımların okunma hızı ve uyarı süresi Bahtiyar'ın denemesine göre ayarlanabilir.
 
 ## Sıradaki adımlar (sırayla)

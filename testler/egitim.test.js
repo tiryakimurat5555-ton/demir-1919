@@ -4,6 +4,8 @@ import { yeniOyun } from '../src/oyun/durum';
 import * as G from '../src/oyun/gemi/gemi';
 import * as SV from '../src/oyun/uzay/savas';
 import { ADIMLAR } from '../src/oyun/uzay/egitim';
+import { zamanIlerle } from '../src/oyun/yuzey/gorevler';
+import * as KM from '../src/oyun/komuta';
 
 beforeAll(() => { SV.EGITIM_AYAR.zorunlu = true; });
 afterAll(() => { SV.EGITIM_AYAR.zorunlu = false; });
@@ -77,41 +79,55 @@ function egitimiOyna(d, kayitla) {
 }
 
 describe('Savaş eğitimi', () => {
-  test('uzayda ilk çatışma önce eğitimi açar; dokuz adım; bitince bekleyen korsan saldırır', () => {
+  test('menüden zorunlu eğitim: tamamlanmadan bekleyen uzay çatışması başlamaz; bitince başlar', () => {
     const d = uzaydaOyun();
-    const o = SV.savasBaslat(d, 'korsan_avci');
-    expect(d.savas.egitim).toBeTruthy();
-    expect(d.savas.dusman.tur).toBe('egitim_dronu');
-    expect(sozler(o)).toContain('Uzay savaş eğitimi');
-    const son = egitimiOyna(d, true);
-    expect(d.bayrak.egitim_uzay).toBe(true);
-    expect(son.some((x) => x.yeniSavas)).toBe(true);
-    expect(sozler(son)).toContain('gerçek çatışma');
+    // Savaş artık eğitimi kendiliğinden açmaz
+    expect(SV.savasBaslat(d, 'korsan_avci').length).toBeGreaterThan(0);
     expect(d.savas.egitim).toBeFalsy();
-    expect(d.savas.dusman.tur).toBe('korsan_avci');
-    expect(d.gemi.govde).toBe(d.gemi.maxGovde);
-    // İkinci uzay çatışması doğrudan başlar
     d.savas = null;
-    SV.savasBaslat(d, 'korsan_korvet');
-    expect(d.savas.egitim).toBeFalsy();
+    d.sahne = null;
+    expect(SV.egitimEksikMi(d)).toBe(true);
+    d.savasBekle = 'korsan_avci';
+    let o = zamanIlerle(d, 0.1);
+    expect(d.savas).toBe(null);
+    expect(d.savasBekle).toBe('korsan_avci');
+    expect(o.filter((x) => x.tur === 'haber').map((x) => x.metin).join(' ')).toContain('Uzay savaş eğitimi tamamlanmadan');
+    // Menüden uzay eğitimi
+    const m = SV.egitimMenu(d);
+    expect(m.ogeler[1].etiket).toContain('zorunlu');
+    expect(m.ogeler[1].yap(d).kapat).toBe(true);
+    o = zamanIlerle(d, 0.1);
+    expect(o.some((x) => x.tur === 'savas')).toBe(true);
+    expect(d.savas.dusman.tur).toBe('egitim_dronu');
+    const son = egitimiOyna(d, true);
+    expect(son.some((x) => x.bitti)).toBe(true);
+    expect(sozler(son)).toContain('Bekleyen çatışma');
+    expect(d.bayrak.egitim_uzay).toBe(true);
+    expect(d.savas).toBe(null);
+    expect(d.gemi.govde).toBe(d.gemi.maxGovde);
+    zamanIlerle(d, 0.1);
+    expect(d.savas.dusman.tur).toBe('korsan_avci');
   });
-  test('kara eğitimi ayrı; savaş sonrası sahnesi korunur; menüden yineleme çatışmasız biter', () => {
+  test('kara eğitimi baştan açık, uzay ilk gemiyle; komuta savunması eğitimsiz reddedilir; yineleme', () => {
     const d = yeniOyun(9);
-    d.bayrak.egitim_uzay = true;
-    d.savasSonraSahne = 'kom_savunma';
-    SV.savasBaslat(d, { dusmanlar: ['sulfur_akrebi'], ortam: 'kara' });
-    expect(d.savas.dusman.tur).toBe('egitim_otomati');
+    expect(SV.egitimAcik(d, 'kara')).toBe(true);
+    expect(SV.egitimAcik(d, 'uzay')).toBe(false);
+    expect(SV.egitimMenu(d).ogeler[1].yap(d).ses).toBe('red');
+    KM.komuta(d).sektor.guney = { durum: 'guvenli' };
+    expect(KM.bizzatSavun(d, 'guney').metin).toContain('eğitimi tamamlanmadan');
+    expect(d.savasBekle).toBeFalsy();
+    SV.egitimBaslat(d, 'kara');
     expect(d.savas.ortam).toBe('kara');
     egitimiOyna(d, false);
     expect(d.bayrak.egitim_kara).toBe(true);
-    expect(d.savas.dusman.tur).toBe('sulfur_akrebi');
-    expect(d.savasSonraSahne).toBe('kom_savunma');
-    d.savas = null;
+    expect(SV.egitimEksikMi(d)).toBe(false);
+    expect(KM.bizzatSavun(d, 'guney').kapat).toBe(true);
+    // Tamamlandıktan sonra yinelenebilir
+    d.savasBekle = null;
     SV.egitimBaslat(d, 'kara');
     expect(d.savas.egitim.sonra).toBe(null);
     const son = egitimiOyna(d, false);
     expect(son.some((x) => x.bitti)).toBe(true);
-    expect(d.savas).toBe(null);
   });
   test('eğitimde sarf ve kaçış yeteneği harcanmaz; savaşı bitirmez', () => {
     const d = uzaydaOyun(3);

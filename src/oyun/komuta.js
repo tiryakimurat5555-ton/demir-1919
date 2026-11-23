@@ -14,6 +14,7 @@ import { GEZEGENLER } from './veri/gozlem';
 import * as SB from './tonoflenya/subay';
 import * as ZN from './tonoflenya/zanaat';
 import { GUCLER, GUC_SIRASI, gucItibari, gucBasamagi, misafir } from './tonoflenya/kisiler';
+import { egitimEngeli } from './uzay/savas';
 
 export const GUN = 6 * NOBET_SN;
 const A = (tur, ad, giris, bitis, ek) => ({ tur, ad, giris, bitis, ...(ek || {}) });
@@ -221,7 +222,7 @@ export function saldiriKosulu(d, id) {
   if (d.savas || d.op) return 'Önce süren çatışma ya da operasyon bitsin.';
   if (bl.uzay && !d.gemi) return 'Gemin yok.';
   if (!bl.uzay && d.uzay) return 'Uzaydasın; önce koloniye in.';
-  return null;
+  return egitimEngeli(d, bl.uzay ? 'uzay' : 'kara');
 }
 export function saldir(d, id) {
   const k = saldiriKosulu(d, id);
@@ -357,6 +358,8 @@ export function bizzatSavun(d, id) {
   const bl = BOLGELER[id];
   if (b(d).tonoflenyada) return { metin: 'Tonoflenya\'dan bizzat müdahale edemezsin; otomatik savunma ata.', ses: 'red' };
   if (bl.uzay && !d.gemi) return { metin: 'Gemin yok.', ses: 'red' };
+  const eg = egitimEngeli(d, bl.uzay ? 'uzay' : 'kara');
+  if (eg) return { metin: eg + ' Ya da otomatik savunma ata.', ses: 'red' };
   const k = komuta(d);
   k.savunulan = id;
   d.savasBekle = { dusmanlar: bl.baskinDusman.slice(), ortam: bl.uzay ? 'uzay' : 'kara', tier: bl.kademe, giris: bl.ad + ' baskını! Ekibinle savun.' };

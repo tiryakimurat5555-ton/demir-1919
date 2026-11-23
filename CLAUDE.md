@@ -658,6 +658,14 @@ Demir 1919 oyunu silindi; geçmişi git kaydında (son sürüm 1.06, commit 556f
   güvenli alanı) ve adaptive-arka.png (bulanık, %55 karartılmış kare). app.json icon ve android.adaptiveIcon. Simge yerel
   ayar: Expo Go'da görünmez, ancak yeni APK/iOS derlemesiyle gelir (eas update getirmez). version 0.1.0 değişmedi.
   Simgeli APK (23 Kasım, derleme b470a3f3, runtime 0.1.0, kanal main): https://expo.dev/artifacts/eas/qvmifMdCRTtQB_GKUc1JjAKwjhZvL4SSfrgscO0d7XA.apk
+- SÜRÜM 3.15 (23 Kasım, Murat: "savaşlardan önce olmasın; menüde zorunlu, tıklanabilir eğitim; kara baştan, uzay açılınca;
+  tamamlanmadan diğer savaşlar yapılamasın"; eski kayıtta 3.13'ün otomatik eğitimi çıkmamıştı): savasBaslat artık eğitimi
+  kendiliğinden açmaz. savas.js egitimAcik (kara her zaman, uzay gemi ya da filo), savasOrtami(spec), egitimEngeli(d, ortam)
+  (metin | null), egitimEksikMi, egitimMenu (simulatorMenu yerine; yap → d.egitimBekle). gorevler.zamanIlerle: uzay açılınca
+  bir kez haber (bayrak.uzayEgitimHaber); d.egitimBekle → SV.egitimBaslat; savasBekle engelliyse bekler (d.egitimUyarildi bir
+  kez haber; opBekle de bekler). sefer.js: eğitimsiz uzayda korsan çıkmaz, olaySavas savasBekle'ye düşer. komuta.js
+  saldiriKosulu ve bizzatSavun egitimEngeli. Yuzey menüsünde Görev'in altında "Savaş eğitimi" (eksikse ", zorunlu,
+  tamamlanmadı"). Telefonda denenmedi.
 - Sıradaki: v4 paketinin bütün belgeleri işlendi; KAPSAM.md'de [~] notları (Bahtiyar'a sorulacaklar) ve telefonda deneme.
 
 ## Sesler

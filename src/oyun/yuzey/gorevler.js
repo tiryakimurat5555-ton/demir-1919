@@ -277,11 +277,32 @@ export function zamanIlerle(d, dt) {
   KM.komutaIlerle(d);
   HK.hikayeIlerle(d);
   // Final görevleri: sahne kapanınca bekleyen operasyon ya da çatışma başlar (tonoflenya/final.js)
+  // 3.15: uzay savaş eğitimi ilk gemiyle açılır (bir kez haber)
+  if (SV.egitimAcik(d, 'uzay') && SV.egitimGerekli(d, 'uzay') && !d.bayrak.uzayEgitimHaber) {
+    d.bayrak.uzayEgitimHaber = true;
+    SB.haber(d, 'Taktik subayı: ilk gemimiz var. Uzay savaş eğitimi açıldı; menüde Savaş eğitimi başlığından yap. Tamamlanmadan uzay çatışmasına girilemez.');
+  }
+  if (!d.sahne && !d.op && !d.savas) {
+    // Menüden seçilen savaş eğitimi her şeyden önce
+    if (d.egitimBekle) {
+      const o = d.egitimBekle;
+      d.egitimBekle = null;
+      olaylar.push({ tur: 'savas', olaylar: SV.egitimBaslat(d, o) });
+    }
+  }
   if (!d.sahne && !d.op && !d.savas) {
     // Bekleyen çatışma önce (ör. yörüngedeki devriye), ardından bekleyen operasyon
     const sb = d.savasBekle;
-    const karaSavas = sb && ((typeof sb === 'object' && sb.ortam === 'kara') || (typeof sb === 'string' && SV.DUSMANLAR[sb] && SV.DUSMANLAR[sb].ortam === 'kara'));
-    if (sb && (d.gemi || karaSavas)) {
+    const karaSavas = sb && SV.savasOrtami(sb) === 'kara';
+    // 3.15: o ortamın eğitimi bitmeden bekleyen çatışma başlamaz (bekler; bir kez hatırlatılır)
+    const engel = sb && SV.egitimEngeli(d, SV.savasOrtami(sb));
+    if (engel) {
+      if (!d.egitimUyarildi) {
+        d.egitimUyarildi = true;
+        SB.haber(d, engel);
+      }
+    } else if (sb && (d.gemi || karaSavas)) {
+      d.egitimUyarildi = false;
       d.savasBekle = null;
       olaylar.push({ tur: 'savas', olaylar: SV.savasBaslat(d, sb) });
     } else if (d.opBekle) {

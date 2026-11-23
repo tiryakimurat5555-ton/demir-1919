@@ -5,7 +5,7 @@
 // mekanik arıza, moral olayı ya da dış tehdit. Haber bir karar sahnesidir. Kırk beş saniyede bir, iki operasyon
 // tamamlandıktan sonra yüzde on iki ihtimalle korsan saldırır.
 import { kayitBul } from '../veri/seslendirme';
-import { savasBaslat, gorevli, karsilasmaUret } from './savas';
+import { savasBaslat, gorevli, karsilasmaUret, egitimGerekli } from './savas';
 import { OPERASYONLAR } from '../veri/uzayGorevleri';
 import { opBaslat as opBaslatF } from './operasyon';
 import * as SB from '../tonoflenya/subay';
@@ -101,6 +101,11 @@ export function seferIlerle(d, dt) {
     const t = d.olaySavas;
     d.olaySavas = null;
     u.hiz = 0;
+    // 3.15: uzay eğitimi bitmediyse çatışma bekler (gorevler.zamanIlerle hatırlatır)
+    if (egitimGerekli(d, 'uzay')) {
+      d.savasBekle = t;
+      return o;
+    }
     o.push({ tur: 'savas', olaylar: savasBaslat(d, t) });
     return o;
   }
@@ -115,7 +120,7 @@ export function seferIlerle(d, dt) {
   if (d.korsanSayac >= KORSAN_SN) {
     d.korsanSayac = 0;
     d.korsanNo = (d.korsanNo || 0) + 1;
-    if ((d.tamamlananOp || []).length >= 2 && u.hiz > 0 && rastgele(d, 900 + d.korsanNo) < KORSAN_IHTIMAL) {
+    if ((d.tamamlananOp || []).length >= 2 && u.hiz > 0 && !egitimGerekli(d, 'uzay') && rastgele(d, 900 + d.korsanNo) < KORSAN_IHTIMAL) {
       u.hiz = 0;
       // Evrensel savaş: düşman, geliş biçimi ve ikincil modül tehdit kademesine göre (yakın ya da derin uzay)
       const bolge = Math.hypot(u.x || 0, u.y || 0) > 900 ? 'derin' : 'yakin';

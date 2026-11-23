@@ -1,8 +1,7 @@
 // Savaş eğitimi (3.13, Murat: "ilk müsabakaya girilmeden önce uzay ve kara için geçerli bir eğitim sekansı zorunlu").
 // Bağımlılıksız metin ve adım tablosu; mantık savas.js'te (egitimKur, egitimGirdi, egitimIlerle).
-// Bir ortamda (uzay | kara) ilk gerçek çatışma başlamak üzereyken savasBaslat önce bu eğitimi açar; bitince
-// d.bayrak.egitim_<ortam> konur ve bekleyen gerçek çatışma kendiliğinden başlar. Menüden "Savaş simülatörü" ile
-// istenildiği zaman yinelenir (sonrasında çatışma yok). Eğitimde hasar alınmaz; yanlış harekette adım yinelenir.
+// 3.15: menüdeki "Savaş eğitimi" başlığından yapılır (kara baştan, uzay ilk gemiyle açık); bitince d.bayrak.egitim_<ortam>.
+// Tamamlanmadan o ortamdaki çatışmalar başlamaz (savas.js egitimEngeli). Eğitimde hasar alınmaz; yanlışta adım yinelenir.
 
 export const EGITIM_DUSMANI = { uzay: 'egitim_dronu', kara: 'egitim_otomati' };
 // Eğitim hedefinin kalkan tonu (silah tonu 15'ten başlar; iki parmakla yaklaşık yarım tur çevirmek yeter)
@@ -113,7 +112,7 @@ export const GIRIS = {
   kara: 'Kara çatışması eğitimi. İlk çatışmadan önce ekip, eğitim otomatıyla tatbikat yapıyor. Burada hasar almazsın; bir hareketi yanlış yaparsan adım yinelenir. Dokuz adım var.',
 };
 export const BITIS = {
-  uzay: 'Uzay savaş eğitimi tamam. Özet: sesi ortala ve kilit tonunu bekle, dokun ateş, yukarı kaydır torpido, iki parmakla çevir kalkan tonu. Uyarıda iki parmakla dokun kalkan, ters yana kaydır kaçınma, torpidoya çift dokun. Aşağı kaydır yetenek, iki parmakla dokun durum. Simülatörü menüden yineleyebilirsin.',
-  kara: 'Kara çatışması eğitimi tamam. Özet: sesi ortala ve kilit tonunu bekle, dokun ateş, yukarı kaydır ağır saldırı, iki parmakla çevir zırh tonu. Uyarıda iki parmakla dokun siper, ters yana kaydır kaçınma, tüfek şakırtısına çift dokun. Aşağı kaydır yetenek, iki parmakla dokun durum. Simülatörü menüden yineleyebilirsin.',
+  uzay: 'Uzay savaş eğitimi tamam. Özet: sesi ortala ve kilit tonunu bekle, dokun ateş, yukarı kaydır torpido, iki parmakla çevir kalkan tonu. Uyarıda iki parmakla dokun kalkan, ters yana kaydır kaçınma, torpidoya çift dokun. Aşağı kaydır yetenek, iki parmakla dokun durum. Eğitimi menüdeki Savaş eğitimi başlığından yineleyebilirsin.',
+  kara: 'Kara çatışması eğitimi tamam. Özet: sesi ortala ve kilit tonunu bekle, dokun ateş, yukarı kaydır ağır saldırı, iki parmakla çevir zırh tonu. Uyarıda iki parmakla dokun siper, ters yana kaydır kaçınma, tüfek şakırtısına çift dokun. Aşağı kaydır yetenek, iki parmakla dokun durum. Eğitimi menüdeki Savaş eğitimi başlığından yineleyebilirsin.',
 };
 export const SONRA_GERCEK = 'Simülasyon kapandı. Şimdi gerçek çatışma!';
