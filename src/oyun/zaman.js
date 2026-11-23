@@ -1,5 +1,5 @@
 // Yıldız Zamanı: altı nöbetli gün döngüsü (belgeler/tonoflenya-ve-yeni-sistemler-gelistirici-yonergesi.md bölüm 4).
-// Bir oyun günü altı nöbet; her nöbet hızlandırılmış ölçekte 10 dakika (3.16'ya kadar 20; Murat: gün kısalsın). Zaman her modda akar (yüzeyde, gemide,
+// Bir oyun günü altı nöbet; her nöbet varsayılan 10 dakika; Ayarlar'dan 10-30 dakika (3.17). Zaman her modda akar (yüzeyde, gemide,
 // uzayda): seferden dönünce tarlalar büyümüş, atölyeler bitmiş olur. Saf JavaScript.
 //
 // d.zaman = { sn }  oyunun başından beri geçen oyun süresi. Gün 1, Gümüş Şafak nöbetinde başlar.
@@ -7,6 +7,29 @@
 export const NOBET_SN = 600;
 export const GUN_SN = NOBET_SN * 6;
 export const SAAT_SN = GUN_SN / 24; // bir oyun saati
+
+// 3.17 (Murat): nöbetin gerçek uzunluğu Ayarlar'dan 10-30 dakika (5'er). Oyun içi süreler (d.zaman.sn, NOBET_SN, GUN_SN)
+// "yıldız saniyesi"dir ve değişmez; yalnız gerçek saniyenin kaç yıldız saniyesine denk geldiği değişir. Böylece ayar
+// oyun ortasında değişince nöbet ya da gün atlamaz; üretim, bitki ve yatak süreleri gerçek dakikayla aynı kalır.
+export const NOBET_DAKIKA_EN_AZ = 10;
+export const NOBET_DAKIKA_EN_COK = 30;
+let nobetDakika = 10;
+export function nobetDakikasiAyarla(dk) {
+  const x = Math.round((Number(dk) || 10) / 5) * 5;
+  nobetDakika = Math.max(NOBET_DAKIKA_EN_AZ, Math.min(NOBET_DAKIKA_EN_COK, x));
+  return nobetDakika;
+}
+export function nobetDakikasi() {
+  return nobetDakika;
+}
+// Bir gerçek saniyede geçen yıldız saniyesi
+export function zamanOrani() {
+  return NOBET_SN / (nobetDakika * 60);
+}
+// Yıldız süresinin gerçek karşılığı (saniye)
+export function gercekSn(yildizSn) {
+  return yildizSn / zamanOrani();
+}
 
 // akor: nöbet değişiminde çalan rezonans çanı (Hz, üç nota; konumsal motorun çan tınısı)
 export const NOBETLER = [
@@ -40,7 +63,7 @@ export function kalanSn(d) {
 export function zamanAkit(d, dt) {
   const t = z(d);
   const once = Math.floor(t.sn / NOBET_SN);
-  t.sn += dt;
+  t.sn += dt * zamanOrani();
   const sonra = Math.floor(t.sn / NOBET_SN);
   if (sonra === once) return [];
   const n = nobet(d);
@@ -70,6 +93,6 @@ export function yildizCarpani(d, is) {
 
 export function zamanMetni(d, ek) {
   const n = nobet(d);
-  const dk = Math.ceil(kalanSn(d) / 60);
+  const dk = Math.ceil(gercekSn(kalanSn(d)) / 60);
   return 'Gün ' + gun(d) + ', ' + n.ad + ' nöbeti (' + n.yildiz + ' ışığı, ' + n.isik + '). Bir sonraki nöbete ' + dk + ' dakika var.' + (ek ? ' ' + ek : '');
 }

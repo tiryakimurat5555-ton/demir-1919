@@ -520,13 +520,19 @@ export function zamanSar(d, sn, kesilir = false) {
   const metinler = [];
   const arayuz = [];
   let gecen = 0;
+  let gercek = 0;
   let kesen = null;
+  // sn yıldız saniyesidir; zamanIlerle gerçek saniye alır (Ayarlar'daki nöbet uzunluğu, zaman.js zamanOrani)
+  if (!d.zaman) d.zaman = { sn: 0 };
+  const hedef = d.zaman.sn + sn;
   d.zamanSariliyor = true;
   try {
-    while (gecen < sn) {
-      const adim = Math.min(60, sn - gecen);
+    while (d.zaman.sn < hedef - 1e-6) {
+      const adim = Math.min(60, Z.gercekSn(hedef - d.zaman.sn));
+      const once = d.zaman.sn;
       const o = zamanIlerle(d, adim);
-      gecen += adim;
+      gercek += adim;
+      gecen += d.zaman.sn - once;
       for (const x of o) {
         if (x.tur === 'savas' || x.tur === 'op') arayuz.push(x);
         if (x.tur !== 'nobet' && x.metin) metinler.push(x.metin);
@@ -544,7 +550,7 @@ export function zamanSar(d, sn, kesilir = false) {
   }
   const ozet = sarmaOzeti(metinler, d, nuf0, moral0);
   if (!kesilir && ozet) SB.haber(d, 'Yokluğunda: ' + ozet);
-  return { gecen, ozet, arayuz, kesen };
+  return { gecen, gercek, ozet, arayuz, kesen };
 }
 // Dinlenme: oyuncunun bulunduğu yerden (yüzey, Tonoflenya, kızaktaki gemi) zamanı bir nöbetin başına sarar
 export function dinlenmeEngeli(d) {
@@ -565,18 +571,18 @@ export function dinlen(d, hedefNobet) {
   const ileri = hedefNobet == null ? 1 : ((hedefNobet - simdi + 6) % 6) || 6;
   const sn = Z.kalanSn(d) + (ileri - 1) * Z.NOBET_SN + 1;
   const r = zamanSar(d, sn, true);
-  const dk = Math.round(r.gecen / 60);
+  const dk = Math.max(1, Math.round(r.gercek / 60));
   const bas = r.kesen ? 'Dinlenmen ' + dk + ' dakika sonra yarıda kesildi. ' + r.kesen + ' ' : dk + ' dakika dinlendin. ';
   return { metin: bas + Z.zamanMetni(d) + (r.ozet ? ' Bu arada: ' + r.ozet : ''), ses: r.kesen ? 'telsiz_zil' : 'sinyal', arayuz: r.arayuz, kapat: true };
 }
 export function dinlenMenu(d) {
   const e = dinlenmeEngeli(d);
   const simdi = Z.nobetNo(d);
-  const ogeler = [{ etiket: 'Bir sonraki nöbete kadar (' + Z.NOBETLER[(simdi + 1) % 6].ad + ', ' + Math.ceil(Z.kalanSn(d) / 60) + ' dakika)', yap: (x) => dinlen(x, null) }];
+  const ogeler = [{ etiket: 'Bir sonraki nöbete kadar (' + Z.NOBETLER[(simdi + 1) % 6].ad + ', ' + Math.ceil(Z.gercekSn(Z.kalanSn(d)) / 60) + ' dakika)', yap: (x) => dinlen(x, null) }];
   for (let i = 2; i <= 6; i++) {
     const n = (simdi + i) % 6;
     const nb = Z.NOBETLER[n];
-    ogeler.push({ etiket: nb.ad + ' başlayana kadar (' + nb.yildiz + '; ' + Math.round((Z.kalanSn(d) + (i - 1) * Z.NOBET_SN) / 60) + ' dakika)', yap: (x) => dinlen(x, n) });
+    ogeler.push({ etiket: nb.ad + ' başlayana kadar (' + nb.yildiz + '; ' + Math.round(Z.gercekSn(Z.kalanSn(d) + (i - 1) * Z.NOBET_SN) / 60) + ' dakika)', yap: (x) => dinlen(x, n) });
   }
   return {
     baslik: 'Dinlen ve bekle',

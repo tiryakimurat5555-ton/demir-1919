@@ -78,3 +78,42 @@ describe('Yıldız Zamanı ve dinlenme', () => {
     expect(d.mini.aktif).toBe('mantar_hasadi');
   });
 });
+
+import { nobetDakikasiAyarla, zamanOrani, zamanMetni } from '../src/oyun/zaman';
+import { zamanIlerle } from '../src/oyun/yuzey/gorevler';
+describe('Nöbet uzunluğu ayarı (3.17)', () => {
+  test('10-30 dakika, beşer; gün atlamaz, üretim gerçek dakikada kalır', () => {
+    expect(nobetDakikasiAyarla(7)).toBe(10);
+    expect(nobetDakikasiAyarla(40)).toBe(30);
+    expect(nobetDakikasiAyarla(17)).toBe(15);
+    nobetDakikasiAyarla(20);
+    try {
+      expect(zamanOrani()).toBe(0.5);
+      const d = koloni(9);
+      d.mekan = 'vadi';
+      d.zaman = { sn: 100 };
+      zamanIlerle(d, 600); // on gerçek dakika
+      expect(d.zaman.sn).toBeCloseTo(400, 5);
+      expect(zamanMetni(d)).toContain('7 dakika var'); // kalan 200 yıldız sn = 400 gerçek sn
+    } finally {
+      nobetDakikasiAyarla(10);
+    }
+  });
+  test('sarma ve dinlenme yıldız süresini gerçek dakikaya çevirir', () => {
+    nobetDakikasiAyarla(30);
+    try {
+      const d = koloni(9);
+      d.mekan = 'vadi';
+      d.zaman = { sn: 0 };
+      const r = zamanSar(d, NOBET_SN);
+      expect(r.gecen).toBeCloseTo(NOBET_SN, 3);
+      expect(r.gercek).toBeCloseTo(1800, 3);
+      const m = dinlenMenu(d);
+      expect(m.ogeler[0].etiket).toContain('30 dakika');
+      const s = dinlen(d, null);
+      expect(s.metin).toContain('30 dakika dinlendin');
+    } finally {
+      nobetDakikasiAyarla(10);
+    }
+  });
+});

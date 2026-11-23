@@ -16,13 +16,14 @@ import SesliListe from './src/arayuz/SesliListe';
 import { rehberAyarla, rehberHazirla, soyle, sustur } from './src/ses/rehber';
 import { RENK } from './src/arayuz/tema';
 import Ayarlar from './src/ekran/Ayarlar';
+import { nobetDakikasiAyarla } from './src/oyun/zaman';
 import Yuzey from './src/ekran/Yuzey';
 import { ortamCal, ortamSesiAyarla, sesleriHazirla } from './src/ses/efektler';
 import { ayarlarOku, ayarlarYaz, otoOku, otoSil, tarihMetni, VARSAYILAN_AYARLAR, yuvalariOku } from './src/oyun/kayit';
 import { yeniOyun } from './src/oyun/durum';
 import { durumKisa } from './src/oyun/yuzey/dunya';
 
-const SURUM = '3.16';
+const SURUM = '3.17';
 const OYUN_ADI = 'Aethelis';
 
 const HAKKINDA_METNI = [
@@ -87,6 +88,7 @@ export default function App() {
       rehberAyarla({ konusmaHizi: a.konusmaHizi, sesKimligi: a.sesKimligi });
       await sesleriHazirla();
       ortamSesiAyarla(a.ortamDuzeyi);
+      nobetDakikasiAyarla(a.nobetDakika);
       setKayit(await otoOku());
       setHazir(true);
     })();
@@ -99,6 +101,7 @@ export default function App() {
     ayarRef.current = yeni;
     rehberAyarla({ konusmaHizi: yeni.konusmaHizi, sesKimligi: yeni.sesKimligi });
     ortamSesiAyarla(yeni.ortamDuzeyi);
+    nobetDakikasiAyarla(yeni.nobetDakika);
     ayarlarYaz(yeni);
     setAyarlar(yeni);
   }, []);
@@ -162,7 +165,7 @@ export default function App() {
             sec: () => (kayit ? setEkran('yeniOnay') : oyunuBaslat(null)),
           },
           { id: 'yukle', etiket: 'Kayıt yükle', ipucu: 'Elle kaydettiğin üç yuva.', sec: yuvalariAc },
-          { id: 'ayarlar', etiket: 'Ayarlar', ipucu: 'Konuşma hızı ve ses.', sec: () => setEkran('ayarlar') },
+          { id: 'ayarlar', etiket: 'Ayarlar', ipucu: 'Konuşma hızı, ses ve nöbet uzunluğu.', sec: () => setEkran('ayarlar') },
           { id: 'hareket', etiket: 'Hareketler', ipucu: 'Oyunu nasıl kullanacağını anlatır.', sec: () => setEkran('hareketler') },
           { id: 'hakkinda', etiket: 'Hakkında', sec: () => setEkran('hakkinda') },
         ]}

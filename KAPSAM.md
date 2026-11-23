@@ -877,6 +877,7 @@ bütün bölümlerini sırayla sayar (21 Kasım: v3 paketiyle sekiz belge daha g
 ## 61. Gün uzunluğu ve dinlenme (3.16, Murat; analiz 23 Kasım): nöbet 20 → 10 dakika (zaman.js NOBET_SN 600, GUN_SN,
       SAAT_SN; atlas/malken/zanaat/yan/mini'deki sabit 7200/1200/300 bunlara bağlandı). Evrensel zaman sarma
       (gorevler.zamanSar) ve "Dinlen ve bekle" menüsü; sarmada mini donar, baskına otomatik savunma, özet haberi.
+- [x] 3.17: Ayarlar'da nöbet uzunluğu 10-30 dk (5'er); zaman.js zamanOrani/gercekSn, zamanSar gerçek saniye.
 - [x] testler/zaman.test.js. [~] Telefonda denenmedi; yönergedeki "20 dakikalık nöbet" ölçeğinden Murat'ın kararıyla sapıldı.
 
 ## Sıradaki adımlar (sırayla)

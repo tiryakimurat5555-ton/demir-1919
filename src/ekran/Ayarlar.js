@@ -1,7 +1,8 @@
-// Ayarlar: konuşma hızı, ortam sesi düzeyi ve Türkçe ses seçimi. Değişiklikler hemen uygulanır ve kaydedilir.
+// Ayarlar: konuşma hızı, ortam sesi düzeyi, nöbet uzunluğu ve Türkçe ses seçimi. Değişiklikler hemen uygulanır ve kaydedilir.
 import React from 'react';
 import SesliListe from '../arayuz/SesliListe';
 import { soyle, turkceSesListesi } from '../ses/rehber';
+import { NOBET_DAKIKA_EN_AZ, NOBET_DAKIKA_EN_COK } from '../oyun/zaman';
 
 const EN_AZ = 0.6;
 const EN_COK = 3.5; // Murat (1.13): yüzde 350'ye kadar
@@ -30,6 +31,16 @@ export default function Ayarlar({ ayarlar, ayarDegistir, onGeri }) {
     return 'sessiz';
   };
 
+  // 3.17: nöbet uzunluğu 10-30 dakika, beşer (bir oyun günü altı nöbet)
+  const nobetDk = ayarlar.nobetDakika || 10;
+  const nobetMetni = (dk) => dk + ' dakika, bir oyun günü ' + (dk * 6 >= 60 ? (dk * 6) / 60 + ' saat' : dk * 6 + ' dakika');
+  const nobet = (yeni) => {
+    const dk = Math.max(NOBET_DAKIKA_EN_AZ, Math.min(NOBET_DAKIKA_EN_COK, yeni));
+    ayarDegistir({ nobetDakika: dk });
+    setTimeout(() => soyle((dk === nobetDk ? (dk >= NOBET_DAKIKA_EN_COK ? 'En uzun: ' : 'En kısa: ') : '') + nobetMetni(dk), 'istek', true), 60);
+    return 'sessiz';
+  };
+
   const ogeler = [
     {
       id: 'hiz',
@@ -45,6 +56,13 @@ export default function Ayarlar({ ayarlar, ayarDegistir, onGeri }) {
     },
     { id: 'ortamArtir', etiket: 'Artır', sec: () => ortam(ayarlar.ortamDuzeyi + 0.1) },
     { id: 'ortamAzalt', etiket: 'Azalt', sec: () => ortam(ayarlar.ortamDuzeyi - 0.1) },
+    {
+      id: 'nobet',
+      etiket: 'Nöbet uzunluğu: ' + nobetMetni(nobetDk),
+      ipucu: 'Oyun içi günün döngüsü: bir gün altı nöbet. Uzun nöbette gün yavaş akar; üretim ve bitkiler gerçek dakikayla aynı kalır. Alttaki Artır ve Azalt ile beşer dakika.',
+    },
+    { id: 'nobetArtir', etiket: 'Artır', sec: () => nobet(nobetDk + 5) },
+    { id: 'nobetAzalt', etiket: 'Azalt', sec: () => nobet(nobetDk - 5) },
     {
       id: 'ses',
       etiket: 'Ses: ' + sesAdi,

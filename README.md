@@ -6,6 +6,10 @@ tesis kurar, ileride gemini parça parça inşa edip uzaya açılırsın.
 
 Yapımcı: Bahtiyar Cankurt (tasarım belgeleri belgeler/ içinde). Expo Go ile iPhone ve Android'de çalışır.
 
+## Bu sürümde (3.17)
+- Ayarlar'da "Nöbet uzunluğu": 10-30 dakika arası, beşer dakika (bir oyun günü altı nöbet, 1-3 saat). Oyun ortasında
+  değişince gün atlamaz; üretim, bitki ve yatak süreleri gerçek dakikayla aynı kalır.
+
 ## Bu sürümde (3.16)
 - Oyun günü kısaldı: altı nöbet × 10 dakika (gün 1 saat). Yolculuk, sıçrama ve şarj süreleri de yarıya indi.
 - Menüde "Dinlen ve bekle": her yerden (yüzey, Tonoflenya, kızaktaki gemi; tehlikeli bölge ve açık uzay hariç) bir sonraki

@@ -676,6 +676,13 @@ Demir 1919 oyunu silindi; geçmişi git kaydında (son sürüm 1.06, commit 556f
   seçenek). mini.js miniIlerle sarmada donar. komuta.js süresi dolan baskında sarma sürüyorsa otomatikSavun. Yuzey ana
   menüde "Dinlen ve bekle" (Yıldız Zamanı'nın altında); agacGoster r.arayuz → koloniOlaylari. Testler sabit süreleri
   zaman.js'ten alır (ZN_NOBET/ZN_GUN/ZN_SAAT); testler/zaman.test.js. Telefonda denenmedi.
+- SÜRÜM 3.17 (23 Kasım, Murat: "Ayarlar'da oyun içi günün döngüsü seçilebilsin, en az 10 en çok 30 dakika, 5'er"; nöbet
+  uzunluğu olarak yorumlandı, gün = 6 nöbet): zaman.js nobetDakikasiAyarla/nobetDakikasi (10-30, 5'er), zamanOrani()
+  = NOBET_SN / (dk × 60) yıldız sn / gerçek sn, gercekSn(); zamanAkit sn += dt × oran; zamanMetni kalan dakikası gerçek.
+  d.zaman.sn ve bütün oyun içi süreler yıldız saniyesi (değişmez); koloni/tarım dt gerçek. gorevler.zamanSar(d, sn yıldız)
+  hedefe kadar gerçek 60 sn adımlarla, r.gercek; dinlen/dinlenMenu dakikaları gerçek. kayit.js VARSAYILAN_AYARLAR.nobetDakika 10;
+  App.js okuyunca ve değişince nobetDakikasiAyarla; Ayarlar.js "Nöbet uzunluğu" + Artır/Azalt. Testler varsayılan 10.
+  Telefonda denenmedi.
 - Sıradaki: v4 paketinin bütün belgeleri işlendi; KAPSAM.md'de [~] notları (Bahtiyar'a sorulacaklar) ve telefonda deneme.
 
 ## Sesler
