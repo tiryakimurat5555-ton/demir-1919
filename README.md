@@ -6,6 +6,9 @@ tesis kurar, ileride gemini parça parça inşa edip uzaya açılırsın.
 
 Yapımcı: Bahtiyar Cankurt (tasarım belgeleri belgeler/ içinde). Expo Go ile iPhone ve Android'de çalışır.
 
+## Bu sürümde (3.14)
+- Uygulama simgesi: Aethelis, Rise of the Colony kapak resmi (iPhone ve Android; Android'de uyarlanır simge).
+
 ## Bu sürümde (3.13)
 - Zorunlu savaş eğitimi: uzayda ve karada ilk çatışma başlamak üzereyken önce hasarsız, dokuz adımlı bir simülatör
   açılır (nişan, ateş, kalkan/zırh frekansı, torpido ya da ağır saldırı, kalkan/siper, kaçınma, karşı ateş, yetenek,

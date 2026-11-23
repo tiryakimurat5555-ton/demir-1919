@@ -653,6 +653,10 @@ Demir 1919 oyunu silindi; geçmişi git kaydında (son sürüm 1.06, commit 556f
   hasar yok, yineler), egitimBitir (bayrak; sonra varsa savasBaslat, olay yeniSavas → Yuzey onYukle; yoksa bitti).
   simulatorMenu (menüde "Savaş simülatörü"; d.savasBekle egitim spec'i). Testler: bunfig.toml preload
   testler/hazirlik.js EGITIM_AYAR.zorunlu = false; testler/egitim.test.js açar. Telefonda denenmedi.
+- SÜRÜM 3.14 (23 Kasım, Murat kapak resmini ekledi: "uygulama simgesi yap"): assets/simge/icon.png (1376×768 resmin ortadan
+  768×768 karesi, 1024 px; logo içinde), adaptive-on.png (aynı kare 640 px, saydam 1024 tuvalin ortasında: Android maskesinin
+  güvenli alanı) ve adaptive-arka.png (bulanık, %55 karartılmış kare). app.json icon ve android.adaptiveIcon. Simge yerel
+  ayar: Expo Go'da görünmez, ancak yeni APK/iOS derlemesiyle gelir (eas update getirmez). version 0.1.0 değişmedi.
 - Sıradaki: v4 paketinin bütün belgeleri işlendi; KAPSAM.md'de [~] notları (Bahtiyar'a sorulacaklar) ve telefonda deneme.
 
 ## Sesler

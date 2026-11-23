@@ -12,7 +12,12 @@
       "supportsTablet": true
     },
     "android": {
-      "package": "com.murat5561.demir1919"
+      "package": "com.murat5561.demir1919",
+      "adaptiveIcon": {
+        "foregroundImage": "./assets/simge/adaptive-on.png",
+        "backgroundImage": "./assets/simge/adaptive-arka.png",
+        "backgroundColor": "#0B0F1A"
+      }
     },
     "runtimeVersion": {
       "policy": "appVersion"
@@ -24,6 +29,7 @@
     },
     "updates": {
       "url": "https://u.expo.dev/c16f7fc6-b024-4e29-b55c-b0a304381807"
-    }
+    },
+    "icon": "./assets/simge/icon.png"
   }
 }
