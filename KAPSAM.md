@@ -1104,7 +1104,8 @@ bütün bölümlerini sırayla sayar (21 Kasım: v3 paketiyle sekiz belge daha g
       ustalıkları). Belgede adı geçen ama oyunda karşılığı olmayan kazançlar (ör. Selim ev maliyeti −%15, Defne okul hızı)
       kartta yazılmadı; kart yalnız oyunda gerçekten olanı söyler.
       [~] Yerleşimci adları eşlendi: Selim → Torvok, Nadia → Sira-Vel, Tarik → Brom, Lira → Julian, 13. yerleşimci → Tina,
-      Vaelis → Halvar, Ayla → Nerissa, Ozan-7 → Mateo (Bahtiyar'a soruldu). YER-33 şölen salonu: on yerleşim binası.
+      Vaelis → Halvar, Ayla → Nerissa, Ozan-7 → Mateo. Murat (23 Kasım): esas liste Paket 1/8'deki on altı kişi; kurucu ekip
+      Malkenli (Malken adları), ötekilerin çoğu yabancı, birkaçı Türkçe. Kartlarda yalnız oyundaki adlar okunur. YER-33 şölen salonu: on yerleşim binası.
       YER-38 ve YER-40 ön şartlarla kendiliğinden; YER-40 kartında "Kitabeyi dinle" (kurucular ve doğan çocuklar).
 - [x] 4.1 sıfır kilitlenme: ertelemek hiçbir sistemi durdurmaz; pano siparişi cezasız. [x] 4.2 uyarılı görevler (YER-11,
       21, 31, ANA-06, ANA-19) hazır olunca bir kez sesli uyarı okunur ve kartta durur. [~] Görevler "kabul" edilmez;
@@ -1114,7 +1115,7 @@ bütün bölümlerini sırayla sayar (21 Kasım: v3 paketiyle sekiz belge daha g
       tek cümlelik özet (tamamlanan ve açılan görevler). [~] Kilometre taşı sesi her türde aynı (ayrı kapı/radyo sesi yok).
 ### v5 paketi tamam
 - [x] Paket 1-16'nın hepsi işlendi (4.0-4.7).
-- [~] Bahtiyar'a: Paket 7'deki yerleşimci adları Paket 1/8'deki on altı kişiyle uyuşmuyor; 4.7'de eşlendi (yukarıda).
+- [x] Yerleşimci adları: Paket 1/8 listesi esas (Murat, 23 Kasım). Rastgele üretilen mürettebat adları da bu düzende (4.7).
 
 ## Sıradaki adımlar (sırayla)
 0. Tonoflenya genişlemesi, yönergedeki sırayla: [2.1: Malken (12); 2.2: tarihçe (13); 2.3: atlas (14); 2.4: eşya,

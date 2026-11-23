@@ -847,6 +847,9 @@ Demir 1919 oyunu silindi; geçmişi git kaydında (son sürüm 1.06, commit 556f
   - İzleyiciler: saha.avlanan (balik.js), saha.eslikGecmis (asansör eşliği), d.uretilenTarif (tezgah.js uret), pazar.orinAlim
     (orinAl/orinSat), pazar.orinGeldi. Yuzey ana menüde "Görev terminali" (Savaş eğitimi'nin üstünde).
   - testler/gorevAgi.test.js (8).
+  - Adlar (Murat, 23 Kasım): esas liste Paket 1/8'in on altı yerleşimcisi; kurucu ekip Malkenli (Malken adları), ötekilerin
+    çoğu yabancı, birkaçı Türkçe. seslendirme.js ERKEK_ADLAR/KADIN_ADLAR ve murettebat.js SOYADLAR (rastgele subaylar) bu düzende;
+    eski kayıtlar için cinsiyeti() eski Türkçe adları da tanır. Paket 7'deki adlar kullanılmaz (eşleme gorevAgi.js başında).
 - Sıradaki: v5 bitti. Telefonda deneme ve Murat/Bahtiyar'ın geri bildirimi.
 
 ## Sesler

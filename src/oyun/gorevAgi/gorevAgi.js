@@ -161,7 +161,7 @@ G("YER-20", "Sera ve Vaha Genişletme (Günlük Mahsul)", ["YER-07", "YER-13"], 
   { kat: "kiyi", bekle: "Çiftçilik, dokuma ve aşhane zinciri.", nasil: "Aşhane, atölye ya da vahadan gelen gündelik tohum hediyelerini bekle ya da Orin'den tohum al." });
 G("YAN-09", "Sığınaktaki Öğretmen (Öğretmen Defne)", ["ANA-05", "YER-03"], (d) => katildi(d, "defne"), "Öğretmen Defne koloniye katılır; okul planı.",
   { kat: "hikaye", bekle: "Bekletilebilir.", nasil: katNasil("Defne", "koşulu Yerleşimciler listesinde.") });
-G("YAN-10", "Yıkık Kubbeden Çıkan Usta (Torvok)", ["ANA-05", "YER-08"], (d) => katildi(d, "torvok"), "Torvok koloniye katılır (Paket 7'de Mimar Selim).",
+G("YAN-10", "Yıkık Kubbeden Çıkan Usta (Torvok)", ["ANA-05", "YER-08"], (d) => katildi(d, "torvok"), "Torvok koloniye katılır.",
   { kat: "hikaye", bekle: "Bekletilebilir.", nasil: katNasil("Torvok", "koşulu Yerleşimciler listesinde.") });
 G("YAN-11", "Vaha Kenarındaki Pilot (Elara)", ["YER-20", "YER-03"], (d) => katildi(d, "elara"), "Elara koloniye katılır.",
   { kat: "hikaye", bekle: "Bekletilebilir.", nasil: katNasil("Elara", "koşulu Yerleşimciler listesinde.") });
@@ -229,11 +229,11 @@ G("YER-29", "Yeraltı Işıklandırma ve Ses İşaretçileri", ["YER-21", "YER-2
 G("YER-30", "Koloni Arşivi: İlk 2 Seti Tamamla", ["YER-13", "YER-21"], (d) => arsivSay(d) >= 2,
   "İki bağış seti: setlerin kalıcı ödülleri.",
   { kat: "imalat", bekle: "Koleksiyon hedefi.", nasil: "Arşiv vitrinlerinde parçaları bağışla.", ilerleme: (d) => Math.min(1, arsivSay(d) / 2) });
-G("YAN-21", "Kıyı Mağarasındaki Şifacı (Sira-Vel)", ["YER-12", "YER-03"], (d) => katildi(d, "siravel"), "Sira-Vel koloniye katılır (Paket 7'de Nadia).",
+G("YAN-21", "Kıyı Mağarasındaki Şifacı (Sira-Vel)", ["YER-12", "YER-03"], (d) => katildi(d, "siravel"), "Sira-Vel koloniye katılır.",
   { kat: "hikaye", bekle: "Bekletilebilir.", nasil: katNasil("Sira-Vel", "koşulu Yerleşimciler listesinde.") });
-G("YAN-22", "Gölgedeki Zanaatkâr (Brom)", ["YER-18", "YER-17"], (d) => katildi(d, "brom"), "Brom koloniye katılır (Paket 7'de Tarik).",
+G("YAN-22", "Gölgedeki Zanaatkâr (Brom)", ["YER-18", "YER-17"], (d) => katildi(d, "brom"), "Brom koloniye katılır.",
   { kat: "hikaye", bekle: "Bekletilebilir.", nasil: katNasil("Brom", "koşulu Yerleşimciler listesinde.") });
-G("YAN-23", "Gezgin Ses Ustası (Julian)", ["YER-26", "YER-03"], (d) => katildi(d, "julian"), "Julian koloniye katılır (Paket 7'de Lira).",
+G("YAN-23", "Gezgin Ses Ustası (Julian)", ["YER-26", "YER-03"], (d) => katildi(d, "julian"), "Julian koloniye katılır.",
   { kat: "hikaye", bekle: "Bekletilebilir.", nasil: katNasil("Julian", "koşulu Yerleşimciler listesinde.") });
 G("YAN-24", "İlk Düğün Çanı", ["YER-25"], (d) => !!aile(d).es || (aile(d).ciftler || []).length > 0, "Evlilik: kaptanın ya da arabuluculukla iki yerleşimcinin.",
   { kat: "aile", bekle: "Evlilik tamamen senin tercihin.", nasil: "Kademe 8'deki bir yerleşimcinin konuşma menüsünde evlenme teklifi; ya da Aile ve nesiller'de arabuluculuk." });
@@ -292,13 +292,13 @@ G("YER-35", "İlk Genç Çırak'ın Mezuniyeti", ["YER-22", "YAN-25"], ciraKVar,
 G("YER-36", "Gelişmiş Tıbbi ve Botanik Laboratuvarı", ["YER-20", "YAN-32"], (d) => tesis(d, "kseno_eczane"),
   "Kseno eczanesi: gezegen bitkileri ve Malken otlarından özgün ilaçlar.",
   { kat: "insa", bekle: "Ticaret dengesi korunur.", nasil: "Terminalde Kseno Eczane'yi kur." });
-G("YAN-36", "Eski İstasyon Bilinci (Tina)", ["ANA-15", "YER-03"], (d) => katildi(d, "tina"), "Tina koloniye katılır (Paket 7'de 13. yerleşimci).",
+G("YAN-36", "Eski İstasyon Bilinci (Tina)", ["ANA-15", "YER-03"], (d) => katildi(d, "tina"), "Tina koloniye katılır.",
   { kat: "hikaye", bekle: "Bekletilebilir.", nasil: katNasil("Tina", "koşulu Yerleşimciler listesinde.") });
-G("YAN-37", "Sürgün Bilgin (Halvar)", ["ANA-15", "YER-13"], (d) => katildi(d, "halvar"), "Halvar koloniye katılır (Paket 7'de Vaelis).",
+G("YAN-37", "Sürgün Bilgin (Halvar)", ["ANA-15", "YER-13"], (d) => katildi(d, "halvar"), "Halvar koloniye katılır.",
   { kat: "hikaye", bekle: "Bekletilebilir.", nasil: katNasil("Halvar", "koşulu Yerleşimciler listesinde.") });
-G("YAN-38", "Gezegen Korucusu (Nerissa)", ["ANA-13", "YER-12"], (d) => katildi(d, "nerissa"), "Nerissa koloniye katılır (Paket 7'de Ayla).",
+G("YAN-38", "Gezegen Korucusu (Nerissa)", ["ANA-13", "YER-12"], (d) => katildi(d, "nerissa"), "Nerissa koloniye katılır.",
   { kat: "hikaye", bekle: "Bekletilebilir.", nasil: katNasil("Nerissa", "koşulu Yerleşimciler listesinde.") });
-G("YAN-39", "Yıldız Haritacısı (Mateo)", ["ANA-14", "YER-33"], (d) => katildi(d, "mateo") && ((d.yer && d.yer.katilan) || []).length >= 16, "Mateo katılır; on altı kişilik kadro tamam (Paket 7'de Ozan-7).",
+G("YAN-39", "Yıldız Haritacısı (Mateo)", ["ANA-14", "YER-33"], (d) => katildi(d, "mateo") && ((d.yer && d.yer.katilan) || []).length >= 16, "Mateo katılır; on altı kişilik kadro tamam.",
   { kat: "hikaye", bekle: "Bekletilebilir.", nasil: katNasil("Mateo", "koşulu Yerleşimciler listesinde; on altı yerleşimcinin hepsi gerekir."), ilerleme: (d) => Math.min(1, ((d.yer && d.yer.katilan) || []).length / 16) });
 G("YAN-40", "Öğretmen Defne (K2-K3): İlk Mezunlar", ["YAN-26", "YER-35"], kadDenetim("defne", 3), "Defne'nin onuncu kademe finali.",
   { kat: "hikaye", bekle: "Karakter finali.", nasil: kadNasil("Defne", 3), ilerleme: kadIlerleme("defne", 3) });
@@ -312,7 +312,7 @@ G("YAN-44", "Sira-Vel (K1-K3): Kıyıların Şifası", ["YAN-21", "YER-36"], kad
   { kat: "hikaye", bekle: "Karakter finali.", nasil: kadNasil("Sira-Vel", 3), ilerleme: kadIlerleme("siravel", 3) });
 G("YAN-45", "Brom (K1-K3): Sesin Madeni", ["YAN-22", "YER-31"], kadDenetim("brom", 3), "Brom'un onuncu kademe finali.",
   { kat: "hikaye", bekle: "Karakter finali.", nasil: kadNasil("Brom", 3), ilerleme: kadIlerleme("brom", 3) });
-G("YAN-46", "Julian (K1-K3): Altı Mevsimin Şarkısı", ["YAN-23", "YER-33"], kadDenetim("julian", 3), "Julian'ın onuncu kademe finali; taverna moralı iki katı.",
+G("YAN-46", "Julian (K1-K3): Altı Mevsimin Şarkısı", ["YAN-23", "YER-33"], kadDenetim("julian", 3), "Julian'ın onuncu kademe finali; taverna morali iki katı.",
   { kat: "hikaye", bekle: "Karakter finali.", nasil: kadNasil("Julian", 3), ilerleme: kadIlerleme("julian", 3) });
 G("YAN-47", "Kaptan Orin'in Gizli Rotası", ["YAN-12", "ANA-15"], (d) => !!pz(d).orinGeldi, "Orin'in stoğunda Tonoflenya ve Sis egzotikleri, seyrek Malazar eşyası.",
   { kat: "ticaret", bekle: "Ticaret finali.", nasil: "Tonoflenya'yı gördükten sonra Orin'in haftalık stoğu genişler." });

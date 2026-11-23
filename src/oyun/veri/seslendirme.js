@@ -1,5 +1,5 @@
 // Seslendirilmiş telsiz ve gemi içi konuşmaları (ElevenLabs, 1.7).
-// Adlar prosedürel olduğu için kayıtlarda ad geçmez: önce rehber "Telsizci Aras Kaya" der, sonra kayıt çalar.
+// Adlar prosedürel olduğu için kayıtlarda ad geçmez: önce rehber "Telsizci Zarek Sol-Zhaor" der, sonra kayıt çalar.
 // Kayıt yalnız konuşan kişi kapsülden sağ çıkan öncüyse (murettebat sırası 0, 1, 2) ve sesin
 // cinsiyetiyle uyuşuyorsa çalar; başka biri konuşuyorsa metin eskisi gibi rehberle okunur.
 // Saf JavaScript: ekran sesi src/ses/telsiz.js ile çalar.
@@ -54,15 +54,19 @@ export const KAYITLAR = {
 };
 
 // Ad listeleri (murettebat.js de bunları kullanır): eski kayıtlarda cinsiyet alanı yoksa addan anlaşılır
-export const ERKEK_ADLAR = ['Demir', 'Aras', 'Kaan', 'Tolga', 'Bora', 'Orhan', 'Toprak', 'Umut', 'Rüzgar'];
-export const KADIN_ADLAR = ['Lyra', 'Selin', 'Mira', 'Ece', 'Nil', 'Defne', 'Asya', 'Ada', 'İlke'];
+// 4.7 (Bahtiyar ve Murat): kurucu ekip Malkenli, ötekiler çoğu yabancı, birkaçı Türkçe; on altı yerleşimcinin listesi gibi.
+export const ERKEK_ADLAR = ['Kaelan', 'Riven', 'Torin', 'Davor', 'Teo', 'Orsen', 'Halden', 'Corvin', 'Veyran', 'Silas', 'Emir', 'Tolga'];
+export const KADIN_ADLAR = ['Lyra', 'Mira', 'Selene', 'Ilyra', 'Nessa', 'Thalia', 'Vera', 'Saria', 'Ione', 'Ece', 'Ada', 'Selin'];
+// Eski kayıtlardaki adlar (cinsiyet alanı yoksa addan anlamak için)
+const ESKI_ERKEK = ['Demir', 'Aras', 'Kaan', 'Tolga', 'Bora', 'Orhan', 'Toprak', 'Umut', 'Rüzgar'];
+const ESKI_KADIN = ['Lyra', 'Selin', 'Mira', 'Ece', 'Nil', 'Defne', 'Asya', 'Ada', 'İlke'];
 
 export function cinsiyeti(uye) {
   if (!uye) return null;
   if (uye.cinsiyet) return uye.cinsiyet;
   const ilk = (uye.ad || '').split(' ')[0];
-  if (ERKEK_ADLAR.includes(ilk)) return 'e';
-  if (KADIN_ADLAR.includes(ilk)) return 'k';
+  if (ERKEK_ADLAR.includes(ilk) || ESKI_ERKEK.includes(ilk)) return 'e';
+  if (KADIN_ADLAR.includes(ilk) || ESKI_KADIN.includes(ilk)) return 'k';
   return null;
 }
 

@@ -2,7 +2,7 @@
 // Tohumlu rastgele sayı: aynı oyun her açılışta aynı isimleri verir.
 
 import { ERKEK_ADLAR, KADIN_ADLAR } from './seslendirme';
-const SOYADLAR = ['Kaya', 'Thorne', 'Yıldız', 'Vale', 'Akın', 'Soykan', 'Erdem', 'Okyay', 'Varol', 'Karan', 'Ilgaz', 'Tunç'];
+const SOYADLAR = ['Val-Rhen', 'Sol-Varek', 'Mar-Thessa', 'Vex-Dorin', 'Thorne', 'Vale', 'Kross', 'Halloway', 'Dren', 'Ashby', 'Kaya', 'Yıldız'];
 
 export const UZMANLIKLAR = {
   muhendis: { ad: 'Mühendislik', rol: 'Başçarkçı' },
