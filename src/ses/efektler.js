@@ -181,6 +181,20 @@ const KAYNAKLAR = {
   ortam_okul: require('../../assets/ses/yerlesim/ortam_okul.mp3'),
   ortam_hamam: require('../../assets/ses/yerlesim/ortam_hamam.mp3'),
   ortam_gozlem: require('../../assets/ses/yerlesim/ortam_gozlem.mp3'),
+  // 4.2: festival müzikleri (v5 Paket 3A; Bahtiyar'ın kayıtları), İkmal İskelesi ve pazar efektleri (ElevenLabs)
+  festival_alti_yildiz: require('../../assets/ses/festival_alti_yildiz.mp3'),
+  festival_varek: require('../../assets/ses/festival_varek.mp3'),
+  festival_axira: require('../../assets/ses/festival_axira.mp3'),
+  festival_elyndra: require('../../assets/ses/festival_elyndra.mp3'),
+  festival_ekmek: require('../../assets/ses/festival_ekmek.mp3'),
+  festival_dunya_isigi: require('../../assets/ses/festival_dunya_isigi.mp3'),
+  ortam_iskele: require('../../assets/ses/yerlesim/ortam_iskele.mp3'),
+  ortam_iskele_gece: require('../../assets/ses/yerlesim/ortam_iskele_gece.mp3'),
+  orin_inis: require('../../assets/ses/orin_inis.wav'),
+  el_kasa: require('../../assets/ses/el_kasa.wav'),
+  el_bas_ton: require('../../assets/ses/el_bas_ton.wav'),
+  el_cark: require('../../assets/ses/el_cark.wav'),
+  el_illuzyon: require('../../assets/ses/el_illuzyon.wav'),
 };
 
 // Ortam döngülerinin kendi düzeyleri (konuşmanın altında kalsınlar diye düşük)
@@ -196,6 +210,14 @@ const DONGULER = {
   ortam_okul: 0.55,
   ortam_hamam: 0.55,
   ortam_gozlem: 0.55,
+  festival_alti_yildiz: 0.6,
+  festival_varek: 0.6,
+  festival_axira: 0.6,
+  festival_elyndra: 0.6,
+  festival_ekmek: 0.6,
+  festival_dunya_isigi: 0.6,
+  ortam_iskele: 0.55,
+  ortam_iskele_gece: 0.55,
   ortam_yuzey: 0.55,
   ortam_vadi: 0.55,
   ortam_terminal: 0.55,
@@ -291,6 +313,9 @@ const DONGULER = {
 // açılışta açmamak için tembel: savaş başında (onYukle) ya da ilk çalındığında açılır, savaş bitince bırakılır.
 const TEMBEL = {
   // Yerleşimcilerin imza cümleleri (v5 Paket 1: selam, teşekkür, kızgınlık; ElevenLabs)
+  imza_orin_selam: require('../../assets/ses/yerlesim/imza/orin_selam.mp3'),
+  imza_orin_tesekkur: require('../../assets/ses/yerlesim/imza/orin_tesekkur.mp3'),
+  imza_orin_kizgin: require('../../assets/ses/yerlesim/imza/orin_kizgin.mp3'),
   imza_sorya_selam: require('../../assets/ses/yerlesim/imza/sorya_selam.mp3'),
   imza_sorya_tesekkur: require('../../assets/ses/yerlesim/imza/sorya_tesekkur.mp3'),
   imza_sorya_kizgin: require('../../assets/ses/yerlesim/imza/sorya_kizgin.mp3'),

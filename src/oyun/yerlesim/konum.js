@@ -51,6 +51,11 @@ export function kisiKonumu(d, yid) {
   const yer = programYeri(d, yid);
   const hedef = PROGRAM_YERI[yer] || 'kamp';
   const eylem = YER_EYLEM[yer] || 'işinin başında';
+  // Festival süresince herkes meydanda, festival alanının çevresinde (v5 3A bölüm 6)
+  if (d.festival && d.festival.aktif && yerVar(d, 'meydan')) {
+    const a = (i / YERLESIMCI_SIRASI.length) * Math.PI * 2;
+    return { mekan: 'meydan', x: 3230 + Math.cos(a) * 7, y: 34 + Math.sin(a) * 4, eylem: 'kutlamada', yer: 'meydan', bina: 'meydan' };
+  }
   const dx = ((i % 4) - 1.5) * 3.2;
   const dy = (Math.floor(i / 4) % 4) * 2.2;
   if (hedef === 'sera' && d.bayrak && d.bayrak.sondaj) return { mekan: 'tarim', x: 3010 + dx, y: 9 + dy, eylem, yer, bina: 'sera' };

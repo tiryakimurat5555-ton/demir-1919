@@ -47,7 +47,7 @@ export function hazirla(d) {
   return y;
 }
 
-function kayit(d, id) {
+export function kayit(d, id) {
   const y = hazirla(d);
   if (!y.kisi[id]) y.kisi[id] = { p: 0, k: 0, sohbetGun: 0, hediyeGun: 0, hediyeler: [], sahneGun: 0, izlenen: [], sahne: null };
   const r = y.kisi[id];
@@ -59,7 +59,7 @@ function kayit(d, id) {
   return r;
 }
 
-function katil(d, id, sessiz) {
+export function katil(d, id, sessiz) {
   const y = d.yer;
   if (y.katilan.includes(id)) return false;
   y.katilan.push(id);
@@ -265,12 +265,12 @@ export function sohbetYanitla(d, id, ton, miz) {
 }
 
 // --- Hediye (Paket 8 5.2; günde 1, haftada 2) ---
-const yiyecekMi = (k) => k.indexOf('urun_') === 0 || k.indexOf('erzak_') === 0;
+export const yiyecekMi = (k) => k.indexOf('urun_') === 0 || k.indexOf('erzak_') === 0;
 export function varlik(d, k) {
   if (k.indexOf('erzak_') === 0) return (d.tarim && d.tarim.erzak && d.tarim.erzak[k.slice(6)]) || 0;
   return ZN.miktar(d, k);
 }
-function varlikEkle(d, k, n) {
+export function varlikEkle(d, k, n) {
   if (k.indexOf('erzak_') === 0) {
     if (d.tarim && d.tarim.erzak) d.tarim.erzak[k.slice(6)] = Math.max(0, (d.tarim.erzak[k.slice(6)] || 0) + n);
     return;
@@ -329,7 +329,10 @@ export function hediyeVer(d, id, k) {
   r.hediyeGun = g;
   r.hediyeler = [...(r.hediyeler || []).filter((x) => haftaNo(x) === haftaNo(g)), g];
   const tur = tepkiTuru(id, k);
-  const carpan = tur === 'sever' && ozelGunMu(d, id) ? 2 : 1;
+  // Dünya Işığı festivalinin çekilişi (v5 3A): talihlinin bir sonraki sevdiği hediyesi iki kat
+  const cekilis = tur === 'sever' && r.cekilis;
+  if (cekilis) r.cekilis = false;
+  const carpan = tur === 'sever' && (ozelGunMu(d, id) || cekilis) ? 2 : 1;
   const sonuc = puanEkle(d, id, PUAN[tur] * carpan);
   const soz = tur === 'sever' ? y.imza.tesekkur : tur === 'sevmez' ? y.imza.kizgin : 'Teşekkürler Kaptan, işime yarar.';
   const metin = y.kisa + ': "' + soz + '" ' + (carpan > 1 ? 'Özel bir günde sevdiği hediye: iki kat sevindi. ' : '') + 'İlişki ' + (sonuc.kazanc >= 0 ? sonuc.kazanc + ' puan arttı.' : -sonuc.kazanc + ' puan azaldı.') + (sonuc.metin ? ' ' + sonuc.metin : '');
@@ -398,6 +401,7 @@ export function kisiMenu(d, id, selam) {
     ogeler: [
       ...(r.sahne && KADEME_SAHNELERI[id] && KADEME_SAHNELERI[id][r.sahne] ? [{ id: 'sahne', etiket: 'Kademe ' + r.sahne + ' sahnesi: ' + KADEME_SAHNELERI[id][r.sahne].b, alt: (x) => sahneMenu(x, id) }] : []),
       ...bekleyenOlayOgesi(d, id),
+      ...KISI_EKLERI.flatMap((f) => f(d, id)),
       { id: 'sohbet', etiket: 'Konuş', ipucu: 'Günlük sohbet; günde bir kez ilişki puanı verir.', alt: (x) => sohbetMenu(x, id) },
       { id: 'hediye', etiket: 'Hediye ver', alt: (x) => hediyeMenu(x, id) },
       { id: 'profil', etiket: 'Profil kartı', yap: (x) => ({ metin: profilMetni(x, id) }) },
@@ -597,6 +601,7 @@ export function takvimMenusu(d) {
       { id: 'dogum', etiket: 'Yaklaşan doğum günleri', yap: () => ({ metin: yakin.length ? yakin.join('; ') + '.' : 'Kayıtlı doğum günü yok.' }) },
       { id: 'mevsimler', etiket: 'Dört mevsim', yap: () => ({ metin: Z.MEVSIMLER.map((m, i) => m.ad + ', ' + (i * 14 + 1) + '-' + (i + 1) * 14 + '. günler: ' + m.etki).join(' ') }) },
       { id: 'nobet', etiket: 'Bugün', yap: (x) => ({ metin: Z.zamanMetni(x) }) },
+      ...TAKVIM_EKLERI.flatMap((f) => f(d)),
     ],
   };
 }
@@ -606,6 +611,10 @@ export function bagMetni(d) {
   const ort = k.length ? k.reduce((a, id) => a + kayit(d, id).p, 0) / k.length : 0;
   return 'Ortalama yakınlık ' + Math.round(ort) + ' puan. Her kademe atlayışı koloniye iki moral katar.';
 }
+// 4.2: festival.js ve pazar.js kendi öğelerini buraya ekler (döngüsel içe aktarma olmasın diye)
+export const PANEL_EKLERI = [];
+export const KISI_EKLERI = [];
+export const TAKVIM_EKLERI = [];
 export function panel(d) {
   hazirla(d);
   return {
@@ -616,6 +625,7 @@ export function panel(d) {
       { id: 'kisiler', etiket: 'Yerleşimciler ve profil kartları', alt: yerlesimciMenusu },
       { id: 'takvim', etiket: 'Takvim', alt: takvimMenusu },
       ...bekleyenOlayOgesi(d, null),
+      ...PANEL_EKLERI.flatMap((f) => f(d)),
     ],
   };
 }
@@ -681,7 +691,7 @@ export function eylemUygula(d, id, eylemId) {
   hazirla(d);
   if (eylemId === 'yerlesim') return { agac: (x) => panel(x) };
   if (eylemId === 'uyu') return { uyku: true };
-  if (eylemId === 'takvim') return { metin: Z.takvimMetni(d) };
+  if (eylemId === 'takvim') return { agac: (x) => takvimMenusu(x) };
   if (eylemId === 'dekor') return { agac: (x) => dekorMenusu(x) };
   if (eylemId === 'kimler') {
     const b = buradakiler(d);

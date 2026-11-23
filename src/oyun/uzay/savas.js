@@ -20,7 +20,7 @@
 //   donma, kalkanKilit, teslim }
 import { ambargoCephesi } from '../tonoflenya/bolgesel';
 import * as E from '../tarim/etki';
-import { nobet, yildizCarpani } from '../zaman';
+import { nobet, yildizCarpani, etkiCarpani } from '../zaman';
 import { kayitBul } from '../veri/seslendirme';
 import { uretec } from '../veri/murettebat';
 import { GEMI_SINIFLARI } from '../veri/gemiler';
@@ -712,7 +712,7 @@ function dusmanaHasar(d, x, olaylar, tur, hedef) {
   const dm = hedef || s.dusman;
   if (!dm || dm.govde <= 0) return;
   const T = DUSMANLAR[dm.tur];
-  let h = x * oyuncuGucu(d, s) * (d.bayrak && d.bayrak.akademiAskeri ? 1.05 : 1) * (d.bayrak && d.bayrak.gz_emp && !kara(s) ? 1.05 : 1); // akademinin askerî Ar-Ge'si (3A), Fulgur EMP mühimmatı
+  let h = x * oyuncuGucu(d, s) * etkiCarpani(d, 'hasar') * (d.bayrak && d.bayrak.akademiAskeri ? 1.05 : 1) * (d.bayrak && d.bayrak.gz_emp && !kara(s) ? 1.05 : 1); // akademinin askerî Ar-Ge'si (3A), Fulgur EMP mühimmatı
   // Kuşanılan silah: karada doğrudan el silahı, uzayda kaptanın bataryasına odak
   if (tur === 'birincil') {
     if (kusan(d, 'plazma_tufegi')) h *= 1.8;

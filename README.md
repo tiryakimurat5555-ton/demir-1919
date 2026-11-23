@@ -6,6 +6,20 @@ tesis kurar, ileride gemini parça parça inşa edip uzaya açılırsın.
 
 Yapımcı: Bahtiyar Cankurt (tasarım belgeleri belgeler/ içinde). Expo Go ile iPhone ve Android'de çalışır.
 
+## Bu sürümde (4.2)
+- Altı festival: Altı Yıldızın Büyük Hizalanması, Varek Ocak ve Çekiç Bayramı, Axira Işık ve Tohum Gecesi, Elyndra ve Uma
+  Sessiz Yankı Gecesi, Eski Dünya Ekmek ve Hasat Şükranı, Dünya Işığı ve Yeni Yörünge Gecesi. Meydan terminalinden, kamaradaki
+  duvar takviminden ya da Yerleşim sekmesinden başlatılır; her birinin mevsimi ya da gün aralığı var, iki festival arası en az
+  beş gün. Bir nöbet sürer; herkes meydanda toplanır, hediyeler iki kat sevindirir, dışarıda festivalin kendi müziği çalar.
+  Festival alanında yarışma (yıldız akordu, dövme ritmi, karanlıkta fener, sofra ritmi, ürün sergisi, zar turnuvası), Sihirli
+  Fener Çarkı ve Büyülü İllüzyon Tahmini.
+- Koloni ilan panosu (Yaşam Bloğu ve meydan): üç ilan; yerleşimcilerin özel istekleri ve vatandaş istekleri. Koloni büyüdükçe
+  çeşit ve adet artar; yalnız elde edebileceğin şeyler istenir. Tek dokunuşla hepsini teslim et; kredi, yakınlık, moral,
+  takas kuponu. Yerleşimcilerden "Görev al".
+- İkmal İskelesi (tersane ve Tüccar Mateo ile): her haftanın yedinci günü Kaptan Orin'in kargo gemisi iner. Dalgalı fiyatlar
+  (pahalı malda yükselen zil, ucuzda alçak ton), krediyle ve kuponla alışveriş, mal mala takas, nadiren Malazar Asası.
+  Koloni tezgâhına koyduğun mallar her nöbet satılır.
+
 ## Bu sürümde (4.1)
 - Kademe sahneleri: on altı yerleşimcinin her kademesi için birer sahne (toplam 160). Biriyle bir kademe atlayınca
   "seninle konuşmak istiyor" haberi gelir; ona gidince konuşma menüsünün ilk öğesi o sahnedir. Anlatımdan sonra üç seçenek

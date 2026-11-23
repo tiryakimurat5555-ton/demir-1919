@@ -11,7 +11,7 @@
 import { rolCarpani } from './binalar';
 import { misafir } from './tonoflenya/kisiler';
 import { NOKTALAR } from './yuzey/harita';
-import { yildizCarpani, mevsimCarpani } from './zaman';
+import { yildizCarpani, mevsimCarpani, etkiCarpani, etkiVar } from './zaman';
 import * as SB from './tonoflenya/subay';
 import { HAMMADDELER } from './veri/tesisler';
 import { PARCALAR, TARIFLER } from './veri/uretim';
@@ -182,6 +182,8 @@ export function koloniGirdisi(d, tesis, t) {
   if (tesis === 'arac_hangari' && misafir(d, 'oronte')) c *= 0.5;
   if (tesis === 'dokumhane' && d.komuta && d.komuta.torvok) c *= 1 - d.komuta.torvok;
   if (tesis === 'dokumhane' && d.bayrak.gz_brom) c *= 0.9; // Ferros-Omega'dan usta Brom
+  // Varek Ocak ve Çekiç Bayramı (v5 3A): üç gün dökümhane ve tersane maliyetleri yüzde on beş az
+  if ((tesis === 'dokumhane' || tesis === 'tersane') && etkiVar(d, 'dokumIndirim')) c *= 0.85;
   // Forges'in Çelik Damar testi: zırh ve gemi gövdesi malzemesi (plaka, zırhlı plaka, gövde zırhı) yüzde on ucuz
   if (d.bayrak.ak_forges && tesis === 'dokumhane' && t.cikti && Object.keys(t.cikti).some((k) => /plaka|govde|alasim/.test(k))) for (const k of Object.keys(g)) g[k] = Math.max(1, Math.ceil(g[k] * 0.9));
   if (c < 1) for (const k of Object.keys(g)) if (['titanyum', 'bazalt', 'sasi_celigi', 'agir_metal', 'kizilkaya_titanyumu', 'oksit_celik'].includes(k) || tesis === 'arac_hangari') g[k] = Math.max(1, Math.ceil(g[k] * c));
@@ -197,7 +199,7 @@ export function uretimBaslat(d, tesis, tarifId) {
   if (!yeterMi(d, girdi)) return { metin: 'Girdi yetmiyor: ' + girdiMetni(girdi) + '.', ses: 'red' };
   harca(d, girdi);
   // Vaelin topluluğu tokken metandan gaz yakıtı yüzde elli hızlı (tarim-ve-kseno-botanik bölüm 6)
-  const kalan = t.sure / uretimHizi(d) / yildizCarpani(d, 'uretim') / (t.girdi.metan && d.tarim && d.tarim.besli.vaelin ? 1.5 : 1) / rolCarpani(d, tesis) / (tesis === 'dokumhane' ? mevsimCarpani(d, 'dokum') : 1) / (d.bayrak.yk_tina_10 ? 1.1 : 1); // evrensel bina rolü: topluluk ve nöbet
+  const kalan = t.sure / uretimHizi(d) / yildizCarpani(d, 'uretim') / (t.girdi.metan && d.tarim && d.tarim.besli.vaelin ? 1.5 : 1) / rolCarpani(d, tesis) / (tesis === 'dokumhane' ? mevsimCarpani(d, 'dokum') : 1) / (d.bayrak.yk_tina_10 ? 1.1 : 1) / etkiCarpani(d, 'uretim'); // evrensel bina rolü: topluluk ve nöbet
   d.koloni.uretimler.push({ tesis, tarif: t.id, kalan });
   return { metin: t.ad + ': iş başladı. Yaklaşık ' + Math.ceil(kalan) + ' saniye.', ses: 'dugme' };
 }

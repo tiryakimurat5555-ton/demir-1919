@@ -729,8 +729,31 @@ Demir 1919 oyunu silindi; geçmişi git kaydında (son sürüm 1.06, commit 556f
     ciftAnahtari. yerlesim.js d.yer.uyum, uyumEkle, olayDenetle (gün başı, günde bir), olayMenu/olaySec, sosyalSatir (profil).
     Uygulanan sinerjiler: sin_zarek_elara seyir yakıtı ×0,92, sin_sorya_veysel kalkış peksimeti, sin_lyris_siravel hamam,
     sin_veysel_kaelon müzik kutusu. Dikkat: sahne dosyalarında kesme işaretli metinler ters tırnak.
-- Sıradaki (v5, sırayla): 4.2 Paket 3A festivaller (6 mp3,
-  /home/claude/v5_festival → assets) + Paket 2 ilan panosu/Kaptan Orin + Paket 11; 4.3 Paket 3B arşiv ve hobiler + Paket 12/13;
+- SÜRÜM 4.2 (23 Kasım): Paket 3A festivaller + Paket 2 + Paket 11. Telefonda denenmedi.
+  - yerlesim/festival.js: FESTIVALLER 6 (kosul metni, dongu 'yil' | 'kor14' | gün, katki {yiyecek, ...}, yarisma op | sergi | zar),
+    d.festival {aktif, bitis, kazandi, yarismaYapildi, stand, son {id: gun, yil, mevsim}, sonBitisGun}; engel (GENEL_BEKLEME_GUN 5),
+    baslat (bir nöbet), ilerle (bitiş ödülleri), OPERASYONLAR fs_alti_yildiz (ton 6) / fs_varek (ritim ×3) / fs_elyndra (nisan 3) /
+    fs_ekmek (ritim ×2), sahne fest_yarisma; sergiSun, zarOyna, cark, illuzyon; mekanOrtami(d, mekan): DIS_MEKANLAR'da festival
+    müziği, m.ortamGece gece nöbetlerinde (Mavi Akşam, Altın Gece). konum.js festivalde herkes meydanda. Ödül etkileri zaman.js
+    etkiKoy/etkiVar/etkiCarpani (d.etkiler): bereket (koloni üretim, tarla, savaş hasarı ×1,1), tarimHiz (×1,3), dokumIndirim
+    (koloniGirdisi dökümhane/tersane ×0,85). Çekiliş: yerlesim kayıt cekilis → hediyeVer ×2.
+  - yerlesim/pazar.js: SABLONLAR (Paket 2 örnekleri 2a-2f + Paket 11'in 70 şablonu; gelecek eşyalar kimlikle: ekmek, dunya_cayi,
+    balik_konservesi, tugla, kereste, halat, komur, bakir ... Paket 10/13 bu kimliklerle eklemeli), ulasilabilir (akıllı kilit),
+    BASAMAKLAR (gün 12/30/60), istekUret (Kanal 1/2), panoYenile (gün başı, en çok 3), teslimEt, iptalEt, gorevAl; Orin: haftaGunu 7,
+    nöbet < 3; carpanlar(hafta) 0,7-1,4, orinStokUret (tohum, yakıt, hammadde, dekor 2 kupon, hibrit 1 kupon, Sis/Tonoflenya
+    egzotik ML, %12,5 Malazar), orinTakasUret, indirim (itibarKademesi 1/2/3 → %10/15/25); tezgahKoy/tezgahIlerle (nöbet başı).
+    d.pazar {pano, sayac, kupon, orin, tezgah, tezgahGelir}. ZN.ESYA malazar_asasi, malazar_kristali.
+  - yerlesim.js kancaları: PANEL_EKLERI, TAKVIM_EKLERI, KISI_EKLERI (döngüsel içe aktarma olmasın); kayit/katil/varlikEkle dışa.
+  - harita: Y_MEKANLAR.iskele (3900-3940, ortam_iskele / ortamGece ortam_iskele_gece), Y_KAPILAR.yk_iskele (meydan 3245,1.5),
+    Y_NOKTALAR ilan_panosu, festival_alani, orin_gemisi, koloni_tezgahi (gorunur(d); dunya.js süzer).
+  - Yuzey: FS.mekanOrtami bütün ortam seçimlerinde; ortamAnahtar değişince sesleriEsitle; festival başında altı yıldız akoru;
+    olay 'orin' → orin_inis; pano konumlu döngü (gündüz/gece), Orin y_orin; agacGoster mn.efekt.
+  - Sesler: festival_*.mp3 (Bahtiyar'ın 6 kaydı: ilk 302 sn, 3 sn çapraz geçiş, I=-24, 96k stereo 44,1 kHz). ElevenLabs (sfx 10 × 17,
+    Orin TTS Doğan Dağtaş KeCJmqttICgReHIwS66F eleven_v4 ~164; oturumlar araclar/oturumlar-4.2.txt): orin_inis, el_kasa, el_bas_ton,
+    el_cark, el_illuzyon (I=-18 tek kanal 22 kHz wav), konumsal y_orin, pano_gunduz/gece, yerlesim/ortam_iskele(_gece),
+    yerlesim/imza/orin_<selam|tesekkur|kizgin>.mp3.
+  - testler/pazar.test.js (13).
+- Sıradaki (v5, sırayla): 4.3 Paket 3B arşiv ve hobiler + Paket 12/13;
   4.4 Paket 5/6 maden, kıyı, aletler; 4.5 Paket 10 eşya, Paket 14/15 hayvanlar; 4.6 Paket 4 aile; 4.7 Paket 7 görev
   mimarisi + Paket 16. KAPSAM.md bölüm 62.
 

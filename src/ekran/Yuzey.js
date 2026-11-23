@@ -159,8 +159,11 @@ import {
   KUSAKLAR,
   seyahat,
   YR,
+  FS,
+  PZ,
 } from '../oyun/yuzey/gorevler';
 import { BITKILER, ISLEME_TESISI } from '../oyun/tarim/bitkiler';
+import { nobetNo } from '../oyun/zaman';
 import { UZMANLIKLAR, subayIstihdam, SEKTORLER, bosta, girdiMetni, harca, yeterMi, ilacDagit, isGucuDegis, moralMetni, moralSesi, parcaMetni, uretimBaslat, uretimListesi } from '../oyun/koloni';
 import {
   VINC_ESIGI,
@@ -248,6 +251,10 @@ const DOSYALAR = {
   dekor_akvaryum: require('../../assets/ses/konumsal/dekor_akvaryum.wav'),
   dekor_kus: require('../../assets/ses/konumsal/dekor_kus.wav'),
   dekor_can: require('../../assets/ses/konumsal/dekor_can.wav'),
+  // 4.2: ilan panosu ve Kaptan Orin (ElevenLabs)
+  pano_gunduz: require('../../assets/ses/konumsal/pano_gunduz.wav'),
+  pano_gece: require('../../assets/ses/konumsal/pano_gece.wav'),
+  y_orin: require('../../assets/ses/konumsal/y_orin.wav'),
 };
 
 // Eylem sesleri: gorev1.js'teki ses adlarını çalınacak efekte çevirir
@@ -348,6 +355,12 @@ export default function Yuzey({ onGeri, baslangic, yeniOyunUret }) {
       if (d.mekan === 'kamara')
         for (const k of d.yer.dekorlar) istenen['yk_' + k] = () => s.dongu('yk_' + k, 'dekor_' + (k === 'muzik_kutusu' ? 'muzik' : k === 'kafes_kusu' ? 'kus' : k === 'ruzgar_cani' ? 'can' : 'akvaryum'), NOKTALAR.kamara_raf, 0.5);
     }
+    // 4.2: ilan panosu (gündüz plaka tıkırtısı, gece fener vızıltısı) ve iskeledeki Orin
+    if (d.mekan === 'meydan' && NOKTALAR.ilan_panosu.gorunur(d)) {
+      const gece = nobetNo(d) >= 4;
+      istenen[gece ? 'yd_pano_gece' : 'yd_pano_gunduz'] = () => s.dongu(gece ? 'yd_pano_gece' : 'yd_pano_gunduz', gece ? 'pano_gece' : 'pano_gunduz', NOKTALAR.ilan_panosu, 0.5);
+    }
+    if (d.mekan === 'iskele' && d.pazar && d.pazar.orin) istenen.ys_orin_gemi = () => s.dosyaKaynak('ys_orin_gemi', 'y_orin', NOKTALAR.orin_gemisi, 9000);
     if (kulakMekani(d) === 'vadi') istenen.kamp_atesi = () => s.dongu('kamp_atesi', 'kamp_atesi', NOKTALAR.kamp_atesi, 0.7);
     for (const id of Object.keys(calanlar.current)) if ((id.indexOf('ys_') === 0 || id.indexOf('yd_') === 0 || id.indexOf('yk_') === 0 || id === 'kamp_atesi') && !istenen[id]) kaynakKapat(id);
     for (const id of Object.keys(istenen))
@@ -481,7 +494,7 @@ export default function Yuzey({ onGeri, baslangic, yeniOyunUret }) {
       s.boguk(d.mekan === 'kapsul' || !!d.gemide);
       const oda = odaSu(d);
       if (oda) ortamCal(oda.ortam, 0.8);
-      else ortamCal(mk.ortam, ortamOrani(d));
+      else ortamCal(FS.mekanOrtami(d, d.mekan) || mk.ortam, ortamOrani(d));
     }
   };
 
@@ -653,7 +666,13 @@ export default function Yuzey({ onGeri, baslangic, yeniOyunUret }) {
       if (sayac % 3 === 0 && d.arac && m()) m().motorAyar(s.aktif || d.oto ? 3 : 0.4);
       // Kriyo mağaralarında ara sıra buz çatlar
       if (d.mekan === 'kriyo' && sayac % 10 === 0 && Math.random() < 0.08) cal('buz_catlak', 0.4 + Math.random() * 0.4);
-      if (sayac % 10 === 0 && (d.mekan === 'vadi' || d.mekan === 'dogu')) ortamCal(MEKANLAR[d.mekan].ortam, ortamOrani(d));
+      if (sayac % 10 === 0 && (d.mekan === 'vadi' || d.mekan === 'dogu')) ortamCal(FS.mekanOrtami(d, d.mekan), ortamOrani(d));
+      // 4.2: festival başlayınca ya da bitince, iskelede gece ile gündüz arasında ortam değişir
+      if (sayac % 10 === 0) {
+        const oa = (d.festival && d.festival.aktif) + '_' + FS.mekanOrtami(d, d.mekan);
+        if (ortamAnahtar.current && ortamAnahtar.current !== oa && !d.gemide) sesleriEsitle(true);
+        ortamAnahtar.current = oa;
+      }
       if (sayac % KAYIT_ARALIGI === 0) kaydet();
       if (sayac % 10 === 0) setYazi(MEKANLAR[d.mekan].ad + ' · ' + d.koloni.binalar.length + ' tesis');
     }, ADIM_MS);
@@ -664,7 +683,7 @@ export default function Yuzey({ onGeri, baslangic, yeniOyunUret }) {
   // Açılış, çıkışta ve arka plana atılınca otomatik kayıt
   useEffect(() => {
     const d = dunya.current;
-    ortamCal(MEKANLAR[d.mekan].ortam, ortamOrani(d));
+    ortamCal(FS.mekanOrtami(d, d.mekan), ortamOrani(d));
     if (d.ayar) d.ayar = null;
     if (d.valf) d.valf = null;
     if (d.rezonans) d.rezonans = null;
@@ -766,6 +785,7 @@ export default function Yuzey({ onGeri, baslangic, yeniOyunUret }) {
   // Merkez terminali açıkken kendi ortam sesi çalar (Murat, 1.14); terminalden açılan bütün menülerde sürer,
   // katman tamamen kapanınca mekânın ortamı geri gelir (katmanKapat → sesleriEsitle)
   const terminalAcik = useRef(false);
+  const ortamAnahtar = useRef(null);
   const noktaGoster = (id, onEk) => {
     const d = dunya.current;
     const n = NOKTALAR[id];
@@ -909,6 +929,11 @@ export default function Yuzey({ onGeri, baslangic, yeniOyunUret }) {
           }
           if (r.ses) cal(EYLEM_SESI[r.ses] || r.ses, 0.8);
           if (r.efekt) setTimeout(() => cal(r.efekt, 0.8), 400);
+          // 4.2: festival başladı: altı yıldızın çan akoru, dış mekânın ortamı festival müziğine döner
+          if (r.festival) {
+            if (m()) NOBETLER.forEach((n, j) => setTimeout(() => m() && m().nota(n.akor[0], null, 0.5, 6), j * 260));
+            setTimeout(() => sesleriEsitle(true), 1800);
+          }
           if (dunya.current.sahne) {
             katmanKapatSessiz();
             sahneGoster(dunya.current.sahne, r.metin || null);
@@ -951,6 +976,7 @@ export default function Yuzey({ onGeri, baslangic, yeniOyunUret }) {
         : null,
     });
     if (soz) soyle(soz, 'istek', true);
+    if (mn.efekt) cal(mn.efekt, 0.9);
   };
 
   // Yerleşimci (v5 Paket 1/8): Konuş / Hediye ver / Profil kartı. Selam bir nöbette bir kez, kendi imza sesiyle.
@@ -1373,7 +1399,7 @@ export default function Yuzey({ onGeri, baslangic, yeniOyunUret }) {
       soyle('Yedek kompresör. Basınç yükseldikçe tıslama tizleşir. Kesik alarm başlayınca çift dokun: kompresörü devreye al. Erken açarsan boşa gider; geç kalırsan emniyet atar. Üç kez gerekir; şu ana dek ' + r.basari + '. İki parmakla çift dokun: çekil.', 'istek', true);
       return;
     }
-    ortamCal(MEKANLAR.sirtlar.ortam, 0.4);
+    ortamCal(FS.mekanOrtami(dunya.current, 'sirtlar'), 0.4);
     soyle(
       'Valf dengeleme. Basınç yükseldikçe gazın tıslaması tizleşip güçlenir. Kesik bir alarm başlayınca çift dokun: valfi açarsın. Erken açarsan basınç boşa gider; geç kalırsan baca patlar. Üç tahliye gerekir; şu ana dek ' +
         r.basari +
@@ -1582,6 +1608,9 @@ export default function Yuzey({ onGeri, baslangic, yeniOyunUret }) {
       if (m()) nb.akor.forEach((f, i) => setTimeout(() => m() && m().nota(f, null, 0.5, 5), i * 180));
       if (!durakli.current) setTimeout(() => soyle(nb.nobetMetni, 'istek', false), 900);
     }
+    // 4.2: Orin'in kargo gemisi iner (liman kornası ve iniş motoru); festival biter (dış ortam eski sesine döner)
+    if (olaylar.some((x) => x.tur === 'orin')) cal('orin_inis', 0.85);
+    if (olaylar.some((x) => x.tur === 'festivalBitti')) sesleriEsitle(true);
     if (olaylar.some((x) => x.hazir)) cal('tarim_hazir', 0.8);
     if (olaylar.some((x) => x.melez)) cal('tarim_melez', 0.8);
     // Yerel operasyonlar: acil uyarılar hemen söylenir, yeni operasyon telsiz çağrısıdır
@@ -1892,7 +1921,7 @@ export default function Yuzey({ onGeri, baslangic, yeniOyunUret }) {
       m().vincKur();
       m().vincAyar(d.vinc.x, d.vinc.yukseklik, false);
     }
-    ortamCal(MEKANLAR.plato.ortam, 0.35);
+    ortamCal(FS.mekanOrtami(dunya.current, 'plato'), 0.35);
     cal('zincir', 0.7);
     setVincAcik(true);
     soyle(
@@ -2460,7 +2489,7 @@ export default function Yuzey({ onGeri, baslangic, yeniOyunUret }) {
     const ds = dunya.current.savas;
     if (ds && ds.ortam === 'kara') {
       const mk = MEKANLAR[dunya.current.mekan];
-      if (mk && mk.ortam) ortamCal(mk.ortam, 0.3);
+      if (mk && mk.ortam) ortamCal(FS.mekanOrtami(dunya.current, dunya.current.mekan), 0.3);
     } else ortamCal('ortam_uzay', 0.25);
     savasRef.current = { acik: true, dusman: false, kaynaklar: {}, zamanlar: [] };
     // 3.9: bu savaşın düşman, silah ve vuruş seslerini belleğe al
@@ -2592,7 +2621,7 @@ export default function Yuzey({ onGeri, baslangic, yeniOyunUret }) {
       m().teraziKur(330);
       m().teraziAyar(ayakFrek(d.terazi.sapma), false);
     }
-    ortamCal(MEKANLAR.plato.ortam, 0.35);
+    ortamCal(FS.mekanOrtami(dunya.current, 'plato'), 0.35);
     setTeraziAcik(true);
     cal('hidrolik', 0.7);
     soyle(
@@ -2942,7 +2971,7 @@ export default function Yuzey({ onGeri, baslangic, yeniOyunUret }) {
     durakli.current = true;
     ayarBaslat(d, amac);
     if (m()) m().telsizKur();
-    ortamCal(MEKANLAR[d.mekan].ortam, 0.3);
+    ortamCal(FS.mekanOrtami(d, d.mekan), 0.3);
     setAyarAcik(true);
     soyle('Frekans ayarı. Kulaklığında parazit. İçinde ince, kesik kesik bir ses ara. Parmağını yukarı ya da aşağı sürükle, ya da iki parmakla çevir: kanal değişir. Sağa ya da sola hızlı kaydır: ince ayar. Ses netleşince kıpırdama, kilitlenene kadar bekle. Dokun: kanalı söylerim. İki parmakla çift dokun: ayardan çık. ' + ayarMetni(d), 'istek', true);
   };
@@ -2952,7 +2981,7 @@ export default function Yuzey({ onGeri, baslangic, yeniOyunUret }) {
     dunya.current.ayar = null;
     setAyarAcik(false);
     durakli.current = false;
-    ortamCal(MEKANLAR[dunya.current.mekan].ortam, ortamOrani(dunya.current));
+    ortamCal(FS.mekanOrtami(dunya.current, dunya.current.mekan), ortamOrani(dunya.current));
     if (soz) soyle(soz, 'istek', true);
   };
 

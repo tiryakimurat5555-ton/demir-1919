@@ -143,3 +143,19 @@ export function takvimMetni(d) {
   const m = mevsim(d);
   return 'Yıl ' + yil(d) + ', yılın ' + yilGunu(d) + '. günü; haftanın ' + haftaGunu(d) + '. günü. Mevsim: ' + m.ad + ' (' + m.yildiz + '), ' + mevsimGunu(d) + '. gün. ' + m.etki;
 }
+
+// Süreli koloni etkileri (4.2: festival ödülleri): d.etkiler[ad] = bitiş yıldız saniyesi
+export function etkiVar(d, ad) {
+  return !!(d && d.etkiler && d.etkiler[ad] > z(d).sn);
+}
+export function etkiKoy(d, ad, sn) {
+  if (!d.etkiler) d.etkiler = {};
+  d.etkiler[ad] = Math.max(d.etkiler[ad] || 0, z(d).sn) + sn;
+}
+// Festival ödüllerinin çarpanları: Altı Yıldız Bereketi (bir hafta üretim, tarım ve savaş hasarı ×1,1),
+// Axira Tohum Gecesi (üç gün tarım ×1,3)
+export function etkiCarpani(d, is) {
+  let c = etkiVar(d, 'bereket') ? 1.1 : 1;
+  if (is === 'tarla' && etkiVar(d, 'tarimHiz')) c *= 1.3;
+  return c;
+}

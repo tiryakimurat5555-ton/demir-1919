@@ -100,3 +100,32 @@ for (const id of IC_SIRA) {
   const m = icMerkez(id);
   Y_NOKTALAR['yb_' + id] = { mekan: b.mekan, x: m.x, y: m.y + 3, ad: b.ad, yaricap: 2.2, engel: 1, yerlesim: id, tarif: b.tarif };
 }
+
+// 4.2 (v5 Paket 2, 3A): İkmal İskelesi (tersane + Tüccar Mateo), meydandaki ilan panosu ve festival alanı.
+// gorunur(d): nokta yalnız koşul tutunca görünür ve listelenir (dunya.js)
+const iskeleAcik = (d) => !!(d.koloni && d.koloni.binalar.includes('tersane') && d.yer && d.yer.katilan && d.yer.katilan.includes('mateo'));
+Y_MEKANLAR.iskele = {
+  ad: 'İkmal İskelesi',
+  tarif: 'Haftalık tüccar gemisinin indiği rıhtım ve koloninin kendi satış tezgâhı. Gündüz vinçler, sandıklar, pazarlık uğultusu; gece liman feneri bipliyor, metal iskele gıcırdıyor.',
+  alan: { bati: 3900, dogu: 3940, guney: 0, kuzey: 40 },
+  ortam: 'ortam_iskele',
+  ortamGece: 'ortam_iskele_gece',
+  zemin: 'tas',
+  dis: true,
+};
+Y_KAPILAR.yk_iskele = {
+  ad: 'İkmal İskelesi yolu',
+  uclar: [
+    { mekan: 'meydan', x: 3245, y: 1.5, yon: 0, ad: 'İkmal İskelesi yolu' },
+    { mekan: 'iskele', x: 3920, y: 1.5, yon: 0, ad: 'Meydana dönen yol' },
+  ],
+  kosul: iskeleAcik,
+  gizli: (d) => !iskeleAcik(d),
+  yerlesim: true,
+  kilitMetni: 'Rıhtım için tersane ve bir tüccar gerekiyor.',
+  gecisMetni: ['Rıhtıma inen rampadan yürüyorsun. Vinç motorları, sandık sesleri.', 'Meydana çıkıyorsun.'],
+};
+Y_NOKTALAR.ilan_panosu = { mekan: 'meydan', x: 3215, y: 8, ad: 'Koloni ilan panosu', yaricap: 2, engel: 0.6, yerlesim: 'meydan', gorunur: (d) => !!(d.koloni && d.koloni.binalar.includes('yasam_blogu')), tarif: 'Yerleşimcilerin ve gelen gemilerin istek astığı ışıklı metal pano.' };
+Y_NOKTALAR.festival_alani = { mekan: 'meydan', x: 3230, y: 38, ad: 'Festival alanı', yaricap: 3, yerlesim: 'meydan', gorunur: (d) => !!(d.festival && d.festival.aktif), tarif: 'Meydanın kuzeyinde fenerler, standlar ve büyük sofra.' };
+Y_NOKTALAR.orin_gemisi = { mekan: 'iskele', x: 3920, y: 30, ad: 'Kaptan Orin ve kargo gemisi', yaricap: 3, engel: 1.5, yerlesim: 'meydan', gorunur: (d) => !!(d.pazar && d.pazar.orin), tarif: 'Orin\'in kargo gemisi.' };
+Y_NOKTALAR.koloni_tezgahi = { mekan: 'iskele', x: 3910, y: 12, ad: 'Koloni tezgâhı', yaricap: 2, engel: 0.8, yerlesim: 'meydan', tarif: 'Koloninin kendi satış tezgâhı.' };

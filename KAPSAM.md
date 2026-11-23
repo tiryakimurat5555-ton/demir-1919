@@ -886,7 +886,7 @@ bütün bölümlerini sırayla sayar (21 Kasım: v3 paketiyle sekiz belge daha g
 - [x] 1.2 karakter diyalogları derinleştirme: günlük sohbet sözleri 4.0'da; uzun kademe sahneleri 4.1'de (8A-8C, 160 sahne).
 - [x] 1.3 sesler: imza cümleleri (16 × 3) ve yeni ortam/efektler ElevenLabs; Drive'da yerleşime uygun hazır kayıt yoktu.
       Bina dış döngüleri: aşhane, atölye, taverna, tapınak, hamam, okul [x]; hayvan barınağı [ ] (Paket 14/15 ile).
-      Festival ambiyans kuralı [ ] (4.2).
+      Festival ambiyans kuralı [x] (4.2).
 - [x] 1.4 kamarada uyku: koloni döngüsü ilerler, üretim kuyruğu ve tersane kaynağı ilerlemez (d.uykuda). [~] Zanaat
       tezgâhı kuyruğu (zanaat.js) yıldız saatine bağlı, uykuda da ilerler. Envanter, maden kurtarma, evlilik: sonraki sürümler.
 ### Paket 1: yerleşimciler ve koloni mekânları (4.0)
@@ -910,7 +910,7 @@ bütün bölümlerini sırayla sayar (21 Kasım: v3 paketiyle sekiz belge daha g
       (Kısa/Orta/Uzun); Murat'ın 3.17 kararı korundu (10-30 dk, beşer, varsayılan 10).
 - [x] 5 mevcut sistemlerle bağ: hediyeler sera, mutfak ve dökümhane ürünleri. [ ] Tonoflenya diyaloglarına kademe derinliği.
 - [x] 6 sesle oynanış: meydanda iki parmak sağ/sol ile kapılar ve kişiler; mekân girişinde ortam sesi; yerleşimcilerin
-      imza sesleri kendi yerlerinden; çift dokununca Konuş / Hediye ver / Profil kartı. [ ] "Görev al" (Paket 11, 4.2).
+      imza sesleri kendi yerlerinden; çift dokununca Konuş / Hediye ver / Profil kartı. [x] "Görev al" (4.2).
 ### Paket 8: karakter etkileşim algoritması (4.0)
 - [x] 2 ölçek 0-10 / 0-1000 ve kademe kilitleri (metin). [x] 3 beş mizaç ve ton eşlemesi. [x] 4 sosyal ağ (yakın/çatışma
       profil kartında; dost halkası). [x] 5.1 sohbet (tam +20, nötr +10, ters -5; bar hızı 8A-8C). [x] 5.2 hediye (+45/+15/-15,
@@ -935,9 +935,41 @@ bütün bölümlerini sırayla sayar (21 Kasım: v3 paketiyle sekiz belge daha g
 - [x] 2 takvim: 7 gün hafta, 4 mevsim × 14 gün, yıl 56 gün; Filiz tarım ×1,2, Kor dökümhane ×1,15. [~] Sis (nadir balık,
       egzotik tüccar malı) ve Ayaz (gece -12°C, nadir kristal) etkileri balık, tüccar ve maden sistemleriyle gelecek.
       Doğum günleri takvimde ve haberde.
-- [ ] 3-6 festivaller (4.2; altı mp3 /home/claude/v5_festival'da).
+- [x] 3 başlatma kuralları: oyuncu başlatır (meydan terminali, kamara takvimi, Yerleşim sekmesi); 5 gün genel bekleme; döngüler
+      (Altı Yıldız, Axira, Elyndra yılda bir ve kendi mevsiminde; Varek Kor'da ya da 14 günde bir; Ekmek 21, Dünya Işığı 28 gün);
+      katkı (yiyecek + malzeme); bir nöbet. [~] "Sinha/Uma akşamı seçimi" yok: festival başlatıldığı andan bir nöbet sürer.
+- [x] 4 altı festival: koşullar, atmosfer metinleri, yarışmalar (yıldız akordu ton dizisi, üç aşamalı dövme ritmi, karanlıkta
+      fener nişanı, sergi, sofra ritmi, zar turnuvası), ödüller. [~] Belgede "Demir" adlı yerleşimci yok (Varek ödülü Kaelon,
+      Torvok, Brom'a). [~] Altı Yıldız'da "Akademi/Kütüphane": akademi tesisi ya da (Paket 3B ile gelecek) koloni arşivi.
+      [~] Yarışmaları yalnız ödül söylenen festivallerde (Varek, Axira, Dünya Işığı) kazanmak ödül değiştirir; ötekilerin
+      ödülleri festival bitince herkese.
+- [x] 5 hediye ×2 festival günü; Tonoflenya köprüsünden sonra Altı Yıldız'a misafirler (iki saf aether).
+- [x] 6 takvim menüsü (durum cümleleri), festival içi karnaval: festival alanı, Sihirli Fener Çarkı, Büyülü İllüzyon Tahmini,
+      herkes meydanda; ana gezegen dış mekânlarında festival müziği (bina içi, kapsül, mağara, tünel, vaha hariç).
+- [x] 1.3 festival ambiyans kuralı (00-okuma).
+### Paket 2: ilan panosu, siparişler, tüccar gemisi, tezgâh (4.2)
+- [x] 2 mekânlar: ilan panosu (Yaşam Bloğu + meydan; gündüz plaka tıkırtısı, gece fener vızıltısı), İkmal İskelesi ve tezgâh
+      (tersane + Mateo; gündüz ve gece ortamları ayrı).
+- [x] 3 Kaptan Orin: kişilik, imza sesi (konteyner kilidi + kahkaha), üç imza cümlesi ElevenLabs.
+- [x] 4.1 en çok 3 sipariş, üç tür (istek, onarım, acil kargo) ve ödülleri, 1-3 gün, cezasız. [~] Onarım ödülündeki "dekor
+      indirimi" yok.
+- [x] 4.2 her 7. gün Gümüş Şafak'ta iner, üç nöbet kalır; %70-%140; Mateo K3 önceden söyler; özel stok (tohum, dekor, yakıt,
+      egzotik), Malazar Asası ve Kristali %12,5. [~] Asa ve kristalin büyü tozu kilidi Paket 10 ile.
+- [x] 4.3 tezgâh 1-4 çeşit, nöbetlerle satış, Mateo K2 +%10. [x] 4.4 kredi, kupon, takas; satılabilenler/satılamayanlar.
+      [~] Genom kapsülleri (Paket 4/14) ve hayvan ürünleri o paketlerle.
+- [x] 5 evren itibarı indirimi (%10/%15/%25), Tonoflenya malları. [x] 6 sesli pano okuması, liman kornası ve iniş motoru,
+      fiyat sinyali (yükselen zil / alçak ton).
+### Paket 11: dinamik istek havuzu (4.2)
+- [x] 2 iki kanal: isimli (Özel istek; yakınlık) ve vatandaş (altı rol; kredi, moral, kupon). [x] 3.1 dört basamak (gün 1-12,
+      13-30, 31-60, 61+): çeşit, adet, ödül bandı. [x] 3.2 akıllı kilit (ulasilabilir), en çok 3, cezasız iptal, ertesi sabah yenisi.
+      [~] Basamak yalnız oyun gününden; bina, nüfus ve mevsim şablon seçiminde (mevsimlik ve bina şartlı şablonlar).
+- [x] 4 yetmiş şablon kimlikleriyle. [~] Henüz oyunda olmayan eşyalar (ekmek, çay, balık, tuğla, kereste, kömür, bakır ...)
+      isteyen şablonlar o eşyalar Paket 5/10/13 ile gelince kendiliğinden çıkar; şimdilik çıkanlar Paket 2 örnekleri ve
+      oyundaki hasat, erzak, hammadde, cam isteyenler. 64 (evlilik) Paket 4 ile.
+- [x] 4 bağ: isimli istek o kişiye +15..+35 (sohbetten bağımsız). [x] 5 sesle okuma sırası ve tek dokunuşla teslim.
+- [x] Paket 1 bölüm 6 "Görev al" (yerleşimcinin menüsünde).
 ### Sıradaki v5 belgeleri
-- [ ] Paket 2 (ilan panosu, Kaptan Orin, Koloni Tezgâhı), Paket 3B, Paket 4, Paket 5, Paket 6, Paket 7, Paket 10, Paket 11, Paket 12, Paket 13, Paket 14, Paket 15, Paket 16.
+- [ ] Paket 3B, Paket 4, Paket 5, Paket 6, Paket 7, Paket 10, Paket 11, Paket 12, Paket 13, Paket 14, Paket 15, Paket 16.
 - [~] Bahtiyar'a: Paket 7'deki yerleşimci adları (Selim, Nadia, Tarik, Lira, Vaelis, Ayla, Ozan-7, çiftçi Elara ...)
       Paket 1/8'deki on altı kişiyle uyuşmuyor; görev mimarisinde on altı kişiye eşlenecek.
 
