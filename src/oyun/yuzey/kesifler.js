@@ -30,7 +30,7 @@ export const SAHNELER = {
   },
   vaha_bulundu: {
     baslik: 'Saklı vaha',
-    ortam: 'ortam_vaha',
+    ortam: 'ortam_tarim', // 3.12: vahanın müziği ilk girişte de
     efekt: ['sinyal'],
     metin: (d) => [
       'Kalsit duvarların içinde küçük bir dünya: buharla beslenen otlar, şırıldayan bir kaynak, ötüşen kuş benzeri canlılar. Gezegende ilk kez maskesiz nefes alıyorsun.',

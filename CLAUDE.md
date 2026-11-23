@@ -642,6 +642,9 @@ Demir 1919 oyunu silindi; geçmişi git kaydında (son sürüm 1.06, commit 556f
 - SÜRÜM 3.11 (23 Kasım, Murat Bahtiyar'ın sera kaydını ekledi, metin yok): assets/ses/ortam_sera.mp3 (600 sn'nin baş
   sessizliği atılmış ilk 302 sn'si, 3 sn çapraz geçişli döngü, I=-24, 96k stereo; düzey 0,6). Koloni Sera Binası ve
   yatakları (tarla katmanında vaha dışı) çalar. Telefonda denenmedi.
+- SÜRÜM 3.12 (23 Kasım, Murat): vahaya ilk girişteki vaha_bulundu sahnesi de ortam_tarim çalar (önceden kuş sesi
+  ortam_vaha). Eşleme Murat'ın istediği gibi: kolonideki eski "Jeotermal Tarım Alanı" (Koloni Sera Binası) ← ortam_sera
+  (yeni kayıt); Saklı Jeotermal Kseno-Vaha ← ortam_tarim (eski tarım müziği). Telefonda denenmedi.
 - Sıradaki: v4 paketinin bütün belgeleri işlendi; KAPSAM.md'de [~] notları (Bahtiyar'a sorulacaklar) ve telefonda deneme.
 
 ## Sesler
