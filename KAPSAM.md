@@ -883,7 +883,7 @@ bütün bölümlerini sırayla sayar (21 Kasım: v3 paketiyle sekiz belge daha g
 ## 62. v5 paketi (Yeni_Guncelleme_Paketi.zip, 23 Kasım; belgeler/v5/, okuma sırası 00-OKUMA-SIRASI.md)
 ### 00-OKUMA-SIRASI (entegrasyon kuralları)
 - [x] 1.1 mevcut sistemlere saygı: yerleşim ayrı modüller (src/oyun/yerlesim/), mevcut kişiler (öncüler) yerleşimci oldu.
-- [~] 1.2 karakter diyalogları derinleştirme: günlük sohbet sözleri 4.0'da; uzun kademe sahneleri 4.1'de (8A-8C).
+- [x] 1.2 karakter diyalogları derinleştirme: günlük sohbet sözleri 4.0'da; uzun kademe sahneleri 4.1'de (8A-8C, 160 sahne).
 - [x] 1.3 sesler: imza cümleleri (16 × 3) ve yeni ortam/efektler ElevenLabs; Drive'da yerleşime uygun hazır kayıt yoktu.
       Bina dış döngüleri: aşhane, atölye, taverna, tapınak, hamam, okul [x]; hayvan barınağı [ ] (Paket 14/15 ile).
       Festival ambiyans kuralı [ ] (4.2).
@@ -914,17 +914,30 @@ bütün bölümlerini sırayla sayar (21 Kasım: v3 paketiyle sekiz belge daha g
 ### Paket 8: karakter etkileşim algoritması (4.0)
 - [x] 2 ölçek 0-10 / 0-1000 ve kademe kilitleri (metin). [x] 3 beş mizaç ve ton eşlemesi. [x] 4 sosyal ağ (yakın/çatışma
       profil kartında; dost halkası). [x] 5.1 sohbet (tam +20, nötr +10, ters -5; bar hızı 8A-8C). [x] 5.2 hediye (+45/+15/-15,
-      özel gün ×2). [x] 5.3 dost halkası +10. [ ] 5.3 arabuluculuk olayları (Paket 9 ile, 4.1). [x] 5.4 küskünlük yok, kademe
+      özel gün ×2). [x] 5.3 dost halkası +10. [x] 5.3 arabuluculuk olayları (Paket 9, 4.1). [x] 5.4 küskünlük yok, kademe
       düşmez. [x] 5.5 sohbet günde 1, hediye günde 1 / haftada 2, kademe günde en çok bir, selam nöbette bir. [ ] eş
       etkileşimi (Paket 4). [x] 7 profil kartı ses sırası; tonlarda ipucu yok, sıra günden güne değişir.
+### Paket 8A, 8B, 8C: kademe sahneleri (4.1)
+- [x] On altı yerleşimcinin her biri için kademe 1-10 sahneleri (160): başlık, 2-4 paragraf anlatım, üç seçenek (tam ton,
+      nötr, ters ton; puan 8A-8C bar hızıyla). Kademe atlayınca kişi "seninle konuşmak istiyor" haberi verir, konuşma
+      menüsünde sahne ilk öğe; görülen sahneler "Anılar" altında yeniden dinlenir. Sahnedeki öteki kişiye de puan, bayraklar,
+      moral. [x] Kademe 8 seçimleri yp_<id> = 'es' | 'bag' (Veysel ve Tina yalnız 'bag'); evlilik Paket 4 ile (4.6).
+      [~] Görev biçimli kademeler (getir, onar, bul) anlatımda geçer; gerçek getirme görevi Paket 11 ile bağlanacak.
+### Paket 9: ikili ve üçlü olaylar (4.1)
+- [x] Sosyal ocaklar, uyum ölçeği (-100..100; durum adları), 8 çatışma (iki taraf, tanık, mekân; üç yol: birinin tarafı,
+      ötekinin tarafı, orta yol uyum +40/45) ve 8 sinerji olayı; günde en çok bir olay, iki kişi de katılmış ve kademe ≥ 3.
+      Tanık yoksa ocağın başka bir katılmış üyesi. Profil kartında "Tartıştığı / Uyumlu" satırı. Panelde ve kişinin
+      menüsünde bekleyen olay.
+- [~] Sinerji ödülleri: uygulananlar sin_zarek_elara (yakıt ×0,92), sin_sorya_veysel (kalkışta ek peksimet), sin_lyris_siravel
+      (hamam stresi sıfırlar), sin_veysel_kaelon (müzik kutusu dekoru). Ötekiler bayrak; ilgili sistemler gelince bağlanacak.
+- [ ] Uyuma göre 3B ses konumlandırması (uyumlu kişilerin yan yana durması) yapılmadı.
 ### Paket 3A: takvim ve festivaller
 - [x] 2 takvim: 7 gün hafta, 4 mevsim × 14 gün, yıl 56 gün; Filiz tarım ×1,2, Kor dökümhane ×1,15. [~] Sis (nadir balık,
       egzotik tüccar malı) ve Ayaz (gece -12°C, nadir kristal) etkileri balık, tüccar ve maden sistemleriyle gelecek.
       Doğum günleri takvimde ve haberde.
 - [ ] 3-6 festivaller (4.2; altı mp3 /home/claude/v5_festival'da).
 ### Sıradaki v5 belgeleri
-- [ ] Paket 2 (ilan panosu, Kaptan Orin, Koloni Tezgâhı), Paket 3B, Paket 4, Paket 5, Paket 6, Paket 7, Paket 8A/8B/8C
-      kademe sahneleri, Paket 9, Paket 10, Paket 11, Paket 12, Paket 13, Paket 14, Paket 15, Paket 16.
+- [ ] Paket 2 (ilan panosu, Kaptan Orin, Koloni Tezgâhı), Paket 3B, Paket 4, Paket 5, Paket 6, Paket 7, Paket 10, Paket 11, Paket 12, Paket 13, Paket 14, Paket 15, Paket 16.
 - [~] Bahtiyar'a: Paket 7'deki yerleşimci adları (Selim, Nadia, Tarik, Lira, Vaelis, Ayla, Ozan-7, çiftçi Elara ...)
       Paket 1/8'deki on altı kişiyle uyuşmuyor; görev mimarisinde on altı kişiye eşlenecek.
 

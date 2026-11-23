@@ -5,6 +5,7 @@ import * as KM from '../src/oyun/komuta';
 import { zamanIlerle, eylemUygula, noktaEylemleri, zamanSar, uyu } from '../src/oyun/yuzey/gorevler';
 import * as YR from '../src/oyun/yerlesim/yerlesim';
 import { YERLESIMCILER, YERLESIM_BINALARI, CEKIRDEK } from '../src/oyun/yerlesim/veri';
+import { OLAYLAR } from '../src/oyun/yerlesim/ikili';
 import { yakindakiler, yerlerListesi, kisiYeri, gec, kisiAdi } from '../src/oyun/yuzey/dunya';
 import { KAPILAR, KISILER } from '../src/oyun/yuzey/harita';
 import * as Z from '../src/oyun/zaman';
@@ -237,5 +238,77 @@ describe('Yerleşim', () => {
       expect(y.dogum).toBeGreaterThan(0);
       expect(y.dogum).toBeLessThanOrEqual(56);
     }
+  });
+
+  test('4.1 kademe sahneleri: 16 kişi × 10 kademe, 2-4 paragraf, en az iki seçenek', () => {
+    for (const id of Object.keys(YERLESIMCILER)) {
+      for (let k = 1; k <= 10; k++) {
+        const sh = YR.KADEME_SAHNELERI[id][k];
+        expect(sh).toBeTruthy();
+        expect(sh.m.length).toBeGreaterThanOrEqual(2);
+        expect(sh.m.length).toBeLessThanOrEqual(4);
+        expect(sh.s.length).toBeGreaterThanOrEqual(1);
+        if (k !== 8 || id !== 'veysel') for (const x of sh.s) expect(typeof x.c).toBe('string');
+      }
+      // Kademe 8: yaşam ortaklığı ya da bağ (Veysel ve Tina yalnız bağ)
+      const s8 = YR.KADEME_SAHNELERI[id][8].s.map((x) => x.bayrak && x.bayrak['yp_' + id]);
+      if (id === 'veysel' || id === 'tina') expect(s8.every((v) => v === 'bag')).toBe(true);
+      else expect(s8.sort()).toEqual(['bag', 'es']);
+    }
+  });
+
+  test('4.1 tanışma sahnesi bekler; seçilince anılara geçer; kademe atlayınca yeni sahne', () => {
+    const d = koloni();
+    const m = YR.kisiMenu(d, 'sorya', true);
+    expect(m.ogeler[0].id).toBe('sahne');
+    const sm = YR.sahneMenu(d, 'sorya');
+    expect(sm.ogeler.length).toBe(2);
+    const p0 = YR.puan(d, 'sorya');
+    const r = YR.sahneSec(d, 'sorya', 0);
+    expect(r.metin.length).toBeGreaterThan(20);
+    expect(YR.puan(d, 'sorya')).toBeGreaterThan(p0);
+    expect(YR.kisiMenu(d, 'sorya').ogeler[0].id).toBe('sohbet');
+    expect(YR.anilarMenu(d, 'sorya').ogeler.length).toBe(1);
+    d.yer.kisi.sorya.p = 199;
+    birGun(d);
+    YR.puanEkle(d, 'sorya', 5);
+    expect(YR.kademe(d, 'sorya')).toBe(2);
+    expect(YR.kisiMenu(d, 'sorya').ogeler[0].etiket).toContain('Kayıp baharat');
+  });
+
+  test('4.1 Paket 9: iki taraf Kademe 5+ olunca olay; orta yol uyumu dosta çıkarır', () => {
+    const d = koloni();
+    d.bayrak.kaelithKurtarildi = true;
+    d.bayrak.g14_ok = true;
+    d.tamamlananOp = [...(d.tamamlananOp || []), 'g14'];
+    d.koloni.binalar.push('kseno_habitat');
+    zamanIlerle(d, 1);
+    expect(YR.katildiMi(d, 'torvok') && YR.katildiMi(d, 'siravel')).toBe(true);
+    for (const id of ['torvok', 'siravel', 'lyris']) {
+      d.yer.kisi[id].k = 5;
+      d.yer.kisi[id].p = 500;
+    }
+    d.yer.olaylar = Object.keys(OLAYLAR).filter((x) => x !== 'c_torvok_siravel');
+    birGun(d);
+    expect(d.yer.olay).toBe('c_torvok_siravel');
+    expect(YR.uyum(d, 'torvok', 'siravel')).toBe(-35);
+    expect(YR.kisiMenu(d, 'torvok').ogeler.some((o) => o.id === 'olay')).toBe(true);
+    const om = YR.olayMenu(d);
+    expect(om.ogeler.length).toBe(3);
+    const r = YR.olaySec(d, 2);
+    expect(r.metin).toContain('arası artık');
+    expect(YR.uyum(d, 'torvok', 'siravel')).toBe(10);
+    expect(d.bayrak.uyum_torvok_siravel).toBe(true);
+    expect(d.yer.olay).toBe(null);
+    // aynı gün yeni olay yok
+    expect(YR.olayDenetle(d)).toBe(null);
+  });
+
+  test('4.1 tanık kolonide yoksa aynı ocaktan biri devralır', () => {
+    const d = koloni();
+    const o = OLAYLAR.c_brom_tina;
+    d.yer.katilan.push('brom', 'tina', 'julian');
+    expect(YR.tanik(d, o)).toBe('julian');
+    expect(YR.sosyalSatir(d, 'brom')).toContain('Tartıştığı: Tina');
   });
 });

@@ -334,9 +334,11 @@ export function kalkis(d) {
   const r = S.kalkis(d);
   if (d.gemi && d.gemi.yer === 'uzay') {
     // Sorya Kademe 10: her seferden önce ücretsiz bir peksimet rasyonu (v5 Paket 1)
-    if (d.bayrak.yk_sorya_10) {
+    // ve Sorya + Veysel sinerjisi (Paket 9, "İki dünyanın fırını") bir rasyon daha
+    const ek = (d.bayrak.yk_sorya_10 ? 1 : 0) + (d.bayrak.sin_sorya_veysel ? 1 : 0);
+    if (ek) {
       TR.tarim(d);
-      d.tarim.erzak.peksimet = (d.tarim.erzak.peksimet || 0) + 1;
+      d.tarim.erzak.peksimet = (d.tarim.erzak.peksimet || 0) + ek;
     }
     TR.erzakYukle(d);
   }

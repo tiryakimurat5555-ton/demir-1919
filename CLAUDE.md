@@ -721,7 +721,15 @@ Demir 1919 oyunu silindi; geçmişi git kaydında (son sürüm 1.06, commit 556f
     Defne Deniz, Marcus Cavit Pancar, Torvok Servet, Sira-Vel Zeyna, Mateo Tayfun, Julian Enes, Brom Sercan Esen, Nerissa Zuhal,
     Halvar Muhammet Yolcu, Elara Belma, Tina Gizem. /tmp/dongu.py (numpy çapraz geçiş) betiği araclar/dongu.py olarak eklendi.
   - testler/yerlesim.test.js (12).
-- Sıradaki (v5, sırayla): 4.1 Paket 8A-8C kademe sahneleri + Paket 9 ikili/üçlü olaylar; 4.2 Paket 3A festivaller (6 mp3,
+- SÜRÜM 4.1 (23 Kasım): Paket 8A-8C kademe sahneleri + Paket 9. Telefonda denenmedi.
+  - yerlesim/sahneA.js, sahneB.js, sahneC.js: SAHNE_A/B/C [id][kademe] = { b, m [paragraflar], s [{ e, c 'tam'|'notr'|'ters',
+    p, diger {kim, p}, bayrak, moral }] }. yerlesim.js KADEME_SAHNELERI; kayıt alanları sahne (bekleyen kademe sahnesi;
+    eski kayıtta k), izlenen; kademeDenetle sahne + haber; kisiMenu 'sahne' (ilk öğe), bekleyen olay, 'anilar'; sahneSec.
+  - yerlesim/ikili.js: SOSYAL_OCAKLAR, OLAYLAR (c_* 8 çatışma: a, b, tanik, mekan, s[3]; s_* 8 sinerji), OLAY_SIRASI,
+    ciftAnahtari. yerlesim.js d.yer.uyum, uyumEkle, olayDenetle (gün başı, günde bir), olayMenu/olaySec, sosyalSatir (profil).
+    Uygulanan sinerjiler: sin_zarek_elara seyir yakıtı ×0,92, sin_sorya_veysel kalkış peksimeti, sin_lyris_siravel hamam,
+    sin_veysel_kaelon müzik kutusu. Dikkat: sahne dosyalarında kesme işaretli metinler ters tırnak.
+- Sıradaki (v5, sırayla): 4.2 Paket 3A festivaller (6 mp3,
   /home/claude/v5_festival → assets) + Paket 2 ilan panosu/Kaptan Orin + Paket 11; 4.3 Paket 3B arşiv ve hobiler + Paket 12/13;
   4.4 Paket 5/6 maden, kıyı, aletler; 4.5 Paket 10 eşya, Paket 14/15 hayvanlar; 4.6 Paket 4 aile; 4.7 Paket 7 görev
   mimarisi + Paket 16. KAPSAM.md bölüm 62.

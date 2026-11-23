@@ -18,6 +18,13 @@ import * as SB from '../tonoflenya/subay';
 import { HAMMADDELER } from '../veri/tesisler';
 import { PARCALAR, TARIFLER } from '../veri/uretim';
 import { BITKILER, ISLEME } from '../tarim/bitkiler';
+import { SAHNE_A } from './sahneA';
+import { SAHNE_B } from './sahneB';
+import { SAHNE_C } from './sahneC';
+import { OLAYLAR, OLAY_SIRASI, SOSYAL_OCAKLAR, ocagi, ciftAnahtari } from './ikili';
+
+// 4.1: Paket 8A-8C kademe sahneleri (her kademe atlanışında bekleyen sahne; kişiye çift dokununca ilk seçenek)
+export const KADEME_SAHNELERI = { ...SAHNE_A, ...SAHNE_B, ...SAHNE_C };
 
 export { katildiMi, yerVar, kisiKonumu, programAktif, kisiKimligi, yerlesimciKimligi };
 
@@ -42,8 +49,14 @@ export function hazirla(d) {
 
 function kayit(d, id) {
   const y = hazirla(d);
-  if (!y.kisi[id]) y.kisi[id] = { p: 0, k: 0, sohbetGun: 0, hediyeGun: 0, hediyeler: [], sahneGun: 0 };
-  return y.kisi[id];
+  if (!y.kisi[id]) y.kisi[id] = { p: 0, k: 0, sohbetGun: 0, hediyeGun: 0, hediyeler: [], sahneGun: 0, izlenen: [], sahne: null };
+  const r = y.kisi[id];
+  if (!r.izlenen) {
+    // 4.0 kayıtları: ulaşılmış kademenin sahnesi bekler
+    r.izlenen = [];
+    r.sahne = r.k >= 1 ? r.k : null;
+  }
+  return r;
 }
 
 function katil(d, id, sessiz) {
@@ -55,6 +68,7 @@ function katil(d, id, sessiz) {
   if (CEKIRDEK.includes(id)) {
     r.p = Math.max(r.p, 100);
     r.k = Math.max(r.k, 1);
+    if (!r.izlenen.includes(1)) r.sahne = 1; // tanışma sahnesi
   }
   if (!sessiz) {
     const k = YERLESIMCILER[id];
@@ -95,8 +109,10 @@ export function kademeDenetle(d, id, halkaYok) {
   if (r.sahneGun && r.sahneGun >= bugun(d)) return null;
   r.k += 1;
   r.sahneGun = bugun(d);
+  r.sahne = r.k;
   const y = YERLESIMCILER[id];
-  const parca = [y.kisa + ' ile ilişkin derinleşti: Kademe ' + r.k + ', ' + KADEMELER[r.k] + '. Açılan: ' + KADEME_KILIDI[r.k] + '.'];
+  const sh = KADEME_SAHNELERI[id] && KADEME_SAHNELERI[id][r.k];
+  const parca = [y.kisa + ' ile ilişkin derinleşti: Kademe ' + r.k + ', ' + KADEMELER[r.k] + '. Açılan: ' + KADEME_KILIDI[r.k] + '.' + (sh ? ' ' + y.kisa + ' seninle konuşmak istiyor: “' + sh.b + '”. Yanına gidip konuş.' : '')];
   if (y.kademe[r.k]) {
     d.bayrak['yk_' + id + '_' + r.k] = true;
     parca.push(kazancUygula(d, id, r.k) || y.kademe[r.k]);
@@ -183,6 +199,7 @@ export function yerlesimIlerle(d) {
   if (y.sonGun !== g) {
     y.sonGun = g;
     for (const id of y.katilan) kademeDenetle(d, id);
+    olayDenetle(d);
     const yg = Z.yilGunu(d);
     if (y.dogumDendi !== g) {
       const kim = y.katilan.filter((id) => YERLESIMCILER[id].dogum === yg);
@@ -350,7 +367,7 @@ export function profilMetni(d, id) {
   const cat = y.catisma.map((x) => YERLESIMCILER[x].kisa).join(', ');
   const ipucu = r.k >= 2 ? ' Sever: ' + y.sever.map((k) => (k === 'yiyecek' ? 'yiyecek' : varlikAdi(k))).join(', ') + '. Sevmez: ' + y.sevmez.map((k) => (k === 'yiyecek' ? 'hiçbir yiyecek' : varlikAdi(k))).join(', ') + '.' : '';
   const dogum = r.k >= 1 ? ' Doğum günü yılın ' + y.dogum + '. günü.' : '';
-  return y.ad + ', ' + y.rol + '. Kademe ' + r.k + ' / 10, ' + KADEMELER[r.k] + ', ' + r.p + ' / ' + Math.min(1000, (r.k + 1) * 100) + ' puan. Mizaç: ' + miz + '. Yakın: ' + yakin + '; tartıştığı: ' + cat + '. ' + sonraki + ipucu + dogum;
+  return y.ad + ', ' + y.rol + '. Kademe ' + r.k + ' / 10, ' + KADEMELER[r.k] + ', ' + r.p + ' / ' + Math.min(1000, (r.k + 1) * 100) + ' puan. Mizaç: ' + miz + '. Yakın: ' + yakin + '; tartıştığı: ' + cat + '. ' + sosyalSatir(d, id) + ' ' + sonraki + ipucu + dogum;
 }
 export function nerede(d, id) {
   const k = kisiKonumu(d, id);
@@ -379,12 +396,164 @@ export function kisiMenu(d, id, selam) {
     baslik: y.ad,
     giris: (selam ? y.kisa + ': "' + y.imza.selam + '" ' : '') + y.rol + '. Kademe ' + r.k + ', ' + KADEMELER[r.k] + '. ' + sohbetDurumu(d, id) + '.',
     ogeler: [
+      ...(r.sahne && KADEME_SAHNELERI[id] && KADEME_SAHNELERI[id][r.sahne] ? [{ id: 'sahne', etiket: 'Kademe ' + r.sahne + ' sahnesi: ' + KADEME_SAHNELERI[id][r.sahne].b, alt: (x) => sahneMenu(x, id) }] : []),
+      ...bekleyenOlayOgesi(d, id),
       { id: 'sohbet', etiket: 'Konuş', ipucu: 'Günlük sohbet; günde bir kez ilişki puanı verir.', alt: (x) => sohbetMenu(x, id) },
       { id: 'hediye', etiket: 'Hediye ver', alt: (x) => hediyeMenu(x, id) },
       { id: 'profil', etiket: 'Profil kartı', yap: (x) => ({ metin: profilMetni(x, id) }) },
+      ...(r.izlenen.length ? [{ id: 'anilar', etiket: 'Anılar (' + r.izlenen.length + ' sahne)', alt: (x) => anilarMenu(x, id) }] : []),
     ],
   };
 }
+
+// --- Kademe sahneleri (Paket 8A-8C; 00-okuma 1.2: 2-4 paragraf) ---
+export function sahneMenu(d, id) {
+  const r = kayit(d, id);
+  const sh = r.sahne && KADEME_SAHNELERI[id] && KADEME_SAHNELERI[id][r.sahne];
+  if (!sh) return { baslik: kisaAdi(id), giris: 'Şu an anlatacağı bir şey yok.', ogeler: [] };
+  return {
+    baslik: 'Kademe ' + r.sahne + ': ' + sh.b,
+    giris: sh.m.join(' '),
+    ogeler: sh.s.map((x, i) => ({ id: 'ss_' + i, etiket: x.e, geri: true, yap: (z) => sahneSec(z, id, i) })),
+  };
+}
+export function sahneSec(d, id, i) {
+  const r = kayit(d, id);
+  const k = r.sahne;
+  const sh = k && KADEME_SAHNELERI[id] && KADEME_SAHNELERI[id][k];
+  if (!sh || !sh.s[i]) return { metin: '' };
+  const x = sh.s[i];
+  r.sahne = null;
+  if (!r.izlenen.includes(k)) r.izlenen.push(k);
+  if (!r.secimler) r.secimler = {};
+  r.secimler[k] = i;
+  const ek = [];
+  const sonuc = puanEkle(d, id, x.p || 0, true);
+  if (sonuc.kazanc) ek.push('İlişki ' + (sonuc.kazanc > 0 ? sonuc.kazanc + ' puan arttı' : -sonuc.kazanc + ' puan azaldı') + '.');
+  if (x.diger && katildiMi(d, x.diger.kim)) {
+    puanEkle(d, x.diger.kim, x.diger.p, true);
+    ek.push(kisaAdi(x.diger.kim) + (x.diger.p >= 0 ? ' memnun.' : ' kırgın.'));
+  }
+  if (x.bayrak) Object.assign(d.bayrak, x.bayrak);
+  if (x.moral) {
+    d.koloni.moral = Math.min(100, d.koloni.moral + x.moral);
+    ek.push('Moral ' + x.moral + ' arttı.');
+  }
+  return { metin: x.c + ' ' + ek.join(' '), efekt: (x.p || 0) >= 20 ? 'imza_' + id + '_tesekkur' : (x.p || 0) < 0 ? 'imza_' + id + '_kizgin' : null };
+}
+export function anilarMenu(d, id) {
+  const r = kayit(d, id);
+  return {
+    baslik: 'Anılar: ' + kisaAdi(id),
+    giris: 'Yaşadığınız sahneler. Seçince yeniden dinlersin.',
+    ogeler: [...r.izlenen].sort((a, b) => a - b).map((k) => {
+      const sh = KADEME_SAHNELERI[id][k];
+      const sec = r.secimler && r.secimler[k] != null ? sh.s[r.secimler[k]] : null;
+      return { id: 'a_' + k, etiket: 'Kademe ' + k + ': ' + sh.b, yap: () => ({ metin: sh.m.join(' ') + (sec ? ' Sen: ' + sec.e + ' ' + sec.c : '') }) };
+    }),
+  };
+}
+
+// --- İkili ve üçlü olaylar (Paket 9) ---
+export function uyum(d, a, b) {
+  const y = hazirla(d);
+  if (!y.uyum) y.uyum = {};
+  const k = ciftAnahtari(a, b);
+  if (y.uyum[k] == null) {
+    const A = YERLESIMCILER[a];
+    const B = YERLESIMCILER[b];
+    y.uyum[k] = A.yakin.includes(b) || B.yakin.includes(a) ? 35 : A.catisma.includes(b) || B.catisma.includes(a) ? -35 : 0;
+  }
+  return y.uyum[k];
+}
+export function uyumEkle(d, a, b, n) {
+  const v = uyum(d, a, b);
+  d.yer.uyum[ciftAnahtari(a, b)] = Math.max(-100, Math.min(100, v + n));
+}
+export const UYUM_DURUMU = (v) => (v <= -30 ? 'kırgın' : v < 0 ? 'gergin' : v < 30 ? 'mesafeli saygı' : v < 70 ? 'dost' : 'tam sinerji');
+// Tanık: belgedeki kişi kolonideyse o, yoksa aynı Sosyal Ocak'tan kolonide olan başka biri
+export function tanik(d, o) {
+  if (!o.tanik) return null;
+  if (katildiMi(d, o.tanik)) return o.tanik;
+  const oc = SOSYAL_OCAKLAR[ocagi(o.tanik)];
+  return (oc ? oc.uyeler : []).find((x) => x !== o.a && x !== o.b && katildiMi(d, x)) || ['veysel', 'lyris'].find((x) => x !== o.a && x !== o.b && katildiMi(d, x)) || null;
+}
+function olayHazirMi(d, id) {
+  const o = OLAYLAR[id];
+  return katildiMi(d, o.a) && katildiMi(d, o.b) && kademe(d, o.a) >= 5 && kademe(d, o.b) >= 5;
+}
+// Günde en çok bir büyük olay; bekleyen olay bitmeden yenisi gelmez (kaçırma cezası yok)
+export function olayDenetle(d) {
+  const y = hazirla(d);
+  if (!y.olaylar) y.olaylar = [];
+  if (y.olay || y.olayGun === bugun(d)) return null;
+  const id = OLAY_SIRASI.find((x) => !y.olaylar.includes(x) && olayHazirMi(d, x));
+  if (!id) return null;
+  y.olay = id;
+  y.olayGun = bugun(d);
+  const o = OLAYLAR[id];
+  SB.haber(d, (o.tur === 'catisma' ? 'Yerleşim: bir tartışma sesi duyuluyor. ' : 'Yerleşim: bir toplanma var. ') + kisaAdi(o.a) + ' ve ' + kisaAdi(o.b) + ': “' + o.b_ + '”. Katılmak için ikisinden birine ya da Yerleşim sekmesine git; acelesi yok.');
+  return id;
+}
+export function bekleyenOlayOgesi(d, kim) {
+  const y = d.yer;
+  const o = y && y.olay && OLAYLAR[y.olay];
+  if (!o || (kim && o.a !== kim && o.b !== kim)) return [];
+  return [{ id: 'olay', etiket: (o.tur === 'catisma' ? 'Tartışmaya katıl: ' : 'Toplanmaya katıl: ') + o.b_, alt: (x) => olayMenu(x) }];
+}
+export function olayMenu(d) {
+  const y = hazirla(d);
+  const o = y.olay && OLAYLAR[y.olay];
+  if (!o) return { baslik: 'Olay', giris: 'Bekleyen bir olay yok.', ogeler: [] };
+  const t = tanik(d, o);
+  const tanikNotu = o.tanik && t && t !== o.tanik ? ' (' + kisaAdi(o.tanik) + ' kolonide olmadığı için ' + kisaAdi(t) + ' tanık.)' : '';
+  return {
+    baslik: o.b_,
+    giris: o.m.join(' ') + tanikNotu,
+    ogeler: o.s.map((x, i) => {
+      const kilitli = x.kosul && !x.kosul(d);
+      return { id: 'o_' + i, etiket: x.e + (kilitli ? ' (' + (x.kosulMetni || 'koşul eksik') + ')' : ''), geri: true, yap: (z) => (kilitli ? { metin: x.kosulMetni || 'Bu yol için koşul eksik.', ses: 'red' } : olaySec(z, i)) };
+    }),
+  };
+}
+export function olaySec(d, i) {
+  const y = hazirla(d);
+  const id = y.olay;
+  const o = OLAYLAR[id];
+  if (!o) return { metin: '' };
+  const x = o.s[i];
+  y.olay = null;
+  y.olaylar.push(id);
+  if (!y.olaySecim) y.olaySecim = {};
+  y.olaySecim[id] = i;
+  const t = tanik(d, o);
+  const ek = [];
+  for (const kim of Object.keys(x.p || {})) {
+    const hedef = kim === o.tanik ? t : kim;
+    if (!hedef || !katildiMi(d, hedef)) continue;
+    const r = puanEkle(d, hedef, x.p[kim], true);
+    if (r.kazanc) ek.push(kisaAdi(hedef) + ' ' + (r.kazanc > 0 ? '+' : '') + r.kazanc);
+  }
+  if (x.uyum) uyumEkle(d, o.a, o.b, x.uyum);
+  if (x.bayrak) d.bayrak[x.bayrak] = true;
+  // Veysel + Kaelon sinerjisi: kamaraya otomatik yıldız müzik kutusu
+  if (x.bayrak === 'sin_veysel_kaelon' && !y.dekorlar.includes('muzik_kutusu')) y.dekorlar.push('muzik_kutusu');
+  if (x.moral) d.koloni.moral = Math.min(100, d.koloni.moral + x.moral);
+  const u = uyum(d, o.a, o.b);
+  return { metin: x.c + (ek.length ? ' İlişki: ' + ek.join(', ') + '.' : '') + ' ' + kisaAdi(o.a) + ' ile ' + kisaAdi(o.b) + ' arası artık ' + UYUM_DURUMU(u) + '.', efekt: x.uyum > 0 ? 'imza_' + o.a + '_tesekkur' : null };
+}
+export function sosyalSatir(d, id) {
+  const iyi = [];
+  const kotu = [];
+  for (const x of hazirla(d).katilan) {
+    if (x === id) continue;
+    const v = uyum(d, id, x);
+    if (v >= 30) iyi.push(kisaAdi(x));
+    else if (v < 0) kotu.push(kisaAdi(x));
+  }
+  return 'Şu an arası iyi: ' + (iyi.join(', ') || 'kimse') + '. Tartıştığı: ' + (kotu.join(', ') || 'kimse') + '.';
+}
+
 
 // --- Yerleşim sekmesi (Merkez Terminal ve meydan terminali) ---
 export function binaMenusu(d) {
@@ -446,6 +615,7 @@ export function panel(d) {
       { id: 'binalar', etiket: 'Yerleşim binaları', alt: binaMenusu },
       { id: 'kisiler', etiket: 'Yerleşimciler ve profil kartları', alt: yerlesimciMenusu },
       { id: 'takvim', etiket: 'Takvim', alt: takvimMenusu },
+      ...bekleyenOlayOgesi(d, null),
     ],
   };
 }
@@ -521,7 +691,7 @@ export function eylemUygula(d, id, eylemId) {
     const g = bugun(d);
     if (d.yer.hamamGun === g) return { metin: 'Bugün zaten yıkandın; su seni bekler, yarın yine gel.' };
     d.yer.hamamGun = g;
-    const sifir = !!d.bayrak.yk_siravel_10;
+    const sifir = !!(d.bayrak.yk_siravel_10 || d.bayrak.sin_lyris_siravel);
     for (const u of d.murettebat || []) u.stres = sifir ? 0 : Math.max(0, (u.stres || 0) - 20);
     d.koloni.moral = Math.min(100, d.koloni.moral + 2);
     return { metin: 'Sıcak, mineralli su omuzlarındaki yükü alıyor. ' + (sifir ? 'Sira-Vel\'in şifasıyla mürettebatın stresi tamamen silindi.' : 'Mürettebatın stresi yirmi azaldı.') + ' Moral iki arttı.', ses: 'tislama' };

@@ -183,7 +183,7 @@ export function rotaYakiti(d, hedef, kargoOrani = 0) {
   // Zephyr-Major helyum-3 teknolojisi: gezegen hikâyesinde akustik kepçe seçilince (gezegen-07 Seçenek A)
   if (d.hazirlik && d.hazirlik.kalibrasyon) l *= 0.85; // tersane motor ayarı (sefer hazırlığı)
   if ((d.numuneTeslim || []).length >= 15 && Math.max(bas, son) >= 3) l *= 0.85; // akademi: on beş numune, derin uzay
-  l *= (g.moduller.sivi_iletken ? 0.85 : 1) * (b.f_yakit ? 0.9 : 1) * (b.p_yakit ? 0.9 : 1) * (b.p_tasarruf ? 0.9 : 1) * E.yakitCarpani(d) * SB.yakitCarpani(d) * (b.tf_astral ? 0.87 : 1) * (g.moduller.efsanevi_reaktor ? 0.5 : 1) * (b.gz_helyum ? 0.85 : 1) * (b.gz_karanlik && Math.max(bas, son) >= 4 ? 0.8 : 1);
+  l *= (g.moduller.sivi_iletken ? 0.85 : 1) * (b.f_yakit ? 0.9 : 1) * (b.p_yakit ? 0.9 : 1) * (b.p_tasarruf ? 0.9 : 1) * (b.sin_zarek_elara ? 0.92 : 1) * E.yakitCarpani(d) * SB.yakitCarpani(d) * (b.tf_astral ? 0.87 : 1) * (g.moduller.efsanevi_reaktor ? 0.5 : 1) * (b.gz_helyum ? 0.85 : 1) * (b.gz_karanlik && Math.max(bas, son) >= 4 ? 0.8 : 1);
   return Math.round(l * 10) / 10;
 }
 
@@ -268,7 +268,7 @@ export function uzayIlerle(d, dt) {
   if (u.hiz > 0) {
     const b = d.bayrak;
     const yakit = 0.25 * u.hiz * YAKIT_TUKETIM * dt * // manevra ve yaşam desteği; asıl yol yakıtı varışta (rotaYakiti)
-      (g.moduller.sivi_iletken ? 0.85 : 1) * (b.f_yakit ? 0.9 : 1) * (b.f_saat ? 0.9 : 1) * (b.p_yakit ? 0.9 : 1) * (b.p_tasarruf ? 0.9 : 1) * E.yakitCarpani(d) * SB.yakitCarpani(d) * (1 - (g.aetherVerimi || 0)) * (b.tf_astral ? 0.87 : 1) * (g.moduller.efsanevi_reaktor ? 0.5 : 1) * (b.gz_helyum ? 0.85 : 1) * (b.gz_karanlik && (u.halka || 0) >= 4 ? 0.8 : 1);
+      (g.moduller.sivi_iletken ? 0.85 : 1) * (b.f_yakit ? 0.9 : 1) * (b.f_saat ? 0.9 : 1) * (b.p_yakit ? 0.9 : 1) * (b.p_tasarruf ? 0.9 : 1) * (b.sin_zarek_elara ? 0.92 : 1) * E.yakitCarpani(d) * SB.yakitCarpani(d) * (1 - (g.aetherVerimi || 0)) * (b.tf_astral ? 0.87 : 1) * (g.moduller.efsanevi_reaktor ? 0.5 : 1) * (b.gz_helyum ? 0.85 : 1) * (b.gz_karanlik && (u.halka || 0) >= 4 ? 0.8 : 1);
     g.yakit = Math.max(0, g.yakit - yakit);
     const birim = HIZ_BIRIMI * gucDagitimi(d).hiz * E.hizCarpani(d) * yildizCarpani(d, 'hiz') * ((d.surupBitis || 0) > ((d.zaman && d.zaman.sn) || 0) ? 1.25 : 1) * (d.bayrak.yan_cift_graviton ? 1.25 : 1) * (d.bayrak.gz_hiper ? 1.15 : 1) * (d.bayrak.gz_plazmaMotor ? 1.2 : 1);
     u.x += Math.sin(u.yon) * u.hiz * birim * dt;

@@ -6,6 +6,14 @@ tesis kurar, ileride gemini parça parça inşa edip uzaya açılırsın.
 
 Yapımcı: Bahtiyar Cankurt (tasarım belgeleri belgeler/ içinde). Expo Go ile iPhone ve Android'de çalışır.
 
+## Bu sürümde (4.1)
+- Kademe sahneleri: on altı yerleşimcinin her kademesi için birer sahne (toplam 160). Biriyle bir kademe atlayınca
+  "seninle konuşmak istiyor" haberi gelir; ona gidince konuşma menüsünün ilk öğesi o sahnedir. Anlatımdan sonra üç seçenek
+  vardır; seçim ilişkiyi, bazen bir başkasını ve koloninin moralini etkiler. Dinlenen sahneler "Anılar"da yeniden dinlenir.
+- Yerleşimciler arası olaylar: sekiz tartışma ve sekiz uyum olayı. Tartışmada bir tarafı tutabilir ya da orta yol
+  bulabilirsin; aralarındaki uyum profil kartında söylenir. Bazı uyumlar kalıcı kazanç verir (yakıt tasarrufu, kalkışta
+  ek erzak, hamamda tam rahatlama, kamarada müzik kutusu).
+
 ## Bu sürümde (4.0)
 - Yerleşim: görev aralarında koloni yaşıyor. Merkez terminalinde (ve meydan terminalinde) "Yerleşim" sekmesi:
   yerleşim binaları, yerleşimciler ve profil kartları, takvim.
