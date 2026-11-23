@@ -1,0 +1,23 @@
+4.5 hayvan, hobi ve arşiv sesleri, ElevenLabs sfx (flow BPWC2OLWbdljIKExgHDq, 22 × 17 kredi):
+h_tavuk ← QRa0pf0HmYfAQBdZY2Eh/TEyz3QVwZOmzjlmmcbZw
+h_su_kusu ← 7f0vA5wR2GPzt1rawgG8/aBZmO7q68or5vQ6GIf50
+h_keci ← zS4nKXHAZLsINJ2rxYlQ/WqWcW51BJnp6Hd7fLLHA
+h_inek ← e2y35QxS5BAFYHbsR2Hx/sdBxesNZZCbeuOHTZXnR
+h_ari ← 6gOpwJ3rOxKRUNQRqBnN/CEcSZUdtUI1tF3ervOux
+h_kus ← nqBOmufMg09SUSHO8kFU/zZevijnEGWu8Ov33sDci
+h_surungen ← p8906XUTRJKIN1NR3JUN/ITQs9uRWbQXhkfnt1Jvs
+h_tavsan ← KtBP0RfqNcFdcwyDWGxP/3Pf1J4YvfS8KGmzOib0R
+h_kedi ← 6fQXGfLLhO0EY3y6nFkd/t0rIf114KDMQUo2zcpK4
+h_kopek ← 8sMjF4i4LZY8HTG0Efga/heHIf8lzhYPJXT8GADgF
+h_kaplumbaga ← nPhnHIEx87YMh0lH7zOW/g9Cxw8bWMY75dGldG2wk
+h_kazici ← xiaMjwCD5MrXubjF9crh/Ffa2nkqndfBqOGNQL05I
+h_tilki ← LUxNlJLuMliOSxJnPWav/uVAsrqXA8R5u41iZuwYL
+h_efsane ← 9Q8ZXXRB7IY7RGpzbCov/xKCMoFvArvfFOyDbGaGs
+el_hayvan_ac ← jkRwYIkZHpk0Ri6UwnOz/MHIQ9iIPDC5qYw6vdlNX
+el_hayvan_mutlu ← RmeSpcfcQf4YwsOMSANq/B7q3KFTd6LqQX7xKymxl
+el_hayvan_hasta ← c13yT5YXU06adTQtwOBd/AHavCZL3ARW6KmJne0UY
+el_catlama ← L2TsE5RYX5M9PwEMLMgw/6f5sXpwzQ32zLTrFTLfU
+el_zar ← 07HGyz3LV3sRU4gyzkoT/K1ymb6hJ8KSwuUHf7O1x
+ortam_barinak ← 9ZzzBOP0kAu5BoJ3yNS5/a3Ouo1FdDPY4fOxkXWUa
+ortam_gol ← 1bHZtHhSzbXP0MBkRr3K/CwhiBH0AApHgNxfDvKQs
+ortam_arsiv ← QtBcM7qU49t0Lc843HJG/zZSkYrB0uEqwc9mP2vYn
