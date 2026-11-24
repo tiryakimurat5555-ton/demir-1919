@@ -283,7 +283,7 @@ function galeriyeGiris(d, kat) {
     notlar.push((s.eslik === 'akrep' ? 'Akrep önden döndü ve tıkırdadı: ' : kopek ? 'Köpeğin kulaklarını dikip havladı: ' : 'Fenerin akustik lambası bir yankı yakaladı: ') + 'İleride taşların arasında hareket var, ' + tehlike.ad + '. Savaşmak için ona yürü; kaçınmak için uzak dur.');
   } else if (s.tehlike[kat] !== 'temiz' && zar(d) < p) {
     const sp = tehlike || { dusmanlar: ['kaya_bocegi'], giris: 'Taşların arasından kaya böcekleri fırladı!' };
-    d.savasBekle = { dusmanlar: sp.dusmanlar.slice(), ortam: 'kara', tier: b === 'derin' ? 2 : 1, gelis: sp.dusmanlar.length > 1 ? 'kiskac' : 'pusu', giris: 'Pusu! ' + sp.giris, arac: s.eslik || null };
+    d.savasBekle = { dusmanlar: sp.dusmanlar.slice(), ortam: 'kara', tier: b === 'derin' ? 2 : 1, gelis: sp.dusmanlar.length > 1 ? 'kiskac' : 'tek', giris: 'Pusu! ' + sp.giris, arac: s.eslik || null };
     d.savasSonraSahne = 'saha_zafer';
     s.savasKat = kat;
     notlar.push('Pusu!');

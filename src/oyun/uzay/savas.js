@@ -625,7 +625,7 @@ export function savasBaslat(d, spec) {
     const k = SB.kriz(d, 'sinha');
     if (k) ek.push({ soz: k });
   }
-  const g = GELISLER[s.gelis];
+  const g = GELISLER[s.gelis] || GELISLER.tek;
   const giris = spec.giris ? [spec.giris] : [];
   if (gizliGecit) giris.push('Gizli geçit haritasıyla arka kanyondan sızdın: zırhlının kalkanı yüzde yirmi beş kırık, ilk vuruş senin.');
   if (kefiusSirri) giris.push('Kefius Dünya Çivisi\'nin zayıf noktasını paylaşmıştı: Sharon\'un gölge kalkanı yüzde yirmi zayıf.');

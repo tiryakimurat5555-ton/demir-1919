@@ -889,6 +889,26 @@ Demir 1919 oyunu silindi; geçmişi git kaydında (son sürüm 1.06, commit 556f
     1,5 sn çapraz geçiş, I=-20, 24 kHz). ElevenLabs sfx 38 × 4 varyasyon (ilki kullanıldı), oturumlar araclar/oturumlar-5.0.txt;
     Drive Efektler: buzul, bd_buz, sise_kir, patlama, secim.
   - testler/buyu.test.js (22).
+- SÜRÜM 5.1 (24 Kasım): v6 Paket 3, Paket 5, karakter 01-24 (YGK Akademi bağ ağı). Telefonda denenmedi.
+  - ygk/bag.js motor: KISILER/KISI_SIRASI/GOREVLER, kisiEkle(id, v) → gorevEkle (bulmaca 'yg_'+gid, sonra sahne ygk_secim),
+    d.ygk {k {p, k, sonKGun, sohbetGun, hediyeGun, sohbet, gorev, karar, kirgin, selamNobet}, aktif}; puanEkle (hiz, hizCarpani,
+    sınıf A görev ×1,4 / öteki ×0,5, kırgın sohbet/hediye ×0,5), kademeDenetle (günde bir, kademeEtki), sohbetMenu (kosul,
+    puan sayı | {erken, gec, esik}), hediyeMenu/hediyeVer (sever +30, öteki +12, sevmez reddedilir cezasız), gorevDurumu
+    (bitti/kademe/once/kosul/asa/acik), secimUygula (kişi puanları, g_<güç> gucEkle, bayrak, kirgin, odul, yap), SAHNELER
+    ygk_gorev/ygk_secim/ygk_sonuc, telafi (iki sever eşyası ya da 40 GK), KISI_EKLERI, kisiMenu/profilMenu, selamla →
+    'imza_yg_<id>_selam' nöbette bir. ygk/yardim.js D/S/P/O. ygk/kisiler/k01-k09.js 31 kişi (nokta: var olan nokta ya da yer
+    [kat,x,y] → harita.js yg_<id>; ulasilamaz, yerKosul, hizCarpani, kademeEtki). ygk/akademiGorev.js YGK-MUF, ZMN-01, CIV-01,
+    SNV-01..10, asaT2Durumu/Yap (Kefius KISI_EKLERI), arşiv yedek yolu (arsivBuyuleri: hocası kırgın/ulaşılamaz;
+    ogren_arsiv_<el>, 30 odak + 1 gümüş tozu), AKD-01..06, YOLLAR. ygk/index.js: noktaMi/noktaEylemleri/ekEylemler
+    (yg_bag_<kid>)/eylemUygula/ygkIlerle/rehberMenu/sesYerleri(d, NOKTALAR).
+  - gorevler.js: YG (SAHNELER, temelEylemler YG.noktaMi, eylemUygula BK0'dan sonra, zamanIlerle haberleri). bulmaca.js:
+    elemanUlasilir dışa, baslat t.hava, havaHamlesi bitmiş bulmaca koruması. Yuzey: sahneBaslik işlev, sahne seçiminden sonra
+    bulmaca açılır; ygkSesleri (ygs_<kid> dongu 'yg_<kid>' 0,35); menüde "YGK Akademi bağ ağı" (tonoflenyaGoruldu).
+    savas.js GELISLER yedeği; saha.js gelis 'pusu' → 'tek'.
+  - Sesler ElevenLabs (araclar/oturumlar-5.1.txt): imza 31 × eleven_v4 (üç cümle, iki en uzun sessizlikten bölündü, I=-16, 22 kHz
+    48k mp3 → assets/ses/ygk/imza/<id>_<selam|tesekkur|kizgin>.mp3, efektler.js TEMBEL imza_yg_*); döngü 31 sfx (ilk 9,5 sn,
+    dongu.py 1,5 sn çapraz geçiş, I=-20, 24 kHz → konumsal/yg_<id>.wav). Tixie ← Lasiraxi var. 2, Faelan ← Forges var. 2
+    (iki çağrı zaman aşımı; tekrar edilmedi). testler/ygk.test.js (150).
 - Sıradaki: SON BÜYÜK GÜNCELLEME, büyü (Murat, 24 Kasım). Kararlar: kaptan Malken kökenli ama büyü aracı yok, o yüzden
   büyü yapamıyor (araç = Malazar Asası; Orin'den, pazar.js); ayrı bina yok, derslik tapınak (rezonans sunağı, tezgah.js);
   büyüler yalnız bulmacada, savaşta değil. Murat/Bahtiyar derinleştirilmiş hikâye, büyüler, YGK Akademi katları, karakterler

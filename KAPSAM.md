@@ -1169,8 +1169,34 @@ YGK sınavında, Tonoflenya büyü görevinde ve zanaatta; Evrensel Savaş'ta a�
       kayalık koydaki batık sandık (kıyı), vahanın kurumuş kaynağı.
 - [x] Sesler: 38 ElevenLabs (büyüler, şişe, hava, heykel, geri bildirim, asa uyanışı, 10 düğüm döngüsü, toz pırıltısı) + Drive
       Efektler'den 5 (buzul, ince buz döngüsü, cam kırılması, patlama, büyü seçimi). Ayrıntı araclar/oturumlar-5.0.txt.
+### Paket 3: YGK Akademi 11 kat, 10 kürsü, hikâye görevleri (5.1)
+- [x] Bölüm 1-2: Yüksek Konsey müfredatı YGK-MUF (Valen), zaman havzası ZMN-01 (Zephyra), Civi koordinatları CIV-01 (Kefius;
+      T2 asa onayı). Kat noktaları yg_<kişi> ve ygk_arsiv (ygk/harita.js); var olan akademi noktalarına bağ eylemi eklendi.
+- [x] Bölüm 3: on kürsü sınavı SNV-01 … SNV-10 (büyü bulmacası; üç sınav ya da Kefius onayı + piezo ve gümüş tozu → T2 asa).
+- [x] Bölüm 4: kişi görevleri (aşağıda karakter 01-23), on altı büyü öğretimi (TIX-03 kalkan aşırtma, KEF-02/03/04, IGN-02,
+      K3-FOR-02, K3-ZEV-01, KM3-JOL-02, K5-LYR-01, K5-TRE-01, ZEP-02/03/04, MOR-04, K2-KAE-01/02).
+- [~] Çelişkiler kaldırılmadan çözüldü: Tixie ihbar edildiyse bağ ağı kapanır, kalkan aşırtma arşivden öğrenilir (yedek yol:
+      30 odak + 1 gümüş tozu); Valen darbede kapatıldıysa Kat -4'te koşullu nokta; Zephyra ve Morwenna serbest bırakılınca
+      koşullu nokta ve bağ hızı değişir (Morwenna veri yolunda ×0,5, MOR-01'e kadar); Kefius bağı mevcut tf.guven'i besler;
+      İgnador kırgınsa hız düşer, IGN-04 ignadorKirgin'i kaldırır. Kırgınlık görev kilitlemez, telafi her zaman açık
+      (iki sevdiği eşya ya da 40 GK).
+### Paket 5: öğretmen-öğrenci ağı (5.1)
+- [x] Üç giriş yolu (A/B/C, ana menüde "YGK Akademi bağ ağı"), AKD-01 … AKD-06 (Veyra, Faelan, Dren, Elian, Sora, Nox).
+- [x] Bağ motoru (ygk/bag.js): 11 kademe (0-10), günde bir kademe, sınıf A görev ×1,4 / öteki ×0,5, sohbet (sıralı,
+      koşullu, erken/geç puanı), hediye (sever +30, öteki +12, sevmediğini geri çevirir, ceza yok), kırgınlık ve telafi,
+      profil kartı, nöbette bir selam.
+### Karakter 01-24 (5.1)
+- [x] 31 kişi (karakter 13-18 dosyaları birden çok hocayı anlatır): Tixie, Lasiraxi, Zynae, Sirilla, Palmi, Miranda, Corinne,
+      Kefius, Zephyra, Valen, İgnador, Morwenna, Forges, Korvinus, Zeva, Kaelis, Faelan, Jolkar, Caelum, Lyra, Trellis,
+      Seraphine, Maelis, Silas, Püskül, Morvenna, Veyra, Dren, Elian, Sora, Nox. 119 görev, 30 sohbet dizisi, kademe metinleri.
+- [x] Karakter 24 hediye rehberi: her kişinin sever/sevmez listesi ve sözleri.
+- [x] Sesler: 31 imza (selam/teşekkür/kızgın, ElevenLabs eleven_v4, her kişiye uygun ses; assets/ses/ygk/imza) ve 31 konumlu
+      kişi döngüsü (ElevenLabs sfx; assets/ses/konumsal/yg_*.wav, bulunulan katta kişinin noktasından). Tixie ve Faelan
+      üretimleri zaman aşımına uğradı (tekrar çağrılmadı): Tixie ← Lasiraxi'nin ikinci varyasyonu, Faelan ← Forges'in ikinci
+      varyasyonu. Ayrıntı araclar/oturumlar-5.1.txt.
+- [x] Düzeltmeler: bulmaca bittikten sonra hava hamlesi çöküyordu (5.0); kara savaşında bilinmeyen geliş türü 'pusu' (saha.js).
 ### Sonraki sürümler
-- [ ] Paket 3, 5 ve karakter 01-24 (5.1); Paket 4, 6a, 6b, 7 (5.2); Paket 9-13 (5.3); Paket 14-16 ve karakter 25-30 (5.4);
+- [ ] Paket 4, 6a, 6b, 7 (5.2); Paket 9-13 (5.3); Paket 14-16 ve karakter 25-30 (5.4);
       Paket 8 (5.5).
 
 ## Sıradaki adımlar (sırayla)

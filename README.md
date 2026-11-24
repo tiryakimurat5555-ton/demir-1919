@@ -6,6 +6,19 @@ tesis kurar, ileride gemini parça parça inşa edip uzaya açılırsın.
 
 Yapımcı: Bahtiyar Cankurt (tasarım belgeleri belgeler/ içinde). Expo Go ile iPhone ve Android'de çalışır.
 
+## Bu sürümde (5.1): YGK Akademi bağ ağı
+- Tonoflenya'daki YGK Akademi'nin otuz bir hocası ve öğrencisi artık katlarında: Tixie, Lasiraxi, Zynae, Kefius, Zephyra,
+  Valen, İgnador, Morwenna ve ötekiler. Her birinin yanına gidince kendi selamını duyarsın; bulunduğun katta her kişinin
+  kendine özgü bir sesi kendi yerinden gelir.
+- Her kişiyle bağ: sohbet, hediye (sevdiğini verirsen çok sevinir, sevmediğini geri çevirir), görevler ve 0-10 kademe.
+  Kırılan bir bağ iki sevdiği eşya ya da 40 GK ile onarılır; kırgınlık hiçbir görevi kilitlemez.
+- 119 görev; on altısı büyü öğretir (yıldırım, metal, sıvı, sarmaşık, hava, rüzgâr uçuşu, aether adımı, yankı ikizi …).
+  Kürsüde on büyü sınavı: üçünü geçince ya da Kefius onaylayınca asa ikinci kademeye çıkar.
+- Bir hoca küs ya da gitmişse Kat 4'teki arşivden yedek yoldan öğrenilir. Ana menüde "YGK Akademi bağ ağı": üç giriş yolu
+  ve herkesin kademesi.
+- Mevcut hikâye ve son değişmedi; Tixie ihbarı, Valen darbesi, Zephyra ve Morwenna seçimleri ayrı yollar açar.
+- Telefonda denenmedi.
+
 ## Bu sürümde (5.0): büyü temeli
 - Kaptan Malken kökenli ama büyü aracı yoktu. Kaptan Orin'den gelen Malazar Asası iki büyü kristaliyle tapınakta büyü tozuna
   işlenince asa uyanır (kısa sahne ve ses). Ana menüde "Büyü defteri": asa, odak, şişeler, renkli taşlar ve dört ekolün

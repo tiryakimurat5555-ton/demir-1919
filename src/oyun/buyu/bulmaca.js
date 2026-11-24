@@ -59,7 +59,7 @@ export function baslat(d, id, ek = {}) {
     d.bulmaca = yarim;
     delete d.buyu.yarim[id];
   } else {
-    d.bulmaca = { id, i: 0, uyg: {}, cozulen: [], pencere: {}, hava: ek.ogren ? 0 : BY.havaSeviyesi(d), ayar: null, ogren: ek.ogren || null, nefes: 0, takilanTas: {} };
+    d.bulmaca = { id, i: 0, uyg: {}, cozulen: [], pencere: {}, hava: t.hava != null ? t.hava : ek.ogren ? 0 : BY.havaSeviyesi(d), ayar: null, ogren: ek.ogren || null, nefes: 0, takilanTas: {} };
     if (t.basla) t.basla(d);
   }
   return { metin: t.ad, buyu: true };
@@ -124,7 +124,7 @@ export function elemanHazir(d, el, n) {
   return true;
 }
 // Hava elemanı kademe kademe yürünerek elde edilir: bilgi yeterlidir
-function elemanUlasilir(d, el, n) {
+export function elemanUlasilir(d, el, n) {
   const e = ELEMANLAR[el];
   if (!e) return false;
   if (e.tur === 'hava' || e.tur === 'yildirim') return BY.biliyor(d, 'hava') || (d.bulmaca && d.bulmaca.ogren === 'hava');
@@ -294,7 +294,7 @@ function havaHamlesi(d, n, yon) {
     const soz = 'Hava: ' + BY.havaAdi(yeni) + '.';
     if (gecerliMi(d, n, el)) olaylar.push(...uygula(d, n, el, soz, true));
     else olaylar.push({ soz, ses: yeni >= 3 ? 'by_hava_yagmur' : yon < 0 ? 'by_hava_sogut' : 'by_hava_isit', hava: yeni });
-    if (cozulduMu(d, n)) break;
+    if (!d.bulmaca || cozulduMu(d, n)) break;
   }
   return olaylar;
 }

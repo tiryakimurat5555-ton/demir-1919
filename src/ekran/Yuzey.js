@@ -166,6 +166,7 @@ import {
   BK,
   GA,
 } from '../oyun/yuzey/gorevler';
+import { YG } from '../oyun/yuzey/gorevler';
 import { BITKILER, ISLEME_TESISI } from '../oyun/tarim/bitkiler';
 import { nobetNo, gun as zamanGunu } from '../oyun/zaman';
 import { MADEN_DUGUMLERI, KIYI_DUGUMLERI } from '../oyun/saha/veri';
@@ -302,6 +303,37 @@ const DOSYALAR = {
   bd_su: require('../../assets/ses/konumsal/bd_su.wav'),
   bd_tas: require('../../assets/ses/konumsal/bd_tas.wav'),
   bd_toz: require('../../assets/ses/konumsal/bd_toz.wav'),
+  yg_tixie: require('../../assets/ses/konumsal/yg_tixie.wav'),
+  yg_lasiraxi: require('../../assets/ses/konumsal/yg_lasiraxi.wav'),
+  yg_zynae: require('../../assets/ses/konumsal/yg_zynae.wav'),
+  yg_sirilla: require('../../assets/ses/konumsal/yg_sirilla.wav'),
+  yg_palmi: require('../../assets/ses/konumsal/yg_palmi.wav'),
+  yg_miranda: require('../../assets/ses/konumsal/yg_miranda.wav'),
+  yg_corinne: require('../../assets/ses/konumsal/yg_corinne.wav'),
+  yg_kefius: require('../../assets/ses/konumsal/yg_kefius.wav'),
+  yg_zephyra: require('../../assets/ses/konumsal/yg_zephyra.wav'),
+  yg_valen: require('../../assets/ses/konumsal/yg_valen.wav'),
+  yg_ignador: require('../../assets/ses/konumsal/yg_ignador.wav'),
+  yg_morwenna: require('../../assets/ses/konumsal/yg_morwenna.wav'),
+  yg_forges: require('../../assets/ses/konumsal/yg_forges.wav'),
+  yg_korvinus: require('../../assets/ses/konumsal/yg_korvinus.wav'),
+  yg_zeva: require('../../assets/ses/konumsal/yg_zeva.wav'),
+  yg_kaelis: require('../../assets/ses/konumsal/yg_kaelis.wav'),
+  yg_faelan: require('../../assets/ses/konumsal/yg_faelan.wav'),
+  yg_jolkar: require('../../assets/ses/konumsal/yg_jolkar.wav'),
+  yg_caelum: require('../../assets/ses/konumsal/yg_caelum.wav'),
+  yg_lyra: require('../../assets/ses/konumsal/yg_lyra.wav'),
+  yg_trellis: require('../../assets/ses/konumsal/yg_trellis.wav'),
+  yg_seraphine: require('../../assets/ses/konumsal/yg_seraphine.wav'),
+  yg_maelis: require('../../assets/ses/konumsal/yg_maelis.wav'),
+  yg_silas: require('../../assets/ses/konumsal/yg_silas.wav'),
+  yg_puskul: require('../../assets/ses/konumsal/yg_puskul.wav'),
+  yg_morvenna: require('../../assets/ses/konumsal/yg_morvenna.wav'),
+  yg_veyra: require('../../assets/ses/konumsal/yg_veyra.wav'),
+  yg_dren: require('../../assets/ses/konumsal/yg_dren.wav'),
+  yg_elian: require('../../assets/ses/konumsal/yg_elian.wav'),
+  yg_sora: require('../../assets/ses/konumsal/yg_sora.wav'),
+  yg_nox: require('../../assets/ses/konumsal/yg_nox.wav'),
 };
 
 // Eylem sesleri: gorev1.js'teki ses adlarını çalınacak efekte çevirir
@@ -421,6 +453,18 @@ export default function Yuzey({ onGeri, baslangic, yeniOyunUret }) {
   };
 
   // 4.5: barınaktaki hayvanlar kendi bölmelerinden, ara ara (v5 Paket 14 bölüm 5); mırıl-kedi kamarada ya da hamamda
+  // 5.1: YGK Akademi kişilerinin imza döngüleri (ElevenLabs); bulunulan kattakiler kendi noktalarından duyulur
+  const ygkSesleri = (d, s) => {
+    const istenen = {};
+    for (const x of YG.sesYerleri(d, NOKTALAR)) istenen['ygs_' + x.id] = () => s.dongu('ygs_' + x.id, 'yg_' + x.id, x.n, 0.35);
+    for (const id of Object.keys(calanlar.current)) if (id.indexOf('ygs_') === 0 && !istenen[id]) kaynakKapat(id);
+    for (const id of Object.keys(istenen))
+      if (!calanlar.current[id]) {
+        calanlar.current[id] = true;
+        istenen[id]();
+      }
+  };
+
   const hayvanSesleri = (d, s) => {
     const istenen = {};
     const h = d.hayvan;
@@ -618,6 +662,7 @@ export default function Yuzey({ onGeri, baslangic, yeniOyunUret }) {
     yerlesimSesleri(d, s);
     sahaSesleri(d, s);
     hayvanSesleri(d, s);
+    ygkSesleri(d, s);
     if (ortamDa && !(terminalAcik.current && durakli.current)) {
       s.boguk(d.mekan === 'kapsul' || !!d.gemide);
       const oda = odaSu(d);
@@ -873,6 +918,7 @@ export default function Yuzey({ onGeri, baslangic, yeniOyunUret }) {
       return;
     }
     d.sahne = id;
+    const sahneBaslik = typeof sahne.baslik === 'function' ? sahne.baslik(d) : sahne.baslik;
     const sahneOrtami = typeof sahne.ortam === 'function' ? sahne.ortam(d) : sahne.ortam;
     if (sahneOrtami) {
       terminalAcik.current = false;
@@ -896,13 +942,13 @@ export default function Yuzey({ onGeri, baslangic, yeniOyunUret }) {
       // Seslendirilmiş sefer olayı: rehber başlığı ve konuşanı söyler, kayıt çalar, sonra ilk seçenek okunur
       const secenekler = sahneSecenekleri(d, id);
       const sonra = () => secenekler.length && soyle(secenekler[0].etiket + (secenekler.length > 1 ? ', 1 / ' + secenekler.length : ''), 'istek', false);
-      setTimeout(() => soyle([onEk, sahne.baslik, ok.kim + ' interkomda.'].filter(Boolean).join('. '), 'istek', true, false, () => {
+      setTimeout(() => soyle([onEk, sahneBaslik, ok.kim + ' interkomda.'].filter(Boolean).join('. '), 'istek', true, false, () => {
         if (!kayitCal(ok.kayit, 1, sonra)) soyle(sahneMetni(d, id).join(' '), 'istek', true, false, sonra);
       }), 150);
     }
     katmanAc({
       sessizAc: !!(ok && kayitVarMi(ok.kayit)),
-      baslik: sahne.baslik,
+      baslik: sahneBaslik,
       giris: [onEk, ...sahneMetni(d, id)].filter(Boolean).join(' '),
       onGeri: null,
       ogeler: sahneSecenekleri(d, id).map((x, i) => ({
@@ -912,7 +958,11 @@ export default function Yuzey({ onGeri, baslangic, yeniOyunUret }) {
           const sonraki = sahneSec(d, id, i);
           kaydet();
           if (sonraki) sahneGoster(sonraki);
-          else katmanKapat(sahne.bitisSozu || null);
+          else if (dunya.current.bulmaca && !buyuRef.current.acik) {
+            // 5.1: sahneden açılan büyü bulmacası (YGK bağ görevleri)
+            katmanKapatSessiz();
+            buyuAc();
+          } else katmanKapat(sahne.bitisSozu || null);
           return 'sessiz';
         },
       })),
@@ -1321,6 +1371,7 @@ export default function Yuzey({ onGeri, baslangic, yeniOyunUret }) {
         { id: 'komuta', etiket: 'Komuta ve Genişleme Paneli', ipucu: 'Bölge haritası, savunma hattı, ileri karakollar. İki parmakla sağa sola: sekme; üç parmakla dokun: en acil bölge.', sec: () => (agacGoster((x) => KM.panel(x, 'harita'), () => menuyuAc()), 'sessiz') },
         { id: 'hikaye', etiket: 'Hikâye çağrıları', ipucu: 'Karakterlerin telsiz çağrıları: bekleyenler ve bitenler.', sec: () => (agacGoster((x) => HK.hikayeMenu(x), () => menuyuAc()), 'sessiz') },
         { id: 'karakter', etiket: 'Karakter ağı, mekik ve itibar', ipucu: 'Kilit karakterler, Tether-Key mekiği, beş ana güç ve evren itibarı.', sec: () => (agacGoster((x) => KR.karakterMenu(x), () => menuyuAc()), 'sessiz') },
+        ...(dunya.current.bayrak.tonoflenyaGoruldu ? [{ id: 'ygk_bag', etiket: 'YGK Akademi bağ ağı', ipucu: 'Üç giriş yolu, akademi kişileri, bağ kademeleri ve açık görevler.', sec: () => (agacGoster((x) => YG.rehberMenu(x), () => menuyuAc()), 'sessiz') }] : []),
         ...(dunya.current.bayrak.tonoflenyaGoruldu ? [{ id: 'yan', etiket: 'Yan görevler ve itibar', ipucu: 'Otuz yan görev, bölgesel itibar, özel mürettebat.', sec: () => (agacGoster((x) => YN.yanMenu(x), () => menuyuAc()), 'sessiz') }] : []),
         { id: 'ekol', etiket: 'Yıldız Ekolü kıdemi', ipucu: 'Altı ekolde kıdem ve açılan kabiliyetler.', sec: () => (agacGoster((x) => ZN.ekolMenu(x), () => menuyuAc()), 'sessiz') },
         { id: 'harita', etiket: 'Uzay haritası', sec: () => (soyle(haritaMetni(), 'istek', true), 'sessiz') },
