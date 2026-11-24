@@ -75,6 +75,17 @@ export default function Ayarlar({ ayarlar, ayarDegistir, onGeri }) {
       },
     },
     {
+      id: 'kolayBuyu',
+      etiket: 'Kolay büyü: ' + (ayarlar.kolayBuyu ? 'açık' : 'kapalı'),
+      ipucu: 'Açıkken büyü bulmacalarında doğru büyüyü seçince rezonans ayarı yapılmaz; büyü doğrudan uygulanır. Çift dokununca değişir.',
+      sec: () => {
+        const yeni = !ayarlar.kolayBuyu;
+        ayarDegistir({ kolayBuyu: yeni });
+        setTimeout(() => soyle('Kolay büyü ' + (yeni ? 'açık' : 'kapalı'), 'istek', true), 60);
+        return 'sessiz';
+      },
+    },
+    {
       id: 'ses',
       etiket: 'Ses: ' + sesAdi,
       ipucu: sesler.length > 1 ? 'Çift dokununca sıradaki Türkçe sese geçer.' : 'Telefonda başka Türkçe ses yok. iPhone Ayarlar, Erişilebilirlik, Seslendirilen İçerik, Sesler bölümünden yenilerini indirebilirsin.',

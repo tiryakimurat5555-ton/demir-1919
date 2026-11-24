@@ -10,6 +10,7 @@
 // }
 // Düğüm kesilince ya da kazılınca tükenir; kıyıda 30-60 gerçek saniyede, madende bir nöbette yeniden belirir.
 import * as Z from '../zaman';
+import * as BY from '../buyu/buyu';
 import * as ZN from '../tonoflenya/zanaat';
 import * as SB from '../tonoflenya/subay';
 import { HAMMADDELER } from '../veri/tesisler';
@@ -242,8 +243,12 @@ function dugumBitti(d, id, n, t, mammoth, ek) {
   s.tukenen[id] = d.zaman.sn + yenidenBelirme(d, n);
   if (n.saha === 'damar') s.temiz[n.kat] = (s.temiz[n.kat] || 0) + 1;
   const merdiven = n.saha === 'damar' && s.temiz[n.kat] === 2 && GALERILER[n.kat].includes('merdiven');
+  // 5.0: renkli rezonans taşları (belgeler/v6 Paket 2 bölüm 3.3): derin katlarda kızıl, kıyı kayalığında mavi
+  let tas = '';
+  if (n.saha === 'damar' && n.kat >= 26) tas = BY.tasDusur(d, 'kizil', 0.08, 'Kırılan taşın içinden asana doğru titreşen kızıl bir rezonans taşı çıktı.');
+  else if (n.saha === 'kiyi' && n.dugum === 'kiyi_kayasi') tas = BY.tasDusur(d, 'mavi', 0.1, 'Kayanın içinden dalga gibi parlayan mavi bir rezonans taşı çıktı.');
   return {
-    metin: (t.devrilir ? 'Gövde gıcırdıyor... devrildi! ' : '') + alinan.join(', ') + ' çantaya.' + (dolu ? ' Çantan doldu.' : '') + (merdiven ? ' Galerinin dibinden rüzgâr uğultusu: aşağı iniş merdiveni açıldı.' : '') + ek,
+    metin: (t.devrilir ? 'Gövde gıcırdıyor... devrildi! ' : '') + alinan.join(', ') + ' çantaya.' + (dolu ? ' Çantan doldu.' : '') + (merdiven ? ' Galerinin dibinden rüzgâr uğultusu: aşağı iniş merdiveni açıldı.' : '') + tas + ek,
     ses: t.devrilir ? 'agac_devrilme' : n.saha === 'kiyi' ? 'kaya_kirilma' : 'kaya_kirilma',
     titresim: true,
   };

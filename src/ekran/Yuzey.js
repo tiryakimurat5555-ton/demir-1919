@@ -203,6 +203,8 @@ import { SES_OLCEK } from '../oyun/uzay/seyir';
 import { HAMMADDELER, HAMMADDE_SIRASI } from '../oyun/veri/tesisler';
 import { NITELIKLER } from '../oyun/veri/murettebat';
 import { otoYaz, tarihMetni, yuvalariOku, yuvayaYaz } from '../oyun/kayit';
+import * as BY from '../oyun/buyu/buyu';
+import * as BM from '../oyun/buyu/bulmaca';
 
 const ADIM_MS = 100;
 const OLU_BOLGE = 16;
@@ -288,6 +290,18 @@ const DOSYALAR = {
   h_efsane: require('../../assets/ses/konumsal/h_efsane.wav'),
   cocuk: require('../../assets/ses/konumsal/cocuk.wav'),
   bebek: require('../../assets/ses/konumsal/bebek.wav'),
+  // 5.0: büyü bulmacası düğümlerinin boşta çalan sesleri ve yıldız tozu
+  bd_bitki: require('../../assets/ses/konumsal/bd_bitki.wav'),
+  bd_buz: require('../../assets/ses/konumsal/bd_buz.wav'),
+  bd_elektrik: require('../../assets/ses/konumsal/bd_elektrik.wav'),
+  bd_fisilti: require('../../assets/ses/konumsal/bd_fisilti.wav'),
+  bd_kristal: require('../../assets/ses/konumsal/bd_kristal.wav'),
+  bd_lav: require('../../assets/ses/konumsal/bd_lav.wav'),
+  bd_metal: require('../../assets/ses/konumsal/bd_metal.wav'),
+  bd_ruzgar: require('../../assets/ses/konumsal/bd_ruzgar.wav'),
+  bd_su: require('../../assets/ses/konumsal/bd_su.wav'),
+  bd_tas: require('../../assets/ses/konumsal/bd_tas.wav'),
+  bd_toz: require('../../assets/ses/konumsal/bd_toz.wav'),
 };
 
 // Eylem sesleri: gorev1.js'teki ses adlarını çalınacak efekte çevirir
@@ -338,6 +352,8 @@ export default function Yuzey({ onGeri, baslangic, yeniOyunUret }) {
   const [vincAcik, setVincAcik] = useState(false);
   const [gemiAcik, setGemiAcik] = useState(false);
   const [opAcik, setOpAcik] = useState(false);
+  const [buyuAcik, setBuyuAcik] = useState(false);
+  const buyuRef = useRef({ acik: false, sesler: {}, ayar: false });
   const [savasAcik, setSavasAcik] = useState(false);
   const savasRef = useRef({ acik: false, dusman: false });
   const opRef = useRef({ acik: false, ses: {}, hedef: null, sonDx: 0, sonDy: 0 });
@@ -506,6 +522,14 @@ export default function Yuzey({ onGeri, baslangic, yeniOyunUret }) {
         s.dongu('vaha', 'vaha', KAPILAR.vaha_yolu.uclar[0], 0.7);
       }
     } else kaynakKapat('vaha');
+    // 5.0: gözlem tepesinde doğru nöbette havada süzülen yıldız tozu (belgeler/v6 Paket 2 bölüm 3.1)
+    const gz = NOKTALAR.yb_gozlem;
+    if (gz && d.mekan === gz.mekan && yuklu.current.bd_toz && BY.tozToplanabilir(d, 'yb_gozlem')) {
+      if (!calanlar.current.toz) {
+        calanlar.current.toz = true;
+        s.dongu('toz', 'bd_toz', gz, 0.7);
+      }
+    } else kaynakKapat('toz');
     // Yerel fauna (gezegen-gelisimi-v2: elektromanyetik sülükler, iplik böcekleri, tünel sürüngenleri)
     for (const id of FAUNA) {
       const n = NOKTALAR[id];
@@ -747,6 +771,10 @@ export default function Yuzey({ onGeri, baslangic, yeniOyunUret }) {
         opAdimi();
         return;
       }
+      if (d.bulmaca && buyuRef.current.acik) {
+        buyuAdimi();
+        return;
+      }
       if (durakli.current) return;
       if (d.gemide) {
         if (sayac % 10 === 0) bildirimKontrol();
@@ -925,6 +953,12 @@ export default function Yuzey({ onGeri, baslangic, yeniOyunUret }) {
               oltaAc(r.olta);
               return 'sessiz';
             }
+            // 5.0: büyü bulmacası katmanı
+            if (r.buyu && dunya.current.bulmaca) {
+              katmanKapatSessiz();
+              buyuAc();
+              return 'sessiz';
+            }
             if (r.ayar) {
               katmanKapatSessiz();
               frekansAc(r.amac);
@@ -1046,6 +1080,17 @@ export default function Yuzey({ onGeri, baslangic, yeniOyunUret }) {
           }
           if (r.ses) cal(EYLEM_SESI[r.ses] || r.ses, 0.8);
           if (r.efekt) setTimeout(() => cal(r.efekt, 0.8), 400);
+          // 5.0: büyü bulmacası (öğrenme, derslik) ve yankı taraması
+          if (r.buyu && dunya.current.bulmaca) {
+            katmanKapatSessiz();
+            buyuAc();
+            return 'sessiz';
+          }
+          if (r.radar) {
+            katmanKapat();
+            setTimeout(() => radarCal(), 300);
+            return 'sessiz';
+          }
           // 4.5: beste ve kozmik müzik kutusu: yıldız notaları sırayla
           if (r.notalar && r.notalar.length && m()) r.notalar.forEach((f, j) => setTimeout(() => m() && m().nota(f, null, 0.5, 1.4), 300 + j * 420));
           // 4.2: festival başladı: altı yıldızın çan akoru, dış mekânın ortamı festival müziğine döner
@@ -1261,6 +1306,7 @@ export default function Yuzey({ onGeri, baslangic, yeniOyunUret }) {
         { id: 'devam', etiket: 'Devam et', sec: () => (katmanKapat('Devam.'), 'sessiz') },
         { id: 'gorev', etiket: 'Görev', ipucu: 'Şu an ne yapabileceğini söyler.', sec: () => (soyle(gorevIpucu(dunya.current), 'istek', true), 'sessiz') },
         { id: 'gorevagi', etiket: 'Görev terminali, ' + GA.hazirlar(dunya.current).length + ' hazır görev', ipucu: '115 görev: ana, yerleşim ve yan. Her kartta ön şart, açacakları ve uyarı. Hazır görevler filtresi en üstte.', sec: () => (agacGoster((x) => GA.gorevMenu(x), () => menuyuAc()), 'sessiz') },
+        ...(BY.acikMi(dunya.current) ? [{ id: 'buyu', etiket: BY.menuMetni(dunya.current), ipucu: 'Asa, odak, şişeler, renkli taşlar ve dört ekolün büyüleri. İki parmakla sağa-sola: sekmeler.', sec: () => (agacGoster((x) => BY.defterMenu(x), () => menuyuAc()), 'sessiz') }] : []),
         { id: 'egitim', etiket: 'Savaş eğitimi' + (egitimEksikMi(dunya.current) ? ', zorunlu, tamamlanmadı' : ''), ipucu: 'Temel kara ve uzay savaşı hareketleri. Tamamlanmadan o ortamdaki çatışmalara girilemez.', sec: () => (agacGoster((x) => egitimMenu(x), () => menuyuAc()), 'sessiz') },
         { id: 'yerler', etiket: 'Yerler', ipucu: 'Bir yer ya da kişi seç; oraya kendin yürürsün.', sec: () => (yerlerGoster(), 'sessiz') },
         ...(MEKANLAR[dunya.current.mekan] && MEKANLAR[dunya.current.mekan].tonoflenya ? [{ id: 'tharita', etiket: 'Tonoflenya haritası', ipucu: 'Beş kuşak; uzak bölgelere yolculuk.', sec: () => (tonoflenyaHaritasi(), 'sessiz') }] : []),
@@ -2852,6 +2898,174 @@ export default function Yuzey({ onGeri, baslangic, yeniOyunUret }) {
     const o = d.olta;
     if (o && m()) m().basincAyar(o.evre === 'cekme' ? Math.min(1, o.g) : 0, o.evre === 'cekme' && o.g > 0.75);
   };
+  // --- 5.0: Büyü bulmacası katmanı (belgeler/v6 Paket 17) ---
+  // Dinleyici başlangıçta, kuzeye bakar; düğümler önünde soldan sağa yarım daire. Her düğüm boşta kendi sesini çalar
+  // (dosya yoksa kristal çınlaması); seçili düğüm yüksek, çözülenler susar. Rezonans ayarında kulaklıkta referans ton
+  // ile asanın tonu (terazi motoru) çarpışır.
+  const radarCal = () => {
+    const d = dunya.current;
+    const r = radar(d);
+    cal('sonar', 0.7);
+    const s = m();
+    if (s && yuklu.current.bip && d.mekan !== 'kapsul') r.pingler.forEach((p) => setTimeout(() => s.tek('bip', p, 0.8), 600 + p.gecikme));
+    setTimeout(() => soyle(r.metin, 'istek', true), 900);
+  };
+  const buyuSesEsitle = () => {
+    const d = dunya.current;
+    const s = m();
+    const x = BM.sesDurumu(d);
+    const b = buyuRef.current;
+    if (!s || !x) return;
+    for (const n of x.dugumler) {
+      const id = 'bd_' + n.id;
+      if (n.cozuldu) {
+        if (b.sesler[id]) {
+          s.sil(id);
+          delete b.sesler[id];
+        }
+        continue;
+      }
+      const nokta = { x: n.x, y: n.y };
+      const dosya = 'bd_' + n.ses;
+      if (yuklu.current[dosya]) s.dongu(id, dosya, nokta, n.secili ? 0.9 : 0.3);
+      else if (!b.sesler[id]) s.kaynak(id, 'kristal', nokta);
+      b.sesler[id] = true;
+    }
+    if (x.ayar) {
+      if (!b.ayar) s.teraziKur(x.ayar.ref);
+      s.teraziAyar(x.ayar.frek, false);
+      b.ayar = true;
+    } else if (b.ayar) {
+      s.teraziSil();
+      b.ayar = false;
+    }
+  };
+  const buyuSesleriSil = () => {
+    const s = m();
+    const b = buyuRef.current;
+    if (s) {
+      for (const id of Object.keys(b.sesler)) s.sil(id);
+      if (b.ayar) s.teraziSil();
+    }
+    b.sesler = {};
+    b.ayar = false;
+  };
+  const buyuAc = () => {
+    const d = dunya.current;
+    const s = m();
+    if (s) {
+      s.dinleyici({ x: 0, y: 0, yon: 0 });
+      s.boguk(false);
+    }
+    durakli.current = true;
+    buyuRef.current = { acik: true, sesler: {}, ayar: false };
+    setBuyuAcik(true);
+    buyuSesEsitle();
+    soyle(BM.girisMetni(d), 'istek', true);
+  };
+  const buyuKapat = (soz) => {
+    const d = dunya.current;
+    buyuSesleriSil();
+    buyuRef.current.acik = false;
+    setBuyuAcik(false);
+    if (d.bulmaca) BM.birak(d);
+    durakli.current = false;
+    kaydet();
+    sesleriEsitle(true);
+    if (d.sahne) sahneGoster(d.sahne);
+    else if (soz) soyle(soz, 'istek', true);
+  };
+  const buyuOlaylari = (olaylar) => {
+    const sozler = [];
+    let bitti = false;
+    for (const o of olaylar) {
+      if (o.soz) sozler.push(o.soz);
+      if (o.ses) cal(EYLEM_SESI[o.ses] || o.ses, 0.85);
+      if (o.ses2) setTimeout(() => cal(o.ses2, 0.8), 700);
+      if (o.haptik === 'hata') Haptics.notificationAsync(Haptics.NotificationFeedbackType.Error).catch(() => {});
+      else if (o.haptik === 'basari') Haptics.notificationAsync(Haptics.NotificationFeedbackType.Success).catch(() => {});
+      else if (o.haptik === 'tik') Haptics.selectionAsync().catch(() => {});
+      else if (o.haptik === 'uzun') {
+        Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Heavy).catch(() => {});
+        setTimeout(() => Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Heavy).catch(() => {}), 350);
+      }
+      if (o.bitti) bitti = true;
+    }
+    kaydet();
+    if (bitti || !dunya.current.bulmaca) {
+      buyuKapat(sozler.join(' ') || null);
+      return;
+    }
+    buyuSesEsitle();
+    if (sozler.length) soyle(sozler.join(' '), 'istek', true);
+  };
+  const buyuAdimi = () => {
+    const ol = BM.ilerle(dunya.current, ADIM_MS / 1000);
+    if (ol.length) buyuOlaylari(ol);
+  };
+  const buyuSecimAc = () => {
+    const d = dunya.current;
+    if (!d.bulmaca) return;
+    const n = BM.dugumler(d)[d.bulmaca.i];
+    katmanAc({
+      baslik: 'Büyü seç: ' + n.ad,
+      giris: 'Odak ' + d.buyu.odak + '. ' + BM.dugumMetni(d),
+      onGeri: () => (katmanKapatSessiz(), soyle(BM.dugumMetni(dunya.current), 'istek', true)),
+      ogeler: [
+        ...BM.secenekler(d).map((x) => ({
+          id: x.id,
+          etiket: x.etiket,
+          ipucu: x.ipucu,
+          sec: () => {
+            katmanKapatSessiz();
+            buyuOlaylari(BM.sec(dunya.current, x.id));
+            return 'sessiz';
+          },
+        })),
+        { id: 'geri', etiket: 'Vazgeç', sec: () => (katmanKapatSessiz(), soyle(BM.dugumMetni(dunya.current), 'istek', true), 'sessiz') },
+      ],
+    });
+  };
+  const buyuJest = useJestler(
+    {
+      onKaydir: (yon, parmak) => {
+        const d = dunya.current;
+        if (!d.bulmaca || parmak >= 2) return;
+        if (d.bulmaca.ayar) {
+          if (yon === 'sag' || yon === 'sol') {
+            const ol = BM.ayarKaydir(d, yon === 'sag' ? 1 : -1);
+            buyuSesEsitle();
+            if (ol.some((o) => o.haptik === 'tik')) Haptics.selectionAsync().catch(() => {});
+            cal('tik', 0.25);
+          }
+          return;
+        }
+        if (yon === 'sag' || yon === 'sol') buyuOlaylari(BM.dugumDegis(d, yon === 'sag' ? 1 : -1));
+        else if (yon === 'asagi') buyuSecimAc();
+        else soyle(BM.durumMetni(d), 'istek', true);
+      },
+      onDokun: (parmak) => {
+        const d = dunya.current;
+        if (parmak >= 2) return sustur();
+        if (!d.bulmaca) return;
+        if (d.bulmaca.ayar) buyuOlaylari(BM.ayarDene(d));
+        else soyle(BM.durumMetni(d), 'istek', true);
+      },
+      onCiftDokun: (parmak) => {
+        const d = dunya.current;
+        if (!d.bulmaca) return;
+        if (parmak >= 2) {
+          if (d.bulmaca.ayar) buyuOlaylari(BM.ayarIptal(d));
+          else buyuKapat('Bulmacadan çıktın; kaldığın yer saklandı. Aynı yerden "Büyü bulmacasına dön" ile sürer.');
+          return;
+        }
+        if (d.bulmaca.ayar) buyuOlaylari(BM.ayarDene(d));
+        else buyuSecimAc();
+      },
+    },
+    { dokunmaBekle: true },
+  );
+
   const oltaJest = useJestler(
     {
       onSurukle: (mod) => {
@@ -3319,24 +3533,14 @@ export default function Yuzey({ onGeri, baslangic, yeniOyunUret }) {
           soyle(y.ad + '. ' + (r.metin || ''), 'istek', true);
         }
       },
-      onUzunBas: () => {
-        const d = dunya.current;
-        const r = radar(d);
-        cal('sonar', 0.7);
-        const s = m();
-        const mk = MEKANLAR[d.mekan];
-        // Yankılar: dışarıdaysan nesnelerin yönünden, uzaklığa göre gecikmeyle döner
-        if (s && yuklu.current.bip && d.mekan !== 'kapsul')
-          r.pingler.forEach((p) => setTimeout(() => s.tek('bip', p, 0.8), 600 + p.gecikme));
-        setTimeout(() => soyle(r.metin, 'istek', true), 900);
-      },
+      onUzunBas: () => radarCal(),
     },
     { dokunmaBekle: true },
   );
 
   return (
     <View style={stiller.dis}>
-      <View style={stiller.kap} {...(katman || ayarAcik || valfAcik || rezAcik || teraziAcik || oltaAcik || tarlaAcik || melezAcik || vincAcik || gemiAcik || opAcik || savasAcik ? {} : jest)}>
+      <View style={stiller.kap} {...(katman || ayarAcik || valfAcik || rezAcik || teraziAcik || oltaAcik || tarlaAcik || melezAcik || vincAcik || gemiAcik || opAcik || savasAcik || buyuAcik ? {} : jest)}>
         <KonumsalSes
           ref={motor}
           onMesaj={(x) => {
@@ -3391,6 +3595,12 @@ export default function Yuzey({ onGeri, baslangic, yeniOyunUret }) {
         <View style={[StyleSheet.absoluteFill, stiller.ayar]} {...opJest}>
           <Text style={stiller.baslik}>Operasyon</Text>
           <Text style={stiller.yazi}>Dokun: durum. İki parmakla çift dokun: duraklat.</Text>
+        </View>
+      ) : null}
+      {buyuAcik ? (
+        <View style={[StyleSheet.absoluteFill, stiller.ayar]} {...buyuJest}>
+          <Text style={stiller.baslik}>Büyü bulmacası</Text>
+          <Text style={stiller.yazi}>Sağa-sola: düğüm. Dokun: durum. Çift dokun: büyü seç.</Text>
         </View>
       ) : null}
       {oltaAcik ? (

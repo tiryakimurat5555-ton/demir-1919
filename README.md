@@ -6,6 +6,23 @@ tesis kurar, ileride gemini parça parça inşa edip uzaya açılırsın.
 
 Yapımcı: Bahtiyar Cankurt (tasarım belgeleri belgeler/ içinde). Expo Go ile iPhone ve Android'de çalışır.
 
+## Bu sürümde (5.0): büyü temeli
+- Kaptan Malken kökenli ama büyü aracı yoktu. Kaptan Orin'den gelen Malazar Asası iki büyü kristaliyle tapınakta büyü tozuna
+  işlenince asa uyanır (kısa sahne ve ses). Ana menüde "Büyü defteri": asa, odak, şişeler, renkli taşlar ve dört ekolün
+  büyüleri; iki parmakla sağa-sola sekme.
+- Axelum Tapınağı (yerleşimdeki tapınak binası): sekiz temel büyü ve şişeleme öğrenilir. Her büyü önce asanın ucunda
+  rezonans ayarıyla (sağa-sola kaydır, iki ton birleşince dokun), sonra hedefte bir denemeyle öğrenilir. Tapınak
+  dersliğinde dört alıştırma odası; sunağın başında dinlenince odak dolar. Sarmaşık büyüsünü Sorya ya da Dr. Lyris
+  altıncı kademede öğretir.
+- Büyü bulmacaları: sağa-sola kaydırarak düğümleri dolaş (her birinin kendi sesi sağdan, soldan, önden gelir), dokun:
+  durum, çift dokun: büyü seç. Yanlış büyü yalnız 5 odak götürür ve ipucu verir; odak biterse nefes al; gücün yetmeyen
+  düğümde yedek yol açılır. İki parmakla çift dokun: çık, kaldığın yer saklanır. Ayarlar'da "Kolay büyü" ayarı atlar.
+- Koloni bulmacaları: enkazın mühürlü kasası, gözlem tepesinin yıldız mercekleri, maden kat 30'daki kızıl damar mührü,
+  kıyıdaki batık sandık, vahanın kurumuş kaynağı; ödülleri renkli rezonans taşları. Okul, YGK'ya rezonans mektubu yollar.
+- Yıldız tozu: atölyede kuvars kumundan boş şişe; gözlem tepesinde Gümüş Şafak ve Mor İkindi'de beyaz Lumina, Mavi Akşam'da
+  sarı Solis (havada pırıltı duyulur). Hava büyüsü (YGK'da öğrenilecek) bölgeyi üç nöbet soğutur ya da ısıtır.
+- Büyü savaşta açılmaz. Telefonda denenmedi.
+
 ## Bu sürümde (4.8)
 - Koloninin bulunduğu Vadi-i Sukût her yöne 33-36 metre genişledi; içindeki her şey aynı oranda açıldı. Kamp ateşinde
   yerleşimciler iki geniş halkada, meydanda ve binalarda daha aralıklı duruyor. Eski kayıtta oyuncunun yeri de uyarlanır.

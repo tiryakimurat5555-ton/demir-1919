@@ -14,6 +14,7 @@
 import { BITKILER, BITKI_SIRASI, KATEGORI_ADI, ORTAM_ADI, KADEMELER, VAHA_PARSEL, ISLEME, ISLEME_TESISI, TOPLULUKLAR, ISCI_TURLERI, SPOR_KRISTAL, HIBRITLER, yetisirMi, hibritBul } from './bitkiler';
 import { nobetNo, yildizCarpani, mevsimCarpani, etkiCarpani } from '../zaman';
 import * as SB from '../tonoflenya/subay';
+import * as BY from '../buyu/buyu';
 import { misafir } from '../tonoflenya/kisiler';
 
 export const DONGU_SN = 300; // bir koloni döngüsü (bitkilerin olgunlaşma birimi): nöbetin dörtte biri
@@ -518,7 +519,9 @@ export function yabaniTopla(d, id) {
   if (son != null && (d.sure || 0) - son < TOPLAMA_SN) return { metin: 'Bu bitkiden yakın zamanda tohum aldın; yeniden tohum vermesi için zaman gerek.', ses: 'red' };
   t.toplandi[id] = d.sure || 0;
   ekle(t.tohumlar, b, 2);
-  return { metin: 'İki ' + ad(b) + ' tohumu topladın. ' + (acikMi(d) ? 'Tarım alanında ya da saklı vahada ekebilirsin.' : 'Tarım alanı açılınca ekilir.'), ses: 'topla' };
+  // 5.0: termal vahada yeşil rezonans taşı (belgeler/v6 Paket 2 bölüm 3.3)
+  const tas = BY.tasDusur(d, 'yesil', 0.15, 'Köklerin arasında yeşil bir rezonans taşı parladı.');
+  return { metin: 'İki ' + ad(b) + ' tohumu topladın. ' + (acikMi(d) ? 'Tarım alanında ya da saklı vahada ekebilirsin.' : 'Tarım alanı açılınca ekilir.') + tas, ses: 'topla' };
 }
 export function kasaAc(d) {
   const t = tarim(d);

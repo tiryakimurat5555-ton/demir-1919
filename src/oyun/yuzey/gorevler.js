@@ -57,6 +57,10 @@ import * as HV from '../hayvan/hayvan';
 import * as HB from '../hobi/hobi';
 import * as GA from '../gorevAgi/gorevAgi';
 import * as AI from '../aile/aile';
+import * as BY from '../buyu/buyu';
+import * as BM from '../buyu/bulmaca';
+import * as BK0 from '../buyu/koloni';
+export { BY, BM, BK0 };
 import { MEKANLAR } from './harita';
 import { tehlikeMekani, TEHLIKELER } from './dunya';
 
@@ -66,7 +70,7 @@ export const { NOTALAR, kapiDizisi, rezonansBaslat, rezonansSecimDegis, rezonans
 
 export const { AYAKLAR, ayakSayisi, ayakFrek, teraziBaslat, teraziPompa, teraziIlerle, teraziMetni, DENGE_ESIGI } = G4;
 
-export const SAHNELER = { ...G1.SAHNELER, ...G2.SAHNELER, ...G3.SAHNELER, ...G4.SAHNELER, ...G5.SAHNELER, ...G6.SAHNELER, ...B.SAHNELER, ...K.SAHNELER, ...A.SAHNELER, ...M.SAHNELER, ...O.SAHNELER, ...SV.SAHNELER, ...SF.SAHNELER, ...TM.SAHNELER, ...AT.SAHNELER, ...FN.SAHNELER, ...YN.SAHNELER, ...KM.SAHNELER, ...HK.SAHNELER, ...FS.SAHNELER, ...SH.SAHNELER, ...HB.SAHNELER, ...AI.SAHNELER };
+export const SAHNELER = { ...G1.SAHNELER, ...G2.SAHNELER, ...G3.SAHNELER, ...G4.SAHNELER, ...G5.SAHNELER, ...G6.SAHNELER, ...B.SAHNELER, ...K.SAHNELER, ...A.SAHNELER, ...M.SAHNELER, ...O.SAHNELER, ...SV.SAHNELER, ...SF.SAHNELER, ...TM.SAHNELER, ...AT.SAHNELER, ...FN.SAHNELER, ...YN.SAHNELER, ...KM.SAHNELER, ...HK.SAHNELER, ...FS.SAHNELER, ...SH.SAHNELER, ...HB.SAHNELER, ...AI.SAHNELER, ...BK0.SAHNELER };
 
 // Telsiz bildirimleri (belgeler/savas-yetenek-ve-murettebat-mekanikleri.md 4.3): koşulu sağlanınca bir kez kuyruğa
 // girer. gorev alanı varsa yalnız o görev sürerken.
@@ -114,7 +118,7 @@ export function gorevIpucu(d) {
 }
 
 export function noktaEylemleri(d, id) {
-  const ek = [...G6.ekEylemler(d, id), ...K.ekEylemler(d, id), ...M.ekEylemler(d, id), ...TA.ekEylemler(d, id), ...(id === 'tepe' ? TM.tepeEylemi(d) : []), ...YR.ekEylemler(d, id), ...FS.ekEylemler(d, id), ...PZ.ekEylemler(d, id), ...SH.ekEylemler(d, id), ...HV.ekEylemler(d, id), ...HB.ekEylemler(d, id), ...AI.ekEylemler(d, id), ...GA.ekEylemler(d, id), ...ZN.ekEylemler(d, id), ...FN.ekEylemler(d, id), ...AK.ekEylemler(d, id)];
+  const ek = [...G6.ekEylemler(d, id), ...K.ekEylemler(d, id), ...M.ekEylemler(d, id), ...TA.ekEylemler(d, id), ...(id === 'tepe' ? TM.tepeEylemi(d) : []), ...YR.ekEylemler(d, id), ...FS.ekEylemler(d, id), ...PZ.ekEylemler(d, id), ...SH.ekEylemler(d, id), ...HV.ekEylemler(d, id), ...HB.ekEylemler(d, id), ...AI.ekEylemler(d, id), ...GA.ekEylemler(d, id), ...BK0.ekEylemler(d, id), ...ZN.ekEylemler(d, id), ...FN.ekEylemler(d, id), ...AK.ekEylemler(d, id)];
   if (G6.noktaMi(id)) return [...ek, { id: 'incele', etiket: 'Sütunu incele' }];
   const temel = temelEylemler(d, id);
   if (!ek.length) return temel;
@@ -123,6 +127,7 @@ export function noktaEylemleri(d, id) {
   return i < 0 ? [...temel, ...ek] : [...temel.slice(0, i), ...ek, ...temel.slice(i)];
 }
 function temelEylemler(d, id) {
+  if (BK0.noktaMi(id)) return [{ id: 'incele', etiket: 'İncele' }];
   if (HV.noktaMi(id)) return HV.noktaEylemleri(d, id);
   if (HB.noktaMi(id)) return HB.noktaEylemleri(d, id);
   if (FS.noktaMi(id)) return FS.noktaEylemleri(d, id);
@@ -149,6 +154,8 @@ function temelEylemler(d, id) {
 }
 
 export function eylemUygula(d, id, eylemId) {
+  // 5.0: büyü (tapınak dersliği, okul akademi kolu, yıldız tozu, koloni büyü bulmacaları; belgeler/v6)
+  if (BK0.ekEylemMi(eylemId) || BK0.noktaMi(id)) return BK0.eylemUygula(d, id, eylemId);
   // 4.5: hayvan barınağı, kuluçka, arşiv ve hobiler (v5 Paket 3B, 14, 15)
   if (HV.ekEylemMi(eylemId) || HV.noktaMi(id)) return HV.eylemUygula(d, id, eylemId);
   if (HB.ekEylemMi(eylemId) || HB.noktaMi(id)) return HB.eylemUygula(d, id, eylemId);
@@ -286,6 +293,7 @@ export const { miniBaslat, MINI, olgunMu, miniGorunur } = M;
 
 // Koloni baskınları artık komşu halka baskısıyla (komuta.js komutaIlerle): sonsuz rastgele dalga yok.
 export function zamanIlerle(d, dt) {
+  BY.hazirla(d);
   const olaylar = koloniIlerle(d, dt);
   olaylar.push(...Z.zamanAkit(d, dt));
   olaylar.push(...TR.tarimIlerle(d, dt));
@@ -644,7 +652,7 @@ export function uyu(d) {
     d.uykuda = false;
   }
   if (r.kesildi) return r;
-  return { ...r, metin: YR.uyandin(d) + ' ' + r.metin };
+  return { ...r, metin: YR.uyandin(d) + BY.dinlenince(d) + ' ' + r.metin };
 }
 export function dinlenMenu(d) {
   const e = dinlenmeEngeli(d);

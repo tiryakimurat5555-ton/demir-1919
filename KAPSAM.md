@@ -1119,6 +1119,60 @@ bütün bölümlerini sırayla sayar (21 Kasım: v3 paketiyle sekiz belge daha g
 - [x] Paket 1-16'nın hepsi işlendi (4.0-4.7).
 - [x] Yerleşimci adları: Paket 1/8 listesi esas (Murat, 23 Kasım). Rastgele üretilen mürettebat adları da bu düzende (4.7).
 
+## v6 paketi: Büyü, YGK Akademi ve Tonoflenya (belgeler/v6, 24 Kasım; 49 belge)
+Kural (Murat, 24 Kasım): mevcut hikâye ve son değişmez; yeni içerik ayrı yollar ve kollar açar. Büyü yalnız bulmacada,
+YGK sınavında, Tonoflenya büyü görevinde ve zanaatta; Evrensel Savaş'ta açılmaz.
+### Paket 1: tapınak, asa sonrası büyü sistemi ve ekoller (5.0)
+- [x] 1 açılış: Malazar asası ve iki büyü kristali büyü tozuna işlenince asa uyanır (sahne asa_uyanis; kaptan Malken kökenli,
+      aracı yoktu). Tapınak dersliği ve okulun akademi kolu açılır. [~] Belge asayla kristalin "birleşip" toz olduğunu söyler;
+      tarif asayı harcıyordu: asa harcanmış görünür ama "uyanmış asa" olarak d.buyu.asa'da kalır (çelişki ayrı yolla çözüldü).
+- [x] 2 iki katmanlı öğrenme: tapınakta 8 temel büyü ve şişeleme; ileri büyüler YGK hocalarından (5.1); dış saha (5.2-5.4).
+- [x] 3 dört ekol, 16 büyü (veri.js BUYULER: ad, odak, öğrenme yeri, işlev). Temel 8'i tapınakta öğrenilir.
+- [x] 4.1 odak havuzu 0-100: temel 10-15, ileri 25-35; tapınakta ve kamarada dinlenince dolar; ışık otu 15, kristal çiçek 20,
+      piezo 30, saf aether 50, çekirdek taşı 100. [x] 4.2 sesli test: düğümün boşta sesi ipucu verir, doğru büyüde rezonans ayarı
+      (sağa-sola kaydır, iki ton birleşince dokun; terazi motoru). Ayarlar'da "Kolay büyü" ayarı atlar.
+- [x] 5 on özel türev kaydı (veri.js TUREVLER, ELEMANLAR). [x] 5.1 Lumina ve Solis: aralama (3 salım) ve fırlatma (tamamı,
+      şişe kırılır). [x] 5.2 kademeli hava: soğutma ve ısıtma kademeleri, yağmurdan sonra yıldırım; durgun, rüzgâr, basınç
+      kubbesi. [x] 5.3 renkli taşlar ve heykel (taş takılır, bulmaca bitince geri sökülür; final heykellerinde kalıcı).
+      [x] 5.4-5.10 düğüm, köprü, ikiz (pencere en az 15 sn), sarmaşık, sıvı, metal, öz bağlama motor elemanı olarak var;
+      öğretmenleri 5.1'de. Sarmaşık (Malken doğa büyüsü) kolonide Sorya ya da Dr. Lyris altıncı kademede öğretir.
+- [x] 6 çoklu çözüm: her düğüm birden çok kombinasyon kabul eder (ör. buhar perdesi = buzul + kıvılcım ya da sis).
+- [x] 7 sesle oynanış: büyü defteri 4 ekol + özel sekme (iki parmakla sağa-sola), her satırda ad, odak, işlev; yanlış büyü
+      odak boşa harcamaz ama 5 odak düşer ve ipucu verir [~] (Paket 1 "boşa yanmaz", Paket 17 "5-15 düşer": 5 seçildi).
+### Paket 2: büyü işlemleri, asa, şişeleme ve sınav kuralları (5.0)
+- [x] 2.1 asa T1 (uyanış); [ ] T2 (3 kürsü + Kefius; 5.1), [ ] T3 (Tonoflenya, Nyxara; 5.2). İndirimler (%15, %25) ve T2'nin
+      iki adımlı hava hamlesi motorda hazır (asaYukselt).
+- [x] 2.2 doğal yenileme (tapınak sunağında dinlen, kamarada uyku), saha doldurucular, aşırı yükleme 120 (büyü tozu).
+- [x] 3.1 boş rezonans şişesi atölyenin döküm fırınında (2 kuvars kumu); en çok 5 + 5; Gümüş Şafak ve Mor İkindi'de beyaz
+      Lumina, Mavi Akşam'da sarı Solis; gözlem tepesinde ve Tonoflenya'nın açık gökyüzü bölgelerinde (büyü defteri) toplanır;
+      tepede toz varken konumlu pırıltı sesi.
+- [x] 3.2 hava bölgeseldir, üç nöbet sürer, mevsimi bozmaz; her kademe 10 odak, yıldırım 25 ve en az yağmur ister. Bulmaca
+      dışı etkiler: soğuk bölgede güneş maruziyeti yarıya, sıcak/zehirli bölgede serinlik ×0,7, yağmur ekim yataklarını sular.
+- [x] 3.3 taşlar: kızıl maden kat 26-40 ve kızıl damar mührü, mavi kıyı kayalığı ve batık sandık, sarı gözlem tepesi
+      (toz ve mercekler), yeşil vaha (yabani toplama ve kurumuş kaynak), [ ] mor YGK -4/-5 ve Malazar (5.1-5.2).
+- [x] 4 öğrenme: ön şart, ses frekansı ayarı, tek pratik deneme (öğrenme bulmacası iki düğüm, odak harcamaz). Ustalık:
+      5 kullanım Sv.2 (%10), 15 kullanım Sv.3 (%20). [ ] Telafi ve arşiv yedek yolları (hocayla küslük) 5.1'de.
+- [x] 5 savaş ayrımı: savaşta bulmaca açılmaz, büyü defterinin "Şimdi kullan"ı reddeder.
+- [x] 6 tek menüde takip: asa, odak, şişeler, taşlar, ekoller (defterin ilk sekmesi ve "Şişeler, taşlar ve odak" sekmesi).
+      [x] taş yerleştirme: heykel düğümünde "heykel N kızıl, M mor taş istiyor" okunur; seçilince taşlar takılır.
+### Paket 17: ses, metin ve dokunma bulmaca motoru (5.0 motor; bulmacalar ilgili sürümlerde)
+- [x] 1.1 bulmaca tanımı (düğümler pan/mesafe/boşta ses, adımlar, kombinasyonlar, yanlışta ceza ve ses, başarıda ses).
+- [x] 1.2.1 düğüm gezintisi (sağa-sola kaydır), konumlu boşta sesler, seçili düğüm yüksek, metin ve durum.
+- [x] 1.2.2 pencere en az 15 sn. [x] 1.2.3 çoklu kombinasyon, sırasız ve sıralı. [x] 1.2.4 sıfır kilitlenme: 5 odak, ipucu,
+      nefes al (bulmacayı sıfırlamadan +25 odak, en çok 3), yedek yol (hiçbir kombinasyona güç yetmezse). [x] 1.2.5 savaş yasağı.
+- [ ] 2-7 bulmacaların tek tek şartnameleri: akademi (5.1), bölgeler ve subaylar (5.2), saha (5.3), Axira, rotalar, son kuşak
+      (5.4), final (5.5).
+### Koloni çapası (5.0, rota adım 2)
+- [x] Tapınak: "Axelum dersliği: büyü öğren", "Tapınak dersliği: alıştırma odaları" (dört ekolün odası), "Sunağın başında dinlen".
+- [x] Okul: akademi kolu YGK'ya rezonans mektubu (bayrak akademiBuyuKolu; Paket 3 bölüm 1 köprüsü).
+- [x] Saha bulmacaları: enkazın mühürlü kasası (vadi), gözlem tepesinin yıldız mercekleri, kızıl damar mührü (maden kat 30),
+      kayalık koydaki batık sandık (kıyı), vahanın kurumuş kaynağı.
+- [x] Sesler: 38 ElevenLabs (büyüler, şişe, hava, heykel, geri bildirim, asa uyanışı, 10 düğüm döngüsü, toz pırıltısı) + Drive
+      Efektler'den 5 (buzul, ince buz döngüsü, cam kırılması, patlama, büyü seçimi). Ayrıntı araclar/oturumlar-5.0.txt.
+### Sonraki sürümler
+- [ ] Paket 3, 5 ve karakter 01-24 (5.1); Paket 4, 6a, 6b, 7 (5.2); Paket 9-13 (5.3); Paket 14-16 ve karakter 25-30 (5.4);
+      Paket 8 (5.5).
+
 ## Sıradaki adımlar (sırayla)
 0. Tonoflenya genişlemesi, yönergedeki sırayla: [2.1: Malken (12); 2.2: tarihçe (13); 2.3: atlas (14); 2.4: eşya,
    zanaat, mürettebat (15), Ekol Kıdemi ve rastgele karşılaşmalar; 2.5: yirmi final görevi (16); 2.6: otuz yan görev

@@ -1,6 +1,7 @@
 // Gezegen yüzeyinin benzetimi (saf JavaScript; ekrandan ve sesten bağımsız, testlerle sınanır).
 // Yürüme, dönme, çarpma, yaklaşınca haber verme, çevre tarifi, radar, etkileşim,
 // kapılardan geçiş ve kendiliğinden yürüme ("Yerler" menüsü).
+import * as BY from '../buyu/buyu';
 import { ALANLAR, KAPILAR, KISILER, MEKANLAR, NOKTALAR } from './harita';
 import { kisiKonumu, yerVar } from '../yerlesim/konum';
 import { YERLESIMCILER } from '../yerlesim/veri';
@@ -499,6 +500,7 @@ export function zehirIlerle(d, dt, ek, olaylar) {
     if (d.bayrak.g_panzehir) hiz *= 0.7; // Viridion botanikçilerinin panzehirleri (G-20)
     if (d.bayrak.yk_lyris_6 || d.bayrak.yk_nerissa_6) hiz *= 0.85; // Paket 16: hekimlerin antikor direnci
     if (d.bayrak.ak_trellis) hiz *= 0.75; // Trellis-7'nin Zehirli Nefes testi
+    hiz *= BY.maruziyetCarpani(d, mk.soguk ? 'soguk' : 'zehir'); // 5.0: bölgesel hava büyüsü
     if ((d.biyoKalkanBitis || 0) > ((d.zaman && d.zaman.sn) || 0)) hiz = 0; // Axira'nın biyo-kalkanı
     d.zehir = Math.min(100, once + (hiz + (ek || 0)) * aracCarpani(d, 'zehir') * dt);
   } else if (once > 0) d.zehir = Math.max(0, once - 3 * dt);

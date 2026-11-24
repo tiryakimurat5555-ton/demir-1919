@@ -857,10 +857,42 @@ Demir 1919 oyunu silindi; geçmişi git kaydında (son sürüm 1.06, commit 556f
   - yerlesim/konum.js: kamp ateşi iki halka (6 ve 10 m, Y_NOKTALAR.kamp_atesi'nden), meydanda 6,5 m aralık (y 14/34), festival
     halkası 12×9 m, iç mekânlarda 4 × 3 m.
   - durum.js: d.vadiOlcek; kaydiTamamla eski kayıtta vadideki oyuncuyu ve fenerleri bir kez ölçekler.
+- SÜRÜM 5.0 (24 Kasım, v6 paketi geldi: Buyu_YGK_Tonoflenya_Paketi.zip, 49 belge → belgeler/v6/; okuma sırası
+  00-OKUMA-SIRASI.md): büyü temeli + koloni çapası (Paket 1, 2, 17 motoru). Telefonda denenmedi.
+  - buyu/veri.js (bağımlılıksız): EKOLLER (ref ton), BUYULER 16 (ekol, odak, ogrenme tapinak|akademi, kaynak, islev, disari, ses),
+    TUREVLER 10, HAVA (-4..4), ELEMANLAR (bulmaca elemanı: büyüler, lumina/solis salim/firlat, hava_<durum>, hava_durgun/ruzgar/
+    kubbe, yildirim_dusur, heykel, yanki_dugumu, isik/madde_koprusu, yanki_ikizi, sarmasik, sivi, metal, oz_baglama; aracEkle(id,
+    ad, esya, tuketir) saha araçları için), TASLAR 5, ASA [T1-T3 indirim], ODAK_DOLDURUCU, USTALIK (5/15), SISE_EN_COK 5.
+  - buyu/buyu.js: d.buyu {asa, odak, asiriYuk, bilinen, kullanim, sise {lumina [kalan], solis}, taslar, hava {mekan, seviye,
+    bitis}, tozNobet, biten, yarim, notlar}; hazirla (yeni oluşturulurken eski kayıtta sunak/toz varsa asa 1), asaUyandir (sahne
+    asa_uyanis), asaYukselt, maliyet (asa × ustalık), odakDoldur (tozu → aşırı yük 120), dinlenince (gorevler.uyu ve tapınak),
+    siseKullan/siseEkle, tozTopla (nöbet 0/3 Lumina, 4 Solis; boş şişe ZN.ESYA.bos_sise, tarif atölye fırını), tasEkle/tasDusur
+    (saha.js kat ≥26 kızıl, kıyı kayası mavi; tarim yabaniTopla yeşil), havaSeviyesi/maruziyetCarpani (dunya.js zehirIlerle),
+    defterMenu (ağaç; sekmeler 4 ekol + türevler + şişe/taş/odak; DEFTER_EKLERI kancası), disariKullan (zihin, yankı → radar,
+    ağırlık), savaşta red.
+  - buyu/bulmaca.js motoru: BULMACALAR/bulmacaEkle(id, {ad, giris, dugumler [{id, ad, pan, mesafe, ses, durum, cozuldu,
+    kombolar, sirali, pencere, ipucu, ara, tas, on, tehlike, yedek}], bitis, odul {esya, tas, sise, odak, ogret, bayrak, moral},
+    sonra(d, ilk), tekrar, kaliciTas, basla}); d.bulmaca {id, i, uyg, cozulen, pencere, hava, ayar {el, adim, ref}, ogren, nefes,
+    takilanTas}; baslat (yarım kalan sürer), birak, dugumDegis, secenekler (bilinen + hazır; nefes; yedek yalnız hiçbir yol
+    yoksa), sec → ayar (kolay modda doğrudan), ayarKaydir/ayarDene/ayarIptal (frek ref × 2^(adim/24)), havaHamlesi (ara kademe
+    cezasız), yanlış 5 odak + ipucu, tehlike ceza ve sıfırlama, ilerle (pencere), bitir (taşlar geri, biten, ödül), sesDurumu,
+    ogrenmeBulmacasi(id, elemanlar, hedef, durum). kolayModAyarla (Ayarlar kolayBuyu; App.js).
+  - buyu/koloni.js: öğrenme bulmacaları (8 temel, şişeleme [sunak ilk şişeyi verir], sarmaşık [Sorya/Lyris K6]), ogrenmeMenu,
+    derslik (ders_element/tasima/tekno/yanki), saha bulmacaları enkaz_kasasi, gozlem_mercekleri, kizil_damar, batik_sandik,
+    kurumus_kaynak; ekEylemler (yb_tapinak by_ogren/by_derslik/by_dinlen, yb_okul by_kol → akademiBuyuKolu, yb_gozlem by_toz,
+    bm_<bulmaca>), Tonoflenya açık gökyüzünde defterden toz, SAHNELER.asa_uyanis. buyu/harita.js B_NOKTALAR kizil_muhur
+    (maden_30), batik_sandik (kıyı), kurumus_kaynak (vaha). gorevler.js eylemUygula başta BK0; tezgah.js uret tozu → asa.
+  - Yuzey: büyü bulmacası katmanı (buyuJest: sağ/sol düğüm ya da ayar, aşağı/çift dokun büyü listesi, dokun durum ya da ayarı
+    dene, iki parmak çift dokun çık/ayardan vazgeç); düğüm konumu x = pan × 7, y = 3 + mesafe × 8; dongu 'bd_<ses>' (seçili 0,9);
+    ayar terazi motoru; menüde Büyü defteri; r.buyu (nokta ve ağaç) ve r.radar; gözlem tepesinde toz pırıltısı (bd_toz).
+  - Sesler: assets/ses/buyu/by_*.wav (42; TEMBEL; I=-18, 22 kHz tek kanal), assets/ses/konumsal/bd_*.wav (11 döngü; dongu.py
+    1,5 sn çapraz geçiş, I=-20, 24 kHz). ElevenLabs sfx 38 × 4 varyasyon (ilki kullanıldı), oturumlar araclar/oturumlar-5.0.txt;
+    Drive Efektler: buzul, bd_buz, sise_kir, patlama, secim.
+  - testler/buyu.test.js (22).
 - Sıradaki: SON BÜYÜK GÜNCELLEME, büyü (Murat, 24 Kasım). Kararlar: kaptan Malken kökenli ama büyü aracı yok, o yüzden
   büyü yapamıyor (araç = Malazar Asası; Orin'den, pazar.js); ayrı bina yok, derslik tapınak (rezonans sunağı, tezgah.js);
   büyüler yalnız bulmacada, savaşta değil. Murat/Bahtiyar derinleştirilmiş hikâye, büyüler, YGK Akademi katları, karakterler
-  ve Tonoflenya bulmaca noktalarını dosyalar hâlinde gönderecek; ben mevcut yapıya serpiştireceğim. Rota: 1) büyü temeli
+  ve Tonoflenya bulmaca noktalarını dosyalar hâlinde gönderecek; ben mevcut yapıya serpiştireceğim. Rota (5.0'dan itibaren sürümler 5.0-5.5; KAPSAM v6 bölümü): 1) büyü temeli
   (d.buyu defteri, büyü noktası hâlleri, hareket + ses, operasyon adımlarıyla döküm), 2) koloni çapası (asa → tapınak
   dersliği → başlangıç büyüleri → vadi/maden/kıyı alıştırma bulmacaları), 3) YGK Akademi genişletme (yerleşim motoru:
   kademe, sohbet, hediye, ikili olaylar akademi kişilerine), 4) Tonoflenya büyü kolu (atlas bölgeleri, ana hikâyeye seçmeli

@@ -552,9 +552,12 @@ Object.assign(KAPILAR, S_KAPILAR);
 Object.assign(NOKTALAR, S_NOKTALAR);
 // 4.5 (v5 Paket 3B, 14, 15): Hayvan Barınağı, Jeotermal Göl Kıyısı, Koloni Arşivi Salonu
 import { H_MEKANLAR, H_KAPILAR, H_NOKTALAR } from '../hayvan/harita';
+import { B_NOKTALAR } from '../buyu/harita';
 Object.assign(MEKANLAR, H_MEKANLAR);
 Object.assign(KAPILAR, H_KAPILAR);
 Object.assign(NOKTALAR, H_NOKTALAR);
+// 5.0: büyü bulmacalarının maden, kıyı ve vaha noktaları (belgeler/v6)
+Object.assign(NOKTALAR, B_NOKTALAR);
 
 // 4.8 (Bahtiyar, 24 Kasım: "ana haritayı her yöne 30-40 adım genişletsin, karakterler sıkışık durmasın"): Vadi-i Sukût
 // bütün içeriğiyle (noktalar, geçit uçları, kişiler) merkezden VADI_OLCEK kat açılır. Sınır -55..55 × -45..60 iken

@@ -19,6 +19,7 @@ import { HAMMADDELER, HAMMADDE_SIRASI } from '../veri/tesisler';
 import { PARCALAR } from '../veri/uretim';
 import { BITKILER } from '../tarim/bitkiler';
 import { tarim } from '../tarim/tarim';
+import * as BY from '../buyu/buyu';
 import { GUNLUK, SEKMELER, REZONANS_NOTU, rezonansMi, sekmesi } from './esya';
 
 const BALIK = ['sazan', 'gol_baligi', 'yilan_baligi'];
@@ -81,6 +82,8 @@ export const TARIFLER = {
   // Atölye: fırın
   tugla: T('atolye', 'firin', [[['ham_kil'], 2], [['komur'], 1]], { tugla: 4 }),
   seramik_canak: T('atolye', 'firin', [[['ham_kil'], 3]], { seramik_canak: 2 }),
+  // 5.0: büyü şişeleri (belgeler/v6 Paket 2 bölüm 3.1)
+  bos_sise: T('atolye', 'firin', [[['kuvars_kumu'], 2]], { bos_sise: 1 }, { ad: 'Boş rezonans şişesi' }),
   kalin_cam: T('atolye', 'firin', [[['kuvars_kumu'], 2], [['komur'], 1]], { cam: 2 }, { ad: 'Kalın pencere camı' }),
   // Atölye: marangoz
   kereste_kalasi: T('atolye', 'marangoz', [[['kiyi_kerestesi'], 2]], { kereste: 2 }, { ad: 'İşlenmiş kereste kalası' }),
@@ -188,9 +191,14 @@ export function uret(d, id, kat = 1, bina) {
   if (k) return { metin: k, ses: 'red' };
   const { g, eksik } = girdiCoz(d, id, kat);
   if (eksik.length) return { metin: 'Eksik: ' + eksik.join(', ') + '. Tarif: ' + girdiMetni(t) + '.', ses: 'red' };
+  if (id === 'malazar_buyu_tozu') BY.hazirla(d);
   for (const x of Object.keys(g)) ekle(d, x, -g[x]);
   for (const x of Object.keys(t.cikti)) ekle(d, x, t.cikti[x] * kat);
   (d.uretilenTarif || (d.uretilenTarif = {}))[id] = 1; // 4.7: görev ağı
+  // 5.0: Malazar asası kristallerle büyü tozuna işlenince asa uyanır (belgeler/v6 Paket 2 bölüm 2.1)
+  if (id === 'malazar_buyu_tozu') {
+    BY.asaUyandir(d);
+  }
   const tz = TEZGAHLAR[b] && TEZGAHLAR[b][tezgahi(t, b)];
   const son = Object.keys(t.cikti).map((x) => adi(x) + ' ' + varlik(d, x)).join(', ');
   return { metin: ciktiMetni(t, kat) + ' üretildi. Harcanan: ' + Object.keys(g).map((x) => g[x] + ' ' + adi(x)).join(', ') + '. Elinde: ' + son + '.', ses: tz ? tz.ses : 'kur' };
