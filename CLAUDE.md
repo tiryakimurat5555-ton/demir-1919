@@ -865,6 +865,9 @@ Demir 1919 oyunu silindi; geçmişi git kaydında (son sürüm 1.06, commit 556f
   dersliği → başlangıç büyüleri → vadi/maden/kıyı alıştırma bulmacaları), 3) YGK Akademi genişletme (yerleşim motoru:
   kademe, sohbet, hediye, ikili olaylar akademi kişilerine), 4) Tonoflenya büyü kolu (atlas bölgeleri, ana hikâyeye seçmeli
   bağ), 5) kapanış (denge, uçtan uca test, APK, KAPSAM kapanışı).
+  KURAL (Murat, 24 Kasım): mevcut hikâye ve sonu DEĞİŞMEZ; yeni içerik yalnız önüne/arkasına yeni yollar ve kollar açar.
+  Gönderilen belgede mevcut hikâyeyle çelişen nokta olursa hiçbir özellik ya da unsur kaldırılmaz; çelişki ayrı bir yol,
+  seçmeli kol ya da sonraki bir evre olarak çözülür ve raporda ne yapıldığı söylenir.
 
 ## Sesler
 - Drive'daki Efektler/Ambians dosyaları 14 MB; Drive bağlayıcısı 10 MB'tan büyük dosyayı indiremiyor. Bu yüzden
