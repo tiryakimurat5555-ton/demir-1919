@@ -949,7 +949,16 @@ Demir 1919 oyunu silindi; geçmişi git kaydında (son sürüm 1.06, commit 556f
     ambargo, sahte_gumruk_belgesi harç 10).
   - Sesler (araclar/oturumlar-5.4.txt): 7 imza eleven_v4, 7 döngü + el_saha_araci sfx. testler/ygk54.test.js (12); ygk.test.js
     53 kişi, sart final 15/16/18/19 ve rota bayrakları, asa 2.
-- Sıradaki: SON BÜYÜK GÜNCELLEME, büyü (Murat, 24 Kasım). Kararlar: kaptan Malken kökenli ama büyü aracı yok, o yüzden
+- SÜRÜM 5.5 (24 Kasım): v6 Paket 8 ve v6 kapanışı. Telefonda denenmedi.
+  - ygk/kisiler/k16.js: BF-01 (gizli 'saha' kaydında, tur 'final'; GOREV_YERLERI tenohris 7612,3): finalEksikleri (asa 3, beş
+    renkten birer taş, beş bölge itibar ≥ 25 ya da o bölgenin kişisiyle biten görev), basla (malazar_kargisi; toprakMuhafizi
+    30 odak), bulmaca kaliciTas, 8 düğüm (bati/kuzey/dogu/guney/merkez heykel + gok/isik[sirali]/akor), secimler kosul
+    SY.pozisyon A | B | diğer C; epilog(d, yol) (valenKapali → Morvenna), kapanis (buyuFinali, malazarUstasi, tamRezonansEpilog,
+    unvan, akademiAcik/serbestLonca/esitOrtaklik, moral) → d.ygk.sonraSahne 'bf_akor'. bag.js ygk_sonuc Devam → sonraSahne.
+    buyu.js odakTavani malazarUstasi → 120. ygk/index.js bolgeMenu "Büyü finali" (durum ve eksikler).
+  - Ses el_final_akor (sfx, assets/ses/buyu). testler/ygk55.test.js (5); ygk.test.js sart BF-01 için guc ve asa 3.
+- v6 paketi bitti. Sıradaki: Murat'ın ya da Bahtiyar'ın yeni isteği; telefonda deneme sonuçları.
+- Büyü güncellemesinin kararları (Murat, 24 Kasım; 5.0-5.5 ile tamamlandı): kaptan Malken kökenli ama büyü aracı yok, o yüzden
   büyü yapamıyor (araç = Malazar Asası; Orin'den, pazar.js); ayrı bina yok, derslik tapınak (rezonans sunağı, tezgah.js);
   büyüler yalnız bulmacada, savaşta değil. Murat/Bahtiyar derinleştirilmiş hikâye, büyüler, YGK Akademi katları, karakterler
   ve Tonoflenya bulmaca noktalarını dosyalar hâlinde gönderecek; ben mevcut yapıya serpiştireceğim. Rota (5.0'dan itibaren sürümler 5.0-5.5; KAPSAM v6 bölümü): 1) büyü temeli

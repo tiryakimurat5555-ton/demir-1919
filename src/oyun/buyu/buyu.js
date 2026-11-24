@@ -60,7 +60,8 @@ export function asaYukselt(d, k) {
 export const asaAdi = (d) => (d.buyu && ASA[d.buyu.asa] ? ASA[d.buyu.asa].ad : 'Uyanmamış asa');
 
 // --- Odak ---
-export const odakTavani = (d) => (d.buyu.asiriYuk ? ASIRI_YUK : ODAK_EN_COK);
+// Paket 8: Malazar Büyük Ustası unvanıyla havuz kalıcı olarak aşırı yük sınırına (120) çıkar
+export const odakTavani = (d) => (d.buyu.asiriYuk || (d.bayrak && d.bayrak.malazarUstasi) ? ASIRI_YUK : ODAK_EN_COK);
 export function ustalikSeviyesi(d, el) {
   const n = (d.buyu.kullanim || {})[el] || 0;
   return n >= USTALIK[2].n ? 3 : n >= USTALIK[1].n ? 2 : 1;

@@ -6,6 +6,15 @@ tesis kurar, ileride gemini parça parça inşa edip uzaya açılırsın.
 
 Yapımcı: Bahtiyar Cankurt (tasarım belgeleri belgeler/ içinde). Expo Go ile iPhone ve Android'de çalışır.
 
+## Bu sürümde (5.5): Tonoflenya büyü finali
+- Asası üçüncü kademeye çıkan, beş renkten taş toplayan ve beş bölgede iz bırakan kaptan için Tenohris Sarayı'nın altında
+  kadim bir sunak açılır: dört dev muhafız ve bir Yıldız Muhafızı taşlarla ve büyüyle uyanır, Kaos Mührü üç kilitle kapanır
+  (yıldırım, ışık, altı yıldızın akoru).
+- Son, Tonoflenya'daki siyasi duruşuna göre üç kapanıştan biridir: Başkent, taşra ittifakı ya da Denge Yolu. Su, Kara Göl ve
+  Hâle hatlarını bitirdiysen Tam Rezonans.
+- Ödül: Malazar Büyük Ustası unvanı ve kalıcı 120 odak. İsteğe bağlıdır; büyük final görevleri ve hikâyenin sonu aynen durur.
+- Büyü paketinin bütün belgeleri işlendi. Telefonda denenmedi.
+
 ## Bu sürümde (5.4): şehrin yeni yüzleri, yol olayları, son kuşak köprüsü
 - Altı yeni kişi kendi şehirlerinde: Aether-Dock'ta neon rahibe Xaela, Uma'da casus Bayan Misket, Filtra'da cüce usta "Sıfır",
   doğu kantonlarında tacir Zahra Elmas Göz, Flee Plee'de goblin kimyager Doktor Kıkırdak, Veradon Hanı'nda düzenbaz Usta Çakal.

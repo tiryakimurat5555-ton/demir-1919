@@ -1324,8 +1324,33 @@ YGK sınavında, Tonoflenya büyü görevinde ve zanaatta; Evrensel Savaş'ta a�
 - [~] "Kıkırdak'ın şişesi şişelemeyi kısaltır", "Xaela'nın anlık kaçakçılık haritası", "Çakal'ın tam şehir ağı" gibi
       kazançlar bayrak ve metin olarak; sayısal etkisi olanlar yukarıda.
 - [x] Düzeltme: bağ görevlerinde seçenek ödülü (5.3) bu kişilerde de geçerli.
-### Sonraki sürümler
-- [ ] Paket 8 (5.5) ve kapanış.
+### Paket 8: Tonoflenya büyü finali, dev heykeller ve siyasi kapanış (5.5; ygk/kisiler/k16.js)
+- [x] Mevcut yapıyla uyum: Final 17-20'nin savaşları aynen; bu final yalnız asa ve büyü hattını tamamlayanlara açılan ek bölüm
+      (BF-01, "Saha büyü görevleri" listesinde [Final]; Tenohris altındaki kadim sunak noktası; bölge menüsünde durum ve eksikler).
+- [x] Bölüm 1 açılış şartı: T3 Çekirdek Yıldız Asası, beş renkten birer taş, beş bölgenin (Batı, Doğu, Kuzey, Güney, YGK)
+      her birinden orta itibar (25) ya da o bölgenin bir kişisiyle tamamlanmış bir görev (finalEksikleri).
+- [x] Bölüm 2 Aşama 1: dört dev muhafız + Merkez Yıldız Muhafızı, belgedeki taş kombinasyonları (kalıcı takılır) ve uyandırma
+      büyüleri (Doğu: Rüzgâr Uçuşu, Yankı İkizi ya da Sarmaşık + Sabit Yankı Mührü); uyanış replikleri; Merkez dört muhafızdan
+      sonra, Malazar Çekirdek Kargısı başlarken verilir. TAS hattı (toprakMuhafizi) 30 odak iadesi, IŞIK hattı (isikIpucu)
+      yön ipuçları sesli okunur.
+- [x] Aşama 2: gök kilidi (havayı yağmura çek, yıldırım düşür), ışık ve kırma kilidi (Lumina salımı sonra Solis fırlatma,
+      sıralı), altı yıldız akoru (Yankı Düğümü ya da Yankı İkizi + Frekans Anahtarı; Sinha K6 ya da K10'da telsiz ipucu).
+      Taş ya da büyü eksikse düğümün yedek yolu açılır (sıfır kilit).
+- [x] Gizli bonus Tam Rezonans Epiloğu: SU-03, KG-03, HAVA-03 (ya da tamRezonans) tamsa ek satır; AXI hattı varsa zümrüt ışık.
+- [x] Bölüm 3: üç kapanış siyasi pozisyondan (siyaset.js): A Başkent (Valen ve Kefius; akademi bütün katlarıyla açık),
+      B Taşra (Oronte, Barracuda, Nyxara, Mirelza; Serbest Lonca), C Denge Yolu ya da pozisyon yoksa (altı subay; eşit ortaklık).
+- [~] Epilog A'da Valen Ak Darbe'de stasise kapatıldıysa (valenKapali) sözü rektör vekili Morvenna Kael söyler; Valen'in yolu
+      değişmez (çelişki ayrı satırla çözüldü).
+- [x] Bölüm 4: Malazar Büyük Ustası unvanı (d.tf.unvan), odak havuzu kalıcı 120 (buyu.js odakTavani malazarUstasi), bağlar,
+      yan görevler ve günlük şehir işleri açık kalır. Kapanışta altı yıldız çanının akoru (el_final_akor, ElevenLabs) ve sahne
+      bf_akor. Muhafız düğümleri taş/lav/buz/rüzgâr/bitki/kristal döngüleriyle konumlu.
+### v6 kapanışı (5.5)
+- [x] v6 paketinin 49 belgesinin hepsi işlendi (Paket 1-17, 6A/6B, karakter 01-30; Paket 17 motoru 5.0'da).
+- [x] Uçtan uca: testler/ygk.test.js bütün bağ, saha ve final görevlerini baştan sona oynar; ygk53/54/55 hat, rota, kule,
+      şehir işi ve final senaryolarını; bulanik.test.js rastgele sağlamlık. Kilitlenme yok: her düğümün yedek yolu, her
+      şartın ikinci bir yolu (ML, görev, itibar) var.
+- [x] Denge: büyü savaşta kapalı kaldı; finaller ve büyük görevler büyüsüz de oynanır; büyü hattı yalnız kolaylık ve ek
+      son verir.
 
 ## Sıradaki adımlar (sırayla)
 0. Tonoflenya genişlemesi, yönergedeki sırayla: [2.1: Malken (12); 2.2: tarihçe (13); 2.3: atlas (14); 2.4: eşya,

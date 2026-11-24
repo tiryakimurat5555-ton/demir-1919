@@ -302,7 +302,8 @@ export const SAHNELER = {
     baslik: 'Sonuç',
     efekt: ['by_basari'],
     metin: (d) => [d.ygk.sonuc || ''],
-    secenekler: () => [{ etiket: 'Devam', sonra: null }],
+    // Bir seçenek kendi kapanış sahnesini isteyebilir (Paket 8 büyü finali: bf_akor)
+    secenekler: (d) => [{ etiket: 'Devam', yap: (z) => { z.ygk.sonraSahne = null; }, sonra: (d.ygk && d.ygk.sonraSahne) || null }],
   },
 };
 

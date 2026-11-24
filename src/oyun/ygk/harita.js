@@ -102,6 +102,9 @@ Object.assign(GOREV_YERLERI, {
   'KAR-01b': Y('kahergonat', 12452, 30, 'Bazalt Kapı Kulesi', 'İki karşıt sütun; ağır bir topraklama kolunun gıcırtısı.', 'tas'),
   'KAR-01c': Y('kahergonat', 12430, 8, 'Çatlak Çan Kulesi', 'Aşırı ısınmış bir çekirdeğin tıslaması; çatlak bir çanın titreşimi.', 'lav'),
   'CAH-01': Y('keralon', 12816, 30, 'Su Mezarı dış eşik galerisi', 'Derin su altı basıncının kalp atışı gibi boğuk vuruşları; taş kabartmalardan süzülen eski sesler.', 'su'),
+  // 5.5 (Paket 8): büyü finali
+  'BF-01': Y('tenohris', 7612, 3, 'Tenohris altındaki kadim sunak', 'Sarayın altına inen dar bir merdiven; ışık girmeyen salonda beş dev taş muhafız ve nefes alır gibi titreşen kara bir mühür.', 'tas'),
+
 });
 for (const gid of Object.keys(GOREV_YERLERI)) {
   const y = GOREV_YERLERI[gid];

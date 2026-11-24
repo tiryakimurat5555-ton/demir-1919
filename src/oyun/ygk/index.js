@@ -16,6 +16,7 @@ import './kisiler/k12';
 import { techizatMenu } from './kisiler/k13';
 import './kisiler/k14';
 import './kisiler/k15';
+import { finalEksikleri } from './kisiler/k16';
 import * as SE from './sehir';
 import * as SY from './siyaset';
 import * as AG from './akademiGorev';
@@ -139,6 +140,7 @@ export function bolgeMenu(d) {
       { id: 'siyaset', etiket: 'Hiyerarşi ve siyasi pozisyonun', alt: (z) => SY.siyasetMenu(z) },
       { id: 'saha', etiket: 'Saha büyü görevleri: su, ışık, taş, hava hatları, Kara Göl, kıyı ve kanyonlar' + bekleyenEk(d, 'saha'), alt: (z) => Y.gorevlerMenu(z, 'saha') },
       { id: 'techizat', etiket: 'Saha hazırlık ağı: büyü dışı teçhizat', alt: (z) => techizatMenu(z) },
+      { id: 'buyu_finali', etiket: 'Büyü finali: Tenohris altındaki kadim sunak' + (Y.gorevDurumu(d, 'BF-01') === 'bitti' ? ', tamamlandı' : finalEksikleri(d).length ? ', henüz kapalı' : ', açık'), ipucu: 'Beş renkli taşla dev muhafızlar ve siyasi kapanış. İsteğe bağlı; büyük final görevleri aynen sürer.', yap: (z) => ({ metin: Y.gorevDurumu(z, 'BF-01') === 'bitti' ? 'Kadim sunak mühürlendi; Malazar Büyük Ustası sensin.' : finalEksikleri(z).length ? 'Açılması için: ' + finalEksikleri(z).join('; ') + '.' : 'Kadim sunak seni bekliyor: Tenohris Sarayı\'nın altına in.' }) },
       ...l.map((k) => {
         const ki = Y.KISILER[k];
         return { id: 'k_' + k, etiket: ki.ad + ': kademe ' + Y.kademe(d, k) + bekleyenEk(d, k), ipucu: ki.unvan + '. ' + (ki.yerAdi || ''), alt: (z) => Y.profilMenu(z, k) };

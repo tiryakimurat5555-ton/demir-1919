@@ -566,6 +566,7 @@ const TEMBEL = {
   imza_yg_vaelor_tesekkur: require('../../assets/ses/ygk/imza/vaelor_tesekkur.mp3'),
   imza_yg_vaelor_kizgin: require('../../assets/ses/ygk/imza/vaelor_kizgin.mp3'),
   el_saha_araci: require('../../assets/ses/buyu/el_saha_araci.wav'),
+  el_final_akor: require('../../assets/ses/buyu/el_final_akor.wav'),
   // Yerleşimcilerin imza cümleleri (v5 Paket 1: selam, teşekkür, kızgınlık; ElevenLabs)
   imza_orin_selam: require('../../assets/ses/yerlesim/imza/orin_selam.mp3'),
   imza_orin_tesekkur: require('../../assets/ses/yerlesim/imza/orin_tesekkur.mp3'),

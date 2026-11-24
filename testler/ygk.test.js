@@ -44,10 +44,11 @@ function sart(d, g) {
   d.bayrak.akademiBuyuKolu = true;
   d.bayrak.seckinKadro = true;
   BY.hazirla(d);
-  d.buyu.asa = Math.max(d.buyu.asa || 0, 2);
+  d.buyu.asa = Math.max(d.buyu.asa || 0, g.id === 'BF-01' ? 3 : 2);
   for (const r of ['kizil', 'mavi', 'sari', 'yesil', 'mor']) d.buyu.taslar[r] = Math.max(d.buyu.taslar[r] || 0, 3);
   // 5.3 saha görevleri: faz kapıları (büyük final sayısı), hat öncülleri ve Kara Göl teçhizatı
   if (g.id === 'LAN-01') d.tf = { ...(d.tf || {}), biten: [18] };
+  if (g.id === 'BF-01') { d.karakter = { ...(d.karakter || {}), guc: { bati: 30, dogu: 30, kuzey: 30, guney: 30, ygk: 30 } }; }
   if (g.kisi === 'saha') {
     d.tf = { ...(d.tf || {}), biten: [1, 2, 3, 4, 5, 6, 13, 14, 15, 16, 18, 19] };
     for (const r of ['ROTA-01', 'ROTA-02', 'ROTA-03', 'ROTA-04', 'ROTA-05', 'ROTA-06']) d.bayrak['rota_' + r] = true;
