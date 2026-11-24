@@ -309,6 +309,8 @@ function gunMetni(g) {
 }
 
 // Yolculuk: zaman gorevler.js'te ileri sarılır (sn döner)
+// Yolculukta tetiklenen olaylar (ygk/kisiler/k15.js ROTA-01..06): (d, yol, hedef) → söz | ''
+export const SEYAHAT_KANCALARI = [];
 export function seyahatEt(d, hedef) {
   const y = yolBul(d, hedef);
   if (!y) return { metin: 'Oraya buradan yol yok.', ses: 'red' };
@@ -336,6 +338,7 @@ export function seyahatEt(d, hedef) {
     else if (a.tehlike && TEHLIKELER[a.tehlike] && !muaf[a.tehlike]) notlar.push(TEHLIKELER[a.tehlike](d));
     else if (a.tehlike && muaf[a.tehlike]) notlar.push('Yanındakiler sayesinde yolun tehlikesi seni teğet geçti.');
   }
+  for (const f of SEYAHAT_KANCALARI) { const m = f(d, y, hedef); if (m) notlar.push(m); }
   const g = BOLGELER[hedef];
   d.mekan = g.giris;
   d.oyuncu = { x: g.x, y: g.y, yon: 0 };

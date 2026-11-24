@@ -53,6 +53,17 @@ export const GOREV_YERLERI = {
   'SUB-04': Y('zeris', 10652, 58, 'Rüzgâr kulesinin yüksek balkonundaki sandık', 'Solmuş bir yıldız mührüyle kapalı eski bir sandık; içinde Zhaor\'un seyir haritası.', 'ruzgar'),
   'SUB-05': Y('arin', 6604, 18, 'Arin ile Malazar arasındaki rüzgâr noktası', 'Adanın kenarı; aşağıda deniz, uzakta Malazar. Rüzgârda dört notalı sessiz bir yankı.', 'kristal'),
 };
+// 5.4 (karakter 25-30): şehir ve bölge kişileri
+const P = (ygk, mekan, x, y, ad, tarif) => ({ mekan, x, y, ad, yaricap: 2, ygk, tarif });
+Object.assign(YG_NOKTALAR, {
+  yg_xaela: P('xaela', 'aether_dock', 6046, 48, 'Xaela, Neon İlahiyatçı', 'Neon vinçlerin altında sunucu sunağı; bas vuruşları, fan vızıltısı ve dönen bir veri halesinin cızırtısı.'),
+  yg_misket: P('misket', 'halka_uma', 7418, 18, 'Bayan Misket, kadife perdeli çay salonu', 'Porselen fincan şıngırtısı, ipek hışırtısı ve kısık fısıltılar.'),
+  yg_sifir: P('sifir', 'filtra', 11652, 34, '"Sıfır" Makinist, buhar atölyesi', 'Tıslayan buhar boruları, ritmik çekiç ve saat dişlilerinin tık tıkı.'),
+  yg_zahra: P('zahra', 'dogu_kanton', 7926, 50, 'Zahra Elmas Göz, ipek tenteli kervan köşkü', 'Tentelerde çöl rüzgârı, deve çanları ve bakır tartıların şıngırtısı.'),
+  yg_kikirdak: P('kikirdak', 'flee_plee', 6212, 54, 'Doktor Kıkırdak, Patlamaz Laboratuvar', 'Fokurdayan cam balonlar, küçük puf patlamaları ve tırmalayıcı bir kıkırtı.'),
+  yg_cakal: P('cakal', 'veradon', 6816, 26, 'Usta Çakal, Veradon Hanı köşe masası', 'Şömine çıtırtısı, zar sesi ve taş zeminde bir bastonun tıkırtısı.'),
+});
+
 // 5.3 (Paket 9-13): saha büyü görevleri (ygk/kisiler/k13.js)
 Object.assign(GOREV_YERLERI, {
   'SU-01': Y('tas_cember', 10246, 12, 'Axira Irmağı\'nın taşkın kolu', 'Köyün ortasından akan kabarmış ırmak; sıkışmış değirmen çarklarının gıcırtısı.', 'su'),
@@ -84,6 +95,13 @@ Object.assign(GOREV_YERLERI, {
   'ORE-01': Y('oredan', 12714, 14, 'Asılı kaya ve buz kütlesi', 'Damla damla eriyen buz; tepeden çatırdayan bir kütle.', 'buz'),
   'ORE-02': Y('oredan', 12748, 48, 'Kanyon burçlarının sis boruları', 'Hırıltılı bir bakır boru; karşı burçtan cevapsız kalan bir çağrı.', 'metal'),
   'GOL-01': Y('golge_hatti', 12014, 44, 'Soğuk sisteki kaya dairesi', 'Üç yönden gelen sahte yankılar; donmak üzere olan bir devriyenin sesi.', 'fisilti'),
+  // 5.4 (Paket 14-15)
+  'AXI-01': Y('axira_cemberi', 10040, 44, 'Axira Çemberi\'nin yıldız karoları', 'Taş karoların altında sönmüş bir kristal çınlaması; oval meydanda geniş bir rüzgâr yankısı.', 'kristal'),
+  'AXI-02': Y('axira_cemberi', 10048, 12, 'Eski Muhafız Bakım Odası kapısı', 'Saray duvarının dibinde paslı bir kapı; ardında Tenohris\'in kristal tabanının uğultusu.', 'metal'),
+  'KAR-01a': Y('kahergonat', 12412, 34, 'Kuzey İğnesi kulesinin dibi', 'Kuleden yükselen düşük frekanslı mekanik uğultu; üç bakır kapak.', 'metal'),
+  'KAR-01b': Y('kahergonat', 12452, 30, 'Bazalt Kapı Kulesi', 'İki karşıt sütun; ağır bir topraklama kolunun gıcırtısı.', 'tas'),
+  'KAR-01c': Y('kahergonat', 12430, 8, 'Çatlak Çan Kulesi', 'Aşırı ısınmış bir çekirdeğin tıslaması; çatlak bir çanın titreşimi.', 'lav'),
+  'CAH-01': Y('keralon', 12816, 30, 'Su Mezarı dış eşik galerisi', 'Derin su altı basıncının kalp atışı gibi boğuk vuruşları; taş kabartmalardan süzülen eski sesler.', 'su'),
 });
 for (const gid of Object.keys(GOREV_YERLERI)) {
   const y = GOREV_YERLERI[gid];

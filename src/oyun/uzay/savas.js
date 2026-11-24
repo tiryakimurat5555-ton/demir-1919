@@ -615,6 +615,11 @@ export function savasBaslat(d, spec) {
   // Kahergonat gizli geçit haritası (EST-SQ-06): arka kanyondan sızılır, zırhlının kalkanı yüzde yirmi beş kırık başlar
   const gizliGecit = h0.tur === 'kahergonat_zirhlisi' && esya(d, 'gecit_haritasi') > 0;
   if (gizliGecit) h0.kalkan = Math.round(h0.kalkan * 0.75 * 100) / 100;
+  // v6 Paket 15 KAR-01: gevşetilen kule sayısı (1: ilk kalkan darbesi zayıf, 2: yan geçit, 3: savunma titreşimi çöker)
+  const karKule = h0.tur === 'kahergonat_zirhlisi' ? (d.bayrak.karKule || 0) : 0;
+  if (karKule) h0.kalkan = Math.round(h0.kalkan * [1, 0.85, 0.7, 0.5][karKule] * 100) / 100;
+  // CAH-01: Cahelon'un üç yankısı dinlendiyse ilk aşamada hamleleri bir an duraksar
+  const cahelonYanki = h0.tur === 'cahelon' && d.bayrak.cahelonYanki;
   // Final #18: Final #17'de saray korunduysa Mareşal Elyon Vane ilk üç tur yanında (zırh yüzde yirmi, ek atış)
   if (h0.tur === 'lord_sharon' && d.bayrak.tfElyon) s.elyon = 3;
   // Kefius'un güveni yüksekse Dünya Çivisi'nin zayıf noktasını paylaşır: Sharon'un kalkanı yüzde yirmi zayıf başlar
@@ -628,6 +633,8 @@ export function savasBaslat(d, spec) {
   const g = GELISLER[s.gelis] || GELISLER.tek;
   const giris = spec.giris ? [spec.giris] : [];
   if (gizliGecit) giris.push('Gizli geçit haritasıyla arka kanyondan sızdın: zırhlının kalkanı yüzde yirmi beş kırık, ilk vuruş senin.');
+  if (karKule) giris.push(['', 'Kuzey İğnesi gevşemişti: zırhlının ilk kalkan darbesi zayıf.', 'İki kule gevşek: görüş paraziti kalktı, gizli yan geçitten yaklaştın; kalkan otuz yüzde zayıf.', 'Üç kule birden çökmüştü: Kara Şehir\'in savunma titreşimi yok, zırhlının kalkanı yarı yarıya.'][karKule]);
+  if (cahelonYanki) giris.push('Kabartmalardaki üç yankıyı duymuştun. Cahelon\'a fısıldıyorsun: "Seni zincir değil, bir söz özgür bırakacak." Dev bir an duraksıyor; ilk aşamada darbeleri yüzde on yumuşak.');
   if (kefiusSirri) giris.push('Kefius Dünya Çivisi\'nin zayıf noktasını paylaşmıştı: Sharon\'un gölge kalkanı yüzde yirmi zayıf.');
   if (s.elyon) giris.push('Mareşal Elyon Vane yanında: ilk üç tur zırhın yüzde yirmi güçlü ve o da ateş ediyor.');
   if (h0.tur === 'cahelon' && esya(d, 'cahelon_anahtari') > 0) giris.push('Girdap Anahtarı kalkan rezonatöründe: yüzey girdabının darbeleri dengeleniyor.');
@@ -1476,6 +1483,7 @@ function darbe(d) {
   if (x.tur === 'lord_sharon' && d.bayrak.morwennaYanda) h *= 0.75; // Morwenna Sharon'un zihin saldırılarını büker
   if (x.tur === 'lord_sharon' && esya(d, 'kirmizi_muhur') > 0) h *= 0.8;
   if (x.tur === 'cahelon' && !x.faz && esya(d, 'cahelon_anahtari') > 0) h *= 0.75;
+  if (x.tur === 'cahelon' && !x.faz && d.bayrak.cahelonYanki) h *= 0.9; // CAH-01 vicdan satırı
   const kalkanli = u.savunma === 'kalkan' && !sil.delici;
   if (u.savunma === 'kalkan' && sil.delici) o.push({ soz: sil.ad + ' kalkanı delip geçti!' });
   if (kalkanli) {

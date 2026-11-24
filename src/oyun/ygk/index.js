@@ -14,6 +14,9 @@ import './kisiler/k10';
 import './kisiler/k11';
 import './kisiler/k12';
 import { techizatMenu } from './kisiler/k13';
+import './kisiler/k14';
+import './kisiler/k15';
+import * as SE from './sehir';
 import * as SY from './siyaset';
 import * as AG from './akademiGorev';
 import { YG_NOKTALAR } from './harita';
@@ -21,7 +24,7 @@ import { YG_NOKTALAR } from './harita';
 AG.arsivBulmacalariKur();
 
 export const SAHNELER = Y.SAHNELER;
-export { Y, AG, SY };
+export { Y, AG, SY, SE };
 
 export function noktaMi(id) {
   return !!YG_NOKTALAR[id];
@@ -38,7 +41,7 @@ export function noktaEylemleri(d, id) {
 }
 // Var olan akademi noktalarına (k_kefius, ak_forges …) bağ eylemi
 export function ekEylemler(d, id) {
-  const l = [];
+  const l = [...SE.ekEylemler(d, id)];
   for (const kid of Y.KISI_SIRASI) {
     const k = Y.KISILER[kid];
     if (k.nokta === id && !(k.ulasilamaz && k.ulasilamaz(d))) l.push({ id: 'yg_bag_' + kid, etiket: k.ad + ' ile bağ: sohbet, görevler, hediye' + bekleyenEk(d, kid) });
@@ -46,7 +49,7 @@ export function ekEylemler(d, id) {
   return l;
 }
 export function ekEylemMi(eid) {
-  return eid === 'yg_bag' || eid === 'yg_gorev' || eid === 'yg_arsiv' || eid.indexOf('yg_bag_') === 0;
+  return eid === 'yg_bag' || eid === 'yg_gorev' || eid === 'yg_arsiv' || eid === 'yg_sehir' || eid.indexOf('yg_bag_') === 0;
 }
 function bekleyenEk(d, kid) {
   const k = Y.KISILER[kid];
@@ -57,6 +60,7 @@ function kisiAc(d, kid) {
   return { ses: Y.selamla(d, kid), agac: (x) => Y.kisiMenu(x, kid) };
 }
 export function eylemUygula(d, id, eid) {
+  if (eid === 'yg_sehir') return SE.eylemUygula(d, id);
   if (eid === 'incele') return { metin: YG_NOKTALAR[id].tarif };
   if (eid === 'yg_gorev') {
     const r = Y.gorevBaslat(d, YG_NOKTALAR[id].gorev);

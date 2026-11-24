@@ -586,7 +586,10 @@ export const SAHNELER = {
       const hz = () => g.hazirla && g.hazirla(d);
       if (g.savasOnce) return [{ etiket: g.uzay ? 'Gemine koş' : 'Savaşa gir', yap: () => { hz(); savasKur(d, g); }, sonra: null }];
       if (!g.op) return [{ etiket: 'Saldırıya geç', yap: () => { hz(); savasKur(d, g); }, sonra: null }];
+      // v6 Paket 14 AXI-02: Tenohris'in sessiz bakım kapısından ana kapı çatışmasına girmeden avluya sızılır (isteğe bağlı)
+      const sizma = g.no === 17 && d.bayrak.axiraYanGecit ? [{ etiket: 'Axira Çemberi\'nin bakım kapısından avluya sız', yap: () => { t.evre = 'op'; d.bayrak.tf17Sizma = true; }, sonra: 'tf_ara' }] : [];
       return [
+        ...sizma,
         { etiket: 'Başla', yap: () => { t.evre = 'op'; d.opBekle = 'tf' + g.no; }, sonra: null },
         { etiket: 'Sonra', yap: () => { t.aktif = null; t.evre = null; }, sonra: null },
       ];
@@ -603,7 +606,7 @@ export const SAHNELER = {
     metin: (d) => {
       const g = GOREV[tf(d).aktif];
       if (!g) return [];
-      const l = [g.op[g.op.length - 1].bitis];
+      const l = [g.no === 17 && d.bayrak.tf17Sizma ? 'Zümrüt kılavuz çizgiyi izleyip eski bakım kapısından Tenohris\'in kristal tabanına çıktın; ana kapıdaki çatışma arkada kaldı. Saray avlusundasın.' : g.op[g.op.length - 1].bitis];
       if (g.savas && !g.savasOnce && !tf(d).savasBitti) l.push(g.savasMetni);
       return l;
     },

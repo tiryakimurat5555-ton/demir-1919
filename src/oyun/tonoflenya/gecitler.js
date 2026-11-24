@@ -17,11 +17,12 @@ export function seyahatKurali(d, y, hedef, bolgeler, finalNoktaMekani) {
   const g = bolgeler[hedef];
   const gecer = (id) => y.ayaklar.some((a) => a.a === id || a.c === id) || hedef === id;
   if (!fb(d, 1) && hedef !== 'ygk') return { red: 'Muhafız: "Başkente ve kuşaklara geçiş YGK Kayıt Mührü ister." Final görevi birden sonra açılır.' };
-  if (hedef === 'magentor' && magentorKapali(d) && !(finalNoktaMekani && MAGENTOR.includes(finalNoktaMekani))) {
+  // ZAH-03 Tarafsız Kervan Mühürü ambargoyu kırar
+  if (hedef === 'magentor' && magentorKapali(d) && esya(d, 'tarafsiz_muhur') < 1 && !(finalNoktaMekani && MAGENTOR.includes(finalNoktaMekani))) {
     return { red: 'Büyük Ambargo: Magentor\'un kapıları taşra ittifakına kapalı. Akademiye yalnız eksi birinci kattaki Kör Rıhtım\'dan gizlice girilir.' };
   }
   if (gecer('tentran')) {
-    const harc = esya(d, 'tentran_izni') > 0 ? 10 : 40;
+    const harc = esya(d, 'tentran_izni') > 0 || esya(d, 'sahte_gumruk_belgesi') > 0 ? 10 : 40; // CAK-02 sahte belge izin sayılır
     if ((d.koloni.kaynaklar.isik_tozu || 0) < harc) return { red: 'Tentran ışınlanma kapısı: ' + harc + ' gram Fenrir ışık tozu harcı gerekir' + (harc > 10 ? ' (Tentran Işınlanma İzni olsa on gram yeterdi).' : '.') };
     d.koloni.kaynaklar.isik_tozu -= harc;
     notlar.push('Tentran kapısında ' + harc + ' gram ışık tozu harcı ödendi' + (harc > 10 ? '; Tentran Işınlanma İzni yok, geçici izin pahalı.' : '.'));

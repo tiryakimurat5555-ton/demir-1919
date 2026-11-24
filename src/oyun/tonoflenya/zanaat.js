@@ -13,7 +13,7 @@ import { OPERASYONLAR } from '../veri/uzayGorevleri';
 import { BITKILER } from '../tarim/bitkiler';
 import { Z_NOKTALAR } from './zanaatHarita';
 import * as SB from './subay';
-import { NOBET_SN, GUN_SN, SAAT_SN } from '../zaman';
+import { NOBET_SN, GUN_SN, SAAT_SN, etkiVar } from '../zaman';
 import { DEGER } from '../veri/deger';
 import { evrenEtki, misafir } from './kisiler';
 const SICRAMA_SN = 8 * SAAT_SN; // malken.js ile aynı: sekiz oyun saati (döngüsel içe aktarma olmasın diye)
@@ -607,7 +607,7 @@ export function veriSat(d) {
   d.para.gk += v.gk;
   return { metin: v.op.length + ' operasyon ve ' + v.kd.length + ' kodeks kaydı Akademiye aktarıldı: ' + v.gk + ' Galaktik Keşif Kredisi. Toplam ' + d.para.gk + '.', ses: 'sinyal' };
 }
-const tamirBirimi = (d) => (d.bayrak.yan_tentran_bakim ? 0 : 0.5 * SB.tamirCarpani(d) * ((d.esya && d.esya.kidemli_brove) ? 0.5 : 1) * (d.bayrak.yk_kaelon_6 || d.bayrak.yk_brom_6 ? 0.85 : 1)); // Paket 16: Kaelon/Brom tamiri // kıdemli kaptan brövesi; Tentran'ın ücretsiz bakımı
+const tamirBirimi = (d) => (d.bayrak.yan_tentran_bakim ? 0 : 0.5 * SB.tamirCarpani(d) * ((d.esya && d.esya.kidemli_brove) ? 0.5 : 1) * (d.bayrak.yk_kaelon_6 || d.bayrak.yk_brom_6 ? 0.85 : 1) * (d.bayrak.sifirTamir ? 0.7 : 1)); // SIF-02: Sıfır'ın tezgâhı // Paket 16: Kaelon/Brom tamiri // kıdemli kaptan brövesi; Tentran'ın ücretsiz bakımı
 export function bakimMaliyeti(d) {
   const g = d.gemi;
   return g ? Math.ceil((g.maxGovde - g.govde) * tamirBirimi(d) * (misafir(d, 'oronte') ? 0.5 : 1)) : 0;
@@ -639,6 +639,11 @@ function fiyat(d, f, alim, pz, mal) {
   if (alim && pz === 'kahergonat_karaborsa' && d.bayrak.yan_istihbarat) k += 0.1;
   if (!alim && pz === 'julithan_limani' && d.esya && d.esya.ticaret_berati) k += 0.1;
   if (alim && mal === 'oksit_celik' && d.bayrak.yan_filtra_fiyat) k += 0.2; // yan görev 11: Filtra oksit demiri
+  // v6 karakter 25-30 ve Paket 16: Xaela (Aether-Dock parçaları), Zahra (karaborsa), Uma kartı, lonca ihtiyarının günlük indirimi
+  if (alim && pz === 'tentran_tuccari' && d.bayrak.xaelaIndirim) k += 0.15;
+  if (alim && pz === 'kahergonat_karaborsa' && d.bayrak.zahraIndirim) k += 0.25;
+  if (alim && pz === 'uma_pazari' && d.esya && d.esya.uma_karti) k += 0.1;
+  if (alim && MALKENIA.includes(pz) && etkiVar(d, 'loncaIndirim')) k += 0.05;
   return Math.max(alim ? 1 : 0, Math.round(f * (alim ? 1 - k : 1 + k) * 10) / 10);
 }
 function paraAdi(p) {

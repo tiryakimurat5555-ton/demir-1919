@@ -1278,8 +1278,54 @@ YGK sınavında, Tonoflenya büyü görevinde ve zanaatta; Evrensel Savaş'ta a�
 - [x] Düzeltme: bağ görevlerinde seçeneğin kendi ödülü (S(... { odul })) uygulanmıyordu (5.2'deki Oronte kızıl taşı, Cüce demir
       cevheri, Sarah vadi özü …). Artık seçenek ödülü ve kodeks kaydı verilir.
 - [x] Ses: ortam_t_karagol_berrak (ElevenLabs sfx, 2,5 sn çapraz geçiş, I=-24). Bölge ortamları mevcut ortam_t_* dosyaları.
+### Paket 14: rota tehlikeleri, saha araçları, Axira Çemberi (5.4; ygk/kisiler/k14.js, k15.js)
+- [x] Bölüm 1: dört büyü destekli saha aracı (Sabit Yankı Mührü, Lumina İşaret Feneri, Solis Eritici Kapsül, Aether Denge
+      Çivisi) ustalarının (Forges, Kaelis, Tixie, Trellis-7, Doktor Kıkırdak, "Sıfır", Zahra) kişi menüsünde "Saha aracı yaptır";
+      tek kullanımlık bulmaca elemanları (buyu/veri.js aracEkle), savaşta kullanılmaz. AXI-01, KAR-01b, ROTA-02/03/04, CAH-01,
+      LAN-01 ve meclis kürsüsünde ilgili araç ikinci yol olarak geçer.
+- [x] Bölüm 2: ROTA-01 … ROTA-06 bölgeler arası yolculukta, yol iki bölgeyi de geçince ilk kez tetiklenir (atlas.js
+      SEYAHAT_KANCALARI); "Saha büyü görevleri" listesinde açılır, yapılmazsa yol yine sürer. ROTA-06'da kıvılcım ve yıldırım
+      gazı patlatır (tehlike).
+- [~] ROTA-05 (Fenrir ↔ Tharal) ve ROTA-06 (Keralon ↔ Flee Plee) arasında doğrudan rota yok: yolculuk ikisini de geçerse
+      tetiklenir.
+- [x] Bölüm 3: AXI-01 (16. büyük görevden sonra; Lumina, Yankı İkizi ya da Sabit Yankı Mührü, Aether Adımı) → AXI-02
+      (Metal + Öz Bağlama; gölge şifre çözücüyle odak iadesi) → bayrak axiraYanGecit: 17. büyük görevde ana kapı operasyonuna
+      girmeden "bakım kapısından avluya sız" seçeneği (isteğe bağlı; final.js tf_giris). axiraCizgisi bayrağı Paket 8 için.
+- [x] Bölüm 4: ses tasarımı mevcut ortamlar (ortam_t_cember, kanyon, kale) ve düğüm döngüleriyle.
+### Paket 15: son kuşak köprüsü (5.4)
+- [x] KAR-01 üç ayrı kule görevi (KAR-01a/b/c, 15. büyük görevden sonra; sırasız). bayrak.karKule 1-3: Kahergonat
+      zırhlısının kalkanı ×0,85 / ×0,7 / ×0,5 ve giriş sözü (savas.js); üç kule + AXI-02 → Final 17 operasyonunda filo hasar
+      almaz (operasyon.js). Üç kulede Kara Şehir Yankı Kaydı → Corinne ya da Kefius'a (kodeks).
+- [x] LAN-01 Keşiş Vaelor (yeni kişi, Arin antik tapınağı; Sınıf B, imza, sever/sevmez, üç seçenekli diyalog). Yol A:
+      Aether Adımı + Lumina + Öz Bağlama → Yıldız Sıçrama Mührü Elyndra ya da Drahmir'e → Final 19'da hasar yok. Yol B:
+      Xaela ya da Ignador kişi menüsünde zorla senkron (tamir kiti, 25 odak) → Final 19 hasarı yarı.
+- [x] CAH-01 (19. büyük görevden sonra; Keralon'daki dış eşik): sıvı, buzul, Hakikat Yankısı (üç yankı anısı), ışık köprüsü
+      (denge çivisiyle de) → cahelonYanki: Final 20'de Cahelon'a söylenen vicdan satırı ve ilk aşamada darbe ×0,9; tam odak.
+      suDengesi (SU-03 + KG-03) varsa akıntılar tek hamlede, ek odak.
+- [~] Final 20'nin karar seçeneği yok; "vicdan/ikna satırı" savaş girişinde söylenen söz ve hafifleyen darbe olarak.
+### Paket 16: tekrarlanabilir şehir işleri (5.4; ygk/sehir.js)
+- [x] Altı nokta (kabul masası, lonca ihtiyarı, meclis kürsüsü, Flee Plee iskele görevlisi, Arin antik tapınağı, Veradon gümrük
+      kulesi) "Günlük iş": günde bir kısa büyü bulmacası, iki alternatif büyüyle; ödüller belgedeki gibi dönüşümlü (mühür kutusu
+      ya da dünya çayı + odak; şişe + kristal çiçek ya da gümüş tozu + günlük Malkenia takas indirimi; malken çayı ya da huzur
+      tütsüsü + meclis dedikodusu; fosforlu liken ya da piezo; tam odak + kristal çan ya da ışık otu; vaha hurması, börek ya da
+      tamir kiti). Yapmamanın cezası yok.
+### Karakter 25-30 (5.4; ygk/kisiler/k14.js)
+- [x] Xaela (Aether-Dock), Bayan Misket (Uma), "Sıfır" Makinist (Filtra), Zahra Elmas Göz (Doğu kantonları), Doktor Kıkırdak
+      (Flee Plee), Usta Çakal (Veradon Hanı): 0-10 kademe, belgedeki kimlik, sever/sevmez, üç seçenekli diyalog, üçer görev
+      (XAE/MIS/SIF/ZAH/KIK/CAK-01..03; 01 kademe 0, 02 kademe 3, 03 kademe 7), ElevenLabs imza replikleri ve konumlu ortam.
+- [x] Kademe ve görev kazançları: Xaela denetim bağışıklığı, Aether-Dock alışında %15, terminal kısayolu ve kaçakçılık haritası
+      bayrakları; Misket Uma kartı (%10), Sirilla gizli diyalog bayrağı, çay seti; Sıfır asansör şeması, zırh/silah tamirinde
+      %30 tasarruf (zanaat bakım), usta anahtarı (Filtra kapıları); Zahra gizli stok, karaborsada %25, Filtra-Zorah geçidi,
+      Tarafsız Kervan Mühürü (Büyük Ambargo'da Magentor kapıları açılır); Kıkırdak maske (toz sisi ve bataklık bağışıklığı),
+      işaret iksiri, dengeleyici şişe; Çakal kısayollar, sahte gümrük belgesi (denetim bağışıklığı, Tentran harcı izinli
+      fiyatı), şans parası.
+- [x] Paket 11 şehir alternatifleri artık kişilerin yanında: Çakal ve Misket karantina beratı, Kıkırdak fısıltı filtresi, Xaela
+      yıldız pusulası, Sıfır topraklamalı pelerin, Zahra gölge şifre çözücü (ML ile; kademe 5'te ücretsiz).
+- [~] "Kıkırdak'ın şişesi şişelemeyi kısaltır", "Xaela'nın anlık kaçakçılık haritası", "Çakal'ın tam şehir ağı" gibi
+      kazançlar bayrak ve metin olarak; sayısal etkisi olanlar yukarıda.
+- [x] Düzeltme: bağ görevlerinde seçenek ödülü (5.3) bu kişilerde de geçerli.
 ### Sonraki sürümler
-- [ ] Paket 14-16 ve karakter 25-30 (5.4); Paket 8 (5.5).
+- [ ] Paket 8 (5.5) ve kapanış.
 
 ## Sıradaki adımlar (sırayla)
 0. Tonoflenya genişlemesi, yönergedeki sırayla: [2.1: Malken (12); 2.2: tarihçe (13); 2.3: atlas (14); 2.4: eşya,

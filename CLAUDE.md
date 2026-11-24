@@ -933,6 +933,22 @@ Demir 1919 oyunu silindi; geçmişi git kaydında (son sürüm 1.06, commit 556f
     ve "Saha hazırlık ağı". bag.js: TUR_ADI/TUR_ETIKET evrim; secimUygula artık seçeneğin odul'ünü ve kodeks'ini uygular
     (önceden yalnız g.odul). festival.js mekanOrtami kara_gol + karaGolMuhur → ortam_t_karagol_berrak (ElevenLabs sfx,
     assets/ses/t). testler/ygk53.test.js (20); ygk.test.js sart saha görevleri için final/teçhizat kurar.
+- SÜRÜM 5.4 (24 Kasım): v6 Paket 14, 15, 16, karakter 25-30. Telefonda denenmedi.
+  - ygk/kisiler/k14.js: xaela (yg_xaela, aether_dock), misket (halka_uma), sifir (filtra), zahra (dogu_kanton), kikirdak
+    (flee_plee), cakal (veradon), vaelor (nokta arin_tapinagi; LAN-01, kosul Final 18). Görevler XAE/MIS/SIF/ZAH/KIK/CAK-01..03.
+    ESYA (saha araçları, ödül eşyaları), aracEkle sabit_yanki_muhru/lumina_feneri/solis_kapsulu/denge_civisi; SAHA_ARACLARI +
+    aracYap (KISI_EKLERI "Saha aracı yaptır": kaelis/forges/tixie/kikirdak/zahra/sifir/trellis), SEHIR_TECHIZAT (Paket 11 şehir
+    alternatifi kişilerde; kademe 5 ücretsiz), LAN-01 Yol B (xaela/ignador lan_b → sicramaZorla).
+  - ygk/kisiler/k15.js (gizli 'saha' kaydına gorevEkle): ROTA-01..06 (atlas.js SEYAHAT_KANCALARI → bayrak rota_<id>; yer yok,
+    menüden), AXI-01/02 (Final 16 sonrası; axiraYanGecit), KAR-01a/b/c (Final 15 sonrası; bayrak.karKule, kara_sehir_kaydi →
+    Corinne/Kefius KISI_EKLERI), CAH-01 (Final 19 sonrası, Keralon; cahelonYanki).
+  - ygk/sehir.js SEHIR_ISLERI (Paket 16): bulmaca 'sehir_<nokta>' (tekrar), d.ygk.sehir[nokta] = gün; ygk/index.js ekEylemler
+    'yg_sehir'. Kancalar: savas.js (karKule kalkan, cahelonYanki), operasyon.js hasar (tf17 karKule 3 + axiraYanGecit → 0;
+    tf19 sicramaMuhru 0, sicramaZorla ×0,5), final.js tf_giris 17 sızma seçeneği (tf_ara, bayrak tf17Sizma), zanaat.js fiyat
+    (xaelaIndirim, zahraIndirim, uma_karti, etki loncaIndirim) ve tamirBirimi (sifirTamir ×0,7), gecitler.js (tarafsiz_muhur
+    ambargo, sahte_gumruk_belgesi harç 10).
+  - Sesler (araclar/oturumlar-5.4.txt): 7 imza eleven_v4, 7 döngü + el_saha_araci sfx. testler/ygk54.test.js (12); ygk.test.js
+    53 kişi, sart final 15/16/18/19 ve rota bayrakları, asa 2.
 - Sıradaki: SON BÜYÜK GÜNCELLEME, büyü (Murat, 24 Kasım). Kararlar: kaptan Malken kökenli ama büyü aracı yok, o yüzden
   büyü yapamıyor (araç = Malazar Asası; Orin'den, pazar.js); ayrı bina yok, derslik tapınak (rezonans sunağı, tezgah.js);
   büyüler yalnız bulmacada, savaşta değil. Murat/Bahtiyar derinleştirilmiş hikâye, büyüler, YGK Akademi katları, karakterler

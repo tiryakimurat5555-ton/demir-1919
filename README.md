@@ -6,6 +6,17 @@ tesis kurar, ileride gemini parça parça inşa edip uzaya açılırsın.
 
 Yapımcı: Bahtiyar Cankurt (tasarım belgeleri belgeler/ içinde). Expo Go ile iPhone ve Android'de çalışır.
 
+## Bu sürümde (5.4): şehrin yeni yüzleri, yol olayları, son kuşak köprüsü
+- Altı yeni kişi kendi şehirlerinde: Aether-Dock'ta neon rahibe Xaela, Uma'da casus Bayan Misket, Filtra'da cüce usta "Sıfır",
+  doğu kantonlarında tacir Zahra Elmas Göz, Flee Plee'de goblin kimyager Doktor Kıkırdak, Veradon Hanı'nda düzenbaz Usta Çakal.
+  Her birinin sesi, sohbeti, hediyeleri ve üç görevi var. Arin tapınağında Keşiş Vaelor.
+- Dört saha aracı (yankı mührü, Lumina feneri, Solis kapsülü, denge çivisi): ustalarına yaptırılır, yalnız bulmacalarda işe yarar.
+- Uzun yolculuklarda altı yol olayı; Axira Çemberi'nde saray kuşatmasına yandan sızan gizli kapı; Kara Şehir'in üç kulesini
+  sessizce gevşetmek; Arin'de Yıldız Sıçrama Mührü; Su Mezarı'nın eşiğinde Cahelon'un üç yankısı. Hepsi isteğe bağlı;
+  yapılırsa son büyük görevlerde gerçek avantaj verir, hikâye ve sonu değişmez.
+- Altı şehir noktasında günlük küçük büyü işleri (kabul masası, lonca ihtiyarı, meclis kürsüsü, iskele, Arin tapınağı, Veradon
+  gümrüğü): yaparsan şişe, odak ve hediyelik eşya; yapmazsan hiçbir şey kaybetmezsin. Telefonda denenmedi.
+
 ## Bu sürümde (5.3): saha büyü görevleri ve Kara Göl
 - Tonoflenya'nın dört bir yanında yirmi dokuz yeni büyü bulmacası, karakterlere bağlı olmadan: su, ışık, taş ve hava hatları
   (her hat üç basamak, büyük görevlerde ilerledikçe açılır), Kara Göl zinciri, Nerya kanalları, Fenrir toz denizi, Tharal,

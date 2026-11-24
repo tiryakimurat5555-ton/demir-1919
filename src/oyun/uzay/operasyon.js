@@ -97,6 +97,10 @@ function hasar(d, x, soz) {
   // Zeva'nın denge testi: gezegen inişlerinde araç ve mekik hasarı yüzde otuz az
   // Büyük Ambargo: taşra ittifakı Final 17'de kuşatmayı dışarıdan kırar
   if (d.bayrak && d.bayrak.ambargo === 'tasra' && d.op && d.op.id === 'tf17') x = Math.round(x * 0.5);
+  // v6 Paket 14-15: Kara Şehir'in üç kulesi ve Axira yanal kapısı → filo Tenohris'e hasarsız geçer; Yıldız Sıçrama Mührü
+  // (LAN-01 Yol A) hiper-sıçramada kristalleri kilitler, Yol B (zorla senkron) sarsıntıyı yarıya indirir
+  if (d.bayrak && d.op && d.op.id === 'tf17' && d.bayrak.karKule >= 3 && d.bayrak.axiraYanGecit) x = 0;
+  if (d.bayrak && d.op && d.op.id === 'tf19') x = d.bayrak.sicramaMuhru ? 0 : d.bayrak.sicramaZorla ? Math.round(x * 0.5) : x;
   if (d.bayrak && d.bayrak.ak_zeva && op(d) && OPERASYONLAR[d.op.id] && OPERASYONLAR[d.op.id].gezegen) x = Math.round(x * 0.7);
   // Yüzey operasyonları (final görevleri): gemi değil kaptanın dayanıklılığı; biterse geri çekilinir
   if (op(d) && op(d).yuzey) {

@@ -44,10 +44,13 @@ function sart(d, g) {
   d.bayrak.akademiBuyuKolu = true;
   d.bayrak.seckinKadro = true;
   BY.hazirla(d);
+  d.buyu.asa = Math.max(d.buyu.asa || 0, 2);
   for (const r of ['kizil', 'mavi', 'sari', 'yesil', 'mor']) d.buyu.taslar[r] = Math.max(d.buyu.taslar[r] || 0, 3);
   // 5.3 saha görevleri: faz kapıları (büyük final sayısı), hat öncülleri ve Kara Göl teçhizatı
+  if (g.id === 'LAN-01') d.tf = { ...(d.tf || {}), biten: [18] };
   if (g.kisi === 'saha') {
-    d.tf = { ...(d.tf || {}), biten: [1, 2, 3, 4, 5, 6, 13, 14] };
+    d.tf = { ...(d.tf || {}), biten: [1, 2, 3, 4, 5, 6, 13, 14, 15, 16, 18, 19] };
+    for (const r of ['ROTA-01', 'ROTA-02', 'ROTA-03', 'ROTA-04', 'ROTA-05', 'ROTA-06']) d.bayrak['rota_' + r] = true;
     d.bayrak.tonoflenyaGoruldu = true;
     for (const x of Y.KISILER.saha.gorevler) if (x.id !== g.id) Y.kayit(d, 'saha').gorev[x.id] = 'bitti';
     ZN.ekle(d, 'koruma_muhru', 1);
@@ -96,8 +99,8 @@ function coz(d) {
 }
 
 describe('Veri bütünlüğü', () => {
-  test('46 kişi (5.1: 31, 5.2: 15; 5.3 saha kaydı gizli), her birinin 11 kademesi ve üç imza cümlesi var', () => {
-    expect(KISILER_G.length).toBe(46);
+  test('53 kişi (5.1: 31, 5.2: 15, 5.4: 7; 5.3 saha kaydı gizli), her birinin 11 kademesi ve üç imza cümlesi var', () => {
+    expect(KISILER_G.length).toBe(53);
     for (const k of KISILER_G) {
       const ki = Y.KISILER[k];
       expect(ki.kademeler.length).toBe(11);
