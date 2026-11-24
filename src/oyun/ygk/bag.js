@@ -196,9 +196,9 @@ export function gorevDurumu(d, gid) {
   if (g.bulmaca && !BY.acikMi(d)) return 'asa';
   return 'acik';
 }
-const TUR_ADI = { bag: 'Bağ, güvenli', hiyerarsi: 'Hiyerarşi', zincir: 'Zincir, domino', final: 'Final' };
+const TUR_ADI = { bag: 'Bağ, güvenli', hiyerarsi: 'Hiyerarşi', zincir: 'Zincir, domino', final: 'Final', evrim: 'Evrimsel büyü hattı' };
 // Paket 4 bölüm 5: her görevin başında sınıf etiketi okunur
-export const TUR_ETIKET = { bag: '[Bağ, güvenli] ', hiyerarsi: '[Hiyerarşi] ', zincir: '[Zincir] ', final: '[Final] ' };
+export const TUR_ETIKET = { bag: '[Bağ, güvenli] ', hiyerarsi: '[Hiyerarşi] ', zincir: '[Zincir] ', final: '[Final] ', evrim: '[Evrimsel] ' };
 // Yerinde yapılan görevler (ygk/harita.js GOREV_YERLERI): kişiden alınır, işaretli yerde başlar. Açık olanlar
 // d.ygk.acikYer'de (harita noktası görünür ve konumlu ses verir).
 export function yerleriGuncelle(d) {
@@ -257,7 +257,10 @@ function secimUygula(d, g, i) {
     const n = puanEkle(d, g.kisi, g.puan);
     sozler.unshift(KISILER[g.kisi].ad + ' artı ' + n);
   }
-  const od = BM.odulVer(d, g.odul);
+  // Seçeneğin kendi ödülü (5.3'e kadar uygulanmıyordu) ve kodeks kaydı
+  const od = [BM.odulVer(d, g.odul), o ? BM.odulVer(d, o.odul) : ''].filter(Boolean).join(' ');
+  const kod = (o && o.kodeks) || g.kodeks;
+  if (kod && d.kodeks && !d.kodeks.some((k) => k.id === kod)) d.kodeks.push({ id: kod, ad: g.ad, tarif: (g.durum || '') + ' ' + ((o && typeof o.sonuc === 'string' && o.sonuc) || ''), itibar: 10 });
   if (g.yap) g.yap(d);
   const son = [(o && o.sonuc) || g.sonuc, g.bitisMetni].filter(Boolean).map((m) => (typeof m === 'function' ? m(d) : m)).join(' ');
   return son + (od ? ' ' + od : '') + (sozler.length ? ' Bağ: ' + sozler.join(', ') + '.' : '');

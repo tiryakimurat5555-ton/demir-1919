@@ -53,6 +53,38 @@ export const GOREV_YERLERI = {
   'SUB-04': Y('zeris', 10652, 58, 'Rüzgâr kulesinin yüksek balkonundaki sandık', 'Solmuş bir yıldız mührüyle kapalı eski bir sandık; içinde Zhaor\'un seyir haritası.', 'ruzgar'),
   'SUB-05': Y('arin', 6604, 18, 'Arin ile Malazar arasındaki rüzgâr noktası', 'Adanın kenarı; aşağıda deniz, uzakta Malazar. Rüzgârda dört notalı sessiz bir yankı.', 'kristal'),
 };
+// 5.3 (Paket 9-13): saha büyü görevleri (ygk/kisiler/k13.js)
+Object.assign(GOREV_YERLERI, {
+  'SU-01': Y('tas_cember', 10246, 12, 'Axira Irmağı\'nın taşkın kolu', 'Köyün ortasından akan kabarmış ırmak; sıkışmış değirmen çarklarının gıcırtısı.', 'su'),
+  'SU-02': Y('norvask', 10848, 50, 'Fiyort kapısının kara buz duvarı', 'Buz kıran gemisinin gövdesine vuran dalgalar; buzun derin çatırtısı.', 'buz'),
+  'SU-03': Y('keralon', 12846, 14, 'Batık kadim pompa odası', 'Bataklığın derinliğinde kabarcıklanan zehirli gaz; ölü bir tribünün ağır sessizliği.', 'fisilti'),
+  'ISIK-01': Y('kristal_teraslar', 10146, 46, 'Dört büyük kristal sütun', 'Rüzgârla çınlayan ama akordu bozulmuş sütunlar; şehre yayılan rahatsız bir uğultu.', 'kristal'),
+  'ISIK-02': Y('cam_duzlukleri', 12114, 14, 'Cam levhalar arasındaki uçurum', 'Ayaklarının altında çıtırdayan cam; aşağıdan yükselen rüzgâr.', 'kristal'),
+  'ISIK-03': Y('hardrin', 12346, 16, 'Morluk Kapısı', 'Pusulaları saptıran mavi bir uğultu; iki gerçeklik katmanı arasında titreyen koridorlar.', 'elektrik'),
+  'TAS-01': Y('filtra', 11618, 22, 'Eğilmiş cevher rayları ve buhar vanaları', 'Basınçlı buharın ıslığı; bükülmüş rayların metalik inlemesi.', 'metal'),
+  'TAS-02': Y('kirik_vadi', 12246, 46, 'Taşlaşmış antik su kemeri', 'Kükürt kokusu; kemerin altındaki cüruf duvarından sıcak bir tıslama.', 'tas'),
+  'TAS-03': Y('kahergonat', 12448, 14, 'Beş basamaklı sunak', 'Işığı yutan kanyonda beş kırık sütun; ortada hareketsiz bir bazalt muhafız.', 'tas'),
+  'HAVA-01': Y('gozlem_adalari', 10446, 48, 'Sönen ana deniz feneri', 'Spiral akıntının uğultusu; kule tepesinde sessiz üç bakır bobin.', 'elektrik'),
+  'HAVA-02': Y('ajmero', 11946, 46, 'Kum girdabındaki kervan', 'Dört bir yandan dönen kum; ortada çaresiz bir kervanın çanları.', 'ruzgar'),
+  'HAVA-03': Y('malazar_hale', 11148, 50, 'Hâle Denge Düğümü', 'Dönen büyü fırtınası ve iyonize şimşeklerin çatırtısı.', 'simsek'),
+  'KG-01': Y('kara_gol', 7708, 52, 'Krater kenarındaki üç gözetleme direği', 'Sesini başka sözlerle geri yollayan direkler; zift kokusu.', 'fisilti'),
+  'KG-02': Y('kara_gol', 7750, 12, 'Titan Runahar\'ın kaburgası', 'Zift içindeki taşlaşmış dev kaburgalar; çatırdayan kadim bir kemer.', 'metal'),
+  'KG-03': Y('kara_gol', 7752, 50, 'Krater merkez yarığı', 'Nefes alır gibi açılıp kapanan yarıktan mor bir fısıltı.', 'elektrik'),
+  'NER-01': Y('nerya', 12614, 12, 'Çöken kemer köprü', 'İki yakada silahlı muhafızlar; arada kanal girdabı.', 'su'),
+  'NER-02': Y('nerya', 12648, 48, 'Sular altındaki lonca mahzeni', 'Yosunlu basamaklar; suda sürüklenen pirinç bir sandığın tıngırtısı.', 'su'),
+  'FEN-01': Y('fenrir', 6434, 14, 'Karaya oturmuş toz mavnası', 'Parlayan tozun hışırtısı; uzaktan çalan bir metal çan.', 'toz'),
+  'FEN-02': Y('fenrir', 6446, 52, 'Gömülü rasathane kubbesi', 'Toz altından yükselen boğuk bir yankı; kırık bir döner merdiven.', 'kristal'),
+  'THA-01': Y('tharal', 12546, 14, 'Orman kenarındaki su oluğu', 'Gri, tortulu bir su; yaşlı köklerin kuru hışırtısı.', 'bitki'),
+  'THA-02': Y('tharal', 12548, 46, 'Kraliyet tahıl ambarı kulesi', 'Kurumuş bir sarmaşık kilidi; iki ağır ağırlık kolu.', 'bitki'),
+  'GUM-01': Y('gumus_tuy', 10346, 12, 'Gümüş sazlıktaki batık iskele', 'Rüzgârda metalik fısıldayan jilet gibi sazlar.', 'ruzgar'),
+  'JUL-01': Y('julithan', 11446, 14, 'Meclis arşiv odası', 'Gece; kasada iki ferman ve titreyen bir mum.', 'fisilti'),
+  'JUL-02': Y('julithan', 11448, 48, 'Liman kulesinin çatlak çanı', 'Çatlak bir bronz nota; sisin içinde kayalıklara sürüklenen gemiler.', 'metal'),
+  'ANI-01': Y('anitor', 11546, 12, 'Korzel Burnu fener kayası', 'Fırtına; kayalıklara sürüklenen iki geminin gıcırtısı.', 'elektrik'),
+  'ANI-02': Y('anitor', 11548, 46, 'Darnak Limanı zincir vinci', 'Gergin bir su altı zincirinin inlemesi.', 'metal'),
+  'ORE-01': Y('oredan', 12714, 14, 'Asılı kaya ve buz kütlesi', 'Damla damla eriyen buz; tepeden çatırdayan bir kütle.', 'buz'),
+  'ORE-02': Y('oredan', 12748, 48, 'Kanyon burçlarının sis boruları', 'Hırıltılı bir bakır boru; karşı burçtan cevapsız kalan bir çağrı.', 'metal'),
+  'GOL-01': Y('golge_hatti', 12014, 44, 'Soğuk sisteki kaya dairesi', 'Üç yönden gelen sahte yankılar; donmak üzere olan bir devriyenin sesi.', 'fisilti'),
+});
 for (const gid of Object.keys(GOREV_YERLERI)) {
   const y = GOREV_YERLERI[gid];
   YG_NOKTALAR['yg_yer_' + gid] = { mekan: y.mekan, x: y.x, y: y.y, ad: y.ad + ' (' + gid + ')', yaricap: 2.5, gorev: gid, tarif: y.tarif, gorunur: (d) => !!(d.ygk && d.ygk.acikYer && d.ygk.acikYer[gid]) };

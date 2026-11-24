@@ -497,6 +497,8 @@ export function mekanOrtami(d, mekan) {
   if (!m) return null;
   if (d && d.festival && d.festival.aktif && DIS_MEKANLAR.includes(mekan)) return FESTIVALLER[d.festival.aktif].ses;
   if (m.ortamGece && d && d.zaman && Z.nobetNo(d) >= 4) return m.ortamGece;
+  // 5.3 KG-03: mühürlenen Kara Göl berrak gece göğünü yansıtır
+  if (mekan === 'kara_gol' && d && d.bayrak && d.bayrak.karaGolMuhur) return 'ortam_t_karagol_berrak';
   return m.ortam;
 }
 

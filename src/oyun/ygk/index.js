@@ -13,6 +13,7 @@ import './kisiler/k09';
 import './kisiler/k10';
 import './kisiler/k11';
 import './kisiler/k12';
+import { techizatMenu } from './kisiler/k13';
 import * as SY from './siyaset';
 import * as AG from './akademiGorev';
 import { YG_NOKTALAR } from './harita';
@@ -132,6 +133,8 @@ export function bolgeMenu(d) {
     giris: 'Beş güç odağının lider ve ustaları. Kişiler kendi bölgelerinde; görevlerin bir kısmı yerinde yapılır.',
     ogeler: [
       { id: 'siyaset', etiket: 'Hiyerarşi ve siyasi pozisyonun', alt: (z) => SY.siyasetMenu(z) },
+      { id: 'saha', etiket: 'Saha büyü görevleri: su, ışık, taş, hava hatları, Kara Göl, kıyı ve kanyonlar' + bekleyenEk(d, 'saha'), alt: (z) => Y.gorevlerMenu(z, 'saha') },
+      { id: 'techizat', etiket: 'Saha hazırlık ağı: büyü dışı teçhizat', alt: (z) => techizatMenu(z) },
       ...l.map((k) => {
         const ki = Y.KISILER[k];
         return { id: 'k_' + k, etiket: ki.ad + ': kademe ' + Y.kademe(d, k) + bekleyenEk(d, k), ipucu: ki.unvan + '. ' + (ki.yerAdi || ''), alt: (z) => Y.profilMenu(z, k) };

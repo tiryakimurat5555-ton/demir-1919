@@ -6,6 +6,17 @@ tesis kurar, ileride gemini parça parça inşa edip uzaya açılırsın.
 
 Yapımcı: Bahtiyar Cankurt (tasarım belgeleri belgeler/ içinde). Expo Go ile iPhone ve Android'de çalışır.
 
+## Bu sürümde (5.3): saha büyü görevleri ve Kara Göl
+- Tonoflenya'nın dört bir yanında yirmi dokuz yeni büyü bulmacası, karakterlere bağlı olmadan: su, ışık, taş ve hava hatları
+  (her hat üç basamak, büyük görevlerde ilerledikçe açılır), Kara Göl zinciri, Nerya kanalları, Fenrir toz denizi, Tharal,
+  Gümüş Tüy sazlıkları, Julithan meclisi, Anitor hisarları, Oredan kanyonu ve Kuzey Gölge Hattı.
+- Ana menüde "Tonoflenya bölge bağları ve siyaset" → "Saha büyü görevleri". Her görev kendi bölgesinde işaretli bir yerden
+  başlar; yaklaşınca sesini duyarsın.
+- Hatlar birbirini kilitlemez, ama önceki basamağı yapmışsan iş kolaylaşır; bazıları yolculuk tehlikelerini (kara buz, cam,
+  anomali, korsan, kum fırtınası) ortadan kaldırır. Su hattının sonunda Akış Mührü.
+- "Saha hazırlık ağı": Kara Göl ve zorlu bölgeler için büyü dışı teçhizat, akademideki dostlarından ya da şehirden.
+- Kara Göl mühürlenince gölün sesi değişir: berrak bir gece. Telefonda denenmedi.
+
 ## Bu sürümde (5.2): Tonoflenya bölge bağları ve seçkin subaylar
 - Tonoflenya'nın beş güç odağıyla (YGK, Batı Filtra, Doğu Zorah, Kuzey Zeris, Güney Fleeplee) siyasi bir harita: kararlarına
   göre Başkent yanlısı, Taşra yanlısı ya da Denge Yolu pozisyonuna geçersin; görevlerin başında [Zincir], [Hiyerarşi] ya da

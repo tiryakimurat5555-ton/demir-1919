@@ -1228,9 +1228,58 @@ YGK sınavında, Tonoflenya büyü görevinde ve zanaatta; Evrensel Savaş'ta a�
 - [x] Bölüm 3: büyük zincir kararından sonra gemiye binince ilgili subay kısa yorum yapar (siyaset.js TEPKILER).
 - [~] Sinha'nın 0,75 hızı: kayıt [slowly] etiketiyle yavaş okundu; ekran okuyucu hızı oyuncunun ayarıdır, değiştirilmedi.
       Uçuşta (gemi hareket ederken) oda döngüleri kurulmuyor.
+### Paket 9: evrimsel saha büyü görevleri, su ve ışık (5.3, ygk/kisiler/k13.js)
+- [x] Bölüm 1: üç basamak (tekil, evrimsel form, çoklu sentez); faz kapıları büyük final sayısından (Faz 1 Tonoflenya'ya varış,
+      Faz 2 bir final, Faz 3 altı final). Basamaklar birbirini kilitlemez; önceki basamak kolaylık verir (odak iadesi, ipucu,
+      daha hafif tehlike), yoksa daha zahmetli yol (zero-deadlock).
+- [x] SU-01 Axira bentleri (üç kapak, Sıvı Yönlendirme; bakır valf), SU-02 Norvask kara buzu (sıvı + Solis/Kıvılcım buharı;
+      kara buz tehlikesi işlemez; SU-01 ile odak yarısı geri), SU-03 Keralon pompa odası (hava, sarmaşık, sıvı + yıldırım;
+      Su Mezarı'na ikinci giriş; SU-01 + SU-02 ile Akış Mührü → bayrak akisMuhru, Paket 8 için).
+- [x] ISIK-01 Kristal Teraslar akordu (şişeleme ya da Lumina, Yankı İkizi; gözlem merceği), ISIK-02 Cam Düzlükleri (Solis
+      kırılımı, Işık Köprüsü, Ajmero sunağına Yankı Düğümü; cam tehlikesi işlemez; ISIK-01 + HAVA-02 ile prizma anahtarı),
+      ISIK-03 Morluk Kapısı (Hakikat Yankısı, ikiz + ışık köprüsü, Aether Adımı; anomali işlemez; hattın tamamı → isikIpucu).
+### Paket 10: taş ve hava hatları (5.3)
+- [x] TAS-01 Filtra rayları ve zamanlı vanalar (bazalt kalıp), TAS-02 Kırık Vadi kemeri (Toprak Yarma + Metal; Karanlık
+      Bazalt Çekirdeği; kalıpla odak iadesi; Veradon kaçış yolu), TAS-03 Kahergonat sunağı (Toprak Yarma, Metal, heykel +
+      Öz Bağlama; kızıl/sarı/mor taş; kodeks; hattın tamamı → toprakMuhafizi).
+- [x] HAVA-01 Gözlem Adaları feneri (üç bobine sırayla Yıldırım Rezonansı; korsan tehlikesi işlemez), HAVA-02 İç Dune kubbesi
+      (hava kubbesi; Ajmero kum fırtınası üç gün diner, zaman.js etkisi kumDindi, atlas.js geçici muafiyet; rüzgâr pusulası;
+      SU-02 ile Hâle fırtınası hafifler), HAVA-03 Malazar Hâle'si (sakin koridor, yük paratonerlere ve şişeye, Aether Adımı;
+      Kıvılcım tehlikeli; dört hat sonunda tamRezonans).
+- [~] Belgedeki "Malkenia pazarında un kıtlığı olmaz", "Doktor Kıkırdak simya örneği", "Drahmir ve Zorah kervanları dağ yolunu
+      kullanır" gibi dünya yankıları sonuç metni ve bayrak olarak kaldı (su01, suMezariGiris, morlukKapisi, veradonKacisYolu,
+      haleGuvenli); sayısal etkisi olanlar: tehlike muafiyetleri, odak iadeleri, eşyalar.
+### Paket 11: Kara Göl ve akademi dışı saha hazırlık ağı (5.3)
+- [x] Bölüm 1: altı büyü dışı teçhizat (karantina beratı, fısıltı filtresi, Runahar planı, yıldız pusulası, topraklamalı
+      pelerin, gölge şifre çözücü); menüde "Tonoflenya bölge bağları ve siyaset" → "Saha hazırlık ağı". Akademi yolu: adı
+      geçen kişilerden biriyle bağ kademesi 3 (ücretsiz); şehir alternatifi Malken lirasıyla. Üçüncü yol: teçhizatsız
+      görevler yine yapılır (iade yok, ipucu yok).
+- [x] KG-01 iki mühür, bir maske (berat + filtre gerekir; satın alınabilir, kilit yok), KG-02 Runahar kaburgası (KG-01 ya da
+      13. büyük görevden sonra; mühür Corinne'e, Valen'e [Valen kapalıysa seçenek görünmez] ya da sende), KG-03 çatlağın
+      mühürlenmesi (KG-02 ya da 14. büyük görevden sonra; karaGolMuhur → Kara Göl berrak gece ortamı ortam_t_karagol_berrak;
+      SU-03 ile suDengesi, Paket 8 için).
+- [~] Şehir alternatiflerinin satıcıları (Usta Çakal, Bayan Misket, Doktor Kıkırdak, Xaela, "Sıfır" Makinist, Zahra Elmas Göz)
+      karakter 25-30 ile 5.4'te gelir; o zamana kadar satın alma menüden yapılır.
+### Paket 12: deniz, kanal ve toz kuşağı (5.3)
+- [x] NER-01 çöken kemer (madde köprüsü/metal + sıvı; ortak rapor ya da Zahra), NER-02 tuzlu mühür (süzülme, buzul/Lumina +
+      Öz Bağlama; gümüş tozu), FEN-01 toz mavnası (süzülme, Hakikat Yankısı + Lumina; toz pusulası), FEN-02 gömülü rasathane
+      (rüzgâr/toprak, madde köprüsü, ışık köprüsü; güvenli hava koridoru, kodeks), THA-01 köklerin çığlığı (sarmaşık + sıvı;
+      Lyra ve Elian ya da ışık otu ve bal), THA-02 tahıl ambarı (ikiz + sarmaşık + Öz Bağlama; tohum), GUM-01 YGK sandığı
+      (süzülme, Lumina, Öz Bağlama; Axira, Kefius ya da notlar sende).
+### Paket 13: kıyı hisarları, meclis ve gölge geçitleri (5.3)
+- [x] JUL-01 sahte mühür (Hakikat Yankısı, Lumina, Öz Bağlama), JUL-02 liman çanı (metal, Yankı Düğümü; gümüş tozu, tamir
+      kiti), ANI-01 Korzel Burnu (süzülme, yıldırım ya da Solis; A Brastion itibarı, B Barracuda ve korsan haritası), ANI-02
+      Darnak zinciri (sıvı/toprak, metal; Brastion izni), ORE-01 asılı kaya (Aether Adımı, buzul, Toprak Yarma), ORE-02 sis
+      boruları (metal, Yankı İkizi), GOL-01 Gölge Hattı devriyesi (Hakikat Yankısı, Lumina, Aether Adımı; yıldız pusulasıyla
+      odak iadesi).
+- [x] Her saha görevi kendi bölgesinde işaretli bir noktadan başlar (ygk/harita.js; görev açılınca haritada ve Yerler'de,
+      yaklaşınca düğüm sesi). Görev listesi: menüde "Saha büyü görevleri" ([Evrimsel], [Bağ, güvenli], [Zincir], [Hiyerarşi]).
+- [~] JUL-01'in "istihbarat notu bekleyebilirsin" ucu bayrak julithanMuhur olarak kaldı; Paket 14-16 bir görev bağlarsa okur.
+- [x] Düzeltme: bağ görevlerinde seçeneğin kendi ödülü (S(... { odul })) uygulanmıyordu (5.2'deki Oronte kızıl taşı, Cüce demir
+      cevheri, Sarah vadi özü …). Artık seçenek ödülü ve kodeks kaydı verilir.
+- [x] Ses: ortam_t_karagol_berrak (ElevenLabs sfx, 2,5 sn çapraz geçiş, I=-24). Bölge ortamları mevcut ortam_t_* dosyaları.
 ### Sonraki sürümler
-- [ ] Paket 9-13 (5.3); Paket 14-16 ve karakter 25-30 (5.4);
-      Paket 8 (5.5).
+- [ ] Paket 14-16 ve karakter 25-30 (5.4); Paket 8 (5.5).
 
 ## Sıradaki adımlar (sırayla)
 0. Tonoflenya genişlemesi, yönergedeki sırayla: [2.1: Malken (12); 2.2: tarihçe (13); 2.3: atlas (14); 2.4: eşya,

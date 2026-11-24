@@ -922,6 +922,17 @@ Demir 1919 oyunu silindi; geçmişi git kaydında (son sürüm 1.06, commit 556f
     subaySesleri (gemi yerdeyken oda ortamına göre ygs_sb_<id>).
   - Sesler (araclar/oturumlar-5.2.txt): imza 15 × eleven_v4 (assets/ses/ygk/imza), döngü 15 + bd_simsek sfx (konumsal).
   - testler/ygk52.test.js (13); ygk.test.js 46 kişi, sart yer mekânı ve taşlar; testler/hazirlik.js setDefaultTimeout 30 sn.
+- SÜRÜM 5.3 (24 Kasım): v6 Paket 9, 10, 11, 12, 13. Telefonda denenmedi.
+  - ygk/kisiler/k13.js: gizli kayıt kisiEkle('saha', {gizli: true}) (menülerde ve testlerdeki kişi sayılarında süzülür) 29 görev:
+    SU/ISIK/TAS/HAVA-01..03 (tur 'evrim', etiket [Evrimsel]; FAZ 1 tonoflenyaGoruldu, 2 d.tf.biten ≥1, 3 ≥6; basamaklar kilitlemez,
+    önceki basamak/teçhizat BY.odakEkle iadesi), KG-01..03 (KG-01 koruma_muhru + fisilti_filtresi; KG-02 KG-01 ya da Final 13;
+    KG-03 KG-02 ya da Final 14), NER/FEN/THA/JUL/ANI-01..02, GUM-01, ORE-01..02, GOL-01. Bayraklar (5.5 okur): akisMuhru,
+    isikIpucu, toprakMuhafizi, tamRezonans, suDengesi, karaGolMuhur, prizmaAnahtari, haleHafif. tehlikeMuaf kara_buz/cam/anomali/
+    korsan; HAVA-02 Z.etkiKoy('kumDindi', 3 gün) → atlas.js geçici kum muafiyeti. TECHIZAT 6 + techizatMenu (akademi yolu
+    kademe 3 ücretsiz; şehir ML). ygk/harita.js GOREV_YERLERI'ne 29 saha yeri; ygk/index.js bolgeMenu "Saha büyü görevleri"
+    ve "Saha hazırlık ağı". bag.js: TUR_ADI/TUR_ETIKET evrim; secimUygula artık seçeneğin odul'ünü ve kodeks'ini uygular
+    (önceden yalnız g.odul). festival.js mekanOrtami kara_gol + karaGolMuhur → ortam_t_karagol_berrak (ElevenLabs sfx,
+    assets/ses/t). testler/ygk53.test.js (20); ygk.test.js sart saha görevleri için final/teçhizat kurar.
 - Sıradaki: SON BÜYÜK GÜNCELLEME, büyü (Murat, 24 Kasım). Kararlar: kaptan Malken kökenli ama büyü aracı yok, o yüzden
   büyü yapamıyor (araç = Malazar Asası; Orin'den, pazar.js); ayrı bina yok, derslik tapınak (rezonans sunağı, tezgah.js);
   büyüler yalnız bulmacada, savaşta değil. Murat/Bahtiyar derinleştirilmiş hikâye, büyüler, YGK Akademi katları, karakterler

@@ -9,7 +9,7 @@
 //   Şehir içi ışınlanma istasyonları (2.4): Merkez İstasyon (yetkili araştırmacılar: Kara Göl izni), Fenrir Kapısı,
 //   Zorah Kapıları.
 //   Bayraklar: d.bayrak.zerisIzni (Zeris'in üst katları), d.tBolge (son bölge; bilgi).
-import { nobet, kalanSn, NOBET_SN, GUN_SN } from '../zaman';
+import { nobet, kalanSn, NOBET_SN, GUN_SN, etkiVar } from '../zaman';
 import * as SB from './subay';
 import * as BL from './gecitler';
 
@@ -327,7 +327,8 @@ export function seyahatEt(d, hedef) {
   if (kural.red) return { metin: kural.red, ses: 'red' };
   d.seyahatEk = 0;
   const notlar = [...kural.notlar];
-  const muaf = d.bayrak.tehlikeMuaf || {};
+  // 5.3 HAVA-02: Ajmero kum fırtınası üç gün diner (geçici muafiyet)
+  const muaf = { ...(d.bayrak.tehlikeMuaf || {}), ...(etkiVar(d, 'kumDindi') ? { kum: true } : {}) };
   for (const a of y.ayaklar) {
     notlar.push(a.ad + '.');
     // Zephyra'nın Fırtına Kalkanı: Arin ve Güney rotalarında rüzgâr senden yana

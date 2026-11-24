@@ -23,6 +23,7 @@ function oyun(tohum = 11) {
   BM.kolayModAyarla(true);
   return d;
 }
+const KISILER_G = Y.KISI_SIRASI.filter((k) => !Y.KISILER[k].gizli);
 function hepsiniBil(d) {
   for (const k of [...Object.keys(BUYULER), ...Object.keys(TUREVLER)]) BY.ogret(d, k);
   for (const r of ['kizil', 'mavi', 'sari', 'yesil', 'mor']) d.buyu.taslar[r] = 5;
@@ -44,6 +45,14 @@ function sart(d, g) {
   d.bayrak.seckinKadro = true;
   BY.hazirla(d);
   for (const r of ['kizil', 'mavi', 'sari', 'yesil', 'mor']) d.buyu.taslar[r] = Math.max(d.buyu.taslar[r] || 0, 3);
+  // 5.3 saha görevleri: faz kapıları (büyük final sayısı), hat öncülleri ve Kara Göl teçhizatı
+  if (g.kisi === 'saha') {
+    d.tf = { ...(d.tf || {}), biten: [1, 2, 3, 4, 5, 6, 13, 14] };
+    d.bayrak.tonoflenyaGoruldu = true;
+    for (const x of Y.KISILER.saha.gorevler) if (x.id !== g.id) Y.kayit(d, 'saha').gorev[x.id] = 'bitti';
+    ZN.ekle(d, 'koruma_muhru', 1);
+    ZN.ekle(d, 'fisilti_filtresi', 1);
+  }
   const yer = Y.gorevYeri(g.id);
   if (yer) d.mekan = yer.mekan;
 }
@@ -87,9 +96,9 @@ function coz(d) {
 }
 
 describe('Veri bütünlüğü', () => {
-  test('46 kişi (5.1: 31, 5.2: 15), her birinin 11 kademesi ve üç imza cümlesi var', () => {
-    expect(Y.KISI_SIRASI.length).toBe(46);
-    for (const k of Y.KISI_SIRASI) {
+  test('46 kişi (5.1: 31, 5.2: 15; 5.3 saha kaydı gizli), her birinin 11 kademesi ve üç imza cümlesi var', () => {
+    expect(KISILER_G.length).toBe(46);
+    for (const k of KISILER_G) {
       const ki = Y.KISILER[k];
       expect(ki.kademeler.length).toBe(11);
       expect(ki.imza.selam && ki.imza.tesekkur && ki.imza.kizgin).toBeTruthy();
@@ -106,7 +115,7 @@ describe('Veri bütünlüğü', () => {
     }
   });
   test('Hediye kimlikleri gerçek eşyalar', () => {
-    for (const k of Y.KISI_SIRASI) for (const h of [...Y.KISILER[k].sever, ...Y.KISILER[k].sevmez]) {
+    for (const k of KISILER_G) for (const h of [...Y.KISILER[k].sever, ...Y.KISILER[k].sevmez]) {
       if (h.startsWith('sise_')) continue;
       expect(ZN.adi(h)).not.toBe(h);
     }
@@ -256,7 +265,7 @@ describe('Nokta ve menü', () => {
 describe('5.1 sesler', () => {
   test('her kişinin imza üçlüsü ve konumlu döngüsü var', () => {
     const fs = require('fs');
-    for (const kid of Y.KISI_SIRASI) {
+    for (const kid of KISILER_G) {
       for (const t of ['selam', 'tesekkur', 'kizgin']) expect(fs.existsSync('assets/ses/ygk/imza/' + kid + '_' + t + '.mp3')).toBe(true);
       expect(fs.existsSync('assets/ses/konumsal/yg_' + kid + '.wav')).toBe(true);
     }

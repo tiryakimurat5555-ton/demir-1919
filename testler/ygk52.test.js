@@ -62,7 +62,7 @@ describe('Paket 4: pozisyon ve etiket', () => {
   test('siyaset menüsü', () => {
     const d = oyun();
     expect(SY.siyasetMenu(d).ogeler.length).toBe(9);
-    expect(YG.bolgeMenu(d).ogeler.length).toBe(10);
+    expect(YG.bolgeMenu(d).ogeler.length).toBe(12);
   });
 });
 
