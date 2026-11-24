@@ -767,6 +767,50 @@ let calanOrtam = null;
 let ortamOrani = 1;
 const solmalar = {};
 
+// 5.6: açılışta yalnız çekirdek sesler açılır. 5.5'e kadar bütün kaynaklar (206 oynatıcı) birden açılıyordu; Expo Go'da
+// iPhone'un ses sistemi tıkanıp oyunun rehberi de VoiceOver da susuyordu (Murat, 24 Kasım). Öteki sesler ilk çalışta
+// açılır; açık oynatıcı sayısı SINIR'ı aşınca en uzun süredir kullanılmayan (çalmayan) bırakılır.
+const CEKIRDEK = ['sessiz', 'giris_muzik', 'bip', 'dugme', 'kapi', 'el_secim', 'el_geri', 'el_devam', 'el_yeni_oyun'];
+const SINIR = 28;
+const sonKullanim = {};
+let sayac = 0;
+
+function olustur(ad) {
+  const kaynak = KAYNAKLAR[ad] || TEMBEL[ad];
+  if (!kaynak) return null;
+  try {
+    // keepAudioSessionActive: kısa bir ses bitince iPhone'un ses kanalı kapanıp konuşmayı kısmasın
+    const p = createAudioPlayer(kaynak, { keepAudioSessionActive: true });
+    if (DONGULER[ad] !== undefined || ad === 'sessiz') p.loop = true;
+    oynaticilar[ad] = p;
+    return p;
+  } catch (e) {
+    return null;
+  }
+}
+
+// Açık oynatıcılar SINIR'ı aşarsa çalmayanların en eskisini bırakır
+function budama() {
+  const adlar = Object.keys(oynaticilar).filter((x) => !CEKIRDEK.includes(x) && x !== calanOrtam);
+  if (adlar.length <= SINIR) return;
+  const bos = adlar
+    .filter((x) => {
+      try {
+        return !oynaticilar[x].playing;
+      } catch (e) {
+        return true;
+      }
+    })
+    .sort((a, b) => (sonKullanim[a] || 0) - (sonKullanim[b] || 0));
+  for (const x of bos.slice(0, adlar.length - SINIR)) {
+    clearInterval(solmalar[x]);
+    try {
+      oynaticilar[x].remove();
+    } catch (e) {}
+    delete oynaticilar[x];
+  }
+}
+
 export async function sesleriHazirla() {
   if (hazir) return;
   try {
@@ -775,14 +819,7 @@ export async function sesleriHazirla() {
   try {
     await setIsAudioActiveAsync(true);
   } catch (e) {}
-  for (const ad of Object.keys(KAYNAKLAR)) {
-    try {
-      // keepAudioSessionActive: kısa bir ses bitince iPhone'un ses kanalı kapanıp konuşmayı kısmasın
-      const p = createAudioPlayer(KAYNAKLAR[ad], { keepAudioSessionActive: true });
-      if (DONGULER[ad] !== undefined || ad === 'sessiz') p.loop = true;
-      oynaticilar[ad] = p;
-    } catch (e) {}
-  }
+  for (const ad of CEKIRDEK) olustur(ad);
   hazir = true;
   oturumuAcikTut();
 }
@@ -828,10 +865,11 @@ function basaSarVeCal(p) {
 }
 
 function oynatici(ad) {
-  if (!oynaticilar[ad] && hazir && TEMBEL[ad]) {
-    try {
-      oynaticilar[ad] = createAudioPlayer(TEMBEL[ad], { keepAudioSessionActive: true });
-    } catch (e) {}
+  if (!ad) return null;
+  sonKullanim[ad] = ++sayac;
+  if (!oynaticilar[ad] && hazir) {
+    if (!olustur(ad)) return null;
+    budama();
   }
   return oynaticilar[ad];
 }
@@ -841,10 +879,14 @@ export function onYukle(adlar) {
   for (const ad of adlar || []) oynatici(ad);
 }
 
-// Tembel açılan oynatıcıları bırakır (savaş bitince)
+// Savaş sesleri gibi geçici açılan oynatıcıları bırakır (savaş bitince): çekirdek ve çalan ortam dışında, çalmayanlar
 export function bosalt() {
   for (const ad of Object.keys(oynaticilar)) {
-    if (!TEMBEL[ad]) continue;
+    if (CEKIRDEK.includes(ad) || ad === calanOrtam) continue;
+    try {
+      if (oynaticilar[ad].playing) continue;
+    } catch (e) {}
+    clearInterval(solmalar[ad]);
     try {
       oynaticilar[ad].remove();
     } catch (e) {}
@@ -874,7 +916,7 @@ function hedefDuzey(ad) {
 
 // Bir döngünün düzeyini yumuşakça değiştirir; 0'a inince duraklatır
 function sol(ad, hedef, sure = 900) {
-  const p = oynaticilar[ad];
+  const p = hedef > 0 ? oynatici(ad) : oynaticilar[ad];
   if (!p) return;
   clearInterval(solmalar[ad]);
   let bas = 0;
@@ -908,7 +950,7 @@ function sol(ad, hedef, sure = 900) {
 export function ortamCal(ad, oran = 1) {
   ortamOrani = oran;
   ad = asil(ad);
-  if (ad && !oynaticilar[ad]) ad = null;
+  if (ad && !oynatici(ad)) ad = null;
   if (calanOrtam && calanOrtam !== ad) sol(calanOrtam, 0);
   calanOrtam = ad;
   if (ad) sol(ad, hedefDuzey(ad));

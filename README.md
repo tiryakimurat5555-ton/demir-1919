@@ -6,6 +6,11 @@ tesis kurar, ileride gemini parça parça inşa edip uzaya açılırsın.
 
 Yapımcı: Bahtiyar Cankurt (tasarım belgeleri belgeler/ içinde). Expo Go ile iPhone ve Android'de çalışır.
 
+## Bu sürümde (5.6): açılış düzeltmesi
+- Oyun açılırken bütün sesler aynı anda yükleniyordu (206 oynatıcı ve 39 MB konumlu ses); iPhone'da ses sistemi tıkanıyor,
+  oyunun rehberi de VoiceOver da susuyordu. Artık açılışta yalnız gereken birkaç ses açılır; ötekiler çalınacağı an sırayla
+  yüklenir, kullanılmayanlar bırakılır. Telefonda denenmedi.
+
 ## Bu sürümde (5.5): Tonoflenya büyü finali
 - Asası üçüncü kademeye çıkan, beş renkten taş toplayan ve beş bölgede iz bırakan kaptan için Tenohris Sarayı'nın altında
   kadim bir sunak açılır: dört dev muhafız ve bir Yıldız Muhafızı taşlarla ve büyüyle uyanır, Kaos Mührü üç kilitle kapanır

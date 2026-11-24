@@ -208,6 +208,8 @@ import * as BY from '../oyun/buyu/buyu';
 import * as BM from '../oyun/buyu/bulmaca';
 
 const ADIM_MS = 100;
+// Ses motoruna oyun açılırken yüklenen dosyalar (adımlar ve her yerde çalan kısa sesler)
+const CEKIRDEK_DOSYA = /^(adim_|bip$|sonar$|parazit$|hamle$|jenerator$|baca$)/;
 const OLU_BOLGE = 16;
 const TAM_GUC = 140;
 const KAYIT_ARALIGI = 100; // adım (10 sn)
@@ -390,7 +392,18 @@ export default function Yuzey({ onGeri, baslangic, yeniOyunUret }) {
   const motor = useRef(null);
   const dunya = useRef(baslangic || yeniOyunUret());
   const surukle = useRef({ aktif: false, dx: 0, dy: 0, sonDy: 0 });
-  const yuklu = useRef({});
+  const yuklu = useRef(null);
+  // Henüz yüklenmemiş bir dosya sorulunca yüklemeyi başlatır; yüklenince (dosyaHazir) sesler yeniden eşitlenir
+  if (!yuklu.current)
+    yuklu.current = new Proxy(
+      {},
+      {
+        get: (h, ad) => {
+          if (typeof ad === 'string' && !h[ad] && DOSYALAR[ad] && motor.current) motor.current.iste(ad);
+          return h[ad];
+        },
+      },
+    );
   const calanlar = useRef({});
   const hazir = useRef(false);
   const durakli = useRef(false);
@@ -425,7 +438,9 @@ export default function Yuzey({ onGeri, baslangic, yeniOyunUret }) {
     const s = m();
     if (!s) return;
     s.baslat();
-    for (const ad of Object.keys(DOSYALAR)) s.yukle(ad, DOSYALAR[ad]);
+    // 5.6: açılışta yalnız her yerde gereken dosyalar; ötekiler yuklu.current[ad] sorulunca (bkz. yukluVekil) sırayla
+    s.kaydet(DOSYALAR);
+    for (const ad of Object.keys(DOSYALAR)) if (CEKIRDEK_DOSYA.test(ad)) s.iste(ad);
     hazir.current = true;
     sesleriEsitle(true);
     const d = dunya.current;

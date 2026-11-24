@@ -646,6 +646,51 @@ function KonumsalSes({ onMesaj }, ref) {
   const gonder = (c) => {
     if (web.current) web.current.injectJavaScript('window.motor && window.motor.komut(' + JSON.stringify(c) + '); true;');
   };
+  // 5.6: dosyalar istendikçe ve tek tek yüklenir. 5.5'e kadar 139 dosya (39 MB) açılışta aynı anda base64 olarak
+  // WebView'e gönderiliyordu; iPhone'da bellek ve ses sistemi tıkanıyordu.
+  const y = useRef({ dosyalar: {}, yuklenen: {}, istenen: {}, kuyruk: [], calisiyor: false, bekleyen: {} }).current;
+  const isle = async () => {
+    if (y.calisiyor) return;
+    y.calisiyor = true;
+    while (y.kuyruk.length) {
+      const ad = y.kuyruk.shift();
+      try {
+        const veri = await sesDosyasiOku(y.dosyalar[ad]);
+        gonder({ ad: 'yukle', dosya: ad, veri });
+      } catch (e) {
+        if (onMesaj) onMesaj({ tur: 'hata', metin: 'Dosya okunamadı: ' + ad + ' ' + String(e && e.message ? e.message : e) });
+      }
+      await new Promise((r) => setTimeout(r, 40));
+    }
+    y.calisiyor = false;
+  };
+  const iste = (ad) => {
+    if (!ad || !y.dosyalar[ad] || y.istenen[ad]) return;
+    y.istenen[ad] = true;
+    y.kuyruk.push(ad);
+    isle();
+  };
+  // Dosyası henüz yüklenmemiş döngü ya da aralıklı kaynak: yüklenince gönderilir
+  const dosyaIle = (ad, id, komut, bekle = true) => {
+    if (y.yuklenen[ad]) return gonder(komut);
+    if (bekle && id) {
+      if (!y.bekleyen[ad]) y.bekleyen[ad] = {};
+      y.bekleyen[ad][id] = komut;
+    }
+    iste(ad);
+  };
+  const bekleyenSil = (id) => {
+    for (const ad of Object.keys(y.bekleyen)) delete y.bekleyen[ad][id];
+  };
+  const mesaj = (x) => {
+    if (x && x.tur === 'dosyaHazir') {
+      y.yuklenen[x.ad] = true;
+      const b = y.bekleyen[x.ad];
+      delete y.bekleyen[x.ad];
+      if (b) for (const id of Object.keys(b)) gonder(b[id]);
+    }
+    if (onMesaj) onMesaj(x);
+  };
   useImperativeHandle(ref, () => ({
     baslat: () => gonder({ ad: 'baslat' }),
     kaynak: (id, tur, nokta, zemin, frek) => gonder({ ad: 'kaynak', id, tur, n: sesKoordinati(nokta), zemin, frek }),
@@ -656,27 +701,30 @@ function KonumsalSes({ onMesaj }, ref) {
     adim: (zemin, duzey) => gonder({ ad: 'adim', zemin, duzey }),
     model: (ad) => gonder({ ad: 'model', model: ad }),
     durdur: () => gonder({ ad: 'durdur' }),
-    sil: (id) => gonder({ ad: 'sil', id }),
-    tek: (ad, nokta, duzey = 1) => gonder({ ad: 'tek', dosya: ad, n: sesKoordinati(nokta), duzey }),
+    sil: (id) => {
+      bekleyenSil(id);
+      gonder({ ad: 'sil', id });
+    },
+    tek: (ad, nokta, duzey = 1) => dosyaIle(ad, null, { ad: 'tek', dosya: ad, n: sesKoordinati(nokta), duzey }, false),
     boguk: (acik) => gonder({ ad: 'boguk', acik: !!acik }),
-    yukle: async (ad, modul) => {
-      try {
-        const veri = await sesDosyasiOku(modul);
-        gonder({ ad: 'yukle', dosya: ad, veri });
-      } catch (e) {
-        if (onMesaj) onMesaj({ tur: 'hata', metin: 'Dosya okunamadı: ' + ad + ' ' + String(e && e.message ? e.message : e) });
-      }
+    // Dosya kaydı: hangi ad hangi pakette (yüklemez); iste: kuyruğa alır, sırayla yükler
+    kaydet: (dosyalar) => Object.assign(y.dosyalar, dosyalar),
+    iste,
+    yukluMu: (ad) => !!y.yuklenen[ad],
+    yukle: (ad, modul) => {
+      if (modul) y.dosyalar[ad] = modul;
+      iste(ad);
     },
     // Konuşan kişiler (seslendirilmiş sahneler)
     kisiKur: (id, nokta, ic = false) => gonder({ ad: 'kisiKur', id, n: sesKoordinati(nokta), ic }),
     kisiGit: (id, nokta, sure) => gonder({ ad: 'kisiGit', id, n: sesKoordinati(nokta), sure }),
-    kisiCal: (id, ad, duzey = 1, dongu = false, oran = 1) => gonder({ ad: 'kisiCal', id, dosya: ad, duzey, dongu, oran }),
+    kisiCal: (id, ad, duzey = 1, dongu = false, oran = 1) => dosyaIle(ad, 'kisi_' + id, { ad: 'kisiCal', id, dosya: ad, duzey, dongu, oran }, dongu),
     kisiOran: (id, oran, sure) => gonder({ ad: 'kisiOran', id, oran, sure }),
     kisiDur: (id) => gonder({ ad: 'kisiDur', id }),
     kisiSil: (id) => gonder({ ad: 'kisiSil', id }),
     cevreDuzey: (oran) => gonder({ ad: 'cevreDuzey', oran }),
-    dosyaKaynak: (id, ad, nokta, aralik) => gonder({ ad: 'dosyaKaynak', id, dosya: ad, n: sesKoordinati(nokta), aralik }),
-    dongu: (id, ad, nokta, duzey = 1) => gonder({ ad: 'dongu', id, dosya: ad, n: sesKoordinati(nokta), duzey }),
+    dosyaKaynak: (id, ad, nokta, aralik) => dosyaIle(ad, id, { ad: 'dosyaKaynak', id, dosya: ad, n: sesKoordinati(nokta), aralik }),
+    dongu: (id, ad, nokta, duzey = 1) => dosyaIle(ad, id, { ad: 'dongu', id, dosya: ad, n: sesKoordinati(nokta), duzey }),
     duzey: (id, duzey) => gonder({ ad: 'duzey', id, duzey }),
     telsizKur: () => gonder({ ad: 'telsizKur' }),
     telsizAyar: (yakinlik, kayma) => gonder({ ad: 'telsizAyar', yakinlik, kayma }),
@@ -704,9 +752,11 @@ function KonumsalSes({ onMesaj }, ref) {
         mediaPlaybackRequiresUserAction={false}
         allowsInlineMediaPlayback
         onMessage={(e) => {
+          let x = null;
           try {
-            if (onMesaj) onMesaj(JSON.parse(e.nativeEvent.data));
+            x = JSON.parse(e.nativeEvent.data);
           } catch (_) {}
+          if (x) mesaj(x);
         }}
       />
     </View>

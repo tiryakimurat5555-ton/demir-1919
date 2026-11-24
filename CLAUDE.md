@@ -957,6 +957,16 @@ Demir 1919 oyunu silindi; geçmişi git kaydında (son sürüm 1.06, commit 556f
     unvan, akademiAcik/serbestLonca/esitOrtaklik, moral) → d.ygk.sonraSahne 'bf_akor'. bag.js ygk_sonuc Devam → sonraSahne.
     buyu.js odakTavani malazarUstasi → 120. ygk/index.js bolgeMenu "Büyü finali" (durum ve eksikler).
   - Ses el_final_akor (sfx, assets/ses/buyu). testler/ygk55.test.js (5); ygk.test.js sart BF-01 için guc ve asa 3.
+- SÜRÜM 5.6 (24 Kasım, Murat: Expo Go'da açılış ekranında ne oyunun rehberi ne VoiceOver bir şey okuyor): efektler.js
+  açılışta yalnız CEKIRDEK (sessiz, giris_muzik, bip, dugme, kapi, el_secim/geri/devam/yeni_oyun); öteki KAYNAKLAR ve TEMBEL
+  ilk çalışta (oynatici → olustur), açık oynatıcı SINIR 28'i aşınca çalmayanların en eskisi bırakılır (budama), bosalt
+  çekirdek ve çalan ortam dışındakileri bırakır. konumsal.js: kaydet(DOSYALAR) + iste(ad) sıralı kuyruk (tek tek base64,
+  40 ms ara); dongu/dosyaKaynak (ve döngülü kisiCal) dosya yüklenmemişse bekler, dosyaHazir gelince gönderilir; tek
+  yüklenmemişse atlanır. Yuzey: açılışta CEKIRDEK_DOSYA (adim_*, bip, sonar, parazit, hamle, jenerator, baca); yuklu.current
+  Proxy: sorulan yüklenmemiş dosyayı ister. Sebep tahmini (cihazda doğrulanamadı): 5.5'te 206 oynatıcı + 139 dosya/39 MB
+  aynı anda. Bulgular (analiz, 24 Kasım; düzeltilmedi): operasyon/savaş yenilgisinde gemi kızakta gövde 1 kalıyor; Final 5
+  saf_aether ve Pyros ittifakı kriyolit eksiye düşebilir; koloniArsivi bayrağı hiç açılmıyor; Sektör 15/Moloz Kuşağı Sınıf III
+  ister, Kadim Mezar Sınıf I görünür ama Moloz'a bağlı; Sınıf III hediye gemiler Sınıf III ister. Telefonda denenmedi.
 - v6 paketi bitti. Sıradaki: Murat'ın ya da Bahtiyar'ın yeni isteği; telefonda deneme sonuçları.
 - Büyü güncellemesinin kararları (Murat, 24 Kasım; 5.0-5.5 ile tamamlandı): kaptan Malken kökenli ama büyü aracı yok, o yüzden
   büyü yapamıyor (araç = Malazar Asası; Orin'den, pazar.js); ayrı bina yok, derslik tapınak (rezonans sunağı, tezgah.js);
