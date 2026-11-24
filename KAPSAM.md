@@ -1195,8 +1195,41 @@ YGK sınavında, Tonoflenya büyü görevinde ve zanaatta; Evrensel Savaş'ta a�
       üretimleri zaman aşımına uğradı (tekrar çağrılmadı): Tixie ← Lasiraxi'nin ikinci varyasyonu, Faelan ← Forges'in ikinci
       varyasyonu. Ayrıntı araclar/oturumlar-5.1.txt.
 - [x] Düzeltmeler: bulmaca bittikten sonra hava hamlesi çöküyordu (5.0); kara savaşında bilinmeyen geliş türü 'pusu' (saha.js).
+### Paket 4: hiyerarşi, beş güç odağı, zincirleme etki (5.2)
+- [x] Bölüm 2: beş güç odağı tablosu (ygk/siyaset.js ODAKLAR; itibarlar tonoflenya/kisiler.js gucItibari). Menüde "Tonoflenya
+      bölge bağları ve siyaset".
+- [x] Bölüm 3: üç siyasi pozisyon (A Başkent, B Taşra, C Denge) itibarlardan hesaplanır; görev bağ puanı çarpanları (A: akademi
+      ×1,15, taşra ×0,9; B: tersi, Valen ×0,5; C: ×1,05) ve denge seçenekleri. Hiçbir kapı tamamen kapanmaz.
+- [x] Bölüm 4: zincir örnekleri: Filtra-Zorah (FIL-02 ↔ ZOR-02, ikna konuşması, denge ateşkesi), YGK-Zeris (ZIN-02 Kat -4 belgesi:
+      Valen ya da Valen kapalıysa Morvenna / Mirelza), YGK-Fleeplee (TIX-03 verisi GUN-03'ü erken açar, akademi denetimi).
+- [x] Bölüm 5: görev listelerinde her görevin başında [Zincir], [Hiyerarşi], [Bağ, güvenli] etiketi okunur.
+- [~] Pozisyonun "fiyat ve şüphe artar" etkisi pazar fiyatına değil görev bağ hızına bağlandı (pazar fiyatı yan.js/zanaat.js
+      düzenini bozmasın diye).
+### Paket 6A: Batı ve Doğu (5.2)
+- [x] Beş bağ profili: Oronte (A), Cüretkâr Cüce (A), Sarah (B), Silahşör Zeno (B), Şeyh Kasım (B; yeni nokta doğu kantonlarında).
+      K6/K10 özel ödülleri kademeEtki ile (kızıl/yeşil/sarı/mor taş, Filtra daimi ittifakı ve Brom bağı, Zeno geçit anahtarı …).
+- [x] FIL-01 … FIL-06, ZOR-01 … ZOR-06 büyü bulmacaları; yerinde yapılanlar Filtra, Loran, Kara Göl, Gri Yel Burcu ve doğu
+      kantonlarında işaretli (görev açıkken görünür, düğüm sesi duyulur).
+- [x] Bölüm 4: dövülen silahlar yalnız görev kişisine teslim edilir; evrensel savaşa girmez.
+- [~] Belgede yalnız tema ve ödül var: kademe metinleri, hediye listeleri, sohbetler ve imza cümleleri temalardan yazıldı.
+      Mevcut BL-oronte/BL-zeno zincirleri, karakter ağı konuşmaları aynen duruyor.
+### Paket 6B: Kuzey ve Güney (5.2)
+- [x] Mirelza (B), Kaelan (A), Kaptan Barracuda (A), Nyxara Vel'din (B); KUZ-01 … KUZ-06, GUN-01 … GUN-06.
+- [x] T3 Çekirdek Yıldız Asası (Paket 2 bölüm 2.1 ile): GUN-04 parçası + GUN-06 ya da Nyxara kademe 10 + T2 asa + bir çekirdek
+      taşı + bir saf aether, Nyxara'nın yanında.
+- [x] Bölge sesleri: kişilerin konumlu döngüleri (rüzgâr ve donmuş çanlar, kara buz örsü, toz ve dalga) ve Malazar'da mor şimşek
+      (bd_simsek) görev işaretinden.
+- [~] GUN-05 "Yasal itibar -15" YGK itibarına, "Veradon +25" Güney itibarına bağlandı (ayrı bir yasal itibar yok).
+### Paket 7: altı seçkin YGK subayı (5.2)
+- [x] Elyndra, Varek, Axira, Zhaor, Sinha, Drahmir: 0-10 bağ, sever/sevmez (belgedeki tablo), çok seçenekli diyaloglar
+      (belgedeki sözler hediye ve sohbet yanıtlarında), SUB-01 … SUB-06, K10 ödülleri (Sinha: altı yıldız akoru bayrağı → 5.5).
+- [x] İstasyonlar ve odadaki sohbetler aynen; bağ menüsü ana menüde "Seçkin subaylarla bağ" (kadro katılınca).
+- [x] 3B oda sesleri: gemi yerdeyken subayın odasında konumlu döngü. ElevenLabs imza replikleri (belgedeki üç cümle).
+- [x] Bölüm 3: büyük zincir kararından sonra gemiye binince ilgili subay kısa yorum yapar (siyaset.js TEPKILER).
+- [~] Sinha'nın 0,75 hızı: kayıt [slowly] etiketiyle yavaş okundu; ekran okuyucu hızı oyuncunun ayarıdır, değiştirilmedi.
+      Uçuşta (gemi hareket ederken) oda döngüleri kurulmuyor.
 ### Sonraki sürümler
-- [ ] Paket 4, 6a, 6b, 7 (5.2); Paket 9-13 (5.3); Paket 14-16 ve karakter 25-30 (5.4);
+- [ ] Paket 9-13 (5.3); Paket 14-16 ve karakter 25-30 (5.4);
       Paket 8 (5.5).
 
 ## Sıradaki adımlar (sırayla)

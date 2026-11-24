@@ -25,7 +25,7 @@ import { ayarlarOku, ayarlarYaz, otoOku, otoSil, tarihMetni, VARSAYILAN_AYARLAR,
 import { yeniOyun } from './src/oyun/durum';
 import { durumKisa } from './src/oyun/yuzey/dunya';
 
-const SURUM = '5.1';
+const SURUM = '5.2';
 const OYUN_ADI = 'Aethelis';
 
 const HAKKINDA_METNI = [

@@ -41,6 +41,11 @@ function sart(d, g) {
   d.hikaye.biten = { ...(d.hikaye.biten || {}), ak_zephyra: 1, ak_morwenna: 1 };
   d.gorulenMekanlar = [...(d.gorulenMekanlar || []), 'halka_varek'];
   d.bayrak.akademiBuyuKolu = true;
+  d.bayrak.seckinKadro = true;
+  BY.hazirla(d);
+  for (const r of ['kizil', 'mavi', 'sari', 'yesil', 'mor']) d.buyu.taslar[r] = Math.max(d.buyu.taslar[r] || 0, 3);
+  const yer = Y.gorevYeri(g.id);
+  if (yer) d.mekan = yer.mekan;
 }
 // Düğümleri sırayla çöz: ilk ulaşılabilir kombinasyon, yoksa yedek yol
 function coz(d) {
@@ -82,8 +87,8 @@ function coz(d) {
 }
 
 describe('Veri bütünlüğü', () => {
-  test('31 kişi, her birinin 11 kademesi ve üç imza cümlesi var', () => {
-    expect(Y.KISI_SIRASI.length).toBe(31);
+  test('46 kişi (5.1: 31, 5.2: 15), her birinin 11 kademesi ve üç imza cümlesi var', () => {
+    expect(Y.KISI_SIRASI.length).toBe(46);
     for (const k of Y.KISI_SIRASI) {
       const ki = Y.KISILER[k];
       expect(ki.kademeler.length).toBe(11);

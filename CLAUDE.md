@@ -909,6 +909,19 @@ Demir 1919 oyunu silindi; geçmişi git kaydında (son sürüm 1.06, commit 556f
     48k mp3 → assets/ses/ygk/imza/<id>_<selam|tesekkur|kizgin>.mp3, efektler.js TEMBEL imza_yg_*); döngü 31 sfx (ilk 9,5 sn,
     dongu.py 1,5 sn çapraz geçiş, I=-20, 24 kHz → konumsal/yg_<id>.wav). Tixie ← Lasiraxi var. 2, Faelan ← Forges var. 2
     (iki çağrı zaman aşımı; tekrar edilmedi). testler/ygk.test.js (150).
+- SÜRÜM 5.2 (24 Kasım): v6 Paket 4, 6A, 6B, 7. Telefonda denenmedi.
+  - ygk/siyaset.js (bağımlılık: tonoflenya/kisiler.js): POZISYONLAR A/B/C, pozisyon(d) (ygk ve taşra [bati, guney, kuzey]
+    ortalaması), carpan(d, kisi, tur) (bag.js puanEkle görev puanına), ODAKLAR, TEPKILER + tepkiEkle/tepkiIlerle (zincir
+    kararı → gemideyken subay yorumu), siyasetMenu. bag.js: TUR_ETIKET ([Zincir] …) liste başında; GOREV_YERLERI (ygk/harita.js)
+    yerinde görevler: kişiden alınınca yer söylenir, d.ygk.acikYer (yerleriGuncelle, ygkIlerle), noktalar yg_yer_<gid>
+    (gorunur, eylem yg_gorev), sesYerleri dosya 'bd_'+ses; kişi alanı guc (varsayılan ygk), g.bolge.
+  - ygk/kisiler/k10.js (oronte, cuce, sarah, zeno, kasim; ZN.ESYA vadi_ozu; Zeno ikna KISI_EKLERI; bromPuan yerleşim Brom),
+    k11.js (mirelza [ZIN-02], kaelan, barracuda, nyxara; T3_BEDELI, t3Durumu/t3Yap, Nyxara KISI_EKLERI), k12.js (subay: true,
+    ulasilamaz !seckinKadro; elyndra, varek, axira, zhaor, sinha, drahmir; koloniBag → yerlesim puanEkle lyris/sorya/julian).
+    ygk/index.js subayMenu, bolgeMenu. Yuzey: menüde "Tonoflenya bölge bağları ve siyaset", "Seçkin subaylarla bağ";
+    subaySesleri (gemi yerdeyken oda ortamına göre ygs_sb_<id>).
+  - Sesler (araclar/oturumlar-5.2.txt): imza 15 × eleven_v4 (assets/ses/ygk/imza), döngü 15 + bd_simsek sfx (konumsal).
+  - testler/ygk52.test.js (13); ygk.test.js 46 kişi, sart yer mekânı ve taşlar; testler/hazirlik.js setDefaultTimeout 30 sn.
 - Sıradaki: SON BÜYÜK GÜNCELLEME, büyü (Murat, 24 Kasım). Kararlar: kaptan Malken kökenli ama büyü aracı yok, o yüzden
   büyü yapamıyor (araç = Malazar Asası; Orin'den, pazar.js); ayrı bina yok, derslik tapınak (rezonans sunağı, tezgah.js);
   büyüler yalnız bulmacada, savaşta değil. Murat/Bahtiyar derinleştirilmiş hikâye, büyüler, YGK Akademi katları, karakterler

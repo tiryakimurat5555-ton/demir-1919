@@ -6,6 +6,20 @@ tesis kurar, ileride gemini parça parça inşa edip uzaya açılırsın.
 
 Yapımcı: Bahtiyar Cankurt (tasarım belgeleri belgeler/ içinde). Expo Go ile iPhone ve Android'de çalışır.
 
+## Bu sürümde (5.2): Tonoflenya bölge bağları ve seçkin subaylar
+- Tonoflenya'nın beş güç odağıyla (YGK, Batı Filtra, Doğu Zorah, Kuzey Zeris, Güney Fleeplee) siyasi bir harita: kararlarına
+  göre Başkent yanlısı, Taşra yanlısı ya da Denge Yolu pozisyonuna geçersin; görevlerin başında [Zincir], [Hiyerarşi] ya da
+  [Bağ, güvenli] etiketi okunur. Ana menüde "Tonoflenya bölge bağları ve siyaset".
+- Dokuz bölge kişisi: Oronte, Cüretkâr Cüce, Sarah, Silahşör Zeno, Şeyh Kasım, Mirelza, Kaelan, Kaptan Barracuda, Nyxara.
+  Hepsiyle sohbet, hediye, 0-10 bağ; 25 büyü görevi. Bir kısmı yerinde yapılır: görev açılınca o yer haritada işaretlenir ve
+  yaklaşınca sesini duyarsın.
+- Zincir etkileri: Oronte'ye tören çekici döversen Zeno şüphelenir, iki lideri aynı masaya oturtabilirsin; Kat -4'ün gizli
+  belgesini Valen'e ya da Mirelza'ya verirsin; kuzeye kılıç dövmek Başkenti tedirgin eder.
+- Çekirdek Yıldız Asası (üçüncü kademe): Malazar'daki parça, Nyxara'nın onayı, bir çekirdek taşı ve saf aetherle.
+- Altı seçkin subay (Elyndra, Varek, Axira, Zhaor, Sinha, Drahmir) kendi görevleri, hediyeleri ve sesleriyle; ana menüde
+  "Seçkin subaylarla bağ". Büyük kararlardan sonra gemide yorum yaparlar.
+- On beş kişinin ElevenLabs imza cümleleri ve kendi ortam sesleri. Telefonda denenmedi.
+
 ## Bu sürümde (5.1): YGK Akademi bağ ağı
 - Tonoflenya'daki YGK Akademi'nin otuz bir hocası ve öğrencisi artık katlarında: Tixie, Lasiraxi, Zynae, Kefius, Zephyra,
   Valen, İgnador, Morwenna ve ötekiler. Her birinin yanına gidince kendi selamını duyarsın; bulunduğun katta her kişinin

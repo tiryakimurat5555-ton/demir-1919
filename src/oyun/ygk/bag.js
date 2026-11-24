@@ -13,6 +13,8 @@ import * as ZN from '../tonoflenya/zanaat';
 import * as BY from '../buyu/buyu';
 import * as BM from '../buyu/bulmaca';
 import { gucEkle } from '../tonoflenya/kisiler';
+import * as SY from './siyaset';
+import { GOREV_YERLERI } from './harita';
 
 export const KISILER = {};
 export const KISI_SIRASI = [];
@@ -73,6 +75,7 @@ export function puanEkle(d, id, n, tur = 'gorev') {
     x *= hiz(kisi, r.k) * (kisi.hizCarpani ? kisi.hizCarpani(d) : 1);
     if (kisi.sinif === 'A') x *= tur === 'gorev' ? 1.4 : 0.5;
     if (r.kirgin && tur !== 'gorev') x *= 0.5;
+    x *= SY.carpan(d, kisi, tur);
   }
   x = Math.round(x);
   r.p = Math.max(0, Math.min(1000, r.p + x));
@@ -95,6 +98,7 @@ export function kademeDenetle(d, id) {
 export function ygkIlerle(d) {
   if (!d.ygk) return [];
   for (const id of Object.keys(d.ygk.k)) kademeDenetle(d, id);
+  yerleriGuncelle(d);
   const h = d.ygk.haber;
   d.ygk.haber = [];
   return h.map((soz) => ({ tur: 'ygk', soz }));
@@ -193,12 +197,25 @@ export function gorevDurumu(d, gid) {
   return 'acik';
 }
 const TUR_ADI = { bag: 'Bağ, güvenli', hiyerarsi: 'Hiyerarşi', zincir: 'Zincir, domino', final: 'Final' };
+// Paket 4 bölüm 5: her görevin başında sınıf etiketi okunur
+export const TUR_ETIKET = { bag: '[Bağ, güvenli] ', hiyerarsi: '[Hiyerarşi] ', zincir: '[Zincir] ', final: '[Final] ' };
+// Yerinde yapılan görevler (ygk/harita.js GOREV_YERLERI): kişiden alınır, işaretli yerde başlar. Açık olanlar
+// d.ygk.acikYer'de (harita noktası görünür ve konumlu ses verir).
+export function yerleriGuncelle(d) {
+  const y = hazirla(d);
+  const a = {};
+  for (const gid of Object.keys(GOREV_YERLERI)) if (GOREVLER[gid] && gorevDurumu(d, gid) === 'acik' && !ulasilamaz(d, GOREVLER[gid].kisi)) a[gid] = true;
+  y.acikYer = a;
+}
+const ulasilamaz = (d, id) => !!(KISILER[id].ulasilamaz && KISILER[id].ulasilamaz(d));
+export const gorevYeri = (gid) => GOREV_YERLERI[gid] || null;
 export function gorevlerMenu(d, id) {
   const kisi = KISILER[id];
   const l = (kisi.gorevler || []).map((g) => {
     const s = gorevDurumu(d, g.id);
-    const not = s === 'bitti' ? ', tamamlandı' : s === 'kademe' ? ', kademe ' + g.k + ' gerekir' : s === 'once' ? ', önce ' + g.once.join(' ve ') : s === 'kosul' ? ', ' + (g.kosulMetni || 'henüz değil') : s === 'asa' ? ', uyanmış bir asa gerekir' : ', açık';
-    return { id: g.id, etiket: g.id + ': ' + g.ad + not, ipucu: TUR_ADI[g.tur] + '. ' + (g.durum || ''), yap: (z) => gorevBaslat(z, g.id) };
+    const yer = GOREV_YERLERI[g.id];
+    const not = (yer && s === 'acik' ? ', yerinde: ' + yer.ad : '') + (s === 'bitti' ? ', tamamlandı' : s === 'kademe' ? ', kademe ' + g.k + ' gerekir' : s === 'once' ? ', önce ' + g.once.join(' ve ') : s === 'kosul' ? ', ' + (g.kosulMetni || 'henüz değil') : s === 'asa' ? ', uyanmış bir asa gerekir' : ', açık');
+    return { id: g.id, etiket: (TUR_ETIKET[g.tur] || '') + g.id + ': ' + g.ad + not, ipucu: TUR_ADI[g.tur] + '. ' + (g.durum || ''), yap: (z) => gorevBaslat(z, g.id) };
   });
   return { baslik: kisi.ad + ': görevler', giris: l.length ? '' : 'Bu kişinin görevi yok.', ogeler: l };
 }
@@ -208,6 +225,11 @@ export function gorevBaslat(d, gid) {
   if (s === 'bitti') return { metin: g.ad + ' tamamlandı.' };
   if (s !== 'acik') return { metin: 'Henüz açılmadı.', ses: 'red' };
   if (d.savas) return { metin: 'Önce çatışmayı bitir.', ses: 'red' };
+  const yer = GOREV_YERLERI[gid];
+  if (yer && d.mekan !== yer.mekan) {
+    yerleriGuncelle(d);
+    return { metin: g.ad + ' yerinde yapılır: ' + yer.ad + '. Oraya git; Yerler listesinde ve haritada işaretli, yaklaşınca sesini duyarsın.' };
+  }
   hazirla(d).aktif = gid;
   d.sahne = 'ygk_gorev';
   return { metin: '' };
@@ -229,6 +251,7 @@ function secimUygula(d, g, i) {
     if (o.bayrak) for (const b of o.bayrak) d.bayrak[b] = true;
     if (o.kirgin) for (const k of o.kirgin) kayit(d, k).kirgin = true;
   }
+  if (g.tur === 'zincir') SY.tepkiEkle(d, g.bolge || KISILER[g.kisi].guc || 'ygk');
   r.gorev[g.id] = 'bitti';
   if (g.puan) {
     const n = puanEkle(d, g.kisi, g.puan);

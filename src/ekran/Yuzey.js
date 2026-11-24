@@ -304,6 +304,22 @@ const DOSYALAR = {
   bd_tas: require('../../assets/ses/konumsal/bd_tas.wav'),
   bd_toz: require('../../assets/ses/konumsal/bd_toz.wav'),
   yg_tixie: require('../../assets/ses/konumsal/yg_tixie.wav'),
+  yg_oronte: require('../../assets/ses/konumsal/yg_oronte.wav'),
+  yg_cuce: require('../../assets/ses/konumsal/yg_cuce.wav'),
+  yg_sarah: require('../../assets/ses/konumsal/yg_sarah.wav'),
+  yg_zeno: require('../../assets/ses/konumsal/yg_zeno.wav'),
+  yg_kasim: require('../../assets/ses/konumsal/yg_kasim.wav'),
+  yg_mirelza: require('../../assets/ses/konumsal/yg_mirelza.wav'),
+  yg_kaelan: require('../../assets/ses/konumsal/yg_kaelan.wav'),
+  yg_barracuda: require('../../assets/ses/konumsal/yg_barracuda.wav'),
+  yg_nyxara: require('../../assets/ses/konumsal/yg_nyxara.wav'),
+  yg_elyndra: require('../../assets/ses/konumsal/yg_elyndra.wav'),
+  yg_varek: require('../../assets/ses/konumsal/yg_varek.wav'),
+  yg_axira: require('../../assets/ses/konumsal/yg_axira.wav'),
+  yg_zhaor: require('../../assets/ses/konumsal/yg_zhaor.wav'),
+  yg_sinha: require('../../assets/ses/konumsal/yg_sinha.wav'),
+  yg_drahmir: require('../../assets/ses/konumsal/yg_drahmir.wav'),
+  bd_simsek: require('../../assets/ses/konumsal/bd_simsek.wav'),
   yg_lasiraxi: require('../../assets/ses/konumsal/yg_lasiraxi.wav'),
   yg_zynae: require('../../assets/ses/konumsal/yg_zynae.wav'),
   yg_sirilla: require('../../assets/ses/konumsal/yg_sirilla.wav'),
@@ -454,9 +470,24 @@ export default function Yuzey({ onGeri, baslangic, yeniOyunUret }) {
 
   // 4.5: barınaktaki hayvanlar kendi bölmelerinden, ara ara (v5 Paket 14 bölüm 5); mırıl-kedi kamarada ya da hamamda
   // 5.1: YGK Akademi kişilerinin imza döngüleri (ElevenLabs); bulunulan kattakiler kendi noktalarından duyulur
+  // Paket 7: gemideki odada istasyonu olan seçkin subayın kendi döngüsü (reaktör: Elyndra, revir: Axira, köprü: Varek,
+  // Zhaor, Sinha; kargo ve hangar: Drahmir), dinleyicinin çevresinde sabit yerlerde. Gemi yerdeyken (iskelede, kızakta);
+  // uçuşta gemi hareket ettiği için bu döngüler kurulmaz.
+  const SUBAY_ODA = { ortam_reaktor: ['elyndra'], ortam_revir: ['axira'], ortam_kokpit: ['varek', 'zhaor', 'sinha'], ortam_kargo: ['drahmir'] };
+  const subaySesleri = (d, s, merkez, onEk, istenen) => {
+    if (!d.gemide || !d.bayrak.seckinKadro) return;
+    const oda = odaSu(d);
+    const l = (oda && SUBAY_ODA[oda.ortam]) || [];
+    l.forEach((id, i) => {
+      const a = -0.9 + i * 0.9;
+      const n = { x: merkez.x + Math.sin(a) * 3, y: merkez.y + Math.cos(a) * 3 };
+      istenen[onEk + id] = () => s.dongu(onEk + id, 'yg_' + id, n, 0.3);
+    });
+  };
   const ygkSesleri = (d, s) => {
     const istenen = {};
-    for (const x of YG.sesYerleri(d, NOKTALAR)) istenen['ygs_' + x.id] = () => s.dongu('ygs_' + x.id, 'yg_' + x.id, x.n, 0.35);
+    subaySesleri(d, s, kulakYeri(d), 'ygs_sb_', istenen);
+    for (const x of YG.sesYerleri(d, NOKTALAR)) istenen['ygs_' + x.id] = () => s.dongu('ygs_' + x.id, x.dosya || 'yg_' + x.id, x.n, x.dosya ? 0.45 : 0.35);
     for (const id of Object.keys(calanlar.current)) if (id.indexOf('ygs_') === 0 && !istenen[id]) kaynakKapat(id);
     for (const id of Object.keys(istenen))
       if (!calanlar.current[id]) {
@@ -1371,6 +1402,8 @@ export default function Yuzey({ onGeri, baslangic, yeniOyunUret }) {
         { id: 'komuta', etiket: 'Komuta ve Genişleme Paneli', ipucu: 'Bölge haritası, savunma hattı, ileri karakollar. İki parmakla sağa sola: sekme; üç parmakla dokun: en acil bölge.', sec: () => (agacGoster((x) => KM.panel(x, 'harita'), () => menuyuAc()), 'sessiz') },
         { id: 'hikaye', etiket: 'Hikâye çağrıları', ipucu: 'Karakterlerin telsiz çağrıları: bekleyenler ve bitenler.', sec: () => (agacGoster((x) => HK.hikayeMenu(x), () => menuyuAc()), 'sessiz') },
         { id: 'karakter', etiket: 'Karakter ağı, mekik ve itibar', ipucu: 'Kilit karakterler, Tether-Key mekiği, beş ana güç ve evren itibarı.', sec: () => (agacGoster((x) => KR.karakterMenu(x), () => menuyuAc()), 'sessiz') },
+        ...(dunya.current.bayrak.tonoflenyaGoruldu ? [{ id: 'bolge_bag', etiket: 'Tonoflenya bölge bağları ve siyaset', ipucu: 'Beş güç odağı, siyasi pozisyonun ve bölge liderleriyle bağların.', sec: () => (agacGoster((x) => YG.bolgeMenu(x), () => menuyuAc()), 'sessiz') }] : []),
+        ...(dunya.current.bayrak.seckinKadro ? [{ id: 'subay_bag', etiket: 'Seçkin subaylarla bağ', ipucu: 'Elyndra, Varek, Axira, Zhaor, Sinha ve Drahmir: sohbet, görev, hediye.', sec: () => (agacGoster((x) => YG.subayMenu(x), () => menuyuAc()), 'sessiz') }] : []),
         ...(dunya.current.bayrak.tonoflenyaGoruldu ? [{ id: 'ygk_bag', etiket: 'YGK Akademi bağ ağı', ipucu: 'Üç giriş yolu, akademi kişileri, bağ kademeleri ve açık görevler.', sec: () => (agacGoster((x) => YG.rehberMenu(x), () => menuyuAc()), 'sessiz') }] : []),
         ...(dunya.current.bayrak.tonoflenyaGoruldu ? [{ id: 'yan', etiket: 'Yan görevler ve itibar', ipucu: 'Otuz yan görev, bölgesel itibar, özel mürettebat.', sec: () => (agacGoster((x) => YN.yanMenu(x), () => menuyuAc()), 'sessiz') }] : []),
         { id: 'ekol', etiket: 'Yıldız Ekolü kıdemi', ipucu: 'Altı ekolde kıdem ve açılan kabiliyetler.', sec: () => (agacGoster((x) => ZN.ekolMenu(x), () => menuyuAc()), 'sessiz') },

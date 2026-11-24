@@ -10,19 +10,27 @@ import './kisiler/k06';
 import './kisiler/k07';
 import './kisiler/k08';
 import './kisiler/k09';
+import './kisiler/k10';
+import './kisiler/k11';
+import './kisiler/k12';
+import * as SY from './siyaset';
 import * as AG from './akademiGorev';
 import { YG_NOKTALAR } from './harita';
 
 AG.arsivBulmacalariKur();
 
 export const SAHNELER = Y.SAHNELER;
-export { Y, AG };
+export { Y, AG, SY };
 
 export function noktaMi(id) {
   return !!YG_NOKTALAR[id];
 }
 export function noktaEylemleri(d, id) {
   const n = YG_NOKTALAR[id];
+  if (n.gorev) {
+    const g = Y.GOREVLER[n.gorev];
+    return [{ id: 'yg_gorev', etiket: (Y.TUR_ETIKET[g.tur] || '') + g.id + ': ' + g.ad + ' görevini başlat' }, { id: 'incele', etiket: 'İncele' }];
+  }
   if (id === 'ygk_arsiv') return [{ id: 'yg_arsiv', etiket: 'Arşiv notlarından yedek öğrenme' }, { id: 'incele', etiket: 'İncele' }];
   const k = Y.KISILER[n.ygk];
   return [{ id: 'yg_bag', etiket: 'Yanına git: sohbet, görevler, hediye' + bekleyenEk(d, n.ygk) }, { id: 'incele', etiket: 'İncele' }];
@@ -37,7 +45,7 @@ export function ekEylemler(d, id) {
   return l;
 }
 export function ekEylemMi(eid) {
-  return eid === 'yg_bag' || eid === 'yg_arsiv' || eid.indexOf('yg_bag_') === 0;
+  return eid === 'yg_bag' || eid === 'yg_gorev' || eid === 'yg_arsiv' || eid.indexOf('yg_bag_') === 0;
 }
 function bekleyenEk(d, kid) {
   const k = Y.KISILER[kid];
@@ -49,13 +57,17 @@ function kisiAc(d, kid) {
 }
 export function eylemUygula(d, id, eid) {
   if (eid === 'incele') return { metin: YG_NOKTALAR[id].tarif };
+  if (eid === 'yg_gorev') {
+    const r = Y.gorevBaslat(d, YG_NOKTALAR[id].gorev);
+    return r.metin ? r : { metin: '' };
+  }
   if (eid === 'yg_arsiv') return { agac: (x) => AG.arsivMenu(x) };
   if (eid === 'yg_bag') return kisiAc(d, YG_NOKTALAR[id].ygk);
   if (eid.indexOf('yg_bag_') === 0) return kisiAc(d, eid.slice(7));
   return { metin: '' };
 }
 export function ygkIlerle(d) {
-  return Y.ygkIlerle(d).map((x) => x.soz);
+  return [...Y.ygkIlerle(d).map((x) => x.soz), ...SY.tepkiIlerle(d)];
 }
 // Akademi rehberi (menüde): üç giriş yolu ve her kişinin bağ kademesi
 export function rehberMenu(d) {
@@ -88,5 +100,42 @@ export function sesYerleri(d, noktalar) {
     if (n.gorunur && !n.gorunur(d)) continue;
     l.push({ id: kid, n });
   }
+  // Açık yerinde görevlerin işaretleri: ilk düğümün sesi
+  for (const gid of Object.keys((d.ygk && d.ygk.acikYer) || {})) {
+    const n = noktalar['yg_yer_' + gid];
+    if (n && n.mekan === d.mekan) l.push({ id: 'yer_' + gid, n, dosya: 'bd_' + (n.ses || GOREV_SESI(gid)) });
+  }
   return l;
+}
+
+function GOREV_SESI(gid) {
+  const y = Y.gorevYeri(gid);
+  return (y && y.ses) || 'kristal';
+}
+// Gemi subaylarıyla bağ (Paket 7): seçkin kadro gemiye katılınca ana menüden; kişiler istasyonlarında
+export function subayMenu(d) {
+  const l = Y.KISI_SIRASI.filter((k) => Y.KISILER[k].subay);
+  return {
+    baslik: 'Seçkin subaylarla bağ',
+    giris: d.bayrak.seckinKadro ? 'Altı seçkin YGK subayı istasyonlarında. Odalarındaki sohbetler aynen sürüyor; burada bağ, görev ve hediye.' : 'Seçkin subay kadrosu henüz gemine katılmadı: YGK kaydı ve bir gemi gerekir.',
+    ogeler: d.bayrak.seckinKadro ? l.map((k) => {
+      const ki = Y.KISILER[k];
+      return { id: 'k_' + k, etiket: ki.ad + ', ' + ki.unvan + ': kademe ' + Y.kademe(d, k) + bekleyenEk(d, k), alt: (z) => Y.kisiMenu(z, k) };
+    }) : [],
+  };
+}
+// Tonoflenya bölge kişileri (Paket 6A, 6B): rehber
+export function bolgeMenu(d) {
+  const l = Y.KISI_SIRASI.filter((k) => Y.KISILER[k].bolgeKisisi);
+  return {
+    baslik: 'Tonoflenya bölge bağları',
+    giris: 'Beş güç odağının lider ve ustaları. Kişiler kendi bölgelerinde; görevlerin bir kısmı yerinde yapılır.',
+    ogeler: [
+      { id: 'siyaset', etiket: 'Hiyerarşi ve siyasi pozisyonun', alt: (z) => SY.siyasetMenu(z) },
+      ...l.map((k) => {
+        const ki = Y.KISILER[k];
+        return { id: 'k_' + k, etiket: ki.ad + ': kademe ' + Y.kademe(d, k) + bekleyenEk(d, k), ipucu: ki.unvan + '. ' + (ki.yerAdi || ''), alt: (z) => Y.profilMenu(z, k) };
+      }),
+    ],
+  };
 }
