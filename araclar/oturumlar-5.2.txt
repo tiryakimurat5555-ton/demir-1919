@@ -1,0 +1,21 @@
+# 5.2 imza (tts flow ui4cHVdu6EZCZ5QIbudH, eleven_v4; ilk take kullanılır) kimlik: ilk oturum (session) ve ses
+imza_yg_oronte 14IygTUZV8MpluI7iSFV Argun 00w5usiV5BBiIQuj1amy
+imza_yg_cuce n1HmgfxKmaRg3vNcFKuR Mehmet x4GBbEAtF6NIyLzJmq2T
+imza_yg_sarah hOu16HXFFFjRFFYoj8ow Esin vevaMEPHZ5tHlFtS3YPm
+imza_yg_zeno H1OqKuHexJc9IDkpNjtI Ayaz i4Vkimmf9IrZ2RdG16Rv
+imza_yg_kasim uTZYRAsoeVzTUAltblIf Ömür X6EHbOBe9sjpG7kyfrOA
+imza_yg_mirelza HUKtX52LUmQz8dM7JRyF Nergis hALSUJsnqdqp1bY0quM2
+imza_yg_kaelan Lhier2Ll4mSdP0p1UDDz Kerem JxVRMGmWEfJgf2BnzIup
+imza_yg_barracuda rdFJHixvWnRyri3j85gW Taha Mert mSz3aIanm1okwXRHeNGA
+imza_yg_nyxara XWsiMHborubWzVokTJPu Saadet EaGhLW8G52a4yYz9ESds
+imza_yg_elyndra LUuBZffnWJNBqYtYVZ8d Sıla Özalp r3deco0KTo6o0Kb5inro
+imza_yg_varek ZOEVYpL8PyIAiD8Ds4GW Cem mScWJwY9Ty24PwwvyNcA
+imza_yg_axira lir0M3xZh8tleqUykOUl Eda 3gNXdVLnqjUKPR9NwCZ9
+imza_yg_zhaor w51ubqFvafvxLffEYt5h Coşkun QmkECRQQoQBAi7p7Xqfz
+imza_yg_sinha ZoPc8UTDHjsMvODS1t5X Aras abxVEjvUPgC2tmoNYkJK ([slowly], 0.75x yerine)
+imza_yg_drahmir CTXwvRuojuEHa5JT7oBy isa fkLVUvPhQxHhQGCjXRMA
+# 5.2 konumsal döngüler (sfx flow BPWC2OLWbdljIKExgHDq, eleven_text_to_sound_v3; ilk varyasyon). Nyxara 5 sn geldi.
+yg_oronte myrkb48MtLlfVsBiiiSv; yg_cuce MeuevqFx9ezzzksM5Qrb; yg_sarah YXqkMcL9ldbUuPRTB87E; yg_zeno N6AWr6EUSgXgkQPi5TyJ
+yg_kasim 8mu522AR6DDGaGaFDWPd; yg_mirelza vLPRWNVbWg7oVEamlXX5; yg_kaelan J2paLcfvily4ZsQJKQxt; yg_barracuda 0RsbKcKAld12QbVAoY4C
+yg_nyxara WNG62RbNPcuRMdNrAvD5; yg_elyndra ja38j3VqmNDE0HU3jCzD; yg_varek HlvnSK12p4HB5diaWV7T; yg_axira VcicSw2vJFKt98QAKKPb
+yg_zhaor TVMxFCpf9cSyaHZFxeka; yg_sinha bOzwGNYoVfIyCBJhcryj; yg_drahmir 6WdLYqmUZeWwkl8RbCrD; bd_simsek NHstSjUcpJOWxfxurAZe
