@@ -6,6 +6,11 @@ tesis kurar, ileride gemini parça parça inşa edip uzaya açılırsın.
 
 Yapımcı: Bahtiyar Cankurt (tasarım belgeleri belgeler/ içinde). Expo Go ile iPhone ve Android'de çalışır.
 
+## Bu sürümde (4.8)
+- Koloninin bulunduğu Vadi-i Sukût her yöne 33-36 metre genişledi; içindeki her şey aynı oranda açıldı. Kamp ateşinde
+  yerleşimciler iki geniş halkada, meydanda ve binalarda daha aralıklı duruyor. Eski kayıtta oyuncunun yeri de uyarlanır.
+- Telefonda denenmedi.
+
 ## Bu sürümde (4.7)
 - Görev terminali: 115 görev üç sekmede (ana 20, yerleşim 40, yan 55). Her kartta durum, ön şart, tamamlayınca açılacaklar,
   varsa uyarı, bekletirsen ne olacağı ve nasıl yapılacağı okunur. En üstte "Hazır görevler" filtresi; yerleşim ve yan

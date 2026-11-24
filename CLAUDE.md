@@ -850,6 +850,13 @@ Demir 1919 oyunu silindi; geçmişi git kaydında (son sürüm 1.06, commit 556f
   - Adlar (Murat, 23 Kasım): esas liste Paket 1/8'in on altı yerleşimcisi; kurucu ekip Malkenli (Malken adları), ötekilerin
     çoğu yabancı, birkaçı Türkçe. seslendirme.js ERKEK_ADLAR/KADIN_ADLAR ve murettebat.js SOYADLAR (rastgele subaylar) bu düzende;
     eski kayıtlar için cinsiyeti() eski Türkçe adları da tanır. Paket 7'deki adlar kullanılmaz (eşleme gorevAgi.js başında).
+- SÜRÜM 4.8 (24 Kasım, Bahtiyar: "ana haritayı her yöne 30-40 adım genişletsin, karakterler sıkışık durmasın"). Telefonda denenmedi.
+  - yuzey/harita.js sonu: VADI_OLCEK 1,6, vadiKonum(x, y); vadi alanı -88..88 × -72..96; vadideki bütün NOKTALAR, KAPILAR
+    uçları, KISILER, ALANLAR yüklenirken ölçeklenir (diğer dosyalardaki vadi noktaları da birleştirildikten sonra). Sabit vadi
+    konumu yazılacaksa vadiKonum ya da NOKTALAR'dan okunmalı (dunya.js mühendis anten yeri artık tepe'den).
+  - yerlesim/konum.js: kamp ateşi iki halka (6 ve 10 m, Y_NOKTALAR.kamp_atesi'nden), meydanda 6,5 m aralık (y 14/34), festival
+    halkası 12×9 m, iç mekânlarda 4 × 3 m.
+  - durum.js: d.vadiOlcek; kaydiTamamla eski kayıtta vadideki oyuncuyu ve fenerleri bir kez ölçekler.
 - Sıradaki: v5 bitti. Telefonda deneme ve Murat/Bahtiyar'ın geri bildirimi.
 
 ## Sesler

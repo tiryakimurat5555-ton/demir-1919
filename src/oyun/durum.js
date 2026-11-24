@@ -6,7 +6,7 @@
 //   murettebat (CrewMember) ad, uzmanlık, oda, verimlilik, stres, kayıt
 //   gorev   (SpaceMission / yüzey görevi) id, adım, bayraklar
 //   kodeks  (CodexEntry)   kaydedilen fenomenler, itibar
-import { BASLANGIC, NOKTALAR } from './yuzey/harita';
+import { BASLANGIC, NOKTALAR, VADI_OLCEK } from './yuzey/harita';
 import { oncuUret } from './veri/murettebat';
 import { HAMMADDE_SIRASI } from './veri/tesisler';
 
@@ -45,6 +45,7 @@ export function yeniOyun(tohum = Date.now() % 2147483647) {
     harita: { poiler: [] },
     gorev: { id: 'sinyal' },
     bayrak: {}, // hikâye bayrakları (görevler arası kalıcı)
+    vadiOlcek: VADI_OLCEK, // 4.8: vadi genişletildi; eski kayıtlarda konumlar bir kez ölçeklenir
     bitenGorevler: [],
     ayar: null, // frekans ayarı sürüyorsa { frekans, hedef, kilit }
     oto: null, // kendiliğinden yürüme hedefi
@@ -55,6 +56,18 @@ export function yeniOyun(tohum = Date.now() % 2147483647) {
 // 0.4 plato ve kükürt çatlakları). Kayıt okunurken çağrılır; aynı nesneyi döndürür.
 export function kaydiTamamla(d) {
   if (!d) return d;
+  // 4.8: genişletilmiş vadi. Eski kayıtta vadideki oyuncu ve fenerler aynı oranda açılır.
+  if (!d.vadiOlcek) {
+    if (d.mekan === 'vadi' && d.oyuncu) {
+      d.oyuncu.x *= VADI_OLCEK;
+      d.oyuncu.y *= VADI_OLCEK;
+    }
+    for (const f of d.fenerler || []) if (f.mekan === 'vadi') {
+      f.x *= VADI_OLCEK;
+      f.y *= VADI_OLCEK;
+    }
+    d.vadiOlcek = VADI_OLCEK;
+  }
   if (!d.stok) d.stok = {};
   for (const id of Object.keys(NOKTALAR)) if (NOKTALAR[id].kaynak && d.stok[id] == null) d.stok[id] = NOKTALAR[id].stok;
   for (const k of HAMMADDE_SIRASI) if (d.koloni && d.koloni.kaynaklar[k] == null) d.koloni.kaynaklar[k] = 0;

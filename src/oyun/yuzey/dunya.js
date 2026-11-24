@@ -78,7 +78,7 @@ export function kisiYeri(d, id) {
     if (k.rol == null) return null;
   }
   const g = d.bayrak;
-  if (id === 'muhendis' && g.jenerator && !g.telemetri) return { ...k, x: 6.5, y: 47.5, eylem: 'anten direğinin dibinde, kablo makarasıyla' };
+  if (id === 'muhendis' && g.jenerator && !g.telemetri) return { ...k, x: NOKTALAR.tepe.x + 2.5, y: NOKTALAR.tepe.y - 2.5, eylem: 'anten direğinin dibinde, kablo makarasıyla' };
   return k;
 }
 

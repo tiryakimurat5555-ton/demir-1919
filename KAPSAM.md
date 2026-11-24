@@ -1113,6 +1113,8 @@ bütün bölümlerini sırayla sayar (21 Kasım: v3 paketiyle sekiz belge daha g
 - [x] 5 dış gezegen ve Tonoflenya kuralları değişmedi; görev ödülü yok (ekonomiyi bozmaz).
 - [x] 6 odak sırası kod ve ad, durum, ön şart, açılacaklar, uyarı; "Hazır görevler" filtresi; tamamlanınca el_gorev sesi ve
       tek cümlelik özet (tamamlanan ve açılan görevler). [~] Kilometre taşı sesi her türde aynı (ayrı kapı/radyo sesi yok).
+### Geri bildirim (4.8)
+- [x] Bahtiyar: vadi her yöne genişletildi (×1,6), yerleşimciler aralıklı.
 ### v5 paketi tamam
 - [x] Paket 1-16'nın hepsi işlendi (4.0-4.7).
 - [x] Yerleşimci adları: Paket 1/8 listesi esas (Murat, 23 Kasım). Rastgele üretilen mürettebat adları da bu düzende (4.7).

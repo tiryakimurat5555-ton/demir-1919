@@ -555,3 +555,22 @@ import { H_MEKANLAR, H_KAPILAR, H_NOKTALAR } from '../hayvan/harita';
 Object.assign(MEKANLAR, H_MEKANLAR);
 Object.assign(KAPILAR, H_KAPILAR);
 Object.assign(NOKTALAR, H_NOKTALAR);
+
+// 4.8 (Bahtiyar, 24 Kasım: "ana haritayı her yöne 30-40 adım genişletsin, karakterler sıkışık durmasın"): Vadi-i Sukût
+// bütün içeriğiyle (noktalar, geçit uçları, kişiler) merkezden VADI_OLCEK kat açılır. Sınır -55..55 × -45..60 iken
+// -88..88 × -72..96 olur (her yöne 33-36 m). Başka dosyalardaki vadi konumları NOKTALAR'dan okunur; sabit vadi konumu
+// yazılacaksa vadiKonum ile ölçeklenmeli.
+export const VADI_OLCEK = 1.6;
+export const vadiKonum = (x, y) => ({ x: x * VADI_OLCEK, y: y * VADI_OLCEK });
+{
+  const a = MEKANLAR.vadi.alan;
+  for (const k of ['bati', 'dogu', 'guney', 'kuzey']) a[k] = Math.round(a[k] * VADI_OLCEK);
+  const olcekle = (o) => {
+    o.x = Math.round(o.x * VADI_OLCEK * 10) / 10;
+    o.y = Math.round(o.y * VADI_OLCEK * 10) / 10;
+  };
+  for (const id of Object.keys(NOKTALAR)) if (NOKTALAR[id].mekan === 'vadi') olcekle(NOKTALAR[id]);
+  for (const id of Object.keys(KAPILAR)) for (const u of KAPILAR[id].uclar || []) if (u.mekan === 'vadi') olcekle(u);
+  for (const id of Object.keys(KISILER)) if (KISILER[id].mekan === 'vadi') olcekle(KISILER[id]);
+  for (const al of ALANLAR) if (al.mekan === 'vadi') olcekle(al);
+}
