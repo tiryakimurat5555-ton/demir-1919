@@ -857,7 +857,14 @@ Demir 1919 oyunu silindi; geçmişi git kaydında (son sürüm 1.06, commit 556f
   - yerlesim/konum.js: kamp ateşi iki halka (6 ve 10 m, Y_NOKTALAR.kamp_atesi'nden), meydanda 6,5 m aralık (y 14/34), festival
     halkası 12×9 m, iç mekânlarda 4 × 3 m.
   - durum.js: d.vadiOlcek; kaydiTamamla eski kayıtta vadideki oyuncuyu ve fenerleri bir kez ölçekler.
-- Sıradaki: v5 bitti. Telefonda deneme ve Murat/Bahtiyar'ın geri bildirimi.
+- Sıradaki: SON BÜYÜK GÜNCELLEME, büyü (Murat, 24 Kasım). Kararlar: kaptan Malken kökenli ama büyü aracı yok, o yüzden
+  büyü yapamıyor (araç = Malazar Asası; Orin'den, pazar.js); ayrı bina yok, derslik tapınak (rezonans sunağı, tezgah.js);
+  büyüler yalnız bulmacada, savaşta değil. Murat/Bahtiyar derinleştirilmiş hikâye, büyüler, YGK Akademi katları, karakterler
+  ve Tonoflenya bulmaca noktalarını dosyalar hâlinde gönderecek; ben mevcut yapıya serpiştireceğim. Rota: 1) büyü temeli
+  (d.buyu defteri, büyü noktası hâlleri, hareket + ses, operasyon adımlarıyla döküm), 2) koloni çapası (asa → tapınak
+  dersliği → başlangıç büyüleri → vadi/maden/kıyı alıştırma bulmacaları), 3) YGK Akademi genişletme (yerleşim motoru:
+  kademe, sohbet, hediye, ikili olaylar akademi kişilerine), 4) Tonoflenya büyü kolu (atlas bölgeleri, ana hikâyeye seçmeli
+  bağ), 5) kapanış (denge, uçtan uca test, APK, KAPSAM kapanışı).
 
 ## Sesler
 - Drive'daki Efektler/Ambians dosyaları 14 MB; Drive bağlayıcısı 10 MB'tan büyük dosyayı indiremiyor. Bu yüzden
