@@ -989,6 +989,10 @@ Demir 1919 oyunu silindi; geçmişi git kaydında (son sürüm 1.06, commit 556f
     konumsal/can_ornek.wav (sessizlik kırpıldı, 9,5 sn, sonda 1,2 sn sönme, I=-16, 24 kHz tek kanal). konumsal.js canCal:
     can_ornek yüklüyse playbackRate = frek / 303 ile çalar (yoksa 5.7 sentezi); ortam çanı düzeyi 0,3-0,45; nota tini 'can'
     paneli 16 sn sonra bırakılır. Yuzey DOSYALAR + CEKIRDEK_DOSYA can_ornek.
+- SÜRÜM 5.9 (25 Kasım, Murat: uzay ortamı da kraterdeki gibi bir döngü sorunuysa düzelt ya da daha uzun üret): ortam_uzay
+  (Yuzey uzayda oda dışı 0,6, savaşta 0,25, gorev5 kalkis sahnesi) ElevenLabs sfx (flow BPWC2OLWbdljIKExgHDq, 4 × 17 kredi;
+  ham-sesler v59_uzay_1..4, 30 sn) en düz olanı v59_uzay_3 (sapma 0,7 dB) → dongu.py 3 sn çapraz geçiş, I=-24, 22050 iki kanal
+  → assets/ses/ortam_uzay.mp3 (27 sn); eski ortam_uzay.wav silindi, efektler.js yolu mp3. Telefonda denenmedi.
 - v6 paketi bitti. Sıradaki: Murat'ın ya da Bahtiyar'ın yeni isteği; telefonda deneme sonuçları.
 - Büyü güncellemesinin kararları (Murat, 24 Kasım; 5.0-5.5 ile tamamlandı): kaptan Malken kökenli ama büyü aracı yok, o yüzden
   büyü yapamıyor (araç = Malazar Asası; Orin'den, pazar.js); ayrı bina yok, derslik tapınak (rezonans sunağı, tezgah.js);

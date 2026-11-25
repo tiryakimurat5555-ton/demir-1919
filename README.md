@@ -6,6 +6,11 @@ tesis kurar, ileride gemini parça parça inşa edip uzaya açılırsın.
 
 Yapımcı: Bahtiyar Cankurt (tasarım belgeleri belgeler/ içinde). Expo Go ile iPhone ve Android'de çalışır.
 
+## Bu sürümde (5.9): uzayın sesi
+- Uzayda dolaşırken (odaların dışında), kalkışta ve uzay çatışmalarında arkada çalan ortam yeniden yapıldı: kabin içinden
+  duyulan, hiç kabarıp sönmeyen düz bir uzay uğultusu (motor gürlemesi, hava dönüştürücü hışırtısı, uzak elektronik uğultular),
+  27 saniyelik kesintisiz döngü. Eski 11 saniyelik kayıt her turda kabarıp sönüyordu. Telefonda denenmedi.
+
 ## Bu sürümde (5.8): kraterin sesi
 - Kadim Krater'in rüzgâr ortamı kesintisiz döngü oldu (kaydın sonundaki sönme ve baştaki açılış yüzünden her turda iki
   saniyelik boşluk vardı).

@@ -125,7 +125,7 @@ const KAYNAKLAR = {
   el_yeni_oyun: require('../../assets/ses/el_yeni_oyun.wav'),
   el_deklansor: require('../../assets/ses/el_deklansor.wav'),
   polimer: require('../../assets/ses/polimer.wav'),
-  ortam_uzay: require('../../assets/ses/ortam_uzay.wav'),
+  ortam_uzay: require('../../assets/ses/ortam_uzay.mp3'),
   ortam_kokpit: require('../../assets/ses/ortam_kokpit.mp3'),
   ortam_kargo: require('../../assets/ses/ortam_kargo.mp3'),
   ortam_reaktor: require('../../assets/ses/ortam_reaktor.wav'),
