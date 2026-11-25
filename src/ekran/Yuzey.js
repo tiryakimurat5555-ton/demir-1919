@@ -209,7 +209,7 @@ import * as BM from '../oyun/buyu/bulmaca';
 
 const ADIM_MS = 100;
 // Ses motoruna oyun açılırken yüklenen dosyalar (adımlar ve her yerde çalan kısa sesler)
-const CEKIRDEK_DOSYA = /^(adim_|bip$|sonar$|parazit$|hamle$|jenerator$|baca$)/;
+const CEKIRDEK_DOSYA = /^(adim_|bip$|sonar$|parazit$|hamle$|jenerator$|baca$|can_ornek$)/;
 const OLU_BOLGE = 16;
 const TAM_GUC = 140;
 const KAYIT_ARALIGI = 100; // adım (10 sn)
@@ -224,6 +224,7 @@ const DOSYALAR = {
   adim_tas_7: require('../../assets/ses/konumsal/adim_tas_7.wav'),
   adim_tas_8: require('../../assets/ses/konumsal/adim_tas_8.wav'),
   bip: require('../../assets/ses/konumsal/bip.wav'),
+  can_ornek: require('../../assets/ses/konumsal/can_ornek.wav'),
   jenerator: require('../../assets/ses/konumsal/jenerator_ugultu.wav'),
   parazit: require('../../assets/ses/konumsal/parazit.wav'),
   sonar: require('../../assets/ses/konumsal/sonar.wav'),

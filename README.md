@@ -6,6 +6,12 @@ tesis kurar, ileride gemini parça parça inşa edip uzaya açılırsın.
 
 Yapımcı: Bahtiyar Cankurt (tasarım belgeleri belgeler/ içinde). Expo Go ile iPhone ve Android'de çalışır.
 
+## Bu sürümde (5.8): kraterin sesi
+- Kadim Krater'in rüzgâr ortamı kesintisiz döngü oldu (kaydın sonundaki sönme ve baştaki açılış yüzünden her turda iki
+  saniyelik boşluk vardı).
+- Çanlar artık gerçek bir bronz çan kaydı: tokmak vuruşu, uzun ve dalgalanan çınlama; her çan kendi perdesinde çalar. Kristal
+  seslerinden ayrılsın diye daha pes ve kendiliğinden çalarken daha belirgin. Telefonda denenmedi.
+
 ## Bu sürümde (5.7): düzen ve tutarlılık
 - Menü toplandı: üstte Devam et, Görev, Yerler, Neredeyim, Dinlen ve bekle; geri kalan her şey beş grupta (Görevler; Eşyalar ve
   üretim; Koloni, mürettebat ve komuta; Kişiler ve bağlar; Haritalar, zaman ve kayıtlar). Her seçenek tek yerde.

@@ -982,6 +982,13 @@ Demir 1919 oyunu silindi; geçmişi git kaydında (son sürüm 1.06, commit 556f
   - Ses: krater ortam_yuzey 0,18, kseno_lab/mabet/kazi_tamam ortam_harabe (1.16-1.17'deki ortam_krater = ortam_tarim kalktı).
     konumsal.js canCal (on kısmi ton, ayrışık çiftler, tokmak gürültüsü, vuruş gücüne göre parlaklık); 'can' kaynağı 7-11,5 sn
     aralık, 0,1-0,2 güç, %30 yankı; nota(…, tini 'can') rezonans çalma/seçme/melodi.
+- SÜRÜM 5.8 (25 Kasım, Murat: krater ortamı biterken kesiliyor; çanlar nota gibi, kristallerle karışıyor). Telefonda denenmedi.
+  - assets/ses/ortam_yuzey.wav: eski dosyanın 1,5-37,5 sn'si dongu.py ile 3 sn çapraz geçişli 33 sn döngü (I=-24, 22050 iki
+    kanal); başta açılış, sonda 5 sn sönme vardı. (ortam_uzay.wav da baştan sona kabarıp sönüyor; dokunulmadı.)
+  - ElevenLabs sfx (flow BPWC2OLWbdljIKExgHDq, 4 × 17 kredi; ham-sesler v58_can_1..4): v58_can_2 (ana ton ~303 Hz) →
+    konumsal/can_ornek.wav (sessizlik kırpıldı, 9,5 sn, sonda 1,2 sn sönme, I=-16, 24 kHz tek kanal). konumsal.js canCal:
+    can_ornek yüklüyse playbackRate = frek / 303 ile çalar (yoksa 5.7 sentezi); ortam çanı düzeyi 0,3-0,45; nota tini 'can'
+    paneli 16 sn sonra bırakılır. Yuzey DOSYALAR + CEKIRDEK_DOSYA can_ornek.
 - v6 paketi bitti. Sıradaki: Murat'ın ya da Bahtiyar'ın yeni isteği; telefonda deneme sonuçları.
 - Büyü güncellemesinin kararları (Murat, 24 Kasım; 5.0-5.5 ile tamamlandı): kaptan Malken kökenli ama büyü aracı yok, o yüzden
   büyü yapamıyor (araç = Malazar Asası; Orin'den, pazar.js); ayrı bina yok, derslik tapınak (rezonans sunağı, tezgah.js);

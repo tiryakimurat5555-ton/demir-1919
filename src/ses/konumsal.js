@@ -121,7 +121,19 @@ const MOTOR_HTML = `<!DOCTYPE html><html><head><meta charset="utf-8"></head><bod
     [2.0, 0.48, 0.5, 1.1], [2.514, 0.17, 0.32, 0], [2.662, 0.13, 0.28, 0], [3.011, 0.11, 0.22, 0],
     [4.166, 0.07, 0.15, 0], [5.433, 0.045, 0.1, 0]
   ];
+  // 5.8 (Murat: "nota gibi değil, gerçek çan gibi"): kayıtlı bir bronz çan vuruşu (ElevenLabs, ana tonu ~303 Hz) her çanın
+  // perdesine hızla kaydırılarak çalınır; kayıt henüz yüklenmemişse aşağıdaki sentez çalar.
+  var CAN_REF = 303;
   function canCal(frek, hedef, duzey, sure){
+    var orn = tamponlar['can_ornek'];
+    if (orn) {
+      var s0 = ctx.createBufferSource(), g0 = ctx.createGain();
+      s0.buffer = orn; s0.playbackRate.value = Math.max(0.3, Math.min(3, frek / CAN_REF));
+      g0.gain.value = Math.min(1.2, duzey == null ? 0.5 : duzey);
+      s0.connect(g0); g0.connect(hedef); s0.start();
+      s0.onended = function(){ try { g0.disconnect(); } catch(e){} };
+      return;
+    }
     var t = ctx.currentTime + 0.005, sn = sure || 5, d = duzey == null ? 0.5 : duzey;
     var ana = ctx.createGain(), lp = ctx.createBiquadFilter();
     lp.type = 'lowpass'; lp.frequency.value = Math.min(16000, 2200 + 9000 * Math.min(1, d)); lp.Q.value = 0.3;
@@ -281,7 +293,7 @@ const MOTOR_HTML = `<!DOCTYPE html><html><head><meta charset="utf-8"></head><bod
         // havadaki titreşimle ikinci, daha da kısık bir yankı (her biri kendi aralığıyla)
         var vur = function(){
           if (kaynaklar[id] !== k) return;
-          var h = 0.1 + Math.random() * 0.1;
+          var h = (tamponlar['can_ornek'] ? 0.3 : 0.12) + Math.random() * 0.15;
           canCal(k.frek || 262, k.p, h, 6 + Math.random() * 2);
           if (Math.random() < 0.3) setTimeout(function(){ if (kaynaklar[id] === k) canCal(k.frek || 262, k.p, h * 0.45, 4); }, 1400 + Math.random() * 900);
         };
@@ -632,7 +644,7 @@ const MOTOR_HTML = `<!DOCTYPE html><html><head><meta charset="utf-8"></head><bod
         else if (c.ad === 'nota') {
           baglam();
           var h = yakin;
-          if (c.n) { var p = panner(); konumla(p, c.n); h = p; setTimeout(function(){ try { p.disconnect(); } catch(e){} }, Math.max(4500, (c.sure || 3) * 1000 + 1500)); }
+          if (c.n) { var p = panner(); konumla(p, c.n); h = p; setTimeout(function(){ try { p.disconnect(); } catch(e){} }, c.tini === 'can' ? 16000 : Math.max(4500, (c.sure || 3) * 1000 + 1500)); }
           if (c.tini === 'can') canCal(c.frek, h, c.duzey, c.sure);
           else notaCal(c.frek, h, c.duzey, c.sure);
         }
