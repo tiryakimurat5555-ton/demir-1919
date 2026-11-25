@@ -229,11 +229,27 @@ export function filoGorevi(d, dt) {
   return say;
 }
 
+// 5.7: kızaktaki hasarlı gemi tersanede kendiliğinden onarılır (önceden operasyon ya da savaş yenilgisinden sonra gövde 1'de
+// kalıyor, onarım için kalkıp yeniden kenetlenmek gerekiyordu). Tam onarım yaklaşık iki dakika; tersane işçileri hızlandırır.
+// Tonoflenya limanındaki gemiye dokunmaz (orada akademinin bakımı var).
+export const ONARIM_SN = 120;
+function tersaneOnarimi(d, dt, olaylar) {
+  const g = d.gemi;
+  if (!g || g.yer !== 'kizak' || g.liman === 'tonoflenya' || !(g.govde < g.maxGovde)) return;
+  if (!d.koloni.binalar.includes('tersane')) return;
+  const hiz = (g.maxGovde / ONARIM_SN) * (1 + 0.5 * (nufus(d).tersane || 0));
+  g.govde = Math.min(g.maxGovde, g.govde + hiz * dt);
+  if (g.govde >= g.maxGovde) olaylar.push({ tur: 'uretim', metin: 'Tersane: ' + g.ad + ' onarıldı; gövde tam.' });
+}
+
 export function koloniIlerle(d, dt) {
   const olaylar = [];
   const k = d.koloni;
   const n = nufus(d);
   filoGorevi(d, dt);
+  tersaneOnarimi(d, dt, olaylar);
+  // 5.7: hiçbir hammadde, parça ya da eşya eksiye düşmesin (bir seçenek ambarda olmayanı harcarsa sıfırda kalır)
+  for (const kap of [k.kaynaklar, k.parcalar, d.esya]) if (kap) for (const a of Object.keys(kap)) if (kap[a] < 0) kap[a] = 0;
   // Yatakların yenilenmesi
   if (!d.yenilenme) d.yenilenme = {};
   // Aethel-9 madenci aileleri tokken grev olmaz, ocaklar daha hızlı (tarim-ve-kseno-botanik bölüm 6)

@@ -52,7 +52,7 @@ export function kristalSayisi(d) {
 export const SAHNELER = {
   kazi_tamam: {
     baslik: 'Kadim yıldız haritası',
-    ortam: 'ortam_krater',
+    ortam: 'ortam_harabe',
     efekt: ['sinyal'],
     metin: (d) => [
       'Küreyi kaidesinden kaldırdığın anda bütün yapı bir kez, derinden çınlıyor; salondaki çekim uğultusu sönüp gidiyor. Yerçekimi alanları kapandı.',

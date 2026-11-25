@@ -113,6 +113,48 @@ const MOTOR_HTML = `<!DOCTYPE html><html><head><meta charset="utf-8"></head><bod
       o.connect(g); g.connect(hedef); o.start(t); o.stop(t + sn + 0.1);
     }
   }
+  // Kadim bronz çan (5.7): gerçek çan kısmi tonları (hum, prime, tierce, quint, nominal ve üstleri; çan dökümünün oranları),
+  // alçak tonlarda iki osilatörün hafif ayrışmasından doğan dalgalanma, vuruşta süzülmüş metal tıkırtısı, sert vuruşta
+  // daha parlak tını; alçak tonlar uzun, tizler kısa söner.
+  var CAN_KISMI = [
+    [0.5, 0.34, 1.0, 0.35], [1.0, 0.6, 0.78, 0.6], [1.183, 0.42, 0.6, 0.9], [1.506, 0.2, 0.46, 0],
+    [2.0, 0.48, 0.5, 1.1], [2.514, 0.17, 0.32, 0], [2.662, 0.13, 0.28, 0], [3.011, 0.11, 0.22, 0],
+    [4.166, 0.07, 0.15, 0], [5.433, 0.045, 0.1, 0]
+  ];
+  function canCal(frek, hedef, duzey, sure){
+    var t = ctx.currentTime + 0.005, sn = sure || 5, d = duzey == null ? 0.5 : duzey;
+    var ana = ctx.createGain(), lp = ctx.createBiquadFilter();
+    lp.type = 'lowpass'; lp.frequency.value = Math.min(16000, 2200 + 9000 * Math.min(1, d)); lp.Q.value = 0.3;
+    ana.gain.value = d / 2.4;
+    lp.connect(ana); ana.connect(hedef);
+    var son = t + sn + 0.2;
+    for (var i = 0; i < CAN_KISMI.length; i++){
+      var k = CAN_KISMI[i], f = frek * k[0];
+      if (f > 15000) continue;
+      var g = ctx.createGain(), sonum = Math.max(0.25, sn * k[2]), atak = i === 0 ? 0.012 : 0.003;
+      var genlik = k[1] * (i >= 5 ? 0.6 + 0.8 * Math.min(1, d) : 1);
+      g.gain.setValueAtTime(0.0001, t);
+      g.gain.exponentialRampToValueAtTime(genlik, t + atak);
+      g.gain.exponentialRampToValueAtTime(0.0001, t + sonum);
+      g.connect(lp);
+      var o = ctx.createOscillator(); o.type = 'sine'; o.frequency.value = f; o.connect(g); o.start(t); o.stop(t + sonum + 0.05);
+      if (k[3]) {
+        // Dökümdeki kusur: aynı kısmi ton iki kez, birkaç desibel farkla ve hafif ayrışık; yavaş dalgalanma
+        var o2 = ctx.createOscillator(), g2 = ctx.createGain(); o2.type = 'sine'; o2.frequency.value = f + k[3] * (0.7 + Math.random() * 0.6);
+        g2.gain.value = 0.55; o2.connect(g2); g2.connect(g); o2.start(t); o2.stop(t + sonum + 0.05);
+      }
+    }
+    // Tokmak vuruşu: kısa, bant geçiren gürültü ve alçak bir tok ses
+    var s = ctx.createBufferSource(), bf = ctx.createBiquadFilter(), sg = ctx.createGain();
+    s.buffer = gurultu(0.06); bf.type = 'bandpass'; bf.frequency.value = Math.min(9000, frek * 7); bf.Q.value = 1.4;
+    sg.gain.setValueAtTime(0.5 * Math.min(1, d + 0.2), t); sg.gain.exponentialRampToValueAtTime(0.0001, t + 0.05);
+    s.connect(bf); bf.connect(sg); sg.connect(lp); s.start(t);
+    var tok = ctx.createOscillator(), tg = ctx.createGain(); tok.type = 'sine';
+    tok.frequency.setValueAtTime(frek * 0.75, t); tok.frequency.exponentialRampToValueAtTime(frek * 0.5, t + 0.08);
+    tg.gain.setValueAtTime(0.25, t); tg.gain.exponentialRampToValueAtTime(0.0001, t + 0.12);
+    tok.connect(tg); tg.connect(lp); tok.start(t); tok.stop(t + 0.15);
+    setTimeout(function(){ try { ana.disconnect(); } catch(e){} }, (son - ctx.currentTime) * 1000 + 300);
+  }
   // Yanlış nota: kapının alçak, boğuk inlemesi
   function inlemeCal(hedef){
     var t = ctx.currentTime, o = ctx.createOscillator(), o2 = ctx.createOscillator(), f = ctx.createBiquadFilter(), g = ctx.createGain();
@@ -235,10 +277,17 @@ const MOTOR_HTML = `<!DOCTYPE html><html><head><meta charset="utf-8"></head><bod
       else if (tur === 'ayak') { k.zaman = setInterval(function(){ adimCal(k.p, 0.9, k.zemin || 'tas'); }, 540); }
       else if (tur === 'kristal') { kristalCal(k); k.zaman = setInterval(function(){ kristalCal(k); }, 2300); }
       else if (tur === 'can') {
-        // Kraterin çanları kendiliğinden, kısık ve seyrek çınlar (her biri kendi aralığıyla)
-        var ara = 5200 + Math.floor(Math.random() * 2600);
-        setTimeout(function(){ if (kaynaklar[id] === k) notaCal(k.frek || 262, k.p, 0.12, 2.6); }, Math.floor(Math.random() * 3000));
-        k.zaman = setInterval(function(){ notaCal(k.frek || 262, k.p, 0.12, 2.6); }, ara);
+        // Kraterin çanları kendiliğinden, kısık ve seyrek çınlar: kimi zaman hafif bir tokmak vuruşu, kimi zaman
+        // havadaki titreşimle ikinci, daha da kısık bir yankı (her biri kendi aralığıyla)
+        var vur = function(){
+          if (kaynaklar[id] !== k) return;
+          var h = 0.1 + Math.random() * 0.1;
+          canCal(k.frek || 262, k.p, h, 6 + Math.random() * 2);
+          if (Math.random() < 0.3) setTimeout(function(){ if (kaynaklar[id] === k) canCal(k.frek || 262, k.p, h * 0.45, 4); }, 1400 + Math.random() * 900);
+        };
+        var ara = 7000 + Math.floor(Math.random() * 4500);
+        setTimeout(vur, Math.floor(Math.random() * 4000));
+        k.zaman = setInterval(vur, ara);
       }
       else if (tur === 'yercekimi') yercekimiBaslat(k);
       else if (tur === 'fener') {
@@ -583,8 +632,9 @@ const MOTOR_HTML = `<!DOCTYPE html><html><head><meta charset="utf-8"></head><bod
         else if (c.ad === 'nota') {
           baglam();
           var h = yakin;
-          if (c.n) { var p = panner(); konumla(p, c.n); h = p; setTimeout(function(){ try { p.disconnect(); } catch(e){} }, 4500); }
-          notaCal(c.frek, h, c.duzey, c.sure);
+          if (c.n) { var p = panner(); konumla(p, c.n); h = p; setTimeout(function(){ try { p.disconnect(); } catch(e){} }, Math.max(4500, (c.sure || 3) * 1000 + 1500)); }
+          if (c.tini === 'can') canCal(c.frek, h, c.duzey, c.sure);
+          else notaCal(c.frek, h, c.duzey, c.sure);
         }
         else if (c.ad === 'inleme') {
           baglam();
@@ -695,7 +745,7 @@ function KonumsalSes({ onMesaj }, ref) {
     baslat: () => gonder({ ad: 'baslat' }),
     kaynak: (id, tur, nokta, zemin, frek) => gonder({ ad: 'kaynak', id, tur, n: sesKoordinati(nokta), zemin, frek }),
     // Çan notası: nokta verilirse o yerde, verilmezse kulaklıkta
-    nota: (frek, nokta, duzey = 0.5, sure = 3.2) => gonder({ ad: 'nota', frek, n: nokta ? sesKoordinati(nokta) : null, duzey, sure }),
+    nota: (frek, nokta, duzey = 0.5, sure = 3.2, tini = null) => gonder({ ad: 'nota', frek, n: nokta ? sesKoordinati(nokta) : null, duzey, sure, tini }),
     inleme: (nokta) => gonder({ ad: 'inleme', n: nokta ? sesKoordinati(nokta) : null }),
     dinleyici: (d) => gonder({ ad: 'dinleyici', n: sesKoordinati(d), y: sesYonu(d.yon) }),
     adim: (zemin, duzey) => gonder({ ad: 'adim', zemin, duzey }),

@@ -1233,7 +1233,9 @@ function pencere(d, x, silah) {
   if (d.zaman && nobet(d).yildiz === 'Sinha' && (sahip(d, 'sinha_sonari') || s.arac === 'col_tilkisi' || sahip(d, 'parazit_sensoru'))) p += 0.2;
   if (enYuksekStres(d) >= 100) p *= 0.8;
   p *= SB.kabiliyet(d, 'sinha', 2) ? 1.25 : 1;
-  return Math.max(0.9, p);
+  // 5.7 (Murat: "süre bağlamında minik bir dokunuş"): uyarı sesinin kulağa varması ve hareketin tanınması için her
+  // pencereye 0,2 sn pay; en dar pencere 0,9 değil 1,4 sn (T5 boss ve hızlı silahlarda sınır anlarda kaçırılmasın)
+  return Math.max(1.4, p + 0.2);
 }
 
 function uyariBaslat(d) {

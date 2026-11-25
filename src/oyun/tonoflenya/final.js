@@ -119,7 +119,7 @@ export const GOREVLER = [
       A('basinc', 'Sonik matkap', 'Matkap çalışıyor; kristalin gerilimi yükseliyor. Çatlama alarmını duyar duymaz çift dokun: matkabı kes. Geç kalırsan kristal patlar. Üç kez.', 'Siyah damar yerinde, kristaller sağlam.'),
     ],
     kararlar: [
-      { etiket: 'Zehirlenen madencileri hemen yüzeye tahliye et', sonuc: 'Herkes sağ; ama kazı yavaşladı, kristallerin bir kısmı kayıp.', yap: (d) => { d.koloni.moral = Math.min(100, d.koloni.moral + 10); d.koloni.kaynaklar.saf_aether = (d.koloni.kaynaklar.saf_aether || 0) - 50; d.itibar += 20; } },
+      { etiket: 'Zehirlenen madencileri hemen yüzeye tahliye et', sonuc: 'Herkes sağ; ama kazı yavaşladı, kristallerin bir kısmı kayıp.', yap: (d) => { d.koloni.moral = Math.min(100, d.koloni.moral + 10); d.koloni.kaynaklar.saf_aether = Math.max(0, (d.koloni.kaynaklar.saf_aether || 0) - 50); d.itibar += 20; } },
       { etiket: 'Kazıyı durdurma, siyah damarı hemen mühürle', sonuc: 'Kristaller kurtuldu; ama iki madenci ağır yaralı. Lonca bunu unutmayacak.', yap: (d) => { d.itibar = Math.max(0, d.itibar - 20); } },
     ],
     odul: (d) => {

@@ -6,6 +6,19 @@ tesis kurar, ileride gemini parça parça inşa edip uzaya açılırsın.
 
 Yapımcı: Bahtiyar Cankurt (tasarım belgeleri belgeler/ içinde). Expo Go ile iPhone ve Android'de çalışır.
 
+## Bu sürümde (5.7): düzen ve tutarlılık
+- Menü toplandı: üstte Devam et, Görev, Yerler, Neredeyim, Dinlen ve bekle; geri kalan her şey beş grupta (Görevler; Eşyalar ve
+  üretim; Koloni, mürettebat ve komuta; Kişiler ve bağlar; Haritalar, zaman ve kayıtlar). Her seçenek tek yerde.
+- Yerler'den İniş kapsülü seçilince kapsülün hava kilidinin önüne yürünür ve yüz kapsüle döner; çift dokununca içeri girilir.
+- Kadim Krater'de eski ortam geri geldi (sera ve vaha müziği kalktı); gömülü yapıda ve mabette uzaylı harabe ortamı.
+  Çanlar yeniden yapıldı: gerçek bronz çan tınısı (alçak uğultu, ana ton, minör üçlü, beşli, oktav ve üst tonlar, hafif dalgalanma,
+  tokmak vuruşu); kendiliğinden kısık, seyrek ve bazen yankılı çalarlar.
+- Kızaktaki hasarlı gemi tersanede kendiliğinden onarılır (yaklaşık iki dakika). Ambarda hiçbir şey eksiye düşmez.
+- Xerad görevi Sınıf II gemiyle yapılabilir: ödülü Malken prototipi (Sınıf III) Tonoflenya'ya giden ikinci yol olur.
+- Uzay haritası bilinen bütün noktaları ve hangi gemi sınıfının gerektiğini söyler. Altı Yıldız festivalinde okulun içindeki
+  Koloni Arşivi de akademi yerine sayılır.
+- Savaşta her uyarı penceresine 0,2 sn pay, en dar pencere 1,4 sn. Telefonda denenmedi.
+
 ## Bu sürümde (5.6): açılış düzeltmesi
 - Oyun açılırken bütün sesler aynı anda yükleniyordu (206 oynatıcı ve 39 MB konumlu ses); iPhone'da ses sistemi tıkanıyor,
   oyunun rehberi de VoiceOver da susuyordu. Artık açılışta yalnız gereken birkaç ses açılır; ötekiler çalınacağı an sırayla

@@ -967,6 +967,21 @@ Demir 1919 oyunu silindi; geçmişi git kaydında (son sürüm 1.06, commit 556f
   aynı anda. Bulgular (analiz, 24 Kasım; düzeltilmedi): operasyon/savaş yenilgisinde gemi kızakta gövde 1 kalıyor; Final 5
   saf_aether ve Pyros ittifakı kriyolit eksiye düşebilir; koloniArsivi bayrağı hiç açılmıyor; Sektör 15/Moloz Kuşağı Sınıf III
   ister, Kadim Mezar Sınıf I görünür ama Moloz'a bağlı; Sınıf III hediye gemiler Sınıf III ister. Telefonda denenmedi.
+- SÜRÜM 5.7 (25 Kasım, Murat: menüleri topla; kapsüle yürüyüş hava kilidine; bulguları hikâyeye dokunmadan bağla; savaşta
+  süreye minik dokunuş; krater ortamı ve çanlar). Telefonda denenmedi.
+  - Yuzey menuyuAc(grup): üstte devam/görev/yerler/neredeyim/dinlen (+ araç öğeleri, ana menüye dön); MENU_GRUPLARI gorevler,
+    esya, koloni, insanlar, bilgi; sonGrup ref (alt menüden geri açık gruba; yürüme hareketi menuyuAc(null)). haritaMetni bütün
+    poiler + sınıf durumu.
+  - dunya.js otoBaslat: NOKTALAR.giris (kapsul_dis → kapsul_kilit) varsa hedef kapının bu mekândaki ucu, kapiOnu varış 1,2,
+    yüz o.bak'a. testler/tutarlilik.test.js.
+  - koloni.js tersaneOnarimi (ONARIM_SN 120, ×(1+0,5×tersane), kızak + tersane, Tonoflenya limanı hariç), her adımda kaynaklar/
+    parcalar/esya eksiden sıfıra. final.js Final 5 saf_aether Math.max; gezegenHikayeleri kopukHarca. festival.js Altı Yıldız
+    okul (Koloni Arşivi) sayar. seyir.js xerad sinif 2; donanim.js asiri_iyon/biyo_stabilizasyon minSinif 2 (Kuantum Korveti
+    ve K-12 eskortları Sınıf III/II'de filo destek gemisi olarak kalır; Kadim Mezar Moloz'dan sonra her gemiyle).
+  - savas.js pencere: + 0,2 sn, taban 1,4 (önceden 0,9).
+  - Ses: krater ortam_yuzey 0,18, kseno_lab/mabet/kazi_tamam ortam_harabe (1.16-1.17'deki ortam_krater = ortam_tarim kalktı).
+    konumsal.js canCal (on kısmi ton, ayrışık çiftler, tokmak gürültüsü, vuruş gücüne göre parlaklık); 'can' kaynağı 7-11,5 sn
+    aralık, 0,1-0,2 güç, %30 yankı; nota(…, tini 'can') rezonans çalma/seçme/melodi.
 - v6 paketi bitti. Sıradaki: Murat'ın ya da Bahtiyar'ın yeni isteği; telefonda deneme sonuçları.
 - Büyü güncellemesinin kararları (Murat, 24 Kasım; 5.0-5.5 ile tamamlandı): kaptan Malken kökenli ama büyü aracı yok, o yüzden
   büyü yapamıyor (araç = Malazar Asası; Orin'den, pazar.js); ayrı bina yok, derslik tapınak (rezonans sunağı, tezgah.js);

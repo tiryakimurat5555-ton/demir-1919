@@ -79,7 +79,7 @@ export const UZAY_NOKTALARI = {
     ],
   },
   xerad: {
-    ad: 'Xerad Sektörü, kararsız boyut yarığı', x: 1250, y: 600, frek: 349, poi: 'xerad', acan: 'itki_hangari', sinif: 3,
+    ad: 'Xerad Sektörü, kararsız boyut yarığı', x: 1250, y: 600, frek: 349, poi: 'xerad', acan: 'itki_hangari', sinif: 2, // 5.7: Sınıf II'nin çekici kirişiyle; ödülü Malken prototipi (Sınıf III) Tonoflenya'ya giden ikinci yol
     gorev: 'Deney 07 ve Tonoflenya Anomalisi',
     tehlike: 'Boyut atlama deneyi felaketle bitmiş; istasyonun ortasında büyüyen bir yarık. Ağzında canlı bir denek ve Malken prototip motoru asılı.',
     hedef: 'Yarığın çekimine karşı sabit kalmak, kabini kirişle koparıp almak, deneği yaşatmak.',

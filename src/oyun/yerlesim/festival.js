@@ -25,6 +25,7 @@ export const GENEL_BEKLEME_GUN = 5;
 export const DIS_MEKANLAR = ['vadi', 'sirtlar', 'krater', 'plato', 'dogu', 'civa', 'lav', 'mantar', 'obsidyen', 'kuleler', 'vanguard', 'meydan', 'gozlem', 'iskele'];
 
 const tesisVar = (d, t) => d.koloni.binalar.includes(t);
+// 5.7: "koloni arşivi" okulun içindeki Koloni Arşivi'dir (hayvan/harita.js arsiv_kapi: okul kurulunca açılır)
 const katilanSayisi = (d) => (d.yer ? d.yer.katilan.length : 0);
 const A = (tur, ad, giris, bitis, ek = {}) => ({ tur, ad, giris, bitis, ...ek });
 
@@ -54,7 +55,7 @@ export const FESTIVALLER = {
     tur: 'Malken Büyük Şöleni',
     ses: 'festival_alti_yildiz',
     donem: 'Yılda bir kez, Ayaz Yörüngesi içinde (en güzeli 50-56. günler). En az 8 yerleşimci, meydan ve akademi gerekir.',
-    kosul: (d) => (Z.mevsimNo(d) !== 3 ? 'Yalnız Ayaz Yörüngesi\'nde (yılın 43-56. günleri) yapılır.' : katilanSayisi(d) < 8 ? 'Kolonide en az sekiz yerleşimci olmalı; şimdi ' + katilanSayisi(d) + '.' : !tesisVar(d, 'akademi') && !(d.bayrak && d.bayrak.koloniArsivi) ? 'Akademi ya da koloni arşivi kurulu olmalı.' : null),
+    kosul: (d) => (Z.mevsimNo(d) !== 3 ? 'Yalnız Ayaz Yörüngesi\'nde (yılın 43-56. günleri) yapılır.' : katilanSayisi(d) < 8 ? 'Kolonide en az sekiz yerleşimci olmalı; şimdi ' + katilanSayisi(d) + '.' : !tesisVar(d, 'akademi') && !(d.bayrak && d.bayrak.koloniArsivi) && !yerVar(d, 'okul') ? 'Akademi ya da okulun içindeki Koloni Arşivi kurulu olmalı.' : null),
     dongu: 'yil',
     katki: { yiyecek: 12, kristal: 4 },
     atmosfer: 'Altı yıldız gökte tek bir çizgiye yaklaşıyor. Sorya, Kaelon, Lyris ve Zarek altı yıldızın renklerinde fenerler yakıyor; gökten altı notalı dev bir çan akoru iniyor, meydanda yüzlerce ses tek bir ilahide birleşiyor.',

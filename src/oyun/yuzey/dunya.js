@@ -631,6 +631,15 @@ export function yerlerListesi(d, hepsi = false) {
 }
 
 export function otoBaslat(d, hedef) {
+  // 5.7 (Murat): giriş kapısı olan yapılara (iniş kapsülü) kendiliğinden yürüyüş yapının ortasına değil kapısının önüne
+  // gider; böylece kapsülün arka yüzüne ya da yanına varılmaz, çift dokununca içeri girilir.
+  const n = hedef.tur === 'nokta' ? NOKTALAR[hedef.id] : null;
+  const giris = n && n.giris && KAPILAR[n.giris] ? KAPILAR[n.giris].uclar.find((u) => u.mekan === hedef.mekan) : null;
+  if (giris) {
+    d.oto = { id: hedef.id, ad: giris.ad, mekan: hedef.mekan, x: giris.x, y: giris.y, yan: 0, kapiOnu: true, bak: { x: n.x, y: n.y } };
+    const m = hedef.mekan === d.mekan ? Math.round(uzaklik(d.oyuncu, giris)) : null;
+    return { metin: 'Yürüyorsun: ' + giris.ad + (m != null ? ', ' + m + ' metre' : ', geçitlerden geçerek') + '. Durmak için ekrana dokun.' };
+  }
   d.oto = { id: hedef.id, ad: hedef.ad, mekan: hedef.mekan, x: hedef.x, y: hedef.y, yan: 0 };
   const m = hedef.mekan === d.mekan ? Math.round(uzaklik(d.oyuncu, hedef)) : null;
   return { metin: 'Yürüyorsun: ' + hedef.ad + (m != null ? ', ' + m + ' metre' : ', geçitlerden geçerek') + '. Durmak için ekrana dokun.' };
@@ -684,7 +693,7 @@ function otoAdim(d, dt, olaylar) {
     hedef = kapi;
   }
   const m = uzaklik(d.oyuncu, hedef);
-  const varis = kapi ? 1.2 : Math.max(1.5, (NOKTALAR[o.id] && NOKTALAR[o.id].yaricap) || 1.5);
+  const varis = kapi || o.kapiOnu ? 1.2 : Math.max(1.5, (NOKTALAR[o.id] && NOKTALAR[o.id].yaricap) || 1.5);
   if (m <= varis) {
     if (kapi) {
       const r = gec(d, kapi.id, kapi.uc);
@@ -695,8 +704,9 @@ function otoAdim(d, dt, olaylar) {
       return true;
     }
     d.oto = null;
-    // Hedefe dön
-    d.oyuncu.yon = aciDuzelt(Math.atan2(hedef.x - d.oyuncu.x, hedef.y - d.oyuncu.y));
+    // Hedefe dön (kapı önünde yapının kendisine)
+    const bak = o.bak || hedef;
+    d.oyuncu.yon = aciDuzelt(Math.atan2(bak.x - d.oyuncu.x, bak.y - d.oyuncu.y));
     olaylar.push({ tur: 'otoVardi', ad: o.ad });
     d.haber = {};
     yaklasmaHaberi(d, []);

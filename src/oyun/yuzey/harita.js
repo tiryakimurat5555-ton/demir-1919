@@ -35,9 +35,9 @@ export const MEKANLAR = {
     ad: 'Kadim Krater',
     tarif: 'Devasa bir çarpışma havzası. Rüzgâr hiç yok; mutlak bir sessizlik. Yerden yer yer kadim çanların başları yükseliyor.',
     alan: { bati: 700, dogu: 780, guney: 0, kuzey: 70 },
-    // Murat (1.16): kraterin kendi döngüsel müziği; çanlar duyulsun diye yarı düzeyde
-    ortam: 'ortam_krater',
-    ortamOran: 0.5,
+    // 5.7 (Murat): 1.16'daki müzik sera ve vaha kaydıydı; kraterin eski ortamı geri geldi (kısık rüzgâr, çanlar öne çıkar)
+    ortam: 'ortam_yuzey',
+    ortamOran: 0.18,
     zemin: 'tas',
     dis: true,
   },
@@ -45,8 +45,7 @@ export const MEKANLAR = {
     ad: 'Gömülü yapının salonu',
     tarif: 'Pürüzsüz, serin taş duvarlar. Hava kımıldamıyor; yerin altından ağır, nabız gibi bir çekim uğultusu geliyor.',
     alan: { bati: 900, dogu: 924, guney: 0, kuzey: 24 },
-    ortam: 'ortam_krater', // kraterin müziği kesilmeden sürer (Murat, 1.17)
-    ortamOran: 0.5,
+    ortam: 'ortam_harabe', // 5.7: eski uzaylı harabe ortamı geri geldi
     zemin: 'tas',
     dis: false,
     disariKonum: { x: 740, y: 35 },
@@ -160,8 +159,7 @@ export const MEKANLAR = {
     ad: 'İç mabet',
     tarif: 'Küçük, yuvarlak bir oda. Ortada bir kaide; duvarlar parmaklarının altında hafifçe titriyor.',
     alan: { bati: 950, dogu: 966, guney: 0, kuzey: 16 },
-    ortam: 'ortam_krater', // kraterin müziği kesilmeden sürer (Murat, 1.17)
-    ortamOran: 0.5,
+    ortam: 'ortam_harabe', // 5.7: eski uzaylı harabe ortamı geri geldi
     zemin: 'tas',
     dis: false,
     disariKonum: { x: 740, y: 35 },
@@ -363,7 +361,7 @@ export const NOKTALAR = {
   terminal: { mekan: 'kapsul', x: 303, y: 7, ad: 'Merkez terminali', yaricap: 1.6, tarif: 'Kapsül bilgisayarının ana terminali. Koloni durumu, inşa ve kayıt buradan.' },
   dolap: { mekan: 'kapsul', x: 305.3, y: 3, ad: 'Alet dolabı', yaricap: 1.4, tarif: 'Gövdeye vidalı çelik dolap.' },
   // --- Vadi ---
-  kapsul_dis: { mekan: 'vadi', x: 0, y: 0, ad: 'İniş kapsülü', yaricap: 3.5, tarif: 'Yarısı bazalta gömülmüş, hâlâ ılık kapsül. Hava kilidi kuzey yüzünde.', engel: 2.4 },
+  kapsul_dis: { mekan: 'vadi', x: 0, y: 0, ad: 'İniş kapsülü', giris: 'kapsul_kilit', yaricap: 3.5, tarif: 'Yarısı bazalta gömülmüş, hâlâ ılık kapsül. Hava kilidi kuzey yüzünde.', engel: 2.4 },
   enkaz: { mekan: 'vadi', x: -24, y: 20, ad: 'Kopan arka modül', yaricap: 3, tarif: 'İniş sırasında kopan kargo ve iletişim modülü. Acil durum feneri hâlâ bipliyor.', engel: 1.8 },
   jenerator: { mekan: 'vadi', x: 16, y: 12, ad: 'Yedek jeneratör', yaricap: 2.4, tarif: 'Kapsülle birlikte atılan, kendi paraşütüyle inmiş füzyon jeneratörü.', engel: 1.2 },
   tepe: { mekan: 'vadi', x: 4, y: 50, ad: 'Gözcü Tepesi', yaricap: 3, tarif: 'Vadinin kuzeyindeki bazalt sırt. Kanyon duvarlarının üstünü gören tek yer.' },

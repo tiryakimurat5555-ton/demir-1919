@@ -392,6 +392,7 @@ export default function Yuzey({ onGeri, baslangic, yeniOyunUret }) {
   const motor = useRef(null);
   const dunya = useRef(baslangic || yeniOyunUret());
   const surukle = useRef({ aktif: false, dx: 0, dy: 0, sonDy: 0 });
+  const sonGrup = useRef(null);
   const yuklu = useRef(null);
   // Henüz yüklenmemiş bir dosya sorulunca yüklemeyi başlatır; yüklenince (dosyaHazir) sesler yeniden eşitlenir
   if (!yuklu.current)
@@ -1048,7 +1049,7 @@ export default function Yuzey({ onGeri, baslangic, yeniOyunUret }) {
             kaydet();
             if (r.ses) cal(EYLEM_SESI[r.ses] || r.ses, 0.9);
             if (r.notalar && r.notalar.length && m()) r.notalar.forEach((f, k) => setTimeout(() => m() && m().nota(f, null, 0.5, 1.4), 300 + k * 420));
-            if (r.nota != null && m()) m().nota(NOTALAR[r.nota].frek, NOKTALAR[id], 0.9, 4);
+            if (r.nota != null && m()) m().nota(NOTALAR[r.nota].frek, NOKTALAR[id], 0.9, 6, 'can');
             // 4.3: kazma, balta vuruşu titreşir; olta atılınca balıkçılık katmanı açılır
             if (r.titresim) Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Medium).catch(() => {});
             if (r.olta) {
@@ -1391,16 +1392,80 @@ export default function Yuzey({ onGeri, baslangic, yeniOyunUret }) {
     });
   };
 
+  // 5.7: uzay haritası bilinen bütün noktaları sayar (önceden yalnız ilk ikisini, her zaman "tersane henüz yok" diyordu)
   const haritaMetni = () => {
     const d = dunya.current;
     if (!d.harita.poiler.length) return 'Uzay haritası boş. Yörüngeyle bağlantı yok.';
-    const satirlar = [];
-    if (d.harita.poiler.includes('sektor15')) satirlar.push('Sektör 15, gaz bulutunun içindeki asteroit üssü. Prometheus adlı bir acil durum çağrısı.');
-    if (d.harita.poiler.includes('moloz_kusagi')) satirlar.push('Moloz Kuşağı: kadim yıldız haritasının gösterdiği, gezegenin yörüngesindeki enkaz halkası.');
-    return 'Uzay haritası. ' + satirlar.join(' ') + ' Oralara gitmek için bir gemi gerekir; tersane henüz yok.';
+    const filoSinif = Math.max(0, ...[d.gemi, ...(d.filo || [])].filter(Boolean).map((g) => g.sinif || 1));
+    const bitti = d.tamamlananOp || [];
+    const satirlar = d.harita.poiler
+      .filter((id) => UZAY_NOKTALARI[id])
+      .map((id) => {
+        const n = UZAY_NOKTALARI[id];
+        const durum = bitti.includes(id) ? 'tamamlandı' : n.sinif && filoSinif < n.sinif ? 'en az Sınıf ' + n.sinif + ' gemi gerekir' : 'gidilebilir';
+        return n.ad + ': ' + durum + '.';
+      });
+    const gemi = d.gemi ? 'Aktif gemi ' + d.gemi.ad + ', Sınıf ' + (d.gemi.sinif || 1) + '.' : 'Henüz gemi yok; tersanede kurulur.';
+    return 'Uzay haritası, ' + satirlar.length + ' nokta. ' + gemi + ' ' + satirlar.join(' ') + ' Ayrıntı ve eksik donanım için gemide ön tarama yap.';
   };
 
-  const menuyuAc = () => {
+  // 5.7 (Murat: "bir seçenek birkaç yerde birden var, menüleri derleyip topla"): ana menüde sık kullanılanlar ve beş
+  // konu grubu; her öğe tek bir grupta. Bir alt menüden geri dönünce açık olan gruba dönülür (sonGrup).
+  const MENU_GRUPLARI = {
+    gorevler: { etiket: 'Görevler', ipucu: 'Görev terminali, hikâye çağrıları, yan görevler, savaş eğitimi, telsiz kayıtları.' },
+    esya: { etiket: 'Eşyalar ve üretim', ipucu: 'Taşıdıkların, gemi envanteri, koloni çantası, zanaat tezgâhları, büyü defteri.' },
+    koloni: { etiket: 'Koloni, mürettebat ve komuta', ipucu: 'Koloni durumu, mürettebat, subaylar ve istasyonlar, ekol kıdemi, komuta paneli.' },
+    insanlar: { etiket: 'Kişiler ve bağlar', ipucu: 'Karakter ağı, bölge bağları ve siyaset, seçkin subaylar, YGK Akademi.' },
+    bilgi: { etiket: 'Haritalar, zaman ve kayıtlar', ipucu: 'Uzay ve Tonoflenya haritası, Yıldız Zamanı, kronikler, Evren Kütüphanesi, hareketler.' },
+  };
+  const menuyuAc = (grup = sonGrup.current) => {
+    sonGrup.current = grup || null;
+    if (grup && MENU_GRUPLARI[grup]) {
+      const ogeler = {
+        gorevler: [
+          { id: 'gorevagi', etiket: 'Görev terminali, ' + GA.hazirlar(dunya.current).length + ' hazır görev', ipucu: '115 görev: ana, yerleşim ve yan. Her kartta ön şart, açacakları ve uyarı. Hazır görevler filtresi en üstte.', sec: () => (agacGoster((x) => GA.gorevMenu(x), () => menuyuAc()), 'sessiz') },
+          { id: 'hikaye', etiket: 'Hikâye çağrıları', ipucu: 'Karakterlerin telsiz çağrıları: bekleyenler ve bitenler.', sec: () => (agacGoster((x) => HK.hikayeMenu(x), () => menuyuAc()), 'sessiz') },
+          ...(dunya.current.bayrak.tonoflenyaGoruldu ? [{ id: 'yan', etiket: 'Yan görevler ve itibar', ipucu: 'Otuz yan görev, bölgesel itibar, özel mürettebat.', sec: () => (agacGoster((x) => YN.yanMenu(x), () => menuyuAc()), 'sessiz') }] : []),
+          { id: 'egitim', etiket: 'Savaş eğitimi' + (egitimEksikMi(dunya.current) ? ', zorunlu, tamamlanmadı' : ''), ipucu: 'Temel kara ve uzay savaşı hareketleri. Tamamlanmadan o ortamdaki çatışmalara girilemez.', sec: () => (agacGoster((x) => egitimMenu(x), () => menuyuAc()), 'sessiz') },
+          { id: 'telsiz', etiket: 'Telsiz kayıtları', ipucu: 'Dinlediğin ve ertelediğin telsiz çağrıları.', sec: () => (telsizGoster(), 'sessiz') },
+        ],
+        esya: [
+          { id: 'tasinan', etiket: 'Taşıdıkların ve hammadde', sec: () => (soyle(tasinanMetni(), 'istek', true), 'sessiz') },
+          { id: 'envanter', etiket: 'Envanter ve kuşanılanlar', ipucu: 'Beş kategori; iki parmakla sağa kaydır: sonraki kategori. Çift dokun: eylem menüsü.', sec: () => (agacGoster((x) => ZN.envanterMenu(x, 0), () => menuyuAc()), 'sessiz') },
+          { id: 'canta', etiket: 'Koloni çantası', ipucu: 'Beş bölme: hammaddeler, yiyecek ve içecek, giyim ve zanaat, Malken ve tören, özel ve evlilik. İki parmakla sağa kaydır: sonraki bölme.', sec: () => (agacGoster((x) => IM.cantaMenu(x, 0), () => menuyuAc()), 'sessiz') },
+          ...(dunya.current.gemi ? [{ id: 'zanaat', etiket: 'Zanaat tezgâhları', ipucu: 'Gemideki dökümhane masası, aether laboratuvarı ve imbik ünitesi.', sec: () => (agacGoster((x) => ZN.zanaatMenu(x), () => menuyuAc()), 'sessiz') }] : []),
+          ...(BY.acikMi(dunya.current) ? [{ id: 'buyu', etiket: BY.menuMetni(dunya.current), ipucu: 'Asa, odak, şişeler, renkli taşlar ve dört ekolün büyüleri. İki parmakla sağa-sola: sekmeler.', sec: () => (agacGoster((x) => BY.defterMenu(x), () => menuyuAc()), 'sessiz') }] : []),
+        ],
+        koloni: [
+          { id: 'koloni', etiket: 'Koloni', sec: () => (soyle(koloniMetni(dunya.current), 'istek', true), 'sessiz') },
+          { id: 'murettebat', etiket: 'Mürettebat', sec: () => (murettebatGoster(), 'sessiz') },
+          ...(dunya.current.bayrak.tonoflenyaGoruldu ? [{ id: 'subaylar', etiket: 'Subaylar ve istasyonlar', sec: () => (agacGoster((x) => ZN.subayMenu(x), () => menuyuAc()), 'sessiz') }] : []),
+          { id: 'ekol', etiket: 'Yıldız Ekolü kıdemi', ipucu: 'Altı ekolde kıdem ve açılan kabiliyetler.', sec: () => (agacGoster((x) => ZN.ekolMenu(x), () => menuyuAc()), 'sessiz') },
+          { id: 'komuta', etiket: 'Komuta ve Genişleme Paneli', ipucu: 'Bölge haritası, savunma hattı, ileri karakollar. İki parmakla sağa sola: sekme; üç parmakla dokun: en acil bölge.', sec: () => (agacGoster((x) => KM.panel(x, 'harita'), () => menuyuAc()), 'sessiz') },
+        ],
+        insanlar: [
+          { id: 'karakter', etiket: 'Karakter ağı, mekik ve itibar', ipucu: 'Kilit karakterler, Tether-Key mekiği, beş ana güç ve evren itibarı.', sec: () => (agacGoster((x) => KR.karakterMenu(x), () => menuyuAc()), 'sessiz') },
+          ...(dunya.current.bayrak.tonoflenyaGoruldu ? [{ id: 'bolge_bag', etiket: 'Tonoflenya bölge bağları ve siyaset', ipucu: 'Beş güç odağı, siyasi pozisyonun ve bölge liderleriyle bağların.', sec: () => (agacGoster((x) => YG.bolgeMenu(x), () => menuyuAc()), 'sessiz') }] : []),
+          ...(dunya.current.bayrak.seckinKadro ? [{ id: 'subay_bag', etiket: 'Seçkin subaylarla bağ', ipucu: 'Elyndra, Varek, Axira, Zhaor, Sinha ve Drahmir: sohbet, görev, hediye.', sec: () => (agacGoster((x) => YG.subayMenu(x), () => menuyuAc()), 'sessiz') }] : []),
+          ...(dunya.current.bayrak.tonoflenyaGoruldu ? [{ id: 'ygk_bag', etiket: 'YGK Akademi bağ ağı', ipucu: 'Üç giriş yolu, akademi kişileri, bağ kademeleri ve açık görevler.', sec: () => (agacGoster((x) => YG.rehberMenu(x), () => menuyuAc()), 'sessiz') }] : []),
+        ],
+        bilgi: [
+          { id: 'harita', etiket: 'Uzay haritası', sec: () => (soyle(haritaMetni(), 'istek', true), 'sessiz') },
+          ...(MEKANLAR[dunya.current.mekan] && MEKANLAR[dunya.current.mekan].tonoflenya ? [{ id: 'tharita', etiket: 'Tonoflenya haritası', ipucu: 'Beş kuşak; uzak bölgelere yolculuk.', sec: () => (tonoflenyaHaritasi(), 'sessiz') }] : []),
+          { id: 'zaman', etiket: 'Yıldız Zamanı', ipucu: 'Gün ve nöbet. Yürürken ekranın sağ üst köşesine çift dokun.', sec: () => (soyle(zamanMetni(dunya.current, zamanNotu(dunya.current)), 'istek', true), 'sessiz') },
+          ...(dunya.current.bayrak.tonoflenyaGoruldu || (dunya.current.kronik || []).length ? [{ id: 'kronik', etiket: 'Tonoflenya kronikleri', ipucu: 'Kadim tarihçenin bulduğun bölümleri ve çağlar.', sec: () => (kronikGoster(), 'sessiz') }] : []),
+          { id: 'kodeks', etiket: 'Evren Kütüphanesi', ipucu: 'Kodeks: buluntular, gözlemler, itibar kademesi.', sec: () => (kodeksGoster(), 'sessiz') },
+          { id: 'hareket', etiket: 'Hareketler', sec: () => (soyle(HAREKET_KISA, 'istek', true), 'sessiz') },
+        ],
+      }[grup];
+      katmanAc({
+        baslik: MENU_GRUPLARI[grup].etiket,
+        giris: null,
+        onGeri: () => menuyuAc(null),
+        ogeler: [...ogeler, { id: 'geri', etiket: 'Ana listeye dön', sec: () => (menuyuAc(null), 'sessiz') }],
+      });
+      return;
+    }
     katmanAc({
       baslik: 'Menü',
       giris: null,
@@ -1408,28 +1473,9 @@ export default function Yuzey({ onGeri, baslangic, yeniOyunUret }) {
       ogeler: [
         { id: 'devam', etiket: 'Devam et', sec: () => (katmanKapat('Devam.'), 'sessiz') },
         { id: 'gorev', etiket: 'Görev', ipucu: 'Şu an ne yapabileceğini söyler.', sec: () => (soyle(gorevIpucu(dunya.current), 'istek', true), 'sessiz') },
-        { id: 'gorevagi', etiket: 'Görev terminali, ' + GA.hazirlar(dunya.current).length + ' hazır görev', ipucu: '115 görev: ana, yerleşim ve yan. Her kartta ön şart, açacakları ve uyarı. Hazır görevler filtresi en üstte.', sec: () => (agacGoster((x) => GA.gorevMenu(x), () => menuyuAc()), 'sessiz') },
-        ...(BY.acikMi(dunya.current) ? [{ id: 'buyu', etiket: BY.menuMetni(dunya.current), ipucu: 'Asa, odak, şişeler, renkli taşlar ve dört ekolün büyüleri. İki parmakla sağa-sola: sekmeler.', sec: () => (agacGoster((x) => BY.defterMenu(x), () => menuyuAc()), 'sessiz') }] : []),
-        { id: 'egitim', etiket: 'Savaş eğitimi' + (egitimEksikMi(dunya.current) ? ', zorunlu, tamamlanmadı' : ''), ipucu: 'Temel kara ve uzay savaşı hareketleri. Tamamlanmadan o ortamdaki çatışmalara girilemez.', sec: () => (agacGoster((x) => egitimMenu(x), () => menuyuAc()), 'sessiz') },
-        { id: 'yerler', etiket: 'Yerler', ipucu: 'Bir yer ya da kişi seç; oraya kendin yürürsün.', sec: () => (yerlerGoster(), 'sessiz') },
-        ...(MEKANLAR[dunya.current.mekan] && MEKANLAR[dunya.current.mekan].tonoflenya ? [{ id: 'tharita', etiket: 'Tonoflenya haritası', ipucu: 'Beş kuşak; uzak bölgelere yolculuk.', sec: () => (tonoflenyaHaritasi(), 'sessiz') }] : []),
-        { id: 'durum', etiket: 'Neredeyim', sec: () => (soyle(durumMetni(dunya.current), 'istek', true), 'sessiz') },
-        { id: 'tasinan', etiket: 'Taşıdıkların ve hammadde', sec: () => (soyle(tasinanMetni(), 'istek', true), 'sessiz') },
-        { id: 'koloni', etiket: 'Koloni', sec: () => (soyle(koloniMetni(dunya.current), 'istek', true), 'sessiz') },
-        { id: 'murettebat', etiket: 'Mürettebat', sec: () => (murettebatGoster(), 'sessiz') },
-        { id: 'envanter', etiket: 'Envanter', ipucu: 'Beş kategori; iki parmakla sağa kaydır: sonraki kategori. Çift dokun: eylem menüsü.', sec: () => (agacGoster((x) => ZN.envanterMenu(x, 0), () => menuyuAc()), 'sessiz') },
-        { id: 'canta', etiket: 'Koloni çantası', ipucu: 'Beş bölme: hammaddeler, yiyecek ve içecek, giyim ve zanaat, Malken ve tören, özel ve evlilik. İki parmakla sağa kaydır: sonraki bölme.', sec: () => (agacGoster((x) => IM.cantaMenu(x, 0), () => menuyuAc()), 'sessiz') },
-        ...(dunya.current.gemi ? [{ id: 'zanaat', etiket: 'Zanaat tezgâhları', ipucu: 'Gemideki dökümhane masası, aether laboratuvarı ve imbik ünitesi.', sec: () => (agacGoster((x) => ZN.zanaatMenu(x), () => menuyuAc()), 'sessiz') }] : []),
-        ...(dunya.current.bayrak.tonoflenyaGoruldu ? [{ id: 'subaylar', etiket: 'Subaylar ve istasyonlar', sec: () => (agacGoster((x) => ZN.subayMenu(x), () => menuyuAc()), 'sessiz') }] : []),
-        { id: 'komuta', etiket: 'Komuta ve Genişleme Paneli', ipucu: 'Bölge haritası, savunma hattı, ileri karakollar. İki parmakla sağa sola: sekme; üç parmakla dokun: en acil bölge.', sec: () => (agacGoster((x) => KM.panel(x, 'harita'), () => menuyuAc()), 'sessiz') },
-        { id: 'hikaye', etiket: 'Hikâye çağrıları', ipucu: 'Karakterlerin telsiz çağrıları: bekleyenler ve bitenler.', sec: () => (agacGoster((x) => HK.hikayeMenu(x), () => menuyuAc()), 'sessiz') },
-        { id: 'karakter', etiket: 'Karakter ağı, mekik ve itibar', ipucu: 'Kilit karakterler, Tether-Key mekiği, beş ana güç ve evren itibarı.', sec: () => (agacGoster((x) => KR.karakterMenu(x), () => menuyuAc()), 'sessiz') },
-        ...(dunya.current.bayrak.tonoflenyaGoruldu ? [{ id: 'bolge_bag', etiket: 'Tonoflenya bölge bağları ve siyaset', ipucu: 'Beş güç odağı, siyasi pozisyonun ve bölge liderleriyle bağların.', sec: () => (agacGoster((x) => YG.bolgeMenu(x), () => menuyuAc()), 'sessiz') }] : []),
-        ...(dunya.current.bayrak.seckinKadro ? [{ id: 'subay_bag', etiket: 'Seçkin subaylarla bağ', ipucu: 'Elyndra, Varek, Axira, Zhaor, Sinha ve Drahmir: sohbet, görev, hediye.', sec: () => (agacGoster((x) => YG.subayMenu(x), () => menuyuAc()), 'sessiz') }] : []),
-        ...(dunya.current.bayrak.tonoflenyaGoruldu ? [{ id: 'ygk_bag', etiket: 'YGK Akademi bağ ağı', ipucu: 'Üç giriş yolu, akademi kişileri, bağ kademeleri ve açık görevler.', sec: () => (agacGoster((x) => YG.rehberMenu(x), () => menuyuAc()), 'sessiz') }] : []),
-        ...(dunya.current.bayrak.tonoflenyaGoruldu ? [{ id: 'yan', etiket: 'Yan görevler ve itibar', ipucu: 'Otuz yan görev, bölgesel itibar, özel mürettebat.', sec: () => (agacGoster((x) => YN.yanMenu(x), () => menuyuAc()), 'sessiz') }] : []),
-        { id: 'ekol', etiket: 'Yıldız Ekolü kıdemi', ipucu: 'Altı ekolde kıdem ve açılan kabiliyetler.', sec: () => (agacGoster((x) => ZN.ekolMenu(x), () => menuyuAc()), 'sessiz') },
-        { id: 'harita', etiket: 'Uzay haritası', sec: () => (soyle(haritaMetni(), 'istek', true), 'sessiz') },
+          { id: 'yerler', etiket: 'Yerler', ipucu: 'Bir yer ya da kişi seç; oraya kendin yürürsün.', sec: () => (yerlerGoster(), 'sessiz') },
+          { id: 'durum', etiket: 'Neredeyim', sec: () => (soyle(durumMetni(dunya.current), 'istek', true), 'sessiz') },
+          { id: 'dinlen', etiket: 'Dinlen ve bekle', ipucu: 'Bir sonraki nöbete ya da seçtiğin nöbete kadar zamanı ilerletir; her yerde, güvenli olduğun sürece.', sec: () => (agacGoster((x) => dinlenMenu(x), () => menuyuAc()), 'sessiz') },
         ...(dunya.current.arac === 'col_tilkisi'
           ? [
               {
@@ -1463,18 +1509,13 @@ export default function Yuzey({ onGeri, baslangic, yeniOyunUret }) {
               },
             ]
           : []),
-        { id: 'zaman', etiket: 'Yıldız Zamanı', ipucu: 'Gün ve nöbet. Yürürken ekranın sağ üst köşesine çift dokun.', sec: () => (soyle(zamanMetni(dunya.current, zamanNotu(dunya.current)), 'istek', true), 'sessiz') },
-        { id: 'dinlen', etiket: 'Dinlen ve bekle', ipucu: 'Bir sonraki nöbete ya da seçtiğin nöbete kadar zamanı ilerletir; her yerde, güvenli olduğun sürece.', sec: () => (agacGoster((x) => dinlenMenu(x), () => menuyuAc()), 'sessiz') },
-        ...(dunya.current.bayrak.tonoflenyaGoruldu || (dunya.current.kronik || []).length ? [{ id: 'kronik', etiket: 'Tonoflenya kronikleri', ipucu: 'Kadim tarihçenin bulduğun bölümleri ve çağlar.', sec: () => (kronikGoster(), 'sessiz') }] : []),
-        { id: 'kodeks', etiket: 'Evren Kütüphanesi', ipucu: 'Kodeks: buluntular, gözlemler, itibar kademesi.', sec: () => (kodeksGoster(), 'sessiz') },
-        { id: 'telsiz', etiket: 'Telsiz kayıtları', ipucu: 'Dinlediğin ve ertelediğin telsiz çağrıları.', sec: () => (telsizGoster(), 'sessiz') },
-        { id: 'hareket', etiket: 'Hareketler', sec: () => (soyle(HAREKET_KISA, 'istek', true), 'sessiz') },
+        ...Object.keys(MENU_GRUPLARI).map((k) => ({ id: 'grup_' + k, etiket: MENU_GRUPLARI[k].etiket + (k === 'gorevler' ? ', ' + GA.hazirlar(dunya.current).length + ' hazır görev' : '') + (k === 'gorevler' && egitimEksikMi(dunya.current) ? ', eğitim eksik' : ''), ipucu: MENU_GRUPLARI[k].ipucu, sec: () => (menuyuAc(k), 'sessiz') })),
         {
           id: 'cik',
           etiket: 'Ana menüye dön',
           ipucu: 'Oyun kendiliğinden kaydedilir; Devam et ile kaldığın yerden sürersin.',
           sec: () => (kaydet(), onGeri(), 'sessiz'),
-        },
+        },,
       ],
     });
   };
@@ -1772,7 +1813,7 @@ export default function Yuzey({ onGeri, baslangic, yeniOyunUret }) {
     const yer = kapiYeri(d.rezonans.kapiId);
     dizi.forEach((nota, i) =>
       setTimeout(() => {
-        if (melodiNo.current === no && dunya.current.rezonans) m().nota(NOTALAR[nota].frek, yer, 0.8, 2.2);
+        if (melodiNo.current === no && dunya.current.rezonans) m().nota(NOTALAR[nota].frek, yer, 0.8, 3.5, 'can');
       }, i * NOTA_ARASI),
     );
     if (sonra) setTimeout(() => melodiNo.current === no && sonra(), dizi.length * NOTA_ARASI + 600);
@@ -1813,7 +1854,7 @@ export default function Yuzey({ onGeri, baslangic, yeniOyunUret }) {
         const yeni = rezonansSecimDegis(d, yon === 'yukari' ? 1 : -1);
         if (yeni === once) cal('red', 0.4);
         melodiNo.current++;
-        if (m()) m().nota(NOTALAR[yeni].frek, null, 0.5, 1.6);
+        if (m()) m().nota(NOTALAR[yeni].frek, null, 0.5, 2.5, 'can');
         Haptics.selectionAsync().catch(() => {});
         soyle(NOTALAR[yeni].ad, 'istek', true);
       },
@@ -1835,7 +1876,7 @@ export default function Yuzey({ onGeri, baslangic, yeniOyunUret }) {
         melodiNo.current++;
         const yer = kapiYeri(d.rezonans.kapiId);
         const frek = NOTALAR[d.rezonans.secili].frek;
-        if (m()) m().nota(frek, yer, 0.9, 2.6);
+        if (m()) m().nota(frek, yer, 0.9, 4.5, 'can');
         const r = rezonansCal(d);
         kaydet();
         if (r.sonuc === 'dogru') {
@@ -2580,7 +2621,7 @@ export default function Yuzey({ onGeri, baslangic, yeniOyunUret }) {
       onCiftDokun: (parmak) => {
         const d = dunya.current;
         if (parmak >= 2) {
-          menuyuAc();
+          menuyuAc(null);
           return;
         }
         if (d.bildirimler && d.bildirimler.length && bildirimDinle()) return;
@@ -3584,7 +3625,7 @@ export default function Yuzey({ onGeri, baslangic, yeniOyunUret }) {
       },
       onCiftDokun: (parmak, konum) => {
         if (parmak >= 2) {
-          menuyuAc();
+          menuyuAc(null);
           return;
         }
         const d = dunya.current;
